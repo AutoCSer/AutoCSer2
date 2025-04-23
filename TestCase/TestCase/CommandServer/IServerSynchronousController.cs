@@ -47,7 +47,7 @@ namespace AutoCSer.TestCase
     /// </summary>
     internal sealed class ServerSynchronousController : IServerSynchronousController
     {
-        public static CommandServerSessionObject SessionObject { get;private set; }
+        public static CommandServerSessionObject SessionObject { get; internal set; }
         string IServerSynchronousController.SynchronousReturnSocket(CommandServerSocket socket, int Value, ref int Ref, out long Out)
         {
             return ((CommandServerSessionObject)socket.SessionObject).Xor(Value, ref Ref, out Out).ToString();

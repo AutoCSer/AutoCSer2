@@ -2309,6 +2309,884 @@
             <param name="semaphoreSlim"></param>
             <returns>-1 表示不匹配</returns>
         </member>
+        <member name="T:AutoCSer.Extensions.ComplexUnion">
+            <summary>
+            System.Numerics.Complex
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ComplexUnion.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ComplexUnion.Complex">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Matrix3x2Union">
+            <summary>
+            Matrix3x2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Matrix3x2Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Matrix3x2Union.Matrix3x2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Matrix4x4Union">
+            <summary>
+            Matrix4x4
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Matrix4x4Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Matrix4x4Union.Matrix4x4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.PlaneUnion">
+            <summary>
+            Plane
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.PlaneUnion.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.PlaneUnion.Plane">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.QuaternionUnion">
+            <summary>
+            Quaternion
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.QuaternionUnion.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.QuaternionUnion.Quaternion">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializeComplex">
+            <summary>
+            System.Numerics.Complex
+            </summary>
+            <summary>
+            System.Numerics.Complex
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeComplex.Real">
+            <summary>
+            实数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeComplex.Imaginary">
+            <summary>
+            虚数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeComplex)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeComplex},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeComplex,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeComplex},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializeComplex@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeComplex.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializeMatrix3x2">
+            <summary>
+            System.Numerics.Matrix3x2
+            </summary>
+            <summary>
+            System.Numerics.Matrix3x2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix3x2.M11">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix3x2.M12">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix3x2.M21">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix3x2.M22">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix3x2.M31">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix3x2.M32">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeMatrix3x2)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeMatrix3x2},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeMatrix3x2,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeMatrix3x2},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializeMatrix3x2@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix3x2.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializeMatrix4x4">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M11">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M12">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M13">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M14">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M21">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M22">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M23">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M24">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M31">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M32">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M33">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M34">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M41">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M42">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M43">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeMatrix4x4.M44">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeMatrix4x4)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeMatrix4x4},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeMatrix4x4,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeMatrix4x4},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializeMatrix4x4@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeMatrix4x4.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializePlane">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializePlane.Normal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializePlane.D">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializePlane)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializePlane},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializePlane,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializePlane},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializePlane@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializePlane.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializeQuaternion">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeQuaternion.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeQuaternion.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeQuaternion.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeQuaternion.W">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeQuaternion)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeQuaternion},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeQuaternion,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeQuaternion},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializeQuaternion@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeQuaternion.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializeVector2">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector2.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector2.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeVector2)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeVector2},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeVector2,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeVector2},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializeVector2@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector2.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializeVector3">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector3.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector3.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector3.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeVector3)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeVector3},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeVector3,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeVector3},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializeVector3@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector3.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.SerializeVector4">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector4.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector4.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector4.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SerializeVector4.W">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.XmlSerialize(AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeVector4)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.XmlSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeVector4},AutoCSer.XmlSerializer,AutoCSer.Extensions.SerializeVector4,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.xmlSerialize(AutoCSer.XmlSerializer)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.xmlSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Extensions.SerializeVector4},AutoCSer.XmlSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            XML 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.XmlDeserialize(AutoCSer.XmlDeserializer,AutoCSer.Extensions.SerializeVector4@,System.Int32)">
+            <summary>
+            成员 XML 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.XmlDeserializeMemberNames">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.xmlDeserializeMemberName">
+            <summary>
+            获取 XML 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.XmlSerializeMemberTypes">
+            <summary>
+            获取 Xml 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.SerializeVector4.XmlSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Vector2Union">
+            <summary>
+            Vector2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Vector2Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Vector2Union.Vector2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Vector3Union">
+            <summary>
+            Vector3
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Vector3Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Vector3Union.Vector3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.Vector4Union">
+            <summary>
+            Vector4
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Vector4Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.Vector4Union.Vector4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.AotMethod">
+            <summary>
+            触发 AOT 编译
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.AotMethod.Call">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Algorithm.ULongQuickRangeSortDesc">
             <summary>
             范围排序（一般用于获取分页）
@@ -4723,9 +5601,44 @@
             成员复制代码生成配置（用于 AOT 环境）
             </summary>
         </member>
+        <member name="F:AutoCSer.CodeGenerator.MemberCopyAttribute.MemberCopyMethodName">
+            <summary>
+            成员复制方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.MemberCopyAttribute.MemberMapCopyMethodName">
+            <summary>
+            成员复制方法名称
+            </summary>
+        </member>
         <member name="T:AutoCSer.CodeGenerator.XmlSerializeAttribute">
             <summary>
             XML 序列化代码生成配置（用于 AOT 环境）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMethodName">
+            <summary>
+            XML 序列化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMemberMapMethodName">
+            <summary>
+            XML 序列化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMemberTypeMethodName">
+            <summary>
+            获取 XML 序列化成员类型方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlDeserializeMethodName">
+            <summary>
+            XML 反序列化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlDeserializeMemberNameMethodName">
+            <summary>
+            获取 XML 反序列化成员名称
             </summary>
         </member>
         <member name="T:AutoCSer.MemberCopy`1">
@@ -4821,21 +5734,6 @@
             </summary>
             <param name="value"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.MemberCopyMethod">
-            <summary>
-            成员复制方法
-            </summary>
-        </member>
-        <member name="F:AutoCSer.MemberCopyMethod.MemberCopyMethodName">
-            <summary>
-            成员复制方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.MemberCopyMethod.MemberMapCopyMethodName">
-            <summary>
-            成员复制方法名称
-            </summary>
         </member>
         <member name="T:AutoCSer.Memory.BitMap">
             <summary>
@@ -6995,519 +7893,6 @@
             <param name="left"></param>
             <param name="right"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ObjectReference">
-            <summary>
-            对象引用
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ObjectReference.value">
-            <summary>
-            对象数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ObjectReference.HashCode">
-            <summary>
-            哈希值
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ObjectReference.#ctor(System.Object)">
-            <summary>
-            对象引用
-            </summary>
-            <param name="value">对象数据</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ObjectReference.Equals(AutoCSer.ObjectRoot.ObjectReference)">
-            <summary>
-            
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ObjectReference.GetHashCode">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ObjectReference.Equals(System.Object)">
-            <summary>
-            
-            </summary>
-            <param name="obj"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ObjectType">
-            <summary>
-            对象类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ObjectType.Type">
-            <summary>
-            类型
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ObjectRoot.ObjectType.IsArray">
-            <summary>
-            是否数组（包括 string）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ObjectType.RootFields">
-            <summary>
-            对象根静态字段集合
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ObjectRoot.ObjectType.IsScan">
-            <summary>
-            是否需要扫描（仅统计 数组与可循环引用对象）
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ObjectRoot.ObjectType.RootFieldList">
-            <summary>
-            对象根静态字段集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ObjectType.#ctor(System.Type)">
-            <summary>
-            对象类型
-            </summary>
-            <param name="type">类型</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ObjectType.Add(System.Reflection.FieldInfo,AutoCSer.ObjectRoot.TypeScanner)">
-            <summary>
-            添加根静态字段（仅统计 数组与可循环引用对象）
-            </summary>
-            <param name="fieldInfo">对象根静态字段</param>
-            <param name="scanner">类型扫描</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ObjectType.IsScanDerived(System.Type)">
-            <summary>
-            是否需要扫描派生类型
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ReflectionArrayScanner">
-            <summary>
-            反射模式数组扫描
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionArrayScanner.enumerator">
-            <summary>
-            数组枚举器
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionArrayScanner.objectType">
-            <summary>
-            对象类型
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayScanner.#ctor(System.Object,AutoCSer.ObjectRoot.ReflectionType)">
-            <summary>
-            反射模式数组扫描
-            </summary>
-            <param name="value">数组对象</param>
-            <param name="objectType">对象类型</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayScanner.Next(AutoCSer.ObjectRoot.ReflectionScanner@)">
-            <summary>
-            读取下一个数据
-            </summary>
-            <param name="scanner"></param>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ReflectionArrayType">
-            <summary>
-            反射模式数组类型
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ObjectRoot.ReflectionArrayType.IsArray">
-            <summary>
-            是否数组（包括 string）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionArrayType.ElementType">
-            <summary>
-            数组元素类型
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ObjectRoot.ReflectionArrayType.ElementCount">
-            <summary>
-            数组元素统计数量
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.#ctor">
-            <summary>
-            string
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.#ctor(System.Type)">
-            <summary>
-            数组类型
-            </summary>
-            <param name="type">类型</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.GetElementType(AutoCSer.ObjectRoot.ReflectionTypeScanner)">
-            <summary>
-            获取数组元素类型
-            </summary>
-            <param name="scanner"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionArrayType.Append(AutoCSer.ObjectRoot.ReflectionScanner@,System.Object,System.Boolean)">
-            <summary>
-            添加扫描对象
-            </summary>
-            <param name="scanner"></param>
-            <param name="value"></param>
-            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
-            <returns>添加对象类型</returns>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ReflectionObjectScanner">
-            <summary>
-            反射模式对象扫描
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.value">
-            <summary>
-            扫描的对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.objectType">
-            <summary>
-            对象类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.index">
-            <summary>
-            当前读取字段索引
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectScanner.isArray">
-            <summary>
-            对象是否数组元素，数组元素不统计根静态字段
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectScanner.#ctor(System.Object,AutoCSer.ObjectRoot.ReflectionObjectType,System.Boolean)">
-            <summary>
-            反射模式对象扫描
-            </summary>
-            <param name="value">扫描的对象</param>
-            <param name="objectType">对象类型</param>
-            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectScanner.Next(AutoCSer.ObjectRoot.ReflectionScanner@)">
-            <summary>
-            读取下一个数据
-            </summary>
-            <param name="scanner"></param>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ReflectionObjectType">
-            <summary>
-            反射模式对象类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.BaseType">
-            <summary>
-            父类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.ScanFields">
-            <summary>
-            需要扫描的字段集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.#ctor">
-            <summary>
-            空对象类型
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.#ctor(AutoCSer.ObjectRoot.ReflectionObjectType)">
-            <summary>
-            接口类型
-            </summary>
-            <param name="baseType"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.#ctor(System.Type)">
-            <summary>
-            对象类型
-            </summary>
-            <param name="type">类型</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.CreateScanFiled(AutoCSer.ObjectRoot.ReflectionTypeScanner)">
-            <summary>
-            初始化需要扫描的字段集合
-            </summary>
-            <param name="scanner">对象扫描</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionObjectType.Append(AutoCSer.ObjectRoot.ReflectionScanner@,System.Object,System.Boolean)">
-            <summary>
-            添加扫描对象
-            </summary>
-            <param name="scanner"></param>
-            <param name="value"></param>
-            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
-            <returns>添加对象类型</returns>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.NullType">
-            <summary>
-            空对象类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionObjectType.InterfaceType">
-            <summary>
-            接口对象类型
-            </summary>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ReflectionScanner">
-            <summary>
-            反射模式对象扫描
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.Scanner">
-            <summary>
-            类型扫描
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.FieldInfo">
-            <summary>
-            当前扫描静态字段
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.objectReferences">
-            <summary>
-            对象集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.Arrays">
-            <summary>
-            扫描数组集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.Objects">
-            <summary>
-            扫描对象集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionScanner.IsLimitExceeded">
-            <summary>
-            统计对象数量是否超出限制
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.#ctor(AutoCSer.ObjectRoot.ReflectionTypeScanner,System.Reflection.FieldInfo)">
-            <summary>
-            反射模式对象扫描
-            </summary>
-            <param name="scanner">类型扫描</param>
-            <param name="fieldInfo">当前扫描静态字段</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.ScanObject(System.Object,AutoCSer.ObjectRoot.ReflectionType)">
-            <summary>
-            对象扫描
-            </summary>
-            <param name="value"></param>
-            <param name="objectType"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.Scan(System.Object,AutoCSer.ObjectRoot.ReflectionType)">
-            <summary>
-            对象扫描
-            </summary>
-            <param name="value"></param>
-            <param name="objectType"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.scan">
-            <summary>
-            对象扫描
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.Append(AutoCSer.ObjectRoot.ReflectionObjectScanner)">
-            <summary>
-            添加对象扫描
-            </summary>
-            <param name="objectScanner"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.Append(AutoCSer.ObjectRoot.ReflectionArrayScanner)">
-            <summary>
-            添加数组扫描
-            </summary>
-            <param name="arrayScanner"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionScanner.AddObject(System.Object)">
-            <summary>
-            添加统计对象
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ReflectionType">
-            <summary>
-            反射模式对象类型
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionType.#ctor(System.Type)">
-            <summary>
-            反射模式对象类型
-            </summary>
-            <param name="type">类型</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionType.Append(AutoCSer.ObjectRoot.ReflectionScanner@,System.Object,System.Boolean)">
-            <summary>
-            添加扫描对象
-            </summary>
-            <param name="scanner"></param>
-            <param name="value"></param>
-            <param name="isArray">对象是否数组元素，数组元素不统计根静态字段</param>
-            <returns>添加对象类型</returns>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.ReflectionTypeScanner">
-            <summary>
-            反射模式类型扫描（非线程安全）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.ReflectionTypeScanner.ObjectTypeCache">
-            <summary>
-            类型统计数据集合
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ObjectRoot.ReflectionTypeScanner.ArrayTypes">
-            <summary>
-            获取统计数组类型集合
-            </summary>
-        </member>
-        <member name="P:AutoCSer.ObjectRoot.ReflectionTypeScanner.ObjectTypes">
-            <summary>
-            获取统计数组类型集合
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionTypeScanner.#ctor(System.Int32,System.Int32)">
-            <summary>
-            反射模式对象扫描（非线程安全）
-            </summary>
-            <param name="maxObjectCount">每个静态根对象最大统计对象数量</param>
-            <param name="maxRootFieldCount">静态根对象最大统计数量，超出部分淘汰数量最小的静态根对象</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionTypeScanner.GetObjectType(System.Type)">
-            <summary>
-            获取对象类型
-            </summary>
-            <param name="type"></param>
-            <returns>对象类型</returns>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.ReflectionTypeScanner.scanRoot(System.Reflection.FieldInfo,System.Object)">
-            <summary>
-            扫描根对象
-            </summary>
-            <param name="fieldInfo">根对象静态字段</param>
-            <param name="value">根对象</param>
-        </member>
-        <member name="T:AutoCSer.ObjectRoot.TypeScanner">
-            <summary>
-            类型扫描（非线程安全）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.TypeScanner.ScanAssemblys">
-            <summary>
-            已添加扫描程序集
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.TypeScanner.ScanTypes">
-            <summary>
-            已添加扫描的类型
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.TypeScanner.MaxObjectCount">
-            <summary>
-            每个静态根对象最大统计对象数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.ObjectRoot.TypeScanner.MaxRootFieldCount">
-            <summary>
-            静态根对象最大统计数量，超出部分淘汰数量最小的静态根对象
-            </summary>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.#ctor(System.Int32,System.Int32)">
-            <summary>
-            对象扫描（非线程安全）
-            </summary>
-            <param name="maxObjectCount">每个静态根对象最大统计对象数量</param>
-            <param name="maxRootFieldCount">静态根对象最大统计数量，超出部分淘汰数量最小的静态根对象</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.check(System.Reflection.Assembly)">
-            <summary>
-            检测程序集是否需要扫描
-            </summary>
-            <param name="assembly"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.Scan(System.Reflection.Assembly)">
-            <summary>
-            添加程序集扫描类型
-            </summary>
-            <param name="assembly"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.onException(System.Reflection.Assembly,System.Exception)">
-            <summary>
-            程序集获取类型异常处理
-            </summary>
-            <param name="assembly"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.ScanCurrentDomain(System.Boolean)">
-            <summary>
-            扫描当前应用程序集已加载程序集
-            </summary>
-            <param name="isSystem">是否扫描系统程序集，比如 System. 开始的</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.isSystemAssembly(System.Reflection.Assembly)">
-            <summary>
-            判断是否系统程序集，比如 System. 开始的
-            </summary>
-            <param name="assembly"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.check(System.Type)">
-            <summary>
-            检测类型是否需要扫描
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.Scan(System.Type)">
-            <summary>
-            添加类型扫描静态字段
-            </summary>
-            <param name="type">必须是 struct 或者 class，可以是泛型，但是不能是泛型定义类型</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.check(System.Reflection.FieldInfo)">
-            <summary>
-            检测字段是否需要扫描
-            </summary>
-            <param name="fieldInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.scan(System.Type)">
-            <summary>
-            扫描静态字段
-            </summary>
-            <param name="type"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.onException(System.Reflection.FieldInfo,System.Exception)">
-            <summary>
-            扫描静态字段异常处理
-            </summary>
-            <param name="fieldInfo"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.scanRoot(System.Reflection.FieldInfo,System.Object)">
-            <summary>
-            扫描根对象
-            </summary>
-            <param name="fieldInfo">根对象静态字段</param>
-            <param name="value">根对象</param>
-        </member>
-        <member name="M:AutoCSer.ObjectRoot.TypeScanner.OnLimitExceeded(System.Reflection.FieldInfo)">
-            <summary>
-            统计对象数量超出限制
-            </summary>
-            <param name="fieldInfo"></param>
         </member>
         <member name="T:AutoCSer.Range">
             <summary>
@@ -11030,7 +11415,31 @@
             XML 反序列化
             </summary>
             <summary>
+            XML 反序列化
+            </summary>
+            <summary>
             XML 解析器
+            </summary>
+            <summary>
+            XML 反序列化
+            </summary>
+            <summary>
+            XML 反序列化
+            </summary>
+            <summary>
+            XML 反序列化
+            </summary>
+            <summary>
+            XML 反序列化
+            </summary>
+            <summary>
+            XML 反序列化
+            </summary>
+            <summary>
+            XML 反序列化
+            </summary>
+            <summary>
+            XML 反序列化
             </summary>
             <summary>
             XML 反序列化
@@ -11132,6 +11541,19 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Vector2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Vector2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
         <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.UInt64@)">
             <summary>
             数字解析
@@ -11204,16 +11626,6 @@
             </summary>
             <param name="serializer"></param>
             <param name="value">数字</param>
-        </member>
-        <member name="F:AutoCSer.XmlDeserializer.XmlDeserializeMethodName">
-            <summary>
-            XML 反序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.XmlDeserializer.XmlDeserializeMemberNameMethodName">
-            <summary>
-            获取 XML 反序列化成员名称
-            </summary>
         </member>
         <member name="F:AutoCSer.XmlDeserializer.AllMemberAttribute">
             <summary>
@@ -11506,7 +11918,13 @@
             获取文本数据
             </summary>
         </member>
-        <member name="M:AutoCSer.XmlDeserializer.getValueEnd">
+        <member name="M:AutoCSer.XmlDeserializer.GetValue">
+            <summary>
+            获取文本数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.GetValueEnd">
             <summary>
             数据结束处理
             </summary>
@@ -11769,6 +12187,45 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Int128@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Int128@)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.UInt128@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.UInt128@)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Half@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Half@)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
         <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Single@)">
             <summary>
             数字解析
@@ -11914,12 +12371,6 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize``1">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-            <typeparam name="T"></typeparam>
         </member>
         <member name="F:AutoCSer.XmlDeserializer.NotSupportMethod">
             <summary>
@@ -12814,6 +13265,97 @@
             枚举值反序列化
             </summary>
         </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Complex@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Complex@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Plane@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Plane@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Quaternion@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Quaternion@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Matrix3x2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Matrix3x2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Matrix4x4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Matrix4x4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Vector3@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Vector3@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Vector4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Vector4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
         <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Int64@)">
             <summary>
             数字解析
@@ -12942,6 +13484,30 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Xml.CustomConfig.Write(AutoCSer.XmlSerializer,System.Int128)">
+            <summary>
+            写入整数
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.Xml.CustomConfig.Write(AutoCSer.XmlSerializer,System.UInt128)">
+            <summary>
+            写入整数
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.Xml.CustomConfig.Write(AutoCSer.XmlSerializer,System.Half)">
+            <summary>
+            写入浮点数
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
         <member name="M:AutoCSer.Xml.CustomConfig.Write(AutoCSer.XmlSerializer,System.DateTime)">
             <summary>
             写入时间值
@@ -12966,6 +13532,31 @@
             <param name="serializer"></param>
             <param name="value"></param>
             <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.Xml.CustomConfig.Deserialize(AutoCSer.XmlDeserializer,System.Int128@)">
+            <summary>
+            自定义反序列化整数
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Xml.CustomConfig.Deserialize(AutoCSer.XmlDeserializer,System.UInt128@)">
+            <summary>
+            自定义反序列化整数
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Xml.CustomConfig.Deserialize(AutoCSer.XmlDeserializer,AutoCSer.Memory.Pointer,System.Half@)">
+            <summary>
+            自定义反序列化浮点数
+            </summary>
+            <param name="deserializer"></param>
+            <param name="buffer"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Xml.CustomConfig.Deserialize(AutoCSer.XmlDeserializer,AutoCSer.Memory.Pointer,System.Single@)">
             <summary>
@@ -13939,6 +14530,30 @@
             <summary>
             XML 序列化
             </summary>
+            <summary>
+            XML 序列化
+            </summary>
+            <summary>
+            XML 序列化
+            </summary>
+            <summary>
+            XML 序列化
+            </summary>
+            <summary>
+            XML 序列化
+            </summary>
+            <summary>
+            XML 序列化
+            </summary>
+            <summary>
+            XML 序列化
+            </summary>
+            <summary>
+            XML 序列化
+            </summary>
+            <summary>
+            XML 序列化
+            </summary>
         </member>
         <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.DateTime)">
             <summary>
@@ -13965,6 +14580,19 @@
             </summary>
             <param name="serializer"></param>
             <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Vector2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Vector2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
         </member>
         <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Char)">
             <summary>
@@ -14050,21 +14678,6 @@
         <member name="F:AutoCSer.XmlSerializer.EnumULongMethod">
             <summary>
             枚举值序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.XmlSerializer.XmlSerializeMethodName">
-            <summary>
-            XML 序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.XmlSerializer.XmlSerializeMemberMapMethodName">
-            <summary>
-            XML 序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.XmlSerializer.XmlSerializeMemberTypeMethodName">
-            <summary>
-            获取 XML 序列化成员类型方法名称
             </summary>
         </member>
         <member name="F:AutoCSer.XmlSerializer.CustomConfig">
@@ -14306,6 +14919,45 @@
             </summary>
             <param name="value">字符</param>
         </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Int128)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Int128)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.UInt128)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.UInt128)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Half)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Half)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
         <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Single)">
             <summary>
             数字转换
@@ -14469,18 +15121,6 @@
             </summary>
             <param name="xmlSerializer"></param>
             <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.XmlSerialize``1">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.TypeSerialize(System.Type)">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-            <param name="type"></param>
         </member>
         <member name="F:AutoCSer.XmlSerializer.NullableHasValueMethod">
             <summary>
@@ -14912,6 +15552,97 @@
             <summary>
             枚举值序列化
             </summary>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Complex)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Complex)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Plane)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Plane)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Quaternion)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Quaternion)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Matrix3x2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Matrix3x2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Matrix4x4)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Matrix4x4)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Vector3)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Vector3)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Vector4)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Vector4)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
         </member>
         <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Int64)">
             <summary>

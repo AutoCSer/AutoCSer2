@@ -9,5 +9,9 @@ namespace AutoCSer.CodeGenerator
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class RandomObjectAttribute : Attribute
     {
+        /// <summary>
+        /// 随机对象生成方法名称
+        /// </summary>
+        internal const string CreateRandomObjectMethodName = "CreateRandomObject";
     }
 }

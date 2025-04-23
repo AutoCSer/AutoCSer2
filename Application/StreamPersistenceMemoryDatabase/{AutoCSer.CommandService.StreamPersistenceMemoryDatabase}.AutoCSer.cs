@@ -1,5 +1,6 @@
 ﻿//本文件由程序自动生成，请不要自行修改
 using System;
+using System.Numerics;
 using AutoCSer;
 
 #if NoAutoCSer

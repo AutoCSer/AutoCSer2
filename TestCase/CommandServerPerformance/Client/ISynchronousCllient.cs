@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 命令服务性能测试客户端接口（客户端同步返回结果）
     /// </summary>
-    public interface ISynchronousCllient
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IService))]
+#endif
+    public partial interface ISynchronousCllient
     {
         /// <summary>
         /// 服务端同步返回结果
@@ -78,7 +81,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 客户端同步返回结果
     /// </summary>
-    internal sealed class SynchronousCllient : AutoCSer.TestCase.Common.ClientPerformance
+    internal sealed class SynchronousCllientPerformance : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
         /// 客户端同步返回结果测试
@@ -101,15 +104,15 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //for (int right = testCount; right != 0; CheckSynchronous(client.InterfaceController.Synchronous(Left, --right))) ;
                 //await LoopCompleted(nameof(SynchronousCllient), nameof(client.InterfaceController.Synchronous));
 
-                await new SynchronousCllient(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
-                await new SynchronousCllient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
+                await new SynchronousCllientPerformance(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
             }
         }
 
@@ -131,7 +134,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="commandClient"></param>
         /// <param name="serverMethodName"></param>
         /// <param name="threadCount"></param>
-        private SynchronousCllient(CommandClient commandClient, string serverMethodName, int threadCount = 1 << 10)
+        private SynchronousCllientPerformance(CommandClient commandClient, string serverMethodName, int threadCount = 1 << 10)
         {
             Action task = null;
             switch(serverMethodName)
@@ -157,7 +160,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal async Task Wait()
         {
-            await Wait(nameof(SynchronousCllient), serverMethodName);
+            await Wait(nameof(SynchronousCllientPerformance), serverMethodName);
         }
         /// <summary>
         /// 服务端同步返回结果

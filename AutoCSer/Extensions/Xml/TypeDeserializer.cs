@@ -509,10 +509,10 @@ namespace AutoCSer.Xml
                 Type type = typeof(T);
 #if AOT
                 Type refType = type.MakeByRefType(), pointerRefType = typeof(AutoCSer.Memory.Pointer).MakeByRefType();
-                var memberMethod = type.GetMethod(XmlDeserializer.XmlDeserializeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(XmlDeserializer), refType, typeof(int) });
+                var memberMethod = type.GetMethod(AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlDeserializeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(XmlDeserializer), refType, typeof(int) });
                 if (memberMethod != null && !memberMethod.IsGenericMethod && memberMethod.ReturnType == typeof(void))
                 {
-                    var memberNameMethod = type.GetMethod(XmlDeserializer.XmlDeserializeMemberNameMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, EmptyArray<Type>.Array);
+                    var memberNameMethod = type.GetMethod(AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlDeserializeMemberNameMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, EmptyArray<Type>.Array);
                     if (memberNameMethod != null && !memberNameMethod.IsGenericMethod && memberNameMethod.ReturnType == typeof(AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string?>>>))
                     {
                         AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string?>>> names = memberNameMethod.Invoke(null, null).castValue<AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string?>>>>();
@@ -536,9 +536,9 @@ namespace AutoCSer.Xml
                         DefaultDeserializer = type.IsValueType ? (XmlDeserializer.DeserializeDelegate<T?>)deserializeValue : (XmlDeserializer.DeserializeDelegate<T?>)deserializeClass;
                         return;
                     }
-                    throw new MissingMethodException(type.fullName(), XmlDeserializer.XmlDeserializeMemberNameMethodName);
+                    throw new MissingMethodException(type.fullName(), AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlDeserializeMemberNameMethodName);
                 }
-                throw new MissingMethodException(type.fullName(), XmlDeserializer.XmlDeserializeMethodName);
+                throw new MissingMethodException(type.fullName(), AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlDeserializeMethodName);
 #else
                 var  fields = AutoCSer.TextSerialize.Common.GetDeserializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(baseType ?? type, attribute.MemberFilters), attribute);
                 LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetDeserializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(baseType ?? type, attribute.MemberFilters), attribute);

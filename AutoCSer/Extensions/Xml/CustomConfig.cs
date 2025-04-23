@@ -62,6 +62,51 @@ namespace AutoCSer.Xml
 #endif
 
         /// <summary>
+        /// 写入整数
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value"></param>
+        /// <returns>未写入字符数量</returns>
+        public virtual int Write(XmlSerializer serializer, Int128 value)
+        {
+#if NET8
+            serializer.CharStream.SimpleWrite(value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+#else
+            TypeSerializer<SerializeInt128>.Serialize(serializer, new Int128Union { Int128 = value }.SerializeValue);
+#endif
+            return 0;
+        }
+        /// <summary>
+        /// 写入整数
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value"></param>
+        /// <returns>未写入字符数量</returns>
+        public virtual int Write(XmlSerializer serializer, UInt128 value)
+        {
+#if NET8
+            serializer.CharStream.SimpleWrite(value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+#else
+            TypeSerializer<SerializeInt128>.Serialize(serializer, new Int128Union { UInt128 = value }.SerializeValue);
+#endif
+            return 0;
+        }
+        /// <summary>
+        /// 写入浮点数
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value"></param>
+        /// <returns>未写入字符数量</returns>
+        public virtual int Write(XmlSerializer serializer, Half value)
+        {
+#if NET8
+            serializer.CharStream.SimpleWrite(value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+#else
+            serializer.CharStream.WriteString(new HalfUnion { Half = value }.UShort);
+#endif
+            return 0;
+        }
+        /// <summary>
         /// 写入时间值
         /// </summary>
         /// <param name="serializer"></param>
@@ -95,42 +140,85 @@ namespace AutoCSer.Xml
             return 0;
         }
 
-        ///// <summary>
-        ///// 自定义反序列化整数
-        ///// </summary>
-        ///// <param name="deserializer"></param>
-        ///// <param name="buffer"></param>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //public virtual bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref Int128 value)
-        //{
-        //    var stringBuffer = deserializer.GetStringBuffer(ref buffer);
-        //    return stringBuffer.Length != 0 && Int128.TryParse(stringBuffer, out value);
-        //}
-        ///// <summary>
-        ///// 自定义反序列化整数
-        ///// </summary>
-        ///// <param name="deserializer"></param>
-        ///// <param name="buffer"></param>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //public virtual bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref UInt128 value)
-        //{
-        //    var stringBuffer = deserializer.GetStringBuffer(ref buffer);
-        //    return stringBuffer.Length != 0 && UInt128.TryParse(stringBuffer, out value);
-        //}
-        ///// <summary>
-        ///// 自定义反序列化浮点数
-        ///// </summary>
-        ///// <param name="deserializer"></param>
-        ///// <param name="buffer"></param>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //public virtual bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref Half value)
-        //{
-        //    var stringBuffer = deserializer.GetStringBuffer(ref buffer);
-        //    return stringBuffer.Length != 0 && Half.TryParse(stringBuffer, out value);
-        //}
+        /// <summary>
+        /// 自定义反序列化整数
+        /// </summary>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public virtual bool Deserialize(XmlDeserializer deserializer, ref Int128 value)
+        {
+#if NET8
+            AutoCSer.Memory.Pointer buffer = deserializer.GetValue();
+            if (buffer.ByteSize != 0)
+            {
+                var stringBuffer = deserializer.GetStringBuffer(ref buffer);
+                if (stringBuffer.Length != 0 && Int128.TryParse(stringBuffer, out value))
+                {
+                    deserializer.GetValueEnd();
+                    return true;
+                }
+            }
+            return false;
+#else
+            SerializeInt128 serializeInt = default(SerializeInt128);
+            TypeDeserializer<SerializeInt128>.DefaultDeserializer(deserializer, ref serializeInt);
+            value = new Int128Union { SerializeValue = serializeInt }.Int128;
+            return true;
+#endif
+        }
+        /// <summary>
+        /// 自定义反序列化整数
+        /// </summary>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public virtual bool Deserialize(XmlDeserializer deserializer, ref UInt128 value)
+        {
+#if NET8
+            AutoCSer.Memory.Pointer buffer = deserializer.GetValue();
+            if (buffer.ByteSize != 0)
+            {
+                var stringBuffer = deserializer.GetStringBuffer(ref buffer);
+                if (stringBuffer.Length != 0 && UInt128.TryParse(stringBuffer, out value))
+                {
+                    deserializer.GetValueEnd();
+                    return true;
+                }
+            }
+            return false;
+#else
+            SerializeInt128 serializeInt = default(SerializeInt128);
+            TypeDeserializer<SerializeInt128>.DefaultDeserializer(deserializer, ref serializeInt);
+            value = new Int128Union { SerializeValue = serializeInt }.UInt128;
+            return true;
+#endif
+        }
+        /// <summary>
+        /// 自定义反序列化浮点数
+        /// </summary>
+        /// <param name="deserializer"></param>
+        /// <param name="buffer"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public virtual unsafe bool Deserialize(XmlDeserializer deserializer, AutoCSer.Memory.Pointer buffer, ref Half value)
+        {
+            var stringBuffer = deserializer.GetStringBuffer(ref buffer);
+            if (stringBuffer.Length != 0)
+            {
+#if NET8
+                return Half.TryParse(stringBuffer, out value);
+#else
+                ushort ushortValue;
+                if (ushort.TryParse(stringBuffer, out ushortValue))
+                {
+                    value = *(Half*)&ushortValue;
+                    return true;
+                }
+#endif
+            }
+            return false;
+        }
         /// <summary>
         /// 自定义反序列化浮点数
         /// </summary>

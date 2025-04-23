@@ -5,17 +5,18 @@
     <AssemblyName>AutoCSer.RandomObject</AssemblyName>
     <RootNamespace>AutoCSer.RandomObject</RootNamespace>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\RandomObject\AutoCSer.RandomObject.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;NetStandard21</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NetStandard21;NET8</DefineConstants>
     <Optimize>False</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\RandomObject\AutoCSer.RandomObject.xml</DocumentationFile>
-    <DefineConstants>NetStandard21</DefineConstants>
+    <DefineConstants>NetStandard21;NET8</DefineConstants>
     <Optimize>True</Optimize>
   </PropertyGroup>
 

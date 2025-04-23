@@ -1,15 +1,16 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "6351e6466e887866cd770bd982715ea70849e69d"
+    "signature": "7bb34b5992af7872485e40352f0de8d7c88d4534"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "AutoCSer/2.0.49": {
+      "AutoCSer/2.0.51": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
+          "System.Numerics.Vectors": "4.6.1",
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Text.Encoding.CodePages": "5.0.0"
@@ -22,6 +23,14 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "System.Numerics.Vectors/4.6.1": {
+        "runtime": {
+          "lib/netstandard2.0/System.Numerics.Vectors.dll": {
+            "assemblyVersion": "4.1.3.0",
+            "fileVersion": "4.600.125.16908"
+          }
         }
       },
       "System.Reflection.Emit/4.7.0": {
@@ -76,7 +85,7 @@
     }
   },
   "libraries": {
-    "AutoCSer/2.0.49": {
+    "AutoCSer/2.0.51": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -94,6 +103,13 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "System.Numerics.Vectors/4.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sQxefTnhagrhoq2ReR0D/6K0zJcr9Hrd6kikeXsA1I8kOCboTavcUC4r7TSfpKFeE163uMuxZcyfO1mGO3EN8Q==",
+      "path": "system.numerics.vectors/4.6.1",
+      "hashPath": "system.numerics.vectors.4.6.1.nupkg.sha512"
     },
     "System.Reflection.Emit/4.7.0": {
       "type": "package",

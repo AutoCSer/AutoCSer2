@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
-    public interface IClientCallbackController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerCallbackController))]
+#endif
+    public partial interface IClientCallbackController
     {
         CallbackCommand CallbackReturn(int Value, int Ref, Action<CommandClientReturnValue<string>> Callback);
         CallbackCommand Callback(int Value, int Ref, Action<CommandClientReturnValue> Callback);
@@ -23,7 +26,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）
     /// </summary>
-    internal static class ClientCallbackController
+    internal partial class ClientCallbackController
     {
         /// <summary>
         /// 命令客户端测试
@@ -49,10 +52,10 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -63,7 +66,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnType.IsSuccess || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -73,10 +76,10 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -85,7 +88,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnType.IsSuccess || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -97,10 +100,10 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -111,7 +114,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnType.IsSuccess || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -121,10 +124,10 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(AutoCSer.TestCase.ClientCallbackController.ReturnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -133,7 +136,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            await AutoCSer.TestCase.ClientCallbackController.CallbackWaitLock.WaitAsync();
+            await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnType.IsSuccess || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

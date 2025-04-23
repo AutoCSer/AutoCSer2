@@ -10,58 +10,48 @@ namespace AutoCSer
     internal static class MemberCopyMethod
     {
         /// <summary>
-        /// 成员复制方法名称
+        /// 数组复制
         /// </summary>
-        internal const string MemberCopyMethodName = "MemberCopy";
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="writeArray"></param>
+        /// <param name="readArray"></param>
+        internal static void CopyArray<T>(ref T[] writeArray, T[] readArray)
+        {
+            MemberCopy<T>.CopyArray(ref writeArray, readArray);
+        }
         /// <summary>
-        /// 成员复制方法名称
+        /// 数组复制
         /// </summary>
-        internal const string MemberMapCopyMethodName = "MemberMapCopy";
-#if AOT
-        ///// <summary>
-        ///// 数组复制
-        ///// </summary>
-        ///// <typeparam name="T">对象类型</typeparam>
-        ///// <param name="writeArray"></param>
-        ///// <param name="readArray"></param>
-        //internal static void CopyArray<T>(ref T[] writeArray, T[] readArray)
-        //{
-        //    MemberCopy<T>.CopyArray(ref writeArray, readArray);
-        //}
-        ///// <summary>
-        ///// 数组复制
-        ///// </summary>
-        ///// <typeparam name="T">对象类型</typeparam>
-        ///// <param name="writeArray"></param>
-        ///// <param name="readArray"></param>
-        ///// <param name="memberMap"></param>
-        //internal static void CopyArrayMemberMap<T>(ref T[] writeArray, T[] readArray, MemberMap<T[]> memberMap)
-        //{
-        //    MemberCopy<T>.CopyArray(ref writeArray, readArray);
-        //}
-        ///// <summary>
-        ///// 数组复制
-        ///// </summary>
-        //internal static readonly MethodInfo CopyArrayMethod;
-        ///// <summary>
-        ///// 数组复制
-        ///// </summary>
-        //internal static readonly MethodInfo CopyArrayMemberMapMethod;
-        //static MemberCopyMethod()
-        //{
-        //    foreach (MethodInfo method in typeof(MemberCopyMethod).GetMethods(BindingFlags.Static | BindingFlags.NonPublic))
-        //    {
-        //        switch (method.Name.Length)
-        //        {
-        //            case 9:
-        //                if (method.Name == nameof(CopyArray)) CopyArrayMethod = method;
-        //                break;
-        //            case 18:
-        //                if (method.Name == nameof(CopyArrayMemberMap)) CopyArrayMemberMapMethod = method;
-        //                break;
-        //        }
-        //    }
-        //}
-#endif
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="writeArray"></param>
+        /// <param name="readArray"></param>
+        /// <param name="memberMap"></param>
+        internal static void CopyArrayMemberMap<T>(ref T[] writeArray, T[] readArray, MemberMap<T[]> memberMap)
+        {
+            MemberCopy<T>.CopyArray(ref writeArray, readArray);
+        }
+        /// <summary>
+        /// 数组复制
+        /// </summary>
+        internal static readonly MethodInfo CopyArrayMethod;
+        /// <summary>
+        /// 数组复制
+        /// </summary>
+        internal static readonly MethodInfo CopyArrayMemberMapMethod;
+        static MemberCopyMethod()
+        {
+            foreach (MethodInfo method in typeof(MemberCopyMethod).GetMethods(BindingFlags.Static | BindingFlags.NonPublic))
+            {
+                switch (method.Name.Length)
+                {
+                    case 9:
+                        if (method.Name == nameof(CopyArray)) CopyArrayMethod = method;
+                        break;
+                    case 18:
+                        if (method.Name == nameof(CopyArrayMemberMap)) CopyArrayMemberMapMethod = method;
+                        break;
+                }
+            }
+        }
     }
 }

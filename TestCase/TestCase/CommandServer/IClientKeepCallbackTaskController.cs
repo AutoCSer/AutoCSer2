@@ -9,7 +9,10 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-    public interface IClientKeepCallbackTaskController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerKeepCallbackTaskController))]
+#endif
+    public partial interface IClientKeepCallbackTaskController
     {
         EnumeratorCommand<string> KeepCallbackTaskSocketReturn(int Value, int Ref);
         EnumeratorCommand KeepCallbackTaskSocket(int Value, int Ref);
@@ -89,7 +92,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 命令客户端测试
     /// </summary>
-    internal static class ClientKeepCallbackTaskController
+    internal partial class ClientKeepCallbackTaskController
     {
         internal static async Task<bool> Callback(EnumeratorCommand<string> enumeratorCommand, CommandServerSessionObject clientSessionObject)
         {
@@ -101,7 +104,7 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
-                if (value != (ServerSynchronousController.SessionObject.Xor() + index).ToString())
+                if (!ServerSynchronousController.SessionObject.CheckXor(value, index))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
@@ -123,7 +126,7 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
-                if (value != (ServerSynchronousController.SessionObject.Xor() + index).ToString())
+                if (!ServerSynchronousController.SessionObject.CheckXor(value, index))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
@@ -163,7 +166,7 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
-                if (value != (ServerSynchronousController.SessionObject.Xor() + index).ToString())
+                if (!ServerSynchronousController.SessionObject.CheckXor(value, index))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }

@@ -1,5 +1,6 @@
 ﻿//本文件由程序自动生成，请不要自行修改
 using System;
+using System.Numerics;
 using AutoCSer;
 
 #if NoAutoCSer
@@ -5374,7 +5375,6 @@ namespace AutoCSer.Extensions
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5419,7 +5419,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5464,7 +5463,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5509,7 +5507,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5554,7 +5551,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5599,7 +5595,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5644,7 +5639,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5689,7 +5683,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5734,7 +5727,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5779,7 +5771,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5824,7 +5815,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5869,7 +5859,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5914,7 +5903,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -5959,7 +5947,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -6004,7 +5991,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -6069,7 +6055,7 @@ namespace AutoCSer
                 {
                     if (XmlSerializer.CustomConfig.Deserialize(this, new AutoCSer.Memory.Pointer(valueStart, valueSize << 1), ref value))
                     {
-                        getValueEnd();
+                        GetValueEnd();
                         return;
                     }
                 }
@@ -6099,7 +6085,7 @@ namespace AutoCSer
                 {
                     if (XmlSerializer.CustomConfig.Deserialize(this, new AutoCSer.Memory.Pointer(valueStart, valueSize << 1), ref value))
                     {
-                        getValueEnd();
+                        GetValueEnd();
                         return;
                     }
                 }
@@ -7083,6 +7069,216 @@ namespace AutoCSer
     public sealed unsafe partial class XmlDeserializer
     {
         /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref Complex value)
+        {
+            serializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void XmlDeserialize(ref Complex value)
+        {
+            AutoCSer.Extensions.SerializeComplex serializeComplex = default(AutoCSer.Extensions.SerializeComplex);
+            AutoCSer.Xml.TypeDeserializer<AutoCSer.Extensions.SerializeComplex>.DefaultDeserializer(this, ref serializeComplex);
+            value = new AutoCSer.Extensions.ComplexUnion { SerializeValue = serializeComplex }.Complex;
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed unsafe partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref Plane value)
+        {
+            serializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void XmlDeserialize(ref Plane value)
+        {
+            AutoCSer.Extensions.SerializePlane serializePlane = default(AutoCSer.Extensions.SerializePlane);
+            AutoCSer.Xml.TypeDeserializer<AutoCSer.Extensions.SerializePlane>.DefaultDeserializer(this, ref serializePlane);
+            value = new AutoCSer.Extensions.PlaneUnion { SerializeValue = serializePlane }.Plane;
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed unsafe partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref Quaternion value)
+        {
+            serializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void XmlDeserialize(ref Quaternion value)
+        {
+            AutoCSer.Extensions.SerializeQuaternion serializeQuaternion = default(AutoCSer.Extensions.SerializeQuaternion);
+            AutoCSer.Xml.TypeDeserializer<AutoCSer.Extensions.SerializeQuaternion>.DefaultDeserializer(this, ref serializeQuaternion);
+            value = new AutoCSer.Extensions.QuaternionUnion { SerializeValue = serializeQuaternion }.Quaternion;
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed unsafe partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref Matrix3x2 value)
+        {
+            serializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void XmlDeserialize(ref Matrix3x2 value)
+        {
+            AutoCSer.Extensions.SerializeMatrix3x2 serializeMatrix3x2 = default(AutoCSer.Extensions.SerializeMatrix3x2);
+            AutoCSer.Xml.TypeDeserializer<AutoCSer.Extensions.SerializeMatrix3x2>.DefaultDeserializer(this, ref serializeMatrix3x2);
+            value = new AutoCSer.Extensions.Matrix3x2Union { SerializeValue = serializeMatrix3x2 }.Matrix3x2;
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed unsafe partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref Matrix4x4 value)
+        {
+            serializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void XmlDeserialize(ref Matrix4x4 value)
+        {
+            AutoCSer.Extensions.SerializeMatrix4x4 serializeMatrix4x4 = default(AutoCSer.Extensions.SerializeMatrix4x4);
+            AutoCSer.Xml.TypeDeserializer<AutoCSer.Extensions.SerializeMatrix4x4>.DefaultDeserializer(this, ref serializeMatrix4x4);
+            value = new AutoCSer.Extensions.Matrix4x4Union { SerializeValue = serializeMatrix4x4 }.Matrix4x4;
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed unsafe partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref Vector3 value)
+        {
+            serializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void XmlDeserialize(ref Vector3 value)
+        {
+            AutoCSer.Extensions.SerializeVector3 serializeVector3 = default(AutoCSer.Extensions.SerializeVector3);
+            AutoCSer.Xml.TypeDeserializer<AutoCSer.Extensions.SerializeVector3>.DefaultDeserializer(this, ref serializeVector3);
+            value = new AutoCSer.Extensions.Vector3Union { SerializeValue = serializeVector3 }.Vector3;
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed unsafe partial class XmlDeserializer
+    {
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数据</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveDeserialize(XmlDeserializer serializer, ref Vector4 value)
+        {
+            serializer.XmlDeserialize(ref value);
+        }
+        /// <summary>
+        /// 基础类型解析
+        /// </summary>
+        /// <param name="value">数据</param>
+        public void XmlDeserialize(ref Vector4 value)
+        {
+            AutoCSer.Extensions.SerializeVector4 serializeVector4 = default(AutoCSer.Extensions.SerializeVector4);
+            AutoCSer.Xml.TypeDeserializer<AutoCSer.Extensions.SerializeVector4>.DefaultDeserializer(this, ref serializeVector4);
+            value = new AutoCSer.Extensions.Vector4Union { SerializeValue = serializeVector4 }.Vector4;
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 反序列化
+    /// </summary>
+    public sealed unsafe partial class XmlDeserializer
+    {
+        /// <summary>
         /// 数字解析
         /// </summary>
         /// <param name="value">数据</param>
@@ -7208,7 +7404,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -7248,7 +7443,6 @@ namespace AutoCSer
     }
 }
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>
@@ -7593,6 +7787,209 @@ namespace AutoCSer
         /// </summary>
         internal static readonly System.Reflection.MethodInfo EnumSByteMethod;
 #endif
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 序列化
+    /// </summary>
+    public sealed unsafe partial class XmlSerializer
+    {
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Complex value)
+        {
+            AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializeComplex>.Serialize(this, new AutoCSer.Extensions.ComplexUnion { Complex = value }.SerializeValue);
+        }
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Complex value)
+        {
+            serializer.XmlSerialize(value);
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 序列化
+    /// </summary>
+    public sealed unsafe partial class XmlSerializer
+    {
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Plane value)
+        {
+            AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializePlane>.Serialize(this, new AutoCSer.Extensions.PlaneUnion { Plane = value }.SerializeValue);
+        }
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Plane value)
+        {
+            serializer.XmlSerialize(value);
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 序列化
+    /// </summary>
+    public sealed unsafe partial class XmlSerializer
+    {
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Quaternion value)
+        {
+            AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializeQuaternion>.Serialize(this, new AutoCSer.Extensions.QuaternionUnion { Quaternion = value }.SerializeValue);
+        }
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Quaternion value)
+        {
+            serializer.XmlSerialize(value);
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 序列化
+    /// </summary>
+    public sealed unsafe partial class XmlSerializer
+    {
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Matrix3x2 value)
+        {
+            AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializeMatrix3x2>.Serialize(this, new AutoCSer.Extensions.Matrix3x2Union { Matrix3x2 = value }.SerializeValue);
+        }
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Matrix3x2 value)
+        {
+            serializer.XmlSerialize(value);
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 序列化
+    /// </summary>
+    public sealed unsafe partial class XmlSerializer
+    {
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Matrix4x4 value)
+        {
+            AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializeMatrix4x4>.Serialize(this, new AutoCSer.Extensions.Matrix4x4Union { Matrix4x4 = value }.SerializeValue);
+        }
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Matrix4x4 value)
+        {
+            serializer.XmlSerialize(value);
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 序列化
+    /// </summary>
+    public sealed unsafe partial class XmlSerializer
+    {
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Vector3 value)
+        {
+            AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializeVector3>.Serialize(this, new AutoCSer.Extensions.Vector3Union { Vector3 = value }.SerializeValue);
+        }
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Vector3 value)
+        {
+            serializer.XmlSerialize(value);
+        }
+    }
+}
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// XML 序列化
+    /// </summary>
+    public sealed unsafe partial class XmlSerializer
+    {
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void XmlSerialize(Vector4 value)
+        {
+            AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializeVector4>.Serialize(this, new AutoCSer.Extensions.Vector4Union { Vector4 = value }.SerializeValue);
+        }
+        /// <summary>
+        /// 基础类型转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Vector4 value)
+        {
+            serializer.XmlSerialize(value);
+        }
     }
 }
 

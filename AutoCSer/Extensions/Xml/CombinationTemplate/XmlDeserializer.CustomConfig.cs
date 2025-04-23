@@ -21,7 +21,7 @@ namespace AutoCSer
                 {
                     if (XmlSerializer.CustomConfig.Deserialize(this, new AutoCSer.Memory.Pointer(valueStart, valueSize << 1), ref value))
                     {
-                        getValueEnd();
+                        GetValueEnd();
                         return;
                     }
                 }

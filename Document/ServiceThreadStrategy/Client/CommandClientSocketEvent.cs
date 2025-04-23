@@ -22,7 +22,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Client
         /// 服务端一次性响应 API 客户端示例接口（服务端 Task 异步队列控制器 API 一次性响应 示例接口）
         /// </summary>
         [AllowNull]
-        public AutoCSer.Net.CommandClientController<IReturnCommandController, int> ServerTaskQueueController_ReturnCommandController { get; private set; }
+        public AutoCSer.Net.CommandServer.TaskQueueClientController<IReturnCommandController, int> ServerTaskQueueController_ReturnCommandController { get; private set; }
         /// <summary>
         /// 服务端一次性响应 API 客户端示例接口（服务端 同步队列线程 API 一次性响应 示例接口）
         /// </summary>

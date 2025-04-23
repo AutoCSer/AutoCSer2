@@ -20,7 +20,7 @@ namespace AutoCSer.TestCase
             {
                 CommandReverseListenerConfig commandClientConfig = new CommandReverseListenerConfig
                 {
-                    Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase),
+                    Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ReverseServer),
                     GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
                 };
 #if NetStandard21
@@ -33,7 +33,7 @@ namespace AutoCSer.TestCase
                         return AutoCSer.Breakpoint.ReturnFalse();
                     }
 
-                    CommandReverseClientConfig commandServerConfig = new CommandReverseClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase) };
+                    CommandReverseClientConfig commandServerConfig = new CommandReverseClientConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ReverseServer) };
 
 #if NetStandard21
                     await
@@ -51,7 +51,7 @@ namespace AutoCSer.TestCase
                         .Append<IServerKeepCallbackTaskController>(new ServerKeepCallbackTaskController())
                         .Append<IServerTaskQueueController>(new ServerTaskQueueController())
                         .Append<IServerTaskQueueContextController, int>((task, key) => new ServerTaskQueueContextController(task, key))
-                        .Append<IDefinedSymmetryController>(new DefinedSymmetryController())
+                        .Append<IDefinedSymmetryController>(new DefinedSymmetryServerController())
                         .Append<IDefinedDissymmetryServerController>(string.Empty, new DefinedDissymmetryServerController())
 
                         .Append<ServerBindContext.IServerSynchronousController>(server => new ServerBindContext.ServerSynchronousController())
@@ -65,7 +65,7 @@ namespace AutoCSer.TestCase
                         .Append<ServerBindContext.IServerTaskController>(server => new ServerBindContext.ServerTaskController())
                         .Append<ServerBindContext.IServerKeepCallbackTaskController>(server => new ServerBindContext.ServerKeepCallbackTaskController())
                         .Append<ServerBindContext.IServerTaskQueueController>(server => new ServerBindContext.ServerTaskQueueController())
-                        .Append<ServerBindContext.IDefinedSymmetryController>(server => new ServerBindContext.DefinedSymmetryController())
+                        .Append<ServerBindContext.IDefinedSymmetryController>(server => new ServerBindContext.DefinedSymmetryServerController())
                         .Append<ServerBindContext.IDefinedDissymmetryServerController>(string.Empty, server => new ServerBindContext.DefinedDissymmetryServerController())
                         .CreateCommandListener(commandServerConfig))
                     {
@@ -124,7 +124,7 @@ namespace AutoCSer.TestCase
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
-                        if (!await DefinedSymmetryController.TestCase(client, clientSessionObject))
+                        if (!await DefinedSymmetryServerController.TestCase(client, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
@@ -177,7 +177,7 @@ namespace AutoCSer.TestCase
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
-                        if (!await ServerBindContext.DefinedSymmetryController.TestCase(client, clientSessionObject))
+                        if (!await ServerBindContext.DefinedSymmetryServerController.TestCase(client, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }

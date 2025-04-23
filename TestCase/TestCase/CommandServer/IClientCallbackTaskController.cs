@@ -8,13 +8,16 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-    public interface IClientCallbackTaskController : IClientCallbackController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerCallbackTaskController))]
+#endif
+    public partial interface IClientCallbackTaskController : IClientCallbackController
     {
     }
     /// <summary>
     /// 命令客户端测试
     /// </summary>
-    internal static class ClientCallbackTaskController
+    internal partial class ClientCallbackTaskController
     {
         /// <summary>
         /// 命令客户端测试

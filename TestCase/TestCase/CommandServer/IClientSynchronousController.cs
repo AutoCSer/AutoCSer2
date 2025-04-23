@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-    public interface IClientSynchronousController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerSynchronousController))]
+#endif
+    public partial interface IClientSynchronousController
     {
         CommandClientReturnValue<string> SynchronousReturnSocket(int Value, ref int Ref, out long Out);
         CommandClientReturnValue<string> SynchronousReturnSocket(int Value, ref int Ref);
@@ -46,7 +49,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 命令客户端测试
     /// </summary>
-    internal static class ClientSynchronousController
+    internal partial class ClientSynchronousController
     {
         /// <summary>
         /// 命令客户端测试
@@ -72,7 +75,7 @@ namespace AutoCSer.TestCase
             CommandClientReturnValue<string> returnValue = client.ClientSynchronousController.SynchronousReturnSocket(clientSessionObject.Value, ref clientSessionObject.Ref, out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -82,7 +85,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturnSocket(clientSessionObject.Value, ref clientSessionObject.Ref);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -91,7 +94,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturnSocket(clientSessionObject.Value, out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -100,7 +103,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturnSocket(clientSessionObject.Value);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -109,7 +112,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturnSocket(ref clientSessionObject.Ref, out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -118,7 +121,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturnSocket(ref clientSessionObject.Ref);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -126,7 +129,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturnSocket(out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -134,7 +137,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturnSocket();
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -187,7 +190,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn(clientSessionObject.Value, ref clientSessionObject.Ref, out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -197,7 +200,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn(clientSessionObject.Value, ref clientSessionObject.Ref);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -206,7 +209,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn(clientSessionObject.Value, out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -215,7 +218,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn(clientSessionObject.Value);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -224,7 +227,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn(ref clientSessionObject.Ref, out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -233,7 +236,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn(ref clientSessionObject.Ref);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -241,7 +244,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn(out clientSessionObject.Out);
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -249,7 +252,7 @@ namespace AutoCSer.TestCase
             returnValue = client.ClientSynchronousController.SynchronousReturn();
             if (!returnValue.IsSuccess
                 || !ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != ServerSynchronousController.SessionObject.Xor().ToString())
+                || !ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

@@ -20,6 +20,7 @@ namespace AutoCSer.TestCase
                 Type errorType = typeof(Program);
                 do
                 {
+                    Task<bool> commandServerTask = CommandServer.TestCase();
                     Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
                     Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
                     Task<bool> binarySerializeTask = BinarySerialize.TestCase();
@@ -30,6 +31,7 @@ namespace AutoCSer.TestCase
                     if (!await xmlTask) { errorType = typeof(Xml); break; }
                     if (!await searchTreeTask) { errorType = typeof(SearchTree); break; }
                     if (!await reusableDictionaryTask) { errorType = typeof(ReusableDictionary); break; }
+                    if (!await commandServerTask) { errorType = typeof(CommandServer); break; }
                     Console.Write('.');
                 }
                 while (true);
@@ -41,7 +43,10 @@ namespace AutoCSer.TestCase
             }
             Console.ReadKey();
 
-            AutoCSer.TestCase.AOT.NET8.AotMethod.Call();
+            if (AutoCSer.TestCase.AotMethod.Call())
+            {
+                AutoCSer.Extensions.AotMethod.Call();
+            }
         }
     }
 }

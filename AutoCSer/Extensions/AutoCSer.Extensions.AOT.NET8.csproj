@@ -84,7 +84,6 @@
     <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
     <Compile Include="MemberCopy\CodeGenerator\MemberCopyAttribute.cs" />
     <Compile Include="MemberCopy\MemberCopy.cs" />
-    <Compile Include="MemberCopy\MemberCopyMethod.cs" />
     <Compile Include="Memory\BitMap.cs" />
     <Compile Include="Memory\BufferCount.cs" />
     <Compile Include="Memory\ByteArrayBufferObject.cs" />
@@ -117,16 +116,6 @@
     <Compile Include="Net\RawSocketListener.cs" />
     <Compile Include="Net\RawSocketQueue.cs" />
     <Compile Include="Net\TimestampVerify.cs" />
-    <Compile Include="ObjectRoot\ObjectReference.cs" />
-    <Compile Include="ObjectRoot\ObjectType.cs" />
-    <Compile Include="ObjectRoot\ReflectionArrayScanner.cs" />
-    <Compile Include="ObjectRoot\ReflectionArrayType.cs" />
-    <Compile Include="ObjectRoot\ReflectionObjectScanner.cs" />
-    <Compile Include="ObjectRoot\ReflectionObjectType.cs" />
-    <Compile Include="ObjectRoot\ReflectionScanner.cs" />
-    <Compile Include="ObjectRoot\ReflectionType.cs" />
-    <Compile Include="ObjectRoot\ReflectionTypeScanner.cs" />
-    <Compile Include="ObjectRoot\TypeScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="Reflection\LoadAssemblyCache.cs" />
@@ -170,10 +159,12 @@
     <Compile Include="UnmanagedRemoveMarkHashSetCapacity.cs" />
     <Compile Include="Xml\CodeGenerator\XmlSerializeAttribute.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.CustomConfig.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlDeserializer.NET8.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Number.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Enum.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.CustomConfig.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlSerializer.NET8.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.Struct.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.CustomConfig.CharStream.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.Number.cs" />
@@ -185,6 +176,22 @@
     <Compile Include="Xml\EnumDeserialize.cs" />
     <Compile Include="Xml\ICustomSerialize.cs" />
     <Compile Include="Xml\MemberNameSearcher.cs" />
+    <Compile Include="NET8\ComplexUnion.cs" />
+    <Compile Include="NET8\Matrix3x2Union.cs" />
+    <Compile Include="NET8\Matrix4x4Union.cs" />
+    <Compile Include="NET8\PlaneUnion.cs" />
+    <Compile Include="NET8\QuaternionUnion.cs" />
+    <Compile Include="NET8\SerializeComplex.cs" />
+    <Compile Include="NET8\SerializeMatrix3x2.cs" />
+    <Compile Include="NET8\SerializeMatrix4x4.cs" />
+    <Compile Include="NET8\SerializePlane.cs" />
+    <Compile Include="NET8\SerializeQuaternion.cs" />
+    <Compile Include="NET8\SerializeVector2.cs" />
+    <Compile Include="NET8\SerializeVector3.cs" />
+    <Compile Include="NET8\SerializeVector4.cs" />
+    <Compile Include="NET8\Vector2Union.cs" />
+    <Compile Include="NET8\Vector3Union.cs" />
+    <Compile Include="NET8\Vector4Union.cs" />
     <Compile Include="Xml\XmlNode.cs" />
     <Compile Include="Xml\XmlNodeTypeEnum.cs" />
     <Compile Include="Xml\StateSearcher.cs" />
@@ -198,7 +205,7 @@
     <Compile Include="Xml\XmlSerializeConfig.cs" />
     <Compile Include="Xml\XmlSerializeMemberAttribute.cs" />
     <Compile Include="Xml\XmlSerializer.cs" />
-    <Compile Include="{AutoCSer.Extensions.AOT}.AOT.AutoCSer.cs" />
+    <Compile Include="{AutoCSer.Extensions}.AOT.AutoCSer.cs" />
     <Compile Include="{AutoCSer.Extensions}.CombinationTemplate.cs" />
   </ItemGroup>
 
@@ -209,7 +216,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
   </Target>
   
 </Project>

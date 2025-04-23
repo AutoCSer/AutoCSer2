@@ -8,8 +8,11 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端定义非对称测试接口
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(void))]
+#endif
     [CommandServerControllerInterface(MethodIndexEnumType = typeof(DefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
-    public interface IDefinedDissymmetryClientController
+    public partial interface IDefinedDissymmetryClientController
     {
         /// <summary>
         /// 
@@ -29,7 +32,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 命令客户端测试
     /// </summary>
-    internal static class DefinedDissymmetryClientController
+    internal partial class DefinedDissymmetryClientController
     {
         /// <summary>
         /// 命令客户端测试

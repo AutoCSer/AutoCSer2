@@ -10,7 +10,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// <summary>
     /// JSON 序列化
     /// </summary>
-    [Generator(Name = "JSON 序列化", IsAuto = true, IsAOT = true)]
+    [Generator(Name = "JSON 序列化", IsAuto = true)]
     internal partial class JsonSerialize : AttributeGenerator<AutoCSer.CodeGenerator.JsonSerializeAttribute>
     {
         /// <summary>
@@ -78,7 +78,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     if (MemberType.Type.IsGenericParameter || MethodInfo.IsTypeSerialize) return nameof(AutoCSer.JsonSerializer.JsonSerializeType);
                     if (MemberType.IsObject) return nameof(AutoCSer.JsonSerializer.JsonSerializeObject);
                     if (MethodInfo.IsCusotm) return nameof(AutoCSer.JsonSerializer.ICustom);
-                    return AutoCSer.JsonSerializer.JsonSerializeMethodName;
+                    return JsonSerializeAttribute.JsonSerializeMethodName;
                 }
             }
             /// <summary>
@@ -89,7 +89,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 get
                 {
                     //if (MemberType.Type.IsGenericParameter) return "GenericParameter";
-                    return AutoCSer.JsonDeserializer.JsonDeserializeMethodName;
+                    return JsonSerializeAttribute.JsonDeserializeMethodName;
                 }
             }
             /// <summary>
@@ -131,27 +131,27 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 序列化方法名称
         /// </summary>
-        public string JsonSerializeMethodName { get { return AutoCSer.JsonSerializer.JsonSerializeMethodName; } }
+        public string JsonSerializeMethodName { get { return JsonSerializeAttribute.JsonSerializeMethodName; } }
         /// <summary>
         /// 序列化方法名称
         /// </summary>
-        public string JsonSerializeMemberMapMethodName { get { return AutoCSer.JsonSerializer.JsonSerializeMemberMapMethodName; } }
+        public string JsonSerializeMemberMapMethodName { get { return JsonSerializeAttribute.JsonSerializeMemberMapMethodName; } }
         /// <summary>
         /// 获取 JSON 序列化成员类型方法名称
         /// </summary>
-        public string JsonSerializeMemberTypeMethodName { get { return AutoCSer.JsonSerializer.JsonSerializeMemberTypeMethodName; } }
+        public string JsonSerializeMemberTypeMethodName { get { return JsonSerializeAttribute.JsonSerializeMemberTypeMethodName; } }
         /// <summary>
         /// 反序列化方法名称
         /// </summary>
-        public string JsonDeserializeMethodName { get { return AutoCSer.JsonDeserializer.JsonDeserializeMethodName; } }
+        public string JsonDeserializeMethodName { get { return JsonSerializeAttribute.JsonDeserializeMethodName; } }
         /// <summary>
         /// 反序列化方法名称
         /// </summary>
-        public string JsonDeserializeMemberMapMethodName { get { return AutoCSer.JsonDeserializer.JsonDeserializeMemberMapMethodName; } }
+        public string JsonDeserializeMemberMapMethodName { get { return JsonSerializeAttribute.JsonDeserializeMemberMapMethodName; } }
         /// <summary>
         /// 获取 JSON 反序列化成员名称方法名称
         /// </summary>
-        public string JsonDeserializeMemberNameMethodName { get { return AutoCSer.JsonDeserializer.JsonDeserializeMemberNameMethodName; } }
+        public string JsonDeserializeMemberNameMethodName { get { return JsonSerializeAttribute.JsonDeserializeMemberNameMethodName; } }
         /// <summary>
         /// 是否第一个成员
         /// </summary>

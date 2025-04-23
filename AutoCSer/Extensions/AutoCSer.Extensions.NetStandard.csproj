@@ -101,6 +101,22 @@
     <Compile Include="Metadata\GenericType.cs" />
     <Compile Include="Metadata\GenericType2.cs" />
     <Compile Include="Metadata\StructGenericType.cs" />
+    <Compile Include="NET8\ComplexUnion.cs" />
+    <Compile Include="NET8\Matrix3x2Union.cs" />
+    <Compile Include="NET8\Matrix4x4Union.cs" />
+    <Compile Include="NET8\PlaneUnion.cs" />
+    <Compile Include="NET8\QuaternionUnion.cs" />
+    <Compile Include="NET8\SerializeComplex.cs" />
+    <Compile Include="NET8\SerializeMatrix3x2.cs" />
+    <Compile Include="NET8\SerializeMatrix4x4.cs" />
+    <Compile Include="NET8\SerializePlane.cs" />
+    <Compile Include="NET8\SerializeQuaternion.cs" />
+    <Compile Include="NET8\SerializeVector2.cs" />
+    <Compile Include="NET8\SerializeVector3.cs" />
+    <Compile Include="NET8\SerializeVector4.cs" />
+    <Compile Include="NET8\Vector2Union.cs" />
+    <Compile Include="NET8\Vector3Union.cs" />
+    <Compile Include="NET8\Vector4Union.cs" />
     <Compile Include="Net\Packet\Arp.cs" />
     <Compile Include="Net\Packet\Ethernet.cs" />
     <Compile Include="Net\Packet\EthernetCodeEnum.cs" />
@@ -186,10 +202,12 @@
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.CustomConfig.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Enum.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlDeserializer.NET8.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Number.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.CustomConfig.CharStream.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.CustomConfig.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.Enum.cs" />
+    <Compile Include="Xml\CombinationTemplate\XmlSerializer.NET8.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.Number.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlSerializer.Struct.cs" />
     <Compile Include="Xml\Common.cs" />
@@ -225,6 +243,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Numerics.Vectors" Version="4.6.1" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
   </ItemGroup>

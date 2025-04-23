@@ -11,9 +11,13 @@ namespace AutoCSer.CodeGenerator.Template
         public unsafe partial class FullName : Pub, IEquatable<FullName>
         {
             public string MemberName;
+            public string ParameterName;
+            public string ReturnValueParameterName;
+            public MethodReturnType.FullName ReturnValue;
             public static implicit operator int(FullName value) { return 0; }
             public static implicit operator FullName(int value) { return null; }
             public static implicit operator string(FullName value) { return null; }
+            public static implicit operator FullName(AutoCSer.Net.CommandClientReturnValue value) { return null; }
             public void simpleSerialize(object value) { }
             public byte* simpleDeserialize(params byte*[] values) { return null; }
             public bool Equals(FullName other) { return false; }
@@ -29,18 +33,28 @@ namespace AutoCSer.CodeGenerator.Template
             public void createRandomObject(params object[] values) { }
 
             public static void MethodName() { }
+            public static object Get(params object[] values) { return null; }
         }
-        public partial class GenericDefinitionFullName : Pub { }
+        public partial class GenericDefinitionFullName : FullName { }
+        public partial class GenericTypeName : FullName { }
+        public partial class ParameterTypeName : FullName { }
+        public partial class TypeFullName : FullName { }
         public partial class CurrentType : Pub { }
-        public partial class GenericTypeName : Pub { }
         public partial class BaseType : Pub { }
         public partial class UnderlyingType : Pub { }
         public partial class MemberType : Pub { }
         public partial class MethodReturnType : Pub { }
+        public partial class ReturnValueType : Pub { }
         public partial class ParameterType : Pub { }
+        public partial class ServerType : Pub { }
+        public partial class CallbackType : Pub { }
+        public partial class EnumType : Pub { }
+        public interface MethodInterfaceTypeName
+        {
+            MethodReturnType.FullName MethodName(ParameterType.FullName ParameterJoinName);
+        }
 #if !DotNet45 && !AOT
         public partial class NetCoreWebViewTypeFullName : AutoCSer.NetCoreWeb.View { }
 #endif
-        public static readonly string ParameterName = null;
     }
 }

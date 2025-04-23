@@ -218,17 +218,17 @@ namespace AutoCSer.Xml
                 emptyString = @"<" + type.Name + @"></" + type.Name + @">";
 #if AOT
                 DefaultSerializer = MemberSerialize;
-                var method = typeof(T).GetMethod(XmlSerializer.XmlSerializeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(XmlSerializer), typeof(T) });
+                var method = typeof(T).GetMethod(AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(XmlSerializer), typeof(T) });
                 if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(void))
                 {
-                    var memberMapMethod = typeof(T).GetMethod(XmlSerializer.XmlSerializeMemberMapMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(MemberMap<T>), typeof(XmlSerializer), typeof(T), typeof(CharStream) });
+                    var memberMapMethod = typeof(T).GetMethod(AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMemberMapMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(MemberMap<T>), typeof(XmlSerializer), typeof(T), typeof(CharStream) });
                     if (memberMapMethod != null && !memberMapMethod.IsGenericMethod && memberMapMethod.ReturnType == typeof(void))
                     {
                         memberSerializer = (Action<XmlSerializer, T>)method.CreateDelegate(typeof(Action<XmlSerializer, T>));
                         memberMapSerializer = (Action<MemberMap<T>, XmlSerializer, T, CharStream>)memberMapMethod.CreateDelegate(typeof(Action<MemberMap<T>, XmlSerializer, T, CharStream>));
                         if (attribute.CheckLoopReference)
                         {
-                            var memberTypeMethod = type.GetMethod(XmlSerializer.XmlSerializeMemberTypeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, EmptyArray<Type>.Array);
+                            var memberTypeMethod = type.GetMethod(AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMemberTypeMethodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, EmptyArray<Type>.Array);
                             if (memberTypeMethod != null && !memberTypeMethod.IsGenericMethod && memberTypeMethod.ReturnType == typeof(AutoCSer.LeftArray<Type>))
                             {
                                 SerializeDelegateReference.SetMember(DefaultSerializer, memberTypeMethod.Invoke(null, null).castValue<AutoCSer.LeftArray<Type>>().ToArray());
@@ -239,9 +239,9 @@ namespace AutoCSer.Xml
                         SerializeDelegateReference.SetNoLoop(DefaultSerializer);
                         return;
                     }
-                    throw new MissingMethodException(typeof(T).fullName(), XmlSerializer.XmlSerializeMemberMapMethodName);
+                    throw new MissingMethodException(typeof(T).fullName(), AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMemberMapMethodName);
                 }
-                throw new MissingMethodException(typeof(T).fullName(), XmlSerializer.XmlSerializeMethodName);
+                throw new MissingMethodException(typeof(T).fullName(), AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMethodName);
 #else
                 var fields = AutoCSer.TextSerialize.Common.GetSerializeFields<XmlSerializeMemberAttribute>(MemberIndexGroup.GetFields(baseType ?? type, attribute.MemberFilters), attribute);
                 LeftArray<AutoCSer.TextSerialize.PropertyMethod<XmlSerializeMemberAttribute>> properties = AutoCSer.TextSerialize.Common.GetSerializeProperties<XmlSerializeMemberAttribute>(MemberIndexGroup.GetProperties(baseType ?? type, attribute.MemberFilters), attribute);

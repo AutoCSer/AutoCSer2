@@ -8,15 +8,23 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
-            /// 触发 AOT 编译
+            /// 代码生成调用激活 AOT 反射
             /// </summary>
             /// <returns></returns>
             public static bool Call()
             {
                 if (AutoCSer.Date.StartTimestamp == long.MinValue)
                 {
+                    #region IF IsCallAutoCSer
+                    AutoCSer.AotMethod.Call();
+                    #endregion IF IsCallAutoCSer
                     #region LOOP Methods
+                    #region IF MemberType
                     @MemberType.FullName/**/.@MethodName();
+                    #endregion IF MemberType
+                    #region NOT MemberType
+                    @MethodName();
+                    #endregion NOT MemberType
                     #endregion LOOP Methods
                     #region LOOP EqualsMemberTypes
                     AutoCSer.FieldEquals.Comparor.@ReflectionMethodName/*IF:GenericTypeName*/<@GenericTypeName>/*IF:GenericTypeName*/(default(@MemberType.FullName), default(@MemberType.FullName));
@@ -26,7 +34,7 @@ namespace AutoCSer.CodeGenerator.Template
                     #endregion LOOP RandomMemberTypes
 
                     #region LOOP BinarySerializeMemberTypes
-                    AutoCSer.BinarySerializer.TypeSerialize(typeof(AutoCSer.BinarySerialize.TypeSerializer<@MemberType.FullName>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<@MemberType.FullName>));
                     #region IF ReflectionMethodName
                     AutoCSer.BinarySerializer.@ReflectionMethodName/*IF:GenericTypeName*/<@GenericTypeName>/*IF:GenericTypeName*/(null, default(@MemberType.FullName));
                     #endregion IF ReflectionMethodName
@@ -35,7 +43,7 @@ namespace AutoCSer.CodeGenerator.Template
                     binaryDeserializeMemberTypes();
                     #endregion IF BinarySerializeMemberTypes.Length
                     #region LOOP BinarySerializeGenericTypes
-                    AutoCSer.BinarySerializer.BinarySerializeGenericType<@MemberType.FullName>();
+                    AutoCSer.AotReflection.FieldsAndProperties(typeof(@MemberType.FullName));
                     #endregion LOOP BinarySerializeGenericTypes
                     #region LOOP BinarySerializeGenericMemberTypes
                     AutoCSer.BinarySerializer.@ReflectionMethodName/*IF:GenericTypeName*/<@GenericTypeName>/*IF:GenericTypeName*/(null, null);
@@ -43,7 +51,7 @@ namespace AutoCSer.CodeGenerator.Template
                     #endregion LOOP BinarySerializeGenericMemberTypes
 
                     #region LOOP JsonSerializeMemberTypes
-                    AutoCSer.JsonSerializer.TypeSerialize(typeof(AutoCSer.Json.TypeSerializer<@MemberType.FullName>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<@MemberType.FullName>));
                     #region IF ReflectionMethodName
                     AutoCSer.JsonSerializer.@ReflectionMethodName/*IF:GenericTypeName*/<@GenericTypeName>/*IF:GenericTypeName*/(null, default(@MemberType.FullName));
                     #endregion IF ReflectionMethodName
@@ -53,7 +61,7 @@ namespace AutoCSer.CodeGenerator.Template
                     #endregion IF JsonDeserializeMemberTypes.Length
 
                     #region LOOP XmlSerializeMemberTypes
-                    AutoCSer.XmlSerializer.TypeSerialize(typeof(AutoCSer.Xml.TypeSerializer<@MemberType.FullName>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Xml.TypeSerializer<@MemberType.FullName>));
                     #region IF ReflectionMethodName
                     AutoCSer.XmlSerializer.@ReflectionMethodName/*IF:GenericTypeName*/<@GenericTypeName>/*IF:GenericTypeName*/(null, default(@MemberType.FullName));
                     #endregion IF ReflectionMethodName
@@ -70,7 +78,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF BinarySerializeMemberTypes.Length
             /// <summary>
-            /// 二进制反序列化成员类型触发 AOT 编译
+            /// 二进制反序列化成员类型代码生成调用激活 AOT 反射
             /// </summary>
             private static void binaryDeserializeMemberTypes()
             {
@@ -84,7 +92,7 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF BinarySerializeMemberTypes.Length
             #region IF JsonDeserializeMemberTypes.Length
             /// <summary>
-            /// JSON 反序列化成员类型触发 AOT 编译
+            /// JSON 反序列化成员类型代码生成调用激活 AOT 反射
             /// </summary>
             private static void jsonDeserializeMemberTypes()
             {
@@ -96,7 +104,7 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF JsonDeserializeMemberTypes.Length
             #region IF XmlDeserializeMemberTypes.Length
             /// <summary>
-            /// XML 反序列化成员类型触发 AOT 编译
+            /// XML 反序列化成员类型代码生成调用激活 AOT 反射
             /// </summary>
             private static void xmlDeserializeMemberTypes()
             {
@@ -107,6 +115,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #endregion IF XmlDeserializeMemberTypes.Length
             #endregion PART CLASS
+            private static void MethodName() { }
         }
     }
 }

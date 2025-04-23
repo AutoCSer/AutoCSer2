@@ -39,6 +39,7 @@
       <HintPath>..\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Member.cs" />

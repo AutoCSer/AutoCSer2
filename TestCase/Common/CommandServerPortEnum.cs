@@ -40,6 +40,10 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         TestCase,
         /// <summary>
+        /// 反向服务测试用例端口
+        /// </summary>
+        ReverseServer,
+        /// <summary>
         /// Command service performance test port
         /// 命令服务性能测试端口
         /// </summary>

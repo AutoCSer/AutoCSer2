@@ -8,13 +8,16 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
-    public interface IClientCallbackTaskController : IClientCallbackController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerCallbackTaskController))]
+#endif
+    public partial interface IClientCallbackTaskController : IClientCallbackController
     {
     }
     /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）
     /// </summary>
-    internal static class ClientCallbackTaskController
+    internal partial class ClientCallbackTaskController
     {
         /// <summary>
         /// 命令客户端测试

@@ -6,7 +6,10 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 项目配置
     /// </summary>
-    internal sealed class Config : AutoCSer.Configuration.Root
+#if AOT
+    [AutoCSer.CodeGenerator.Configuration]
+#endif
+    internal sealed partial class Config : AutoCSer.Configuration.Root
     {
         /// <summary>
         /// 主配置类型集合（可以指向别的类型，这里方便演示就指向当前类型了）

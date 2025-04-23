@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-    public interface IClientKeepCallbackController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerKeepCallbackController))]
+#endif
+    public partial interface IClientKeepCallbackController
     {
         KeepCallbackCommand KeepCallbackSocketReturn(int Value, int Ref, Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
         KeepCallbackCommand KeepCallbackSocket(int Value, int Ref, Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
@@ -49,7 +52,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 命令客户端测试
     /// </summary>
-    internal static class ClientKeepCallbackController
+    internal partial class ClientKeepCallbackController
     {
         internal struct KeepCallbackCommandResult
         {
@@ -74,7 +77,7 @@ namespace AutoCSer.TestCase
                         callbackWaitLock.Release();
                         return;
                     }
-                    if (value.Value != (ServerSynchronousController.SessionObject.Xor() + result.CallbackIndex).ToString())
+                    if (!ServerSynchronousController.SessionObject.CheckXor(value.Value, result.CallbackIndex))
                     {
                         callbackWaitLock.Release();
                         return;

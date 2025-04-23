@@ -239,6 +239,150 @@
             二进制反数据序列化
             </summary>
             <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制数据反序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制反数据序列化
+            </summary>
+            <summary>
+            二进制数据反序列化
+            </summary>
+            <summary>
+            二进制数据反序列化
+            </summary>
+            <summary>
+            二进制数据反序列化
+            </summary>
+            <summary>
+            二进制数据反序列化
+            </summary>
+            <summary>
+            二进制数据反序列化
+            </summary>
+            <summary>
+            二进制数据反序列化
+            </summary>
+            <summary>
             二进制数据反序列化
             </summary>
             <summary>
@@ -302,27 +446,6 @@
             二进制反数据序列化
             </summary>
             <summary>
-            二进制数据反序列化
-            </summary>
-            <summary>
-            二进制数据反序列化
-            </summary>
-            <summary>
-            二进制数据反序列化
-            </summary>
-            <summary>
-            二进制数据反序列化
-            </summary>
-            <summary>
-            二进制数据反序列化
-            </summary>
-            <summary>
-            二进制数据反序列化
-            </summary>
-            <summary>
-            二进制数据反序列化
-            </summary>
-            <summary>
             二进制反数据序列化
             </summary>
             <summary>
@@ -348,51 +471,6 @@
             </summary>
             <summary>
             二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-            <summary>
-            二进制反数据序列化
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinaryDeserializer.BinaryDeserializeMethodName">
-            <summary>
-            二进制反数据序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinaryDeserializer.BinaryDeserializeMemberMapMethodName">
-            <summary>
-            二进制反数据序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinaryDeserializer.BinarySerializeMemberCountVerifyMethodName">
-            <summary>
-            获取二进制序列化成员数量信息方法名称
             </summary>
         </member>
         <member name="F:AutoCSer.BinaryDeserializer.DefaultConfig">
@@ -1266,6 +1344,40 @@
             <param name="deserializer"></param>
             <param name="value">整数</param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Half@)">
+            <summary>
+            浮点数反序列化
+            </summary>
+            <param name="value">浮点数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Half@)">
+            <summary>
+            浮点数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">浮点数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Half[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Half[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Half[]},System.Half[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.Deserialize(System.Byte*,System.Byte*,System.Char*,System.Int32,System.Int32)">
             <summary>
             字符串反序列化
@@ -1570,6 +1682,46 @@
             基本类型转换函数
             </summary>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.UInt128@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.UInt128@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.UInt128@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.UInt128[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.UInt128[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.UInt128[]},System.UInt128[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Nullable{System.UInt16}@)">
             <summary>
             整数值反序列化
@@ -1800,6 +1952,19 @@
             读取数据 
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.UInt128@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.UInt128@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Int64@)">
             <summary>
@@ -2084,6 +2249,177 @@
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.Read(System.Guid@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Int128@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Int128@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Int128@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Complex@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Complex@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Complex@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Plane@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Plane@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Plane@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Quaternion@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Quaternion@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Quaternion@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Matrix3x2@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Matrix3x2@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Matrix3x2@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Matrix4x4@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Matrix4x4@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Matrix4x4@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Vector2@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector2@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Vector2@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Vector3@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector3@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Vector3@)">
+            <summary>
+            读取数据 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(System.Numerics.Vector4@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector4@)">
+            <summary>
+            整数反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">整数</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Read(System.Numerics.Vector4@)">
             <summary>
             读取数据 
             </summary>
@@ -2622,6 +2958,195 @@
             <param name="array">数组</param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Guid[]},System.Guid[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Int128[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Int128[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Int128[]},System.Int128[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Complex[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Complex[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Complex[]},System.Numerics.Complex[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Plane[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Plane[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Plane[]},System.Numerics.Plane[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Quaternion[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Quaternion[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Quaternion[]},System.Numerics.Quaternion[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Matrix3x2[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Matrix3x2[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Matrix3x2[]},System.Numerics.Matrix3x2[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Matrix4x4[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Matrix4x4[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Matrix4x4[]},System.Numerics.Matrix4x4[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Vector2[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector2[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Vector2[]},System.Numerics.Vector2[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Vector3[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector3[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Vector3[]},System.Numerics.Vector3[]@)">
+            <summary>
+            从数据缓冲区反序列化（不检查对象引用直接读取）
+            </summary>
+            <param name="getBuffer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Vector4[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector4[]@)">
+            <summary>
+            数组反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="array">数组</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.DeserializeBuffer(System.Func{System.Int32,System.Numerics.Vector4[]},System.Numerics.Vector4[]@)">
             <summary>
             从数据缓冲区反序列化（不检查对象引用直接读取）
             </summary>
@@ -3487,6 +4012,136 @@
             <param name="deserializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Int128@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Int128@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Half@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Half@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Complex@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Complex@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Plane@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Plane@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Quaternion@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Quaternion@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Matrix3x2@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Matrix3x2@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Matrix4x4@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Matrix4x4@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Vector2@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector2@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Vector3@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector3@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Numerics.Vector4@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserialize(AutoCSer.BinaryDeserializer,System.Numerics.Vector4@)">
+            <summary>
+            成员反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.BinarySerializeAttribute">
             <summary>
             二进制数据序列化类型配置
@@ -3845,20 +4500,131 @@
             <summary>
             二进制数据序列化
             </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializer.BinarySerializeMethodName">
             <summary>
-            二进制序列化方法名称
+            二进制数据序列化
             </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializer.BinarySerializeMemberMapMethodName">
             <summary>
-            二进制序列化方法名称
+            二进制数据序列化
             </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializer.BinarySerializeMemberTypeMethodName">
             <summary>
-            获取二进制序列化成员类型方法名称
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
+            </summary>
+            <summary>
+            二进制数据序列化
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerializer.NullValue">
@@ -4541,6 +5307,20 @@
             <param name="binarySerializer"></param>
             <param name="value">逻辑值</param>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Half)">
+            <summary>
+            浮点数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Half[],System.Int32)">
+            <summary>
+            浮点数数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Guid)">
             <summary>
             整数序列化
@@ -4699,14 +5479,6 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.BinarySerializer.serialize(System.Void*,System.Int32,System.Int32)">
-            <summary>
-            预增数据流长度并写入长度与数据(4字节对齐)
-            </summary>
-            <param name="data">数据,不能为null</param>
-            <param name="arrayLength">数据数量</param>
-            <param name="dataSize">复制数据数量</param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.GetSize4(System.Int64)">
             <summary>
@@ -4952,6 +5724,13 @@
             基本类型转换函数
             </summary>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.UInt128)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.UInt64[],System.Int32)">
             <summary>
             数组序列化
@@ -4964,6 +5743,13 @@
             数组序列化
             </summary>
             <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.UInt128[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.UInt64[])">
             <summary>
@@ -5018,6 +5804,32 @@
             <param name="array"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.UInt64[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.UInt128[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.UInt128[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.UInt128[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.UInt128[],System.Int32)">
             <summary>
             序列化为数据缓冲区（不检查对象引用直接写入）
             </summary>
@@ -5103,6 +5915,13 @@
             <typeparam name="T"></typeparam>
             <param name="binarySerializer"></param>
             <param name="array">枚举数组序列化</param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.UInt128)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Int64)">
             <summary>
@@ -5212,6 +6031,69 @@
         <member name="M:AutoCSer.BinarySerializer.primitiveMemberSerialize(AutoCSer.BinarySerializer,System.Nullable{System.TimeSpan})">
             <summary>
             整数成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Int128)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Complex)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Plane)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Quaternion)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Matrix3x2)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Matrix4x4)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector2)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector3)">
+            <summary>
+            整数序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector4)">
+            <summary>
+            整数序列化
             </summary>
             <param name="binarySerializer"></param>
             <param name="value"></param>
@@ -5332,6 +6214,69 @@
             数组序列化
             </summary>
             <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Int128[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Complex[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Plane[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Quaternion[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Matrix3x2[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Matrix4x4[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Vector2[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Vector3[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerializeOnly(System.Numerics.Vector4[],System.Int32)">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Int64[])">
             <summary>
@@ -6218,6 +7163,266 @@
             <param name="array"></param>
             <param name="count"></param>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Int128[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Int128[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Int128[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Int128[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Half[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Half[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Half[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Half[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Complex[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Complex[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Complex[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Complex[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Plane[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Plane[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Plane[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Plane[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Quaternion[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Quaternion[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Quaternion[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Quaternion[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Matrix3x2[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Matrix3x2[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Matrix3x2[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Matrix3x2[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Matrix4x4[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Matrix4x4[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Matrix4x4[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Matrix4x4[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Vector2[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector2[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Vector2[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Vector2[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Vector3[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector3[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Vector3[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Vector3[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Numerics.Vector4[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector4[])">
+            <summary>
+            数组序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Vector4[])">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.SerializeBuffer(System.Numerics.Vector4[],System.Int32)">
+            <summary>
+            序列化为数据缓冲区（不检查对象引用直接写入）
+            </summary>
+            <param name="array"></param>
+            <param name="count"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.enumLongArrayOnly``1(``0[],System.Int32)">
             <summary>
             枚举数组序列化
@@ -6684,6 +7889,76 @@
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.TimeSpan)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Int128)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Half)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Complex)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Plane)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Quaternion)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Matrix3x2)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Matrix4x4)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector2)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector3)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.PrimitiveMemberSerialize(AutoCSer.BinarySerializer,System.Numerics.Vector4)">
             <summary>
             成员序列化
             </summary>
@@ -8287,6 +9562,39 @@
             <summary>
             公共配置参数
             </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
+            <summary>
+            公共配置参数
+            </summary>
         </member>
         <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.UInt64[])">
             <summary>
@@ -8313,6 +9621,11 @@
         <member name="F:AutoCSer.Common.Culture">
             <summary>
             默认系统语言文化配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.IsLittleEndian">
+            <summary>
+            是否小端储存模式（序列化操作仅支持小端模式）
             </summary>
         </member>
         <member name="F:AutoCSer.Common.CurrentProcess">
@@ -9054,6 +10367,83 @@
             <param name="destination">目标数据</param>
         </member>
         <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Guid[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.UInt128[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Int128[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Half[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Complex[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Plane[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Quaternion[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Matrix3x2[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Matrix4x4[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Vector2[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Vector3[])">
+            <summary>
+            复制数据
+            </summary>
+            <param name="source">原串起始地址，长度必须大于0</param>
+            <param name="destination">目标数据</param>
+        </member>
+        <member name="M:AutoCSer.Common.CopyTo(System.Void*,System.Numerics.Vector4[])">
             <summary>
             复制数据
             </summary>
@@ -11509,6 +12899,51 @@
             true
             </summary>
         </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Half">
+            <summary>
+            浮点数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Complex">
+            <summary>
+            复数 System.Numerics.Complex
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Vector2">
+            <summary>
+            System.Numerics.Vector2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Vector3">
+            <summary>
+            System.Numerics.Vector3
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Vector4">
+            <summary>
+            System.Numerics.Vector4
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Plane">
+            <summary>
+            System.Numerics.Plane
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Quaternion">
+            <summary>
+            System.Numerics.Quaternion
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Matrix3x2">
+            <summary>
+            System.Numerics.Matrix3x2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.BinaryMixTypeEnum.Matrix4x4">
+            <summary>
+            System.Numerics.Matrix4x4
+            </summary>
+        </member>
         <member name="T:AutoCSer.Json.EnumULongDeserialize`1">
             <summary>
             枚举值解析
@@ -11659,6 +13094,30 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Json.CustomConfig.Write(AutoCSer.JsonSerializer,System.Int128)">
+            <summary>
+            写入整数
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.Json.CustomConfig.Write(AutoCSer.JsonSerializer,System.UInt128)">
+            <summary>
+            写入整数
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.Json.CustomConfig.Write(AutoCSer.JsonSerializer,System.Half)">
+            <summary>
+            写入浮点数
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <returns>未写入字符数量</returns>
+        </member>
         <member name="M:AutoCSer.Json.CustomConfig.Write(AutoCSer.JsonSerializer,System.DateTime)">
             <summary>
             写入时间值
@@ -11683,6 +13142,35 @@
             <param name="serializer"></param>
             <param name="value"></param>
             <returns>未写入字符数量</returns>
+        </member>
+        <member name="M:AutoCSer.Json.CustomConfig.Deserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer,System.Int128@,System.Boolean)">
+            <summary>
+            自定义反序列化整数
+            </summary>
+            <param name="deserializer"></param>
+            <param name="buffer"></param>
+            <param name="value"></param>
+            <param name="isObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Json.CustomConfig.Deserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer,System.UInt128@,System.Boolean)">
+            <summary>
+            自定义反序列化整数
+            </summary>
+            <param name="deserializer"></param>
+            <param name="buffer"></param>
+            <param name="value"></param>
+            <param name="isObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Json.CustomConfig.Deserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer,System.Half@)">
+            <summary>
+            自定义反序列化浮点数
+            </summary>
+            <param name="deserializer"></param>
+            <param name="buffer"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Json.CustomConfig.Deserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer,System.Single@)">
             <summary>
@@ -12215,6 +13703,46 @@
             成员位图类型错误
             </summary>
         </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotComplex">
+            <summary>
+            System.Numerics.Complex 混杂解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotVector2">
+            <summary>
+            System.Numerics.Vector2 混杂解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotVector3">
+            <summary>
+            System.Numerics.Vector3 混杂解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotVector4">
+            <summary>
+            System.Numerics.Vector4 混杂解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotPlane">
+            <summary>
+            System.Numerics.Plane 混杂解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotQuaternion">
+            <summary>
+            System.Numerics.Quaternion 混杂解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotMatrix3x2">
+            <summary>
+            System.Numerics.Matrix3x2 混杂解析失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.DeserializeStateEnum.NotMatrix4x4">
+            <summary>
+            System.Numerics.Matrix4x4 混杂解析失败
+            </summary>
+        </member>
         <member name="F:AutoCSer.Json.DeserializeStateEnum.CustomError">
             <summary>
             自定义反序列化失败
@@ -12358,6 +13886,11 @@
         <member name="F:AutoCSer.Json.NumberTypeEnum.Null">
             <summary>
             null 值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Json.NumberTypeEnum.Object">
+            <summary>
+            对象
             </summary>
         </member>
         <member name="F:AutoCSer.Json.NumberTypeEnum.Error">
@@ -13260,6 +14793,39 @@
             <summary>
             JSON 反序列化
             </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
+            <summary>
+            JSON 反序列化
+            </summary>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.TryDeserializeEnumULong``1(``0@)">
             <summary>
@@ -13303,27 +14869,25 @@
             <param name="jsonDeserializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Vector2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Vector2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.UInt64}@)">
             <summary>
             可空类型解析
             </summary>
             <param name="jsonDeserializer"></param>
             <param name="value"></param>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.JsonDeserializeMethodName">
-            <summary>
-            JSON 反序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.JsonDeserializeMemberMapMethodName">
-            <summary>
-            JSON 反序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonDeserializer.JsonDeserializeMemberNameMethodName">
-            <summary>
-            获取 JSON 反序列化成员名称
-            </summary>
         </member>
         <member name="F:AutoCSer.JsonDeserializer.NullStringValue">
             <summary>
@@ -13882,6 +15446,24 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Nullable{System.Int64}@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Int128@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.UInt128@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Half@)">
             <summary>
             数字解析
             </summary>
@@ -15084,6 +16666,118 @@
             <param name="jsonDeserializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.UInt128@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Int128@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Half@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Complex@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Complex@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Plane@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Plane@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Quaternion@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Quaternion@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Matrix3x2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Matrix3x2@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Matrix4x4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Matrix4x4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Vector3@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Vector3@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Numerics.Vector4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="jsonDeserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonDeserializer.JsonDeserialize(System.Numerics.Vector4@)">
+            <summary>
+            基础类型解析
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonDeserializer.primitiveDeserialize(AutoCSer.JsonDeserializer,System.Nullable{System.Int64}@)">
             <summary>
             可空类型解析
@@ -15343,6 +17037,39 @@
             <summary>
             JSON 序列化
             </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
+            <summary>
+            JSON 序列化
+            </summary>
         </member>
         <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.UInt64[])">
             <summary>
@@ -15379,6 +17106,19 @@
             <param name="jsonSerializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Vector2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Vector2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Nullable{System.UInt64})">
             <summary>
             可空类型转换
@@ -15391,21 +17131,6 @@
             可空类型转换
             </summary>
             <param name="value">可空值</param>
-        </member>
-        <member name="F:AutoCSer.JsonSerializer.JsonSerializeMethodName">
-            <summary>
-            JSON 序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonSerializer.JsonSerializeMemberMapMethodName">
-            <summary>
-            JSON 序列化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.JsonSerializer.JsonSerializeMemberTypeMethodName">
-            <summary>
-            获取 JSON 序列化成员类型方法名称
-            </summary>
         </member>
         <member name="F:AutoCSer.JsonSerializer.NullString">
             <summary>
@@ -15885,6 +17610,24 @@
             <param name="value">数字</param>
         </member>
         <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(System.UInt64)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Int128)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.UInt128)">
+            <summary>
+            数字转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Half)">
             <summary>
             数字转换
             </summary>
@@ -16429,6 +18172,27 @@
             <param name="jsonSerializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.UInt128)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Int128)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Half)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.JsonSerializer.EnumLong``1(``0)">
             <summary>
             枚举值序列化（用于代码生成，不允许开发者调用）
@@ -16532,6 +18296,97 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Complex)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Complex)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Plane)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Plane)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Quaternion)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Quaternion)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Matrix3x2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Matrix3x2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Matrix4x4)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Matrix4x4)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Vector3)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Vector3)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Numerics.Vector4)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="jsonSerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.JsonSerializer.JsonSerialize(System.Numerics.Vector4)">
+            <summary>
+            基础类型转换
+            </summary>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.JsonSerializer.primitiveSerialize(AutoCSer.JsonSerializer,System.Nullable{System.Int64})">
@@ -18257,6 +20112,39 @@
             <summary>
             指针(指针无法静态初始化与异步操作)
             </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
+            <summary>
+            指针(指针无法静态初始化与异步操作)
+            </summary>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.SerializeWriteNullable(System.UInt64)">
             <summary>
@@ -18928,6 +20816,72 @@
             </summary>
             <param name="value">数据</param>
         </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Half)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Int128)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.UInt128)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Complex)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Plane)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Quaternion)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Matrix3x2)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Matrix4x4)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Vector2)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Vector3)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.Write(System.Numerics.Vector4)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+        </member>
         <member name="T:AutoCSer.Memory.Common">
             <summary>
             内存或字节数组处理
@@ -19492,6 +21446,39 @@
             <summary>
             非托管内存数据流
             </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
+            <summary>
+            非托管内存数据流
+            </summary>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.UInt64)">
             <summary>
@@ -19778,6 +21765,14 @@
             <param name="isCopy"></param>
             <returns>不包括补白的字节数，0 表示序列化失败</returns>
         </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Serialize(System.Void*,System.Int32,System.Int32)">
+            <summary>
+            预增数据流长度并写入长度与数据(4字节对齐)
+            </summary>
+            <param name="data">数据,不能为null</param>
+            <param name="arrayLength">数据数量</param>
+            <param name="dataSize">复制数据数量</param>
+        </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(AutoCSer.Memory.Pointer@)">
             <summary>
             写入数据
@@ -19924,6 +21919,83 @@
             <returns>是否写入成功</returns>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Decimal)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Half)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Int128)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.UInt128)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Complex)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Plane)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Quaternion)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Matrix3x2)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Matrix4x4)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Vector2)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Vector3)">
+            <summary>
+            写数据
+            </summary>
+            <param name="value">数据</param>
+            <returns>是否写入成功</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Numerics.Vector4)">
             <summary>
             写数据
             </summary>
@@ -20534,11 +22606,6 @@
         <member name="T:AutoCSer.Metadata.DefaultConstructor">
             <summary>
             默认构造函数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Metadata.DefaultConstructor.DefaultConstructorMethodName">
-            <summary>
-            默认构造函数方法名称
             </summary>
         </member>
         <member name="M:AutoCSer.Metadata.DefaultConstructor.GetConstructor``1">
@@ -21531,6 +23598,81 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientReturnValueDelegate">
+            <summary>
+            获取客户端返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientReturnTypeDelegate">
+            <summary>
+            获取客户端错误返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerCallbackDelegate">
+            <summary>
+            命令客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerKeepCallbackDelegate">
+            <summary>
+            命令客户端保持回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerCallbackQueueDelegate">
+            <summary>
+            命令客户端队列回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerKeepCallbackQueueDelegate">
+            <summary>
+            命令客户端队列保持回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerReturnValueDelegate">
+            <summary>
+            命令客户端返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientReturnCommandGetTaskDelegate">
+            <summary>
+            获取 Task 委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerReturnValueQueueDelegate">
+            <summary>
+            命令客户端队列返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerEnumeratorDelegate">
+            <summary>
+            命令客户端枚举返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerEnumeratorQueueDelegate">
+            <summary>
+            命令客户端队列枚举返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientCallbackDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientKeepCallbackDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientCallbackQueueDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientKeepCallbackQueueDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.TaskType">
             <summary>
             Task 类型
@@ -21806,81 +23948,6 @@
             设置客户端命令服务返回值
             </summary>
         </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientReturnValueDelegate">
-            <summary>
-            获取客户端返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientReturnTypeDelegate">
-            <summary>
-            获取客户端错误返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerCallbackDelegate">
-            <summary>
-            命令客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerKeepCallbackDelegate">
-            <summary>
-            命令客户端保持回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerCallbackQueueDelegate">
-            <summary>
-            命令客户端队列回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerKeepCallbackQueueDelegate">
-            <summary>
-            命令客户端队列保持回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerReturnValueDelegate">
-            <summary>
-            命令客户端返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientReturnCommandGetTaskDelegate">
-            <summary>
-            获取 Task 委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerReturnValueQueueDelegate">
-            <summary>
-            命令客户端队列返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerEnumeratorDelegate">
-            <summary>
-            命令客户端枚举返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.CommandClientControllerEnumeratorQueueDelegate">
-            <summary>
-            命令客户端队列枚举返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientCallbackDelegate">
-            <summary>
-            获取客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientKeepCallbackDelegate">
-            <summary>
-            获取客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientCallbackQueueDelegate">
-            <summary>
-            获取客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType.GetCommandClientKeepCallbackQueueDelegate">
-            <summary>
-            获取客户端回调委托
-            </summary>
-        </member>
         <member name="P:AutoCSer.Metadata.GenericType.CommandServerKeepCallbackQueueTaskGetTaskQueueDelegate">
             <summary>
             获取命令服务 Task 队列
@@ -22105,6 +24172,81 @@
             获取二进制反序列化函数信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientReturnValueDelegate">
+            <summary>
+            获取命令客户端返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientReturnTypeDelegate">
+            <summary>
+            获取命令客户端错误返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerCallbackDelegate">
+            <summary>
+            命令客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerKeepCallbackDelegate">
+            <summary>
+            命令客户端保持回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerCallbackQueueDelegate">
+            <summary>
+            命令客户端队列回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerKeepCallbackQueueDelegate">
+            <summary>
+            命令客户端队列保持回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerReturnValueDelegate">
+            <summary>
+            命令客户端返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientReturnCommandGetTaskDelegate">
+            <summary>
+            获取 Task 委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerReturnValueQueueDelegate">
+            <summary>
+            命令客户端队列返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerEnumeratorDelegate">
+            <summary>
+            命令客户端枚举返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerEnumeratorQueueDelegate">
+            <summary>
+            命令客户端队列枚举返回值委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientCallbackDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientKeepCallbackDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientCallbackQueueDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientKeepCallbackQueueDelegate">
+            <summary>
+            获取客户端回调委托
+            </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.TaskType">
             <summary>
@@ -22379,81 +24521,6 @@
         <member name="P:AutoCSer.Metadata.GenericType`1.SetCommandServerReturnValueDelegate">
             <summary>
             设置客户端命令服务返回值
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientReturnValueDelegate">
-            <summary>
-            获取命令客户端返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientReturnTypeDelegate">
-            <summary>
-            获取命令客户端错误返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerCallbackDelegate">
-            <summary>
-            命令客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerKeepCallbackDelegate">
-            <summary>
-            命令客户端保持回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerCallbackQueueDelegate">
-            <summary>
-            命令客户端队列回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerKeepCallbackQueueDelegate">
-            <summary>
-            命令客户端队列保持回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerReturnValueDelegate">
-            <summary>
-            命令客户端返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientReturnCommandGetTaskDelegate">
-            <summary>
-            获取 Task 委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerReturnValueQueueDelegate">
-            <summary>
-            命令客户端队列返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerEnumeratorDelegate">
-            <summary>
-            命令客户端枚举返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.CommandClientControllerEnumeratorQueueDelegate">
-            <summary>
-            命令客户端队列枚举返回值委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientCallbackDelegate">
-            <summary>
-            获取客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientKeepCallbackDelegate">
-            <summary>
-            获取客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientCallbackQueueDelegate">
-            <summary>
-            获取客户端回调委托
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Metadata.GenericType`1.GetCommandClientKeepCallbackQueueDelegate">
-            <summary>
-            获取客户端回调委托
             </summary>
         </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CommandServerKeepCallbackQueueTaskGetTaskQueueDelegate">
@@ -23482,6 +25549,411 @@
             sbyte
             </summary>
         </member>
+        <member name="T:AutoCSer.ComplexUnion">
+            <summary>
+            System.Numerics.Complex
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ComplexUnion.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.ComplexUnion.Complex">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.HalfUnion">
+            <summary>
+            Half / ushort
+            </summary>
+        </member>
+        <member name="F:AutoCSer.HalfUnion.Half">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.HalfUnion.UShort">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Int128Union">
+            <summary>
+            Int128 / UInt128
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Int128Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Int128Union.UInt128">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Int128Union.Int128">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Matrix3x2Union">
+            <summary>
+            Matrix3x2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Matrix3x2Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Matrix3x2Union.Matrix3x2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Matrix4x4Union">
+            <summary>
+            Matrix4x4
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Matrix4x4Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Matrix4x4Union.Matrix4x4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.PlaneUnion">
+            <summary>
+            Plane
+            </summary>
+        </member>
+        <member name="F:AutoCSer.PlaneUnion.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.PlaneUnion.Plane">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.QuaternionUnion">
+            <summary>
+            Quaternion
+            </summary>
+        </member>
+        <member name="F:AutoCSer.QuaternionUnion.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.QuaternionUnion.Quaternion">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeComplex">
+            <summary>
+            System.Numerics.Complex
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeComplex.Real">
+            <summary>
+            实数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeComplex.Imaginary">
+            <summary>
+            虚数
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeInt128">
+            <summary>
+            Int128 / UInt128
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeInt128.Lower">
+            <summary>
+            低 64b
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeInt128.Upper">
+            <summary>
+            高 64b
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeMatrix3x2">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix3x2.M11">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix3x2.M12">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix3x2.M21">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix3x2.M22">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix3x2.M31">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix3x2.M32">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeMatrix4x4">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M11">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M12">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M13">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M14">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M21">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M22">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M23">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M24">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M31">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M32">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M33">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M34">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M41">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M42">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M43">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeMatrix4x4.M44">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializePlane">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializePlane.Normal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializePlane.D">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeQuaternion">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeQuaternion.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeQuaternion.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeQuaternion.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeQuaternion.W">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeVector2">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector2.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector2.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeVector3">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector3.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector3.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector3.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SerializeVector4">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector4.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector4.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector4.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.SerializeVector4.W">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Vector2Union">
+            <summary>
+            Vector2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Vector2Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Vector2Union.Vector2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Vector3Union">
+            <summary>
+            Vector3
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Vector3Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Vector3Union.Vector3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Vector4Union">
+            <summary>
+            Vector4
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Vector4Union.SerializeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Vector4Union.Vector4">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:AutoCSer.IAsyncDisposable">
             <summary>
             异步释放资源
@@ -23753,7 +26225,7 @@
             <param name="serverMethodNames"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientTaskQueueInterfaceController`3.create(AutoCSer.Net.CommandClientController{`0,`2},`2)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientTaskQueueInterfaceController`3.create(AutoCSer.Net.CommandServer.TaskQueueClientController{`0,`2},`2)">
             <summary>
             创建命令客户端控制器
             </summary>
@@ -24071,7 +26543,7 @@
             <param name="serverMethodNames"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`2.methods">
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`2.Methods">
             <summary>
             客户端接口方法信息集合
             </summary>
@@ -24743,7 +27215,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.CallbackQueueOutputCommand`2">
             <summary>
-            队列回调委托命令
+            回调委托命令
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="RT"></typeparam>
@@ -25199,7 +27671,7 @@
             枚举命令
             </summary>
             <typeparam name="T"></typeparam>
-            <typeparam name="OT"></typeparam>
+            <typeparam name="RT"></typeparam>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.EnumeratorCommand`2.inputParameter">
             <summary>
@@ -25261,7 +27733,7 @@
             队列枚举命令
             </summary>
             <typeparam name="T"></typeparam>
-            <typeparam name="OT"></typeparam>
+            <typeparam name="RT"></typeparam>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.EnumeratorQueueCommand`2.inputParameter">
             <summary>
@@ -25294,8 +27766,9 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.KeepCallbackQueueOutputCommand`1">
             <summary>
-            队列保持回调命令
+            队列回调委托命令
             </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.KeepCallbackQueueOutputCommand`1.returnValue">
             <summary>
@@ -25359,7 +27832,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.KeepCallbackQueueOutputCommand`2">
             <summary>
-            队列保持回调命令
+            回调委托命令
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="RT"></typeparam>
@@ -25469,8 +27942,9 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.KeepCallbackOutputCommand`1">
             <summary>
-            保持回调命令
+            队列回调委托命令
             </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.KeepCallbackOutputCommand`1.returnValue">
             <summary>
@@ -25521,7 +27995,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.KeepCallbackOutputCommand`2">
             <summary>
-            保持回调命令
+            回调委托命令
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="RT"></typeparam>
@@ -25718,7 +28192,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ReturnValueQueueCommand`1">
             <summary>
-            返回值命令
+            队列回调委托命令
             </summary>
             <typeparam name="T"></typeparam>
         </member>
@@ -25800,7 +28274,7 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ReturnValueCommand`1">
             <summary>
-            返回值命令
+            队列回调委托命令
             </summary>
             <typeparam name="T"></typeparam>
         </member>
@@ -26305,7 +28779,7 @@
             是否简单反序列化输入数据
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodBase.isReturnType">
+        <member name="F:AutoCSer.Net.CommandServer.InterfaceMethodBase.IsReturnType">
             <summary>
             返回值类型是否一致
             </summary>
@@ -26397,6 +28871,11 @@
             客户端接口方法信息
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.QueueKeyParameterName">
+            <summary>
+            队列关键字参数名称
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.ServerMethod">
             <summary>
             对应的服务端接口方法信息，非对称定义为 null
@@ -26422,7 +28901,7 @@
             客户端方法调用类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.isCallbackAction">
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.IsCallbackAction">
             <summary>
             是否 Action 回调参数
             </summary>
@@ -26519,17 +28998,6 @@
             <param name="returnValueGenericType"></param>
             <param name="outputParameterLocalBuilder"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@,System.Boolean)">
-            <summary>
-            获取客户端接口方法集合
-            </summary>
-            <param name="type"></param>
-            <param name="controllerAttribute"></param>
-            <param name="taskQueueControllerKeyType"></param>
-            <param name="methods"></param>
-            <param name="isServer"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetServerMethodIndexs(System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.String[])">
             <summary>
             获取服务端方法编号集合
@@ -26553,6 +29021,17 @@
             抛出异常
             </summary>
             <param name="error"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@,System.Boolean)">
+            <summary>
+            获取客户端接口方法集合
+            </summary>
+            <param name="type"></param>
+            <param name="controllerAttribute"></param>
+            <param name="taskQueueControllerKeyType"></param>
+            <param name="methods"></param>
+            <param name="isServer"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum">
             <summary>
@@ -27335,7 +29814,7 @@
             参数类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.fields">
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.Fields">
             <summary>
             参数字段集合
             </summary>
@@ -29738,6 +32217,37 @@
             <summary>
             检查服务控制器相关错误信息
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.TaskQueueClientController`2">
+            <summary>
+            服务端 Task 队列命令客户端控制器
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.TaskQueueClientController`2.createQueueController">
+            <summary>
+            创建客户端控制器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TaskQueueClientController`2.#ctor(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.Int32[],System.Int32,System.Func{AutoCSer.Net.CommandServer.TaskQueueClientController{`0,`1},`1,`0})">
+            <summary>
+            服务端 Task 队列命令客户端控制器
+            </summary>
+            <param name="socket"></param>
+            <param name="controllerName"></param>
+            <param name="startMethodIndex"></param>
+            <param name="methods"></param>
+            <param name="serverMethodIndexs"></param>
+            <param name="verifyMethodIndex"></param>
+            <param name="createQueueController"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TaskQueueClientController`2.CreateQueueController(`1)">
+            <summary>
+            创建客户端控制器
+            </summary>
+            <param name="key"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandClientCallback">
@@ -32691,6 +35201,12 @@
             <param name="queue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.getTaskQueue">
+            <summary>
+            获取命令服务 Task 队列
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.GetTaskQueue(AutoCSer.Net.CommandServerCallTaskQueueNode)">
             <summary>
             获取命令服务 Task 队列
@@ -33481,6 +35997,13 @@
             <param name="queue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask.getTaskQueue(AutoCSer.Net.CommandServerKeepCallback)">
+            <summary>
+            获取命令服务 Task 队列
+            </summary>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask.GetTaskQueue(AutoCSer.Net.CommandServerKeepCallbackQueueTask,AutoCSer.Net.CommandServerKeepCallback)">
             <summary>
             获取命令服务 Task 队列
@@ -33553,6 +36076,13 @@
             <param name="task"></param>
             <param name="method"></param>
             <param name="queue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.getTaskQueue(AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
+            <summary>
+            获取命令服务 Task 队列
+            </summary>
+            <param name="method"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallbackQueueTask`1.GetTaskQueue(AutoCSer.Net.CommandServerKeepCallbackQueueTask{`0},AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
@@ -34063,11 +36593,6 @@
             控制器名称，默认为 ServerInterfaceType.Name
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientControllerCreatorParameter.TaskQueueKeyType">
-            <summary>
-            服务端 Task 队列关键字类型
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandClientControllerCreatorParameter.PropertyName">
             <summary>
             绑定属性名称
@@ -34078,22 +36603,10 @@
             客户端控制器创建器
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.#ctor(System.Type,System.Type,System.String,System.String)">
+        <member name="F:AutoCSer.Net.CommandClientControllerCreatorParameter.TaskQueueKeyType">
             <summary>
-            客户端控制器创建器参数
+            服务端 Task 队列关键字类型
             </summary>
-            <param name="serverInterfaceType">服务端接口类型</param>
-            <param name="clientInterfaceType">客户端接口类型</param>
-            <param name="controllerName">控制器名称，默认为 serverInterfaceType.Name</param>
-            <param name="propertyName">绑定属性名称，客户端接口与服务端接口 1 对多的场景识别绑定属性</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.#ctor(System.Type,System.String,System.String)">
-            <summary>
-            客户端控制器创建器参数
-            </summary>
-            <param name="interfaceType">对称服务接口类型</param>
-            <param name="controllerName">控制器名称，默认为 serverInterfaceType.Name</param>
-            <param name="propertyName">绑定属性名称，客户端接口与服务端接口 1 对多的场景识别绑定属性</param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.#ctor(System.Type,System.Type,System.Type,System.String,System.String)">
             <summary>
@@ -34112,6 +36625,23 @@
             <param name="controllerName">控制器名称，默认采用 MethodIndexEnumType 类型名称</param>
             <param name="clientInterfaceType">客户端接口类型</param>
             <param name="taskQueueKeyType">服务端 Task 队列关键字类型</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.#ctor(System.Type,System.Type,System.String,System.String)">
+            <summary>
+            客户端控制器创建器参数
+            </summary>
+            <param name="serverInterfaceType">服务端接口类型</param>
+            <param name="clientInterfaceType">客户端接口类型</param>
+            <param name="controllerName">控制器名称，默认为 serverInterfaceType.Name</param>
+            <param name="propertyName">绑定属性名称，客户端接口与服务端接口 1 对多的场景识别绑定属性</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.#ctor(System.Type,System.String,System.String)">
+            <summary>
+            客户端控制器创建器参数
+            </summary>
+            <param name="interfaceType">对称服务接口类型</param>
+            <param name="controllerName">控制器名称，默认为 serverInterfaceType.Name</param>
+            <param name="propertyName">绑定属性名称，客户端接口与服务端接口 1 对多的场景识别绑定属性</param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientControllerCreatorParameter.GetControllerName">
             <summary>
@@ -36673,18 +39203,18 @@
             <param name="methodIndex"></param>
             <param name="returnValue"></param>
         </member>
-        <member name="M:AutoCSer.Net.EnumeratorCommand`1.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
-            <summary>
-            创建命令输入数据错误处理
-            </summary>
-            <param name="returnType"></param>
-        </member>
         <member name="M:AutoCSer.Net.EnumeratorCommand`1.OnReceive(AutoCSer.SubArray{System.Byte}@)">
             <summary>
             委托命令回调
             </summary>
             <param name="data"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.EnumeratorCommand`1.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            创建命令输入数据错误处理
+            </summary>
+            <param name="returnType"></param>
         </member>
         <member name="M:AutoCSer.Net.EnumeratorCommand`1.CancelKeepCallback(AutoCSer.Net.CommandClientReturnTypeEnum,System.String)">
             <summary>
@@ -36862,18 +39392,18 @@
             <param name="methodIndex"></param>
             <param name="returnValue"></param>
         </member>
-        <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
-            <summary>
-            创建命令输入数据错误处理
-            </summary>
-            <param name="returnType"></param>
-        </member>
         <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.OnReceive(AutoCSer.SubArray{System.Byte}@)">
             <summary>
             委托命令回调
             </summary>
             <param name="data"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            创建命令输入数据错误处理
+            </summary>
+            <param name="returnType"></param>
         </member>
         <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.CancelKeepCallback(AutoCSer.Net.CommandClientReturnTypeEnum,System.String)">
             <summary>
@@ -37598,6 +40128,7 @@
             Gets the command client socket event
             获取命令客户端套接字事件
             </summary>
+            <typeparam name="T"></typeparam>
             <returns>Return null on failure
             失败返回 null</returns>
         </member>
@@ -37824,16 +40355,6 @@
             <param name="callback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientController.CallbackInput``1(System.Int32,AutoCSer.Net.CommandClientCallback,``0@)">
-            <summary>
-            回调委托
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="callback"></param>
-            <param name="inputParameter"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandClientController.Callback``1(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{``0})">
             <summary>
             回调委托
@@ -37867,6 +40388,16 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.CallbackInput``1(System.Int32,AutoCSer.Net.CommandClientCallback,``0@)">
+            <summary>
+            回调委托
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.KeepCallback(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientKeepCallback)">
             <summary>
             保持回调委托
@@ -37874,16 +40405,6 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="keepCallback"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.KeepCallbackInput``1(System.Int32,AutoCSer.Net.CommandClientKeepCallback,``0@)">
-            <summary>
-            保持回调委托
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="keepCallback"></param>
-            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.KeepCallback``1(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientKeepCallback{``0})">
@@ -37919,6 +40440,16 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.KeepCallbackInput``1(System.Int32,AutoCSer.Net.CommandClientKeepCallback,``0@)">
+            <summary>
+            保持回调委托
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.AppendQueue(AutoCSer.Net.CommandServer.ClientInterfaceMethod,AutoCSer.Net.CommandClientCallQueueNode)">
             <summary>
             添加到回调队列
@@ -37933,16 +40464,6 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="callbackQueue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.CallbackQueueInput``1(System.Int32,AutoCSer.Net.CommandClientCallbackQueueNode,``0@)">
-            <summary>
-            队列回调委托
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="callbackQueue"></param>
-            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.CallbackQueue``1(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallbackQueueNode{``0})">
@@ -37978,6 +40499,16 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.CallbackQueueInput``1(System.Int32,AutoCSer.Net.CommandClientCallbackQueueNode,``0@)">
+            <summary>
+            队列回调委托
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callbackQueue"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.KeepCallbackQueue(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientKeepCallbackQueue)">
             <summary>
             队列保持回调委托
@@ -37985,16 +40516,6 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="keepCallbackQueue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.KeepCallbackQueueInput``1(System.Int32,AutoCSer.Net.CommandClientKeepCallbackQueue,``0@)">
-            <summary>
-            队列保持回调委托
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="keepCallbackQueue"></param>
-            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.KeepCallbackQueue``1(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientKeepCallbackQueue{``0})">
@@ -38030,21 +40551,22 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.KeepCallbackQueueInput``1(System.Int32,AutoCSer.Net.CommandClientKeepCallbackQueue,``0@)">
+            <summary>
+            队列保持回调委托
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="keepCallbackQueue"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.ReturnType(AutoCSer.Net.CommandClientController,System.Int32)">
             <summary>
             返回值
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.ReturnTypeInput``1(System.Int32,``0@)">
-            <summary>
-            返回值
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.ReturnValue``1(AutoCSer.Net.CommandClientController,System.Int32)">
@@ -38077,6 +40599,15 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.ReturnTypeInput``1(System.Int32,``0@)">
+            <summary>
+            返回值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.AppendQueue(AutoCSer.Net.CommandServer.ClientInterfaceMethod,System.Action)">
             <summary>
             添加到回调队列
@@ -38090,15 +40621,6 @@
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.ReturnTypeQueueInput``1(System.Int32,``0@)">
-            <summary>
-            返回值
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.ReturnValueQueue``1(AutoCSer.Net.CommandClientController,System.Int32)">
@@ -38131,21 +40653,21 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.ReturnTypeQueueInput``1(System.Int32,``0@)">
+            <summary>
+            返回值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.Enumerator(AutoCSer.Net.CommandClientController,System.Int32)">
             <summary>
             枚举返回值
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.EnumeratorInput``1(System.Int32,``0@)">
-            <summary>
-            枚举返回值
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.Enumerator``1(AutoCSer.Net.CommandClientController,System.Int32)">
@@ -38178,21 +40700,21 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.EnumeratorInput``1(System.Int32,``0@)">
+            <summary>
+            枚举返回值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.EnumeratorQueue(AutoCSer.Net.CommandClientController,System.Int32)">
             <summary>
             队列枚举返回值
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController.EnumeratorQueueInput``1(System.Int32,``0@)">
-            <summary>
-            队列枚举返回值
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodIndex"></param>
-            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientController.EnumeratorQueue``1(AutoCSer.Net.CommandClientController,System.Int32)">
@@ -38225,35 +40747,13 @@
             <param name="returnValue"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.Net.CommandClientController`2">
+        <member name="M:AutoCSer.Net.CommandClientController.EnumeratorQueueInput``1(System.Int32,``0@)">
             <summary>
-            服务端 Task 队列命令客户端控制器
+            队列枚举返回值
             </summary>
             <typeparam name="T"></typeparam>
-            <typeparam name="KT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientController`2.createQueueController">
-            <summary>
-            创建客户端控制器
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController`2.#ctor(AutoCSer.Net.CommandClientSocket,System.String,System.Int32,AutoCSer.Net.CommandServer.ClientInterfaceMethod[],System.Int32[],System.Int32,System.Func{AutoCSer.Net.CommandClientController{`0,`1},`1,`0})">
-            <summary>
-            服务端 Task 队列命令客户端控制器
-            </summary>
-            <param name="socket"></param>
-            <param name="controllerName"></param>
-            <param name="startMethodIndex"></param>
-            <param name="methods"></param>
-            <param name="serverMethodIndexs"></param>
-            <param name="verifyMethodIndex"></param>
-            <param name="createQueueController"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClientController`2.CreateQueueController(`1)">
-            <summary>
-            创建客户端控制器
-            </summary>
-            <param name="key"></param>
+            <param name="methodIndex"></param>
+            <param name="inputParameter"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandClientSocket">
@@ -41538,11 +44038,6 @@
             接收数据二进制反序列化
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.receiveJsonDeserializer">
-            <summary>
-            接收数据 JSON 解析
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.verifyTimeout">
             <summary>
             验证超时时间
@@ -43286,6 +45781,30 @@
             获取配置对象类型
             </summary>
             <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ConfigObject.Create``1(System.Object)">
+            <summary>
+            创建配置对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ConfigObject.CreateTask``1(System.Object)">
+            <summary>
+            创建配置对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.ConfigObject.GetTask``1(System.Object)">
+            <summary>
+            获取配置对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="task"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.ConfigObject`1">
@@ -45696,6 +48215,39 @@
             <summary>
             简单反序列化
             </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
+            <summary>
+            简单反序列化
+            </summary>
         </member>
         <member name="M:AutoCSer.SimpleSerialize.Deserializer.EnumULong``1(System.Byte*,``0@)">
             <summary>
@@ -45718,11 +48270,6 @@
             </summary>
             <param name="data"></param>
             <param name="value"></param>
-        </member>
-        <member name="F:AutoCSer.SimpleSerialize.Deserializer.SimpleDeserializeMethodName">
-            <summary>
-            反序列化方法名称
-            </summary>
         </member>
         <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Nullable{System.Boolean}@)">
             <summary>
@@ -45772,7 +48319,7 @@
             <param name="value">数值</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.SimpleSerialize.Deserializer.deserialize(System.Byte*,System.String@,System.Byte*)">
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.String@,System.Byte*)">
             <summary>
             字符串反序列化
             </summary>
@@ -45781,12 +48328,21 @@
             <param name="end"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.String@,System.Byte*)">
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.NotNull(System.Byte*,System.String@,System.Byte*)">
             <summary>
             字符串反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Byte[]@,System.Byte*)">
+            <summary>
+            字节数组反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value">字符串</param>
             <param name="end"></param>
             <returns></returns>
         </member>
@@ -45995,6 +48551,83 @@
             <param name="data"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Half@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Int128@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.UInt128@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Complex@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Plane@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Quaternion@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Matrix3x2@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Matrix4x4@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Vector2@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Vector3@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Deserializer.Deserialize(System.Byte*,System.Numerics.Vector4@)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="data"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.SimpleSerialize.Deserializer.EnumLong``1(System.Byte*,``0@)">
             <summary>
             枚举值反序列化
@@ -46154,6 +48787,39 @@
             <summary>
             简单序列化
             </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
+            <summary>
+            简单序列化
+            </summary>
         </member>
         <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Nullable{System.UInt64})">
             <summary>
@@ -46177,10 +48843,12 @@
             <param name="unmanagedStream">二进制数据序列化</param>
             <param name="value">枚举值序列化</param>
         </member>
-        <member name="F:AutoCSer.SimpleSerialize.Serializer.SimpleSerializeMethodName">
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Byte[])">
             <summary>
-            序列化方法名称
+            字符串序列化
             </summary>
+            <param name="stream"></param>
+            <param name="value">字符串</param>
         </member>
         <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.String)">
             <summary>
@@ -46420,6 +49088,83 @@
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.TimeSpan)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Half)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Int128)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.UInt128)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Complex)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Plane)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Quaternion)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Matrix3x2)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Matrix4x4)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Vector2)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Vector3)">
+            <summary>
+            序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.SimpleSerialize.Serializer.serialize(AutoCSer.Memory.UnmanagedStream,System.Numerics.Vector4)">
             <summary>
             序列化
             </summary>
@@ -50753,6 +53498,407 @@
             </summary>
             <param name="value">匹配数据</param>
             <returns>是否存在数据</returns>
+        </member>
+        <member name="T:System.Numerics.Matrix4x4">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M11">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M12">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M13">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M14">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M21">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M22">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M23">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M24">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M31">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M32">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M33">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M34">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M41">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M42">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M43">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix4x4.M44">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Numerics.Matrix4x4.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="m11"></param>
+            <param name="m12"></param>
+            <param name="m13"></param>
+            <param name="m14"></param>
+            <param name="m21"></param>
+            <param name="m22"></param>
+            <param name="m23"></param>
+            <param name="m24"></param>
+            <param name="m31"></param>
+            <param name="m32"></param>
+            <param name="m33"></param>
+            <param name="m34"></param>
+            <param name="m41"></param>
+            <param name="m42"></param>
+            <param name="m43"></param>
+            <param name="m44"></param>
+        </member>
+        <member name="T:System.Numerics.Matrix3x2">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix3x2.M11">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix3x2.M12">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix3x2.M21">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix3x2.M22">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix3x2.M31">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Matrix3x2.M32">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Numerics.Matrix3x2.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="m11"></param>
+            <param name="m12"></param>
+            <param name="m21"></param>
+            <param name="m22"></param>
+            <param name="m31"></param>
+            <param name="m32"></param>
+        </member>
+        <member name="T:System.Numerics.Vector2">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector2.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector2.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Numerics.Vector2.#ctor(System.Single,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="T:System.Numerics.Quaternion">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Quaternion.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Quaternion.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Quaternion.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Quaternion.W">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Numerics.Quaternion.#ctor(System.Numerics.Vector3,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="vector3"></param>
+            <param name="w"></param>
+        </member>
+        <member name="T:System.Numerics.Vector4">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector4.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector4.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector4.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector4.W">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Numerics.Vector4.#ctor(System.Numerics.Vector3,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="vector3"></param>
+            <param name="w"></param>
+        </member>
+        <member name="T:System.Numerics.Vector3">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector3.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector3.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Vector3.Z">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Numerics.Vector3.#ctor(System.Numerics.Vector2,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="vector2"></param>
+            <param name="z"></param>
+        </member>
+        <member name="T:System.Numerics.Plane">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Plane.Normal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:System.Numerics.Plane.D">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Numerics.Plane.#ctor(System.Numerics.Vector3,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="normal"></param>
+            <param name="d"></param>
+        </member>
+        <member name="T:System.Half">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Half.value">
+            <summary>
+            16b
+            </summary>
+        </member>
+        <member name="M:System.Half.Equals(System.Half)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Half.Equals(System.Object)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Half.GetHashCode">
+            <summary>
+            获取哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:System.Int128">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.Int128.lower">
+            <summary>
+            低 64b
+            </summary>
+        </member>
+        <member name="F:System.Int128.upper">
+            <summary>
+            高 64b
+            </summary>
+        </member>
+        <member name="M:System.Int128.#ctor(System.UInt64,System.UInt64)">
+            <summary>
+            
+            </summary>
+            <param name="upper"></param>
+            <param name="lower"></param>
+        </member>
+        <member name="M:System.Int128.Equals(System.Int128)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Int128.Equals(System.Object)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Int128.GetHashCode">
+            <summary>
+            获取哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:System.UInt128">
+            <summary>
+            .NET8 类型定义（用于二进制序列化兼容操作）
+            </summary>
+        </member>
+        <member name="F:System.UInt128.lower">
+            <summary>
+            低 64b
+            </summary>
+        </member>
+        <member name="F:System.UInt128.upper">
+            <summary>
+            高 64b
+            </summary>
+        </member>
+        <member name="M:System.UInt128.#ctor(System.UInt64,System.UInt64)">
+            <summary>
+            
+            </summary>
+            <param name="upper"></param>
+            <param name="lower"></param>
+        </member>
+        <member name="M:System.UInt128.Equals(System.UInt128)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.UInt128.Equals(System.Object)">
+            <summary>
+            判断是否相等
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.UInt128.GetHashCode">
+            <summary>
+            获取哈希值
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -193,8 +193,8 @@ namespace AutoCSer.CodeGenerator.Template
                 @XmlSerializeMemberMapMethodName(null, null, value, null);
                 @XmlDeserializeMethodName(null, ref value, 0);
                 @XmlDeserializeMemberNameMethodName();
-                AutoCSer.XmlSerializer.XmlSerialize<@CurrentType.FullName>();
-                AutoCSer.XmlDeserializer.XmlDeserialize<@CurrentType.FullName>();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(@CurrentType.FullName));
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(@CurrentType.FullName));
                 #region IF MemberTypeCount
                 @XmlSerializeMemberTypeMethodName();
                 #endregion IF MemberTypeCount

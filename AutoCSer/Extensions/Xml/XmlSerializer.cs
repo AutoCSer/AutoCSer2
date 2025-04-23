@@ -15,18 +15,6 @@ namespace AutoCSer
     public unsafe sealed partial class XmlSerializer : TextSerializer<XmlSerializer, XmlSerializeConfig>
     {
         /// <summary>
-        /// XML 序列化方法名称
-        /// </summary>
-        internal const string XmlSerializeMethodName = "XmlSerialize";
-        /// <summary>
-        /// XML 序列化方法名称
-        /// </summary>
-        internal const string XmlSerializeMemberMapMethodName = "XmlSerializeMemberMap";
-        /// <summary>
-        /// 获取 XML 序列化成员类型方法名称
-        /// </summary>
-        internal const string XmlSerializeMemberTypeMethodName = "XmlSerializeMemberTypes";
-        /// <summary>
         /// XML 自定义全局配置
         /// </summary>
         public static readonly CustomConfig CustomConfig = AutoCSer.Configuration.Common.Get<CustomConfig>()?.Value ?? new CustomConfig();
@@ -727,34 +715,89 @@ namespace AutoCSer
             }
             CharStream.Write(value);
         }
-        ///// <summary>
-        ///// 数字转换
-        ///// </summary>
-        ///// <param name="value">数字</param>
-        //public void PrimitiveSerialize(Int128 value)
-        //{
-        //    string stringValue = value.ToString();
-        //    if (CharStream.PrepCharSize(stringValue.Length + 8)) CharStream.Data.Pointer.SimpleWrite(stringValue);
-        //}
-        ///// <summary>
-        ///// 数字转换
-        ///// </summary>
-        ///// <param name="value">数字</param>
-        //public void PrimitiveSerialize(UInt128 value)
-        //{
-        //    string stringValue = value.ToString();
-        //    if (CharStream.PrepCharSize(stringValue.Length + 8)) CharStream.Data.Pointer.SimpleWrite(stringValue);
-        //}
-        ///// <summary>
-        ///// 数字转换
-        ///// </summary>
-        ///// <param name="value">数字</param>
-        //[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public void PrimitiveSerialize(Half value)
-        //{
-        //    if (Config.IsInfinityToNaN) CharStream.WriteJson(value);
-        //    else CharStream.WriteJsonInfinity(value);
-        //}
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        public void XmlSerialize(Int128 value)
+        {
+            int size = XmlSerializer.CustomConfig.Write(this, value);
+            if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Int128 value)
+        {
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        public void XmlSerialize(UInt128 value)
+        {
+            int size = XmlSerializer.CustomConfig.Write(this, value);
+            if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, UInt128 value)
+        {
+            serializer.XmlSerialize(value);
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="value">数字</param>
+        public void XmlSerialize(Half value)
+        {
+#if NET8
+            if (Config.IsInfinityToNaN)
+            {
+                if (!Half.IsNaN(value) && !Half.IsInfinity(value))
+                {
+                    int size = XmlSerializer.CustomConfig.Write(this, value);
+                    if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
+                }
+                else CharStream.WriteJsonNaN();
+            }
+            else
+            {
+                if (!Half.IsNaN(value))
+                {
+                    if (!Half.IsInfinity(value))
+                    {
+                        int size = XmlSerializer.CustomConfig.Write(this, value);
+                        if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
+                    }
+                    else if (Half.IsPositiveInfinity(value)) CharStream.WritePositiveInfinity();
+                    else CharStream.WriteNegativeInfinity();
+                }
+                else CharStream.WriteJsonNaN();
+            }
+#else
+            int size = XmlSerializer.CustomConfig.Write(this, value);
+            if (size > 0) CharStream.Data.Pointer.CheckMoveSize(size << 1);
+#endif
+        }
+        /// <summary>
+        /// 数字转换
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value">数字</param>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private static void primitiveSerialize(XmlSerializer serializer, Half value)
+        {
+            serializer.XmlSerialize(value);
+        }
         /// <summary>
         /// 数字转换
         /// </summary>
@@ -1104,20 +1147,6 @@ namespace AutoCSer
         public static void KeyValuePair<KT, VT>(XmlSerializer xmlSerializer, KeyValuePair<KT, VT> value)
         {
             xmlSerializer.XmlSerialize(value);
-        }
-        /// <summary>
-        /// 代码生成调用激活 AOT 反射
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public static void XmlSerialize<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)] T>()
-        {
-        }
-        /// <summary>
-        /// 代码生成调用激活 AOT 反射
-        /// </summary>
-        /// <param name="type"></param>
-        public static void TypeSerialize([System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicFields)] Type type)
-        {
         }
         /// <summary>
         /// 判断可空类型是否存在值
@@ -1602,12 +1631,6 @@ namespace AutoCSer
             SerializeDelegates.Add(typeof(long?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, long?>)primitiveSerialize));
             SerializeDelegates.Add(typeof(ulong), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, ulong>)primitiveSerialize));
             SerializeDelegates.Add(typeof(ulong?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, ulong?>)primitiveSerialize));
-            //SerializeDelegates.Add(typeof(Int128), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Int128>)primitiveSerialize));
-            //SerializeDelegates.Add(typeof(Int128?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Int128?>)primitiveSerialize));
-            //SerializeDelegates.Add(typeof(UInt128), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, UInt128>)primitiveSerialize));
-            //SerializeDelegates.Add(typeof(UInt128?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, UInt128?>)primitiveSerialize));
-            //SerializeDelegates.Add(typeof(Half), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Half>)primitiveSerialize));
-            //SerializeDelegates.Add(typeof(Half?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Half?>)primitiveSerialize));
             SerializeDelegates.Add(typeof(float), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, float>)primitiveSerialize));
             SerializeDelegates.Add(typeof(float?), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, float?>)primitiveSerialize));
             SerializeDelegates.Add(typeof(double), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, double>)primitiveSerialize));
@@ -1626,6 +1649,18 @@ namespace AutoCSer
             SerializeDelegates.Add(typeof(SubString), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, SubString>)primitiveSerialize));
             SerializeDelegates.Add(typeof(object), new AutoCSer.TextSerialize.DelegateReference { Delegate = new AutoCSer.TextSerialize.SerializeDelegate((Action<XmlSerializer, object>)primitiveSerialize), PushType = AutoCSer.TextSerialize.PushTypeEnum.DepthCount, IsUnknownMember = true, IsCompleted = true });
             SerializeDelegates.Add(typeof(XmlNode), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, XmlNode>)primitiveSerialize));
+
+            SerializeDelegates.Add(typeof(Int128), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Int128>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(UInt128), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, UInt128>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(Half), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, Half>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Complex), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Complex>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Plane), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Plane>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Quaternion), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Quaternion>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Matrix3x2), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Matrix3x2>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Matrix4x4), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Matrix4x4>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Vector2), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Vector2>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Vector3), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Vector3>)primitiveSerialize));
+            SerializeDelegates.Add(typeof(System.Numerics.Vector4), new AutoCSer.TextSerialize.DelegateReference((Action<XmlSerializer, System.Numerics.Vector4>)primitiveSerialize));
 #if AOT
             foreach (MethodInfo method in typeof(XmlSerializer).GetMethods(BindingFlags.Static | BindingFlags.Public))
             {

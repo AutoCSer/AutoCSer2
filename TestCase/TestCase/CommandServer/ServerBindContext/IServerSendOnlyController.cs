@@ -34,7 +34,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         public CommandServerSendOnly SendOnly()
         {
-            AutoCSer.TestCase.ServerSendOnlyController.SendOnlyWaitLock.Release();
+            AutoCSer.TestCase.ServerSendOnlyController.ReleaseWaitLock();
             return null;
         }
 

@@ -281,8 +281,8 @@ namespace AutoCSer.CodeGenerator.Template
                 @JsonDeserializeMemberMapMethodName(null, ref value, ref names, null);
                 @JsonDeserializeMethodName(null, ref value, 0);
                 @JsonDeserializeMemberNameMethodName();
-                AutoCSer.JsonSerializer.JsonSerialize<@CurrentType.FullName>();
-                AutoCSer.JsonDeserializer.JsonDeserialize<@CurrentType.FullName>();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(@CurrentType.FullName));
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(@CurrentType.FullName));
                 #region IF MemberTypeCount
                 @JsonSerializeMemberTypeMethodName();
                 #endregion IF MemberTypeCount

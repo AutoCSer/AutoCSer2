@@ -31,6 +31,57 @@
 
   <ItemGroup>
     <Compile Include="BinarySerialize.cs" />
+    <Compile Include="BinarySerializeCustomConfig.cs" />
+    <Compile Include="CommandServer.cs" />
+    <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
+    <Compile Include="CommandServer\CommandServerSessionObject.cs" />
+    <Compile Include="CommandServer\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\IClientCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IClientConcurrencyReadQueueController.cs" />
+    <Compile Include="CommandServer\IClientKeepCallbackController.cs" />
+    <Compile Include="CommandServer\IClientKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IClientQueueController.cs" />
+    <Compile Include="CommandServer\IClientReadWriteQueueController.cs" />
+    <Compile Include="CommandServer\IClientSendOnlyController.cs" />
+    <Compile Include="CommandServer\IClientSynchronousController.cs" />
+    <Compile Include="CommandServer\IClientTaskController.cs" />
+    <Compile Include="CommandServer\IDefinedDissymmetryClientController.cs" />
+    <Compile Include="CommandServer\IDefinedDissymmetryServerController.cs" />
+    <Compile Include="CommandServer\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\IServerCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IServerConcurrencyReadQueueController.cs" />
+    <Compile Include="CommandServer\IServerKeepCallbackController.cs" />
+    <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IServerQueueController.cs" />
+    <Compile Include="CommandServer\IServerReadWriteQueueController.cs" />
+    <Compile Include="CommandServer\IServerSendOnlyController.cs" />
+    <Compile Include="CommandServer\IServerSynchronousController.cs" />
+    <Compile Include="CommandServer\IServerTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientConcurrencyReadQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientKeepCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientReadWriteQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientSendOnlyController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientSynchronousController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IClientTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryClientController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedDissymmetryServerController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerConcurrencyReadQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerKeepCallbackTaskController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerReadWriteQueueController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerSendOnlyController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerSynchronousController.cs" />
+    <Compile Include="CommandServer\ServerBindContext\IServerTaskController.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Data\Field.cs" />
     <Compile Include="Data\Float.cs" />
     <Compile Include="Data\InheritProperty.cs" />
@@ -54,7 +105,7 @@
     <Compile Include="SearchTree.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Xml.cs" />
-    <Compile Include="{AutoCSer.TestCase.AOT}.AOT.AutoCSer.cs" />
+    <Compile Include="{AutoCSer.TestCase}.AOT.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,7 +122,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
   </Target>
   
 </Project>

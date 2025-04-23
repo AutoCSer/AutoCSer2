@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.CommandClientPerformance.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.CommandClientPerformance</RootNamespace>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <PublishAot>True</PublishAot>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;AOT</DefineConstants>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>AOT</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ICallbackClient.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="ISynchronousCllient.cs" />
+    <Compile Include="IAwaiterClient.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="{AutoCSer.TestCase.CommandClientPerformance}.AOT.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AutoCSer\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+  </Target>
+
+</Project>

@@ -13,6 +13,10 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// 成员方法信息
         /// </summary>
         public MethodInfo Method { get; private set; }
+        ///// <summary>
+        ///// 返回值类型
+        ///// </summary>
+        //public readonly ExtensionType MethodReturnType;
         /// <summary>
         /// 参数集合
         /// </summary>
@@ -74,6 +78,7 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// <param name="method">成员方法信息</param>
         internal MethodIndex(MethodInfo method) : this(method, MemberFiltersEnum.PublicInstance, 0)
         {
+            //if (method.ReturnType != typeof(void)) MethodReturnType = method.ReturnType;
         }
         /// <summary>
         /// 成员方法
@@ -85,6 +90,7 @@ namespace AutoCSer.CodeGenerator.Metadata
             : base(method, filter, index)
         {
             Method = method;
+            //if (method.ReturnType != typeof(void)) MethodReturnType = method.ReturnType;
             Parameters = MethodParameter.Get(method);
         }
         /// <summary>
@@ -99,6 +105,7 @@ namespace AutoCSer.CodeGenerator.Metadata
             : base(method, filter, index)
         {
             Method = method;
+            //if (method.ReturnType != typeof(void)) MethodReturnType = method.ReturnType;
             Parameters = MethodParameter.Get(method, parameterStartIndex, parameterEndIndex);
         }
         /// <summary>

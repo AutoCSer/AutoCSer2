@@ -1,145 +1,674 @@
-﻿using AutoCSer.CodeGenerator.Metadata;
+﻿using AutoCSer.BinarySerialize;
+using AutoCSer.CodeGenerator.Metadata;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
-using AutoCSer.Reflection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
     /// <summary>
-    /// 客户端命令控制器接口
+    /// 客户端命令控制器
     /// </summary>
-    [Generator(Name = "客户端命令控制器接口", IsAuto = true)]
-    internal partial class CommandServerClientController : AttributeGenerator<CommandServerControllerInterfaceAttribute>
+    [Generator(Name = "客户端命令控制器", IsAuto = true)]
+    internal partial class CommandServerClientController : AttributeGenerator<AutoCSer.CodeGenerator.CommandClientControllerAttribute>
     {
         /// <summary>
-        /// 生成类型名称后缀
+        /// 参数字段信息
         /// </summary>
-        protected override string typeNameSuffix { get { return "ClientController"; } }
+        public sealed class ParameterField
+        {
+            /// <summary>
+            /// 字段信息
+            /// </summary>
+            private readonly FieldInfo field;
+            /// <summary>
+            /// 参数信息
+            /// </summary>
+            private readonly ParameterInfo parameter;
+            /// <summary>
+            /// 参数类型
+            /// </summary>
+            public ExtensionType ParameterType;
+            /// <summary>
+            /// 参数名称
+            /// </summary>
+            public string ParameterName { get { return field.Name; } }
+            /// <summary>
+            /// 参数名称
+            /// </summary>
+            public string QueueKeyParameterName
+            {
+                get
+                {
+                    return parameter != null || field.Name != nameof(ServerReturnValue<int>.ReturnValue) ? ParameterName : ClientInterfaceMethod.QueueKeyParameterName;
+                }
+            }
+            /// <summary>
+            /// 是否输出参数
+            /// </summary>
+            public readonly bool IsOut;
+            /// <summary>
+            /// 是否 ref/out 参数
+            /// </summary>
+            public readonly bool IsRef;
+            /// <summary>
+            /// 是否返回值参数
+            /// </summary>
+            public bool IsReturnValue;
+            /// <summary>
+            /// 参数字段信息
+            /// </summary>
+            /// <param name="field"></param>
+            /// <param name="methodParameters"></param>
+            internal ParameterField(FieldInfo field, ParameterInfo[] methodParameters)
+            {
+                this.field = field;
+                ParameterType = field.FieldType;
+                foreach (ParameterInfo parameter in methodParameters)
+                {
+                    if (parameter.Name == field.Name)
+                    {
+                        this.parameter = parameter;
+                        IsOut = parameter.IsOut;
+                        IsRef = IsOut | parameter.ParameterType.IsByRef;
+                        break;
+                    }
+                }
+            }
+            /// <summary>
+            /// 是否返回值参数
+            /// </summary>
+            /// <param name="method"></param>
+            internal void CheckIsReturnValue(ControllerMethod method)
+            {
+                if (ParameterName == nameof(ServerReturnValue<int>.ReturnValue) && field.FieldType == method.ClientInterfaceMethod.ReturnValueType) IsReturnValue = true;
+            }
+        }
         /// <summary>
-        /// 输出类定义开始段代码是否包含当前类型
+        /// 参数类型
         /// </summary>
-        protected override bool isStartClass { get { return false; } }
+        public sealed class ParameterType
+        {
+            /// <summary>
+            /// 命令服务参数类型
+            /// </summary>
+            private readonly ServerMethodParameter parameter;
+            /// <summary>
+            /// 参数集合
+            /// </summary>
+            public readonly ParameterField[] Parameters;
+            /// <summary>
+            /// 参数类型名称
+            /// </summary>
+            public readonly string ParameterTypeName;
+            /// <summary>
+            /// 参数类型名称
+            /// </summary>
+            private readonly string parameterTypeFullName;
+            /// <summary>
+            /// 返回值绑定参数
+            /// </summary>
+            public readonly ParameterField ReturnValueParameter;
+            /// <summary>
+            /// 是否支持简单序列化
+            /// </summary>
+            private bool isSimpleSerialize;
+            /// <summary>
+            /// 是否支持简单反序列化
+            /// </summary>
+            private bool isSimpleDeserialize;
+            /// <summary>
+            /// 是否支持二进制序列化
+            /// </summary>
+            private bool isBinarySerialize;
+            /// <summary>
+            /// 是否支持二进制反序列化
+            /// </summary>
+            private bool isBinaryDeserialize;
+            /// <summary>
+            /// 是否支持二进制序列化
+            /// </summary>
+            public bool IsBinarySerialize { get { return isBinarySerialize | isBinaryDeserialize; } }
+            /// <summary>
+            /// 序列化代码
+            /// </summary>
+            public string SerializeCode;
+            /// <summary>
+            /// 参数类型
+            /// </summary>
+            /// <param name="typeNamePrefix">类型名称前缀</param>
+            /// <param name="parameter">命令服务参数类型</param>
+            /// <param name="method"></param>
+            /// <param name="isInput"></param>
+            /// <param name="isReturnValueParameter"></param>
+            internal ParameterType(string typeNamePrefix, ServerMethodParameter parameter, ControllerMethod method, bool isInput, ref bool isReturnValueParameter)
+            {
+                this.parameter = parameter;
+                ParameterTypeName = "__p" + (isInput ? "i" : "o") + (method.MethodIndex).toString() + "__";
+                parameterTypeFullName = typeNamePrefix + ParameterTypeName;
+                Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ClientInterfaceMethod.Parameters));
+                if (!isInput && method.ReturnValueParameterName != null)
+                {
+                    foreach (ParameterField parameterField in Parameters)
+                    {
+                        if (parameterField.ParameterName == method.ReturnValueParameterName)
+                        {
+                            ReturnValueParameter = parameterField;
+                            isReturnValueParameter = true;
+                            break;
+                        }
+                    }
+                }
+                SetSerialize(method.ClientInterfaceMethod, isInput);
+                if (Parameters.Length == 1) Parameters[0].CheckIsReturnValue(method);
+            }
+            /// <summary>
+            /// 复制参数类型
+            /// </summary>
+            /// <param name="parameterType"></param>
+            /// <param name="method"></param>
+            /// <param name="isInput"></param>
+            /// <param name="isReturnValueParameter"></param>
+            internal ParameterType(ParameterType parameterType, ControllerMethod method, bool isInput, ref bool isReturnValueParameter)
+            {
+                parameter = parameterType.parameter;
+                ParameterTypeName = parameterType.ParameterTypeName;
+                parameterTypeFullName = parameterType.ParameterTypeName;
+                Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ClientInterfaceMethod.Parameters));
+                if (!isInput && method.ReturnValueParameterName != null)
+                {
+                    foreach (ParameterField parameterField in Parameters)
+                    {
+                        if (parameterField.ParameterName == method.ReturnValueParameterName)
+                        {
+                            ReturnValueParameter = parameterField;
+                            isReturnValueParameter = true;
+                            break;
+                        }
+                    }
+                }
+                if (Parameters.Length == 1) Parameters[0].CheckIsReturnValue(method);
+            }
+            /// <summary>
+            /// 设置序列化方式
+            /// </summary>
+            /// <param name="method"></param>
+            /// <param name="isInput"></param>
+            internal void SetSerialize(ClientInterfaceMethod method, bool isInput)
+            {
+                if (isInput)
+                {
+                    if (method.IsSimpleSerializeParamter) isSimpleSerialize = true;
+                    else isBinarySerialize = true;
+                }
+                else
+                {
+                    if (method.IsSimpleDeserializeParamter) isSimpleDeserialize = true;
+                    else isBinaryDeserialize = true;
+                }
+            }
+            /// <summary>
+            /// 设置序列化代码
+            /// </summary>
+            internal void SetSerializeCode()
+            {
+                string simpleSerializeCode = null, binarySerializeCode = null;
+                if (isSimpleSerialize | isSimpleDeserialize)
+                {
+                    simpleSerializeCode = new SimpleSerialize().Create(parameter.Type, parameterTypeFullName, isSimpleSerialize, isSimpleDeserialize);
+                }
+                if (IsBinarySerialize)
+                {
+                    binarySerializeCode = new BinarySerialize().Create(parameter.Type, parameterTypeFullName, isBinarySerialize, isBinaryDeserialize);
+                }
+                if(string.IsNullOrEmpty(simpleSerializeCode))
+                {
+                    if (!string.IsNullOrEmpty(binarySerializeCode)) SerializeCode = binarySerializeCode;
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(binarySerializeCode)) SerializeCode = simpleSerializeCode;
+                    else SerializeCode = simpleSerializeCode + @"
+" + binarySerializeCode;
+
+                }
+            }
+        }
         /// <summary>
-        /// 控制器方法信息
+        /// 控制器方法
         /// </summary>
         public sealed class ControllerMethod
         {
             /// <summary>
-            /// 接口方法信息
+            /// 客户端接口方法信息
             /// </summary>
-            private ServerInterfaceMethod interfaceMethod;
+            internal readonly ClientInterfaceMethod ClientInterfaceMethod;
             /// <summary>
-            /// 接口方法信息
+            /// 成员方法
             /// </summary>
-            public MethodIndex Method;
-            /// <summary>
-            /// 方法名称
-            /// </summary>
-            public string MethodName { get { return Method.MethodName; } }
+            public readonly MethodIndex Method;
             /// <summary>
             /// 返回值类型
             /// </summary>
             public ExtensionType MethodReturnType;
             /// <summary>
-            /// 是否存在返回值
+            /// 方法是否存在返回值
             /// </summary>
-            public bool MethodIsReturn { get { return interfaceMethod.ReturnValueType != typeof(void); } }
+            public bool IsMethodReturn { get { return MethodReturnType.Type != typeof(void); } }
             /// <summary>
-            /// 返回值XML文档注释
+            /// 返回值类型是否一致
             /// </summary>
-            public string CodeGeneratorReturnXmlDocument
+            public bool IsReturnType { get { return ClientInterfaceMethod.IsReturnType; } }
+            /// <summary>
+            /// 方法定义接口类型
+            /// </summary>
+            public string MethodInterfaceTypeName;
+            /// <summary>
+            /// 方法名称
+            /// </summary>
+            public string MethodName { get { return Method.MethodName; } }
+            /// <summary>
+            /// 错误信息
+            /// </summary>
+            public string Error { get { return ClientInterfaceMethod.Error; } }
+            /// <summary>
+            /// 错误信息
+            /// </summary>
+            public string CodeGeneratorError { get { return ClientInterfaceMethod.Error.Replace(@"""", @""""""); } }
+            /// <summary>
+            /// 输入参数类型
+            /// </summary>
+            public readonly ParameterType InputParameterType;
+            /// <summary>
+            /// 输出参数类型
+            /// </summary>
+            public readonly ParameterType OutputParameterType;
+            /// <summary>
+            /// 返回值绑定参数名称
+            /// </summary>
+            public readonly string ReturnValueParameterName;
+            /// <summary>
+            /// 控制器命令调用方法名称
+            /// </summary>
+            public readonly string CallMethodName;
+            /// <summary>
+            /// 控制器命令调用方法泛型参数名称
+            /// </summary>
+            public readonly string GenericTypeName;
+            /// <summary>
+            /// 方法数组索引位置
+            /// </summary>
+            public readonly int MethodArrayIndex;
+            /// <summary>
+            /// 自定义命令序号
+            /// </summary>
+            public int MethodIndex { get { return ClientInterfaceMethod.MethodIndex; } }
+            /// <summary>
+            /// 匹配方法名称
+            /// </summary>
+            public string MatchMethodName { get { return ClientInterfaceMethod.MatchMethodName; } }
+            /// <summary>
+            /// 是否简单序列化输出数据
+            /// </summary>
+            public int IsSimpleSerializeParamter { get { return ClientInterfaceMethod.IsSimpleSerializeParamter ? 1 : 0; } }
+            /// <summary>
+            /// 是否简单反序列化输入数据
+            /// </summary>
+            public int IsSimpleDeserializeParamter { get { return ClientInterfaceMethod.IsSimpleDeserializeParamter ? 1 : 0; } }
+            /// <summary>
+            /// 客户端 await 等待返回值回调线程模式
+            /// </summary>
+            public string CallbackTypeString { get { return $"{typeof(ClientCallbackTypeEnum).fullName()}.{ClientInterfaceMethod.CallbackType.ToString()}"; } }
+            /// <summary>
+            /// 回调队列序号
+            /// </summary>
+            public int QueueIndex { get { return ClientInterfaceMethod.QueueIndex; } }
+            /// <summary>
+            /// 是否低优先级队列
+            /// </summary>
+            public int IsLowPriorityQueue { get { return ClientInterfaceMethod.IsLowPriorityQueue ? 1: 0; } }
+            /// <summary>
+            /// 超时秒数
+            /// </summary>
+            public int TimeoutSeconds { get { return ClientInterfaceMethod.TimeoutSeconds; } }
+            /// <summary>
+            /// 是否同步返回方法
+            /// </summary>
+            public bool IsSynchronous { get { return ClientInterfaceMethod.MethodType == ClientMethodTypeEnum.Synchronous; } }
+            /// <summary>
+            /// 接口方法是否返回 Task
+            /// </summary>
+            public bool IsReturnTask { get { return ClientInterfaceMethod.MethodType == ClientMethodTypeEnum.Task; } }
+            /// <summary>
+            /// 接口方法是否返回 AsyncEnumerable
+            /// </summary>
+            public bool IsAsyncEnumerable { get { return ClientInterfaceMethod.MethodType == ClientMethodTypeEnum.AsyncEnumerable; } }
+            /// <summary>
+            /// 回调参数名称
+            /// </summary>
+            public readonly string CallbackParameterName;
+            /// <summary>
+            /// 回调参数处理类型
+            /// </summary>
+            public readonly ExtensionType CallbackType;
+            /// <summary>
+            /// 返回值类型
+            /// </summary>
+            public readonly ExtensionType ReturnValueType;
+            /// <summary>
+            /// 输出参数是否需要传参
+            /// </summary>
+            public readonly bool IsOutputParameter;
+            /// <summary>
+            /// 获取返回值委托是否需要传参
+            /// </summary>
+            public bool IsGetReturnValue { get { return !IsSynchronous && ReturnValueType != null; } }
+            /// <summary>
+            /// 控制器方法
+            /// </summary>
+            /// <param name="methodArrayIndex"></param>
+            /// <param name="method">客户端接口方法信息</param>
+            /// <param name="paramterTypes">参数类型集合</param>
+            /// <param name="typeNamePrefix"></param>
+            internal ControllerMethod(int methodArrayIndex, ClientInterfaceMethod method, Dictionary<HashObject<Type>, ParameterType> paramterTypes, string typeNamePrefix)
             {
-                get
+                MethodArrayIndex = methodArrayIndex;
+                ClientInterfaceMethod = method;
+                MethodInterfaceTypeName = method.Method.DeclaringType.fullName();
+                if (method.ReturnValueType != typeof(void)) ReturnValueType = method.ReturnValueType;
+                Method = new MethodIndex(method.Method, AutoCSer.Metadata.MemberFiltersEnum.NonPublicInstance, 0);
+                if (method.ReturnValueParameterIndex >= 0) ReturnValueParameterName = method.Parameters[method.ReturnValueParameterIndex].Name;
+                MethodReturnType = method.Method.ReturnType;
+                if (method.InputParameterType != null)
                 {
-                    return interfaceMethod.ReturnParameter == null ? Method.CodeGeneratorReturnXmlDocument : XmlDocument.CodeGeneratorFormat(XmlDocument.Get(Method.Method, interfaceMethod.ReturnParameter));
-                }
-            }
-            /// <summary>
-            /// 队列关键字类型
-            /// </summary>
-            public ExtensionType TaskQueueKeyType;
-            /// <summary>
-            /// 接口方法与枚举信息
-            /// </summary>
-            /// <param name="interfaceMethod"></param>
-            public ControllerMethod(ServerInterfaceMethod interfaceMethod)
-            {
-                if (interfaceMethod != null)
-                {
-                    this.interfaceMethod = interfaceMethod;
-                    Method = new MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex, interfaceMethod.ParameterStartIndex, interfaceMethod.ParameterEndIndex);
-                    TaskQueueKeyType = interfaceMethod.TaskQueueKeyType != null ? interfaceMethod.TaskQueueKeyType : (ExtensionType)null;
-                    switch (interfaceMethod.MethodType)
+                    bool isReturnValueParameter = false;
+                    if (paramterTypes.TryGetValue(method.InputParameterType.Type, out InputParameterType))
                     {
-                        case ServerMethodTypeEnum.KeepCallback:
-                        case ServerMethodTypeEnum.KeepCallbackCount:
-                        case ServerMethodTypeEnum.KeepCallbackQueue:
-                        case ServerMethodTypeEnum.KeepCallbackCountQueue:
-                        case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
-                        case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
-                        case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
-                        case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
-                        case ServerMethodTypeEnum.KeepCallbackTask:
-                        case ServerMethodTypeEnum.KeepCallbackCountTask:
-                        case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
-                        case ServerMethodTypeEnum.KeepCallbackTaskQueue:
-                        case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
-                        case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
-#if NetStandard21
-                        case ServerMethodTypeEnum.AsyncEnumerableTask:
-                        case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
-#endif
-                            MethodReturnType = interfaceMethod.ReturnValueType != typeof(void) ? typeof(AutoCSer.Net.EnumeratorCommand<>).MakeGenericType(interfaceMethod.ReturnValueType) : typeof(AutoCSer.Net.EnumeratorCommand);
-                            break;
-                        case ServerMethodTypeEnum.SendOnly:
-                        case ServerMethodTypeEnum.SendOnlyQueue:
-                        case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
-                        case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
-                        case ServerMethodTypeEnum.SendOnlyTask:
-                        case ServerMethodTypeEnum.SendOnlyTaskQueue:
-                            MethodReturnType = typeof(SendOnlyCommand);
-                            break;
-                        case ServerMethodTypeEnum.Unknown:
-                            Messages.Error(Culture.Configuration.Default.GetCommandServerUnrecognizedMethod(interfaceMethod.Method, interfaceMethod.Error));
-                            break;
-                        default:
-                            bool isRef = false;
-                            foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter parameter in Method.Parameters)
+                        InputParameterType.SetSerialize(method, true);
+                        InputParameterType = new ParameterType(InputParameterType, this, true, ref isReturnValueParameter);
+                    }
+                    else paramterTypes.Add(method.InputParameterType.Type, InputParameterType = new ParameterType(typeNamePrefix, method.InputParameterType, this, true, ref isReturnValueParameter));
+                }
+                if (method.OutputParameterType != null || method.ReturnValueType != typeof(void))
+                {
+                    var outputParameterType = method.OutputParameterType ?? ServerMethodParameter.GetOrCreate(0, EmptyArray<ParameterInfo>.Array, method.ReturnValueType);
+                    if (paramterTypes.TryGetValue(outputParameterType.Type, out OutputParameterType))
+                    {
+                        OutputParameterType.SetSerialize(method, false);
+                        OutputParameterType = new ParameterType(OutputParameterType, this, false, ref IsOutputParameter);
+                    }
+                    else paramterTypes.Add(outputParameterType.Type, OutputParameterType = new ParameterType(typeNamePrefix, outputParameterType, this, false, ref IsOutputParameter));
+                }
+                switch (method.MethodType)
+                {
+                    case ClientMethodTypeEnum.Callback:
+                    case ClientMethodTypeEnum.CallbackQueue:
+                    case ClientMethodTypeEnum.KeepCallback:
+                    case ClientMethodTypeEnum.KeepCallbackQueue:
+                        CallbackParameterName = method.Parameters[method.ParameterEndIndex].Name;
+                        if (method.IsCallbackAction)
+                        {
+                            if (method.ReturnValueType == typeof(void))
                             {
-                                if (parameter.IsRef || parameter.IsOut)
+                                switch (method.MethodType)
                                 {
-                                    isRef = true;
-                                    break;
+                                    case ClientMethodTypeEnum.Callback: CallbackType = typeof(CommandClientCallback); break;
+                                    case ClientMethodTypeEnum.KeepCallback: CallbackType = typeof(CommandClientKeepCallback); break;
+                                    case ClientMethodTypeEnum.CallbackQueue: CallbackType = typeof(CommandClientCallbackQueueNode); break;
+                                    case ClientMethodTypeEnum.KeepCallbackQueue: CallbackType = typeof(CommandClientKeepCallbackQueue); break;
                                 }
                             }
-                            if (isRef) MethodReturnType = interfaceMethod.ReturnValueType != typeof(void) ? typeof(AutoCSer.Net.CommandClientReturnValue<>).MakeGenericType(interfaceMethod.ReturnValueType) : typeof(AutoCSer.Net.CommandClientReturnValue);
-                            else MethodReturnType = interfaceMethod.ReturnValueType != typeof(void) ? typeof(AutoCSer.Net.ReturnCommand<>).MakeGenericType(interfaceMethod.ReturnValueType) : typeof(AutoCSer.Net.ReturnCommand);
-                            break;
-                    }
+                            else
+                            {
+                                switch (method.MethodType)
+                                {
+                                    case ClientMethodTypeEnum.Callback: CallbackType = typeof(AutoCSer.Net.CommandClientCallback<>).MakeGenericType(method.ReturnValueType); break;
+                                    case ClientMethodTypeEnum.KeepCallback: CallbackType = typeof(AutoCSer.Net.CommandClientKeepCallback<>).MakeGenericType(method.ReturnValueType); break;
+                                    case ClientMethodTypeEnum.CallbackQueue: CallbackType = typeof(AutoCSer.Net.CommandClientCallbackQueueNode<>).MakeGenericType(method.ReturnValueType); break;
+                                    case ClientMethodTypeEnum.KeepCallbackQueue: CallbackType = typeof(AutoCSer.Net.CommandClientKeepCallbackQueue<>).MakeGenericType(method.ReturnValueType); break;
+                                }
+                            }
+                        }
+                        break;
+                }
+                switch (method.MethodType)
+                {
+                    case ClientMethodTypeEnum.Callback:
+                    case ClientMethodTypeEnum.CallbackQueue:
+                    case ClientMethodTypeEnum.KeepCallback:
+                    case ClientMethodTypeEnum.KeepCallbackQueue:
+                    case ClientMethodTypeEnum.ReturnValue:
+                    case ClientMethodTypeEnum.Task:
+                    case ClientMethodTypeEnum.ReturnValueQueue:
+                    case ClientMethodTypeEnum.Enumerator:
+                    case ClientMethodTypeEnum.AsyncEnumerable:
+                    case ClientMethodTypeEnum.EnumeratorQueue:
+                        if (InputParameterType == null)
+                        {
+                            if (method.ReturnValueType != typeof(void)) GenericTypeName = $"{method.ReturnValueType.fullName()}, {OutputParameterType.ParameterTypeName}";
+                        }
+                        else
+                        {
+                            if (method.ReturnValueType == typeof(void)) GenericTypeName = InputParameterType.ParameterTypeName;
+                            else GenericTypeName = $"{InputParameterType.ParameterTypeName}, {method.ReturnValueType.fullName()}, {OutputParameterType.ParameterTypeName}";
+                        }
+                        break;
+                }
+                switch (method.MethodType)
+                {
+                    case ClientMethodTypeEnum.Synchronous:
+                        if (InputParameterType == null)
+                        {
+                            if (OutputParameterType == null) CallMethodName = nameof(CommandClientController.Synchronous);
+                            else
+                            {
+                                IsOutputParameter = true;
+                                CallMethodName = nameof(CommandClientController.SynchronousOutput);
+                                GenericTypeName = OutputParameterType.ParameterTypeName;
+                            }
+                        }
+                        else
+                        {
+                            if (OutputParameterType == null)
+                            {
+                                CallMethodName = nameof(CommandClientController.SynchronousInput);
+                                GenericTypeName = InputParameterType.ParameterTypeName;
+                            }
+                            else
+                            {
+                                IsOutputParameter = true;
+                                CallMethodName = nameof(CommandClientController.SynchronousInputOutput);
+                                GenericTypeName = $"{InputParameterType.ParameterTypeName}, {OutputParameterType.ParameterTypeName}";
+                            }
+                        }
+                        break;
+                    case ClientMethodTypeEnum.SendOnly:
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.SendOnly);
+                        else
+                        {
+                            CallMethodName = nameof(CommandClientController.SendOnlyInput);
+                            GenericTypeName = InputParameterType.ParameterTypeName;
+                        }
+                        break;
+                    case ClientMethodTypeEnum.Callback:
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.Callback);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.CallbackInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.CallbackOutput);
+                        else CallMethodName = nameof(CommandClientController.CallbackOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.KeepCallback:
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.KeepCallback);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.KeepCallbackInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.KeepCallbackOutput);
+                        else CallMethodName = nameof(CommandClientController.KeepCallbackOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.CallbackQueue:
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.CallbackQueue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.CallbackQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.CallbackQueueOutput);
+                        else CallMethodName = nameof(CommandClientController.CallbackQueueOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.KeepCallbackQueue:
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.KeepCallbackQueue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.KeepCallbackQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.KeepCallbackQueueOutput);
+                        else CallMethodName = nameof(CommandClientController.KeepCallbackQueueOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.ReturnValue:
+                    case ClientMethodTypeEnum.Task:
+                        if (InputParameterType == null)
+                        {
+                            if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnType);
+                            else CallMethodName = nameof(CommandClientController.ReturnValue);
+                        }
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnTypeInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.ReturnValueOutput);
+                        else CallMethodName = nameof(CommandClientController.ReturnValueOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.ReturnValueQueue:
+                        if (InputParameterType == null)
+                        {
+                            if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnTypeQueue);
+                            else CallMethodName = nameof(CommandClientController.ReturnValueQueue);
+                        }
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnTypeQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.ReturnValueQueueOutput);
+                        else CallMethodName = nameof(CommandClientController.ReturnValueQueueOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.Enumerator:
+                    case ClientMethodTypeEnum.AsyncEnumerable:
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.Enumerator);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.EnumeratorInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.EnumeratorOutput);
+                        else CallMethodName = nameof(CommandClientController.EnumeratorOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.EnumeratorQueue:
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.EnumeratorQueue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.EnumeratorQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.EnumeratorQueueOutput);
+                        else CallMethodName = nameof(CommandClientController.EnumeratorQueueOutputReturnValue);
+                        break;
                 }
             }
         }
 
         /// <summary>
-        /// 控制器方法集合
+        /// 输出类定义开始段代码是否包含当前类型
+        /// </summary>
+        protected override bool isStartClass { get { return false; } }
+        /// <summary>
+        /// 命令客户端控制器构造函数调用方法名称
+        /// </summary>
+        public string CommandClientControllerConstructorMethodName { get { return CommandClientControllerAttribute.CommandClientControllerConstructorMethodName; } }
+        /// <summary>
+        /// 获取客户端接口方法信息方法名称
+        /// </summary>
+        public string CommandClientControllerMethodName { get { return CommandClientControllerAttribute.CommandClientControllerMethodName; } }
+        /// <summary>
+        /// 当前接口类型名称
+        /// </summary>
+        public string InterfaceTypeName;
+        /// <summary>
+        /// 参数类型集合
+        /// </summary>
+        public ParameterType[] ParameterTypes;
+        /// <summary>
+        /// 当前类型名称
+        /// </summary>
+        public new string TypeName;
+        /// <summary>
+        /// 服务端接口类型
+        /// </summary>
+        public ExtensionType ServerType;
+        /// <summary>
+        /// 枚举类型
+        /// </summary>
+        public ExtensionType EnumType;
+        /// <summary>
+        /// 非对称服务返回 false
+        /// </summary>
+        public bool IsServerType { get { return ServerType.Type != typeof(AutoCSer.Net.CommandServer.ServerInterface); } }
+        /// <summary>
+        /// 控制器方法
         /// </summary>
         public ControllerMethod[] Methods;
+        /// <summary>
+        /// 控制器方法数量
+        /// </summary>
+        public int MethodCount { get { return Methods.Length; } }
+        /// <summary>
+        /// 验证方法序号
+        /// </summary>
+        public int VerifyMethodIndex;
 
         /// <summary>
         /// 安装下一个类型
         /// </summary>
         protected override Task nextCreate()
         {
-            if (!CurrentType.Type.IsInterface || !CurrentAttribute.IsCodeGeneratorClientInterface) return AutoCSer.Common.CompletedTask;
-            ServerInterfaceMethod[] methods = new ServerInterface(CurrentType.Type, null).Methods;
-            if (methods == null || methods.Length == 0) return AutoCSer.Common.CompletedTask;
-            Methods = methods.getArray(p => new ControllerMethod(p));
-
+            Type type = CurrentType.Type, serverType = CurrentAttribute.ServerInterfaceType;
+            if (type.IsGenericType) return AutoCSer.Common.CompletedTask;
+            if (!type.IsInterface)
+            {
+                Messages.Error(AutoCSer.Common.Culture.GetNotInterfaceType(type));
+                return AutoCSer.Common.CompletedTask;
+            }
+            if (serverType == typeof(void))
+            {
+                serverType = typeof(AutoCSer.Net.CommandServer.ServerInterface);
+                EnumType = null;
+            }
+            else
+            {
+                if (serverType.IsGenericType) return AutoCSer.Common.CompletedTask;
+                if (!serverType.IsInterface)
+                {
+                    Messages.Error(AutoCSer.Common.Culture.GetNotInterfaceType(serverType));
+                    return AutoCSer.Common.CompletedTask;
+                }
+                Type enumType = ((CommandServerControllerInterfaceAttribute)serverType.GetCustomAttribute(typeof(CommandServerControllerInterfaceAttribute), false))?.MethodIndexEnumType;
+                if (enumType != null) EnumType = enumType;
+            }
+            ServerInterface serverInterface = new ServerInterface(serverType, null, type);
+            LeftArray<ClientInterfaceMethod> methodArray;
+            Exception controllerConstructorException = null;
+            string[] controllerConstructorMessages = null;
+            bool isClient = serverInterface.GetClientMethods(type, null, ref controllerConstructorException, ref controllerConstructorMessages, out methodArray);
+            if (controllerConstructorMessages != null) Messages.Error($"{type.fullName()} 控制器代码生成警告 {string.Join("\r\n", controllerConstructorMessages)}");
+            if (!isClient)
+            {
+                if (controllerConstructorException != null) Messages.Error($"{type.fullName()} 控制器代码生成失败 {controllerConstructorException.Message}");
+                return AutoCSer.Common.CompletedTask;
+            }
+            if (EnumType == null)
+            {
+                Type enumType = ((CommandServerControllerInterfaceAttribute)type.GetCustomAttribute(typeof(CommandServerControllerInterfaceAttribute), false))?.MethodIndexEnumType;
+                if (enumType != null) EnumType = enumType;
+            }
+            VerifyMethodIndex = serverInterface.VerifyMethodIndex;
+            InterfaceTypeName = type.Name;
+            if (InterfaceTypeName.Length > 1 && InterfaceTypeName[0] == 'I' && (uint)(InterfaceTypeName[1] - 'A') < 26) TypeName = InterfaceTypeName.Substring(1);
+            else if (InterfaceTypeName.EndsWith("Controller", StringComparison.Ordinal))
+            {
+                if (InterfaceTypeName.EndsWith("ClientController", StringComparison.Ordinal)) TypeName = AutoCSer.Common.NamePrefix + InterfaceTypeName;
+                else TypeName = InterfaceTypeName + "Client";
+            }
+            else TypeName = InterfaceTypeName + "ClientController";
+            string typeName = CurrentType.Type.fullName(), typeNamePrefix = typeName.Substring(0, typeName.LastIndexOf('.') + 1) + TypeName + ".";
+            ServerType = serverType;
+            Dictionary<HashObject<Type>, ParameterType> paramterTypes = DictionaryCreator.CreateHashObject<Type, ParameterType>(methodArray.Length << 1);
+            int methodArrayIndex = 0;
+            Methods = methodArray.GetArray(p => new ControllerMethod(methodArrayIndex++, p, paramterTypes, typeNamePrefix));
+            ParameterTypes = paramterTypes.Values.ToArray();
+            foreach (ParameterType parameterType in ParameterTypes) parameterType.SetSerializeCode();
             create(true);
+            AotMethod.Append(typeNamePrefix + CommandClientControllerConstructorMethodName);
+            AotMethod.IsCallAutoCSerAotMethod = true;
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>

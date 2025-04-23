@@ -7,7 +7,10 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-    public interface IClientReadWriteQueueController : IClientQueueController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerReadWriteQueueController))]
+#endif
+    public partial interface IClientReadWriteQueueController : IClientQueueController
     {
     }
 }

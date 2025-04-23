@@ -13,7 +13,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// <summary>
     /// 随机对象生成
     /// </summary>
-    [Generator(Name = "随机对象生成", IsAuto = true, IsAOT = true)]
+    [Generator(Name = "随机对象生成", IsAuto = true)]
     internal partial class RandomObject : AttributeGenerator<AutoCSer.CodeGenerator.RandomObjectAttribute>
     {
         /// <summary>
@@ -49,7 +49,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 随机对象生成方法名称方法名称
         /// </summary>
-        public string CreateRandomObjectMethodName { get { return Creator.CreateRandomObjectMethodName; } }
+        public string CreateRandomObjectMethodName { get { return RandomObjectAttribute.CreateRandomObjectMethodName; } }
         /// <summary>
         /// 成员集合
         /// </summary>

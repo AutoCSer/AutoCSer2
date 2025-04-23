@@ -11,7 +11,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// <summary>
     /// 二进制序列化
     /// </summary>
-    [Generator(Name = "二进制序列化", IsAuto = true, IsAOT = true)]
+    [Generator(Name = "二进制序列化", IsAuto = true)]
     internal partial class BinarySerialize : AttributeGenerator<AutoCSer.CodeGenerator.BinarySerializeAttribute>
     {
         /// <summary>
@@ -60,7 +60,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     if (MethodInfo.IsJson) return MemberType.Type.IsValueType ? nameof(AutoCSer.BinarySerializer.StructJson) : nameof(AutoCSer.BinarySerializer.Json);
                     if (MethodInfo.IsDictionary) return nameof(AutoCSer.BinarySerializer.Dictionary);
                     if (MethodInfo.IsCollection) return nameof(AutoCSer.BinarySerializer.Collection);
-                    return AutoCSer.BinarySerializer.BinarySerializeMethodName;
+                    return AutoCSer.CodeGenerator.BinarySerializeAttribute.BinarySerializeMethodName;
                 }
             }
             /// <summary>
@@ -95,7 +95,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     if (MethodInfo.IsJson) return MemberType.Type.IsValueType ? nameof(AutoCSer.BinaryDeserializer.StructJson) : nameof(AutoCSer.BinaryDeserializer.Json);
                     if (MethodInfo.IsDictionary) return nameof(AutoCSer.BinaryDeserializer.Dictionary);
                     if (MethodInfo.IsCollection) return nameof(AutoCSer.BinaryDeserializer.Collection);
-                    return AutoCSer.BinaryDeserializer.BinaryDeserializeMethodName;
+                    return AutoCSer.CodeGenerator.BinarySerializeAttribute.BinaryDeserializeMethodName;
                 }
             }
             /// <summary>
@@ -126,27 +126,27 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 序列化方法名称
         /// </summary>
-        public string BinarySerializeMethodName { get { return AutoCSer.BinarySerializer.BinarySerializeMethodName; } }
+        public string BinarySerializeMethodName { get { return BinarySerializeAttribute.BinarySerializeMethodName; } }
         /// <summary>
         /// 序列化方法名称
         /// </summary>
-        public string BinarySerializeMemberMapMethodName { get { return AutoCSer.BinarySerializer.BinarySerializeMemberMapMethodName; } }
+        public string BinarySerializeMemberMapMethodName { get { return BinarySerializeAttribute.BinarySerializeMemberMapMethodName; } }
         /// <summary>
         /// 获取二进制序列化成员类型方法名称
         /// </summary>
-        public string BinarySerializeMemberTypeMethodName { get { return AutoCSer.BinarySerializer.BinarySerializeMemberTypeMethodName; } }
+        public string BinarySerializeMemberTypeMethodName { get { return BinarySerializeAttribute.BinarySerializeMemberTypeMethodName; } }
         /// <summary>
         /// 反序列化方法名称
         /// </summary>
-        public string BinaryDeserializeMethodName { get { return AutoCSer.BinaryDeserializer.BinaryDeserializeMethodName; } }
+        public string BinaryDeserializeMethodName { get { return BinarySerializeAttribute.BinaryDeserializeMethodName; } }
         /// <summary>
         /// 反序列化方法名称
         /// </summary>
-        public string BinaryDeserializeMemberMapMethodName { get { return AutoCSer.BinaryDeserializer.BinaryDeserializeMemberMapMethodName; } }
+        public string BinaryDeserializeMemberMapMethodName { get { return BinarySerializeAttribute.BinaryDeserializeMemberMapMethodName; } }
         /// <summary>
         /// 获取二进制序列化成员数量信息方法名称
         /// </summary>
-        public string BinarySerializeMemberCountVerifyMethodName { get { return AutoCSer.BinaryDeserializer.BinarySerializeMemberCountVerifyMethodName; } }
+        public string BinarySerializeMemberCountVerifyMethodName { get { return BinarySerializeAttribute.BinarySerializeMemberCountVerifyMethodName; } }
         /// <summary>
         /// 固定序列化成员
         /// </summary>
@@ -183,6 +183,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 成员位图模式是否需要补全字节数
         /// </summary>
         public bool IsMemberMapFixedFillSize;
+        /// <summary>
+        /// 类型名称
+        /// </summary>
+        public string TypeFullName;
+        /// <summary>
+        /// 是否生成序列化代码
+        /// </summary>
+        public bool IsSerialize;
+        /// <summary>
+        /// 是否生成反序列化代码
+        /// </summary>
+        public bool IsDeserialize;
 
         /// <summary>
         /// 安装下一个类型
@@ -200,6 +212,21 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 return AutoCSer.Common.CompletedTask;
             }
             IsMemberMap = attribute.GetIsMemberMap(type);
+            IsSerialize = CurrentAttribute.IsSerialize;
+            IsDeserialize = CurrentAttribute.IsDeserialize;
+            TypeFullName = CurrentType.FullName;
+            nextCreate(true, attribute);
+            AotMethod.Append(CurrentType, BinarySerializeMethodName);
+            return AutoCSer.Common.CompletedTask;
+        }
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOutput"></param>
+        /// <param name="attribute"></param>
+        private void nextCreate(bool isOutput, AutoCSer.BinarySerializeAttribute attribute)
+        {
+            Type type = CurrentType.Type;
             HashSet<HashObject<Type>> memberTypes = HashSetCreator.CreateHashObject<Type>();
             LeftArray<AutoCSer.Metadata.FieldIndex> fieldIndexs = AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(type, attribute.MemberFilters);
             AutoCSer.BinarySerialize.FieldSizeArray fields = new AutoCSer.BinarySerialize.FieldSizeArray(fieldIndexs, attribute.GetIsJsonMember(type), out MemberCountVerify);
@@ -209,9 +236,27 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             FixedFields = fields.FixedFields.getArray(p => new SerializeMember(p, memberTypes));
             FieldArray = fields.FieldArray.getArray(p => new SerializeMember(p, memberTypes));
             MemberTypes = memberTypes.getArray(p => new AotMethod.ReflectionMemberType(p.Value));
-            create(true);
-            AotMethod.Append(CurrentType, BinarySerializeMethodName);
-            return AutoCSer.Common.CompletedTask;
+            create(isOutput);
+        }
+        /// <summary>
+        /// 生成自定义类型代码
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="typeFullName"></param>
+        /// <param name="isSerialize"></param>
+        /// <param name="isDeserialize"></param>
+        /// <returns></returns>
+        internal string Create(Type type, string typeFullName, bool isSerialize, bool isDeserialize)
+        {
+            CurrentType = type;
+            TypeFullName = typeFullName;
+            IsSerialize = isSerialize;
+            IsDeserialize = isDeserialize;
+            IsMemberMap = false;
+            _code_.Array.Length = 0;
+            nextCreate(false, BinarySerializer.DefaultAttribute);
+            AotMethod.Append($"{typeFullName}.{BinarySerializeMethodName}");
+            return string.Concat(_code_.Array.ToArray());
         }
         /// <summary>
         /// 安装完成处理

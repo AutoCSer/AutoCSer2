@@ -1,7 +1,6 @@
 ﻿using System;
 /*ulong;long;uint;int;ushort;short;byte;sbyte;bool;float;double;decimal;char;DateTime;TimeSpan;Guid*/
 
-//Int128;UInt128;Half;
 namespace AutoCSer
 {
     /// <summary>

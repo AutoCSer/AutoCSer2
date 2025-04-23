@@ -8,7 +8,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// <summary>
     /// 成员复制
     /// </summary>
-    [Generator(Name = "成员复制", IsAuto = true, IsAOT = true)]
+    [Generator(Name = "成员复制", IsAuto = true)]
     internal partial class MemberCopy : AttributeGenerator<AutoCSer.CodeGenerator.MemberCopyAttribute>
     {
         /// <summary>
@@ -38,11 +38,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 成员复制方法名称
         /// </summary>
-        public string MemberCopyMethodName { get { return AutoCSer.MemberCopyMethod.MemberCopyMethodName; } }
+        public string MemberCopyMethodName { get { return MemberCopyAttribute.MemberCopyMethodName; } }
         /// <summary>
         /// 成员复制方法名称
         /// </summary>
-        public string MemberMapCopyMethodName { get { return AutoCSer.MemberCopyMethod.MemberMapCopyMethodName; } }
+        public string MemberMapCopyMethodName { get { return MemberCopyAttribute.MemberMapCopyMethodName; } }
         /// <summary>
         /// 固定序列化成员
         /// </summary>

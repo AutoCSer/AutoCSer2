@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 命令服务性能测试客户端接口（客户端回调返回结果）
     /// </summary>
-    public interface ICallbackClient
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IService))]
+#endif
+    public partial interface ICallbackClient
     {
         /// <summary>
         /// 服务端同步返回结果
@@ -124,7 +127,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 客户端回调返回结果
     /// </summary>
-    internal sealed class CallbackClient : AutoCSer.TestCase.Common.ClientPerformance
+    internal sealed class CallbackClientPerformance : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
         /// 客户端回调返回结果测试
@@ -145,53 +148,53 @@ namespace AutoCSer.TestCase.CommandClientPerformance
 
                 int testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.ConcurrencyReadQueue(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.ConcurrencyReadQueue));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.ConcurrencyReadQueue));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.ReadWriteQueue(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.ReadWriteQueue));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.ReadWriteQueue));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.Queue(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Queue));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.Queue));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.Callback(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Callback));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.Callback));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.SynchronousCallTask(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.SynchronousCallTask));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.SynchronousCallTask));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.Task(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Task));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.Task));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueueKey(0, left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueueKey));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.TaskQueueKey));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.Synchronous(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.Synchronous));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.Synchronous));
 
                 testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.TaskQueue(left, --right, CheckSynchronousHandle)) ;
-                await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.TaskQueue));
+                await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.TaskQueue));
 
                 #region 服务端仅执行模式，异常会导致测试中断，属于正常现象
                 testCount = Reset(commandClient, maxTestCount);
                 using (CommandKeepCallback commandKeepCallback = await client.InterfaceController.KeepCallback(CheckSynchronousKeepCallbackHandle))
                 {
                     for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
-                    await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.KeepCallback));
+                    await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.KeepCallback));
                 }
 
                 testCount = Reset(commandClient, maxTestCount);
                 using (CommandKeepCallback commandKeepCallback = await client.InterfaceController.KeepCallbackCount(CheckSynchronousKeepCallbackHandle))
                 {
                     for (int right = testCount; right != 0; await client.InterfaceController.SendOnlyTask(left, --right)) ;
-                    await LoopCompleted(nameof(CallbackClient), nameof(client.InterfaceController.KeepCallbackCount));
+                    await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.KeepCallbackCount));
                 }
                 #endregion
             }

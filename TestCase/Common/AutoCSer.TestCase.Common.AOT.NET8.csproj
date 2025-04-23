@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ClientPerformance.cs" />
     <Compile Include="CommandServerPortEnum.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Data\Enum\ByteEnum.cs" />

@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.SerializePerformance.AOT</AssemblyName>
-    <RootNamespace>AutoCSer.TestCase.SerializePerformance.AOT</RootNamespace>
+    <RootNamespace>AutoCSer.TestCase.SerializePerformance</RootNamespace>
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <PublishAot>True</PublishAot>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -34,7 +34,7 @@
     <Compile Include="JsonFloatPropertyData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PropertyData.cs" />
-    <Compile Include="{AutoCSer.TestCase.SerializePerformance.AOT}.AOT.AutoCSer.cs" />
+    <Compile Include="{AutoCSer.TestCase.SerializePerformance}.AOT.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +49,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
   </Target>
   
 </Project>

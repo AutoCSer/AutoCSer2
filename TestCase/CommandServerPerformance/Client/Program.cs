@@ -10,16 +10,19 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             await AutoCSer.Threading.SwitchAwaiter.Default;
             do
             {
-                await AwaiterClient.Test();
+                await AwaiterClientPerformance.Test();
                 Console.WriteLine();
-                await CallbackClient.Test();
+                await CallbackClientPerformance.Test();
                 Console.WriteLine();
-                await SynchronousCllient.Test();
+                await SynchronousCllientPerformance.Test();
 
                 Console.WriteLine("Press quit to exit.");
-                if (Console.ReadLine() == "quit") return;
+                if (Console.ReadLine() == "quit") break;
             }
             while (true);
+#if AOT
+            AutoCSer.TestCase.CommandClientPerformance.AotMethod.Call();
+#endif
         }
     }
 }

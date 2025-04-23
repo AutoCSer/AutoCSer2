@@ -9,6 +9,16 @@
             对象对比代码生成配置（用于 AOT 环境）
             </summary>
         </member>
+        <member name="F:AutoCSer.CodeGenerator.FieldEqualsAttribute.FieldEqualsMethodName">
+            <summary>
+            对象对比方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.FieldEqualsAttribute.MemberMapFieldEqualsMethodName">
+            <summary>
+            对象对比方法名称
+            </summary>
+        </member>
         <member name="T:AutoCSer.FieldEquals.CombinationTemplateConfig">
             <summary>
             自定义简单组合模板参数
@@ -56,16 +66,6 @@
             枚举值比较
             </summary>
         </member>
-        <member name="F:AutoCSer.FieldEquals.Comparor.FieldEqualsMethodName">
-            <summary>
-            对象对比方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.FieldEquals.Comparor.MemberMapFieldEqualsMethodName">
-            <summary>
-            对象对比方法名称
-            </summary>
-        </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.CallEquals``1(``0,``0)">
             <summary>
             对象对比
@@ -82,6 +82,14 @@
             <param name="right"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Half,System.Half)">
+            <summary>
+            浮点数比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Single,System.Single)">
             <summary>
             浮点数比较
@@ -93,6 +101,70 @@
         <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Double,System.Double)">
             <summary>
             浮点数比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            数据比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Matrix4x4,System.Numerics.Matrix4x4)">
+            <summary>
+            数据比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Matrix3x2,System.Numerics.Matrix3x2)">
+            <summary>
+            数据比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Plane,System.Numerics.Plane)">
+            <summary>
+            数据比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Quaternion,System.Numerics.Quaternion)">
+            <summary>
+            数据比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Vector2,System.Numerics.Vector2)">
+            <summary>
+            数据比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Vector3,System.Numerics.Vector3)">
+            <summary>
+            数据比较
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Numerics.Vector4,System.Numerics.Vector4)">
+            <summary>
+            数据比较
             </summary>
             <param name="left"></param>
             <param name="right"></param>

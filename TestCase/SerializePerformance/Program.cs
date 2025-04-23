@@ -68,7 +68,7 @@ namespace AutoCSer.TestCase.SerializePerformance
 ");
                 System.Threading.Thread.Sleep(3000);
 #if AOT
-                AutoCSer.TestCase.SerializePerformance.AOT.AotMethod.Call();
+                AutoCSer.TestCase.SerializePerformance.AotMethod.Call();
 #endif
             }
             while (true);

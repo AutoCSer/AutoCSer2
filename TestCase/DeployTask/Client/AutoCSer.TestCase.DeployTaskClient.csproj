@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Compile Include="CommandClientSocketEvent.cs" />
+    <Compile Include="ProcessArguments.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 

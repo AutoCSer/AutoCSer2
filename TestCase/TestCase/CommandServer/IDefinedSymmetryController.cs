@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 定义对称测试接口
     /// </summary>
-    public interface IDefinedSymmetryController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IDefinedSymmetryController))]
+#endif
+    public partial interface IDefinedSymmetryController
     {
         string SynchronousReturn(int Value, ref int Ref, out long Out);
         string SynchronousReturn(int Value, ref int Ref);
@@ -35,7 +38,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 定义对称测试接口实例
     /// </summary>
-    internal sealed class DefinedSymmetryController : IDefinedSymmetryController
+    internal partial class DefinedSymmetryServerController : IDefinedSymmetryController
     {
         string IDefinedSymmetryController.SynchronousReturn(int Value, ref int Ref, out long Out)
         {

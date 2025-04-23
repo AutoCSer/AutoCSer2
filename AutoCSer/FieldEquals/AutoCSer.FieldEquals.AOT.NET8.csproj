@@ -9,14 +9,14 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.AOT.xml</DocumentationFile>
-    <DefineConstants>DEBUG;AOT;NetStandard21</DefineConstants>
+    <DefineConstants>DEBUG;AOT;NetStandard21;NET8</DefineConstants>
     <IsAotCompatible>True</IsAotCompatible>
     <IsTrimmable>False</IsTrimmable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.AOT.xml</DocumentationFile>
-    <DefineConstants>DEBUG;AOT;NetStandard21</DefineConstants>
+    <DefineConstants>DEBUG;AOT;NetStandard21;NET8</DefineConstants>
     <IsAotCompatible>True</IsAotCompatible>
     <IsTrimmable>False</IsTrimmable>
   </PropertyGroup>

@@ -9,12 +9,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.xml</DocumentationFile>
-    <DefineConstants>DEBUG;NetStandard21</DefineConstants>
+    <DefineConstants>DEBUG;NetStandard21;NET8</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\AutoCSer2\AutoCSer\FieldEquals\AutoCSer.FieldEquals.xml</DocumentationFile>
-    <DefineConstants>NetStandard21</DefineConstants>
+    <DefineConstants>NetStandard21;NET8</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

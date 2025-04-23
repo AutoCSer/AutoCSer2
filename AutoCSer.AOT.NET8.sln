@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.Serialize
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.CodeGenerator.AOT.NET8", "AutoCSer\CodeGenerator\AutoCSer.CodeGenerator.AOT.NET8.csproj", "{D91DCF03-7E75-6381-20DB-066FC6FD3EA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.CommandClientPerformance.AOT", "TestCase\CommandServerPerformance\Client\AutoCSer.TestCase.CommandClientPerformance.AOT.csproj", "{D8A85901-4A91-AF80-A9B3-E014C6F6685F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{D91DCF03-7E75-6381-20DB-066FC6FD3EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D91DCF03-7E75-6381-20DB-066FC6FD3EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D91DCF03-7E75-6381-20DB-066FC6FD3EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8A85901-4A91-AF80-A9B3-E014C6F6685F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8A85901-4A91-AF80-A9B3-E014C6F6685F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8A85901-4A91-AF80-A9B3-E014C6F6685F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8A85901-4A91-AF80-A9B3-E014C6F6685F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{D351F93A-84EE-337C-B4B2-0C3D9FB78C98} = {196258EE-67A8-43C2-84E6-1133B80142DD}
 		{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
 		{27B1D7F8-62C7-229C-6DF9-02714218F4B1} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
+		{D8A85901-4A91-AF80-A9B3-E014C6F6685F} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

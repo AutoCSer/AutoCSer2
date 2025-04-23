@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
-    public interface IClientTaskController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerTaskController))]
+#endif
+    public partial interface IClientTaskController
     {
         ReturnCommand<string> AsynchronousTaskReturn(int Value, int Ref);
         ReturnCommand<string> AsynchronousTaskReturn();
@@ -32,7 +35,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）
     /// </summary>
-    internal static class ClientTaskController
+    internal partial class ClientTaskController
     {
         /// <summary>
         /// 命令客户端测试
@@ -47,7 +50,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             CommandClientReturnValue<string> returnValue = await client.ServerBindContextClientTaskController.AsynchronousTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!returnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -55,7 +58,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             returnValue = await client.ServerBindContextClientTaskController.AsynchronousTaskReturn();
             if (!returnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -79,7 +82,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             returnValue = await client.ServerBindContextClientTaskController.AsynchronousTaskReturnAsync(clientSessionObject.Value, clientSessionObject.Ref);
             if (!returnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -87,7 +90,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             returnValue = await client.ServerBindContextClientTaskController.AsynchronousTaskReturnAsync();
             if (!returnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -111,7 +114,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             returnValue = await client.ServerBindContextClientTaskController.TaskQueueReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!returnValue.IsSuccess
                 || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue.Value != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

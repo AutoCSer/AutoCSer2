@@ -9,5 +9,13 @@ namespace AutoCSer.CodeGenerator
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class FieldEqualsAttribute : Attribute
     {
+        /// <summary>
+        /// 对象对比方法名称
+        /// </summary>
+        internal const string FieldEqualsMethodName = "FieldEquals";
+        /// <summary>
+        /// 对象对比方法名称
+        /// </summary>
+        internal const string MemberMapFieldEqualsMethodName = "MemberMapFieldEquals";
     }
 }

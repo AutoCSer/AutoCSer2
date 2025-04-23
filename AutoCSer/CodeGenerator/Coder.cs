@@ -114,6 +114,7 @@ namespace AutoCSer.CodeGenerator
         /// </summary>
         public const string WarningCode = @"//本文件由程序自动生成，请不要自行修改
 using System;
+using System.Numerics;
 using AutoCSer;
 
 #if NoAutoCSer
@@ -168,7 +169,7 @@ using AutoCSer;
         internal static async Task Output(ProjectParameter parameter)
         {
 #if AOT
-            await new AutoCSer.CodeGenerator.TemplateGenerator.AotMethod().Run(parameter, new GeneratorAttribute { IsAOT = true });
+            await new AutoCSer.CodeGenerator.TemplateGenerator.AotMethod().Run(parameter, new GeneratorAttribute());
 #endif
             ListArray<string>[] builders = new ListArray<string>[codes.Length];
             for (int index = codes.Length; index != 0;)

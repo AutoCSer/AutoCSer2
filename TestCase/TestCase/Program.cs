@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.TestCase
 {
@@ -20,6 +21,10 @@ namespace AutoCSer.TestCase
         static void Main(string[] args)
 #endif
         {
+#if NET8
+            CommandServer.IsAotClient = args.Length != 0 && args[0] == AutoCSer.TestCase.Common.Config.AotClientArgument;
+            if (CommandServer.IsAotClient) Console.WriteLine(AutoCSer.TestCase.Common.Config.AotClientArgument);
+#endif
 #if NetStandard21
             await AutoCSer.Threading.SwitchAwaiter.Default;
             await test();
@@ -51,42 +56,51 @@ namespace AutoCSer.TestCase
 #if NetStandard21
             await
 #endif
-            using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
+            using (AutoCSer.Net.CommandListener databaseListener = new AutoCSer.Net.CommandListenerBuilder(0)
                 .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create())
                 .Append<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IReadWriteQueueService>(readWriteQueueDatabaseServiceConfig.Create())
                 .CreateCommandListener(commandServerConfig))
+            using (AutoCSer.Net.CommandListener commandListener = CommandServer.CreateCommandListener())
             {
-                if (await commandListener.Start())
+                if(!await databaseListener.Start())
                 {
-                    long streamPersistenceMemoryDatabaseCount = 2;
-                    Type errorType = typeof(Program);
-                    do
-                    {
-                        Task<bool> streamPersistenceMemoryDatabaseTask = streamPersistenceMemoryDatabaseCount > 0 ? StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase() : null;
-                        Task<bool> commandServerTask = CommandServer.TestCase();
-                        Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
-                        Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
-                        Task<bool> binarySerializeTask = BinarySerialize.TestCase();
-                        Task<bool> jsonTask = ThreadPool.TinyBackground.RunTask(Json.TestCase);
-                        Task<bool> xmlTask = ThreadPool.TinyBackground.RunTask(Xml.TestCase);
-                        if (!await commandServerTask) { errorType = typeof(CommandServer); break; }
-                        Task<bool> commandReverseServerTask = CommandReverseServer.TestCase();
-                        if (!await commandReverseServerTask) { errorType = typeof(CommandReverseServer); break; }
-                        Task<bool> interfaceControllerTaskQueueTask = InterfaceControllerTaskQueue.TestCase();
-                        if (!await binarySerializeTask) { errorType = typeof(BinarySerialize); break; }
-                        if (!await jsonTask) { errorType = typeof(Json); break; }
-                        if (!await xmlTask) { errorType = typeof(Xml); break; }
-                        if (!await interfaceControllerTaskQueueTask) { errorType = typeof(InterfaceControllerTaskQueue); break; }
-                        if (!await searchTreeTask) { errorType = typeof(SearchTree); break; }
-                        if (!await reusableDictionaryTask) { errorType = typeof(ReusableDictionary); break; }
-                        if (streamPersistenceMemoryDatabaseTask != null && !await streamPersistenceMemoryDatabaseTask) { errorType = typeof(StreamPersistenceMemoryDatabaseService); break; }
-                        Console.Write('.');
-                        --streamPersistenceMemoryDatabaseCount;
-                    }
-                    while (true);
-                    ConsoleWriteQueue.WriteLine(errorType.FullName + " ERROR", ConsoleColor.Red);
+                    ConsoleWriteQueue.WriteLine("内存数据库 RPC 服务启动失败。");
+                    Console.ReadKey();
+                    return;
                 }
-                else ConsoleWriteQueue.WriteLine("内存数据库 RPC 服务启动失败。");
+                if (!await commandListener.Start())
+                {
+                    ConsoleWriteQueue.WriteLine("测试 RPC 服务启动失败。");
+                    Console.ReadKey();
+                    return;
+                }
+                long streamPersistenceMemoryDatabaseCount = 2;
+                Type errorType = typeof(Program);
+                do
+                {
+                    Task<bool> streamPersistenceMemoryDatabaseTask = streamPersistenceMemoryDatabaseCount > 0 ? StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase() : null;
+                    Task<bool> commandServerTask = CommandServer.IsAotClient ? null : CommandServer.TestCase();
+                    Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
+                    Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
+                    Task<bool> binarySerializeTask = BinarySerialize.TestCase();
+                    Task<bool> jsonTask = ThreadPool.TinyBackground.RunTask(Json.TestCase);
+                    Task<bool> xmlTask = ThreadPool.TinyBackground.RunTask(Xml.TestCase);
+                    if (commandServerTask != null && !await commandServerTask) { errorType = typeof(CommandServer); break; }
+                    if (!CommandServer.IsAotClient && !await CommandReverseServer.TestCase()) { errorType = typeof(CommandReverseServer); break; }
+                    Task<bool> interfaceControllerTaskQueueTask = InterfaceControllerTaskQueue.TestCase();
+                    if (!await binarySerializeTask) { errorType = typeof(BinarySerialize); break; }
+                    if (!await jsonTask) { errorType = typeof(Json); break; }
+                    if (!await xmlTask) { errorType = typeof(Xml); break; }
+                    if (!await interfaceControllerTaskQueueTask) { errorType = typeof(InterfaceControllerTaskQueue); break; }
+                    if (!await searchTreeTask) { errorType = typeof(SearchTree); break; }
+                    if (!await reusableDictionaryTask) { errorType = typeof(ReusableDictionary); break; }
+                    if (streamPersistenceMemoryDatabaseTask != null && !await streamPersistenceMemoryDatabaseTask) { errorType = typeof(StreamPersistenceMemoryDatabaseService); break; }
+                    Console.Write('.');
+                    --streamPersistenceMemoryDatabaseCount;
+                    if (CommandServer.IsAotClient) await AutoCSer.Threading.SwitchAwaiter.Default;
+                }
+                while (true);
+                ConsoleWriteQueue.WriteLine(errorType.FullName + " ERROR", ConsoleColor.Red);
                 Console.ReadKey();
             }
         }

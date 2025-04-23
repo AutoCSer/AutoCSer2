@@ -17,15 +17,6 @@ namespace AutoCSer.FieldEquals
     public static partial class Comparor
     {
         /// <summary>
-        /// 对象对比方法名称
-        /// </summary>
-        internal const string FieldEqualsMethodName = "FieldEquals";
-        /// <summary>
-        /// 对象对比方法名称
-        /// </summary>
-        internal const string MemberMapFieldEqualsMethodName = "MemberMapFieldEquals";
-
-        /// <summary>
         /// 对象对比
         /// </summary>
         /// <param name="left"></param>
@@ -104,6 +95,99 @@ namespace AutoCSer.FieldEquals
             if (left == right) return true;
             if ((!double.IsNaN(right) && double.Parse(left.ToString(), System.Globalization.CultureInfo.InvariantCulture) == right)) return true;
             Breakpoint(typeof(double), left, right);
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Complex left, System.Numerics.Complex right)
+        {
+            if (Equals(left.Real, right.Real) && Equals(left.Imaginary, right.Imaginary)) return true;
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Matrix4x4 left, System.Numerics.Matrix4x4 right)
+        {
+            if (Equals(left.M11, right.M11) && Equals(left.M12, right.M12) && Equals(left.M13, right.M13) && Equals(left.M14, right.M14)
+                && Equals(left.M21, right.M21) && Equals(left.M22, right.M22) && Equals(left.M23, right.M23) && Equals(left.M24, right.M24)
+                && Equals(left.M31, right.M31) && Equals(left.M32, right.M32) && Equals(left.M33, right.M33) && Equals(left.M34, right.M34)
+                && Equals(left.M41, right.M41) && Equals(left.M42, right.M42) && Equals(left.M43, right.M43) && Equals(left.M44, right.M44)) return true;
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Matrix3x2 left, System.Numerics.Matrix3x2 right)
+        {
+            if (Equals(left.M11, right.M11) && Equals(left.M12, right.M12)
+                && Equals(left.M21, right.M21) && Equals(left.M22, right.M22)
+                && Equals(left.M31, right.M31) && Equals(left.M32, right.M32)) return true;
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Plane left, System.Numerics.Plane right)
+        {
+            if (Equals(left.Normal, right.Normal) && Equals(left.D, right.D)) return true;
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Quaternion left, System.Numerics.Quaternion right)
+        {
+            if (Equals(left.X, right.X) && Equals(left.Y, right.Y) && Equals(left.Z, right.Z) && Equals(left.W, right.W)) return true;
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Vector2 left, System.Numerics.Vector2 right)
+        {
+            if (Equals(left.X, right.X) && Equals(left.Y, right.Y)) return true;
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Vector3 left, System.Numerics.Vector3 right)
+        {
+            if (Equals(left.X, right.X) && Equals(left.Y, right.Y) && Equals(left.Z, right.Z)) return true;
+            return false;
+        }
+        /// <summary>
+        /// 数据比较
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(System.Numerics.Vector4 left, System.Numerics.Vector4 right)
+        {
+            if (Equals(left.X, right.X) && Equals(left.Y, right.Y) && Equals(left.Z, right.Z) && Equals(left.W, right.W)) return true;
             return false;
         }
         /// <summary>
@@ -512,6 +596,14 @@ namespace AutoCSer.FieldEquals
 #endif
                 if (type == typeof(float)) return (Func<float, float, bool>)Comparor.Equals;
                 if (type == typeof(double)) return (Func<double, double, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Complex)) return (Func<System.Numerics.Complex, System.Numerics.Complex, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Matrix3x2)) return (Func<System.Numerics.Matrix3x2, System.Numerics.Matrix3x2, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Matrix4x4)) return (Func<System.Numerics.Matrix4x4, System.Numerics.Matrix4x4, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Plane)) return (Func<System.Numerics.Plane, System.Numerics.Plane, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Quaternion)) return (Func<System.Numerics.Quaternion, System.Numerics.Quaternion, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Vector2)) return (Func<System.Numerics.Vector2, System.Numerics.Vector2, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Vector3)) return (Func<System.Numerics.Vector3, System.Numerics.Vector3, bool>)Comparor.Equals;
+                if (type == typeof(System.Numerics.Vector4)) return (Func<System.Numerics.Vector4, System.Numerics.Vector4, bool>)Comparor.Equals;
 #if AOT
                 if (type.IsValueType) return Comparor.EquatableEqualsMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
                 return Comparor.ReferenceEqualsMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<T, T, bool>));
@@ -605,19 +697,19 @@ namespace AutoCSer.FieldEquals
             Type type = typeof(T);
 #if AOT
 
-            var method = type.GetMethod(Comparor.FieldEqualsMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type, type });
+            var method = type.GetMethod(AutoCSer.CodeGenerator.FieldEqualsAttribute.FieldEqualsMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type, type });
             if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(bool))
             {
-                var memberMapMethod = type.GetMethod(Comparor.MemberMapFieldEqualsMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type, type, typeof(AutoCSer.Metadata.MemberMap<T>) });
+                var memberMapMethod = type.GetMethod(AutoCSer.CodeGenerator.FieldEqualsAttribute.MemberMapFieldEqualsMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type, type, typeof(AutoCSer.Metadata.MemberMap<T>) });
                 if (memberMapMethod != null && !memberMapMethod.IsGenericMethod && memberMapMethod.ReturnType == typeof(bool))
                 {
                     EqualsComparor = (Func<T, T, bool>)method.CreateDelegate(typeof(Func<T, T, bool>));
                     MemberMapEqualsComparor = (Func<T, T, AutoCSer.Metadata.MemberMap<T>, bool>)memberMapMethod.CreateDelegate(typeof(Func<T, T, AutoCSer.Metadata.MemberMap<T>, bool>));
                     return;
                 }
-                throw new MissingMethodException(type.fullName(), Comparor.MemberMapFieldEqualsMethodName);
+                throw new MissingMethodException(type.fullName(), AutoCSer.CodeGenerator.FieldEqualsAttribute.MemberMapFieldEqualsMethodName);
             }
-            throw new MissingMethodException(type.fullName(), Comparor.FieldEqualsMethodName);
+            throw new MissingMethodException(type.fullName(), AutoCSer.CodeGenerator.FieldEqualsAttribute.FieldEqualsMethodName);
 #else
             FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly);
             LeftArray<AutoCSer.Metadata.FieldIndex> memberMapFields = AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(type, AutoCSer.Metadata.MemberFiltersEnum.InstanceField);

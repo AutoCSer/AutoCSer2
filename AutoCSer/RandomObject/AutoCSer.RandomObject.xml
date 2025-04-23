@@ -46,11 +46,6 @@
             <param name="config"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.RandomObject.Creator.CreateRandomObjectMethodName">
-            <summary>
-            随机对象生成方法名称
-            </summary>
-        </member>
         <member name="F:AutoCSer.RandomObject.Creator.DefaultConfig">
             <summary>
             公共默认配置参数
@@ -193,6 +188,83 @@
         <member name="M:AutoCSer.RandomObject.Creator.CreateULong(AutoCSer.RandomObject.Config)">
             <summary>
             创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateInt128(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateUInt128(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateHalf(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateComplex(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreatePlane(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateQuaternion(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateMatrix3x2(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateMatrix4x4(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateVector2(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateVector3(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.RandomObject.Creator.CreateVector4(AutoCSer.RandomObject.Config)">
+            <summary>
+            创建随机数据
             </summary>
             <param name="config"></param>
             <returns></returns>

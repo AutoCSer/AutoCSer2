@@ -64,7 +64,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProjectParameter.cs" />
     <Compile Include="TemplateGenerator\AttributeGenerator.cs" />
-    <Compile Include="TemplateGenerator\CommandServerClientController.cs" />
+    <Compile Include="TemplateGenerator\CommandServerClientControllerInterface.cs" />
     <Compile Include="TemplateGenerator\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="TemplateGenerator\CSharpTypeDefinition.cs" />
     <Compile Include="TemplateGenerator\Generator.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseNode.cs" />
     <Compile Include="TemplateGenerator\TypeDefinition.cs" />
-    <Compile Include="Template\CommandServerClientController.cs" />
+    <Compile Include="Template\CommandServerClientControllerInterface.cs" />
     <Compile Include="Template\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="Template\Pub.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseClientNode.cs" />

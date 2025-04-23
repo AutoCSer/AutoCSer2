@@ -68,7 +68,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 类定义生成
         /// </summary>
-        private TypeDefinition _definition_;
+        protected TypeDefinition _definition_;
         /// <summary>
         /// 临时逻辑变量
         /// </summary>

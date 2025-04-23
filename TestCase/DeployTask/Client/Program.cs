@@ -22,6 +22,7 @@ namespace AutoCSer.TestCase.DeployTaskClient
                 Console.WriteLine(@"
 1 : AutoCSer.TestCase.NetCoreWeb
 T : TestCase
+A : AOT TestCase
 S : Search TestCase
 L : LocalSearch TestCase
 M : MemorySearch TestCase
@@ -31,6 +32,7 @@ Press quit to exit.");
                 {
                     case "1": netCoreWeb().NotWait(); break;
                     case "T": testCase().NotWait(); break;
+                    case "A": aot().NotWait(); break;
                     case "S": search().NotWait(); break;
                     case "L": localSearch().NotWait(); break;
                     case "M": memorySearch().NotWait(); break;
@@ -200,8 +202,7 @@ Press quit to exit.");
                 await waitProcess(@"Document\ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
                 await waitProcess(@"Document\ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
                 await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
-                await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.AOT.exe");
-                await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\publish\AutoCSer.TestCase.AOT.exe");
+                await aot();
 
                 await waitProcess(@"TestCase\TimestampVerify\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerify.exe", @"TestCase\TimestampVerify\Client\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerifyClient.exe");
                 await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ServerRegistry\Service\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryService.exe", @"TestCase\ServerRegistry\Service\Client\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryServiceClient.exe");
@@ -221,6 +222,7 @@ Press quit to exit.");
                 await search();
 
                 await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
+                await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\publish\AutoCSer.TestCase.CommandClientPerformance.AOT.exe");
                 await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
                 await waitProcess(@"TestCase\StreamPersistenceMemoryDatabase\LocalService\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.exe", 2);
                 await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabase.exe", @"TestCase\StreamPersistenceMemoryDatabase\Client\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient.exe", 2);
@@ -244,12 +246,17 @@ Press quit to exit.");
         {
             return waitProcess(@"TestCase\Search\MemorySearchDataSource\bin\Release\net8.0\AutoCSer.TestCase.MemorySearchDataSource.exe", @"TestCase\Search\MemorySearchQueryService\bin\Release\net8.0\AutoCSer.TestCase.MemorySearchQueryService.exe", @"TestCase\Search\MemorySearchClient\bin\Release\net8.0\AutoCSer.TestCase.MemorySearchClient.exe");
         }
-        private static async Task waitProcess(string fileName, int count = 1)
+        private static async Task aot()
+        {
+            ProcessArguments publishFile = @"TestCase\TestCase\bin\Release\net8.0\publish\AutoCSer.TestCase.AOT.exe";
+            if (!await publishFile.FileExists()) publishFile = @"TestCase\TestCase\bin\Release\net8.0\publish\win-x64\AutoCSer.TestCase.AOT.exe";
+            await waitProcess(new ProcessArguments(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe", AutoCSer.TestCase.Common.Config.AotClientArgument), publishFile);
+        }
+        private static async Task waitProcess(ProcessArguments fileName, int count = 1)
         {
             while (--count >= 0)
             {
-                Console.WriteLine(fileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, fileName));
-                Process process = await new ProcessInfo(fileName).StartAsync();
+                Process process = await fileName.Start();
                 if (process != null)
                 {
                     using (process) await wait(fileName, process);
@@ -257,10 +264,10 @@ Press quit to exit.");
                 else Console.WriteLine("Not Found File");
             }
         }
-        private static async Task wait(string fileName, Process process)
+        private static async Task wait(ProcessArguments fileName, Process process)
         {
             await process.WaitForExitAsync();
-            FileInfo file = new FileInfo(Path.Combine(new FileInfo(fileName).Directory.FullName, "AutoCSer.log"));
+            FileInfo file = fileName.GetLogFileInfo();
             if (await AutoCSer.Common.FileExists(file))
             {
                 try
@@ -274,15 +281,14 @@ Press quit to exit.");
                 }
             }
         }
-        private static async Task waitProcess2(string serverFileName, string clientFileName, int count)
+        private static async Task waitProcess2(ProcessArguments serverFileName, ProcessArguments clientFileName, int count)
         {
             await waitProcess(serverFileName, clientFileName, count);
             await waitProcess(serverFileName, clientFileName, count);
         }
-        private static async Task waitProcess(string serverFileName, string clientFileName, int count)
+        private static async Task waitProcess(ProcessArguments serverFileName, ProcessArguments clientFileName, int count)
         {
-            Console.WriteLine(serverFileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, serverFileName));
-            Process process = await new ProcessInfo(serverFileName).StartAsync();
+            Process process = await serverFileName.Start();
             if (process != null)
             {
                 using (process)
@@ -293,15 +299,14 @@ Press quit to exit.");
             }
             else Console.WriteLine("Not Found File");
         }
-        private static Task waitProcess(params string[] fileNames)
+        private static Task waitProcess(params ProcessArguments[] fileNames)
         {
             return waitProcess(fileNames, 0);
         }
-        private static async Task waitProcess(string[] fileNames, int index)
+        private static async Task waitProcess(ProcessArguments[] fileNames, int index)
         {
-            string fileName = fileNames[index];
-            Console.WriteLine(fileName = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, fileName));
-            Process process = await new ProcessInfo(fileName).StartAsync();
+            ProcessArguments fileName = fileNames[index];
+            Process process = await fileName.Start();
             if (process != null)
             {
                 using (process)

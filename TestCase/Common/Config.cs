@@ -8,6 +8,11 @@ namespace AutoCSer.TestCase.Common
     /// </summary>
     public abstract class Config : AutoCSer.Configuration.Root
     {
+        /// <summary>
+        /// AOT 测试客户端命令行传参
+        /// </summary>
+        public const string AotClientArgument = "AotClient";
+
         ///// <summary>
         ///// 公共配置类型集合
         ///// </summary>

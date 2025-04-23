@@ -12,7 +12,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// <summary>
     /// 对象对比
     /// </summary>
-    [Generator(Name = "对象对比", IsAuto = true, IsAOT = true)]
+    [Generator(Name = "对象对比", IsAuto = true)]
     internal partial class FieldEquals : AttributeGenerator<AutoCSer.CodeGenerator.FieldEqualsAttribute>
     {
         /// <summary>
@@ -137,11 +137,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 对象对比方法名称
         /// </summary>
-        public string FieldEqualsMethodName { get { return Comparor.FieldEqualsMethodName; } }
+        public string FieldEqualsMethodName { get { return FieldEqualsAttribute.FieldEqualsMethodName; } }
         /// <summary>
         /// 对象对比方法名称
         /// </summary>
-        public string MemberMapFieldEqualsMethodName { get { return Comparor.MemberMapFieldEqualsMethodName; } }
+        public string MemberMapFieldEqualsMethodName { get { return FieldEqualsAttribute.MemberMapFieldEqualsMethodName; } }
         /// <summary>
         /// 成员集合
         /// </summary>

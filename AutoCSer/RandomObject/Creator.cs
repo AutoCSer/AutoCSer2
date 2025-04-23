@@ -16,10 +16,6 @@ namespace AutoCSer.RandomObject
     public static partial class Creator
     {
         /// <summary>
-        /// 随机对象生成方法名称
-        /// </summary>
-        internal const string CreateRandomObjectMethodName = "CreateRandomObject";
-        /// <summary>
         /// 公共默认配置参数
         /// </summary>
         internal static readonly Config DefaultConfig = AutoCSer.Configuration.Common.Get<Config>()?.Value ?? new Config();
@@ -272,12 +268,6 @@ namespace AutoCSer.RandomObject
         /// </summary>
         /// <typeparam name="T"></typeparam>
         internal static void ReflectionMethodName<T>(object value) { }
-        ///// <summary>
-        ///// 代码生成模板
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <returns></returns>
-        //internal static T? CallCreate<T>() { return default(T); }
 #endif
 
         /// <summary>
@@ -394,7 +384,6 @@ namespace AutoCSer.RandomObject
             }
             return AutoCSer.Random.Default.NextULong();
         }
-#if NET8
         /// <summary>
         /// 创建随机数
         /// </summary>
@@ -404,8 +393,8 @@ namespace AutoCSer.RandomObject
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
-                case 0: return Int128.MinValue;
-                case 1: return Int128.MaxValue;
+                case 0: return new Int128(((ulong)long.MaxValue) + 1, 0);
+                case 1: return new Int128(long.MaxValue, ulong.MaxValue);
             }
             return new Int128(AutoCSer.Random.Default.NextULong(), AutoCSer.Random.Default.NextULong());
         }
@@ -418,8 +407,8 @@ namespace AutoCSer.RandomObject
         {
             switch (AutoCSer.Random.Default.NextByte())
             {
-                case 0: return UInt128.MinValue;
-                case 1: return UInt128.MaxValue;
+                case 0: return new UInt128(0, 0);
+                case 1: return new UInt128(ulong.MaxValue, ulong.MaxValue);
             }
             return new UInt128(AutoCSer.Random.Default.NextULong(), AutoCSer.Random.Default.NextULong());
         }
@@ -430,6 +419,7 @@ namespace AutoCSer.RandomObject
         /// <returns></returns>
         public static Half CreateHalf(Config config)
         {
+#if NET8
             if (config.IsParseFloat)
             {
                 switch (AutoCSer.Random.Default.NextByte())
@@ -452,8 +442,86 @@ namespace AutoCSer.RandomObject
                 case 5: return Half.NegativeInfinity;
             }
             return AutoCSer.Random.Default.NextHalf();
-        }
+#else
+            ushort ushortValue = CreateUShort(config);
+            unsafe { return *(Half*)&ushortValue; }
 #endif
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Complex CreateComplex(Config config)
+        {
+            return new System.Numerics.Complex(CreateDouble(config), CreateDouble(config));
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Plane CreatePlane(Config config)
+        {
+            return new System.Numerics.Plane(CreateVector3(config), CreateFloat(config));
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Quaternion CreateQuaternion(Config config)
+        {
+            return new System.Numerics.Quaternion(CreateVector3(config), CreateFloat(config));
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Matrix3x2 CreateMatrix3x2(Config config)
+        {
+            return new System.Numerics.Matrix3x2(CreateFloat(config), CreateFloat(config), CreateFloat(config), CreateFloat(config), CreateFloat(config), CreateFloat(config));
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Matrix4x4 CreateMatrix4x4(Config config)
+        {
+            return new System.Numerics.Matrix4x4(CreateFloat(config), CreateFloat(config), CreateFloat(config), CreateFloat(config)
+                , CreateFloat(config), CreateFloat(config), CreateFloat(config), CreateFloat(config)
+                , CreateFloat(config), CreateFloat(config), CreateFloat(config), CreateFloat(config)
+                , CreateFloat(config), CreateFloat(config), CreateFloat(config), CreateFloat(config));
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector2 CreateVector2(Config config)
+        {
+            return new System.Numerics.Vector2(CreateFloat(config), CreateFloat(config));
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector3 CreateVector3(Config config)
+        {
+            return new System.Numerics.Vector3(CreateVector2(config), CreateFloat(config));
+        }
+        /// <summary>
+        /// 创建随机数据
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector4 CreateVector4(Config config)
+        {
+            return new System.Numerics.Vector4(CreateVector3(config), CreateFloat(config));
+        }
         /// <summary>
         /// 随机数除数
         /// </summary>
@@ -729,18 +797,27 @@ namespace AutoCSer.RandomObject
             createDelegates.Add(typeof(DateTimeOffset), (Func<Config, DateTimeOffset>)CreateDateTimeOffset);
             createDelegates.Add(typeof(TimeSpan), (Func<Config, TimeSpan>)CreateTimeSpan);
 #if NetStandard21
-#if NET8
-            createDelegates.Add(typeof(Half), (Func<Config, Half>)CreateHalf);
-            createDelegates.Add(typeof(Int128), (Func<Config, Int128>)CreateInt128);
-            createDelegates.Add(typeof(UInt128), (Func<Config, UInt128>)CreateUInt128);
-#endif
             createDelegates.Add(typeof(string), (Func<Config, string?>)CreateString);
 #else
             createDelegates.Add(typeof(string), (Func<Config, string>)CreateString);
 #endif
+            createDelegates.Add(typeof(Half), (Func<Config, Half>)CreateHalf);
+            createDelegates.Add(typeof(Int128), (Func<Config, Int128>)CreateInt128);
+            createDelegates.Add(typeof(UInt128), (Func<Config, UInt128>)CreateUInt128);
+            createDelegates.Add(typeof(System.Numerics.Complex), (Func<Config, System.Numerics.Complex>)CreateComplex);
+            createDelegates.Add(typeof(System.Numerics.Plane), (Func<Config, System.Numerics.Plane>)CreatePlane);
+            createDelegates.Add(typeof(System.Numerics.Quaternion), (Func<Config, System.Numerics.Quaternion>)CreateQuaternion);
+            createDelegates.Add(typeof(System.Numerics.Matrix3x2), (Func<Config, System.Numerics.Matrix3x2>)CreateMatrix3x2);
+            createDelegates.Add(typeof(System.Numerics.Matrix4x4), (Func<Config, System.Numerics.Matrix4x4>)CreateMatrix4x4);
+            createDelegates.Add(typeof(System.Numerics.Vector2), (Func<Config, System.Numerics.Vector2>)CreateVector2);
+            createDelegates.Add(typeof(System.Numerics.Vector3), (Func<Config, System.Numerics.Vector3>)CreateVector3);
+            createDelegates.Add(typeof(System.Numerics.Vector4), (Func<Config, System.Numerics.Vector4>)CreateVector4);
+
             int clearSeconds = AutoCSer.Common.Config.GetMemoryCacheClearSeconds();
             if (clearSeconds > 0) AutoCSer.Threading.SecondTimer.InternalTaskArray.Append(DefaultConfig.ClearHistory, clearSeconds, Threading.SecondTimerKeepModeEnum.After, clearSeconds);
+#if !AOT
             AutoCSer.Memory.ObjectRoot.ScanType.Add(typeof(Creator));
+#endif
         }
     }
     /// <summary>
@@ -991,13 +1068,13 @@ namespace AutoCSer.RandomObject
             }
             Type type = typeof(T);
 #if AOT
-            var method = type.GetMethod(Creator.CreateRandomObjectMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type.MakeByRefType(), typeof(Config) });
+            var method = type.GetMethod(AutoCSer.CodeGenerator.RandomObjectAttribute.CreateRandomObjectMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { type.MakeByRefType(), typeof(Config) });
             if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(void))
             {
                 memberCreator = (MemberCreator)method.CreateDelegate(typeof(MemberCreator));
                 return;
             }
-            throw new MissingMethodException(type.fullName(), Creator.CreateRandomObjectMethodName);
+            throw new MissingMethodException(type.fullName(), AutoCSer.CodeGenerator.RandomObjectAttribute.CreateRandomObjectMethodName);
 #else
             FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly);
             MemberDynamicMethod dynamicMethod = new MemberDynamicMethod(type);

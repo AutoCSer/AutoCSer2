@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端 Task 队列客户端测试接口
     /// </summary>
-    public interface IClientTaskQueueContextController
+    public partial interface IClientTaskQueueContextController
     {
         ReturnCommand<string> TaskQueueReturn();
         ReturnCommand<string> TaskQueueReturn(int Value, int Ref);
@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端 Task 队列命令客户端测试
     /// </summary>
-    internal static class ClientTaskQueueContextController
+    internal partial class ClientTaskQueueContextController
     {
         /// <summary>
         /// 命令客户端测试

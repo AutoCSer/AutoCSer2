@@ -10,7 +10,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// <summary>
     /// XML 序列化
     /// </summary>
-    [Generator(Name = "XML 序列化", IsAuto = true, IsAOT = true)]
+    [Generator(Name = "XML 序列化", IsAuto = true)]
     internal partial class XmlSerialize : AttributeGenerator<AutoCSer.CodeGenerator.XmlSerializeAttribute>
     {
         /// <summary>
@@ -82,7 +82,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     if (MemberType.Type.IsGenericParameter || MethodInfo.IsTypeSerialize) return nameof(AutoCSer.XmlSerializer.XmlSerializeType);
                     if (MemberType.IsObject) return nameof(AutoCSer.XmlSerializer.XmlSerializeObject);
                     if (MethodInfo.IsCusotm) return nameof(AutoCSer.XmlSerializer.ICustom);
-                    return AutoCSer.XmlSerializer.XmlSerializeMethodName;
+                    return XmlSerializeAttribute.XmlSerializeMethodName;
                 }
             }
             /// <summary>
@@ -92,7 +92,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 get
                 {
-                    return AutoCSer.XmlDeserializer.XmlDeserializeMethodName;
+                    return XmlSerializeAttribute.XmlDeserializeMethodName;
                 }
             }
             /// <summary>
@@ -155,23 +155,23 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 序列化方法名称
         /// </summary>
-        public string XmlSerializeMethodName { get { return AutoCSer.XmlSerializer.XmlSerializeMethodName; } }
+        public string XmlSerializeMethodName { get { return XmlSerializeAttribute.XmlSerializeMethodName; } }
         /// <summary>
         /// 序列化方法名称
         /// </summary>
-        public string XmlSerializeMemberMapMethodName { get { return AutoCSer.XmlSerializer.XmlSerializeMemberMapMethodName; } }
+        public string XmlSerializeMemberMapMethodName { get { return XmlSerializeAttribute.XmlSerializeMemberMapMethodName; } }
         /// <summary>
         /// 获取 XML 序列化成员类型方法名称
         /// </summary>
-        public string XmlSerializeMemberTypeMethodName { get { return AutoCSer.XmlSerializer.XmlSerializeMemberTypeMethodName; } }
+        public string XmlSerializeMemberTypeMethodName { get { return XmlSerializeAttribute.XmlSerializeMemberTypeMethodName; } }
         /// <summary>
         /// 反序列化方法名称
         /// </summary>
-        public string XmlDeserializeMethodName { get { return AutoCSer.XmlDeserializer.XmlDeserializeMethodName; } }
+        public string XmlDeserializeMethodName { get { return XmlSerializeAttribute.XmlDeserializeMethodName; } }
         /// <summary>
         /// 获取 XML 反序列化成员名称方法名称
         /// </summary>
-        public string XmlDeserializeMemberNameMethodName { get { return AutoCSer.XmlDeserializer.XmlDeserializeMemberNameMethodName; } }
+        public string XmlDeserializeMemberNameMethodName { get { return XmlSerializeAttribute.XmlDeserializeMemberNameMethodName; } }
         /// <summary>
         /// 序列化成员集合
         /// </summary>

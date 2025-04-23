@@ -8,7 +8,10 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 定义对称测试接口（套接字上下文绑定服务端）
     /// </summary>
-    public interface IDefinedSymmetryController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IDefinedSymmetryController))]
+#endif
+    public partial interface IDefinedSymmetryController
     {
         string SynchronousReturn(int Value, ref int Ref, out long Out);
         string SynchronousReturn(int Value, ref int Ref);
@@ -35,7 +38,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 定义对称测试接口实例（套接字上下文绑定服务端）
     /// </summary>
-    internal sealed class DefinedSymmetryController : CommandServerBindContextController, IDefinedSymmetryController
+    internal partial class DefinedSymmetryServerController : CommandServerBindContextController, IDefinedSymmetryController
     {
         string IDefinedSymmetryController.SynchronousReturn(int Value, ref int Ref, out long Out)
         {
@@ -134,7 +137,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             string returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(clientSessionObject.Value, ref clientSessionObject.Ref, out clientSessionObject.Out);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -143,7 +146,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(clientSessionObject.Value, ref clientSessionObject.Ref);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -151,7 +154,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(clientSessionObject.Value, out clientSessionObject.Out);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -159,7 +162,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Value = AutoCSer.Random.Default.Next();
             returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(clientSessionObject.Value);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -167,7 +170,7 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(ref clientSessionObject.Ref, out clientSessionObject.Out);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -175,21 +178,21 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(ref clientSessionObject.Ref);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(out clientSessionObject.Out);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             returnValue = client.ServerBindContextDefinedSymmetryController.SynchronousReturn();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -255,14 +258,14 @@ namespace AutoCSer.TestCase.ServerBindContext
             clientSessionObject.Ref = AutoCSer.Random.Default.Next();
             returnValue = await client.ServerBindContextDefinedSymmetryController.AsynchronousTaskReturn(clientSessionObject.Value, clientSessionObject.Ref);
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             returnValue = await client.ServerBindContextDefinedSymmetryController.AsynchronousTaskReturn();
             if (!AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject)
-                || returnValue != AutoCSer.TestCase.ServerSynchronousController.SessionObject.Xor().ToString())
+                || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.CheckXor(returnValue))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

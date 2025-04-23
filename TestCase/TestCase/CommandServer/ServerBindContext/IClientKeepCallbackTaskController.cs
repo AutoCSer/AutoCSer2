@@ -9,7 +9,10 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
-    public interface IClientKeepCallbackTaskController
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerKeepCallbackTaskController))]
+#endif
+    public partial interface IClientKeepCallbackTaskController
     {
         EnumeratorCommand<string> KeepCallbackTaskReturn(int Value, int Ref);
         EnumeratorCommand KeepCallbackTask(int Value, int Ref);
@@ -59,7 +62,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 命令客户端测试（套接字上下文绑定服务端）
     /// </summary>
-    internal static class ClientKeepCallbackTaskController
+    internal partial class ClientKeepCallbackTaskController
     {
         /// <summary>
         /// 命令客户端测试

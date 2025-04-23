@@ -48,17 +48,9 @@ namespace AutoCSer.TestCase
         /// </summary>
         public IClientTaskController ClientTaskController { get; private set; }
         /// <summary>
-        /// 控制器异步队列接口测试
-        /// </summary>
-        public IServerTaskQueueControllerClientController ClientTaskQueueController { get; private set; }
-        /// <summary>
         /// 保持回调异步任务接口测试
         /// </summary>
         public IClientKeepCallbackTaskController ClientKeepCallbackTaskController { get; private set; }
-        /// <summary>
-        /// 服务端 Task 队列客户端
-        /// </summary>
-        public CommandClientController<IClientTaskQueueContextController, int> ClientTaskQueueContextController { get; private set; }
         /// <summary>
         /// 定义对称接口测试
         /// </summary>
@@ -67,6 +59,16 @@ namespace AutoCSer.TestCase
         /// 客户端定义非对称测试接口
         /// </summary>
         public IDefinedDissymmetryClientController DefinedDissymmetryClientController { get; private set; }
+#if !AOT
+        /// <summary>
+        /// 控制器异步队列接口测试
+        /// </summary>
+        public IServerTaskQueueControllerClientController ClientTaskQueueController { get; private set; }
+        /// <summary>
+        /// 服务端 Task 队列客户端
+        /// </summary>
+        public AutoCSer.Net.CommandServer.TaskQueueClientController<IClientTaskQueueContextController, int> ClientTaskQueueContextController { get; private set; }
+#endif
 
         /// <summary>
         /// 同步接口测试（套接字上下文绑定服务端）
@@ -109,10 +111,6 @@ namespace AutoCSer.TestCase
         /// </summary>
         public ServerBindContext.IClientKeepCallbackTaskController ServerBindContextClientKeepCallbackTaskController { get; private set; }
         /// <summary>
-        /// 控制器异步队列接口测试（套接字上下文绑定服务端）
-        /// </summary>
-        public ServerBindContext.IServerTaskQueueControllerClientController ServerBindContextClientTaskQueueController { get; private set; }
-        /// <summary>
         /// 定义对称接口测试（套接字上下文绑定服务端）
         /// </summary>
         public ServerBindContext.IDefinedSymmetryController ServerBindContextDefinedSymmetryController { get; private set; }
@@ -120,6 +118,12 @@ namespace AutoCSer.TestCase
         /// 客户端定义非对称测试接口（套接字上下文绑定服务端）
         /// </summary>
         public ServerBindContext.IDefinedDissymmetryClientController ServerBindContextDefinedDissymmetryClientController { get; private set; }
+#if !AOT
+        /// <summary>
+        /// 控制器异步队列接口测试（套接字上下文绑定服务端）
+        /// </summary>
+        public ServerBindContext.IServerTaskQueueControllerClientController ServerBindContextClientTaskQueueController { get; private set; }
+#endif
         /// <summary>
         /// 客户端控制器创建器参数集合
         /// </summary>
@@ -137,10 +141,12 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackController), typeof(IClientKeepCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskController), typeof(IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackTaskController), typeof(IClientKeepCallbackTaskController));
-                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueController), typeof(IServerTaskQueueControllerClientController));
-                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueContextController), typeof(int), typeof(IClientTaskQueueContextController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IDefinedSymmetryController), typeof(IDefinedSymmetryController));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(IDefinedDissymmetryClientController));
+#if !AOT
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueController), typeof(IServerTaskQueueControllerClientController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskQueueContextController), typeof(int), typeof(IClientTaskQueueContextController));
+#endif
 
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerSynchronousController), typeof(ServerBindContext.IClientSynchronousController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerSendOnlyController), typeof(ServerBindContext.IClientSendOnlyController));
@@ -152,9 +158,11 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackController), typeof(ServerBindContext.IClientKeepCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskController), typeof(ServerBindContext.IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackTaskController), typeof(ServerBindContext.IClientKeepCallbackTaskController));
-                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IServerTaskQueueControllerClientController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IDefinedSymmetryController), typeof(ServerBindContext.IDefinedSymmetryController));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(ServerBindContext.IDefinedDissymmetryClientController));
+#if !AOT
+                yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IServerTaskQueueControllerClientController));
+#endif
             }
         }
         /// <summary>
@@ -171,5 +179,24 @@ namespace AutoCSer.TestCase
         {
             return getCompletedTask(((IClientSynchronousController)controller).SynchronousSocket(int.MinValue));
         }
+#if AOT
+        /// <summary>
+        /// 没有找到服务端控制器名称通知
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="controllerName"></param>
+        /// <returns></returns>
+        public override Task NotFoundControllerName(CommandClientSocket socket, string controllerName)
+        {
+            switch (controllerName)
+            {
+                case "AutoCSer.TestCase.IServerTaskQueueController":
+                case "AutoCSer.TestCase.IServerTaskQueueContextController+System.Int32":
+                case "AutoCSer.TestCase.ServerBindContext.IServerTaskQueueController":
+                    return AutoCSer.Common.CompletedTask;
+            }
+            return Client.Log.Debug($"没有找到客户端控制器名称 {controllerName}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn);
+        }
+#endif
     }
 }

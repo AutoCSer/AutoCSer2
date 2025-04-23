@@ -10,7 +10,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// <summary>
     /// 触发 AOT 编译调用方法
     /// </summary>
-    [Generator(Name = "触发 AOT 编译调用方法", IsAOT = true)]
+    [Generator(Name = "触发 AOT 编译调用方法")]
     internal partial class AotMethod : Generator, IGenerator
     {
         /// <summary>
@@ -133,6 +133,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (!type.Type.IsGenericType) methods.Append(new Method(type, methodName));
         }
         /// <summary>
+        /// 添加触发 AOT 编译方法名称
+        /// </summary>
+        /// <param name="methodName"></param>
+        internal static void Append(string methodName)
+        {
+            methods.Append(new Method(null, methodName));
+        }
+        /// <summary>
+        /// 是否调用 AutoCSer.AotMethod.Call();
+        /// </summary>
+        internal static bool IsCallAutoCSerAotMethod;
+        /// <summary>
         /// 触发 AOT 编译方法信息集合
         /// </summary>
         public Method[] Methods;
@@ -177,6 +189,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public ReflectionMemberType[] XmlSerializeNullableElementTypes;
         /// <summary>
+        /// 是否调用 AutoCSer.AotMethod.Call();
+        /// </summary>
+        public bool IsCallAutoCSer { get { return IsCallAutoCSerAotMethod; } }
+        /// <summary>
         /// 代码生成入口
         /// </summary>
         /// <param name="parameter">安装参数</param>
@@ -198,11 +214,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 assembly = parameter.Assembly;
                 foreach (ReflectionMemberType reflectionMember in jsonSerializeMemberTypes)
                 {
-                    if (reflectionMember.IsJsonSerializeMethodName) methods.Append(new Method(reflectionMember.MemberType, AutoCSer.JsonSerializer.JsonSerializeMethodName));
+                    if (reflectionMember.IsJsonSerializeMethodName) methods.Append(new Method(reflectionMember.MemberType, AutoCSer.CodeGenerator.JsonSerializeAttribute.JsonSerializeMethodName));
                 }
                 foreach (ReflectionMemberType reflectionMember in xmlSerializeMemberTypes)
                 {
-                    if (reflectionMember.IsXmlSerializeMethodName) methods.Append(new Method(reflectionMember.MemberType, AutoCSer.XmlSerializer.XmlSerializeMethodName));
+                    if (reflectionMember.IsXmlSerializeMethodName) methods.Append(new Method(reflectionMember.MemberType, AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMethodName));
                 }
                 Methods = methods.ToArray();
                 EqualsMemberTypes = equalsMemberTypes.ToArray();
@@ -215,7 +231,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 XmlSerializeMemberTypes = xmlSerializeMemberTypes.ToArray();
                 XmlDeserializeMemberTypes = xmlDeserializeMemberTypes.ToArray();
                 XmlSerializeNullableElementTypes = XmlSerialize.NullableElementTypes.getArray(p => new ReflectionMemberType(p.Value));
-                _code_.Append("namespace ", ProjectParameter.ProjectName, @"
+                _code_.Append("namespace ", ProjectParameter.DefaultNamespace, @"
 {
     /// <summary>
     /// 触发 AOT 编译

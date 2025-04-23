@@ -12,7 +12,10 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 命令服务性能测试客户端接口（客户端 await 返回结果）
     /// </summary>
-    public interface IAwaiterClient
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IService))]
+#endif
+    public partial interface IAwaiterClient
     {
         /// <summary>
         /// 服务端同步返回结果
@@ -117,7 +120,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 客户端 await 返回结果
     /// </summary>
-    internal sealed class AwaiterClient : AutoCSer.TestCase.Common.ClientPerformance
+    internal sealed class AwaiterClientPerformance : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
         /// 客户端 await 返回结果
@@ -140,28 +143,28 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //await s0611163(client, true);
 
                 int left = Left = AutoCSer.Random.Default.Next();
-                await new AwaiterClient(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClient(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
+                await new AwaiterClientPerformance(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
 
                 #region 服务端仅执行模式，异常会导致测试中断，属于正常现象
                 int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
                 checkEnumeratorCommand(enumeratorCommand).NotWait();
                 for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
-                await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallback));
+                await LoopCompleted(nameof(AwaiterClientPerformance), nameof(client.InterfaceController.KeepCallback));
 
                 Reset(commandClient, maxTestCount);
                 enumeratorCommand = await client.InterfaceController.KeepCallbackCount();
                 checkEnumeratorCommand(enumeratorCommand).NotWait();
                 for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
-                await LoopCompleted(nameof(AwaiterClient), nameof(client.InterfaceController.KeepCallbackCount));
+                await LoopCompleted(nameof(AwaiterClientPerformance), nameof(client.InterfaceController.KeepCallbackCount));
                 #endregion
             }
         }
@@ -241,7 +244,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <param name="commandClient"></param>
         /// <param name="serverMethodName"></param>
         /// <param name="taskCount"></param>
-        private AwaiterClient(CommandClient commandClient, string serverMethodName, int taskCount = 1 << 13)
+        private AwaiterClientPerformance(CommandClient commandClient, string serverMethodName, int taskCount = 1 << 13)
         {
             this.client = (CommandClientSocketEvent<IAwaiterClient>)commandClient.SocketEvent;
             this.serverMethodName = serverMethodName;
@@ -291,7 +294,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal async Task Wait()
         {
-            await Wait(nameof(AwaiterClient), serverMethodName);
+            await Wait(nameof(AwaiterClientPerformance), serverMethodName);
         }
         /// <summary>
         /// 服务端同步返回结果

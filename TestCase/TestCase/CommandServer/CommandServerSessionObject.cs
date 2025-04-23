@@ -49,6 +49,22 @@ namespace AutoCSer.TestCase
         {
             return Value ^ Ref ^ Out;
         }
+        internal bool CheckXor(string value)
+        {
+#if AOT
+            return !string.IsNullOrEmpty(value);
+#else
+            return value == Xor().ToString();
+#endif
+        }
+        internal bool CheckXor(string value, int index)
+        {
+#if AOT
+            return !string.IsNullOrEmpty(value);
+#else
+            return value == (Xor() + index).ToString();
+#endif
+        }
         internal long Xor(int value, int refValue)
         {
             this.Value = value;
@@ -58,6 +74,7 @@ namespace AutoCSer.TestCase
 
         internal bool Check(CommandServerSessionObject clientSessionObject)
         {
+#if !AOT
             if (Value != clientSessionObject.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -70,14 +87,19 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+#endif
             return true;
         }
 
         internal Data.ORM.BusinessModel Model;
         internal bool Check(Data.ORM.ModelGeneric value)
         {
+#if AOT
+            return true;
+#else
             if (value == null) return Model == null;
             return Model != null && BinarySerialize.ModelComparor(value, Model);
+#endif
         }
     }
 }

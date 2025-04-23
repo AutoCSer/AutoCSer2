@@ -7,12 +7,13 @@ namespace AutoCSer.CodeGenerator.Template
         public unsafe partial class TypeName
         {
             #region PART CLASS
+            #region IF IsSerialize
             /// <summary>
             /// 简单序列化
             /// </summary>
             /// <param name="stream"></param>
             /// <param name="value"></param>
-            internal static void @SimpleSerializeMethodName(AutoCSer.Memory.UnmanagedStream stream, ref @CurrentType.FullName value)
+            internal static void @SimpleSerializeMethodName(AutoCSer.Memory.UnmanagedStream stream, ref @TypeFullName value)
             {
                 value.simpleSerialize(stream);
             }
@@ -40,6 +41,8 @@ namespace AutoCSer.CodeGenerator.Template
                     #endregion LOOP FieldArray
                 }
             }
+            #endregion IF IsSerialize
+            #region IF IsDeserialize
             /// <summary>
             /// 简单反序列化
             /// </summary>
@@ -47,7 +50,7 @@ namespace AutoCSer.CodeGenerator.Template
             /// <param name="value"></param>
             /// <param name="end"></param>
             /// <returns></returns>
-            internal static byte* @SimpleDeserializeMethodName(byte* start, ref @CurrentType.FullName value, byte* end)
+            internal unsafe static byte* @SimpleDeserializeMethodName(byte* start, ref @TypeFullName value, byte* end)
             {
                 return value.simpleDeserialize(start, end);
             }
@@ -57,7 +60,7 @@ namespace AutoCSer.CodeGenerator.Template
             /// <param name="__start__"></param>
             /// <param name="__end__"></param>
             /// <returns></returns>
-            private byte* simpleDeserialize(byte* __start__, byte* __end__)
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
             {
                 #region LOOP FixedFields
                 #region IF IsEnum
@@ -68,31 +71,38 @@ namespace AutoCSer.CodeGenerator.Template
                 #region NOT IsEnum
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.@FieldName);
                 #endregion NOT IsEnum
-                if (__start__ == null || __start__ > __end__) return null;
                 #endregion LOOP FixedFields
                 #region IF FixedFillSize
                 __start__ += @FixedFillSize;
                 #endregion IF FixedFillSize
+                #region IF FieldArray.Length
+                if (__start__ == null || __start__ > __end__) return null;
+                #endregion IF FieldArray.Length
                 #region LOOP FieldArray
-                #region IF IsString
+                #region IF IsCheckEnd
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.@FieldName, __end__);
-                #endregion IF IsString
-                #region NOT IsString
+                #endregion IF IsCheckEnd
+                #region NOT IsCheckEnd
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.@FieldName);
-                #endregion NOT IsString
+                #endregion NOT IsCheckEnd
                 if (__start__ == null || __start__ > __end__) return null;
                 #endregion LOOP FieldArray
                 return __start__;
             }
+            #endregion IF IsDeserialize
             /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
-            internal static void @SimpleSerializeMethodName()
+            internal unsafe static void @SimpleSerializeMethodName()
             {
-                @CurrentType.FullName value = default(@CurrentType.FullName);
+                @TypeFullName value = default(@TypeFullName);
+                #region IF IsSerialize
                 @SimpleSerializeMethodName(null, ref value);
+                #endregion IF IsSerialize
+                #region IF IsDeserialize
                 @SimpleDeserializeMethodName(null, ref value, null);
-                AutoCSer.SimpleSerialize.Serializer.Serialize<@CurrentType.FullName>(null, default(@CurrentType.FullName));
+                #endregion IF IsDeserialize
+                AutoCSer.AotReflection.NonPublicMethods(typeof(@TypeFullName));
             }
             #endregion PART CLASS
             private const int PrepSize = 0;

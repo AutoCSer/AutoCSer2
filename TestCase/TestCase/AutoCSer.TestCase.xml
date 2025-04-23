@@ -32,6 +32,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.TestCase.CommandServer.IsAotClient">
+            <summary>
+            是否 AOT 客户端测试
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.CommandServer.CreateCommandListener">
+            <summary>
+            创建测试服务端
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent">
             <summary>
             命令客户端套接字事件
@@ -82,19 +93,9 @@
             异步任务接口测试
             </summary>
         </member>
-        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueController">
-            <summary>
-            控制器异步队列接口测试
-            </summary>
-        </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientKeepCallbackTaskController">
             <summary>
             保持回调异步任务接口测试
-            </summary>
-        </member>
-        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueContextController">
-            <summary>
-            服务端 Task 队列客户端
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.DefinedSymmetryController">
@@ -105,6 +106,16 @@
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.DefinedDissymmetryClientController">
             <summary>
             客户端定义非对称测试接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueController">
+            <summary>
+            控制器异步队列接口测试
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ClientTaskQueueContextController">
+            <summary>
+            服务端 Task 队列客户端
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientSynchronousController">
@@ -157,11 +168,6 @@
             保持回调异步任务接口测试（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueController">
-            <summary>
-            控制器异步队列接口测试（套接字上下文绑定服务端）
-            </summary>
-        </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedSymmetryController">
             <summary>
             定义对称接口测试（套接字上下文绑定服务端）
@@ -170,6 +176,11 @@
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextDefinedDissymmetryClientController">
             <summary>
             客户端定义非对称测试接口（套接字上下文绑定服务端）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ServerBindContextClientTaskQueueController">
+            <summary>
+            控制器异步队列接口测试（套接字上下文绑定服务端）
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ControllerCreatorParameters">
@@ -429,12 +440,12 @@
             定义对称测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.DefinedSymmetryController">
+        <member name="T:AutoCSer.TestCase.DefinedSymmetryServerController">
             <summary>
             定义对称测试接口实例
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.DefinedSymmetryController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryServerController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
             <summary>
             命令客户端测试
             </summary>
@@ -795,12 +806,12 @@
             定义对称测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryController">
+        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController">
             <summary>
             定义对称测试接口实例（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController.TestCase(AutoCSer.TestCase.CommandClientSocketEvent,AutoCSer.TestCase.CommandServerSessionObject)">
             <summary>
             命令客户端测试
             </summary>

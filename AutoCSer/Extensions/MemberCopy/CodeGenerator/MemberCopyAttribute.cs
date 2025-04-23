@@ -9,5 +9,13 @@ namespace AutoCSer.CodeGenerator
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class MemberCopyAttribute : Attribute
     {
+        /// <summary>
+        /// 成员复制方法名称
+        /// </summary>
+        internal const string MemberCopyMethodName = "MemberCopy";
+        /// <summary>
+        /// 成员复制方法名称
+        /// </summary>
+        internal const string MemberMapCopyMethodName = "MemberMapCopy";
     }
 }

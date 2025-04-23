@@ -1,5 +1,6 @@
 ﻿//本文件由程序自动生成，请不要自行修改
 using System;
+using System.Numerics;
 using AutoCSer;
 
 #if NoAutoCSer
@@ -638,7 +639,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 #endif
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
-    internal partial class CommandServerClientController
+    internal partial class CommandServerClientControllerInterface
     {
         /// <summary>
         /// 生成代码
@@ -666,13 +667,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
         {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientControllerInterface.ControllerMethod[] _value1_;
                     _value1_ = Methods;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientControllerInterface.ControllerMethod _value2_ in _value1_)
                         {
             _if_ = false;
                     if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))

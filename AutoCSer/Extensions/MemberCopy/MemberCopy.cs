@@ -161,19 +161,19 @@ namespace AutoCSer
                 {
 #if AOT
                     Type refType = type.MakeByRefType();
-                    var method = type.GetMethod(MemberCopyMethod.MemberCopyMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { refType, type });
+                    var method = type.GetMethod(AutoCSer.CodeGenerator.MemberCopyAttribute.MemberCopyMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { refType, type });
                     if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(void))
                     {
-                        var memberMapMethod = type.GetMethod(MemberCopyMethod.MemberMapCopyMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { refType, type, typeof(MemberMap<T>) });
+                        var memberMapMethod = type.GetMethod(AutoCSer.CodeGenerator.MemberCopyAttribute.MemberMapCopyMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { refType, type, typeof(MemberMap<T>) });
                         if (memberMapMethod != null && !memberMapMethod.IsGenericMethod && memberMapMethod.ReturnType == typeof(void))
                         {
                             defaultCopyer = (Copyer)method.CreateDelegate(typeof(Copyer));
                             defaultMemberCopyer = (MemberMapCopyer)memberMapMethod.CreateDelegate(typeof(MemberMapCopyer));
                             return;
                         }
-                        throw new MissingMethodException(typeof(T).fullName(), MemberCopyMethod.MemberMapCopyMethodName);
+                        throw new MissingMethodException(typeof(T).fullName(), AutoCSer.CodeGenerator.MemberCopyAttribute.MemberMapCopyMethodName);
                     }
-                    throw new MissingMethodException(typeof(T).fullName(), MemberCopyMethod.MemberCopyMethodName);
+                    throw new MissingMethodException(typeof(T).fullName(), AutoCSer.CodeGenerator.MemberCopyAttribute.MemberCopyMethodName);
 #else
                     LeftArray<FieldIndex> fields = MemberIndexGroup.GetAnonymousFields(type);
                     if (fields.Length != 0)

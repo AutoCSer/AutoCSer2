@@ -122,7 +122,11 @@ namespace AutoCSer.CodeGenerator
             DefaultNamespace = defaultNamespace;
             IsProjectFile = isProjectFile;
             string assemblyFile = new FileInfo(assemblyPath).Name;
+#if AOT
+            if (assemblyFile == AutoCSer.Common.NamePrefix + ".CodeGenerator.AOT.exe" || assemblyFile == AutoCSer.Common.NamePrefix + ".CodeGenerator.AOT.dll") IsAutoCSerCodeGenerator = true;
+#else
             if (assemblyFile == AutoCSer.Common.NamePrefix + ".CodeGenerator.exe" || assemblyFile == AutoCSer.Common.NamePrefix + ".CodeGenerator.dll") IsAutoCSerCodeGenerator = true;
+#endif
             else if (assemblyFile == CustomConfig.CustomAssemblyName + ".dll") IsCustomCodeGenerator = true;
         }
         /// <summary>
@@ -224,7 +228,7 @@ namespace AutoCSer.CodeGenerator
             try
             {
                 await AutoCSer.LogHelper.Info(string.Join(@""", @""", args), LogLevelEnum.Info | LogLevelEnum.AutoCSer);
-                //args = new string[] { @"AutoCSer.TestCase.NET8", @"C:\AutoCSer2\TestCase\TestCase\ ", @"C:\AutoCSer2\TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.dll ", @"AutoCSer.TestCase" };
+                //args = new string[] { @"AutoCSer.TestCase.AOT.NET8", @"C:\AutoCSer2\TestCase\TestCase\ ", @"C:\AutoCSer2\TestCase\TestCase\bin\Release\net8.0\win-x64\AutoCSer.TestCase.AOT.dll ", @"AutoCSer.TestCase" };
                 if (args.Length >= 4)
                 {
                     ProjectParameter parameter = new ProjectParameter(args[0].TrimEnd(' '), args[1].TrimEnd(' '), args[2].TrimEnd(' '), args[3].TrimEnd(' '), args.Length > 4);
