@@ -39,16 +39,18 @@ namespace AutoCSer.TestCase
         private static bool isReleaseWaitLock;
         internal static Task WaitSendOnly()
         {
+#if !AOT
             if (!CommandServer.IsAotClient)
             {
                 isReleaseWaitLock = true;
                 return SendOnlyWaitLock.WaitAsync();
             }
+#endif
             return AutoCSer.Common.CompletedTask;
         }
         internal static void ReleaseWaitLock()
         {
-            if(isReleaseWaitLock) SendOnlyWaitLock.Release();
+            if (isReleaseWaitLock) SendOnlyWaitLock.Release();
         }
 
         CommandServerSendOnly IServerSendOnlyController.SendOnlySocket(CommandServerSocket socket, int Value, int Ref)

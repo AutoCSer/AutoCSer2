@@ -4,6 +4,7 @@ using AutoCSer.Extensions;
 using AutoCSer.Metadata;
 using AutoCSer.Reflection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -109,10 +110,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         protected override Task nextCreate()
         {
-            TypeFullName = CurrentType.FullName;
-            IsSerialize = CurrentAttribute.IsSerialize;
-            IsDeserialize = CurrentAttribute.IsDeserialize;
-            if (nextCreate(true)) AotMethod.Append(CurrentType, SimpleSerializeMethodName);
+            if (CurrentAttribute.IsSerialize && CurrentAttribute.IsDeserialize)
+            {
+                types[CurrentType.Type] = 0;
+                TypeFullName = CurrentType.FullName;
+                IsSerialize = IsDeserialize = true;
+                if (nextCreate(true)) AotMethod.Append(CurrentType, SimpleSerializeMethodName);
+            }
+            else Append(CurrentType.Type, IsSerialize, IsDeserialize);
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
@@ -123,7 +128,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         private bool nextCreate(bool isOutput)
         {
             int memberCountVerify;
-            FieldSizeArray fields = new FieldSizeArray(MemberIndexGroup.GetFields(CurrentType.Type, MemberFiltersEnum.PublicInstanceField), false, out memberCountVerify);
+            FieldSizeArray fields = new FieldSizeArray(MemberIndexGroup.GetFields(CurrentType.Type, MemberFiltersEnum.InstanceField), false, out memberCountVerify);
             foreach (FieldSize field in fields.FixedFields.Concat(fields.FieldArray))
             {
                 if (!AutoCSer.SimpleSerialize.Serializer.IsType(field.Field.FieldType)) return false;
@@ -159,5 +164,44 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         /// <returns></returns>
         protected override Task onCreated() { return AutoCSer.Common.CompletedTask; }
+        /// <summary>
+        /// 生成添加类型的代码
+        /// </summary>
+        /// <param name="parameter"></param>
+        internal void CreateTypes(ProjectParameter parameter)
+        {
+            this.ProjectParameter = parameter;
+            generatorAttribute = new GeneratorAttribute();
+            foreach (KeyValuePair<HashObject<Type>, int> type in types)
+            {
+                if (type.Value != 0)
+                {
+                    CurrentType = type.Key.Value;
+                    TypeFullName = CurrentType.FullName;
+                    IsSerialize = (type.Value & 1) != 0;
+                    IsDeserialize = (type.Value & 2) != 0;
+                    if (nextCreate(true)) AotMethod.Append(CurrentType, SimpleSerializeMethodName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 代码生成类型集合
+        /// </summary>
+        private static readonly Dictionary<HashObject<Type>, int> types = DictionaryCreator.CreateHashObject<Type, int>();
+        /// <summary>
+        /// 添加序列化类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="isSerialize"></param>
+        /// <param name="isDeserialize"></param>
+        internal static void Append(Type type, bool isSerialize, bool isDeserialize)
+        {
+            int flags;
+            types.TryGetValue(type, out flags);
+            if (isSerialize) flags |= 1;
+            if (isDeserialize) flags |= 2;
+            if (flags != 0) types[type] = flags;
+        }
     }
 }

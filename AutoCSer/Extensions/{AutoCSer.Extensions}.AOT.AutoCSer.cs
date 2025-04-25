@@ -6,7 +6,54 @@ using AutoCSer;
 #if NoAutoCSer
 #else
 #pragma warning disable
-namespace AutoCSer
+namespace AutoCSer.Diagnostics
+{
+        /// <summary>
+        /// 服务端时间戳
+        /// </summary>
+    public partial struct ServerTimestamp
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.Diagnostics.ServerTimestamp value)
+            {
+                serializer.Simple(value);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.Diagnostics.ServerTimestamp value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741827);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.Diagnostics.ServerTimestamp value = default(AutoCSer.Diagnostics.ServerTimestamp);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.Diagnostics.ServerTimestamp));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Diagnostics.ServerTimestamp));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.Diagnostics.ServerTimestamp>();
+            }
+    }
+}namespace AutoCSer
 {
         /// <summary>
         /// 键值对（用于二进制序列化屏蔽引用操作）
@@ -1545,6 +1592,70 @@ namespace AutoCSer
                 XmlSerializeMemberTypes();
             }
     }
+}namespace AutoCSer.Diagnostics
+{
+        /// <summary>
+        /// 服务端时间戳
+        /// </summary>
+    public partial struct ServerTimestamp
+    {
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.Diagnostics.ServerTimestamp value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(24))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Time);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Timestamp);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.TimestampPerSecond);
+                }
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.Diagnostics.ServerTimestamp value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Time);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Timestamp);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.TimestampPerSecond);
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.Diagnostics.ServerTimestamp value = default(AutoCSer.Diagnostics.ServerTimestamp);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Diagnostics.ServerTimestamp));
+            }
+    }
 }namespace AutoCSer.Extensions
 {
     /// <summary>
@@ -1560,6 +1671,7 @@ namespace AutoCSer
             {
                 if (AutoCSer.Date.StartTimestamp == long.MinValue)
                 {
+                    AutoCSer.Diagnostics.ServerTimestamp/**/.BinarySerialize();
                     AutoCSer.Extensions.SerializeComplex/**/.XmlSerialize();
                     AutoCSer.Extensions.SerializeMatrix3x2/**/.XmlSerialize();
                     AutoCSer.Extensions.SerializeMatrix4x4/**/.XmlSerialize();
@@ -1568,6 +1680,7 @@ namespace AutoCSer
                     AutoCSer.Extensions.SerializeVector2/**/.XmlSerialize();
                     AutoCSer.Extensions.SerializeVector3/**/.XmlSerialize();
                     AutoCSer.Extensions.SerializeVector4/**/.XmlSerialize();
+                    AutoCSer.Diagnostics.ServerTimestamp/**/.SimpleSerialize();
 
 
 

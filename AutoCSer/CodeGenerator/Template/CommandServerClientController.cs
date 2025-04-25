@@ -144,7 +144,7 @@ namespace AutoCSer.CodeGenerator.Template
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(@MethodCount);
                 #region LOOP Methods
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("@MatchMethodName", @MethodIndex, @IsSimpleSerializeParamter, @IsSimpleDeserializeParamter, @CallbackTypeString, @QueueIndex, @IsLowPriorityQueue, @TimeoutSeconds));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(@InterfaceTypeName), "@MatchMethodName", @MethodIndex, @IsSimpleSerializeParamter, @IsSimpleDeserializeParamter, @CallbackTypeString, @QueueIndex, @IsLowPriorityQueue, @TimeoutSeconds));
                 #endregion LOOP Methods
                 return methods;
             }

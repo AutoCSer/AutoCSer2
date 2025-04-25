@@ -1101,7 +1101,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         private unsafe void persistence()
         {
-            bool isRebuild = false;
+            bool isRebuild = false, isSerializeCopyString = Config.IsSerializeCopyString;
             var head = default(MethodParameter);
             var end = default(MethodParameter);
             var current = default(MethodParameter);
@@ -1120,7 +1120,7 @@ namespace AutoCSer.CommandService
                     }
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData = default(SubArray<byte>);
-                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                     {
                         outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
@@ -1310,7 +1310,7 @@ namespace AutoCSer.CommandService
             {
                 if (!isRebuild) dispose();
                 persistenceBuffer.Free();
-                outputSerializer?.FreeContext();
+                outputSerializer?.FreeContext(isSerializeCopyString);
                 if (!isRebuild)
                 {
                     PersistenceException(head);

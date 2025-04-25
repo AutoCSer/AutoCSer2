@@ -204,7 +204,7 @@ Press quit to exit.");
                 await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
                 await aot();
 
-                await waitProcess(@"TestCase\TimestampVerify\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerify.exe", @"TestCase\TimestampVerify\Client\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerifyClient.exe");
+                await waitProcess(@"TestCase\TimestampVerify\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerify.exe", @"TestCase\TimestampVerify\Client\bin\Release\net8.0\AutoCSer.TestCase.TimestampVerifyClient.exe", await getAotPublishFile(@"TestCase\TimestampVerify\Client\bin\Release\net8.0\publish\AutoCSer.TestCase.TimestampVerifyClient.AOT.exe"));
                 await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ServerRegistry\Service\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryService.exe", @"TestCase\ServerRegistry\Service\Client\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistryServiceClient.exe");
                 await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\ProcessGuard\Client\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuardClient.exe");
                 await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\ProcessGuard\SwitchProcess\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuardSwitchProcess.exe");
@@ -248,9 +248,7 @@ Press quit to exit.");
         }
         private static async Task aot()
         {
-            ProcessArguments publishFile = @"TestCase\TestCase\bin\Release\net8.0\publish\AutoCSer.TestCase.AOT.exe";
-            if (!await publishFile.FileExists()) publishFile = @"TestCase\TestCase\bin\Release\net8.0\publish\win-x64\AutoCSer.TestCase.AOT.exe";
-            await waitProcess(new ProcessArguments(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe", AutoCSer.TestCase.Common.Config.AotClientArgument), publishFile);
+            await waitProcess(new ProcessArguments(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe", AutoCSer.TestCase.Common.Config.AotClientArgument), await getAotPublishFile(@"TestCase\TestCase\bin\Release\net8.0\publish\AutoCSer.TestCase.AOT.exe"));
         }
         private static async Task waitProcess(ProcessArguments fileName, int count = 1)
         {
@@ -316,6 +314,17 @@ Press quit to exit.");
                 }
             }
             else Console.WriteLine("Not Found File");
+        }
+        private static async Task<ProcessArguments> getAotPublishFile(string fileName)
+        {
+            //C:\AutoCSer2\TestCase\CommandServerPerformance\Client\bin\Release\net8.0\win-x64\publish\AutoCSer.TestCase.CommandClientPerformance.AOT.exe
+            ProcessArguments publishFile = fileName, win64PublishFile = fileName.Insert(fileName.LastIndexOf(@"\publish\"), @"\win-x64");
+            FileInfo publishFileInfo = publishFile.GetFileInfo(), win64PublishFileInfo = win64PublishFile.GetFileInfo();
+            if (await AutoCSer.Common.FileExists(win64PublishFileInfo))
+            {
+                if (!await AutoCSer.Common.FileExists(publishFileInfo) || win64PublishFileInfo.LastWriteTimeUtc > publishFileInfo.LastWriteTimeUtc) return win64PublishFile;
+            }
+            return publishFile;
         }
     }
 }

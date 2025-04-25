@@ -87,8 +87,17 @@ namespace AutoCSer.Drawing.Gif
         protected override Bitmap getBitmap()
         {
             Bitmap bitmap = this.bitmap ?? new Bitmap(Width, Height);
-            using (Graphics graphics = Graphics.FromImage(bitmap)) graphics.CopyFromScreen(screenLeft, screenTop, 0, 0, new Size(Width, Height));
             this.bitmap = null;
+            bool isCopy = false;
+            try
+            {
+                using (Graphics graphics = Graphics.FromImage(bitmap)) graphics.CopyFromScreen(screenLeft, screenTop, 0, 0, new Size(Width, Height));
+                isCopy = true;
+            }
+            finally
+            {
+                if (!isCopy) bitmap.Dispose();
+            }
             return bitmap;
         }
 

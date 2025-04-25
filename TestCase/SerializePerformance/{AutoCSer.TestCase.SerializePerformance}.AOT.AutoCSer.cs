@@ -55,42 +55,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 __serializer__.BinarySerialize(String);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> BinarySerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(27);
-                types.Add(typeof(System.Guid));
-                types.Add(typeof(long));
-                types.Add(typeof(System.DateTime));
-                types.Add(typeof(System.TimeSpan));
-                types.Add(typeof(int?));
-                types.Add(typeof(uint?));
-                types.Add(typeof(ulong));
-                types.Add(typeof(uint));
-                types.Add(typeof(long?));
-                types.Add(typeof(short?));
-                types.Add(typeof(ulong?));
-                types.Add(typeof(System.TimeSpan?));
-                types.Add(typeof(ushort?));
-                types.Add(typeof(int));
-                types.Add(typeof(System.DateTime?));
-                types.Add(typeof(char?));
-                types.Add(typeof(System.Guid?));
-                types.Add(typeof(short));
-                types.Add(typeof(ushort));
-                types.Add(typeof(byte?));
-                types.Add(typeof(char));
-                types.Add(typeof(sbyte?));
-                types.Add(typeof(sbyte));
-                types.Add(typeof(bool?));
-                types.Add(typeof(byte));
-                types.Add(typeof(bool));
-                types.Add(typeof(string));
-                return types;
-            }
-            /// <summary>
             /// 二进制反序列化
             /// </summary>
             /// <param name="deserializer"></param>
@@ -143,12 +107,40 @@ namespace AutoCSer.TestCase.SerializePerformance
                 __deserializer__.BinaryDeserialize(ref this.String);
             }
             /// <summary>
-            /// 获取二进制序列化成员数量信息
+            /// 获取二进制序列化类型信息
             /// </summary>
             /// <returns></returns>
-            internal static int BinarySerializeMemberCountVerify()
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
             {
-                return 1073741851;
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 27, 1073741851);
+                typeInfo.Add(typeof(System.Guid));
+                typeInfo.Add(typeof(long));
+                typeInfo.Add(typeof(System.DateTime));
+                typeInfo.Add(typeof(System.TimeSpan));
+                typeInfo.Add(typeof(int?));
+                typeInfo.Add(typeof(uint?));
+                typeInfo.Add(typeof(ulong));
+                typeInfo.Add(typeof(uint));
+                typeInfo.Add(typeof(long?));
+                typeInfo.Add(typeof(short?));
+                typeInfo.Add(typeof(ulong?));
+                typeInfo.Add(typeof(System.TimeSpan?));
+                typeInfo.Add(typeof(ushort?));
+                typeInfo.Add(typeof(int));
+                typeInfo.Add(typeof(System.DateTime?));
+                typeInfo.Add(typeof(char?));
+                typeInfo.Add(typeof(System.Guid?));
+                typeInfo.Add(typeof(short));
+                typeInfo.Add(typeof(ushort));
+                typeInfo.Add(typeof(byte?));
+                typeInfo.Add(typeof(char));
+                typeInfo.Add(typeof(sbyte?));
+                typeInfo.Add(typeof(sbyte));
+                typeInfo.Add(typeof(bool?));
+                typeInfo.Add(typeof(byte));
+                typeInfo.Add(typeof(bool));
+                typeInfo.Add(typeof(string));
+                return typeInfo;
             }
             /// <summary>
             /// 二进制序列化代码生成调用激活 AOT 反射
@@ -157,10 +149,9 @@ namespace AutoCSer.TestCase.SerializePerformance
             {
                 AutoCSer.TestCase.SerializePerformance.FieldData value = default(AutoCSer.TestCase.SerializePerformance.FieldData);
                 BinarySerialize(null, value);
-                BinarySerializeMemberTypes();
                 BinaryDeserialize(null, ref value);
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FieldData));
-                BinarySerializeMemberCountVerify();
+                BinarySerializeMemberTypes();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FieldData));
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FieldData>();
             }
@@ -218,48 +209,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 __serializer__.BinarySerialize(Bool);
                 __serializer__.FixedFillSize(2);
                 __serializer__.BinarySerialize(String);
-            }
-            /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> BinarySerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(33);
-                types.Add(typeof(System.Guid));
-                types.Add(typeof(decimal));
-                types.Add(typeof(System.TimeSpan));
-                types.Add(typeof(double));
-                types.Add(typeof(long));
-                types.Add(typeof(float?));
-                types.Add(typeof(int?));
-                types.Add(typeof(System.DateTime));
-                types.Add(typeof(ulong));
-                types.Add(typeof(uint?));
-                types.Add(typeof(ulong?));
-                types.Add(typeof(long?));
-                types.Add(typeof(uint));
-                types.Add(typeof(System.TimeSpan?));
-                types.Add(typeof(short?));
-                types.Add(typeof(System.Guid?));
-                types.Add(typeof(int));
-                types.Add(typeof(ushort?));
-                types.Add(typeof(System.DateTime?));
-                types.Add(typeof(char?));
-                types.Add(typeof(decimal?));
-                types.Add(typeof(float));
-                types.Add(typeof(double?));
-                types.Add(typeof(sbyte?));
-                types.Add(typeof(ushort));
-                types.Add(typeof(byte?));
-                types.Add(typeof(char));
-                types.Add(typeof(short));
-                types.Add(typeof(sbyte));
-                types.Add(typeof(bool?));
-                types.Add(typeof(byte));
-                types.Add(typeof(bool));
-                types.Add(typeof(string));
-                return types;
             }
             /// <summary>
             /// 二进制反序列化
@@ -320,12 +269,46 @@ namespace AutoCSer.TestCase.SerializePerformance
                 __deserializer__.BinaryDeserialize(ref this.String);
             }
             /// <summary>
-            /// 获取二进制序列化成员数量信息
+            /// 获取二进制序列化类型信息
             /// </summary>
             /// <returns></returns>
-            internal static int BinarySerializeMemberCountVerify()
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
             {
-                return 1073741857;
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 33, 1073741857);
+                typeInfo.Add(typeof(System.Guid));
+                typeInfo.Add(typeof(decimal));
+                typeInfo.Add(typeof(System.TimeSpan));
+                typeInfo.Add(typeof(double));
+                typeInfo.Add(typeof(long));
+                typeInfo.Add(typeof(float?));
+                typeInfo.Add(typeof(int?));
+                typeInfo.Add(typeof(System.DateTime));
+                typeInfo.Add(typeof(ulong));
+                typeInfo.Add(typeof(uint?));
+                typeInfo.Add(typeof(ulong?));
+                typeInfo.Add(typeof(long?));
+                typeInfo.Add(typeof(uint));
+                typeInfo.Add(typeof(System.TimeSpan?));
+                typeInfo.Add(typeof(short?));
+                typeInfo.Add(typeof(System.Guid?));
+                typeInfo.Add(typeof(int));
+                typeInfo.Add(typeof(ushort?));
+                typeInfo.Add(typeof(System.DateTime?));
+                typeInfo.Add(typeof(char?));
+                typeInfo.Add(typeof(decimal?));
+                typeInfo.Add(typeof(float));
+                typeInfo.Add(typeof(double?));
+                typeInfo.Add(typeof(sbyte?));
+                typeInfo.Add(typeof(ushort));
+                typeInfo.Add(typeof(byte?));
+                typeInfo.Add(typeof(char));
+                typeInfo.Add(typeof(short));
+                typeInfo.Add(typeof(sbyte));
+                typeInfo.Add(typeof(bool?));
+                typeInfo.Add(typeof(byte));
+                typeInfo.Add(typeof(bool));
+                typeInfo.Add(typeof(string));
+                return typeInfo;
             }
             /// <summary>
             /// 二进制序列化代码生成调用激活 AOT 反射
@@ -334,10 +317,9 @@ namespace AutoCSer.TestCase.SerializePerformance
             {
                 AutoCSer.TestCase.SerializePerformance.FloatFieldData value = default(AutoCSer.TestCase.SerializePerformance.FloatFieldData);
                 BinarySerialize(null, value);
-                BinarySerializeMemberTypes();
                 BinaryDeserialize(null, ref value);
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatFieldData));
-                BinarySerializeMemberCountVerify();
+                BinarySerializeMemberTypes();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatFieldData));
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FloatFieldData>();
             }
@@ -545,48 +527,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 }
                 __serializer__.SerializeFill(__startIndex__);
                 if (__memberMap__.IsMember(24)) __serializer__.BinarySerialize(String);
-            }
-            /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> BinarySerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(33);
-                types.Add(typeof(System.Guid));
-                types.Add(typeof(decimal));
-                types.Add(typeof(System.TimeSpan));
-                types.Add(typeof(double));
-                types.Add(typeof(long));
-                types.Add(typeof(float?));
-                types.Add(typeof(int?));
-                types.Add(typeof(System.DateTime));
-                types.Add(typeof(ulong));
-                types.Add(typeof(uint?));
-                types.Add(typeof(ulong?));
-                types.Add(typeof(long?));
-                types.Add(typeof(uint));
-                types.Add(typeof(System.TimeSpan?));
-                types.Add(typeof(short?));
-                types.Add(typeof(System.Guid?));
-                types.Add(typeof(int));
-                types.Add(typeof(ushort?));
-                types.Add(typeof(System.DateTime?));
-                types.Add(typeof(char?));
-                types.Add(typeof(decimal?));
-                types.Add(typeof(float));
-                types.Add(typeof(double?));
-                types.Add(typeof(sbyte?));
-                types.Add(typeof(ushort));
-                types.Add(typeof(byte?));
-                types.Add(typeof(char));
-                types.Add(typeof(short));
-                types.Add(typeof(sbyte));
-                types.Add(typeof(bool?));
-                types.Add(typeof(byte));
-                types.Add(typeof(bool));
-                types.Add(typeof(string));
-                return types;
             }
             /// <summary>
             /// 二进制反序列化
@@ -931,12 +871,46 @@ namespace AutoCSer.TestCase.SerializePerformance
                 }
             }
             /// <summary>
-            /// 获取二进制序列化成员数量信息
+            /// 获取二进制序列化类型信息
             /// </summary>
             /// <returns></returns>
-            internal static int BinarySerializeMemberCountVerify()
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
             {
-                return 1073741857;
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 33, 1073741857);
+                typeInfo.Add(typeof(System.Guid));
+                typeInfo.Add(typeof(decimal));
+                typeInfo.Add(typeof(System.TimeSpan));
+                typeInfo.Add(typeof(double));
+                typeInfo.Add(typeof(long));
+                typeInfo.Add(typeof(float?));
+                typeInfo.Add(typeof(int?));
+                typeInfo.Add(typeof(System.DateTime));
+                typeInfo.Add(typeof(ulong));
+                typeInfo.Add(typeof(uint?));
+                typeInfo.Add(typeof(ulong?));
+                typeInfo.Add(typeof(long?));
+                typeInfo.Add(typeof(uint));
+                typeInfo.Add(typeof(System.TimeSpan?));
+                typeInfo.Add(typeof(short?));
+                typeInfo.Add(typeof(System.Guid?));
+                typeInfo.Add(typeof(int));
+                typeInfo.Add(typeof(ushort?));
+                typeInfo.Add(typeof(System.DateTime?));
+                typeInfo.Add(typeof(char?));
+                typeInfo.Add(typeof(decimal?));
+                typeInfo.Add(typeof(float));
+                typeInfo.Add(typeof(double?));
+                typeInfo.Add(typeof(sbyte?));
+                typeInfo.Add(typeof(ushort));
+                typeInfo.Add(typeof(byte?));
+                typeInfo.Add(typeof(char));
+                typeInfo.Add(typeof(short));
+                typeInfo.Add(typeof(sbyte));
+                typeInfo.Add(typeof(bool?));
+                typeInfo.Add(typeof(byte));
+                typeInfo.Add(typeof(bool));
+                typeInfo.Add(typeof(string));
+                return typeInfo;
             }
             /// <summary>
             /// 二进制序列化代码生成调用激活 AOT 反射
@@ -946,11 +920,10 @@ namespace AutoCSer.TestCase.SerializePerformance
                 AutoCSer.TestCase.SerializePerformance.FloatPropertyData value = default(AutoCSer.TestCase.SerializePerformance.FloatPropertyData);
                 BinarySerialize(null, value);
                 BinarySerializeMemberMap(null, null, value);
-                BinarySerializeMemberTypes();
                 BinaryDeserialize(null, ref value);
                 BinaryDeserializeMemberMap(null, null, ref value);
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatPropertyData));
-                BinarySerializeMemberCountVerify();
+                BinarySerializeMemberTypes();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatPropertyData));
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FloatPropertyData>();
             }

@@ -32,7 +32,7 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static int bits(this ulong value)
         {
-            return (value & 0xffffffff00000000UL) == 0 ? bits((uint)value) : (bits((uint)(value >> 32)) + 32);
+            return (value & 0xffffffff00000000UL) == 0 ? AutoCSer.Extensions.NumberExtension.bits((uint)value) : (AutoCSer.Extensions.NumberExtension.bits((uint)(value >> 32)) + 32);
             //if ((value & 0x8000000000000000UL) == 0)
             //{
             //    ulong code = value;

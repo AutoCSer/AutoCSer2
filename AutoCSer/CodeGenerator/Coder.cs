@@ -169,6 +169,7 @@ using AutoCSer;
         internal static async Task Output(ProjectParameter parameter)
         {
 #if AOT
+            new AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize().CreateTypes(parameter);
             await new AutoCSer.CodeGenerator.TemplateGenerator.AotMethod().Run(parameter, new GeneratorAttribute());
 #endif
             ListArray<string>[] builders = new ListArray<string>[codes.Length];

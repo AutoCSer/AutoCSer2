@@ -4533,6 +4533,12 @@
             <summary>
             服务端时间戳
             </summary>
+            <summary>
+            服务端时间戳
+            </summary>
+            <summary>
+            服务端时间戳
+            </summary>
         </member>
         <member name="F:AutoCSer.Diagnostics.ServerTimestamp.Time">
             <summary>
@@ -4573,6 +4579,66 @@
             </summary>
             <param name="timestamp">服务端时间戳</param>
             <returns>服务端时间</returns>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.Diagnostics.ServerTimestamp)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.Diagnostics.ServerTimestamp@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.Diagnostics.ServerTimestamp@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.SimpleDeserialize(System.Byte*,AutoCSer.Diagnostics.ServerTimestamp@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ServerTimestamp.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
         </member>
         <member name="T:AutoCSer.ExceptionRepeat">
             <summary>

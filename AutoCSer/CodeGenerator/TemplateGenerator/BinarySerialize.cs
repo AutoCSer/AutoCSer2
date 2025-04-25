@@ -53,6 +53,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 get
                 {
+                    if (MethodInfo.IsSimpleSerialize) return nameof(AutoCSer.BinarySerializer.Simple);
                     if (MethodInfo.EnumArrayElementType != null) return "Enum" + AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(MethodInfo.EnumArrayElementType)).ToString();
                     if (MethodInfo.IsCusotm) return "ICustomSerialize";
                     if (MethodInfo.IsNullableArray) return nameof(AutoCSer.BinarySerializer.NullableArray);
@@ -87,6 +88,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 get
                 {
+                    if (MethodInfo.IsSimpleSerialize) return nameof(AutoCSer.BinaryDeserializer.Simple);
                     if (MemberType.Type.IsEnum) return "FixedEnum" + AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(MemberType.Type)).ToString();
                     if (MethodInfo.EnumArrayElementType != null) return "Enum" + AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(MethodInfo.EnumArrayElementType)).ToString();
                     if (MethodInfo.IsCusotm) return "ICustomDeserialize";
@@ -109,17 +111,28 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <param name="memberTypes"></param>
             public SerializeMember(AutoCSer.BinarySerialize.FieldSize field, HashSet<HashObject<Type>> memberTypes)
             {
+                Type memberType = field.Field.FieldType;
                 this.field = new AutoCSer.CodeGenerator.Metadata.FieldIndex(field.FieldIndex);
-                MemberType = field.Field.FieldType;
+                MemberType = memberType;
                 MemberName = field.FieldIndex.AnonymousName;
                 IsProperty = field.FieldIndex.AnonymousProperty != null;
                 var baseType = default(Type);
                 AutoCSer.BinarySerializeAttribute attribute = default(AutoCSer.BinarySerializeAttribute);
-                getSerializeMethodInfo(MemberType.Type, ref MethodInfo, out attribute, out baseType);
-                types.Add(MemberType.Type);
-                memberTypes.Add(MemberType.Type);
+                types.Add(memberType);
+                memberTypes.Add(memberType);
+                if (!getSerializeMethodInfo(memberType, ref MethodInfo, out attribute, out baseType) && memberType.IsValueType && !attribute.IsMemberMap && !memberType.IsGenericType)
+                {
+                    LeftArray<AutoCSer.Metadata.FieldIndex> fieldIndexs = AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(memberType, attribute.MemberFilters);
+                    int memberCountVerify;
+                    AutoCSer.BinarySerialize.FieldSizeArray fields = new AutoCSer.BinarySerialize.FieldSizeArray(fieldIndexs, attribute.GetIsJsonMember(memberType), out memberCountVerify);
+                    if (fields.IsSimpleSerialize(memberType, attribute.IsReferenceMember))
+                    {
+                        MethodInfo.IsSimpleSerialize = true;
+                        return;
+                    }
+                }
                 if (baseType != null && baseType.IsGenericType) genericTypes[baseType] = true;
-                if (MemberType.Type.IsGenericType) genericTypes[MemberType.Type] = MethodInfo.IsGenericReflection;
+                if (memberType.IsGenericType) genericTypes[memberType] = MethodInfo.IsGenericReflection;
             }
         }
 
@@ -144,9 +157,9 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public string BinaryDeserializeMemberMapMethodName { get { return BinarySerializeAttribute.BinaryDeserializeMemberMapMethodName; } }
         /// <summary>
-        /// 获取二进制序列化成员数量信息方法名称
+        /// 简单序列化方法名称
         /// </summary>
-        public string BinarySerializeMemberCountVerifyMethodName { get { return BinarySerializeAttribute.BinarySerializeMemberCountVerifyMethodName; } }
+        public string SimpleMethodName { get { return nameof(BinaryDeserializer.Simple); } }
         /// <summary>
         /// 固定序列化成员
         /// </summary>
@@ -162,7 +175,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 成员类型数量
         /// </summary>
-        public int MemberTypeCount { get { return MemberTypes.Length; } }
+        public int MemberTypeCount { get { return IsSerialize ? MemberTypes.Length : 0; } }
         /// <summary>
         /// 固定字节数
         /// </summary>
@@ -195,6 +208,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 是否生成反序列化代码
         /// </summary>
         public bool IsDeserialize;
+        /// <summary>
+        /// 是否简单序列化
+        /// </summary>
+        public bool IsSimpleSerialize;
 
         /// <summary>
         /// 安装下一个类型
@@ -230,12 +247,21 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             HashSet<HashObject<Type>> memberTypes = HashSetCreator.CreateHashObject<Type>();
             LeftArray<AutoCSer.Metadata.FieldIndex> fieldIndexs = AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(type, attribute.MemberFilters);
             AutoCSer.BinarySerialize.FieldSizeArray fields = new AutoCSer.BinarySerialize.FieldSizeArray(fieldIndexs, attribute.GetIsJsonMember(type), out MemberCountVerify);
-            IsMemberMapFixedFillSize = (fields.AnyFixedSize & 3) != 0;
-            FixedFillSize = -fields.FixedSize & 3;
-            FixedSize = (fields.FixedSize + (sizeof(int) + 3)) & (int.MaxValue - 3);
-            FixedFields = fields.FixedFields.getArray(p => new SerializeMember(p, memberTypes));
-            FieldArray = fields.FieldArray.getArray(p => new SerializeMember(p, memberTypes));
-            MemberTypes = memberTypes.getArray(p => new AotMethod.ReflectionMemberType(p.Value));
+            IsSimpleSerialize = type.IsValueType && !attribute.IsMemberMap && fields.IsSimpleSerialize(type, attribute.IsReferenceMember);
+            if (IsSimpleSerialize)
+            {
+                MemberTypes = EmptyArray<AotMethod.ReflectionMemberType>.Array;
+                SimpleSerialize.Append(type, IsSerialize, IsDeserialize);
+            }
+            else
+            {
+                IsMemberMapFixedFillSize = (fields.AnyFixedSize & 3) != 0;
+                FixedFillSize = -fields.FixedSize & 3;
+                FixedSize = (fields.FixedSize + (sizeof(int) + 3)) & (int.MaxValue - 3);
+                FixedFields = fields.FixedFields.getArray(p => new SerializeMember(p, memberTypes));
+                FieldArray = fields.FieldArray.getArray(p => new SerializeMember(p, memberTypes));
+                MemberTypes = memberTypes.getArray(p => new AotMethod.ReflectionMemberType(p.Value));
+            }
             create(isOutput);
         }
         /// <summary>
@@ -615,6 +641,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             int memberCountVerify = 0;
             LeftArray<AutoCSer.Metadata.FieldIndex> fieldIndexs = AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(type, attribute.MemberFilters);
             AutoCSer.BinarySerialize.FieldSizeArray fields = new AutoCSer.BinarySerialize.FieldSizeArray(fieldIndexs, attribute.GetIsJsonMember(type), out memberCountVerify);
+            if (type.IsValueType && !attribute.IsMemberMap && !type.IsGenericType)
+            {
+                if (fields.IsSimpleSerialize(type, attribute.IsReferenceMember))
+                {
+                    memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Simple) + "Reflection", type.fullName()));
+                    return;
+                }
+            }
             foreach (AutoCSer.BinarySerialize.FieldSize field in fields.FieldArray)
             {
                 Type memberType = field.Field.FieldType;
@@ -839,6 +873,17 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (type.IsValueType) memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.StructJson), type.fullName()));
                 else memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Json), type.fullName()));
                 return;
+            }
+            if (type.IsValueType && !attribute.IsMemberMap && !type.IsGenericType)
+            {
+                LeftArray<AutoCSer.Metadata.FieldIndex> fieldIndexs = AutoCSer.Metadata.MemberIndexGroup.GetAnonymousFields(type, attribute.MemberFilters);
+                int memberCountVerify;
+                AutoCSer.BinarySerialize.FieldSizeArray fields = new AutoCSer.BinarySerialize.FieldSizeArray(fieldIndexs, attribute.GetIsJsonMember(type), out memberCountVerify);
+                if (fields.IsSimpleSerialize(type, attribute.IsReferenceMember))
+                {
+                    memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Simple), type.fullName()));
+                    return;
+                }
             }
             memberTypes.Add(new AotMethod.ReflectionMemberType(type));
             return;

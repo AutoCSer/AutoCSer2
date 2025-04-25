@@ -67,5 +67,13 @@ namespace AutoCSer.TestCase.DeployTaskClient
         {
             return AutoCSer.Common.FileExists(fileName);
         }
+        /// <summary>
+        /// 获取文件信息
+        /// </summary>
+        /// <returns></returns>
+        internal FileInfo GetFileInfo()
+        {
+            return new FileInfo(fileName);
+        }
     }
 }

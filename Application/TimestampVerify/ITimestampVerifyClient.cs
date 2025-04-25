@@ -6,7 +6,10 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 基于递增登录时间戳验证的服务认证客户端接口
     /// </summary>
-    public interface ITimestampVerifyClient
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ITimestampVerifyService))]
+#endif
+    public partial interface ITimestampVerifyClient
     {
         /// <summary>
         /// 验证函数

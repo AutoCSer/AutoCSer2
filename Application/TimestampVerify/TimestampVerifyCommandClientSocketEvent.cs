@@ -55,7 +55,11 @@ namespace AutoCSer.CommandService
     /// 基于递增登录时间戳验证的服务认证客户端套接字事件
     /// </summary>
     /// <typeparam name="T">命令客户端套接字事件类型</typeparam>
-    public abstract class TimestampVerifyCommandClientSocketEvent<T> : AutoCSer.Net.CommandClientSocketEventTask<T>
+    public abstract class TimestampVerifyCommandClientSocketEvent<
+#if AOT
+        [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicProperties)]
+#endif
+        T> : AutoCSer.Net.CommandClientSocketEventTask<T>
         where T : TimestampVerifyCommandClientSocketEvent<T>
     {
         /// <summary>

@@ -1,0 +1,177 @@
+﻿//本文件由程序自动生成，请不要自行修改
+using System;
+using System.Numerics;
+using AutoCSer;
+
+#if NoAutoCSer
+#else
+#pragma warning disable
+namespace AutoCSer.CommandService
+{
+        [AutoCSer.Net.CommandClientControllerType(typeof(TimestampVerifyClient))]
+        public partial interface ITimestampVerifyClient { }
+        /// <summary>
+        /// 基于递增登录时间戳验证的服务认证客户端接口 客户端控制器
+        /// </summary>
+        internal unsafe partial class TimestampVerifyClient : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.ITimestampVerifyClient, AutoCSer.CommandService.ITimestampVerifyService>, ITimestampVerifyClient
+        {
+            private TimestampVerifyClient(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, 0) { }
+            internal static AutoCSer.Net.CommandClientController __CommandClientControllerConstructor__(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
+            {
+                return new TimestampVerifyClient(socket, controllerName, startMethodIndex, serverMethodNames);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __pi0__
+            {
+                internal ulong randomPrefix;
+                internal byte[] hashData;
+                internal long timestamp;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.TimestampVerifyClient.__pi0__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(20))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.randomPrefix);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.timestamp);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.hashData);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.TimestampVerifyClient.__pi0__ value = default(AutoCSer.CommandService.TimestampVerifyClient.__pi0__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.TimestampVerifyClient.__pi0__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __po0__
+            {
+                internal long timestamp;
+                internal AutoCSer.Net.CommandServerVerifyStateEnum ReturnValue;
+                
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.TimestampVerifyClient.__po0__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.timestamp);
+                byte ReturnValue = 0;
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref ReturnValue);
+                this.ReturnValue = (AutoCSer.Net.CommandServerVerifyStateEnum)ReturnValue;
+                __start__ += 3;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.TimestampVerifyClient.__po0__ value = default(AutoCSer.CommandService.TimestampVerifyClient.__po0__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.TimestampVerifyClient.__po0__));
+            }
+            }
+            /// <summary>
+            /// 验证函数
+            /// </summary>
+            /// <param name="randomPrefix">随机前缀</param>
+            /// <param name="hashData">验证 Hash 数据</param>
+            /// <param name="timestamp">待验证时间戳</param>
+            /// <returns></returns>
+            AutoCSer.Net.CommandClientReturnValue<AutoCSer.Net.CommandServerVerifyStateEnum> AutoCSer.CommandService.ITimestampVerifyClient/**/.Verify(ulong randomPrefix, byte[] hashData, ref long timestamp)
+            {
+                __pi0__ __inputParameter__ = new __pi0__
+                {
+                    randomPrefix = randomPrefix,
+                    hashData = hashData,
+                    timestamp = timestamp,
+                };
+                __po0__ __outputParameter__ = new __po0__
+                {
+                };
+                var __returnValue__ = base.SynchronousInputOutput<__pi0__, __po0__>(0
+                    , ref __inputParameter__
+                    , ref __outputParameter__
+                    );
+                timestamp = __outputParameter__.timestamp;
+                if (__returnValue__.IsSuccess) return __outputParameter__.ReturnValue;
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取客户端接口方法信息集合
+            /// </summary>
+            internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
+            {
+                AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(1);
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ITimestampVerifyClient), "Verify", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                return methods;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void __CommandClientControllerConstructor__()
+            {
+                __CommandClientControllerConstructor__(null, null, 0, null);
+                __CommandClientControllerMethods__();
+                AutoCSer.AotReflection.Interfaces(typeof(TimestampVerifyClient));
+            }
+        }
+}namespace AutoCSer.CommandService.TimestampVerify
+{
+    /// <summary>
+    /// 触发 AOT 编译
+    /// </summary>
+    public static class AotMethod
+    {
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            /// <returns></returns>
+            public static bool Call()
+            {
+                if (AutoCSer.Date.StartTimestamp == long.MinValue)
+                {
+                    AutoCSer.AotMethod.Call();
+                    AutoCSer.CommandService.TimestampVerifyClient.__pi0__.SimpleSerialize();
+                    AutoCSer.CommandService.TimestampVerifyClient.__po0__.SimpleSerialize();
+                    AutoCSer.CommandService.TimestampVerifyClient.__CommandClientControllerConstructor__();
+
+
+
+                    return true;
+                }
+                return false;
+            }
+    }
+}
+#endif

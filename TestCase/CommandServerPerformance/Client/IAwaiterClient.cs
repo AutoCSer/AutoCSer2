@@ -131,7 +131,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             CommandClientConfig<IAwaiterClient> commandClientConfig = new CommandClientConfig<IAwaiterClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<IAwaiterClient, IService>()))
             {
-                CommandClientSocketEvent<IAwaiterClient> client = (CommandClientSocketEvent<IAwaiterClient>)await commandClient.GetSocketEvent();
+                CommandClientSocketEvent<IAwaiterClient> client = await commandClient.GetSocketEvent<CommandClientSocketEvent<IAwaiterClient>>();
                 if (client == null)
                 {
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);

@@ -1396,7 +1396,9 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod _value2_ in _value1_)
                         {
             _code_.Add(@"
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(""");
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@"), """);
             _code_.Add(_value2_.MatchMethodName);
             _code_.Add(@""", ");
             _code_.Add(_value2_.MethodIndex.ToString());
@@ -2603,13 +2605,41 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"(AutoCSer.BinarySerializer serializer, ");
             _code_.Add(TypeFullName);
             _code_.Add(@" value)
+            {");
+            _if_ = false;
+                    if (IsSimpleSerialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
             {
+            _code_.Add(@"
+                serializer.Simple(value);");
+            }
+            _if_ = false;
+                if (!(bool)IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
                 if (serializer.WriteMemberCountVerify(");
             _code_.Add(FixedSize.ToString());
             _code_.Add(@", ");
             _code_.Add(MemberCountVerify.ToString());
-            _code_.Add(@")) value.binarySerialize(serializer);
+            _code_.Add(@")) value.binarySerialize(serializer);");
             }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                if (!(bool)IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
             /// <summary>
             /// 二进制序列化
             /// </summary>
@@ -2921,52 +2951,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
             }");
             }
-            _if_ = false;
-                    if (MemberTypeCount != default(int))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-            /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> ");
-            _code_.Add(BinarySerializeMemberTypeMethodName);
-            _code_.Add(@"()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(");
-            _code_.Add(MemberTypeCount.ToString());
-            _code_.Add(@");");
-                {
-                    AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType[] _value1_;
-                    _value1_ = MemberTypes;
-                    if (_value1_ != null)
-                    {
-                        int _loopIndex1_ = _loopIndex_;
-                        _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType _value2_ in _value1_)
-                        {
-            _code_.Add(@"
-                types.Add(typeof(");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value3_.FullName);
-                    }
-                }
-            _code_.Add(@"));");
-                            ++_loopIndex_;
-                        }
-                        _loopIndex_ = _loopIndex1_;
-                    }
-                }
-            _code_.Add(@"
-                return types;
-            }");
             }
             }
             _if_ = false;
@@ -2987,9 +2971,39 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"(AutoCSer.BinaryDeserializer deserializer, ref ");
             _code_.Add(TypeFullName);
             _code_.Add(@" value)
+            {");
+            _if_ = false;
+                    if (IsSimpleSerialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
             {
-                value.binaryDeserialize(deserializer);
+            _code_.Add(@"
+                deserializer.");
+            _code_.Add(SimpleMethodName);
+            _code_.Add(@"(ref value);");
             }
+            _if_ = false;
+                if (!(bool)IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                value.binaryDeserialize(deserializer);");
+            }
+            _code_.Add(@"
+            }");
+            _if_ = false;
+                if (!(bool)IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
             /// <summary>
             /// 二进制反序列化
             /// </summary>
@@ -3479,21 +3493,81 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
             }");
             }
-            _code_.Add(@"
-            /// <summary>
-            /// 获取二进制序列化成员数量信息
-            /// </summary>
-            /// <returns></returns>
-            internal static int ");
-            _code_.Add(BinarySerializeMemberCountVerifyMethodName);
-            _code_.Add(@"()
-            {
-                return ");
-            _code_.Add(MemberCountVerify.ToString());
-            _code_.Add(@";
-            }");
+            }
             }
             _code_.Add(@"
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo ");
+            _code_.Add(BinarySerializeMemberTypeMethodName);
+            _code_.Add(@"()
+            {");
+            _if_ = false;
+                    if (IsSimpleSerialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return new AutoCSer.BinarySerialize.TypeInfo(true, ");
+            _code_.Add(MemberTypeCount.ToString());
+            _code_.Add(@", ");
+            _code_.Add(MemberCountVerify.ToString());
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                if (!(bool)IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, ");
+            _code_.Add(MemberTypeCount.ToString());
+            _code_.Add(@", ");
+            _code_.Add(MemberCountVerify.ToString());
+            _code_.Add(@");");
+            _if_ = false;
+                    if (IsSerialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType[] _value1_;
+                    _value1_ = MemberTypes;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                typeInfo.Add(typeof(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@"));");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            }
+            _code_.Add(@"
+                return typeInfo;");
+            }
+            _code_.Add(@"
+            }
             /// <summary>
             /// 二进制序列化代码生成调用激活 AOT 反射
             /// </summary>
@@ -3518,6 +3592,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(BinarySerializeMethodName);
             _code_.Add(@"(null, value);");
             _if_ = false;
+                if (!(bool)IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
                     if (IsMemberMap)
                     {
                         _if_ = true;
@@ -3529,17 +3610,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(BinarySerializeMemberMapMethodName);
             _code_.Add(@"(null, null, value);");
             }
-            _if_ = false;
-                    if (MemberTypeCount != default(int))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-                ");
-            _code_.Add(BinarySerializeMemberTypeMethodName);
-            _code_.Add(@"();");
             }
             }
             _if_ = false;
@@ -3554,6 +3624,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(BinaryDeserializeMethodName);
             _code_.Add(@"(null, ref value);");
             _if_ = false;
+                if (!(bool)IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
                     if (IsMemberMap)
                     {
                         _if_ = true;
@@ -3565,15 +3642,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(BinaryDeserializeMemberMapMethodName);
             _code_.Add(@"(null, null, ref value);");
             }
+            }
             _code_.Add(@"
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(");
             _code_.Add(TypeFullName);
-            _code_.Add(@"));
-                ");
-            _code_.Add(BinarySerializeMemberCountVerifyMethodName);
-            _code_.Add(@"();");
+            _code_.Add(@"));");
             }
             _code_.Add(@"
+                ");
+            _code_.Add(BinarySerializeMemberTypeMethodName);
+            _code_.Add(@"();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(");
             _code_.Add(TypeFullName);
             _code_.Add(@"));

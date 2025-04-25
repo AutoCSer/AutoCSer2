@@ -15,8 +15,14 @@ namespace AutoCSer.CodeGenerator.Template
             /// <param name="value"></param>
             internal static void @BinarySerializeMethodName(AutoCSer.BinarySerializer serializer, @TypeFullName value)
             {
+                #region IF IsSimpleSerialize
+                serializer.Simple(/*NOTE*/(int)/*NOTE*/value);
+                #endregion IF IsSimpleSerialize
+                #region NOT IsSimpleSerialize
                 if (serializer.WriteMemberCountVerify(@FixedSize, @MemberCountVerify)) value.binarySerialize(serializer);
+                #endregion NOT IsSimpleSerialize
             }
+            #region NOT IsSimpleSerialize
             /// <summary>
             /// 二进制序列化
             /// </summary>
@@ -82,20 +88,7 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP FieldArray
             }
             #endregion IF IsMemberMap
-            #region IF MemberTypeCount
-            /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> @BinarySerializeMemberTypeMethodName()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(@MemberTypeCount);
-                #region LOOP MemberTypes
-                types.Add(typeof(@MemberType.FullName));
-                #endregion LOOP MemberTypes
-                return types;
-            }
-            #endregion IF MemberTypeCount
+            #endregion NOT IsSimpleSerialize
             #endregion IF IsSerialize
             #region IF IsDeserialize
             /// <summary>
@@ -105,8 +98,14 @@ namespace AutoCSer.CodeGenerator.Template
             /// <param name="value"></param>
             internal static void @BinaryDeserializeMethodName(AutoCSer.BinaryDeserializer deserializer, ref @TypeFullName value)
             {
+                #region IF IsSimpleSerialize
+                deserializer.@SimpleMethodName(ref value);
+                #endregion IF IsSimpleSerialize
+                #region NOT IsSimpleSerialize
                 value.binaryDeserialize(deserializer);
+                #endregion NOT IsSimpleSerialize
             }
+            #region NOT IsSimpleSerialize
             /// <summary>
             /// 二进制反序列化
             /// </summary>
@@ -211,15 +210,27 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP FieldArray
             }
             #endregion IF IsMemberMap
+            #endregion NOT IsSimpleSerialize
+            #endregion IF IsDeserialize
             /// <summary>
-            /// 获取二进制序列化成员数量信息
+            /// 获取二进制序列化类型信息
             /// </summary>
             /// <returns></returns>
-            internal static int @BinarySerializeMemberCountVerifyMethodName()
+            internal static AutoCSer.BinarySerialize.TypeInfo @BinarySerializeMemberTypeMethodName()
             {
-                return @MemberCountVerify;
+                #region IF IsSimpleSerialize
+                return new AutoCSer.BinarySerialize.TypeInfo(true, @MemberTypeCount, @MemberCountVerify);
+                #endregion IF IsSimpleSerialize
+                #region NOT IsSimpleSerialize
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, @MemberTypeCount, @MemberCountVerify);
+                #region IF IsSerialize
+                #region LOOP MemberTypes
+                typeInfo.Add(typeof(@MemberType.FullName));
+                #endregion LOOP MemberTypes
+                #endregion IF IsSerialize
+                return typeInfo;
+                #endregion NOT IsSimpleSerialize
             }
-            #endregion IF IsDeserialize
             /// <summary>
             /// 二进制序列化代码生成调用激活 AOT 反射
             /// </summary>
@@ -228,21 +239,22 @@ namespace AutoCSer.CodeGenerator.Template
                 @TypeFullName value = default(@TypeFullName);
                 #region IF IsSerialize
                 @BinarySerializeMethodName(null, value);
+                #region NOT IsSimpleSerialize
                 #region IF IsMemberMap
                 @BinarySerializeMemberMapMethodName(null, null, value);
                 #endregion IF IsMemberMap
-                #region IF MemberTypeCount
-                @BinarySerializeMemberTypeMethodName();
-                #endregion IF MemberTypeCount
+                #endregion NOT IsSimpleSerialize
                 #endregion IF IsSerialize
                 #region IF IsDeserialize
                 @BinaryDeserializeMethodName(null, ref value);
+                #region NOT IsSimpleSerialize
                 #region IF IsMemberMap
                 @BinaryDeserializeMemberMapMethodName(null, null, ref value);
                 #endregion IF IsMemberMap
+                #endregion NOT IsSimpleSerialize
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(@TypeFullName));
-                @BinarySerializeMemberCountVerifyMethodName();
                 #endregion IF IsDeserialize
+                @BinarySerializeMemberTypeMethodName();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(@TypeFullName));
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<@TypeFullName>();
             }

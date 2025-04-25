@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: Guid("13510310-674e-8c37-4e39-13510c060001")]
 #if AOT
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator.AOT")]
+[assembly: InternalsVisibleTo("AutoCSer.Drawing.AOT")]
 #else
 [assembly: InternalsVisibleTo("AutoCSer.DynamicAssembly")]
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator")]

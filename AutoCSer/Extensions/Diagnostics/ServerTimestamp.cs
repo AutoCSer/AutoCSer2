@@ -7,22 +7,25 @@ namespace AutoCSer.Diagnostics
     /// <summary>
     /// 服务端时间戳
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+#endif
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct ServerTimestamp
+    public partial struct ServerTimestamp
     {
         /// <summary>
         /// 获取时间戳的服务端时间
         /// </summary>
-        public readonly DateTime Time;
+        public DateTime Time;
         /// <summary>
         /// 获取服务端时间的时间戳
         /// </summary>
-        public readonly long Timestamp;
+        public long Timestamp;
         /// <summary>
         /// 每秒始终周期数量
         /// </summary>
-        public readonly double TimestampPerSecond;
+        public double TimestampPerSecond;
         /// <summary>
         /// 服务端时间戳
         /// </summary>

@@ -752,6 +752,14 @@
             <param name="deserializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.Simple``1(AutoCSer.BinaryDeserializer,``0@)">
+            <summary>
+            二进制反序列化转简单反序列化（用于代码生成，不允许开发者调用）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.realTypeObject``1">
             <summary>
             真实类型反序列化
@@ -4790,11 +4798,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.SetContext(System.Object)">
+        <member name="M:AutoCSer.BinarySerializer.SetContext(System.Object,System.Boolean@)">
             <summary>
             设置上下文
             </summary>
             <param name="context"></param>
+            <param name="isSerializeCopyString"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.BinarySerializer.SetDefault">
@@ -4817,10 +4826,11 @@
             释放资源
             </summary>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.FreeContext">
+        <member name="M:AutoCSer.BinarySerializer.FreeContext(System.Boolean)">
             <summary>
             释放资源
             </summary>
+            <param name="isSerializeCopyString"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.CheckDepth(AutoCSer.BinarySerialize.SerializePushTypeEnum)">
             <summary>
@@ -4923,6 +4933,14 @@
         <member name="M:AutoCSer.BinarySerializer.StructJson``1(AutoCSer.BinarySerializer,``0)">
             <summary>
             二进制混杂 JSON 序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.Simple``1(AutoCSer.BinarySerializer,``0)">
+            <summary>
+            二进制序列化转简单序列化（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="binarySerializer"></param>
@@ -8742,6 +8760,14 @@
             <param name="memberCountVerify"></param>
             <returns>字段成员集合</returns>
         </member>
+        <member name="M:AutoCSer.BinarySerialize.FieldSizeArray.IsSimpleSerialize(System.Type,System.Boolean)">
+            <summary>
+            判断是否支持简单序列化
+            </summary>
+            <param name="type"></param>
+            <param name="isReferenceMember"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.BinarySerialize.SerializeMemberDynamicMethod">
             <summary>
             动态函数
@@ -11780,13 +11806,6 @@
             <param name="generator"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.Extensions.EmitGenerator.ldstr(System.Reflection.Emit.ILGenerator,System.String)">
-            <summary>
-            加载字符串
-            </summary>
-            <param name="generator"></param>
-            <param name="value"></param>
-        </member>
         <member name="M:AutoCSer.Extensions.EmitGenerator.ldarg(System.Reflection.Emit.ILGenerator,System.Int32)">
             <summary>
             加载参数
@@ -11800,6 +11819,13 @@
             </summary>
             <param name="generator"></param>
             <param name="method"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.EmitGenerator.ldstr(System.Reflection.Emit.ILGenerator,System.String)">
+            <summary>
+            加载字符串
+            </summary>
+            <param name="generator"></param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.Extensions.EmitGenerator.initobjShort(System.Reflection.Emit.ILGenerator,System.Type,System.Reflection.Emit.LocalBuilder)">
             <summary>
@@ -21161,9 +21187,9 @@
             在不允许扩展缓存区大小的情况下是否产生了扩展操作
             </summary>
         </member>
-        <member name="F:AutoCSer.Memory.UnmanagedStreamBase.Reserve">
+        <member name="F:AutoCSer.Memory.UnmanagedStreamBase.IsSerializeCopyString">
             <summary>
-            保留
+            默认为 true 表示字符串二进制序列化直接复制内存数据，设置为 false 则对 ASCII 进行编码可以降低空间占用
             </summary>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.#ctor(AutoCSer.Memory.UnmanagedPool)">
@@ -21195,6 +21221,11 @@
             </summary>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Close">
+            <summary>
+            释放数据容器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Close(System.Boolean)">
             <summary>
             释放数据容器
             </summary>
@@ -21261,6 +21292,12 @@
             </summary>
             <param name="stream"></param>
             <param name="buffer"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.ExchangeIsSerializeCopyString(System.Boolean@)">
+            <summary>
+            设置字符串二进制序列化直接复制内存数据
+            </summary>
+            <param name="isSerializeCopyString"></param>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.SetCanResize(System.Boolean)">
             <summary>
@@ -21674,6 +21711,11 @@
         <member name="F:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.IsResizeError">
             <summary>
             在不允许扩展缓存区大小的情况下是否产生了扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.IsSerializeCopyString">
+            <summary>
+            字符串二进制序列化直接复制内存数据
             </summary>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamExchangeBuffer.#ctor(AutoCSer.Memory.UnmanagedStreamBase)">
@@ -24463,6 +24505,11 @@
             获取二进制序列化函数信息
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.StructGenericType.BinarySerializeSimpleDelegate">
+            <summary>
+            二进制序列化转简单序列化
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.StructGenericType.BinaryDeserializeNullableLeftArrayDelegate">
             <summary>
             获取二进制反序列化函数信息
@@ -24498,6 +24545,11 @@
             获取二进制反序列化函数信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Metadata.StructGenericType.BinaryDeserializeSimpleDelegate">
+            <summary>
+            二进制反序列化转简单反序列化
+            </summary>
         </member>
         <member name="P:AutoCSer.Metadata.StructGenericType.BinaryDeserializeNullableDelegate">
             <summary>
@@ -24585,6 +24637,11 @@
             获取二进制序列化函数信息
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.StructGenericType`1.BinarySerializeSimpleDelegate">
+            <summary>
+            二进制序列化转简单序列化
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.StructGenericType`1.BinaryDeserializeNullableLeftArrayDelegate">
             <summary>
             获取二进制反序列化函数信息
@@ -24620,6 +24677,11 @@
             获取二进制反序列化函数信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:AutoCSer.Metadata.StructGenericType`1.BinaryDeserializeSimpleDelegate">
+            <summary>
+            二进制反序列化转简单反序列化
+            </summary>
         </member>
         <member name="P:AutoCSer.Metadata.StructGenericType`1.BinaryDeserializeNullableDelegate">
             <summary>
@@ -28641,6 +28703,11 @@
             是否低优先级队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.isDeserializeError">
+            <summary>
+            是否反序列化错误
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.#ctor">
             <summary>
             客户端接口方法信息
@@ -28655,6 +28722,12 @@
             <param name="controllerAttribute"></param>
             <param name="taskQueueControllerKeyType"></param>
             <param name="isServer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.DeserializeError(AutoCSer.Net.CommandClientController)">
+            <summary>
+            反序列化错误
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.SetError(System.String)">
             <summary>
@@ -28841,6 +28914,11 @@
             缺少验证函数逻辑，需要重载实现 AutoCSer.Net.CommandServerAttribute.ClientVerifyMethod
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.ControllerDataError">
+            <summary>
+            命令控制器查询回调数据解析失败
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.CallbackIdentityLess">
             <summary>
             回调标识接收不足
@@ -28881,34 +28959,14 @@
             不允许的接收数据回调操作
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.CustomCommandError">
-            <summary>
-            自定义命令处理错误
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.CustomDataError">
             <summary>
             自定义命令回调数据解析失败
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.CancelKeepCallbackDataError">
+        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.CustomCommandError">
             <summary>
-            取消命令回调数据解析失败
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.ControllerDataError">
-            <summary>
-            命令控制器查询回调数据解析失败
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.DeserializeError">
-            <summary>
-            反序列化错误
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.ErrorMessageDeserialize">
-            <summary>
-            错误信息解析失败
+            自定义命令处理错误
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientReceiveTypeEnum">
@@ -38690,6 +38748,11 @@
             发送数据缓存区池字节大小二进制位数量，默认为 17 为 128KB，开放服务建议值不大于 12 避免内存占用过多
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerConfigBase.IsSerializeCopyString">
+            <summary>
+            默认为 true 表示字符串二进制序列化直接复制内存数据，设置为 false 则对 ASCII 进行编码可以降低空间占用
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerConfigBase.MaxInputSize">
             <summary>
             The maximum number of bytes of input data, the default is 0 to indicate no limit, the open service recommended value is less than 2^ ReceiveBufferSizeBis-12 and the API is not recommended to produce large object transport behavior
@@ -39681,6 +39744,15 @@
             Gets the command client socket event
             获取命令客户端套接字事件
             </summary>
+            <returns>Return null on failure
+            失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.ICommandClient.GetSocketEvent``1">
+            <summary>
+            Gets the command client socket event
+            获取命令客户端套接字事件
+            </summary>
+            <typeparam name="T"></typeparam>
             <returns>Return null on failure
             失败返回 null</returns>
         </member>
@@ -42747,10 +42819,17 @@
             </summary>
             <returns>发送数据缓存区池</returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandReverseClient.AutoCSer#Net#ICommandClient#GetSocketEvent">
+        <member name="M:AutoCSer.Net.CommandReverseClient.GetSocketEvent">
             <summary>
             获取命令客户端套接字事件
             </summary>
+            <returns>失败返回 null</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseClient.GetSocketEvent``1">
+            <summary>
+            获取命令客户端套接字事件
+            </summary>
+            <typeparam name="T"></typeparam>
             <returns>失败返回 null</returns>
         </member>
         <member name="T:AutoCSer.Net.CommandReverseClientConfig">
@@ -44174,6 +44253,11 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.buildOutputThreadEnum">
             <summary>
             服务端套接字发送数据线程类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.isSerializeCopyString">
+            <summary>
+            字符串二进制序列化直接复制内存数据
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.#ctor">
@@ -47020,7 +47104,7 @@
             名称缓存
             </summary>
         </member>
-        <member name="P:AutoCSer.Reflection.TypeNameBuilder.TypeNameEnum">
+        <member name="F:AutoCSer.Reflection.TypeNameBuilder.TypeNameEnum">
             <summary>
             类型名称输出类型
             </summary>

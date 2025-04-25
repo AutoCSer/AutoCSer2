@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase
         static void Main(string[] args)
 #endif
         {
-#if NET8
+#if NET8 && !AOT
             CommandServer.IsAotClient = args.Length != 0 && args[0] == AutoCSer.TestCase.Common.Config.AotClientArgument;
             if (CommandServer.IsAotClient) Console.WriteLine(AutoCSer.TestCase.Common.Config.AotClientArgument);
 #endif

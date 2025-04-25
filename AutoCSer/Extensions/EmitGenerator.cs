@@ -44,16 +44,6 @@ namespace AutoCSer.Extensions
             else generator.Emit((uint)value <= sbyte.MaxValue ? OpCodes.Ldc_I4_S : OpCodes.Ldc_I4, value);
         }
         /// <summary>
-        /// 加载字符串
-        /// </summary>
-        /// <param name="generator"></param>
-        /// <param name="value"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void ldstr(this ILGenerator generator, string value)
-        {
-            generator.Emit(OpCodes.Ldstr, value);
-        }
-        /// <summary>
         /// 加载参数
         /// </summary>
         /// <param name="generator"></param>
@@ -78,6 +68,17 @@ namespace AutoCSer.Extensions
         public static void call(this ILGenerator generator, MethodInfo method)
         {
             generator.Emit(method.IsFinal || !method.IsVirtual ? OpCodes.Call : OpCodes.Callvirt, method);
+        }
+#if !AOT
+        /// <summary>
+        /// 加载字符串
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void ldstr(this ILGenerator generator, string value)
+        {
+            generator.Emit(OpCodes.Ldstr, value);
         }
         /// <summary>
         /// 对象初始化
@@ -123,7 +124,6 @@ namespace AutoCSer.Extensions
                 }
             }
         }
-
         /// <summary>
         /// 判断成员位图是否匹配成员索引
         /// </summary>
@@ -152,6 +152,8 @@ namespace AutoCSer.Extensions
             generator.int32(value);
             generator.call(genericType.GetMemberMapSetMemberDelegate.Method);
         }
+#endif
+
         ///// <summary>
         ///// 判断成员位图是否匹配成员索引
         ///// </summary>

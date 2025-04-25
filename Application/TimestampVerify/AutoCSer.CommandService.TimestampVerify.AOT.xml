@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.CommandService.TimestampVerify.AOT</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.CommandService.ITimestampVerifyService">
+            <summary>
+            基于递增登录时间戳验证的服务认证接口（配合 HASH 防止重放登录操作）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ITimestampVerifyService.Verify(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,System.UInt64,System.Byte[],System.Int64@)">
+            <summary>
+            验证函数
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="randomPrefix">随机前缀</param>
+            <param name="hashData">验证 Hash 数据</param>
+            <param name="timestamp">待验证时间戳</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.ITimestampVerifyClient">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ITimestampVerifyClient.Verify(System.UInt64,System.Byte[],System.Int64@)">
+            <summary>
+            验证函数
+            </summary>
+            <param name="randomPrefix">随机前缀</param>
+            <param name="hashData">验证 Hash 数据</param>
+            <param name="timestamp">待验证时间戳</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerifyChecker">
+            <summary>
+            递增登录时间戳检查器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyChecker.startTimestamp">
+            <summary>
+            初始化时间戳
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.TimestampVerifyChecker.CurrentTimestamp">
+            <summary>
+            获取的当前时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyChecker.lastTimestamp">
+            <summary>
+            最后一次验证时间戳
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyChecker.maxTimestampDifference">
+            <summary>
+            时间戳最大验证时间差
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyChecker.timestampLock">
+            <summary>
+            最后一次验证时间戳访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.#ctor(System.Byte)">
+            <summary>
+            递增登录时间戳检查器
+            </summary>
+            <param name="maxSecondsDifference">最大时间差秒数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.Check(System.Int64@,System.Int64@)">
+            <summary>
+            检测当前时间戳
+            </summary>
+            <param name="timestamp">客户端请求的时间戳</param>
+            <param name="serverTimestamp">服务端分配的时间戳</param>
+            <returns>时间戳是否验证成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.CheckQueue(System.Int64@,System.Int64@)">
+            <summary>
+            检测当前时间戳
+            </summary>
+            <param name="timestamp">客户端请求的时间戳</param>
+            <param name="serverTimestamp">服务端分配的时间戳</param>
+            <returns>时间戳是否验证成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.Set(System.Int64)">
+            <summary>
+            设置最后一次验证时间戳
+            </summary>
+            <param name="timestamp"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.SetQueue(System.Int64)">
+            <summary>
+            设置最后一次验证时间戳
+            </summary>
+            <param name="timestamp"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.GetTimestamp">
+            <summary>
+            获取可用时间戳
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.Verify(AutoCSer.Net.CommandClientController,System.String)">
+            <summary>
+            客户端创建套接字连接以后调用认证 API
+            </summary>
+            <param name="controller"></param>
+            <param name="verifyString">验证字符串</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端套接字事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.verifyString">
+            <summary>
+            服务认证验证字符串
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.TimestampVerifyClient">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端示例接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient,System.String)">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+            <param name="verifyString">服务认证验证字符串</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.CallVerifyMethod(AutoCSer.Net.CommandClientController)">
+            <summary>
+            客户端创建套接字连接以后调用认证 API
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端套接字事件
+            </summary>
+            <typeparam name="T">命令客户端套接字事件类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.verifyString">
+            <summary>
+            服务认证验证字符串
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.TimestampVerifyClient">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端示例接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.ControllerCreatorParameters">
+            <summary>
+            客户端控制器创建器参数集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient,System.String)">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端套接字事件
+            </summary>
+            <param name="client">命令客户端</param>
+            <param name="verifyString">服务认证验证字符串</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.CallVerifyMethod(AutoCSer.Net.CommandClientController)">
+            <summary>
+            客户端创建套接字连接以后调用认证 API
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerifyClient">
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端接口 客户端控制器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__pi0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.TimestampVerifyClient.__pi0__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__pi0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__pi0__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__po0__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.TimestampVerifyClient.__po0__@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__po0__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__po0__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.AutoCSer#CommandService#ITimestampVerifyClient#Verify(System.UInt64,System.Byte[],System.Int64@)">
+            <summary>
+            验证函数
+            </summary>
+            <param name="randomPrefix">随机前缀</param>
+            <param name="hashData">验证 Hash 数据</param>
+            <param name="timestamp">待验证时间戳</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__CommandClientControllerMethods__">
+            <summary>
+            获取客户端接口方法信息集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__CommandClientControllerConstructor__">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.TimestampVerify.AotMethod">
+            <summary>
+            触发 AOT 编译
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.TimestampVerify.AotMethod.Call">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

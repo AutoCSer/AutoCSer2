@@ -375,19 +375,19 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(13);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Synchronous", 8, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Callback", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Queue", 4, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("ConcurrencyReadQueue", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("ReadWriteQueue", 5, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Task", 10, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("SynchronousCallTask", 9, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("TaskQueue", 11, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("TaskQueueKey", 12, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("KeepCallback", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("SendOnly", 6, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("KeepCallbackCount", 3, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("SendOnlyTask", 7, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "Synchronous", 8, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "Callback", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "Queue", 4, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "ConcurrencyReadQueue", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "ReadWriteQueue", 5, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "Task", 10, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "SynchronousCallTask", 9, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "TaskQueue", 11, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "TaskQueueKey", 12, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "KeepCallback", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "SendOnly", 6, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "KeepCallbackCount", 3, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IAwaiterClient), "SendOnlyTask", 7, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
                 return methods;
             }
             /// <summary>
@@ -791,19 +791,19 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(13);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Synchronous", 8, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Callback", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Queue", 4, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("ConcurrencyReadQueue", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("ReadWriteQueue", 5, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Task", 10, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("SynchronousCallTask", 9, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("TaskQueue", 11, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("TaskQueueKey", 12, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("KeepCallback", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("SendOnly", 6, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("KeepCallbackCount", 3, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("SendOnlyTask", 7, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "Synchronous", 8, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "Callback", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "Queue", 4, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "ConcurrencyReadQueue", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "ReadWriteQueue", 5, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "Task", 10, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "SynchronousCallTask", 9, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "TaskQueue", 11, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "TaskQueueKey", 12, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "KeepCallback", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "SendOnly", 6, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "KeepCallbackCount", 3, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ICallbackClient), "SendOnlyTask", 7, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
                 return methods;
             }
             /// <summary>
@@ -1163,15 +1163,15 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(9);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Synchronous", 8, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Callback", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Queue", 4, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("ConcurrencyReadQueue", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("ReadWriteQueue", 5, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("Task", 10, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("SynchronousCallTask", 9, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("TaskQueue", 11, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod("TaskQueueKey", 12, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "Synchronous", 8, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "Callback", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "Queue", 4, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "ConcurrencyReadQueue", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "ReadWriteQueue", 5, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "Task", 10, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "SynchronousCallTask", 9, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "TaskQueue", 11, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ISynchronousCllient), "TaskQueueKey", 12, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
                 return methods;
             }
             /// <summary>

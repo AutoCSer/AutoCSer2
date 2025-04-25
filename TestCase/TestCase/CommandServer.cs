@@ -149,11 +149,11 @@ namespace AutoCSer.TestCase
             }
             return true;
         }
+#if !AOT
         /// <summary>
         /// 是否 AOT 客户端测试
         /// </summary>
         internal static bool IsAotClient;
-#if !AOT
         /// <summary>
         /// 创建测试服务端
         /// </summary>

@@ -98,6 +98,10 @@ namespace AutoCSer.CommandService
         /// </summary>
         public bool CanCreateSlave;
         /// <summary>
+        /// 默认为 true 表示字符串序列化直接复制内存数据，设置为 false 则对 ASCII 进行编码可以降低空间占用
+        /// </summary>
+        public bool IsSerializeCopyString = true;
+        /// <summary>
         /// 获取备份文件时间后缀
         /// </summary>
         /// <returns></returns>

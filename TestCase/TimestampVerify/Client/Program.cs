@@ -17,19 +17,21 @@ namespace AutoCSer.TestCase.TimestampVerifyClient
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                CommandClientSocketEvent client = (CommandClientSocketEvent)await commandClient.GetSocketEvent();
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
                 if (client == null)
                 {
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     Console.ReadKey();
                     return;
                 }
-
                 CommandClientReturnValue<int> returnValue = client.TimestampVerifyClient.Add(1, 2);
                 Console.WriteLine(returnValue.ReturnType.ToString());
                 Console.WriteLine(returnValue.Value.ToString());
                 Console.ReadKey();
             }
+#if AOT
+            AutoCSer.TestCase.TimestampVerifyClient.AotMethod.Call();
+#endif
         }
     }
 }

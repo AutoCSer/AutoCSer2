@@ -29,32 +29,17 @@
             调用超时时间戳
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.completedTimestamp">
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.CompletedTimestamp">
             <summary>
             调用完成时间戳
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.CompletedTimestamp">
-            <summary>
-            调用完成时间戳
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.stepTimestamp">
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.StepTimestamp">
             <summary>
             最后一次设置自定义调用步骤时间戳
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.StepTimestamp">
-            <summary>
-            最后一次设置自定义调用步骤时间戳
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.step">
-            <summary>
-            最后一次设置的自定义调用步骤
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.Step">
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.Step">
             <summary>
             最后一次设置的自定义调用步骤
             </summary>
@@ -64,12 +49,7 @@
             调用类型
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.isException">
-            <summary>
-            接口是否执行异常
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.IsException">
+        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.IsException">
             <summary>
             接口是否执行异常
             </summary>

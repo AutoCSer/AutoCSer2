@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.TimestampVerifyClient.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.TimestampVerifyClient</RootNamespace>
+    <PublishAot>True</PublishAot>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>AOT</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;AOT</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CommandClientSocketEvent.cs" />
+    <Compile Include="ITimestampVerify.cs" />
+    <Compile Include="ITimestampVerifyClient.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="{AutoCSer.TestCase.TimestampVerifyClient}.AOT.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.AOT.NET8.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+  </Target>
+  
+</Project>

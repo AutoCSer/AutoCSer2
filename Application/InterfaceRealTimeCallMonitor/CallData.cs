@@ -7,61 +7,48 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// <summary>
     /// 实时调用信息序列化数据
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
+#endif
     [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public class CallData
+    public partial class CallData
     {
         /// <summary>
         /// 调用接口类型
         /// </summary>
-        public readonly string CallType;
+        public string CallType;
         /// <summary>
         /// 调用接口方法名称
         /// </summary>
-        public readonly string CallName;
+        public string CallName;
         /// <summary>
         /// 开始调用时间戳
         /// </summary>
-        public readonly long StartTimestamp;
+        public long StartTimestamp;
         /// <summary>
         /// 调用超时时间戳
         /// </summary>
-        public readonly long TimeoutTimestamp;
+        public long TimeoutTimestamp;
         /// <summary>
         /// 调用完成时间戳
         /// </summary>
-        private long completedTimestamp;
-        /// <summary>
-        /// 调用完成时间戳
-        /// </summary>
-        public long CompletedTimestamp { get { return completedTimestamp; } }
+        public long CompletedTimestamp;
         /// <summary>
         /// 最后一次设置自定义调用步骤时间戳
         /// </summary>
-        private long stepTimestamp;
-        /// <summary>
-        /// 最后一次设置自定义调用步骤时间戳
-        /// </summary>
-        public long StepTimestamp { get { return stepTimestamp; } }
+        public long StepTimestamp;
         /// <summary>
         /// 最后一次设置的自定义调用步骤
         /// </summary>
-        private int step;
-        /// <summary>
-        /// 最后一次设置的自定义调用步骤
-        /// </summary>
-        public int Step { get { return step; } }
+        public int Step;
         /// <summary>
         /// 调用类型
         /// </summary>
-        public readonly ushort Type;
+        public ushort Type;
         /// <summary>
         /// 接口是否执行异常
         /// </summary>
-        private bool isException;
-        /// <summary>
-        /// 接口是否执行异常
-        /// </summary>
-        public bool IsException { get { return isException; } }
+        public bool IsException;
         /// <summary>
         /// 是否已经触发超时操作
         /// </summary>
@@ -100,8 +87,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool Completed(bool isException)
         {
-            this.isException = isException;
-            return checkTimeout(completedTimestamp = Stopwatch.GetTimestamp());
+            IsException = isException;
+            return checkTimeout(CompletedTimestamp = Stopwatch.GetTimestamp());
         }
         /// <summary>
         /// 检查是否需要新增超时调用
@@ -122,8 +109,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool SetStep(int step)
         {
-            this.step = step;
-            return checkTimeout(stepTimestamp = Stopwatch.GetTimestamp());
+            Step = step;
+            return checkTimeout(StepTimestamp = Stopwatch.GetTimestamp());
         }
         /// <summary>
         /// 检查调用是否超时

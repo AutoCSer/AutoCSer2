@@ -92,7 +92,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             CommandClientConfig<ISynchronousCllient> commandClientConfig = new CommandClientConfig<ISynchronousCllient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CommandPoolBits = 11, CheckSeconds = 0, CommandQueueCount = 1 << 10 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<ISynchronousCllient, IService>()))
             {
-                CommandClientSocketEvent<ISynchronousCllient> client = (CommandClientSocketEvent<ISynchronousCllient>)await commandClient.GetSocketEvent();
+                CommandClientSocketEvent<ISynchronousCllient> client = await commandClient.GetSocketEvent<CommandClientSocketEvent<ISynchronousCllient>>();
                 if (client == null)
                 {
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);

@@ -37,11 +37,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.TestCase.CommandServer.IsAotClient">
-            <summary>
-            是否 AOT 客户端测试
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent">
             <summary>
             命令客户端套接字事件
@@ -2805,7 +2800,7 @@
         </member>
         <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.__pi0__.BinarySerializeMemberTypes">
             <summary>
-            获取 JSON 序列化成员类型
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -2833,9 +2828,9 @@
             </summary>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.__po1__.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.__po1__.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -4801,7 +4796,7 @@
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.__pi0__.BinarySerializeMemberTypes">
             <summary>
-            获取 JSON 序列化成员类型
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -4829,9 +4824,9 @@
             </summary>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.__po1__.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.__po1__.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -6166,12 +6161,6 @@
             <param name="__serializer__"></param>
             <param name="__startIndex__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.Field.BinarySerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.Field.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.Data.Field@)">
             <summary>
             二进制反序列化
@@ -6206,9 +6195,9 @@
             <param name="__memberMap__"></param>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.Field.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.Data.Field.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -6729,12 +6718,6 @@
             <param name="__serializer__"></param>
             <param name="__startIndex__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.InheritProperty.BinarySerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.InheritProperty.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.Data.InheritProperty@)">
             <summary>
             二进制反序列化
@@ -6769,9 +6752,9 @@
             <param name="__memberMap__"></param>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.InheritProperty.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.Data.InheritProperty.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -7388,12 +7371,6 @@
             <param name="__serializer__"></param>
             <param name="__startIndex__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.MemberClass.BinarySerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.MemberClass.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.Data.MemberClass@)">
             <summary>
             二进制反序列化
@@ -7428,9 +7405,9 @@
             <param name="__memberMap__"></param>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.MemberClass.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.Data.MemberClass.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -7736,9 +7713,9 @@
             <param name="__memberMap__"></param>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.NoMemberClass.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.Data.NoMemberClass.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -8056,12 +8033,6 @@
             <param name="__serializer__"></param>
             <param name="__startIndex__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.ModelAssociated.BinarySerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.ORM.ModelAssociated.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.Data.ORM.ModelAssociated@)">
             <summary>
             二进制反序列化
@@ -8090,9 +8061,9 @@
             <param name="__memberMap__"></param>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.ModelAssociated.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.Data.ORM.ModelAssociated.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -8282,12 +8253,6 @@
             <param name="__serializer__"></param>
             <param name="__startIndex__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.Property.BinarySerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.Property.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.Data.Property@)">
             <summary>
             二进制反序列化
@@ -8322,9 +8287,9 @@
             <param name="__memberMap__"></param>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.Property.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.Data.Property.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
@@ -8759,12 +8724,6 @@
             <param name="__serializer__"></param>
             <param name="__startIndex__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.StructField.BinarySerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.StructField.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.Data.StructField@)">
             <summary>
             二进制反序列化
@@ -8799,9 +8758,9 @@
             <param name="__memberMap__"></param>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.StructField.BinarySerializeMemberCountVerify">
+        <member name="M:AutoCSer.TestCase.Data.StructField.BinarySerializeMemberTypes">
             <summary>
-            获取二进制序列化成员数量信息
+            获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>

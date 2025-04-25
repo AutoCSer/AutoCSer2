@@ -33886,6 +33886,11 @@
             默认为 false 表示不允许创建从节点，如果没有从节点需求设置为 true 会导致内存空间浪费
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.IsSerializeCopyString">
+            <summary>
+            默认为 true 表示字符串序列化直接复制内存数据，设置为 false 则对 ASCII 进行编码可以降低空间占用
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.GetBackupFileNameSuffix">
             <summary>
             获取备份文件时间后缀
