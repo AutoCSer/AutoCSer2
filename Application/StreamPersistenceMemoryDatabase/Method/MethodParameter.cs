@@ -180,7 +180,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodParameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static T GetNodeTarget<T>(MethodParameter methodParameter)
+        public static T GetNodeTarget<T>(MethodParameter methodParameter)
         {
             return ((ServerNode<T>)methodParameter.Node).Target;
         }

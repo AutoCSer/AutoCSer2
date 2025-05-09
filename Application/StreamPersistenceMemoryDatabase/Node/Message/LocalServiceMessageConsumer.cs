@@ -10,6 +10,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     public abstract class LocalServiceMessageConsumer
     {
+#if AOT
+        /// <summary>
+        /// 默认重试间隔毫秒数
+        /// </summary>
+        public const int DefaultDelayMilliseconds = 1000;
+#endif
+
         /// <summary>
         /// 日志流持久化内存数据库本地服务
         /// </summary>
@@ -33,6 +40,98 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.delayMilliseconds = Math.Max(delayMilliseconds, 1);
         }
     }
+#if AOT
+    /// <summary>
+    /// 消息节点消费者
+    /// </summary>
+    /// <typeparam name="T">消息数据类型</typeparam>
+    public abstract class LocalServiceMessageConsumer<T> : LocalServiceMessageConsumer, IDisposable
+        where T : Message<T>
+    {
+        /// <summary>
+        /// 本地服务客户端节点
+        /// </summary>
+        private readonly LocalClientNode node;
+        /// <summary>
+        /// 服务端单次最大回调消息数量
+        /// </summary>
+        protected readonly int maxMessageCount;
+        /// <summary>
+        /// 接收消息的最后一次错误信息
+        /// </summary>
+        protected LocalResult lastError;
+        /// <summary>
+        /// 保持回调输出
+        /// </summary>
+        protected IDisposable? keepCallback;
+        /// <summary>
+        /// 字符串消息消费者
+        /// </summary>
+        /// <param name="client">日志流持久化内存数据库本地服务客户端</param>
+        /// <param name="node">本地服务客户端节点</param>
+        /// <param name="maxMessageCount">服务端单次最大回调消息数量</param>
+        /// <param name="delayMilliseconds">重试间隔毫秒数，默认为 1000，最小值为 1</param>
+        protected LocalServiceMessageConsumer(LocalClient client, LocalClientNode node, int maxMessageCount, int delayMilliseconds = LocalServiceMessageConsumer.DefaultDelayMilliseconds) : base(client, delayMilliseconds)
+        {
+            this.node = node;
+            this.maxMessageCount = maxMessageCount;
+            lastError.Set(CallStateEnum.Success, null);
+        }
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public void Dispose()
+        {
+            if (!isDisposed)
+            {
+                isDisposed = true;
+                keepCallback?.Dispose();
+            }
+        }
+        /// <summary>
+        /// 消息处理
+        /// </summary>
+        /// <param name="message"></param>
+        protected void onMessage(LocalResult<T> message)
+        {
+            if (message.IsSuccess)
+            {
+                if (message.Value != null) checkOnMessage(message.Value).NotWait();
+                return;
+            }
+            onError(message).NotWait();
+        }
+        /// <summary>
+        /// 消息处理
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        protected abstract Task checkOnMessage(T message);
+        /// <summary>
+        /// 接收消息错误处理
+        /// </summary>
+        /// <param name="error"></param>
+        /// <returns></returns>
+        protected virtual Task onError(LocalResult<T> error)
+        {
+            if (!isDisposed && !service.IsDisposed)
+            {
+                if (error.CallState != lastError.CallState)
+                {
+                    var errorMessage = error.Exception?.Message;
+                    lastError.Set(error.CallState, errorMessage);
+                    return AutoCSer.LogHelper.Error($"消息节点 {node.Key} 接收消息失败，节点调用状态为 {error.CallState} {errorMessage}");
+                }
+            }
+            return AutoCSer.Common.CompletedTask;
+        }
+        /// <summary>
+        /// 消息处理，异常则表示消息执行失败
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>消息是否执行成功</returns>
+        protected abstract Task<bool> onMessage(T message);
+#else
     /// <summary>
     /// 消息节点消费者
     /// </summary>
@@ -126,7 +225,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     var errorMessage = error.Exception?.Message;
                     lastError.Set(error.CallState, errorMessage);
-                    return AutoCSer.LogHelper.Error($"消息节点 {((ClientNode)node).Key} 接收消息失败，节点调用状态为 {error.CallState} {errorMessage}");
+                    return AutoCSer.LogHelper.Error($"消息节点 {((LocalClientNode)node).Key} 接收消息失败，节点调用状态为 {error.CallState} {errorMessage}");
                 }
             }
             return AutoCSer.Common.CompletedTask;
@@ -159,5 +258,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="message"></param>
         /// <returns>消息是否执行成功</returns>
         protected abstract Task<bool> onMessage(T message);
+#endif
     }
 }

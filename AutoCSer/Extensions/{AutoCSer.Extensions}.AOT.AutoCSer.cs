@@ -1643,6 +1643,7 @@ namespace AutoCSer.Diagnostics
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Time);
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Timestamp);
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.TimestampPerSecond);
+                if (__start__ == null || __start__ > __end__) return null;
                 return __start__;
             }
             /// <summary>
@@ -1687,6 +1688,7 @@ namespace AutoCSer.Diagnostics
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Xml.TypeSerializer<double>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Xml.TypeSerializer<float>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Xml.TypeSerializer<AutoCSer.Extensions.SerializeVector3>));
+
                     return true;
                 }
                 return false;

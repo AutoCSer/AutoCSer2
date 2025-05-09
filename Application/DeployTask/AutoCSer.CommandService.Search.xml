@@ -139,7 +139,7 @@
             带移除标记的可重用哈希索引节点接口 客户端节点接口
             </summary>
             <summary>
-            带移除标记的可重用哈希索引节点接口 客户端节点接口
+            带移除标记的可重用哈希索引节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNodeLocalClientNode`2.Append(`0,`1)">
@@ -219,7 +219,7 @@
             带移除标记的可重用哈希索引节点接口 客户端节点接口
             </summary>
             <summary>
-            带移除标记的可重用哈希索引节点接口 客户端节点接口
+            带移除标记的可重用哈希索引节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNodeLocalClientNode`1.Append(`0,System.UInt32)">
@@ -1747,7 +1747,6 @@
         <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNodeMethodEnum.GetChangeKeys">
             <summary>
             [5] 获取更新关键字集合
-            返回值 KT 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNodeMethodEnum.Remove">
@@ -1882,7 +1881,6 @@
         <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNodeMethodEnum.GetChangeKeys">
             <summary>
             [5] 获取更新关键字集合
-            返回值 T 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNodeMethodEnum.Remove">
@@ -4372,7 +4370,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1">
             <summary>
-            哈希索引节点接口 客户端节点接口
+            哈希索引节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNodeLocalClientNode`1.Append(`0,System.UInt32)">
@@ -4421,7 +4419,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2">
             <summary>
-            哈希索引节点接口 客户端节点接口
+            哈希索引节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNodeLocalClientNode`2.Append(`0,`1)">
@@ -7680,7 +7678,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode">
             <summary>
-            字符串 Trie 图节点接口 客户端节点接口
+            字符串 Trie 图节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNodeLocalClientNode.AppendWord(System.String)">
@@ -8337,7 +8335,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeLocalClientNode`1">
             <summary>
-            分词结果磁盘块索引信息节点接口 客户端节点接口
+            分词结果磁盘块索引信息节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeLocalClientNode`1.Create(`0)">
@@ -8379,7 +8377,6 @@
             [0] 
             T key 
             AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.CompletedLoadPersistence">
@@ -8387,49 +8384,42 @@
             [1] 
             T key 
             AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.Create">
             <summary>
             [2] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.CreateLoadPersistence">
             <summary>
             [3] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.Delete">
             <summary>
             [4] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.DeleteLoadPersistence">
             <summary>
             [5] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.Deleted">
             <summary>
             [6] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.DeletedLoadPersistence">
             <summary>
             [7] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.LoadCreate">
@@ -8437,7 +8427,6 @@
             [8] 
             T key 
             string text 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.LoadCreateBeforePersistence">
@@ -8453,7 +8442,6 @@
             [10] 
             T key 
             string text 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.Loaded">
@@ -8477,14 +8465,12 @@
             <summary>
             [14] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNodeMethodEnum.UpdateLoadPersistence">
             <summary>
             [15] 
             T key 
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.Search.WordIdentityBlockIndexNode`1">
@@ -9434,7 +9420,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.Search.IConditionDataNodeLocalClientNode`2">
             <summary>
-            非索引条件查询数据节点接口 客户端节点接口
+            非索引条件查询数据节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.IConditionDataNodeLocalClientNode`2.Create(`0)">
@@ -9466,7 +9452,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeLocalClientNode`1">
             <summary>
-            分词结果磁盘块索引信息节点接口 客户端节点接口
+            分词结果磁盘块索引信息节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeLocalClientNode`1.Create(`0)">
@@ -9513,14 +9499,12 @@
             <summary>
             [1] 创建非索引条件查询数据
             KT key 数据关键字
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.Update">
             <summary>
             [2] 更新非索引条件查询数据
             KT key 数据关键字
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.Loaded">
@@ -9538,7 +9522,6 @@
             <summary>
             [5] 非索引条件查询数据完成更新操作
             VT value 非索引条件查询数据
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.CompletedBeforePersistence">
@@ -9552,21 +9535,18 @@
             <summary>
             [7] 删除非索引条件查询数据
             KT key 数据关键字
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.CompletedLoadPersistence">
             <summary>
             [8] 非索引条件查询数据完成更新操作
             VT value 非索引条件查询数据
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.DeleteLoadPersistence">
             <summary>
             [9] 删除非索引条件查询数据
             KT key 数据关键字
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IConditionDataNodeMethodEnum.LoadCreate">
@@ -10270,42 +10250,36 @@
             [0] 分词结果磁盘块索引信息完成更新操作
             T key 分词数据关键字
             AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 磁盘块索引信息
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Create">
             <summary>
             [1] 创建分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.CreateLoadPersistence">
             <summary>
             [2] 创建分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Delete">
             <summary>
             [3] 删除分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.DeleteLoadPersistence">
             <summary>
             [4] 删除分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Deleted">
             <summary>
             [5] 删除分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.SnapshotSet">
@@ -10318,14 +10292,12 @@
             <summary>
             [7] 更新分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.UpdateLoadPersistence">
             <summary>
             [8] 更新分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.CompletedLoadPersistence">
@@ -10333,14 +10305,12 @@
             [9] 分词结果磁盘块索引信息完成更新操作
             T key 分词数据关键字
             AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 磁盘块索引信息
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.DeletedLoadPersistence">
             <summary>
             [10] 删除分词结果磁盘块索引信息
             T key 分词数据关键字
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.Loaded">
@@ -10359,7 +10329,6 @@
             [13] 创建分词结果磁盘块索引信息
             T key 分词数据关键字
             string text 分词文本数据
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.Search.IWordIdentityBlockIndexNodeMethodEnum.LoadCreateBeforePersistence">
@@ -10375,7 +10344,6 @@
             [15] 创建分词结果磁盘块索引信息
             T key 分词数据关键字
             string text 分词文本数据
-            返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             </summary>
         </member>
     </members>

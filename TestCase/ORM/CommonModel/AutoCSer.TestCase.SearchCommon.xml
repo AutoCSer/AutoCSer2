@@ -81,7 +81,6 @@
             <summary>
             [0] 
             AutoCSer.TestCase.SearchDataSource.SearchUser value 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchCommon.ISearchUserNodeMethodEnum.CompletedBeforePersistence">
@@ -95,28 +94,24 @@
             <summary>
             [2] 
             AutoCSer.TestCase.SearchDataSource.SearchUser value 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchCommon.ISearchUserNodeMethodEnum.Create">
             <summary>
             [3] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchCommon.ISearchUserNodeMethodEnum.Delete">
             <summary>
             [4] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchCommon.ISearchUserNodeMethodEnum.DeleteLoadPersistence">
             <summary>
             [5] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchCommon.ISearchUserNodeMethodEnum.Loaded">
@@ -140,7 +135,6 @@
             <summary>
             [9] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchCommon.ISearchUserNodeMethodEnum.GetArray">

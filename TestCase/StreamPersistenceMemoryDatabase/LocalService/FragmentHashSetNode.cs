@@ -9,7 +9,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
+#if AOT
+            LocalResult<IStringFragmentHashSetNodeLocalClientNode> node = await client.GetOrCreateNode<IStringFragmentHashSetNodeLocalClientNode>(typeof(IStringFragmentHashSetNodeLocalClientNode).FullName, client.ClientNode.CreateStringFragmentHashSetNode);
+#else
             LocalResult<IFragmentHashSetNodeLocalClientNode<string>> node = await client.GetOrCreateFragmentHashSetNode<string>(typeof(IFragmentHashSetNodeLocalClientNode<string>).FullName);
+#endif
             if (!Program.Breakpoint(node)) return;
             LocalResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;
@@ -104,7 +108,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         }
         private static void completed(bool isReadWriteQueue)
         {
-            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            string readWriteQueue = isReadWriteQueue ? "ReadWriteQueue" : null;
             Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }

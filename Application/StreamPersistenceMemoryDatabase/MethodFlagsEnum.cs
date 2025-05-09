@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 服务端节点方法标记
     /// </summary>
     [Flags]
-    internal enum MethodFlagsEnum : byte
+    public enum MethodFlagsEnum : byte
     {
         /// <summary>
         /// 无标记

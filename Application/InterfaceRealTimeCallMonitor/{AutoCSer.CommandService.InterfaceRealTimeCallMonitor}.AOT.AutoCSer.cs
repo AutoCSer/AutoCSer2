@@ -264,6 +264,29 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     }
 }namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
 {
+        /// <summary>
+        /// 实时调用信息序列化数据
+        /// </summary>
+    public partial class CallData
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData DefaultConstructor()
+            {
+                return new AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData>();
+            }
+    }
+}namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
+{
     /// <summary>
     /// 触发 AOT 编译
     /// </summary>
@@ -279,6 +302,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
                 {
                     AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData/**/.BinarySerialize();
                     AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp/**/.BinarySerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData/**/.DefaultConstructorReflection();
 
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<int>));
@@ -289,6 +313,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.Diagnostics.ServerTimestamp>));
                     AutoCSer.BinarySerializer.Simple<AutoCSer.Diagnostics.ServerTimestamp>(null, default(AutoCSer.Diagnostics.ServerTimestamp));
                     binaryDeserializeMemberTypes();
+
 
 
                     return true;

@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 二进制序列化消息节点消费者
     /// </summary>
     /// <typeparam name="T">消息数据对象类型</typeparam>
-    public sealed class LocalServiceOnBinaryMessageConsumer<T> : LocalServiceBinaryMessageConsumer<T>
+    public abstract class LocalServiceOnBinaryMessageConsumer<T> : LocalServiceBinaryMessageConsumer<T>
     {
         /// <summary>
         /// 消息处理，异常或者返回 false 则表示消息执行失败

@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.SearchDataSource
     /// <summary>
     /// 用户搜索非索引条件数据
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SearchUser
     {

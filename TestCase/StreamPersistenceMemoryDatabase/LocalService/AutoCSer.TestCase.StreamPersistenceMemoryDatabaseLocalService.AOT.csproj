@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <PublishAot>True</PublishAot>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>AOT</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;AOT</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ArrayNode.cs" />
+    <Compile Include="BitmapNode.cs" />
+    <Compile Include="CallbackNode.cs" />
+    <Compile Include="DictionaryNode.cs" />
+    <Compile Include="FragmentDictionaryNode.cs" />
+    <Compile Include="FragmentHashSetNode.cs" />
+    <Compile Include="GameNode.cs" />
+    <Compile Include="HashSetNode.cs" />
+    <Compile Include="LeftArrayNode.cs" />
+    <Compile Include="MessageConsumer.cs" />
+    <Compile Include="PerformanceClient.cs" />
+    <Compile Include="PerformanceDictionaryNode.cs" />
+    <Compile Include="PerformanceMessageNode.cs" />
+    <Compile Include="PerformanceSearchTreeDictionaryNode.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="QueueNode.cs" />
+    <Compile Include="SearchTreeDictionaryNode.cs" />
+    <Compile Include="SearchTreeSetNode.cs" />
+    <Compile Include="ServiceConfig.cs" />
+    <Compile Include="SortedDictionaryNode.cs" />
+    <Compile Include="SortedListNode.cs" />
+    <Compile Include="SortedSetNode.cs" />
+    <Compile Include="StackNode.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.AOT.NET8.csproj" />
+    <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

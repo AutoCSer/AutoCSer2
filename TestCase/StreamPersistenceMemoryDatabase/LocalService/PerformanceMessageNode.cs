@@ -14,18 +14,29 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     /// </summary>
     internal class PerformanceMessageNode : PerformanceClient
     {
+#if AOT
+        private IPerformanceMessageNodeLocalClientNode node;
+        private IPerformanceMessageNodeLocalClientNode synchronousNode;
+#else
         private IMessageNodeLocalClientNode<PerformanceMessage> node;
         private IMessageNodeLocalClientNode<PerformanceMessage> synchronousNode;
+#endif
         internal PerformanceMessageNode() { }
         internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
             int taskCount = getTaskCount();
+#if AOT
+            LocalResult<IPerformanceMessageNodeLocalClientNode> node = await client.GetOrCreateNode<IPerformanceMessageNodeLocalClientNode>(typeof(IPerformanceMessageNodeLocalClientNode).FullName, (index, nodeKey, nodeInfo) => client.ClientNode.CreatePerformanceMessageNode(index, nodeKey, nodeInfo, taskCount, 5, 1));
+            if (!Program.Breakpoint(node)) return;
+            this.synchronousNode = LocalClientNode<IPerformanceMessageNodeLocalClientNode>.GetSynchronousCallback(this.node = node.Value);
+#else
             LocalResult<IMessageNodeLocalClientNode<PerformanceMessage>> node = await client.GetOrCreateMessageNode<PerformanceMessage>(typeof(IMessageNodeLocalClientNode<PerformanceMessage>).FullName, taskCount, 5, 1);
             if (!Program.Breakpoint(node)) return;
             this.synchronousNode = LocalClientNode<IMessageNodeLocalClientNode<PerformanceMessage>>.GetSynchronousCallback(this.node = node.Value);
+#endif
             LocalResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
-            string typeName = isReadWriteQueue ? $"{nameof(IReadWriteQueueService)}.{nameof(PerformanceMessageNode)}" : nameof(PerformanceMessageNode);
+            string typeName = isReadWriteQueue ? $"ReadWriteQueue.{nameof(PerformanceMessageNode)}" : nameof(PerformanceMessageNode);
 
             using (IDisposable keepCallback = await this.synchronousNode.GetMessage(taskCount, onMessage))
             {

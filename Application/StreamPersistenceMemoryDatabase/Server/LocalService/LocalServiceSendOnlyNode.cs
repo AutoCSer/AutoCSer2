@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 本地服务调用节点方法队列节点
     /// </summary>
-    internal sealed class LocalServiceSendOnlyNode : ReadWriteQueueNode
+    public sealed class LocalServiceSendOnlyNode : ReadWriteQueueNode
     {
         /// <summary>
         /// 调用方法与参数信息
@@ -44,7 +44,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter">调用参数</param>
         /// <returns></returns>
 #if NetStandard21
-        internal static MethodParameter? Create<T>(LocalClientNode clientNode, int methodIndex, T parameter) where T : struct
+        public static MethodParameter? Create<T>(LocalClientNode clientNode, int methodIndex, T parameter) where T : struct
 #else
         internal static MethodParameter Create<T>(LocalClientNode clientNode, int methodIndex, T parameter) where T : struct
 #endif

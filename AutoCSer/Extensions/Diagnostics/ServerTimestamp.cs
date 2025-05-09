@@ -10,7 +10,7 @@ namespace AutoCSer.Diagnostics
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
 #endif
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct ServerTimestamp
     {

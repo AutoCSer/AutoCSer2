@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// 文件上传完成文件集合
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     internal sealed class UploadCompletedFiles
     {
         /// <summary>

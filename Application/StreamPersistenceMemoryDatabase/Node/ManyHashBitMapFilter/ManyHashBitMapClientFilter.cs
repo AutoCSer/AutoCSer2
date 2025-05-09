@@ -1,7 +1,9 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.Algorithm;
+using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -156,17 +158,34 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
-        /// 获取 4 个 16b 的哈希值
+        /// 获取 2 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<uint> GetHashCode2(string value)
+        {
+            return new HashCode128(value).GetHashCode2();
+        }
+        /// <summary>
+        /// 获取 3 个 32b 的哈希值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<uint> GetHashCode3(string value)
+        {
+            return new HashCode128(value).GetHashCode3();
+        }
+        /// <summary>
+        /// 获取 4 个 32b 的哈希值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<uint> GetHashCode4(string value)
         {
-            ulong hashCode = value.getHashCode64();
-            yield return ((uint)hashCode & 0xffff);
-            yield return ((uint)(hashCode >> 16) & 0xffff);
-            yield return ((uint)(hashCode >> 32) & 0xffff);
-            yield return (uint)(hashCode >> 48);
+            return new HashCode128(value).GetHashCode4();
         }
     }
     /// <summary>

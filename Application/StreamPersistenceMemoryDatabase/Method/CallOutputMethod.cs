@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点方法
     /// </summary>
-    internal abstract class CallOutputMethod : Method
+    public abstract class CallOutputMethod : Method
     {
         /// <summary>
         /// 服务端节点方法
@@ -16,7 +16,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">方法编号</param>
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal CallOutputMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, CallTypeEnum.CallOutput, flags) { }
+        public CallOutputMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, CallTypeEnum.CallOutput, flags) { }
         /// <summary>
         /// 服务端节点方法
         /// </summary>
@@ -24,7 +24,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="callType">方法调用类型</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal CallOutputMethod(int index, int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
+        public CallOutputMethod(int index, int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -75,7 +75,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         /// <param name="flag">服务端节点方法标记</param>
 #if NetStandard21
-        internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag)
+        public static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag)
 #else
         internal static void Callback<T>(T value, ref CommandServerCallback<ResponseParameter> callback, MethodFlagsEnum flag)
 #endif
@@ -107,7 +107,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value"></param>
         /// <param name="callback"></param>
 #if NetStandard21
-        internal static void CallbackResponseParameter(ResponseParameter value, ref CommandServerCallback<ResponseParameter>? callback)
+        public static void CallbackResponseParameter(ResponseParameter value, ref CommandServerCallback<ResponseParameter>? callback)
 #else
         internal static void CallbackResponseParameter(ResponseParameter value, ref CommandServerCallback<ResponseParameter> callback)
 #endif
@@ -134,7 +134,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="flag">服务端节点方法标记</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static ValueResult<ResponseParameter> GetBeforePersistenceResponseParameter<T>(ValueResult<T> value, MethodFlagsEnum flag)
+        public static ValueResult<ResponseParameter> GetBeforePersistenceResponseParameter<T>(ValueResult<T> value, MethodFlagsEnum flag)
         {
             if (value.IsValue) return ResponseParameter.Create(value.Value, flag);
             return default(ValueResult<ResponseParameter>);

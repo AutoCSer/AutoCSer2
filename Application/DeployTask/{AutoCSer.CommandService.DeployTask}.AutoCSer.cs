@@ -463,7 +463,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 发布任务节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IDeployTaskNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IDeployTaskNodeMethodEnum))]
         public partial interface IDeployTaskNode { }
         /// <summary>
         /// 发布任务节点接口 节点方法序号映射枚举类型
@@ -485,7 +485,6 @@ namespace AutoCSer.CommandService.DeployTask
             /// <summary>
             /// [2] 获取发布任务状态变更回调日志
             /// long identity 任务标识ID
-            /// 返回值 AutoCSer.CommandService.DeployTaskLog 
             /// </summary>
             GetLog = 2,
             /// <summary>

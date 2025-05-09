@@ -1,7 +1,37 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
+using System.Reflection;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
+#if AOT
+    /// <summary>
+    /// 创建快照克隆接口节点
+    /// </summary>
+    public static class SnapshotCloneNode
+    {
+        /// <summary>
+        /// 创建快照克隆接口节点
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static object Create<T>(object target) where T : SnapshotCloneObject<T>
+        {
+            return new SnapshotCloneNode<T>((ISnapshot<T>)target);
+        }
+        /// <summary>
+        /// 代码生成模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        internal static void ReflectionMethodName<T>(object value) { }
+        /// <summary>
+        /// 创建快照克隆接口节点方法信息
+        /// </summary>
+        internal static readonly MethodInfo CreateMethod = typeof(SnapshotCloneNode).GetMethod(nameof(Create), BindingFlags.Static | BindingFlags.Public).notNull();
+    }
+#endif
     /// <summary>
     /// 快照克隆接口节点
     /// </summary>

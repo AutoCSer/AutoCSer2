@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
-using AutoCSer.Extensions;
+﻿using AutoCSer.Extensions;
 using AutoCSer.Net.CommandServer;
 using AutoCSer.Net;
 using System;
@@ -8,6 +7,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Threading;
+#if !AOT
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -28,15 +30,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 持久化之前检查参数方法的名称后缀
         /// </summary>
         internal const string BeforePersistenceMethodNameSuffix = "BeforePersistence";
+#if !AOT
         /// <summary>
         /// 创建节点方法编号
         /// </summary>
         private static int createMethodIndex;
+#endif
 
         /// <summary>
         /// 节点方法自定义属性
         /// </summary>
         internal readonly ServerMethodAttribute MethodAttribute;
+#if !AOT
         /// <summary>
         /// 修复方法集合
         /// </summary>
@@ -46,21 +51,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private Dictionary<HashObject<MethodInfo>, Method> repairMethods;
 #endif
         /// <summary>
+        /// 修复节点方法信息
+        /// </summary>
+        internal MethodInfo RepairNodeMethod;
+#endif
+        /// <summary>
         /// 持久化方法名称
         /// </summary>
         internal SubString PersistenceMethodName;
         /// <summary>
         /// 持久化方法返回数据类型
         /// </summary>
-        private readonly Type persistenceMethodReturnType;
-        /// <summary>
-        /// 修复节点方法信息
-        /// </summary>
-        internal MethodInfo RepairNodeMethod;
+        internal readonly Type PersistenceMethodReturnType;
         /// <summary>
         /// 持久化之前参数检查方法编号
         /// </summary>
-        private int beforePersistenceMethodIndex = int.MinValue;
+        internal int BeforePersistenceMethodIndex = int.MinValue;
         /// <summary>
         /// 冷启动加载持久化方法编号
         /// </summary>
@@ -99,8 +105,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsPersistence = MethodAttribute.IsPersistence;
             QueueNodeType = MethodAttribute.IsWriteQueue && !IsPersistence ? ReadWriteNodeTypeEnum.Write : ReadWriteNodeTypeEnum.Read;
 #if NetStandard21
-            persistenceMethodReturnType = typeof(void);
+            PersistenceMethodReturnType = typeof(void);
+#if !AOT
             RepairNodeMethod = AutoCSer.Common.NullMethodInfo;
+#endif
 #endif
 
             Parameters = method.GetParameters();
@@ -178,12 +186,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         PersistenceMethodName.Set(Method.Name, 0, Method.Name.Length - BeforePersistenceMethodNameSuffix.Length);
                         if (method.ReturnType == typeof(bool))
                         {
-                            persistenceMethodReturnType = typeof(void);
+                            PersistenceMethodReturnType = typeof(void);
                             break;
                         }
                         else if (method.ReturnType.GetGenericTypeDefinition() == typeof(ValueResult<>))
                         {
-                            persistenceMethodReturnType = method.ReturnType.GetGenericArguments()[0];
+                            PersistenceMethodReturnType = method.ReturnType.GetGenericArguments()[0];
                             break;
                         }
                         SetError(CallStateEnum.BeforePersistenceMethodReturnTypeError, $"{type.fullName()} 持久化检查方法 {Method.Name} 返回值类型必须为 {typeof(bool).fullName()} 或者 {typeof(ValueResult<>).fullName()}");
@@ -193,7 +201,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         return;
                 }
             }
+#if !AOT
             if (AutoCSer.Common.IsCodeGenerator) return;
+#endif
             if (ParameterStartIndex != ParameterEndIndex)
             {
                 InputParameterType = AutoCSer.Net.CommandServer.ServerMethodParameter.GetOrCreate(ParameterCount, InputParameters, typeof(void));
@@ -206,7 +216,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             else
             {
-                if (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter)) IsSimpleSerializeParamter = SimpleSerialize.Serializer.IsType(persistenceMethodReturnType);
+                if (PersistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter)) IsSimpleSerializeParamter = SimpleSerialize.Serializer.IsType(PersistenceMethodReturnType);
             }
         }
         /// <summary>
@@ -252,9 +262,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 if (InputParameterType == beforePersistenceMethod.InputParameterType)
                 {
-                    if (ReturnValueType == beforePersistenceMethod.persistenceMethodReturnType)
+                    if (ReturnValueType == beforePersistenceMethod.PersistenceMethodReturnType)
                     {
-                        beforePersistenceMethodIndex = beforePersistenceMethod.setIsPersistenceMethod();
+                        BeforePersistenceMethodIndex = beforePersistenceMethod.setIsPersistenceMethod();
                         return true;
                     }
                     error = $"{Type.fullName()} 持久化检查方法 {beforePersistenceMethod.Method.Name} 返回值类型不匹配 {typeof(ValueResult<>).MakeGenericType(ReturnValueType).fullName()}";
@@ -273,6 +283,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsClientCall = IsPersistence = false;
             return MethodIndex;
         }
+#if !AOT
         /// <summary>
         /// 方法调用传参
         /// </summary>
@@ -373,7 +384,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     else
                     {
-                        if (persistenceMethodReturnType == typeof(void))
+                        if (PersistenceMethodReturnType == typeof(void))
                         {
                             callMethod = ServerNodeCreator.CallOutputCallBeforePersistenceMethod;
                             callMethodReturnType = typeof(bool);
@@ -396,7 +407,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case CallTypeEnum.InputCallback:
                     parentType = typeof(CallInputOutputMethod<>).MakeGenericType(InputParameterType.notNull().Type);
                     if (!IsBeforePersistenceMethod) callMethod = ServerNodeCreator.CallInputOutputMethod;
-                    else if (persistenceMethodReturnType == typeof(void))
+                    else if (PersistenceMethodReturnType == typeof(void))
                     {
                         callMethod = ServerNodeCreator.CallInputOutputCallBeforePersistenceMethod;
                         callMethodReturnType = typeof(bool);
@@ -438,7 +449,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             #region base(index, flags)
             constructorGenerator.Emit(OpCodes.Ldarg_0);
             constructorGenerator.int32(MethodIndex);
-            constructorGenerator.int32(beforePersistenceMethodIndex);
+            constructorGenerator.int32(BeforePersistenceMethodIndex);
             bool isCallType = false;
             switch (CallType)
             {
@@ -450,13 +461,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     isCallType = true;
                     break;
             }
-            MethodFlagsEnum flags = MethodFlagsEnum.None;
-            if (IsPersistence) flags |= MethodFlagsEnum.IsPersistence;
-            if (IsClientCall) flags |= MethodFlagsEnum.IsClientCall;
-            if (IsSimpleSerializeParamter) flags |= MethodFlagsEnum.IsSimpleSerializeParamter;
-            if (IsSimpleDeserializeParamter) flags |= MethodFlagsEnum.IsSimpleDeserializeParamter;
-            if (MethodAttribute.IsIgnorePersistenceCallbackException) flags |= MethodFlagsEnum.IsIgnorePersistenceCallbackException;
-            if (QueueNodeType != ReadWriteNodeTypeEnum.Read) flags |= MethodFlagsEnum.IsWriteQueue;
+            MethodFlagsEnum flags = GetMethodFlags();
             constructorGenerator.int32((byte)flags);
             if (isCallType)
             {
@@ -485,10 +490,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             switch (CallType)
             {
                 case CallTypeEnum.CallInputOutput:
-                    if (!IsBeforePersistenceMethod || (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))) callMethodGenerator.ldarg(1);
+                    if (!IsBeforePersistenceMethod || (PersistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))) callMethodGenerator.ldarg(1);
                     break;
                 case CallTypeEnum.InputEnumerable:
-                    if (!IsBeforePersistenceMethod || persistenceMethodReturnType != typeof(void)) callMethodGenerator.ldarg(1);
+                    if (!IsBeforePersistenceMethod || PersistenceMethodReturnType != typeof(void)) callMethodGenerator.ldarg(1);
                     break;
             }
             #region Node<IDictionary<KT, VT>>.GetTarget(((Node<IDictionary<KT, VT>>)node)).Call();
@@ -519,7 +524,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     #endregion
                     break;
                 case CallTypeEnum.KeepCallback:
-                    #region MethodCallback<T>.Create(ref callback, false)
+                    #region MethodKeepCallback<T>.Create(ref callback, false)
                     callMethodGenerator.ldarg(2);
                     callMethodGenerator.int32((byte)flags);
                     callMethodGenerator.call(GenericType.Get(ReturnValueType).CreateMethodKeepCallbackDelegate.Method);
@@ -560,11 +565,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                         #endregion
                     }
-                    else if (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))
+                    else if (PersistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))
                     {
                         #region CallOutputMethod.GetBeforePersistenceResponseParameter(X, isSimpleSerialize);
                         callMethodGenerator.int32((byte)flags);
-                        callMethodGenerator.call(ServerNodeCreator.CallOutputMethodGetBeforePersistenceResponseParameterMethod.MakeGenericMethod(persistenceMethodReturnType));
+                        callMethodGenerator.call(ServerNodeCreator.CallOutputMethodGetBeforePersistenceResponseParameterMethod.MakeGenericMethod(PersistenceMethodReturnType));
                         #endregion
                     }
                     break;
@@ -588,10 +593,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                         #endregion
                     }
-                    else if (persistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))
+                    else if (PersistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter))
                     {
                         #region CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter(methodParameter, X);
-                        callMethodGenerator.call(ServerNodeCreator.CallInputOutputMethodParameterGetBeforePersistenceResponseParameterMethod.MakeGenericMethod(persistenceMethodReturnType));
+                        callMethodGenerator.call(ServerNodeCreator.CallInputOutputMethodParameterGetBeforePersistenceResponseParameterMethod.MakeGenericMethod(PersistenceMethodReturnType));
                         #endregion
                     }
                     break;
@@ -612,6 +617,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             callMethodGenerator.Emit(OpCodes.Ret);
             #endregion
             return (Method)typeBuilder.CreateType().GetConstructor(EmptyArray<Type>.Array).notNull().Invoke(null);
+        }
+#endif
+        /// <summary>
+        /// 获取服务端节点方法标记
+        /// </summary>
+        /// <returns></returns>
+        internal MethodFlagsEnum GetMethodFlags()
+        {
+            MethodFlagsEnum flags = MethodFlagsEnum.None;
+            if (IsPersistence) flags |= MethodFlagsEnum.IsPersistence;
+            if (IsClientCall) flags |= MethodFlagsEnum.IsClientCall;
+            if (IsSimpleSerializeParamter) flags |= MethodFlagsEnum.IsSimpleSerializeParamter;
+            if (IsSimpleDeserializeParamter) flags |= MethodFlagsEnum.IsSimpleDeserializeParamter;
+            if (MethodAttribute.IsIgnorePersistenceCallbackException) flags |= MethodFlagsEnum.IsIgnorePersistenceCallbackException;
+            if (QueueNodeType != ReadWriteNodeTypeEnum.Read) flags |= MethodFlagsEnum.IsWriteQueue;
+            return flags;
+
         }
         /// <summary>
         /// 自定义基础服务节点方法检查

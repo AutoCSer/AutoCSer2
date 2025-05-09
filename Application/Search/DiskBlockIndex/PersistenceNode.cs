@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
     /// 关键字数据集合持久化数据节点
     /// </summary>
     /// <typeparam name="T">关键字数据类型</typeparam>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct PersistenceNode<T>
 #if NetStandard21

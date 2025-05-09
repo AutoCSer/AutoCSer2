@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 修复节点方法信息
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     internal sealed class RepairNodeMethod : AutoCSer.Threading.Link<RepairNodeMethod>
     {
         /// <summary>

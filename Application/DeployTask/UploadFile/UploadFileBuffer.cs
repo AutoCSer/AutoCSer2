@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 文件上传数据
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     public sealed class UploadFileBuffer : AutoCSer.BinarySerialize.ICustomSerialize<UploadFileBuffer>
     {
         /// <summary>
@@ -73,6 +73,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="deserializer"></param>
         unsafe void AutoCSer.BinarySerialize.ICustomSerialize<UploadFileBuffer>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
+#if !AOT
             byte* data = deserializer.GetBeforeMove(sizeof(int) * 2 + sizeof(uint) * 2);
             if (data != null && deserializer.DeserializeBuffer(ref Buffer, true))
             {
@@ -82,6 +83,7 @@ namespace AutoCSer.CommandService.DeployTask
                 FileIndex.Identity = *(uint*)(data + (sizeof(int) * 2 + sizeof(uint)));
                 State = ((UploadFileService)deserializer.Context.castType<CommandServerSocket>().notNull().CurrentController.GetControllerObject()).UploadFileData(this);
             }
+#endif
         }
 
         /// <summary>

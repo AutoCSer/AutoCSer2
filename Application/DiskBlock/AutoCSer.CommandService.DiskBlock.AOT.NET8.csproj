@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.DiskBlock.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.DiskBlock</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DiskBlock\AutoCSer.CommandService.DiskBlock.AOT.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;AOT;NetStandard21</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DiskBlock\AutoCSer.CommandService.DiskBlock.AOT.xml</DocumentationFile>
+    <DefineConstants>AOT;NetStandard21</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BlockIndex.cs" />
+    <Compile Include="BlockInfo.cs" />
+    <Compile Include="BlockSize.cs" />
+    <Compile Include="CompletedReadAwaiter.cs" />
+    <Compile Include="DiskBlockClient.cs" />
+    <Compile Include="DistributedClient.cs" />
+    <Compile Include="IDiskBlockClient.cs" />
+    <Compile Include="IDiskBlockClientSocketEvent.cs" />
+    <Compile Include="JsonSerializer.cs" />
+    <Compile Include="ReadAwaiter.cs" />
+    <Compile Include="ReadBinaryAwaiter.cs" />
+    <Compile Include="ReadBinaryCallback.cs" />
+    <Compile Include="ReadBuffer.cs" />
+    <Compile Include="ReadBufferDeserializer.cs" />
+    <Compile Include="ReadBufferStateEnum.cs" />
+    <Compile Include="ReadCallback.cs" />
+    <Compile Include="ReadJsonAwaiter.cs" />
+    <Compile Include="ReadJsonCallback.cs" />
+    <Compile Include="ReadResult.cs" />
+    <Compile Include="ReadStringAwaiter.cs" />
+    <Compile Include="ReadStringCallback.cs" />
+    <Compile Include="StringSerializer.cs" />
+    <Compile Include="WriteBuffer.cs" />
+    <Compile Include="IDiskBlockService.cs" />
+    <Compile Include="WriteBufferSerializer.cs" />
+    <Compile Include="{AutoCSer.CommandService.DiskBlock}.AOT.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+  </Target>
+
+</Project>

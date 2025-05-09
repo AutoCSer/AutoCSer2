@@ -64,7 +64,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
-        internal static void CreateCallMethodParameter(MethodParameterCreator creator, int methodIndex)
+        public static void CreateCallMethodParameter(MethodParameterCreator creator, int methodIndex)
         {
             creator.createCallMethodParameter(methodIndex);
         }
@@ -82,7 +82,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
-        internal static void CreateCallOutputMethodParameter(MethodParameterCreator creator, int methodIndex)
+        public static void CreateCallOutputMethodParameter(MethodParameterCreator creator, int methodIndex)
         {
             creator.createCallOutputMethodParameter(methodIndex);
         }
@@ -107,7 +107,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex"></param>
         /// <param name="callback"></param>
 #if NetStandard21
-        internal static void CreateCallOutputCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerCallback<ResponseParameter>? callback)
+        public static void CreateCallOutputCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerCallback<ResponseParameter>? callback)
 #else
         internal static void CreateCallOutputCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerCallback<ResponseParameter> callback)
 #endif
@@ -132,7 +132,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        internal static void CreateCallInputMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
+        public static void CreateCallInputMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
         {
             creator.createCallInputMethodParameter(methodIndex, ref parameter);
         }
@@ -154,7 +154,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        internal static void CreateCallInputOutputMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
+        public static void CreateCallInputOutputMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
         {
             creator.createCallInputOutputMethodParameter(methodIndex, ref parameter);
         }
@@ -183,7 +183,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter"></param>
         /// <param name="callback"></param>
 #if NetStandard21
-        internal static void CreateCallInputOutputCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerCallback<ResponseParameter>? callback) where T : struct
+        public static void CreateCallInputOutputCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerCallback<ResponseParameter>? callback) where T : struct
 #else
         internal static void CreateCallInputOutputCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerCallback<ResponseParameter> callback) where T : struct
 #endif
@@ -208,7 +208,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        internal static void CreateSendOnlyMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
+        public static void CreateSendOnlyMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
         {
             creator.createSendOnlyMethodParameter(methodIndex, ref parameter);
         }
@@ -226,7 +226,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
-        internal static void CreateKeepCallbackMethodParameter(MethodParameterCreator creator, int methodIndex)
+        public static void CreateKeepCallbackMethodParameter(MethodParameterCreator creator, int methodIndex)
         {
             creator.createKeepCallbackMethodParameter(methodIndex);
         }
@@ -248,10 +248,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        internal static void CreateInputKeepCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
+        public static void CreateInputKeepCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
         {
             creator.createInputKeepCallbackMethodParameter(methodIndex, ref parameter);
         }
+        /// <summary>
+        /// 代码生成模板
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        internal static object MethodParameterCreatorCallMethodName(params object[] values) { return AutoCSer.Common.EmptyObject; }
     }
     /// <summary>
     /// 创建调用方法与参数信息，用于服务端自定义持久化调用，调用接口方法会添加到持久化队列
@@ -267,7 +273,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="node"></param>
-        internal MethodParameterCreator(ServerNode<T> node) : base(node)
+        public MethodParameterCreator(ServerNode<T> node) : base(node)
         {
             Creator = (T)(object)this;
         }

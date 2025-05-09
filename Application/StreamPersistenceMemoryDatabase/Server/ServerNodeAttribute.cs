@@ -20,5 +20,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 默认为 false 表示不生成本地客户端接口代码
         /// </summary>
         public bool IsLocalClient;
+#if AOT
+        ///// <summary>
+        ///// 是否 AOT 代码生存模式
+        ///// </summary>
+        //internal const bool IsAOT = true;
+        /// <summary>
+        /// 生成本地客户端节点名称
+        /// </summary>
+        public string? LocalClientTypeName;
+#else
+        ///// <summary>
+        ///// 是否 AOT 代码生存模式
+        ///// </summary>
+        //internal const bool IsAOT = false;
+#endif
     }
 }

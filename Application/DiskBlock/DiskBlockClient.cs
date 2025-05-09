@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 磁盘块客户端
     /// </summary>
-    public sealed class DiskBlockClient
+    public sealed partial class DiskBlockClient
     {
         /// <summary>
         /// 磁盘块客户端套接字事件
@@ -680,7 +680,10 @@ namespace AutoCSer.CommandService
         {
 #if NetStandard21
             ReadResult<T?> result;
-            if (index.GetBinaryResult(out result)) return new CompletedReadAwaiter<T?>(result);
+            if (index.GetBinaryResult(out result))
+            {
+                return new CompletedReadAwaiter<T?>(result);
+            }
             return new ReadBinaryAwaiter<T?>(Client, index);
 #else
             ReadResult<T> result;

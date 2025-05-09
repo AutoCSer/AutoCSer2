@@ -6,7 +6,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 哈希表节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
     public partial interface IHashSetNode<T> where T : IEquatable<T>
     {
         /// <summary>

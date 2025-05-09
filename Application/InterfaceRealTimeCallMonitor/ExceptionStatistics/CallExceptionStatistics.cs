@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// <summary>
     /// 调用异常统计信息
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CallExceptionStatistics
     {

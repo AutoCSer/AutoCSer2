@@ -75,9 +75,9 @@ namespace AutoCSer.CodeGenerator.Template
                 #region IF FixedFillSize
                 __start__ += @FixedFillSize;
                 #endregion IF FixedFillSize
-                #region IF FieldArray.Length
+                #region IF FixedFields.Length
                 if (__start__ == null || __start__ > __end__) return null;
-                #endregion IF FieldArray.Length
+                #endregion IF FixedFields.Length
                 #region LOOP FieldArray
                 #region IF IsCheckEnd
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.@FieldName, __end__);

@@ -1,0 +1,256 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.StreamPersistenceMemoryDatabase</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;AOT;NetStandard21;NET8</DefineConstants>
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>AOT;NetStandard21;NET8</DefineConstants>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <Compile Remove="Properties\PublishProfiles\**" />
+    <EmbeddedResource Remove="**" />
+    <EmbeddedResource Remove="Properties\PublishProfiles\**" />
+    <None Remove="**" />
+    <None Remove="Properties\PublishProfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BinarySerializeResponseParameter.cs" />
+    <Compile Include="CallStateEnum.cs" />
+    <Compile Include="Client\LocalClientNode.cs" />
+    <Compile Include="Client\LocalClientNodeCreator.cs" />
+    <Compile Include="Client\ClientNodeAttribute.cs" />
+    <Compile Include="Client\ClientNodeMethod.cs" />
+    <Compile Include="Client\LocalClient.cs" />
+    <Compile Include="Client\LocalKeepCallback.cs" />
+    <Compile Include="Client\LocalResult.cs" />
+    <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
+    <Compile Include="CreateNodeIndex.cs" />
+    <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
+    <Compile Include="Node\ArrayNode.cs" />
+    <Compile Include="Node\DictionaryNode.cs" />
+    <Compile Include="Node\FragmentDictionaryNode.cs" />
+    <Compile Include="Node\FragmentHashSetNode.cs" />
+    <Compile Include="Node\HashSetNode.cs" />
+    <Compile Include="Node\IArrayNode.cs" />
+    <Compile Include="Node\IDictionaryNode.cs" />
+    <Compile Include="Node\IFragmentDictionaryNode.cs" />
+    <Compile Include="Node\IFragmentHashSetNode.cs" />
+    <Compile Include="Node\IHashSetNode.cs" />
+    <Compile Include="Node\ILeftArrayNode.cs" />
+    <Compile Include="Node\IQueueNode.cs" />
+    <Compile Include="Node\ISearchTreeDictionaryNode.cs" />
+    <Compile Include="Node\ISearchTreeSetNode.cs" />
+    <Compile Include="Node\ISortedDictionaryNode.cs" />
+    <Compile Include="Node\ISortedListNode.cs" />
+    <Compile Include="Node\ISortedSetNode.cs" />
+    <Compile Include="Node\IStackNode.cs" />
+    <Compile Include="Node\LeftArrayNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapClientFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\IManyHashBitMapFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMap.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilterNode.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapFilterNode.cs" />
+    <Compile Include="Node\Message\IMessageNode.cs" />
+    <Compile Include="Node\Message\LocalServiceMessageConsumer.cs" />
+    <Compile Include="Node\Message\Message.cs" />
+    <Compile Include="Node\Message\MessageArrayItem.cs" />
+    <Compile Include="Node\Message\MessageFlagsEnum.cs" />
+    <Compile Include="Node\Message\MessageIdeneity.cs" />
+    <Compile Include="Node\Message\MessageNode.cs" />
+    <Compile Include="Node\Message\MessageNodeCallbackCount.cs" />
+    <Compile Include="Node\Message\MessageNodeCheckTimeoutCallback.cs" />
+    <Compile Include="Node\Message\MessageNodeCheckTimer.cs" />
+    <Compile Include="Node\Message\MessageNodeLoader.cs" />
+    <Compile Include="Node\QueueNode.cs" />
+    <Compile Include="Node\SearchTreeDictionaryNode.cs" />
+    <Compile Include="Node\SearchTreeSetNode.cs" />
+    <Compile Include="Node\SortedDictionaryNode.cs" />
+    <Compile Include="Node\SortedListNode.cs" />
+    <Compile Include="Node\SortedSetNode.cs" />
+    <Compile Include="Node\StackNode.cs" />
+    <Compile Include="RequestParameterSerializer.cs" />
+    <Compile Include="Server\CreatingNodeInfo.cs" />
+    <Compile Include="Culture\Chinese.cs" />
+    <Compile Include="Culture\Configuration.cs" />
+    <Compile Include="Culture\English.cs" />
+    <Compile Include="Extensions\EnumerableExtension.cs" />
+    <Compile Include="Extensions\LocalKeepCallbackExtension.cs" />
+    <Compile Include="Extensions\MethodKeepCallbackExtension.cs" />
+    <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
+    <Compile Include="KeepCallbackResponseParameter.cs" />
+    <Compile Include="KeepCallbackResponseParameterBinarySerializer.cs" />
+    <Compile Include="KeepCallbackResponseParameterSimpleSerializer.cs" />
+    <Compile Include="MethodFlagsEnum.cs" />
+    <Compile Include="Method\BeforePersistenceCallMethodParameter.cs" />
+    <Compile Include="Method\BeforePersistenceCallOutputMethodParameter.cs" />
+    <Compile Include="Method\BeforePersistenceKeepCallbackMethodParameter.cs" />
+    <Compile Include="Method\BeforePersistenceMethodParameter.cs" />
+    <Compile Include="Method\CreateInputMethodParameter.cs" />
+    <Compile Include="Method\InputKeepCallbackMethod.cs" />
+    <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
+    <Compile Include="Method\KeepCallbackMethod.cs" />
+    <Compile Include="Method\KeepCallbackMethodParameter.cs" />
+    <Compile Include="Method\MethodParameterPersistenceCallback.cs" />
+    <Compile Include="Method\SendOnlyMethod.cs" />
+    <Compile Include="NodeIndex.cs" />
+    <Compile Include="NodeInfo.cs" />
+    <Compile Include="NodeMethod.cs" />
+    <Compile Include="Node\BitmapNode.cs" />
+    <Compile Include="Node\EmptyNodeMethodEnum.cs" />
+    <Compile Include="Node\IdentityFragment.cs" />
+    <Compile Include="Node\IdentityGeneratorNode.cs" />
+    <Compile Include="Node\IIdentityGeneratorNode.cs" />
+    <Compile Include="Node\IBitmapNode.cs" />
+    <Compile Include="PageArray.cs" />
+    <Compile Include="PageParameter.cs" />
+    <Compile Include="PageResult.cs" />
+    <Compile Include="RebuildResult.cs" />
+    <Compile Include="NullResponseParameterSerializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestParameter.cs" />
+    <Compile Include="ResponseParameter.cs" />
+    <Compile Include="Method\CallInputMethod.cs" />
+    <Compile Include="Method\SendOnlyMethodParameter.cs" />
+    <Compile Include="Method\CallInputMethodParameter.cs" />
+    <Compile Include="Method\CallInputOutputMethod.cs" />
+    <Compile Include="Method\CallInputOutputMethodParameter.cs" />
+    <Compile Include="Method\CallMethod.cs" />
+    <Compile Include="Method\CallMethodParameter.cs" />
+    <Compile Include="Method\CallOutputMethod.cs" />
+    <Compile Include="Method\CallOutputMethodParameter.cs" />
+    <Compile Include="CallTypeEnum.cs" />
+    <Compile Include="ResponseParameterBinarySerializer.cs" />
+    <Compile Include="ResponseParameterSerializer.cs" />
+    <Compile Include="ResponseParameterSimpleSerializer.cs" />
+    <Compile Include="Method\InputMethodParameter.cs" />
+    <Compile Include="Node\IServiceNode.cs" />
+    <Compile Include="Server\CheckSnapshotCloneObject.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackInputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackOutputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackOutputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallbackNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceKeepCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceKeepCallbackNodeCallback.cs" />
+    <Compile Include="Server\LocalService\ServerNodeCreatorMethod.cs" />
+    <Compile Include="Server\LocalService\ServerNodeMethodInfo.cs" />
+    <Compile Include="Server\LocalService\SnapshotMethodCreatorInfo.cs" />
+    <Compile Include="Server\LocalService\SnapshotMethodInfo.cs" />
+    <Compile Include="Server\ServerNodeTypeAttribute.cs" />
+    <Compile Include="Server\ServerSnapshotNode.cs" />
+    <Compile Include="Server\ServiceCallbackTypeEnum.cs" />
+    <Compile Include="Snapshot\EmptySnapshot.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotHashSetEnumerable256.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotHashSet256.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotDictionary256.cs" />
+    <Compile Include="Snapshot\FragmentSnapshotDictionaryEnumerable256.cs" />
+    <Compile Include="Snapshot\IEnumerableSnapshot.cs" />
+    <Compile Include="Snapshot\ISnapshotEnumerable.cs" />
+    <Compile Include="Snapshot\SnapshotCloneNode.cs" />
+    <Compile Include="Snapshot\SnapshotCloneObject.cs" />
+    <Compile Include="Snapshot\SnapshotEnumerableCastEmpty.cs" />
+    <Compile Include="Snapshot\SnapshotGetEnumerable.cs" />
+    <Compile Include="Snapshot\SnapshotGetValue.cs" />
+    <Compile Include="Snapshot\SnapshotGetValueEmpty.cs" />
+    <Compile Include="Snapshot\SnapshotValue.cs" />
+    <Compile Include="Snapshot\SnapshotEnumerableCast.cs" />
+    <Compile Include="Snapshot\SnapshotHashSet.cs" />
+    <Compile Include="Snapshot\SnapshotDictionary.cs" />
+    <Compile Include="Snapshot\SnapshotHashSetNodeArray.cs" />
+    <Compile Include="Snapshot\SnapshotDictionaryNodeArray.cs" />
+    <Compile Include="Snapshot\EnumerableSnapshotNode.cs" />
+    <Compile Include="Snapshot\SnapshotArrayNode.cs" />
+    <Compile Include="Snapshot\SnapshotDictionarySnapshotNode.cs" />
+    <Compile Include="Snapshot\SnapshotMethod.cs" />
+    <Compile Include="Snapshot\SnapshotNode.cs" />
+    <Compile Include="Snapshot\SnapshotResult.cs" />
+    <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceBase.cs" />
+    <Compile Include="Server\ContextNode.cs" />
+    <Compile Include="Server\EmptyCommandServerCallback.cs" />
+    <Compile Include="Server\INode.cs" />
+    <Compile Include="Snapshot\ISnapshot.cs" />
+    <Compile Include="Method\Method.cs" />
+    <Compile Include="Server\LocalService\LocalService.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCustomQueueNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceRebuild.cs" />
+    <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackEnumeratorNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceSendOnlyNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallInputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallInputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallInputOutputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallOutputNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallInputOutputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallOutputNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceCallNodeCallback.cs" />
+    <Compile Include="Server\LocalService\LocalServiceConfig.cs" />
+    <Compile Include="Server\LocalService\LocalServiceGetNodeIndex.cs" />
+    <Compile Include="Server\LocalService\LocalServiceQueueNode.cs" />
+    <Compile Include="Server\RemoveHistoryFile.cs" />
+    <Compile Include="Server\ServerMethodAttribute.cs" />
+    <Compile Include="Server\MethodCallback.cs" />
+    <Compile Include="Method\MethodParameter.cs" />
+    <Compile Include="Server\MethodKeepCallback.cs" />
+    <Compile Include="Server\MethodParameterCreator.cs" />
+    <Compile Include="Server\MethodParameterCreatorNode.cs" />
+    <Compile Include="Server\ServerNode.cs" />
+    <Compile Include="Server\ServerNodeCreator.cs" />
+    <Compile Include="Server\NodeIdentity.cs" />
+    <Compile Include="Server\ServerNodeAttribute.cs" />
+    <Compile Include="Server\ServerNodeMethod.cs" />
+    <Compile Include="Server\NodeType.cs" />
+    <Compile Include="Server\PersistenceBuffer.cs" />
+    <Compile Include="Server\PersistenceRebuilder.cs" />
+    <Compile Include="Server\PersistenceRebuilderCallback.cs" />
+    <Compile Include="Server\PersistenceRebuilderCallbackTypeEnum.cs" />
+    <Compile Include="Server\ServiceCallback.cs" />
+    <Compile Include="Server\PersistenceCallback.cs" />
+    <Compile Include="Server\ServiceLoader.cs" />
+    <Compile Include="Node\ServiceNode.cs" />
+    <Compile Include="Snapshot\SnapshotMethodSerializer.cs" />
+    <Compile Include="Server\StreamPersistenceMemoryDatabaseService.cs" />
+    <Compile Include="Server\StreamPersistenceMemoryDatabaseServiceConfig.cs" />
+    <Compile Include="SimpleSerializeResponseParameter.cs" />
+    <Compile Include="ValueResult.cs" />
+    <Compile Include="{AutoCSer.CommandService.StreamPersistenceMemoryDatabase}.AOT.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+	
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+  </Target>
+
+</Project>

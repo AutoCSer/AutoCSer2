@@ -7543,7 +7543,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumLong<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumLong<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
@@ -7580,7 +7584,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumUInt<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumUInt<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
@@ -7617,7 +7625,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumInt<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumInt<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
@@ -7654,7 +7666,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumUShort<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumUShort<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
@@ -7691,7 +7707,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumShort<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumShort<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
@@ -7728,7 +7748,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumByte<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumByte<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
@@ -7765,7 +7789,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumSByte<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumSByte<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));

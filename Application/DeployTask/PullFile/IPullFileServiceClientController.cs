@@ -7,6 +7,9 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 拉取文件客户端接口
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IPullFileService))]
+#endif
     public partial interface IPullFileServiceClientController
     {
         /// <summary>

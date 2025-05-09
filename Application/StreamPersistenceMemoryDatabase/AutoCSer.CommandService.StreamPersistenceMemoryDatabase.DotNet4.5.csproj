@@ -343,6 +343,7 @@
     <Compile Include="Server\MethodParameterCreator.cs" />
     <Compile Include="Server\MethodParameterCreatorNode.cs" />
     <Compile Include="Server\CheckSnapshotCloneObject.cs" />
+    <Compile Include="Server\ServerNodeTypeAttribute.cs" />
     <Compile Include="Server\ServerSnapshotNode.cs" />
     <Compile Include="Server\ServiceCallback.cs" />
     <Compile Include="Server\ServiceCallbackTypeEnum.cs" />
@@ -351,7 +352,6 @@
     <Compile Include="Server\NodeIdentity.cs" />
     <Compile Include="Server\ServerNodeAttribute.cs" />
     <Compile Include="Server\ServerNodeMethod.cs" />
-    <Compile Include="Server\ServerNodeMethodIndexAttribute.cs" />
     <Compile Include="Server\NodeType.cs" />
     <Compile Include="Server\PersistenceBuffer.cs" />
     <Compile Include="Server\PersistenceRebuilder.cs" />

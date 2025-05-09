@@ -152,6 +152,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         {
             return $"The client of node {type.fullName()} generates a warning message\r\n{string.Join("\r\n", messages)}";
         }
+#if !AOT
         /// <summary>
         /// The new daemon process failed to start
         /// </summary>
@@ -161,7 +162,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         {
             return $"After the daemon process {process.ProcessName} exits, the new process fails to start.";
         }
-
+#endif
         /// <summary>
         /// Default Extended English configuration
         /// </summary>

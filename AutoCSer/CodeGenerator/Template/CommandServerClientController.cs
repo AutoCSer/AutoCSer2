@@ -6,6 +6,9 @@ namespace AutoCSer.CodeGenerator.Template
     internal sealed class CommandServerClientController : Pub
     {
         #region PART CLASS
+        /// <summary>
+        /// @CurrentType.CodeGeneratorXmlDocument
+        /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(@TypeName))]
         public partial interface @InterfaceTypeName { }
         /// <summary>
@@ -19,9 +22,6 @@ namespace AutoCSer.CodeGenerator.Template
                 return new @TypeName(socket, controllerName, startMethodIndex, serverMethodNames);
             }
             #region LOOP ParameterTypes
-            #region IF IsBinarySerialize
-            [AutoCSer.BinarySerialize(IsMemberMap = false)]
-            #endregion IF IsBinarySerialize
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct @ParameterTypeName
             {
@@ -67,7 +67,7 @@ namespace AutoCSer.CodeGenerator.Template
                 @ParameterTypeName __outputParameter__ = new @ParameterTypeName
                 {
                     #region PUSH ReturnValueParameter
-                    @ParameterName = @ParameterName
+                    @ParameterName = @ReturnValueParameterName
                     #endregion PUSH ReturnValueParameter
                 };
                 #endregion PUSH OutputParameterType
@@ -178,5 +178,9 @@ namespace AutoCSer.CodeGenerator.Template
         private static ParameterType.FullName ReturnValueParameterName = null;
         private static ParameterType.FullName ParameterName = null;
         private static ParameterType.FullName QueueKeyParameterName = null;
+        public interface MethodInterfaceTypeName
+        {
+            MethodReturnType.FullName MethodName(ParameterType.FullName ParameterJoinName);
+        }
     }
 }

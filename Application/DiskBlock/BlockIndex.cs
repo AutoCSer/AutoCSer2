@@ -12,9 +12,12 @@ namespace AutoCSer.CommandService.DiskBlock
     /// <summary>
     /// 磁盘块索引信息
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+#endif
     [StructLayout(LayoutKind.Explicit, Size = sizeof(long) + sizeof(uint) + sizeof(int))]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct BlockIndex : IEquatable<BlockIndex>
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct BlockIndex : IEquatable<BlockIndex>
     {
         /// <summary>
         /// 错误
@@ -444,7 +447,7 @@ namespace AutoCSer.CommandService.DiskBlock
                     }
                     var value = default(T);
                     BlockIndex index = this;
-                    if (BinaryDeserializer.UnsafeDeserialize((byte*)&index, size, ref value).State == BinarySerialize.DeserializeStateEnum.Success)
+                    if (BinaryDeserializer.UnsafeDeserialize((byte*)&index, size, ref value).State == AutoCSer.BinarySerialize.DeserializeStateEnum.Success)
                     {
                         result.Set(value);
                         return true;

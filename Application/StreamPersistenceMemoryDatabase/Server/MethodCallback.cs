@@ -190,7 +190,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static MethodCallback<T> Create(ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag)
+        public static MethodCallback<T> Create(ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag)
 #else
         internal static MethodCallback<T> Create(ref CommandServerCallback<ResponseParameter> callback, MethodFlagsEnum flag)
 #endif
@@ -209,7 +209,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodParameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static MethodCallback<T> Create(CallInputOutputMethodParameter methodParameter)
+        public static MethodCallback<T> Create(CallInputOutputMethodParameter methodParameter)
         {
             return methodParameter.CreateMethodCallback<T>();
         }

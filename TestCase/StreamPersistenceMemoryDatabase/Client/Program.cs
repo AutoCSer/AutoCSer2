@@ -71,7 +71,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                     await new PerformanceSearchTreeDictionaryNode().Test(commandClientConfig, clientNode);
                     await new PerformanceMessageNode().Test(commandClientConfig, clientNode);
                 }
-                while (true);
+                while (Console.ReadLine() != "quit");
             }
         }
         internal static bool Breakpoint(ResponseResult result, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)

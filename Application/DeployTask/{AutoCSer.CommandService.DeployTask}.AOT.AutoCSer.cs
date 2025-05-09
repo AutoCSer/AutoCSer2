@@ -1,0 +1,3184 @@
+﻿//本文件由程序自动生成，请不要自行修改
+using System;
+using System.Numerics;
+using AutoCSer;
+
+#if NoAutoCSer
+#else
+#pragma warning disable
+namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 下载备份文件缓冲区
+        /// </summary>
+    public partial struct DatabaseBackupDownloadBuffer
+    {
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741826);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer value = default(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer>();
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 目录名称
+        /// </summary>
+    public partial struct DirectoryName
+    {
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.DirectoryName value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741826);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DirectoryName value = default(AutoCSer.CommandService.DeployTask.DirectoryName);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DirectoryName));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DirectoryName));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.DirectoryName>();
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件信息
+        /// </summary>
+    public partial struct SynchronousFileInfo
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.SynchronousFileInfo value)
+            {
+                serializer.Simple(value);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.SynchronousFileInfo value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741828);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.SynchronousFileInfo value = default(AutoCSer.CommandService.DeployTask.SynchronousFileInfo);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.SynchronousFileInfo));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.SynchronousFileInfo));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.SynchronousFileInfo>();
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 上传文件索引信息
+        /// </summary>
+    public partial struct UploadFileIndex
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileIndex value)
+            {
+                serializer.Simple(value);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploadFileIndex value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741826);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileIndex value = default(AutoCSer.CommandService.DeployTask.UploadFileIndex);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileIndex>();
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件信息
+        /// </summary>
+    public partial struct UploadFileInfo
+    {
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploadFileInfo value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.IsBackup);
+                __deserializer__.BinaryDeserialize(ref this.IsFile);
+                this.State = (AutoCSer.CommandService.DeployTask.UploadFileStateEnum)__deserializer__.FixedEnumByte();
+                __deserializer__.FixedFillSize(1);
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.FileInfo);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741828);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileInfo value = default(AutoCSer.CommandService.DeployTask.UploadFileInfo);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileInfo));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileInfo));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileInfo>();
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 上传索引与路径信息
+        /// </summary>
+    public partial struct UploaderInfo
+    {
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploaderInfo value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.BackupPath);
+                __deserializer__.Simple(ref this.Index);
+                __deserializer__.BinaryDeserialize(ref this.Path);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741827);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploaderInfo value = default(AutoCSer.CommandService.DeployTask.UploaderInfo);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploaderInfo));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploaderInfo));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploaderInfo>();
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 数据库备份服务接口 客户端接口
+        /// </summary>
+        [AutoCSer.Net.CommandClientControllerType(typeof(DatabaseBackupServiceClientController))]
+        public partial interface IDatabaseBackupServiceClientController { }
+        /// <summary>
+        /// 数据库备份服务接口 客户端接口 客户端控制器
+        /// </summary>
+        internal unsafe partial class DatabaseBackupServiceClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController, AutoCSer.CommandService.DeployTask.IDatabaseBackupService>, IDatabaseBackupServiceClientController
+        {
+            private DatabaseBackupServiceClientController(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, -2147483648) { }
+            internal static AutoCSer.Net.CommandClientController __CommandClientControllerConstructor__(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
+            {
+                return new DatabaseBackupServiceClientController(socket, controllerName, startMethodIndex, serverMethodNames);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip0__
+            {
+                internal string database;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.database);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__ value = default(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op0__
+            {
+                internal string ReturnValue;
+                private static string getReturnValue(__op0__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op0__, string> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.ReturnValue, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__ value = default(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip1__
+            {
+                internal string backupFullName;
+                internal long startIndex;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(12))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.startIndex);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.backupFullName);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__ value = default(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op1__
+            {
+                internal AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer getReturnValue(__op1__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op1__, AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__ value = default(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op2__
+            {
+                internal string[] ReturnValue;
+                private static string[] getReturnValue(__op2__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op2__, string[]> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__ value = default(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__>();
+            }
+            }
+            /// <summary>
+            /// 备份数据库并返回文件名称
+            /// </summary>
+            /// <param name="database">数据库名称</param>
+            /// <returns>重写必须保证回调执行，返回空字符串表示没有找到数据库</returns>
+            AutoCSer.Net.ReturnCommand<string> AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController/**/.Backup(string database)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    database = database,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip0__, string, __op0__>(0
+                    , __op0__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 下载备份文件
+            /// </summary>
+            /// <param name="backupFullName">备份文件名称</param>
+            /// <param name="startIndex">读取文件起始位置</param>
+            /// <returns>下载文件数据回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer> AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController/**/.Download(string backupFullName, long startIndex)
+            {
+                __ip1__ __inputParameter__ = new __ip1__
+                {
+                    backupFullName = backupFullName,
+                    startIndex = startIndex,
+                };
+                var __returnValue__ = base.EnumeratorOutput<__ip1__, AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer, __op1__>(1
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取可备份数据库名称集合
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string[]> AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController/**/.GetDatabase()
+            {
+                var __returnValue__ = base.ReturnValue<string[], __op2__>(2
+                    , __op2__/**/.GetReturnValue
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取可备份数据库表格名称集合
+            /// </summary>
+            /// <param name="database">数据库名称</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string[]> AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController/**/.GetTableName(string database)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    database = database,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip0__, string[], __op2__>(3
+                    , __op2__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取客户端接口方法信息集合
+            /// </summary>
+            internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
+            {
+                AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(4);
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "Backup", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "Download", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "GetDatabase", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "GetTableName", 3, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                return methods;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void __CommandClientControllerConstructor__()
+            {
+                __CommandClientControllerConstructor__(null, null, 0, null);
+                AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum));
+                __CommandClientControllerMethods__();
+                AutoCSer.AotReflection.Interfaces(typeof(DatabaseBackupServiceClientController));
+            }
+        }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 拉取文件客户端接口
+        /// </summary>
+        [AutoCSer.Net.CommandClientControllerType(typeof(PullFileServiceClientController))]
+        public partial interface IPullFileServiceClientController { }
+        /// <summary>
+        /// 拉取文件客户端接口 客户端控制器
+        /// </summary>
+        internal unsafe partial class PullFileServiceClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.DeployTask.IPullFileServiceClientController, AutoCSer.CommandService.DeployTask.IPullFileService>, IPullFileServiceClientController
+        {
+            private PullFileServiceClientController(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, -2147483648) { }
+            internal static AutoCSer.Net.CommandClientController __CommandClientControllerConstructor__(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
+            {
+                return new PullFileServiceClientController(socket, controllerName, startMethodIndex, serverMethodNames);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip2__
+            {
+                internal AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.Simple(fileInfo);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.SynchronousFileInfo));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__ value = default(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op2__
+            {
+                internal AutoCSer.CommandService.DeployTask.PullFileBuffer ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.PullFileBuffer getReturnValue(__op2__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op2__, AutoCSer.CommandService.DeployTask.PullFileBuffer> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.ICustom(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__ value = default(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip0__
+            {
+                internal string path;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.path);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__ value = default(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op0__
+            {
+                internal AutoCSer.CommandService.DeployTask.DirectoryName ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.DirectoryName getReturnValue(__op0__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op0__, AutoCSer.CommandService.DeployTask.DirectoryName> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__ value = default(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip1__
+            {
+                internal string fileName;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.fileName);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__ value = default(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op1__
+            {
+                internal AutoCSer.CommandService.DeployTask.SynchronousFileInfo ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.SynchronousFileInfo getReturnValue(__op1__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op1__, AutoCSer.CommandService.DeployTask.SynchronousFileInfo> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__ value = default(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__>();
+            }
+            }
+            /// <summary>
+            /// 获取指定文件数据
+            /// </summary>
+            /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            /// <param name="fileInfo">文件信息</param>
+            /// <returns>文件数据</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.PullFileBuffer> AutoCSer.CommandService.DeployTask.IPullFileServiceClientController/**/.GetFileData(AutoCSer.CommandService.DeployTask.PullFileBuffer returnValue, AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    fileInfo = fileInfo,
+                };
+                __op2__ __outputParameter__ = new __op2__
+                {
+                    ReturnValue = returnValue
+                };
+                var __returnValue__ = base.EnumeratorOutputReturnValue<__ip2__, AutoCSer.CommandService.DeployTask.PullFileBuffer, __op2__>(0
+                    , __op2__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    , __outputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取指定路径下的目录名称集合
+            /// </summary>
+            /// <param name="path">指定路径</param>
+            /// <returns>获取目录名称集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.DirectoryName> AutoCSer.CommandService.DeployTask.IPullFileServiceClientController/**/.GetDirectoryNames(string path)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    path = path,
+                };
+                var __returnValue__ = base.EnumeratorOutput<__ip0__, AutoCSer.CommandService.DeployTask.DirectoryName, __op0__>(1
+                    , __op0__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取文件信息
+            /// </summary>
+            /// <param name="fileName">文件名称</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.SynchronousFileInfo> AutoCSer.CommandService.DeployTask.IPullFileServiceClientController/**/.GetFile(string fileName)
+            {
+                __ip1__ __inputParameter__ = new __ip1__
+                {
+                    fileName = fileName,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip1__, AutoCSer.CommandService.DeployTask.SynchronousFileInfo, __op1__>(2
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取指定文件数据
+            /// </summary>
+            /// <param name="fileInfo">文件信息</param>
+            /// <returns>获取文件数据回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.PullFileBuffer> AutoCSer.CommandService.DeployTask.IPullFileServiceClientController/**/.GetFileData(AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    fileInfo = fileInfo,
+                };
+                var __returnValue__ = base.EnumeratorOutput<__ip2__, AutoCSer.CommandService.DeployTask.PullFileBuffer, __op2__>(3
+                    , __op2__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取指定路径下的文件信息集合
+            /// </summary>
+            /// <param name="path">指定路径</param>
+            /// <returns>获取文件信息集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.SynchronousFileInfo> AutoCSer.CommandService.DeployTask.IPullFileServiceClientController/**/.GetFiles(string path)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    path = path,
+                };
+                var __returnValue__ = base.EnumeratorOutput<__ip0__, AutoCSer.CommandService.DeployTask.SynchronousFileInfo, __op1__>(4
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取客户端接口方法信息集合
+            /// </summary>
+            internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
+            {
+                AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(5);
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFileData", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetDirectoryNames", 0, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFile", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFileData", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFiles", 3, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                return methods;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void __CommandClientControllerConstructor__()
+            {
+                __CommandClientControllerConstructor__(null, null, 0, null);
+                AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum));
+                __CommandClientControllerMethods__();
+                AutoCSer.AotReflection.Interfaces(typeof(PullFileServiceClientController));
+            }
+        }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件上传服务接口 客户端接口
+        /// </summary>
+        [AutoCSer.Net.CommandClientControllerType(typeof(UploadFileServiceClientController))]
+        public partial interface IUploadFileServiceClientController { }
+        /// <summary>
+        /// 文件上传服务接口 客户端接口 客户端控制器
+        /// </summary>
+        internal unsafe partial class UploadFileServiceClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController, AutoCSer.CommandService.DeployTask.IUploadFileService>, IUploadFileServiceClientController
+        {
+            private UploadFileServiceClientController(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, -2147483648) { }
+            internal static AutoCSer.Net.CommandClientController __CommandClientControllerConstructor__(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
+            {
+                return new UploadFileServiceClientController(socket, controllerName, startMethodIndex, serverMethodNames);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip0__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
+                internal AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741826)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.Simple(fileInfo);
+                __serializer__.Simple(uploaderIndex);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 2, 1073741826);
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.SynchronousFileInfo));
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op0__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileInfo ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.UploadFileInfo getReturnValue(__op0__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op0__, AutoCSer.CommandService.DeployTask.UploadFileInfo> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip1__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
+                internal string path;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741826)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(path);
+                __serializer__.Simple(uploaderIndex);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 2, 1073741826);
+                typeInfo.Add(typeof(string));
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op1__
+            {
+                internal bool ReturnValue;
+                private static bool getReturnValue(__op1__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op1__, bool> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.ReturnValue);
+                __start__ += 3;
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip2__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
+                internal string fileName;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741826)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(fileName);
+                __serializer__.Simple(uploaderIndex);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 2, 1073741826);
+                typeInfo.Add(typeof(string));
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip3__
+            {
+                internal string left;
+                internal string right;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(8))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.left);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.right);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op3__
+            {
+                internal string ReturnValue;
+                private static string getReturnValue(__op3__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op3__, string> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.ReturnValue, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip4__
+            {
+                internal string[] pathArray;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(pathArray);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(string[]));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip5__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.Simple(uploaderIndex);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip6__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
+                internal string path;
+                internal string directoryName;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741827)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(directoryName);
+                __serializer__.BinarySerialize(path);
+                __serializer__.Simple(uploaderIndex);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 2, 1073741827);
+                typeInfo.Add(typeof(string));
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip7__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
+                internal AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo;
+                internal long serverFileLength;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__ value)
+            {
+                if (serializer.WriteMemberCountVerify(12, 1073741827)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(serverFileLength);
+                __serializer__.Simple(fileInfo);
+                __serializer__.Simple(uploaderIndex);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 3, 1073741827);
+                typeInfo.Add(typeof(long));
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.SynchronousFileInfo));
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op7__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.UploadFileIndex getReturnValue(__op7__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op7__, AutoCSer.CommandService.DeployTask.UploadFileIndex> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip8__
+            {
+                internal string path;
+                internal string backupPath;
+                internal string[] extensions;
+                internal bool isCaseExtension;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__ value)
+            {
+                if (serializer.WriteMemberCountVerify(8, 1073741828)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(isCaseExtension);
+                __serializer__.FixedFillSize(3);
+                __serializer__.BinarySerialize(backupPath);
+                __serializer__.BinarySerialize(extensions);
+                __serializer__.BinarySerialize(path);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 3, 1073741828);
+                typeInfo.Add(typeof(bool));
+                typeInfo.Add(typeof(string));
+                typeInfo.Add(typeof(string[]));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op8__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploaderInfo ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.UploaderInfo getReturnValue(__op8__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op8__, AutoCSer.CommandService.DeployTask.UploaderInfo> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op10__
+            {
+                internal AutoCSer.CommandService.DeployTask.DirectoryName ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.DirectoryName getReturnValue(__op10__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op10__, AutoCSer.CommandService.DeployTask.DirectoryName> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip13__
+            {
+                internal string type;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.type);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip14__
+            {
+                internal string path;
+                internal string switchPath;
+                internal string fileName;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(12))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.fileName);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.path);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.switchPath);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op14__
+            {
+                internal AutoCSer.CommandService.DeployTask.SynchronousFileInfo ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.SynchronousFileInfo getReturnValue(__op14__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op14__, AutoCSer.CommandService.DeployTask.SynchronousFileInfo> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip15__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741826)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.Simple(fileIndex);
+                __serializer__.Simple(uploaderIndex);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741826);
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip17__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileBuffer buffer;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.ICustom(buffer);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(AutoCSer.CommandService.DeployTask.UploadFileBuffer));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op17__
+            {
+                internal AutoCSer.CommandService.DeployTask.UploadFileStateEnum ReturnValue;
+                private static AutoCSer.CommandService.DeployTask.UploadFileStateEnum getReturnValue(__op17__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op17__, AutoCSer.CommandService.DeployTask.UploadFileStateEnum> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                byte ReturnValue = 0;
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref ReturnValue);
+                this.ReturnValue = (AutoCSer.CommandService.DeployTask.UploadFileStateEnum)ReturnValue;
+                __start__ += 3;
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__ value = default(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__));
+            }
+            }
+            /// <summary>
+            /// 添加上传完成文件
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileInfo">对比文件信息</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileInfo> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    uploaderIndex = uploaderIndex,
+                    fileInfo = fileInfo,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip0__, AutoCSer.CommandService.DeployTask.UploadFileInfo, __op0__>(0
+                    , __op0__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 添加待删除目录
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <returns>返回 false 表示没有找到文件上传操作对象</returns>
+            AutoCSer.Net.ReturnCommand<bool> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.AppendDeleteDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path)
+            {
+                __ip1__ __inputParameter__ = new __ip1__
+                {
+                    uploaderIndex = uploaderIndex,
+                    path = path,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip1__, bool, __op1__>(1
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 添加待删除文件
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileName">相对路径文件名称</param>
+            /// <returns>返回 false 表示没有找到文件上传操作对象</returns>
+            AutoCSer.Net.ReturnCommand<bool> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.AppendDeleteFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string fileName)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    uploaderIndex = uploaderIndex,
+                    fileName = fileName,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip2__, bool, __op1__>(2
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 拼接路径
+            /// </summary>
+            /// <param name="left"></param>
+            /// <param name="right"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.CombinePath(string left, string right)
+            {
+                __ip3__ __inputParameter__ = new __ip3__
+                {
+                    left = left,
+                    right = right,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip3__, string, __op3__>(3
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 拼接路径
+            /// </summary>
+            /// <param name="pathArray"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.CombinePathArray(string[] pathArray)
+            {
+                __ip4__ __inputParameter__ = new __ip4__
+                {
+                    pathArray = pathArray,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip4__, string, __op3__>(4
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 上传完成最后移动文件操作
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <returns>返回 false 表示没有找到文件上传操作对象，或者上传未结束</returns>
+            AutoCSer.Net.ReturnCommand<bool> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.Completed(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    uploaderIndex = uploaderIndex,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip5__, bool, __op1__>(5
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 创建目录
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <param name="directoryName">目录名称</param>
+            /// <returns>返回 null 表示失败</returns>
+            AutoCSer.Net.ReturnCommand<string> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.CreateDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path, string directoryName)
+            {
+                __ip6__ __inputParameter__ = new __ip6__
+                {
+                    uploaderIndex = uploaderIndex,
+                    path = path,
+                    directoryName = directoryName,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip6__, string, __op3__>(6
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 创建上传文件
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileInfo">文件信息</param>
+            /// <param name="serverFileLength">服务端文件匹配长度</param>
+            /// <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileIndex> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.CreateFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo, long serverFileLength)
+            {
+                __ip7__ __inputParameter__ = new __ip7__
+                {
+                    uploaderIndex = uploaderIndex,
+                    fileInfo = fileInfo,
+                    serverFileLength = serverFileLength,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip7__, AutoCSer.CommandService.DeployTask.UploadFileIndex, __op7__>(7
+                    , __op7__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 创建文件上传操作对象
+            /// </summary>
+            /// <param name="path">上传根目录</param>
+            /// <param name="backupPath">备份文件根目录</param>
+            /// <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
+            /// <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
+            /// <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploaderInfo> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.CreateUploader(string path, string backupPath, string[] extensions, bool isCaseExtension)
+            {
+                __ip8__ __inputParameter__ = new __ip8__
+                {
+                    path = path,
+                    backupPath = backupPath,
+                    extensions = extensions,
+                    isCaseExtension = isCaseExtension,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip8__, AutoCSer.CommandService.DeployTask.UploaderInfo, __op8__>(8
+                    , __op8__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 将上传完成操作数据写入文件并返回文件名称
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <returns>返回空字符串表示没有找到文件上传操作对象，或者上传未结束</returns>
+            AutoCSer.Net.ReturnCommand<string> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.GetCompletedFileName(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    uploaderIndex = uploaderIndex,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip5__, string, __op3__>(9
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取指定路径下的目录名称集合
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <returns>获取目录名称集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.DirectoryName> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.GetDirectoryNames(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path)
+            {
+                __ip1__ __inputParameter__ = new __ip1__
+                {
+                    uploaderIndex = uploaderIndex,
+                    path = path,
+                };
+                var __returnValue__ = base.EnumeratorOutput<__ip1__, AutoCSer.CommandService.DeployTask.DirectoryName, __op10__>(10
+                    , __op10__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取指定文件信息集合
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileName">相对路径</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileInfo> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.GetFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string fileName)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    uploaderIndex = uploaderIndex,
+                    fileName = fileName,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip2__, AutoCSer.CommandService.DeployTask.UploadFileInfo, __op0__>(11
+                    , __op0__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取指定路径下的文件信息集合
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <returns>获取文件信息集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.UploadFileInfo> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.GetFiles(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path)
+            {
+                __ip1__ __inputParameter__ = new __ip1__
+                {
+                    uploaderIndex = uploaderIndex,
+                    path = path,
+                };
+                var __returnValue__ = base.EnumeratorOutput<__ip1__, AutoCSer.CommandService.DeployTask.UploadFileInfo, __op0__>(12
+                    , __op0__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 根据上传类型获取文件上传路径
+            /// </summary>
+            /// <param name="type">上传类型</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.GetPath(string type)
+            {
+                __ip13__ __inputParameter__ = new __ip13__
+                {
+                    type = type,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip13__, string, __op3__>(13
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取切换进程的上传目录与文件信息
+            /// </summary>
+            /// <param name="path">默认上传目录</param>
+            /// <param name="switchPath">默认切换进程上传目录</param>
+            /// <param name="fileName">切换进程文件相对路径</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.SynchronousFileInfo> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.GetSwitchProcessPathFileInfo(string path, string switchPath, string fileName)
+            {
+                __ip14__ __inputParameter__ = new __ip14__
+                {
+                    path = path,
+                    switchPath = switchPath,
+                    fileName = fileName,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip14__, AutoCSer.CommandService.DeployTask.SynchronousFileInfo, __op14__>(14
+                    , __op14__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 移除文件
+            /// </summary>
+            /// <param name="uploaderIndex">文件上传索引信息</param>
+            /// <param name="fileIndex">上传文件索引信息</param>
+            /// <returns></returns>
+            AutoCSer.Net.SendOnlyCommand AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.RemoveFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex)
+            {
+                __ip15__ __inputParameter__ = new __ip15__
+                {
+                    uploaderIndex = uploaderIndex,
+                    fileIndex = fileIndex,
+                };
+                var __returnValue__ = base.SendOnlyInput<__ip15__>(15
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 移除文件上传实例
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <returns></returns>
+            AutoCSer.Net.SendOnlyCommand AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.RemoveUploader(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    uploaderIndex = uploaderIndex,
+                };
+                var __returnValue__ = base.SendOnlyInput<__ip5__>(16
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 上传文件写入数据
+            /// </summary>
+            /// <param name="buffer"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileStateEnum> AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController/**/.UploadFileData(AutoCSer.CommandService.DeployTask.UploadFileBuffer buffer)
+            {
+                __ip17__ __inputParameter__ = new __ip17__
+                {
+                    buffer = buffer,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip17__, AutoCSer.CommandService.DeployTask.UploadFileStateEnum, __op17__>(17
+                    , __op17__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取客户端接口方法信息集合
+            /// </summary>
+            internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
+            {
+                AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(18);
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendCompletedFile", 0, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendDeleteDirectory", 1, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendDeleteFile", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CombinePath", 3, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CombinePathArray", 4, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "Completed", 5, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateDirectory", 6, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateFile", 7, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateUploader", 8, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetCompletedFileName", 9, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetDirectoryNames", 10, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetFile", 11, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetFiles", 12, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetPath", 13, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetSwitchProcessPathFileInfo", 14, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "RemoveFile", 15, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "RemoveUploader", 16, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "UploadFileData", 17, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                return methods;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void __CommandClientControllerConstructor__()
+            {
+                __CommandClientControllerConstructor__(null, null, 0, null);
+                AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum));
+                __CommandClientControllerMethods__();
+                AutoCSer.AotReflection.Interfaces(typeof(UploadFileServiceClientController));
+            }
+        }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 数据库备份服务接口 客户端接口
+        /// </summary>
+        public partial interface IDatabaseBackupServiceClientController
+        {
+            /// <summary>
+            /// 备份数据库并返回文件名称
+            /// </summary>
+            /// <param name="database">数据库名称</param>
+            /// <returns>重写必须保证回调执行，返回空字符串表示没有找到数据库</returns>
+            AutoCSer.Net.ReturnCommand<string> Backup(string database);
+            /// <summary>
+            /// 下载备份文件
+            /// </summary>
+            /// <param name="backupFullName">备份文件名称</param>
+            /// <param name="startIndex">读取文件起始位置</param>
+            /// <returns>下载文件数据回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer> Download(string backupFullName, long startIndex);
+            /// <summary>
+            /// 获取可备份数据库名称集合
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string[]> GetDatabase();
+            /// <summary>
+            /// 获取可备份数据库表格名称集合
+            /// </summary>
+            /// <param name="database">数据库名称</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string[]> GetTableName(string database);
+        }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件拉取服务接口 客户端接口
+        /// </summary>
+        public partial interface IPullFileServiceClientController
+        {
+            /// <summary>
+            /// 获取指定路径下的目录名称集合
+            /// </summary>
+            /// <param name="path">指定路径</param>
+            /// <returns>获取目录名称集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.DirectoryName> GetDirectoryNames(string path);
+            /// <summary>
+            /// 获取文件信息
+            /// </summary>
+            /// <param name="fileName">文件名称</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.SynchronousFileInfo> GetFile(string fileName);
+            /// <summary>
+            /// 获取指定文件数据
+            /// </summary>
+            /// <param name="fileInfo">文件信息</param>
+            /// <returns>获取文件数据回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.PullFileBuffer> GetFileData(AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo);
+            /// <summary>
+            /// 获取指定路径下的文件信息集合
+            /// </summary>
+            /// <param name="path">指定路径</param>
+            /// <returns>获取文件信息集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.SynchronousFileInfo> GetFiles(string path);
+        }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件上传服务接口 客户端接口
+        /// </summary>
+        public partial interface IUploadFileServiceClientController
+        {
+            /// <summary>
+            /// 添加上传完成文件
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileInfo">对比文件信息</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileInfo> AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo);
+            /// <summary>
+            /// 添加待删除目录
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <returns>返回 false 表示没有找到文件上传操作对象</returns>
+            AutoCSer.Net.ReturnCommand<bool> AppendDeleteDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path);
+            /// <summary>
+            /// 添加待删除文件
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileName">相对路径文件名称</param>
+            /// <returns>返回 false 表示没有找到文件上传操作对象</returns>
+            AutoCSer.Net.ReturnCommand<bool> AppendDeleteFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string fileName);
+            /// <summary>
+            /// 拼接路径
+            /// </summary>
+            /// <param name="left"></param>
+            /// <param name="right"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> CombinePath(string left, string right);
+            /// <summary>
+            /// 拼接路径
+            /// </summary>
+            /// <param name="pathArray"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> CombinePathArray(string[] pathArray);
+            /// <summary>
+            /// 上传完成最后移动文件操作
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <returns>返回 false 表示没有找到文件上传操作对象，或者上传未结束</returns>
+            AutoCSer.Net.ReturnCommand<bool> Completed(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex);
+            /// <summary>
+            /// 创建目录
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <param name="directoryName">目录名称</param>
+            /// <returns>返回 null 表示失败</returns>
+            AutoCSer.Net.ReturnCommand<string> CreateDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path, string directoryName);
+            /// <summary>
+            /// 创建上传文件
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileInfo">文件信息</param>
+            /// <param name="serverFileLength">服务端文件匹配长度</param>
+            /// <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileIndex> CreateFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo, long serverFileLength);
+            /// <summary>
+            /// 创建文件上传操作对象
+            /// </summary>
+            /// <param name="path">上传根目录</param>
+            /// <param name="backupPath">备份文件根目录</param>
+            /// <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
+            /// <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
+            /// <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploaderInfo> CreateUploader(string path, string backupPath, string[] extensions, bool isCaseExtension);
+            /// <summary>
+            /// 将上传完成操作数据写入文件并返回文件名称
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <returns>返回空字符串表示没有找到文件上传操作对象，或者上传未结束</returns>
+            AutoCSer.Net.ReturnCommand<string> GetCompletedFileName(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex);
+            /// <summary>
+            /// 获取指定路径下的目录名称集合
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <returns>获取目录名称集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.DirectoryName> GetDirectoryNames(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path);
+            /// <summary>
+            /// 获取指定文件信息集合
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="fileName">相对路径</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileInfo> GetFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string fileName);
+            /// <summary>
+            /// 获取指定路径下的文件信息集合
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            /// <param name="path">相对路径</param>
+            /// <returns>获取文件信息集合回调委托</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.DeployTask.UploadFileInfo> GetFiles(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, string path);
+            /// <summary>
+            /// 根据上传类型获取文件上传路径
+            /// </summary>
+            /// <param name="type">上传类型</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> GetPath(string type);
+            /// <summary>
+            /// 获取切换进程的上传目录与文件信息
+            /// </summary>
+            /// <param name="path">默认上传目录</param>
+            /// <param name="switchPath">默认切换进程上传目录</param>
+            /// <param name="fileName">切换进程文件相对路径</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.SynchronousFileInfo> GetSwitchProcessPathFileInfo(string path, string switchPath, string fileName);
+            /// <summary>
+            /// 移除文件
+            /// </summary>
+            /// <param name="uploaderIndex">文件上传索引信息</param>
+            /// <param name="fileIndex">上传文件索引信息</param>
+            AutoCSer.Net.SendOnlyCommand RemoveFile(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex, AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex);
+            /// <summary>
+            /// 移除文件上传实例
+            /// </summary>
+            /// <param name="uploaderIndex">上传文件索引信息</param>
+            AutoCSer.Net.SendOnlyCommand RemoveUploader(AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex);
+            /// <summary>
+            /// 上传文件写入数据
+            /// </summary>
+            /// <param name="buffer"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DeployTask.UploadFileStateEnum> UploadFileData(AutoCSer.CommandService.DeployTask.UploadFileBuffer buffer);
+        }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 数据库备份服务接口方法序号映射枚举类型
+        /// </summary>
+    public enum DatabaseBackupServiceMethodEnum
+    {
+            /// <summary>
+            /// [0] 备份数据库并返回文件名称
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// string database 数据库名称
+            /// AutoCSer.Net.CommandServerCallback{string} callback 重写必须保证回调执行，返回空字符串表示没有找到数据库
+            /// 返回值 string 
+            /// </summary>
+            Backup = 0,
+            /// <summary>
+            /// [1] 下载备份文件
+            /// string backupFullName 备份文件名称
+            /// long startIndex 读取文件起始位置
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer} callback 下载文件数据回调委托
+            /// 返回值 AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer 
+            /// </summary>
+            Download = 1,
+            /// <summary>
+            /// [2] 获取可备份数据库名称集合
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// 返回值 string[] 
+            /// </summary>
+            GetDatabase = 2,
+            /// <summary>
+            /// [3] 获取可备份数据库表格名称集合
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// string database 数据库名称
+            /// 返回值 string[] 
+            /// </summary>
+            GetTableName = 3,
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件拉取服务接口方法序号映射枚举类型
+        /// </summary>
+    public enum PullFileServiceMethodEnum
+    {
+            /// <summary>
+            /// [0] 获取指定路径下的目录名称集合
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// string path 指定路径
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DirectoryName} callback 获取目录名称集合回调委托
+            /// 返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
+            /// </summary>
+            GetDirectoryNames = 0,
+            /// <summary>
+            /// [1] 获取文件信息
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// string fileName 文件名称
+            /// 返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
+            /// </summary>
+            GetFile = 1,
+            /// <summary>
+            /// [2] 获取指定文件数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo 文件信息
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.PullFileBuffer} callback 获取文件数据回调委托
+            /// 返回值 AutoCSer.CommandService.DeployTask.PullFileBuffer 
+            /// </summary>
+            GetFileData = 2,
+            /// <summary>
+            /// [3] 获取指定路径下的文件信息集合
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// string path 指定路径
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.SynchronousFileInfo} callback 获取文件信息集合回调委托
+            /// 返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
+            /// </summary>
+            GetFiles = 3,
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件上传服务接口方法序号映射枚举类型
+        /// </summary>
+    public enum UploadFileServiceMethodEnum
+    {
+            /// <summary>
+            /// [0] 添加上传完成文件
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo 对比文件信息
+            /// 返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
+            /// </summary>
+            AppendCompletedFile = 0,
+            /// <summary>
+            /// [1] 添加待删除目录
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// string path 相对路径
+            /// 返回值 bool 返回 false 表示没有找到文件上传操作对象
+            /// </summary>
+            AppendDeleteDirectory = 1,
+            /// <summary>
+            /// [2] 添加待删除文件
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// string fileName 相对路径文件名称
+            /// 返回值 bool 返回 false 表示没有找到文件上传操作对象
+            /// </summary>
+            AppendDeleteFile = 2,
+            /// <summary>
+            /// [3] 拼接路径
+            /// string left 
+            /// string right 
+            /// 返回值 string 
+            /// </summary>
+            CombinePath = 3,
+            /// <summary>
+            /// [4] 拼接路径
+            /// string[] pathArray 
+            /// 返回值 string 
+            /// </summary>
+            CombinePathArray = 4,
+            /// <summary>
+            /// [5] 上传完成最后移动文件操作
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// 返回值 bool 返回 false 表示没有找到文件上传操作对象，或者上传未结束
+            /// </summary>
+            Completed = 5,
+            /// <summary>
+            /// [6] 创建目录
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// string path 相对路径
+            /// string directoryName 目录名称
+            /// 返回值 string 返回 null 表示失败
+            /// </summary>
+            CreateDirectory = 6,
+            /// <summary>
+            /// [7] 创建上传文件
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo 文件信息
+            /// long serverFileLength 服务端文件匹配长度
+            /// 返回值 AutoCSer.CommandService.DeployTask.UploadFileIndex 上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum
+            /// </summary>
+            CreateFile = 7,
+            /// <summary>
+            /// [8] 创建文件上传操作对象
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// string path 上传根目录
+            /// string backupPath 备份文件根目录
+            /// string[] extensions 扩展名称集合，扩展名称包括小数点，比如 .txt
+            /// bool isCaseExtension 扩展名匹配是否区分大小写
+            /// 返回值 AutoCSer.CommandService.DeployTask.UploaderInfo 上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum
+            /// </summary>
+            CreateUploader = 8,
+            /// <summary>
+            /// [9] 将上传完成操作数据写入文件并返回文件名称
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// 返回值 string 返回空字符串表示没有找到文件上传操作对象，或者上传未结束
+            /// </summary>
+            GetCompletedFileName = 9,
+            /// <summary>
+            /// [10] 获取指定路径下的目录名称集合
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// string path 相对路径
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DirectoryName} callback 获取目录名称集合回调委托
+            /// 返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
+            /// </summary>
+            GetDirectoryNames = 10,
+            /// <summary>
+            /// [11] 获取指定文件信息集合
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// string fileName 相对路径
+            /// 返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
+            /// </summary>
+            GetFile = 11,
+            /// <summary>
+            /// [12] 获取指定路径下的文件信息集合
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// string path 相对路径
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.UploadFileInfo} callback 获取文件信息集合回调委托
+            /// 返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
+            /// </summary>
+            GetFiles = 12,
+            /// <summary>
+            /// [13] 根据上传类型获取文件上传路径
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// string type 上传类型
+            /// 返回值 string 
+            /// </summary>
+            GetPath = 13,
+            /// <summary>
+            /// [14] 获取切换进程的上传目录与文件信息
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// string path 默认上传目录
+            /// string switchPath 默认切换进程上传目录
+            /// string fileName 切换进程文件相对路径
+            /// 返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
+            /// </summary>
+            GetSwitchProcessPathFileInfo = 14,
+            /// <summary>
+            /// [15] 移除文件
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 文件上传索引信息
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex 上传文件索引信息
+            /// </summary>
+            RemoveFile = 15,
+            /// <summary>
+            /// [16] 移除文件上传实例
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            /// </summary>
+            RemoveUploader = 16,
+            /// <summary>
+            /// [17] 上传文件写入数据
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.CommandService.DeployTask.UploadFileBuffer buffer 
+            /// 返回值 AutoCSer.CommandService.DeployTask.UploadFileStateEnum 
+            /// </summary>
+            UploadFileData = 17,
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 下载备份文件缓冲区
+        /// </summary>
+    public partial struct DatabaseBackupDownloadBuffer
+    {
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Size);
+                if (__start__ == null || __start__ > __end__) return null;
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Buffer, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer value = default(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer));
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 目录名称
+        /// </summary>
+    public partial struct DirectoryName
+    {
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.DirectoryName value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.FullName, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Name, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.DirectoryName value = default(AutoCSer.CommandService.DeployTask.DirectoryName);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.DirectoryName));
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 文件信息
+        /// </summary>
+    public partial struct SynchronousFileInfo
+    {
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.SynchronousFileInfo value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(24))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.lastWriteTime);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.length);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Name);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.fullName);
+                }
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.SynchronousFileInfo value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.lastWriteTime);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.length);
+                if (__start__ == null || __start__ > __end__) return null;
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Name, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.fullName, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.SynchronousFileInfo value = default(AutoCSer.CommandService.DeployTask.SynchronousFileInfo);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.SynchronousFileInfo));
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+        /// <summary>
+        /// 上传文件索引信息
+        /// </summary>
+    public partial struct UploadFileIndex
+    {
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DeployTask.UploadFileIndex value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(8))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Identity);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Index);
+                }
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DeployTask.UploadFileIndex value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Identity);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Index);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileIndex value = default(AutoCSer.CommandService.DeployTask.UploadFileIndex);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+            }
+    }
+}namespace AutoCSer.CommandService.DeployTask
+{
+    /// <summary>
+    /// 触发 AOT 编译
+    /// </summary>
+    public static class AotMethod
+    {
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            /// <returns></returns>
+            public static bool Call()
+            {
+                if (AutoCSer.Date.StartTimestamp == long.MinValue)
+                {
+                    AutoCSer.AotMethod.Call();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer/**/.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.DirectoryName/**/.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.SynchronousFileInfo/**/.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileIndex/**/.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileInfo/**/.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploaderInfo/**/.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__CommandClientControllerConstructor__();
+                    AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__CommandClientControllerConstructor__();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.BinarySerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__CommandClientControllerConstructor__();
+                    AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer/**/.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.DirectoryName/**/.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.SynchronousFileInfo/**/.SimpleSerialize();
+                    AutoCSer.CommandService.DeployTask.UploadFileIndex/**/.SimpleSerialize();
+
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<bool>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileStateEnum>));
+                    AutoCSer.BinarySerializer.EnumByte<AutoCSer.CommandService.DeployTask.UploadFileStateEnum>(null, default(AutoCSer.CommandService.DeployTask.UploadFileStateEnum));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.SynchronousFileInfo>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DeployTask.SynchronousFileInfo>(null, default(AutoCSer.CommandService.DeployTask.SynchronousFileInfo));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<string>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileIndex>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DeployTask.UploadFileIndex>(null, default(AutoCSer.CommandService.DeployTask.UploadFileIndex));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer>(null, default(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<string[]>));
+                    AutoCSer.BinarySerializer.Array<string>(null, default(string[]));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.PullFileBuffer>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DeployTask.PullFileBuffer>(null, default(AutoCSer.CommandService.DeployTask.PullFileBuffer));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.DirectoryName>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DeployTask.DirectoryName>(null, default(AutoCSer.CommandService.DeployTask.DirectoryName));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileInfo>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploaderInfo>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileBuffer>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DeployTask.UploadFileBuffer>(null, default(AutoCSer.CommandService.DeployTask.UploadFileBuffer));
+                    binaryDeserializeMemberTypes();
+
+
+
+                    return true;
+                }
+                return false;
+            }
+            /// <summary>
+            /// 二进制反序列化成员类型代码生成调用激活 AOT 反射
+            /// </summary>
+            private static void binaryDeserializeMemberTypes()
+            {
+                AutoCSer.CommandService.DeployTask.UploadFileStateEnum t1 = default(AutoCSer.CommandService.DeployTask.UploadFileStateEnum);
+                AutoCSer.BinaryDeserializer.EnumByte<AutoCSer.CommandService.DeployTask.UploadFileStateEnum>(null, ref t1);
+                AutoCSer.CommandService.DeployTask.SynchronousFileInfo t2 = default(AutoCSer.CommandService.DeployTask.SynchronousFileInfo);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.SynchronousFileInfo>(null, ref t2);
+                AutoCSer.CommandService.DeployTask.UploadFileIndex t3 = default(AutoCSer.CommandService.DeployTask.UploadFileIndex);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.UploadFileIndex>(null, ref t3);
+                AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer t4 = default(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer>(null, ref t4);
+                string[] t5 = default(string[]);
+                AutoCSer.BinaryDeserializer.Array<string>(null, ref t5);
+                AutoCSer.CommandService.DeployTask.PullFileBuffer t6 = default(AutoCSer.CommandService.DeployTask.PullFileBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DeployTask.PullFileBuffer>(null, ref t6);
+                AutoCSer.CommandService.DeployTask.DirectoryName t7 = default(AutoCSer.CommandService.DeployTask.DirectoryName);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.DirectoryName>(null, ref t7);
+                AutoCSer.CommandService.DeployTask.UploadFileBuffer t8 = default(AutoCSer.CommandService.DeployTask.UploadFileBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DeployTask.UploadFileBuffer>(null, ref t8);
+            }
+    }
+}
+#endif

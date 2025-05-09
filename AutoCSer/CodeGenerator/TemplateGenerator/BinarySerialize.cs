@@ -55,7 +55,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 {
                     if (MethodInfo.IsSimpleSerialize) return nameof(AutoCSer.BinarySerializer.Simple);
                     if (MethodInfo.EnumArrayElementType != null) return "Enum" + AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(MethodInfo.EnumArrayElementType)).ToString();
-                    if (MethodInfo.IsCusotm) return "ICustomSerialize";
+                    if (MethodInfo.IsCusotm) return "ICustom";
                     if (MethodInfo.IsNullableArray) return nameof(AutoCSer.BinarySerializer.NullableArray);
                     if (MethodInfo.IsStructArray) return nameof(AutoCSer.BinarySerializer.StructArray);
                     if (MethodInfo.IsJson) return MemberType.Type.IsValueType ? nameof(AutoCSer.BinarySerializer.StructJson) : nameof(AutoCSer.BinarySerializer.Json);
@@ -91,7 +91,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     if (MethodInfo.IsSimpleSerialize) return nameof(AutoCSer.BinaryDeserializer.Simple);
                     if (MemberType.Type.IsEnum) return "FixedEnum" + AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(MemberType.Type)).ToString();
                     if (MethodInfo.EnumArrayElementType != null) return "Enum" + AutoCSer.Metadata.EnumGenericType.GetUnderlyingType(System.Enum.GetUnderlyingType(MethodInfo.EnumArrayElementType)).ToString();
-                    if (MethodInfo.IsCusotm) return "ICustomDeserialize";
+                    if (MethodInfo.IsCusotm) return "ICustom";
                     if (MethodInfo.IsNullableArray) return nameof(AutoCSer.BinaryDeserializer.NullableArray);
                     if (MethodInfo.IsStructArray) return nameof(AutoCSer.BinaryDeserializer.StructArray);
                     if (MethodInfo.IsJson) return MemberType.Type.IsValueType ? nameof(AutoCSer.BinaryDeserializer.StructJson) : nameof(AutoCSer.BinaryDeserializer.Json);

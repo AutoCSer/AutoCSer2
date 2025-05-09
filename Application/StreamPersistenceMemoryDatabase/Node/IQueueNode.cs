@@ -6,7 +6,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 队列节点接口（先进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
     public partial interface IQueueNode<T>
     {
         /// <summary>

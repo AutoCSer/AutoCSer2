@@ -1,6 +1,8 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
-using AutoCSer.Extensions;
+﻿using AutoCSer.Extensions;
 using System;
+#if !AOT
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -52,19 +54,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(SnapshotCloneObject<>)
                                 && snapshotType == baseType.GetGenericArguments()[0])
                             {
+#if AOT
+                                snapshots.Add(SnapshotCloneNode.CreateMethod.MakeGenericMethod(snapshotType).Invoke(null, new object[] { targetObject }).notNullCastType<SnapshotNode>());
+#else
                                 snapshots.Add(SnapshotCloneObjectGenericType.Get(snapshotType).CreateSnapshotCloneNode(targetObject));
+#endif
                                 snapshotType = type;
                                 break;
                             }
                         }
                         if (!object.ReferenceEquals(snapshotType, type))
                         {
+#if AOT
+                            snapshots.Add(SnapshotNode.CreateMethod.MakeGenericMethod(snapshotType).Invoke(null, new object[] { targetObject }).notNullCastType<SnapshotNode>());
+#else
                             snapshots.Add(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(snapshotType).CreateSnapshotNode(targetObject));
+#endif
                         }
                     }
                     else if(snapshotType == typeof(IEnumerableSnapshot<>))
                     {
+#if AOT
+                        snapshots.Add(EnumerableSnapshotNode.CreateMethod.MakeGenericMethod(type.GetGenericArguments()[0]).Invoke(null, new object[] { targetObject }).notNullCastType<SnapshotNode>());
+#else
                         snapshots.Add(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.GetGenericArguments()[0]).CreateEnumerableSnapshotNode(targetObject));
+#endif
                     }
                 }
             }

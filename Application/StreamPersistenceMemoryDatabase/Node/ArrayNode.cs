@@ -8,7 +8,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 数组节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if AOT
+    public abstract class ArrayNode<T> : ISnapshot<KeyValue<int, T>>
+#else
     public sealed class ArrayNode<T> : IArrayNode<T>, ISnapshot<KeyValue<int, T>>
+#endif
     {
         /// <summary>
         /// 数组

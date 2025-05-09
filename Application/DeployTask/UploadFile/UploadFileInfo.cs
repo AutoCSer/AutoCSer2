@@ -7,9 +7,12 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 文件信息
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct UploadFileInfo
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct UploadFileInfo
     {
         /// <summary>
         /// 文件信息

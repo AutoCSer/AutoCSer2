@@ -17,7 +17,11 @@ namespace AutoCSer.CommandService.DiskBlock
     /// 内部成员对象序列化为一个可独立反序列化的数据
     /// </summary>
     /// <typeparam name="T">数据类型</typeparam>
-    internal sealed class WriteBufferSerializer<T> : WriteBufferSerializer
+    internal sealed class WriteBufferSerializer<
+#if AOT
+        [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicFields)]
+#endif
+    T> : WriteBufferSerializer
         where T : struct
     {
         /// <summary>

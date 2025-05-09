@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
     /// 超时任务消息
     /// </summary>
     /// <typeparam name="T">任务消息数据类型</typeparam>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class TimeoutMessage<T> : AutoCSer.Threading.Link<TimeoutMessage<T>>
     {
         /// <summary>

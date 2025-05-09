@@ -145,6 +145,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         internal static bool IsCallAutoCSerAotMethod;
         /// <summary>
+        /// 是否调用  AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AotMethod.Call();
+        /// </summary>
+        internal static bool IsCallStreamPersistenceMemoryDatabaseAotMethod;
+        /// <summary>
         /// 触发 AOT 编译方法信息集合
         /// </summary>
         public Method[] Methods;
@@ -189,9 +193,21 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public ReflectionMemberType[] XmlSerializeNullableElementTypes;
         /// <summary>
+        /// 内存数据库快照数据类型集合
+        /// </summary>
+        public ReflectionMemberType[] StreamPersistenceMemoryDatabaseSnapshotTypes;
+        /// <summary>
+        /// 内存数据库快照数据类型集合
+        /// </summary>
+        public ReflectionMemberType[] StreamPersistenceMemoryDatabaseSnapshotCloneObjectTypes;
+        /// <summary>
         /// 是否调用 AutoCSer.AotMethod.Call();
         /// </summary>
         public bool IsCallAutoCSer { get { return IsCallAutoCSerAotMethod; } }
+        /// <summary>
+        /// 是否调用  AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AotMethod.Call();
+        /// </summary>
+        public bool IsCallStreamPersistenceMemoryDatabase { get { return IsCallStreamPersistenceMemoryDatabaseAotMethod; } }
         /// <summary>
         /// 代码生成入口
         /// </summary>
@@ -206,8 +222,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             LeftArray<Type> binarySerializeGenericTypes = BinarySerialize.GetGenericMemberTypes(out binarySerializeGenericMemberTypes);
             LeftArray<ReflectionMemberType> jsonDeserializeMemberTypes, jsonSerializeMemberTypes = JsonSerialize.GetReflectionMemberTypes(out jsonDeserializeMemberTypes);
             LeftArray<ReflectionMemberType> xmlDeserializeMemberTypes, xmlSerializeMemberTypes = XmlSerialize.GetReflectionMemberTypes(out xmlDeserializeMemberTypes);
+            LeftArray<ReflectionMemberType> streamPersistenceMemoryDatabaseSnapshotTypes = StreamPersistenceMemoryDatabaseMethodParameterCreator.GetSnapshotTypes();
+            LeftArray<ReflectionMemberType> streamPersistenceMemoryDatabaseSnapshotCloneObjectTypes = StreamPersistenceMemoryDatabaseMethodParameterCreator.GetSnapshotCloneObjectTypes();
             if (methods.Length != 0 || equalsMemberTypes.Length != 0 || randomMemberTypes.Length != 0
-                || binarySerializeMemberTypes.Length != 0 || binarySerializeGenericTypes.Count != 0 || jsonSerializeMemberTypes.Length != 0 || xmlSerializeMemberTypes.Length != 0)
+                || binarySerializeMemberTypes.Length != 0 || binarySerializeGenericTypes.Count != 0 || jsonSerializeMemberTypes.Length != 0 || xmlSerializeMemberTypes.Length != 0
+                || streamPersistenceMemoryDatabaseSnapshotTypes.Length != 0 || streamPersistenceMemoryDatabaseSnapshotCloneObjectTypes.Length != 0)
             {
                 ProjectParameter = parameter;
                 generatorAttribute = attribute;
@@ -231,6 +250,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 XmlSerializeMemberTypes = xmlSerializeMemberTypes.ToArray();
                 XmlDeserializeMemberTypes = xmlDeserializeMemberTypes.ToArray();
                 XmlSerializeNullableElementTypes = XmlSerialize.NullableElementTypes.getArray(p => new ReflectionMemberType(p.Value));
+                StreamPersistenceMemoryDatabaseSnapshotTypes = streamPersistenceMemoryDatabaseSnapshotTypes.ToArray();
+                StreamPersistenceMemoryDatabaseSnapshotCloneObjectTypes = streamPersistenceMemoryDatabaseSnapshotCloneObjectTypes.ToArray();
                 _code_.Append("namespace ", ProjectParameter.DefaultNamespace, @"
 {
     /// <summary>

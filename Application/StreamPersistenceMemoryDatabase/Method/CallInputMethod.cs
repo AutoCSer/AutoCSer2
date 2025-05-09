@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点方法
     /// </summary>
-    internal abstract class CallInputMethod : Method
+    public abstract class CallInputMethod : Method
     {
         /// <summary>
         /// 服务端节点方法
@@ -49,7 +49,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 服务端节点方法
     /// </summary>
     /// <typeparam name="T">输入参数类型</typeparam>
-    internal abstract class CallInputMethod<T> : CallInputMethod
+    public abstract class CallInputMethod<T> : CallInputMethod
         where T : struct
     {
         /// <summary>
@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">方法编号</param>
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal CallInputMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, flags) { }
+        public CallInputMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, flags) { }
         /// <summary>
         /// 创建方法调用参数信息
         /// </summary>

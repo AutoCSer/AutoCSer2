@@ -18,6 +18,9 @@ namespace AutoCSer.CodeGenerator.Template
                     #region IF IsCallAutoCSer
                     AutoCSer.AotMethod.Call();
                     #endregion IF IsCallAutoCSer
+                    #region IF IsCallStreamPersistenceMemoryDatabase
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AotMethod.Call();
+                    #endregion IF IsCallStreamPersistenceMemoryDatabase
                     #region LOOP Methods
                     #region IF MemberType
                     @MemberType.FullName/**/.@MethodName();
@@ -72,6 +75,14 @@ namespace AutoCSer.CodeGenerator.Template
                     #region LOOP XmlSerializeNullableElementTypes
                     AutoCSer.XmlSerializer.NullableHasValue<@MemberType.FullName/*NOTE*/, int/*NOTE*/>(null);
                     #endregion LOOP XmlSerializeNullableElementTypes
+
+                    #region LOOP StreamPersistenceMemoryDatabaseSnapshotTypes
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode.Create<@MemberType.FullName>(null);
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode.Create<@MemberType.FullName>(null);
+                    #endregion LOOP StreamPersistenceMemoryDatabaseSnapshotTypes
+                    #region LOOP StreamPersistenceMemoryDatabaseSnapshotCloneObjectTypes
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneNode.@ReflectionMethodName<@MemberType.FullName>(null);
+                    #endregion LOOP StreamPersistenceMemoryDatabaseSnapshotCloneObjectTypes
                     return true;
                 }
                 return false;

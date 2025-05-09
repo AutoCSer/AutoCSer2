@@ -41,7 +41,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case PersistenceRebuilderCallbackTypeEnum.Close: rebuilder.Close(); return;
                 case PersistenceRebuilderCallbackTypeEnum.CloseLog: rebuilder.CloseLog(); return;
                 case PersistenceRebuilderCallbackTypeEnum.CloseVersion: rebuilder.CloseVersion(); return;
+#if !AOT
                 case PersistenceRebuilderCallbackTypeEnum.Completed: rebuilder.Service.RebuildCompleted(); return;
+#endif
             }
         }
     }

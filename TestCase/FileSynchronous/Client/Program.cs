@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                IPullFileClientSocketEvent pullClient = (IPullFileClientSocketEvent)await commandClient.GetSocketEvent();
+                IPullFileClientSocketEvent pullClient = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
                 if (pullClient == null)
                 {
                     ConsoleWriteQueue.Breakpoint("ERROR");
@@ -49,6 +49,12 @@ namespace AutoCSer.TestCase.FileSynchronousClient
                 Console.WriteLine("Press quit to exit.");
                 while (Console.ReadLine() != "quit") ;
             }
+#if AOT
+            if (AutoCSer.CommandService.DeployTask.AotMethod.Call())
+            {
+                AutoCSer.CommandService.TimestampVerify.AotMethod.Call();
+            }
+#endif
         }
         private static async Task compare(string leftPath, string rightPath)
         {

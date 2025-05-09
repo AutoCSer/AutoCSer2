@@ -109,7 +109,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 参数类型名称
             /// </summary>
-            private readonly string parameterTypeFullName;
+            public readonly string ParameterTypeFullName;
             /// <summary>
             /// 返回值绑定参数
             /// </summary>
@@ -149,14 +149,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             internal ParameterType(string typeNamePrefix, ServerMethodParameter parameter, ControllerMethod method, bool isInput, ref bool isReturnValueParameter)
             {
                 this.parameter = parameter;
-                ParameterTypeName = "__p" + (isInput ? "i" : "o") + (method.MethodIndex).toString() + "__";
-                parameterTypeFullName = typeNamePrefix + ParameterTypeName;
+                ParameterTypeName = "__" + (isInput ? "ip" : "op") + (method.MethodIndex).toString() + "__";
+                ParameterTypeFullName = typeNamePrefix + ParameterTypeName;
                 Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ClientInterfaceMethod.Parameters));
-                if (!isInput && method.ReturnValueParameterName != null)
+                if (!isInput && method.ClientInterfaceMethod.ReturnValueParameterIndex >= 0)
                 {
                     foreach (ParameterField parameterField in Parameters)
                     {
-                        if (parameterField.ParameterName == method.ReturnValueParameterName)
+                        if (parameterField.ParameterName == nameof(ServerReturnValue<int>.ReturnValue))
                         {
                             ReturnValueParameter = parameterField;
                             isReturnValueParameter = true;
@@ -178,13 +178,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 parameter = parameterType.parameter;
                 ParameterTypeName = parameterType.ParameterTypeName;
-                parameterTypeFullName = parameterType.ParameterTypeName;
+                ParameterTypeFullName = parameterType.ParameterTypeName;
                 Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ClientInterfaceMethod.Parameters));
-                if (!isInput && method.ReturnValueParameterName != null)
+                if (!isInput && method.ClientInterfaceMethod.ReturnValueParameterIndex >= 0)
                 {
                     foreach (ParameterField parameterField in Parameters)
                     {
-                        if (parameterField.ParameterName == method.ReturnValueParameterName)
+                        if (parameterField.ParameterName == nameof(ServerReturnValue<int>.ReturnValue))
                         {
                             ReturnValueParameter = parameterField;
                             isReturnValueParameter = true;
@@ -199,7 +199,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             /// <param name="method"></param>
             /// <param name="isInput"></param>
-            internal void SetSerialize(ClientInterfaceMethod method, bool isInput)
+            internal void SetSerialize(InterfaceMethodBase method, bool isInput)
             {
                 if (isInput)
                 {
@@ -213,6 +213,69 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             }
             /// <summary>
+            /// 参数类型
+            /// </summary>
+            /// <param name="typeNamePrefix">类型名称前缀</param>
+            /// <param name="parameter">命令服务参数类型</param>
+            /// <param name="method"></param>
+            internal ParameterType(string typeNamePrefix, ServerMethodParameter parameter, StreamPersistenceMemoryDatabaseLocalClientNode.NodeMethod method)
+            {
+                this.parameter = parameter;
+                ParameterTypeName = "__ip" + (method.MethodIndex).toString() + "__";
+                ParameterTypeFullName = typeNamePrefix + ParameterTypeName;
+                Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ServerNodeMethod.Parameters));
+                if (method.ServerNodeMethod.IsPersistence) SetInputSerialize(method.ServerNodeMethod);
+            }
+            /// <summary>
+            /// 复制参数类型
+            /// </summary>
+            /// <param name="typeNamePrefix">类型名称前缀</param>
+            /// <param name="parameterType"></param>
+            /// <param name="method"></param>
+            internal ParameterType(string typeNamePrefix, ParameterType parameterType, StreamPersistenceMemoryDatabaseLocalClientNode.NodeMethod method)
+            {
+                parameter = parameterType.parameter;
+                ParameterTypeName = parameterType.ParameterTypeName;
+                ParameterTypeFullName = typeNamePrefix + parameterType.ParameterTypeName;
+                Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ServerNodeMethod.Parameters));
+            }
+            /// <summary>
+            /// 参数类型
+            /// </summary>
+            /// <param name="typeNamePrefix">类型名称前缀</param>
+            /// <param name="parameter">命令服务参数类型</param>
+            /// <param name="method"></param>
+            internal ParameterType(string typeNamePrefix, ServerMethodParameter parameter, StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod method)
+            {
+                this.parameter = parameter;
+                ParameterTypeName = "__ip"  + (method.MethodIndex).toString() + "__";
+                ParameterTypeFullName = typeNamePrefix + ParameterTypeName;
+                Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ServerNodeMethod.Parameters));
+                if (method.ServerNodeMethod.IsPersistence) SetInputSerialize(method.ServerNodeMethod);
+            }
+            /// <summary>
+            /// 复制参数类型
+            /// </summary>
+            /// <param name="typeNamePrefix">类型名称前缀</param>
+            /// <param name="parameterType"></param>
+            /// <param name="method"></param>
+            internal ParameterType(string typeNamePrefix, ParameterType parameterType, StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod method)
+            {
+                parameter = parameterType.parameter;
+                ParameterTypeName = parameterType.ParameterTypeName;
+                ParameterTypeFullName = typeNamePrefix + parameterType.ParameterTypeName;
+                Parameters = parameter.Fields.getArray(p => new ParameterField(p, method.ServerNodeMethod.Parameters));
+            }
+            /// <summary>
+            /// 设置序列化方式
+            /// </summary>
+            /// <param name="method"></param>
+            internal void SetInputSerialize(InterfaceMethodBase method)
+            {
+                if (method.IsSimpleDeserializeParamter) isSimpleDeserialize = isSimpleSerialize = true;
+                else isBinaryDeserialize = isBinarySerialize = true;
+            }
+            /// <summary>
             /// 设置序列化代码
             /// </summary>
             internal void SetSerializeCode()
@@ -220,11 +283,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 string simpleSerializeCode = null, binarySerializeCode = null;
                 if (isSimpleSerialize | isSimpleDeserialize)
                 {
-                    simpleSerializeCode = new SimpleSerialize().Create(parameter.Type, parameterTypeFullName, isSimpleSerialize, isSimpleDeserialize);
+                    simpleSerializeCode = new SimpleSerialize().Create(parameter.Type, ParameterTypeFullName, isSimpleSerialize, isSimpleDeserialize);
                 }
                 if (IsBinarySerialize)
                 {
-                    binarySerializeCode = new BinarySerialize().Create(parameter.Type, parameterTypeFullName, isBinarySerialize, isBinaryDeserialize);
+                    binarySerializeCode = new BinarySerialize().Create(parameter.Type, ParameterTypeFullName, isBinarySerialize, isBinaryDeserialize);
                 }
                 if(string.IsNullOrEmpty(simpleSerializeCode))
                 {
@@ -572,7 +635,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 当前接口类型名称
         /// </summary>
-        public string InterfaceTypeName;
+        public string InterfaceTypeName { get { return CurrentType.Type.Name; } }
         /// <summary>
         /// 参数类型集合
         /// </summary>
@@ -651,15 +714,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (enumType != null) EnumType = enumType;
             }
             VerifyMethodIndex = serverInterface.VerifyMethodIndex;
-            InterfaceTypeName = type.Name;
-            if (InterfaceTypeName.Length > 1 && InterfaceTypeName[0] == 'I' && (uint)(InterfaceTypeName[1] - 'A') < 26) TypeName = InterfaceTypeName.Substring(1);
-            else if (InterfaceTypeName.EndsWith("Controller", StringComparison.Ordinal))
+            if (string.IsNullOrEmpty(CurrentAttribute.ControllerTypeName))
             {
-                if (InterfaceTypeName.EndsWith("ClientController", StringComparison.Ordinal)) TypeName = AutoCSer.Common.NamePrefix + InterfaceTypeName;
-                else TypeName = InterfaceTypeName + "Client";
+                TypeName = InterfaceTypeName;
+                if (TypeName.Length > 1 && TypeName[0] == 'I' && (uint)(TypeName[1] - 'A') < 26) TypeName = TypeName.Substring(1);
+                if (TypeName.EndsWith("Controller", StringComparison.Ordinal)) TypeName = TypeName.Substring(0, TypeName.Length - "Controller".Length);
+                if (TypeName.EndsWith("Client", StringComparison.Ordinal)) TypeName = TypeName.Substring(0, TypeName.Length - "Client".Length);
+                TypeName += "ClientController";
             }
-            else TypeName = InterfaceTypeName + "ClientController";
-            string typeName = CurrentType.Type.fullName(), typeNamePrefix = typeName.Substring(0, typeName.LastIndexOf('.') + 1) + TypeName + ".";
+            else TypeName = CurrentAttribute.ControllerTypeName;
+            string typeName = type.fullName(), typeNamePrefix = typeName.Substring(0, typeName.LastIndexOf('.') + 1) + TypeName + ".";
             ServerType = serverType;
             Dictionary<HashObject<Type>, ParameterType> paramterTypes = DictionaryCreator.CreateHashObject<Type, ParameterType>(methodArray.Length << 1);
             int methodArrayIndex = 0;

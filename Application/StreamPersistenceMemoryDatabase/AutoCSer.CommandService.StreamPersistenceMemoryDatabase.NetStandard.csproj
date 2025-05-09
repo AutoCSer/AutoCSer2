@@ -336,7 +336,7 @@
     <Compile Include="Server\NodeIdentity.cs" />
     <Compile Include="Server\ServerNodeAttribute.cs" />
     <Compile Include="Server\ServerNodeMethod.cs" />
-    <Compile Include="Server\ServerNodeMethodIndexAttribute.cs" />
+    <Compile Include="Server\ServerNodeTypeAttribute.cs" />
     <Compile Include="Server\NodeType.cs" />
     <Compile Include="Server\PersistenceBuffer.cs" />
     <Compile Include="Server\PersistenceRebuilder.cs" />

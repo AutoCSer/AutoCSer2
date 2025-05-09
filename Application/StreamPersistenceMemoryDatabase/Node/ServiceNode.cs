@@ -213,125 +213,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 disposable?.Dispose();
             }
         }
-
-        ///// <summary>
-        ///// 创建支持快照的服务端节点 参数检查
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <typeparam name="ST"></typeparam>
-        ///// <param name="index"></param>
-        ///// <param name="key"></param>
-        ///// <param name="nodeInfo"></param>
-        ///// <param name="nodeIndex"></param>
-        ///// <returns>返回 true 表示直接返回无需继续操作</returns>
-        //protected virtual bool checkCreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, out NodeIndex nodeIndex)
-        //{
-        //    if (!Service.IsLoaded) Service.LoadCreateNode(index, key);
-        //    ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
-        //    if (nodeCreator == null)
-        //    {
-        //        nodeIndex = new NodeIndex(CallStateEnum.NotFoundNodeCreator);
-        //        return true;
-        //    }
-        //    if (nodeCreator.SnapshotType != typeof(ST))
-        //    {
-        //        nodeIndex = new NodeIndex(CallStateEnum.SnapshotTypeNotMatch);
-        //        return true;
-        //    }
-        //    nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
-        //    return nodeIndex.Index < 0 || !nodeIndex.GetFree();
-        //}
-        ///// <summary>
-        ///// 创建支持快照的服务端节点
-        ///// </summary>
-        ///// <typeparam name="T">节点接口类型</typeparam>
-        ///// <typeparam name="NT">节点接口操作对象类型</typeparam>
-        ///// <typeparam name="ST">快照数据类型</typeparam>
-        ///// <param name="index">节点索引信息</param>
-        ///// <param name="key">节点全局关键字</param>
-        ///// <param name="nodeInfo">节点信息</param>
-        ///// <param name="getNode">获取节点操作对象</param>
-        ///// <returns>节点标识，已经存在节点则直接返回</returns>
-        //public virtual NodeIndex CreateNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
-        //    where T : class
-        //    where NT : T, ISnapshot<ST>
-        //{
-        //    try
-        //    {
-        //        NodeIndex nodeIndex;
-        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-        //        return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
-        //    }
-        //    finally { Service.RemoveFreeIndex(index); }
-        //}
-        ///// <summary>
-        ///// 创建支持快照的服务端节点（必须保证操作节点对象实现快照接口）
-        ///// </summary>
-        ///// <typeparam name="T">节点接口类型</typeparam>
-        ///// <typeparam name="ST">快照数据类型</typeparam>
-        ///// <param name="index">节点索引信息</param>
-        ///// <param name="key">节点全局关键字</param>
-        ///// <param name="nodeInfo">节点信息</param>
-        ///// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
-        ///// <returns>节点标识，已经存在节点则直接返回</returns>
-        //public virtual NodeIndex CreateNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
-        //    where T : class
-        //{
-        //    try
-        //    {
-        //        NodeIndex nodeIndex;
-        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-        //        return new ServerNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
-        //    }
-        //    finally { Service.RemoveFreeIndex(index); }
-        //}
-        ///// <summary>
-        ///// 创建支持快照克隆的服务端节点
-        ///// </summary>
-        ///// <typeparam name="T">节点接口类型</typeparam>
-        ///// <typeparam name="NT">节点接口操作对象类型</typeparam>
-        ///// <typeparam name="ST">快照数据类型</typeparam>
-        ///// <param name="index">节点索引信息</param>
-        ///// <param name="key">节点全局关键字</param>
-        ///// <param name="nodeInfo">节点信息</param>
-        ///// <param name="getNode">获取节点操作对象</param>
-        ///// <returns>节点标识，已经存在节点则直接返回</returns>
-        //protected virtual NodeIndex createSnapshotCloneNode<T, NT, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<NT> getNode)
-        //    where T : class
-        //    where NT : T, ISnapshot<ST>
-        //    where ST : SnapshotCloneObject<ST>
-        //{
-        //    try
-        //    {
-        //        NodeIndex nodeIndex;
-        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-        //        return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
-        //    }
-        //    finally { Service.RemoveFreeIndex(index); }
-        //}
-        ///// <summary>
-        ///// 创建支持快照克隆的服务端节点（必须保证操作节点对象实现快照接口）
-        ///// </summary>
-        ///// <typeparam name="T">节点接口类型</typeparam>
-        ///// <typeparam name="ST">快照数据类型</typeparam>
-        ///// <param name="index">节点索引信息</param>
-        ///// <param name="key">节点全局关键字</param>
-        ///// <param name="nodeInfo">节点信息</param>
-        ///// <param name="getNode">获取节点操作对象（必须保证操作节点对象实现快照接口）</param>
-        ///// <returns>节点标识，已经存在节点则直接返回</returns>
-        //protected virtual NodeIndex createSnapshotCloneNode<T, ST>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode)
-        //    where T : class
-        //    where ST : SnapshotCloneObject<ST>
-        //{
-        //    try
-        //    {
-        //        NodeIndex nodeIndex;
-        //        if (checkCreateNode<T, ST>(index, key, nodeInfo, out nodeIndex)) return nodeIndex;
-        //        return new ServerSnapshotCloneNode<T, ST>(Service, nodeIndex, key, getNode(), Service.CurrentCallIsPersistence).Index;
-        //    }
-        //    finally { Service.RemoveFreeIndex(index); }
-        //}
-
+#if !AOT
         /// <summary>
         /// 创建服务注册节点 IServerRegistryNode
         /// </summary>
@@ -367,7 +249,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         public virtual NodeIndex CreateServerByteArrayMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds)
         {
-            return CreateSnapshotNode(index, key, nodeInfo, () => MessageNode<ServerByteArrayMessage>.Create(Service, arraySize, timeoutSeconds, checkTimeoutSeconds));
+            return CreateSnapshotNode<IMessageNode<ServerByteArrayMessage>>(index, key, nodeInfo, () => new MessageNode<ServerByteArrayMessage>(arraySize, timeoutSeconds, checkTimeoutSeconds));
         }
         /// <summary>
         /// 创建消息处理节点 MessageNode{T}
@@ -410,41 +292,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType.Get(type.notNull()).CreateDistributedLockNode(this, index, key, nodeInfo);
             }
             return new NodeIndex(state);
-        }
-        /// <summary>
-        /// 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="size">位图大小（位数量）</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateManyHashBitMapClientFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size)
-        {
-            return CreateSnapshotNode<IManyHashBitMapClientFilterNode>(index, key, nodeInfo, () => new ManyHashBitMapClientFilterNode(size));
-        }
-        /// <summary>
-        /// 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="size">位图大小（位数量）</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateManyHashBitMapFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size)
-        {
-            return CreateSnapshotNode<IManyHashBitMapFilterNode>(index, key, nodeInfo, () => new ManyHashBitMapFilterNode(size));
-        }
-        /// <summary>
-        /// 创建字典节点 IHashBytesFragmentDictionaryNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashBytesFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo)
-        {
-            return CreateSnapshotNode<IHashBytesFragmentDictionaryNode>(index, key, nodeInfo, () => new HashBytesFragmentDictionaryNode());
         }
         /// <summary>
         /// 创建字典节点 IByteArrayFragmentDictionaryNode{KT}
@@ -542,19 +389,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.EquatableGenericType2.Get(type.notNull(), type2.notNull()).CreateFragmentDictionaryNode(this, index, key, nodeInfo);
             }
             return new NodeIndex(state);
-        }
-        /// <summary>
-        /// 创建字典节点 HashBytesDictionaryNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType)
-        {
-            return CreateSnapshotNode<IHashBytesDictionaryNode>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity, groupType));
         }
         /// <summary>
         /// 创建字典节点 ByteArrayDictionaryNode{KT}
@@ -775,18 +609,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new NodeIndex(state);
         }
         /// <summary>
-        /// 创建队列节点（先进先出） ByteArrayQueueNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return CreateSnapshotNode<IByteArrayQueueNode>(index, key, nodeInfo, () => new ByteArrayQueueNode(capacity));
-        }
-        /// <summary>
         /// 创建队列节点（先进先出） QueueNode{T}
         /// </summary>
         /// <param name="index">节点索引信息</param>
@@ -803,18 +625,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateQueueNode(this, index, key, nodeInfo, capacity);
             }
             return new NodeIndex(CallStateEnum.NotFoundRemoteType);
-        }
-        /// <summary>
-        /// 创建栈节点（后进先出） ByteArrayStackNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
-        {
-            return CreateSnapshotNode<IByteArrayStackNode>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
         }
         /// <summary>
         /// 创建栈节点（后进先出） StackNode{T}
@@ -869,6 +679,79 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateArrayNode(this, index, key, nodeInfo, length);
             }
             return new NodeIndex(CallStateEnum.NotFoundRemoteType);
+        }
+        /// <summary>
+        /// 创建字典节点 IHashBytesFragmentDictionaryNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateHashBytesFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo)
+        {
+            return CreateSnapshotNode<IHashBytesFragmentDictionaryNode>(index, key, nodeInfo, () => new HashBytesFragmentDictionaryNode());
+        }
+        /// <summary>
+        /// 创建字典节点 HashBytesDictionaryNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType)
+        {
+            return CreateSnapshotNode<IHashBytesDictionaryNode>(index, key, nodeInfo, () => new HashBytesDictionaryNode(capacity, groupType));
+        }
+        /// <summary>
+        /// 创建队列节点（先进先出） ByteArrayQueueNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateByteArrayQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+            return CreateSnapshotNode<IByteArrayQueueNode>(index, key, nodeInfo, () => new ByteArrayQueueNode(capacity));
+        }
+        /// <summary>
+        /// 创建栈节点（后进先出） ByteArrayStackNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
+        {
+            return CreateSnapshotNode<IByteArrayStackNode>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
+        }
+#endif
+        /// <summary>
+        /// 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateManyHashBitMapClientFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size)
+        {
+            return CreateSnapshotNode<IManyHashBitMapClientFilterNode>(index, key, nodeInfo, () => new ManyHashBitMapClientFilterNode(size));
+        }
+        /// <summary>
+        /// 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateManyHashBitMapFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size)
+        {
+            return CreateSnapshotNode<IManyHashBitMapFilterNode>(index, key, nodeInfo, () => new ManyHashBitMapFilterNode(size));
         }
         /// <summary>
         /// 创建 64 位自增ID 节点 IdentityGeneratorNode

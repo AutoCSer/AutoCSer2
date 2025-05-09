@@ -7,7 +7,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 二叉搜索树集合节点
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
+#if AOT
+    public abstract class SearchTreeSetNode<T> : ISnapshot<T>
+#else
     public sealed class SearchTreeSetNode<T> : ISearchTreeSetNode<T>, ISnapshot<T>
+#endif
         where T : IComparable<T>
     {
         /// <summary>

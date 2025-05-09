@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 多哈希位图过滤节点接口（类似布隆过滤器）
     /// </summary>
-    [ServerNode(IsAutoMethodIndex = false)]
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
     public partial interface IManyHashBitMapFilterNode
     {
         /// <summary>

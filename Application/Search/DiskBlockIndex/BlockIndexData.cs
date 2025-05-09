@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
     /// 索引数据磁盘块索引信息节点
     /// </summary>
     /// <typeparam name="T">索引数据类型</typeparam>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct BlockIndexData<T>
 #if NetStandard21

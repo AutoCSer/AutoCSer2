@@ -159,6 +159,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return ClientNode.RemoveNode(node.Index);
         }
+#if !AOT
         /// <summary>
         /// 获取消息处理节点，不存在则创建节点 MessageNode{BinaryMessage{T}}
         /// </summary>
@@ -361,6 +362,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return GetOrCreateNode<IArrayNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateArrayNode(index, nodeKey, nodeInfo, typeof(T), length), isPersistenceCallbackExceptionRenewNode);
         }
+#endif
         /// <summary>
         /// 获取 64 位自增ID 节点，不存在则创建节点 IdentityGeneratorNode
         /// </summary>

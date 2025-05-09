@@ -191,7 +191,10 @@ Press quit to exit.");
         private static async Task testCase()
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
-            try {
+            try
+            {
+                ProcessArguments gif = new ProcessArguments(@"TestCase\CopyScreenGif\bin\Release\net8.0-windows\publish\AutoCSer.TestCase.CopyScreenGif.AOT.exe");
+                Process gifProcess = await gif.Start();
                 await waitProcess(@"Document\SymmetryService\bin\Release\net8.0\AutoCSer.Document.SymmetryService.exe");
                 await waitProcess(@"Document\ServiceDataSerialize\bin\Release\net8.0\AutoCSer.Document.ServiceDataSerialize.exe");
                 await waitProcess(@"Document\ServiceThreadStrategy\bin\Release\net8.0\AutoCSer.Document.ServiceThreadStrategy.exe");
@@ -201,6 +204,11 @@ Press quit to exit.");
                 await waitProcess(@"Document\MemoryDatabaseLocalService\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseLocalService.exe", 2);
                 await waitProcess(@"Document\ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
                 await waitProcess(@"Document\ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
+                if (gifProcess != null)
+                {
+                    using (gifProcess) await wait(gif, gifProcess);
+                }
+
                 await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
                 await aot();
 
@@ -210,8 +218,10 @@ Press quit to exit.");
                 await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\ProcessGuard\SwitchProcess\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuardSwitchProcess.exe");
                 await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ReverseLogCollection\bin\Release\net8.0\AutoCSer.TestCase.ReverseLogCollection.exe", @"TestCase\ReverseLogCollection\Client\bin\Release\net8.0\AutoCSer.TestCase.ReverseLogCollectionClient.exe");
                 await waitProcess(@"TestCase\ServerRegistry\bin\Release\net8.0\AutoCSer.TestCase.ServerRegistry.exe", @"TestCase\ReverseLogCollection\ReverseService\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseService.exe", @"TestCase\ReverseLogCollection\ReverseClient\bin\Release\net8.0\AutoCSer.TestCase.LogCollectionReverseClient.exe");
+                await waitProcess(@"TestCase\FileSynchronous\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronous.exe", await getAotPublishFile(@"TestCase\FileSynchronous\Client\bin\Release\net8.0\publish\AutoCSer.TestCase.FileSynchronousClient.AOT.exe"));
                 await waitProcess(@"TestCase\FileSynchronous\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronous.exe", @"TestCase\FileSynchronous\Client\bin\Release\net8.0\AutoCSer.TestCase.FileSynchronousClient.exe");
                 await waitProcess2(@"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", @"TestCase\DiskBlock\Client\bin\Release\net8.0\AutoCSer.TestCase.DiskBlockClient.exe", 2);
+                await waitProcess2(@"TestCase\DiskBlock\bin\Release\net8.0\AutoCSer.TestCase.DiskBlock.exe", await getAotPublishFile(@"TestCase\DiskBlock\Client\bin\Release\net8.0\publish\AutoCSer.TestCase.DiskBlockClient.AOT.exe"), 2);
                 await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\InterfaceRealTimeCallMonitor\ExceptionStatistics\bin\Release\net8.0\AutoCSer.TestCase.ExceptionStatistics.exe", @"TestCase\InterfaceRealTimeCallMonitor\bin\Release\net8.0\AutoCSer.TestCase.InterfaceRealTimeCallMonitor.exe", @"TestCase\NetCoreWeb\bin\Release\net8.0\AutoCSer.TestCase.NetCoreWeb.exe");
 
                 await localSearch();
@@ -225,6 +235,7 @@ Press quit to exit.");
                 await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\publish\AutoCSer.TestCase.CommandClientPerformance.AOT.exe");
                 await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
                 await waitProcess(@"TestCase\StreamPersistenceMemoryDatabase\LocalService\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.exe", 2);
+                await waitProcess(await getAotPublishFile(@"TestCase\StreamPersistenceMemoryDatabase\LocalService\bin\Release\net8.0\publish\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT.exe"), 2);
                 await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabase.exe", @"TestCase\StreamPersistenceMemoryDatabase\Client\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient.exe", 2);
 
                 await waitProcess(@"TestCase\ProcessGuard\bin\Release\net8.0\AutoCSer.TestCase.ProcessGuard.exe", @"TestCase\DeployTask\bin\Release\net8.0\AutoCSer.TestCase.DeployTask.exe");

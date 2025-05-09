@@ -176,7 +176,7 @@ namespace AutoCSer.TestCase.SearchDataSource
         /// <summary>
         /// 非索引条件查询数据节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISearchUserNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ISearchUserNodeMethodEnum))]
         public partial interface ISearchUserNode { }
         /// <summary>
         /// 非索引条件查询数据节点接口 节点方法序号映射枚举类型
@@ -186,7 +186,6 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// <summary>
             /// [0] 
             /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Completed = 0,
             /// <summary>
@@ -198,25 +197,21 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// <summary>
             /// [2] 
             /// AutoCSer.TestCase.SearchDataSource.SearchUser value 
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             CompletedLoadPersistence = 2,
             /// <summary>
             /// [3] 
             /// int key 
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Create = 3,
             /// <summary>
             /// [4] 
             /// int key 
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Delete = 4,
             /// <summary>
             /// [5] 
             /// int key 
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             DeleteLoadPersistence = 5,
             /// <summary>
@@ -236,7 +231,6 @@ namespace AutoCSer.TestCase.SearchDataSource
             /// <summary>
             /// [9] 
             /// int key 
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Update = 9,
             /// <summary>
@@ -273,7 +267,7 @@ namespace AutoCSer.TestCase.SearchDataSource
         /// <summary>
         /// 用户搜索数据更新消息节点的自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ITimeoutMessageServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ITimeoutMessageServiceNodeMethodEnum))]
         public partial interface ITimeoutMessageServiceNode { }
         /// <summary>
         /// 用户搜索数据更新消息节点的自定义基础服务接口 节点方法序号映射枚举类型
@@ -579,7 +573,7 @@ namespace AutoCSer.TestCase.SearchDataSource
         /// <summary>
         /// 创建分词结果磁盘块索引信息节点的自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ISearchUserServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ISearchUserServiceNodeMethodEnum))]
         public partial interface ISearchUserServiceNode { }
         /// <summary>
         /// 创建分词结果磁盘块索引信息节点的自定义基础服务接口 节点方法序号映射枚举类型
@@ -884,7 +878,7 @@ namespace AutoCSer.TestCase.SearchDataSource
         /// <summary>
         /// 创建分词结果磁盘块索引信息节点的自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IServiceNodeMethodEnum))]
         public partial interface IServiceNode { }
         /// <summary>
         /// 创建分词结果磁盘块索引信息节点的自定义基础服务接口 节点方法序号映射枚举类型

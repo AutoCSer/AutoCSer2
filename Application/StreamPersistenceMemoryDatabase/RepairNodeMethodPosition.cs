@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 修复节点方法信息 与 文件流持久化位置
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     public struct RepairNodeMethodPosition : AutoCSer.BinarySerialize.ICustomSerialize<RepairNodeMethodPosition>
     {
         /// <summary>

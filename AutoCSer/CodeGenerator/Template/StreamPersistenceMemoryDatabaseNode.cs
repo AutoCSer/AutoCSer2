@@ -9,7 +9,7 @@ namespace AutoCSer.CodeGenerator.Template
         /// <summary>
         /// @CurrentType.CodeGeneratorXmlDocument
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(@MethodIndexEnumTypeName))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(@MethodIndexEnumTypeName))]
         /*NOTE*/
         public partial interface /*NOTE*/@TypeNameDefinition { }
         /// <summary>
@@ -25,9 +25,9 @@ namespace AutoCSer.CodeGenerator.Template
             #region LOOP Method.Parameters
             /// @ParameterType.XmlFullName @ParameterName @CodeGeneratorXmlDocument
             #endregion LOOP Method.Parameters
-            #region IF MethodIsReturn
+            #region IF Method.IsReturn
             /// 返回值 @MethodReturnType.XmlFullName @Method.CodeGeneratorReturnXmlDocument
-            #endregion IF MethodIsReturn
+            #endregion IF Method.IsReturn
             /// </summary>
             #endregion IF Method
             @EnumName = @MethodIndex,

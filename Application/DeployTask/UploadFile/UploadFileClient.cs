@@ -32,6 +32,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// 完成操作数据文件名称
         /// </summary>
         private string completedFileName;
+#if !AOT
         /// <summary>
         /// 上传文件最后移动文件操作任务
         /// </summary>
@@ -42,6 +43,7 @@ namespace AutoCSer.CommandService.DeployTask
                 return new UploadCompletedTask(completedFileName);
             }
         }
+#endif
         /// <summary>
         /// 上传索引与路径信息
         /// </summary>

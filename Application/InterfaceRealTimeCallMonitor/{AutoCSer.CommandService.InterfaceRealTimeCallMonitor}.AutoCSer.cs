@@ -214,7 +214,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 异常调用统计信息节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IExceptionStatisticsNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IExceptionStatisticsNodeMethodEnum))]
         public partial interface IExceptionStatisticsNode { }
         /// <summary>
         /// 异常调用统计信息节点接口 节点方法序号映射枚举类型
@@ -236,7 +236,6 @@ namespace AutoCSer.CommandService
             /// <summary>
             /// [2] 获取指定数量调用异常统计信息
             /// int count 获取调用异常统计信息数量
-            /// 返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics 
             /// </summary>
             GetManyStatistics = 2,
             /// <summary>
@@ -277,7 +276,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 创建异常调用统计信息节点的自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IExceptionStatisticsServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IExceptionStatisticsServiceNodeMethodEnum))]
         public partial interface IExceptionStatisticsServiceNode { }
         /// <summary>
         /// 创建异常调用统计信息节点的自定义基础服务接口 节点方法序号映射枚举类型

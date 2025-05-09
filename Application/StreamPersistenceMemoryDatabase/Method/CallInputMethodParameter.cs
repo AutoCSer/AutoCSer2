@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 调用方法与参数信息
     /// </summary>
-    internal abstract class CallInputMethodParameter : InputMethodParameter
+    public abstract class CallInputMethodParameter : InputMethodParameter
     {
         /// <summary>
         /// 服务端节点方法
@@ -176,7 +176,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="methodParameter"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void Callback(CallInputMethodParameter methodParameter)
+        public static void Callback(CallInputMethodParameter methodParameter)
         {
             methodParameter.SuccessCallback();
         }
@@ -191,7 +191,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 调用方法与参数信息
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class CallInputMethodParameter<T> : CallInputMethodParameter
+    public sealed class CallInputMethodParameter<T> : CallInputMethodParameter
         where T : struct
     {
         /// <summary>
@@ -282,7 +282,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static T GetParameter(CallInputMethodParameter<T> parameter)
+        public static T GetParameter(CallInputMethodParameter<T> parameter)
         {
             return parameter.Parameter;
         }

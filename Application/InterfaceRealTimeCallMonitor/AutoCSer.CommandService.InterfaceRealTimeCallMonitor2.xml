@@ -835,7 +835,6 @@
             <summary>
             [2] 获取指定数量调用异常统计信息
             int count 获取调用异常统计信息数量
-            返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallExceptionStatistics 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.IExceptionStatisticsNodeMethodEnum.GetStatistics">

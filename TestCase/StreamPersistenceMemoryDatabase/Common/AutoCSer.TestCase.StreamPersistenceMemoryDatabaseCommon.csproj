@@ -11,6 +11,10 @@
     <DocumentationFile>C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="**" />
     <EmbeddedResource Remove="**" />

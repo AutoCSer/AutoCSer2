@@ -6,7 +6,7 @@ namespace AutoCSer.TestCase.SearchDataSource
     /// 操作数据
     /// </summary>
     /// <typeparam name="T">关键字数据类型</typeparam>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct OperationData<T>
     {

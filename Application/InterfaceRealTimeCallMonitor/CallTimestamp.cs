@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
 #endif
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct CallTimestamp
     {

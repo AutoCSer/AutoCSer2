@@ -192,7 +192,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             throw new AutoCSer.Log.IgnoreException();
             //持久化成功，回调程序产生异常，在没有写入忽略序列化异常位置以前被意外中断，会导致重新初始化的时候节点会变成异常不可用状态
         }
-
+#if !AOT
         private ServerByteArray serverByteArray;
         public void SetServerByteArray(ServerByteArray value)
         {
@@ -202,6 +202,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             return serverByteArray;
         }
+#endif
         private Game.Monster jsonValue;
         public void SetJsonValue(Game.Monster value)
         {

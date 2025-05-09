@@ -17,6 +17,7 @@ namespace AutoCSer.TestCase.Data
     [AutoCSer.CodeGenerator.FieldEquals]
     [AutoCSer.CodeGenerator.MemberCopy]
 #endif
+    [AutoCSer.BinarySerialize(IsMemberMap = true)]
     internal partial class Field
     {
         public bool Bool;

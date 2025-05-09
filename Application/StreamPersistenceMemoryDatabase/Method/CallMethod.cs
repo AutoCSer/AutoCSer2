@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点方法
     /// </summary>
-    internal abstract class CallMethod : Method
+    public abstract class CallMethod : Method
     {
         /// <summary>
         /// 服务端节点方法
@@ -15,7 +15,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">方法编号</param>
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal CallMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, CallTypeEnum.Call, flags) { }
+        public CallMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, CallTypeEnum.Call, flags) { }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -52,7 +52,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static void Callback(ref CommandServerCallback<CallStateEnum>? callback)
+        public static void Callback(ref CommandServerCallback<CallStateEnum>? callback)
 #else
         internal static void Callback(ref CommandServerCallback<CallStateEnum> callback)
 #endif

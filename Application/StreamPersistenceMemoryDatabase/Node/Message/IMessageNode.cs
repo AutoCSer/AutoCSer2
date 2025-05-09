@@ -3,10 +3,12 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 消息处理节点
+    /// 消息处理节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
     public partial interface IMessageNode<T>
     {
         /// <summary>
@@ -48,9 +50,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 清除所有消息
         /// </summary>
+        void ClearLoadPersistence();
+        /// <summary>
+        /// 清除所有消息
+        /// </summary>
         void Clear();
         /// <summary>
-        /// 清除所有失败消息
+        /// 清除所有失败消息（包括处理超时消息）
+        /// </summary>
+        void ClearFailedLoadPersistence();
+        /// <summary>
+        /// 清除所有失败消息（包括处理超时消息）
         /// </summary>
         void ClearFailed();
         /// <summary>
@@ -68,14 +78,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 生产者添加新消息
         /// </summary>
         /// <param name="message"></param>
-        [ServerMethod(IsIgnorePersistenceCallbackException = true)]
+        void AppendMessageLoadPersistence(T message);
+        /// <summary>
+        /// 生产者添加新消息
+        /// </summary>
+        /// <param name="message"></param>
         void AppendMessage(T message);
         /// <summary>
         /// 消息完成处理
         /// </summary>
         /// <param name="identity"></param>
         [ServerMethod(IsIgnorePersistenceCallbackException = true, IsSendOnly = true)]
+        void CompletedLoadPersistence(MessageIdeneity identity);
+        /// <summary>
+        /// 消息完成处理
+        /// </summary>
+        /// <param name="identity"></param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true, IsSendOnly = true)]
         void Completed(MessageIdeneity identity);
+        /// <summary>
+        /// 消息失败处理
+        /// </summary>
+        /// <param name="identity"></param>
+        [ServerMethod(IsIgnorePersistenceCallbackException = true, IsSendOnly = true)]
+        void FailedLoadPersistence(MessageIdeneity identity);
         /// <summary>
         /// 消息失败处理
         /// </summary>

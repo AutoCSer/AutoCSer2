@@ -24,6 +24,9 @@
             <summary>
             基于递增登录时间戳验证的服务认证客户端接口
             </summary>
+            <summary>
+            基于递增登录时间戳验证的服务认证客户端接口
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.ITimestampVerifyClient.Verify(System.UInt64,System.Byte[],System.Int64@)">
             <summary>
@@ -181,30 +184,30 @@
             <param name="controller"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.TimestampVerifyClient">
+        <member name="T:AutoCSer.CommandService.TimestampVerifyClientController">
             <summary>
             基于递增登录时间戳验证的服务认证客户端接口 客户端控制器
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__pi0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.TimestampVerifyClient.__pi0__@)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__ip0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.TimestampVerifyClientController.__ip0__@)">
             <summary>
             简单序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__pi0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__ip0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
             简单序列化
             </summary>
             <param name="__stream__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__pi0__.SimpleSerialize">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__ip0__.SimpleSerialize">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__po0__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.TimestampVerifyClient.__po0__@,System.Byte*)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__op0__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.TimestampVerifyClientController.__op0__@,System.Byte*)">
             <summary>
             简单反序列化
             </summary>
@@ -213,7 +216,7 @@
             <param name="end"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__po0__.simpleDeserialize(System.Byte*,System.Byte*)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__op0__.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
             简单反序列化
             </summary>
@@ -221,12 +224,12 @@
             <param name="__end__"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__po0__.SimpleSerialize">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__op0__.SimpleSerialize">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.AutoCSer#CommandService#ITimestampVerifyClient#Verify(System.UInt64,System.Byte[],System.Int64@)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.AutoCSer#CommandService#ITimestampVerifyClient#Verify(System.UInt64,System.Byte[],System.Int64@)">
             <summary>
             验证函数
             </summary>
@@ -235,12 +238,12 @@
             <param name="timestamp">待验证时间戳</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__CommandClientControllerMethods__">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__CommandClientControllerMethods__">
             <summary>
             获取客户端接口方法信息集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyClient.__CommandClientControllerConstructor__">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyClientController.__CommandClientControllerConstructor__">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>

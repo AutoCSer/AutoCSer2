@@ -1,5 +1,6 @@
 ﻿using AutoCSer.CodeGenerator.Metadata;
 using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
@@ -8,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using static AutoCSer.CodeGenerator.Template.Pub;
 
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
@@ -30,11 +30,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 接口方法信息
             /// </summary>
-            private InterfaceMethodBase interfaceMethod;
-            /// <summary>
-            /// 接口方法信息
-            /// </summary>
-            public MethodIndex Method;
+            public readonly MethodIndex Method;
             /// <summary>
             /// 方法名称
             /// </summary>
@@ -44,10 +40,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public ExtensionType MethodReturnType;
             /// <summary>
-            /// 是否存在返回值
-            /// </summary>
-            public bool MethodIsReturn { get { return interfaceMethod.ReturnValueType != typeof(void); } }
-            /// <summary>
             /// 枚举名称
             /// </summary>
             public string EnumName;
@@ -56,19 +48,31 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public int MethodIndex;
             /// <summary>
+            /// 快照数据类型
+            /// </summary>
+            public ExtensionType SnapshotType;
+            /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
-            /// <param name="nodeAttribute"></param>
-            /// <param name="interfaceMethod"></param>
-            public NodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute nodeAttribute, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod interfaceMethod)
+            public NodeMethod() { }
+            /// <summary>
+            /// 接口方法与枚举信息
+            /// </summary>
+            /// <param name="method"></param>
+            public NodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method)
             {
-                if (interfaceMethod != null)
-                {
-                    this.interfaceMethod = interfaceMethod;
-                    Method = new MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex, interfaceMethod.ParameterStartIndex, interfaceMethod.ParameterEndIndex);
-                    EnumName = Method.MethodName;
-                    MethodReturnType = interfaceMethod.ReturnValueType;
-                }
+                Method = new MethodIndex(method.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, method.MethodIndex, method.ParameterStartIndex, method.ParameterEndIndex);
+                EnumName = Method.MethodName;
+                MethodReturnType = method.ReturnValueType;
+                if (method.MethodAttribute.SnapshotMethodSort != 0) SnapshotType = method.Parameters[method.ParameterStartIndex].ParameterType;
+            }
+            /// <summary>
+            /// 设置方法序号
+            /// </summary>
+            /// <param name="methodIndex">方法序号</param>
+            internal void SetMethodIndex(int methodIndex)
+            {
+                MethodIndex = methodIndex;
             }
         }
 
@@ -89,14 +93,44 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         protected override Task nextCreate()
         {
-            if (!CurrentType.Type.IsInterface) return AutoCSer.Common.CompletedTask;
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType type = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType(CurrentType.Type);
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[] methods = type.Methods;
+            Type type = CurrentType.Type;
+            if (!type.IsInterface) return AutoCSer.Common.CompletedTask;
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType nodeType = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType(type);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[] methods = nodeType.Methods;
             if (methods == null || methods.Length == 0) return AutoCSer.Common.CompletedTask;
-            Methods = methods.getArray(p => new NodeMethod(type.NodeAttribute, p));
+            int methodArrayIndex = 0;
+            LeftArray<NodeMethod> snapshotTypeNodeMethod = new LeftArray<NodeMethod>(0);
+            Methods = new NodeMethod[methods.Length];
+            foreach (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method in methods)
+            {
+                if (method != null)
+                {
+                    if (method.MethodAttribute.SnapshotMethodSort != 0 && method.ParameterCount != 1)
+                    {
+                        Messages.Error($"{type.fullName()} 节点快照方法 {method.Method.Name} 有效输入参数数量 {method.ParameterCount} 必须为 1");
+                        return AutoCSer.Common.CompletedTask;
+                    }
+                    NodeMethod nodeMethod = new NodeMethod(method);
+                    if (nodeMethod.SnapshotType != null)
+                    {
+                        foreach (NodeMethod snapshotMethod in snapshotTypeNodeMethod)
+                        {
+                            if (snapshotMethod.SnapshotType.Type == nodeMethod.SnapshotType.Type)
+                            {
+                                Messages.Error($"{type.fullName()} 节点快照方法 {method.Method.Name} 冲突 {snapshotMethod.MethodName}");
+                                return AutoCSer.Common.CompletedTask;
+                            }
+                        }
+                        snapshotTypeNodeMethod.Add(nodeMethod);
+                    }
+                    Methods[methodArrayIndex] = nodeMethod;
+                }
+                else Methods[methodArrayIndex] = new NodeMethod();
+                ++methodArrayIndex;
+            }
 
             int methodIndex = -1;
-            Type methodIndexEnumType = type.ServerNodeMethodIndexAttribute?.MethodIndexEnumType;
+            Type methodIndexEnumType = nodeType.ServerNodeTypeAttribute?.MethodIndexEnumType;
             if (methodIndexEnumType != null && methodIndexEnumType.IsEnum)
             {
                 LeftArray<KeyValue<int, string>> enumValues = new LeftArray<KeyValue<int, string>>(0);
@@ -123,11 +157,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (method.EnumName == null) method.EnumName = method.Method?.MethodName;
                 if (method.EnumName != null && !names.Add(method.EnumName))
                 {
-                    throw new Exception(Culture.Configuration.Default.GetStreamPersistenceMemoryDatabaseNodeMethodNameConflict(CurrentType.Type, MethodIndexEnumTypeName, method.EnumName));
+                    throw new Exception(Culture.Configuration.Default.GetStreamPersistenceMemoryDatabaseNodeMethodNameConflict(type, MethodIndexEnumTypeName, method.EnumName));
                 }
-                method.MethodIndex = methodIndex++;
+                method.SetMethodIndex(methodIndex++);
             }
-
             create(true);
             return AutoCSer.Common.CompletedTask;
         }

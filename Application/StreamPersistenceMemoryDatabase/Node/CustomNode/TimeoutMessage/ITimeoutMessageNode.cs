@@ -7,7 +7,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
     /// 超时任务消息节点接口（用于分布式事务数据一致性检查）
     /// </summary>
     /// <typeparam name="T">任务消息数据类型</typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true, IsMethodParameterCreator = true)]
+#endif
     public partial interface ITimeoutMessageNode<T>
     {
         /// <summary>

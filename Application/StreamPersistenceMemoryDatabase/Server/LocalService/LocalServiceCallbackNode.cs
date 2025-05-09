@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 本地服务调用节点方法队列节点
     /// </summary>
-    internal sealed class LocalServiceCallbackNode : ReadWriteQueueNode
+    public sealed class LocalServiceCallbackNode : ReadWriteQueueNode
     {
         /// <summary>
         /// 本地服务客户端节点
@@ -82,7 +82,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex">调用方法编号</param>
         /// <param name="callback">客户端回调委托</param>
         /// <param name="isWriteQueue"></param>
-        internal static void Create(LocalClientNode clientNode, int methodIndex, Action<LocalResult> callback, bool isWriteQueue)
+        public static void Create(LocalClientNode clientNode, int methodIndex, Action<LocalResult> callback, bool isWriteQueue)
         {
             bool isCallback = true;
             try

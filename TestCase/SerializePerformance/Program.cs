@@ -14,7 +14,6 @@ namespace AutoCSer.TestCase.SerializePerformance
             AutoCSer.BinarySerializeConfig PropertySerializeConfig = new BinarySerializeConfig { };
             do
             {
-                //AOT（NoJIT）模式应该尽量使用属性而非字段
                 PropertyData propertyData = AutoCSer.RandomObject.Creator<PropertyData>.CreateNotNull(randomConfig);
                 if (isJson) json(propertyData, count);
                 if (isJsonThreadStatic) jsonThreadStatic(propertyData, count);
@@ -41,7 +40,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 if (isXml) xml(floatFiledData, count);
                 if (isXmlThreadStatic) xmlThreadStatic(floatFiledData, count);
 
-                //AOT（NoJIT）模式尽量不要使用二进制序列化
                 //浮点数对二进制序列化无影响
                 if (isBinary)
                 {

@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 多哈希位图数据
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ManyHashBitMap
     {
@@ -31,7 +31,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal void Set(int size)
         {
             SizeDivision.Set(Math.Max(size, 2));
-            Map = new ulong[(long)Size + 63 >> 6];
+            Map = new ulong[((long)Size + 63) >> 6];
         }
         /// <summary>
         /// 获取位数据

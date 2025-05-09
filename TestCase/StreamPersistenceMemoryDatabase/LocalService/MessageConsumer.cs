@@ -12,7 +12,53 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 {
     internal class MessageConsumer : LocalServiceMessageConsumer<TestClassMessage>
     {
+#if AOT
+        private readonly ITestClassMessageNodeLocalClientNode node;
+        internal MessageConsumer(LocalClient client, ITestClassMessageNodeLocalClientNode node) : base(client, (LocalClientNode)node, 1 << 10) 
+        {
+            this.node = node;
+            start().NotWait();
+        }
+        /// <summary>
+        /// 开始接收并处理消息
+        /// </summary>
+        /// <returns></returns>
+        private async Task start()
+        {
+            try
+            {
+                keepCallback = await node.GetMessage(maxMessageCount, onMessage);
+            }
+            catch (Exception exception)
+            {
+                await AutoCSer.LogHelper.Exception(exception);
+            }
+        }
+        /// <summary>
+        /// 消息处理
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        protected override async Task checkOnMessage(TestClassMessage message)
+        {
+            bool isMessage = false;
+            try
+            {
+                isMessage = await onMessage(message);
+            }
+            catch (Exception exception)
+            {
+                AutoCSer.LogHelper.ExceptionIgnoreException(exception);
+            }
+            finally
+            {
+                if (isMessage) node.Completed(message.MessageIdeneity);
+                else node.Failed(message.MessageIdeneity);
+            }
+        }
+#else
         internal MessageConsumer(LocalClient client, IMessageNodeLocalClientNode<TestClassMessage> node) : base(client, node, 1 << 10) { }
+#endif
         protected override Task<bool> onMessage(TestClassMessage message)
         {
             if (isCompleted) AutoCSer.Common.GetCompletedTask(false);
@@ -24,7 +70,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         private static readonly object messageLock = new object();
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
+#if AOT
+            LocalResult<ITestClassMessageNodeLocalClientNode> node = await client.GetOrCreateNode<ITestClassMessageNodeLocalClientNode>(typeof(ITestClassMessageNodeLocalClientNode).FullName, (index, nodeKey, nodeInfo) => client.ClientNode.CreateTestClassMessageNode(index, nodeKey, nodeInfo, 1 << 10, 5, 1));
+#else
             LocalResult<IMessageNodeLocalClientNode<TestClassMessage>> node = await client.GetOrCreateMessageNode<TestClassMessage>(typeof(IMessageNodeLocalClientNode<TestClassMessage>).FullName, 1 << 10, 5, 1);
+#endif
             if (!Program.Breakpoint(node)) return;
             LocalResult result = await node.Value.Clear();
             if (!Program.Breakpoint(result)) return;
@@ -76,7 +126,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         }
         private static void completed(bool isReadWriteQueue)
         {
-            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            string readWriteQueue = isReadWriteQueue ? "ReadWriteQueue" : null;
             Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }

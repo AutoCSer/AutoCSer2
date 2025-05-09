@@ -6,9 +6,12 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 目录名称
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct DirectoryName
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct DirectoryName
     {
         /// <summary>
         /// 目录名称

@@ -8,7 +8,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 栈节点（后进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if AOT
+    public abstract class StackNode<T> : ISnapshot<T>
+#else
     public sealed class StackNode<T> : IStackNode<T>, ISnapshot<T>
+#endif
     {
         /// <summary>
         /// 栈

@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// 读取数据缓冲区，来源于同步 IO 数据缓冲区，需要同步处理数据，否则需要复制数据
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     public struct ReadBuffer : AutoCSer.BinarySerialize.ICustomSerialize<ReadBuffer>
     {
         /// <summary>

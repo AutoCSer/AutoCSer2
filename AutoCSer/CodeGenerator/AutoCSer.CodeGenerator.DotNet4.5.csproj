@@ -70,14 +70,14 @@
     <Compile Include="TemplateGenerator\Generator.cs" />
     <Compile Include="TemplateGenerator\JavaScriptTypeDefinition.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseClientNode.cs" />
-    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNodeInterface.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseNode.cs" />
     <Compile Include="TemplateGenerator\TypeDefinition.cs" />
     <Compile Include="Template\CommandServerClientControllerInterface.cs" />
     <Compile Include="Template\CommandServerMethodIndexEnumType.cs" />
     <Compile Include="Template\Pub.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseClientNode.cs" />
-    <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNodeInterface.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseNode.cs" />
     <Compile Include="TreeTemplate\ITreeBuilderNode.cs" />
     <Compile Include="TreeTemplate\ITreeTemplateNode.cs" />

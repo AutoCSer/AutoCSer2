@@ -715,6 +715,13 @@
             <param name="deserializer"></param>
             <param name="value">目标数据</param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.ICustom``1(``0@)">
+            <summary>
+            自定义二进制反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.ICustom``1(AutoCSer.BinaryDeserializer,``0@)">
             <summary>
             自定义反序列化
@@ -1439,6 +1446,20 @@
         <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Type@)">
             <summary>
             类型信息反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value">字符串</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.BinaryDeserialize(System.Object@)">
+            <summary>
+            object 反序列化
+            </summary>
+            <param name="value">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.primitiveDeserialize(AutoCSer.BinaryDeserializer,System.Object@)">
+            <summary>
+            object 反序列化
             </summary>
             <param name="deserializer"></param>
             <param name="value">字符串</param>
@@ -4260,12 +4281,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinarySerializeConfig.WriteHeader(AutoCSer.Memory.UnmanagedStream,System.Boolean)">
+        <member name="M:AutoCSer.BinarySerializeConfig.WriteHeader(AutoCSer.Memory.UnmanagedStream)">
             <summary>
             写入序列化头部数据
             </summary>
             <param name="stream"></param>
-            <param name="notReferenceCount"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.BinarySerializeMemberAttribute">
             <summary>
@@ -4716,11 +4737,6 @@
             历史对象指针位置
             </summary>
         </member>
-        <member name="F:AutoCSer.BinarySerializer.isObjectReference">
-            <summary>
-            是否存在对象被引用
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerializer.CurrentDepth">
             <summary>
             节点层级计数
@@ -4731,19 +4747,19 @@
             数据流起始位置
             </summary>
         </member>
-        <member name="P:AutoCSer.BinarySerializer.Warning">
-            <summary>
-            警告提示状态
-            </summary>
-        </member>
-        <member name="F:AutoCSer.BinarySerializer.rootNotReferenceCount">
-            <summary>
-            作为根节点时是否需要添加屏蔽引用
-            </summary>
-        </member>
         <member name="F:AutoCSer.BinarySerializer.notReferenceCount">
             <summary>
             增加非引用计数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerializer.isObjectReference">
+            <summary>
+            是否存在对象被引用
+            </summary>
+        </member>
+        <member name="P:AutoCSer.BinarySerializer.Warning">
+            <summary>
+            警告提示状态
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerializer.isProcessing">
@@ -4806,10 +4822,13 @@
             <param name="isSerializeCopyString"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.SetDefault">
+        <member name="M:AutoCSer.BinarySerializer.SetDefaultContext(System.Object,System.Boolean@)">
             <summary>
-            设置默认初始化数据
+            设置上下文
             </summary>
+            <param name="context"></param>
+            <param name="isSerializeCopyString"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.BinarySerializer.System#IDisposable#Dispose">
             <summary>
@@ -4878,6 +4897,13 @@
             </summary>
             <param name="binarySerializer"></param>
             <param name="value">数据对象</param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.ICustom``1(AutoCSer.BinarySerialize.ICustomSerialize{``0})">
+            <summary>
+            自定义序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.ICustom``1(AutoCSer.BinarySerializer,``0)">
             <summary>
@@ -5398,6 +5424,19 @@
             <param name="binarySerializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.BinarySerializer.BinarySerialize(System.Object)">
+            <summary>
+            object 序列化
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.BinarySerializer.primitiveSerialize(AutoCSer.BinarySerializer,System.Object)">
+            <summary>
+            object 序列化
+            </summary>
+            <param name="binarySerializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinarySerializer.GetCustomMemberMap(AutoCSer.Metadata.MemberMap)">
             <summary>
             获取并设置自定义序列化成员位图
@@ -5486,14 +5525,14 @@
         </member>
         <member name="M:AutoCSer.BinarySerializer.InternalIndependentSerializeNotNull``1(``0@)">
             <summary>
-            内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）
+            内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.SimpleSerialize``1(``0@)">
             <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
+            内部成员对象序列化为一个可独立反序列化的数据（用于代码生成，不允许开发者调用）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -8663,6 +8702,11 @@
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.ConstructorNull">
             <summary>
             构造函数返回 null 值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.NotObject">
+            <summary>
+            非 object 值
             </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.FieldSize">
@@ -19833,13 +19877,6 @@
             <param name="size"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Memory.Pointer.GetIndexBeforeMove(System.Int32)">
-            <summary>
-            移动当前数据操作位置并返回移动之前的位置
-            </summary>
-            <param name="size"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Memory.Pointer.SetCurrent(System.Void*)">
             <summary>
             设置当前数据操作位置
@@ -19889,9 +19926,9 @@
             <param name="size"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Memory.Pointer.GetBeforeMoveSize(System.Int32)">
+        <member name="M:AutoCSer.Memory.Pointer.GetIndexBeforeMove(System.Int32)">
             <summary>
-            移动当前位置并返回移动之前的位置
+            移动当前数据操作位置并返回移动之前的位置
             </summary>
             <param name="size"></param>
             <returns></returns>
@@ -20437,6 +20474,11 @@
             <param name="right">不能为null</param>
             <param name="count">比较字节数,必须大于等于0</param>
             <returns>是否相等</returns>
+        </member>
+        <member name="F:AutoCSer.Memory.Common.AddHashCode">
+            <summary>
+            哈希值计算加法运算常量
+            </summary>
         </member>
         <member name="M:AutoCSer.Memory.Common.GetHashCode64(System.Byte*,System.Int32)">
             <summary>
@@ -21181,13 +21223,6 @@
             </summary>
             <param name="size"></param>
             <returns>失败返回 0</returns>
-        </member>
-        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.GetBeforeMoveSize(System.Int32)">
-            <summary>
-            移动当前位置并返回当前位置
-            </summary>
-            <param name="size"></param>
-            <returns>失败返回 -1</returns>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.MoveSize(System.Int32)">
             <summary>
@@ -28654,13 +28689,14 @@
             输出参数
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.SynchronousOutputCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,`0@)">
+        <member name="M:AutoCSer.Net.CommandServer.SynchronousOutputCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,`0@,`1)">
             <summary>
             同步等待命令
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="inputParameter"></param>
+            <param name="outputParameter"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.SynchronousOutputCommand`2.OnReceive(AutoCSer.SubArray{System.Byte}@)">
             <summary>

@@ -7,8 +7,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 自增 ID 分段
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct IdentityFragment
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct IdentityFragment
     {
         /// <summary>
         /// 当前分配 ID

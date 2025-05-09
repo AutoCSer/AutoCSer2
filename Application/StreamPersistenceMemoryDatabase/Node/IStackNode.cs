@@ -3,10 +3,12 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 栈节点（后进先出）
+    /// 栈节点接口（后进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
     public partial interface IStackNode<T>
     {
         /// <summary>

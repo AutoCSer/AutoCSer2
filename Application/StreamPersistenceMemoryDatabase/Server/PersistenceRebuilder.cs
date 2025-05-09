@@ -403,9 +403,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!checkPersistencePosition(persistenceStream)) return false;
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData;
-                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                     {
-                        outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
                         fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
                         {
@@ -417,7 +416,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         if (isClosedOrServiceDisposed) return false;
                         persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
 
-                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull(), typeof(T));
+                        SnapshotMethodSerializer<T> snapshotMethodSerializer = new SnapshotMethodSerializer<T>(outputSerializer, node.notNull());
                         for (int valueIndex = 0; valueIndex != array.Length;)
                         {
                             fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
@@ -524,9 +523,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!checkPersistencePosition(persistenceStream)) return false;
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData;
-                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                     {
-                        outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
                         fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
                         {
@@ -538,7 +536,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         if (isClosedOrServiceDisposed) return false;
                         persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
 
-                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull(), typeof(T));
+                        SnapshotMethodSerializer<T> snapshotMethodSerializer = new SnapshotMethodSerializer<T>(outputSerializer, node.notNull());
                         for (int valueIndex = 0; valueIndex != array.Length;)
                         {
                             fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
@@ -680,9 +678,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!checkPersistencePosition(persistenceStream)) return false;
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData;
-                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                     {
-                        outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
                         fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
                         {
@@ -694,7 +691,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         if (isClosedOrServiceDisposed) return false;
                         persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
 
-                        SnapshotMethodSerializer snapshotMethodSerializer = new SnapshotMethodSerializer(outputSerializer, node.notNull(), typeof(T));
+                        SnapshotMethodSerializer<T> snapshotMethodSerializer = new SnapshotMethodSerializer<T>(outputSerializer, node.notNull());
                         IEnumerator<T> enumerator = values.SnapshotValues.GetEnumerator();
                         bool isCurrentValue = false;
                         do
@@ -843,9 +840,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         persistenceBuffer.GetBufferLength();
                         SubArray<byte> outputData;
                         var current = default(MethodParameter);
-                        using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
+                        using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                         {
-                            outputSerializer.SetDefault();
                             persistenceBuffer.OutputStream = outputStream;
                             do
                             {

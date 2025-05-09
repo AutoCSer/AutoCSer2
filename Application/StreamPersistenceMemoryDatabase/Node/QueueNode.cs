@@ -8,7 +8,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 队列节点（先进先出）
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if AOT
+    public abstract class QueueNode<T> : ISnapshot<T>
+#else
     public sealed class QueueNode<T> : IQueueNode<T>, ISnapshot<T>
+#endif
     {
         /// <summary>
         /// 队列

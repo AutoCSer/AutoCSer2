@@ -109,13 +109,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         /// <param name="messages">节点构造提示信息</param>
         /// <returns></returns>
         public abstract string GetClientNodeCreatorWarning(Type type, string[] messages);
+#if !AOT
         /// <summary>
         /// 守护的新进程启动失败
         /// </summary>
         /// <param name="process">退出的进程信息</param>
         /// <returns></returns>
         public abstract string GetGuardProcessStartFailed(ProcessGuardInfo process);
-
+#endif
         /// <summary>
         /// 默认扩展系统语言文化配置
         /// </summary>

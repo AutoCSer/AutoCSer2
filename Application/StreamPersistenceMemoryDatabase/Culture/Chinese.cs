@@ -152,6 +152,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         {
             return $"{type.fullName()} 节点客户端生成警告信息\r\n{string.Join("\r\n", messages)}";
         }
+#if !AOT
         /// <summary>
         /// 守护的新进程启动失败
         /// </summary>
@@ -161,7 +162,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         {
             return $"守护的进程 {process.ProcessName} 退出后，新进程启动失败。";
         }
-
+#endif
         /// <summary>
         /// 默认扩展中文配置
         /// </summary>

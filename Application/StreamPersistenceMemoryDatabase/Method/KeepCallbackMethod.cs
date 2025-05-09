@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点方法
     /// </summary>
-    internal abstract class KeepCallbackMethod : Method
+    public abstract class KeepCallbackMethod : Method
     {
         /// <summary>
         /// 服务端节点方法
@@ -14,7 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">方法编号</param>
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal KeepCallbackMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, CallTypeEnum.KeepCallback, flags) { }
+        public KeepCallbackMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, CallTypeEnum.KeepCallback, flags) { }
         /// <summary>
         /// 服务端节点方法
         /// </summary>
@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="callType">方法调用类型</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal KeepCallbackMethod(int index, int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
+        public KeepCallbackMethod(int index, int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
         /// <summary>
         /// 调用节点方法
         /// </summary>
@@ -61,7 +61,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         /// <param name="flag">服务端节点方法标记</param>
 #if NetStandard21
-        internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, MethodFlagsEnum flag)
+        public static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter>? callback, MethodFlagsEnum flag)
 #else
         internal static void EnumerableCallback<T>(System.Collections.Generic.IEnumerable<T> values, ref CommandServerKeepCallback<KeepCallbackResponseParameter> callback, MethodFlagsEnum flag)
 #endif

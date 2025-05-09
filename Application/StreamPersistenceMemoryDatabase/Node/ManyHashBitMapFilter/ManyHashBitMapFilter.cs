@@ -4,6 +4,7 @@ using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -70,20 +71,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static uint[] GetHashCode2(string value)
         {
-            ulong hashCode = value.getHashCode64();
-            return new uint[] { (uint)hashCode, (uint)(hashCode >> 32) };
+            return new HashCode128(value).GetHashCodeArray2();
         }
         /// <summary>
-        /// 获取 3 个 21b+21b+22b 的哈希值
+        /// 获取 3 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static uint[] GetHashCode3(string value)
         {
-            ulong hashCode = value.getHashCode64();
-            return new uint[] { ((uint)hashCode & ((1 << 21) - 1)), ((uint)(hashCode >> 21) & ((1 << 21) - 1)), (uint)(hashCode >> 42) };
+            return new HashCode128(value).GetHashCodeArray3();
+        }
+        /// <summary>
+        /// 获取 4 个 32b 的哈希值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static uint[] GetHashCode4(string value)
+        {
+            return new HashCode128(value).GetHashCodeArray4();
         }
     }
     /// <summary>

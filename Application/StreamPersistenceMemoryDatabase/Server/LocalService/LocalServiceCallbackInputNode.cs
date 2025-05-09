@@ -11,7 +11,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 本地服务调用节点方法队列节点
     /// </summary>
-    internal sealed class LocalServiceCallbackInputNode : ReadWriteQueueNode
+    public sealed class LocalServiceCallbackInputNode : ReadWriteQueueNode
     {
         /// <summary>
         /// 本地服务客户端节点
@@ -87,7 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter">调用参数</param>
         /// <param name="callback">客户端回调委托</param>
         /// <returns></returns>
-        internal static void Create<T>(LocalClientNode clientNode, int methodIndex, T parameter, Action<LocalResult> callback) where T : struct
+        public static void Create<T>(LocalClientNode clientNode, int methodIndex, T parameter, Action<LocalResult> callback) where T : struct
         {
             CallStateEnum state = CallStateEnum.Unknown;
             try

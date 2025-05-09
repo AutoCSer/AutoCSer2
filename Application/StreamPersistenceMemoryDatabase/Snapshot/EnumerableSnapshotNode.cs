@@ -1,8 +1,31 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
+#if AOT
+    /// <summary>
+    /// 快照接口节点
+    /// </summary>
+    public static class EnumerableSnapshotNode
+    {
+        /// <summary>
+        /// 快照接口节点
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static object Create<T>(object target)
+        {
+            return new EnumerableSnapshotNode<T>((IEnumerableSnapshot<T>)target);
+        }
+        /// <summary>
+        /// 创建快照接口节点方法信息
+        /// </summary>
+        internal static readonly MethodInfo CreateMethod = typeof(EnumerableSnapshotNode).GetMethod(nameof(Create), BindingFlags.Static | BindingFlags.Public).notNull();
+    }
+#endif
     /// <summary>
     /// 快照接口节点
     /// </summary>

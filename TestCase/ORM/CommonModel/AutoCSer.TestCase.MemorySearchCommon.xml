@@ -187,7 +187,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeLocalClientNode">
             <summary>
-            搜索聚合查询服务服务本地节点的自定义基础服务接口 客户端节点接口
+            搜索聚合查询服务服务本地节点的自定义基础服务接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.SearchQueryService.IQueryServiceNodeLocalClientNode.CreateHashIndexNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,AutoCSer.Reflection.RemoteType)">
@@ -253,7 +253,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeLocalClientNode">
             <summary>
-            非索引条件查询数据节点接口 客户端节点接口
+            非索引条件查询数据节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeLocalClientNode.Create(System.Int32)">
@@ -681,7 +681,6 @@
             <summary>
             [0] 
             AutoCSer.BinarySerializeKeyValue{int,AutoCSer.TestCase.SearchDataSource.SearchUser} value 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeMethodEnum.CompletedBeforePersistence">
@@ -695,28 +694,24 @@
             <summary>
             [2] 
             AutoCSer.BinarySerializeKeyValue{int,AutoCSer.TestCase.SearchDataSource.SearchUser} value 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeMethodEnum.Create">
             <summary>
             [3] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeMethodEnum.Delete">
             <summary>
             [4] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeMethodEnum.DeleteLoadPersistence">
             <summary>
             [5] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeMethodEnum.LoadCreate">
@@ -759,7 +754,6 @@
             <summary>
             [12] 
             int key 
-            返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.SearchQueryService.ISearchUserNodeMethodEnum.GetPage">
@@ -1033,7 +1027,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeLocalClientNode">
             <summary>
-            用户搜索数据更新消息节点的自定义基础服务接口 客户端节点接口
+            用户搜索数据更新消息节点的自定义基础服务接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeLocalClientNode.CreateSearchUserMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">

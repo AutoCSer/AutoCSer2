@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
         /// <summary>
         /// 测试位图大小（位数量）
         /// </summary>
-        private const int size = 1 << 16;
+        private static readonly int size = new Algorithm.ManyHashBitMapCapacity(1 << 10, 2).GetHashCapacity();
         /// <summary>
         /// 客户端节点单例
         /// </summary>

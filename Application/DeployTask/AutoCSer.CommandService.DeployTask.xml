@@ -3672,7 +3672,6 @@
             <summary>
             [2] 获取发布任务状态变更回调日志
             long identity 任务标识ID
-            返回值 AutoCSer.CommandService.DeployTaskLog 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.Remove">

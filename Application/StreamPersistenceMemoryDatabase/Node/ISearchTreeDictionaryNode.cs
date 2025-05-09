@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 二叉搜索树节点
+    /// 二叉搜索树节点接口
     /// </summary>
     /// <typeparam name="KT">排序关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
-    public partial interface ISearchTreeDictionaryNode<KT, VT>
+    /// <typeparam name="ST">快照数据类型</typeparam>
+    public interface ISearchTreeDictionaryNode<KT, VT, ST>
         where KT : IComparable<KT>
     {
         /// <summary>
@@ -17,7 +17,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="value"></param>
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
-        void SnapshotAdd(KeyValue<KT, VT> value);
+        void SnapshotAdd(ST value);
         /// <summary>
         /// 获取节点数据数量
         /// </summary>
@@ -117,7 +117,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">节点位置</param>
         /// <returns>数据</returns>
         [ServerMethod(IsPersistence = false)]
-        ValueResult<KeyValue<KT, VT>> TryGetKeyValueByIndex(int index);
+        ValueResult<ST> TryGetKeyValueByIndex(int index);
         /// <summary>
         /// 根据节点位置获取数据
         /// </summary>
@@ -130,13 +130,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <returns>第一组数据</returns>
         [ServerMethod(IsPersistence = false)]
-        ValueResult<KeyValue<KT, VT>> TryGetFirstKeyValue();
+        ValueResult<ST> TryGetFirstKeyValue();
         /// <summary>
         /// 获取最后一组数据
         /// </summary>
         /// <returns>最后一组数据</returns>
         [ServerMethod(IsPersistence = false)]
-        ValueResult<KeyValue<KT, VT>> TryGetLastKeyValue();
+        ValueResult<ST> TryGetLastKeyValue();
         /// <summary>
         /// 获取第一个关键字数据
         /// </summary>
@@ -169,5 +169,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [ServerMethod(IsPersistence = false)]
         IEnumerable<ValueResult<VT>> GetValues(int skipCount, byte getCount);
+    }
+    /// <summary>
+    /// 二叉搜索树节点接口
+    /// </summary>
+    /// <typeparam name="KT">排序关键字类型</typeparam>
+    /// <typeparam name="VT">数据类型</typeparam>
+#if !AOT
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
+    public partial interface ISearchTreeDictionaryNode<KT, VT> : ISearchTreeDictionaryNode<KT, VT, KeyValue<KT, VT>>
+        where KT : IComparable<KT>
+    {
     }
 }

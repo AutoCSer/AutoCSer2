@@ -13,7 +13,7 @@ namespace AutoCSer
     [AutoCSer.CodeGenerator.XmlSerialize]
 #endif
     [RemoteType]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct BinarySerializeKeyValue<KT, VT>
     {

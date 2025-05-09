@@ -28,7 +28,7 @@ namespace AutoCSer.TestCase.DeployTask
         /// <summary>
         /// 
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ICustomServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ICustomServiceNodeMethodEnum))]
         public partial interface ICustomServiceNode { }
         /// <summary>
         ///  节点方法序号映射枚举类型

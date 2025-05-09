@@ -21,7 +21,7 @@ namespace AutoCSer.TestCase.DiskBlockClient
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
-                IDiskBlockClientSocketEvent client = (IDiskBlockClientSocketEvent)await commandClient.GetSocketEvent();
+                IDiskBlockClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
                 if (client == null)
                 {
                     ConsoleWriteQueue.Breakpoint("ERROR");
@@ -32,14 +32,21 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 AutoCSer.CommandService.DiskBlockClient diskBlockClient = new AutoCSer.CommandService.DiskBlockClient(client);
                 AutoCSer.FieldEquals.Comparor.IsBreakpoint = true;
                 await Task.WhenAll(
-                    jsonTest(diskBlockClient)
-                    , binaryTest(diskBlockClient)
+                    binaryTest(diskBlockClient)
+                    , jsonTest(diskBlockClient)
                     , stringTest(diskBlockClient)
                     , bufferTest(diskBlockClient)
                     );
                 Console.WriteLine("Press quit to exit.");
                 while (Console.ReadLine() != "quit") ;
             }
+#if AOT
+            if (AutoCSer.TestCase.DiskBlockClient.AotMethod.Call())
+            {
+                AutoCSer.CommandService.DiskBlock.AotMethod.Call();
+                AutoCSer.CommandService.TimestampVerify.AotMethod.Call();
+            }
+#endif
         }
         public static bool Breakpoint<T>(ReadResult<T> returnValue, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
         {
@@ -153,6 +160,17 @@ namespace AutoCSer.TestCase.DiskBlockClient
             await jsonTest(client, (object)null);
             await jsonTest(client, new object());
             await jsonTest(client, EmptyArray<object>.Array);
+#if AOT
+            await jsonTest(client, new IntData { A = 3 });
+            char[] data = new char[26];
+            for (int index = -1; index != data.Length;)
+            {
+                ++index;
+                if (index != 0) data[index - 1] = (char)(index + ('A' - 1));
+                string buffer = index == 0 ? string.Empty : new string(data, 0, index);
+                await jsonTest(client, new StringData { A = buffer });
+            }
+#else
             await jsonTest(client, new { A = 3 });
             char[] data = new char[26];
             for (int index = -1; index != data.Length;)
@@ -162,6 +180,7 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 string buffer = index == 0 ? string.Empty : new string(data, 0, index);
                 await jsonTest(client, new { A = buffer });
             }
+#endif
             Console.WriteLine($"*jsonTest*");
         }
         static async Task jsonTest<T>(AutoCSer.CommandService.DiskBlockClient client, T buffer)
@@ -199,6 +218,17 @@ namespace AutoCSer.TestCase.DiskBlockClient
             await binaryTest(client, (object)null);
             await binaryTest(client, new object());
             await binaryTest(client, EmptyArray<object>.Array);
+#if AOT
+            await binaryTest(client, new IntData { A = 3 });
+            char[] data = new char[26];
+            for (int index = -1; index != data.Length;)
+            {
+                ++index;
+                if (index != 0) data[index - 1] = (char)(index + ('A' - 1));
+                string buffer = index == 0 ? string.Empty : new string(data, 0, index);
+                await binaryTest(client, new StringData { A = buffer });
+            }
+#else
             await binaryTest(client, new { A = 3 });
             char[] data = new char[26];
             for (int index = -1; index != data.Length;)
@@ -208,6 +238,7 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 string buffer = index == 0 ? string.Empty : new string(data, 0, index);
                 await binaryTest(client, new { A = buffer });
             }
+#endif
             Console.WriteLine($"*binaryTest*");
         }
         static async Task binaryTest<T>(AutoCSer.CommandService.DiskBlockClient client, T buffer)

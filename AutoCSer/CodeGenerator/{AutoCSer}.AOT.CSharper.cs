@@ -39,6 +39,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
                     AutoCSer.AotMethod.Call();");
             }
+            _if_ = false;
+                    if (IsCallStreamPersistenceMemoryDatabase)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AotMethod.Call();");
+            }
                 {
                     AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.Method[] _value1_;
                     _value1_ = Methods;
@@ -470,6 +480,67 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     }
                 }
             _code_.Add(@"
+");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType[] _value1_;
+                    _value1_ = StreamPersistenceMemoryDatabaseSnapshotTypes;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode.Create<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">(null);
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode.Create<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">(null);");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType[] _value1_;
+                    _value1_ = StreamPersistenceMemoryDatabaseSnapshotCloneObjectTypes;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneNode.");
+            _code_.Add(_value2_.ReflectionMethodName);
+            _code_.Add(@"<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">(null);");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
                     return true;
                 }
                 return false;
@@ -690,6 +761,17 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 
             _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+        /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(");
             _code_.Add(TypeName);
             _code_.Add(@"))]
@@ -759,16 +841,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         _loopIndex_ = 0;
                         foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value2_ in _value1_)
                         {
-            _if_ = false;
-                    if (_value2_.IsBinarySerialize)
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-            [AutoCSer.BinarySerialize(IsMemberMap = false)]");
-            }
             _code_.Add(@"
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct ");
@@ -1043,7 +1115,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     ");
             _code_.Add(_value4_.ParameterName);
             _code_.Add(@" = ");
-            _code_.Add(_value4_.ParameterName);
+            _code_.Add(_value2_.ReturnValueParameterName);
             }
                 }
             _code_.Add(@"
@@ -5138,7 +5210,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             _if_ = false;
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField[] _value1_ = FieldArray;
+                    AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField[] _value1_ = FixedFields;
                     if (_value1_ != default(AutoCSer.CodeGenerator.TemplateGenerator.SimpleSerialize.SerializeField[]))
                     {
                     if (_value1_.Length != default(int))
@@ -5238,6 +5310,2228 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(TypeFullName);
             _code_.Add(@"));
             }");
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
+    internal partial class StreamPersistenceMemoryDatabaseLocalClientNode
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(_isOut_))
+            {
+                
+            _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" 本地客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.GenericDefinitionFullName);
+                    }
+                }
+            _code_.Add(@"), typeof(");
+            _code_.Add(TypeName);
+            _code_.Add(@"))]
+        ");
+            _code_.Add(TypeNameDefinition);
+            _if_ = false;
+                    if (IsCustomServiceNode)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode");
+            }
+            _code_.Add(@"
+        {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseLocalClientNode.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseLocalClientNode.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.IsInterfaceMethod)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// <param name=""");
+            _code_.Add(_value4_.ParameterName);
+            _code_.Add(@""">");
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.MethodIsReturn)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value3_ = _value2_.CallbackType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = _value4_.Parameters;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]))
+                    {
+                    if (_value5_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value3_.FullName);
+            _code_.Add(@" __callback__");
+            }
+                }
+            _code_.Add(@");");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+        }
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" 本地客户端节点
+        /// </summary>
+        internal unsafe partial class ");
+            _code_.Add(TypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">, ");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@"
+        {
+            /// <summary>
+            /// 本地客户端节点
+            /// </summary>
+            /// <param name=""key"">节点全局关键字</param>
+            /// <param name=""creator"">创建节点操作对象委托</param>
+            /// <param name=""client"">日志流持久化内存数据库客户端</param>
+            /// <param name=""index"">节点索引信息</param>
+            /// <param name=""isPersistenceCallbackExceptionRenewNode"">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+            private ");
+            _code_.Add(TypeName);
+            _code_.Add(@"(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+                : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
+            internal static ");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@" ");
+            _code_.Add(LocalClientNodeConstructorMethodName);
+            _code_.Add(@"(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+            {
+                return new ");
+            _code_.Add(TypeName);
+            _code_.Add(@"(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
+            }");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType[] _value1_;
+                    _value1_ = ParameterTypes;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct ");
+            _code_.Add(_value2_.ParameterTypeName);
+            _code_.Add(@"
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value3_;
+                    _value3_ = _value2_.Parameters;
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+                internal ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.ParameterName);
+            _code_.Add(@";");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@"
+                ");
+            _code_.Add(_value2_.SerializeCode);
+            _code_.Add(@"
+            }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseLocalClientNode.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseLocalClientNode.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// <param name=""");
+            _code_.Add(_value4_.ParameterName);
+            _code_.Add(@""">");
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.MethodIsReturn)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value2_.MethodInterfaceTypeName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value3_ = _value2_.CallbackType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = _value4_.Parameters;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]))
+                    {
+                    if (_value5_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value3_.FullName);
+            _code_.Add(@" __callback__");
+            }
+                }
+            _code_.Add(@")
+            {
+                ");
+            _if_ = false;
+                    if (_value2_.IsMethodReturnType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return ");
+            }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.ClientType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@"/**/.Create");
+            _if_ = false;
+                    if (_value2_.GenericTypeName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"<");
+            _code_.Add(_value2_.GenericTypeName);
+            _code_.Add(@">");
+            }
+            _code_.Add(@"(this, ");
+            _code_.Add(_value2_.MethodIndex.ToString());
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    _value3_ = _value2_.InputParameterType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    , new ");
+            _code_.Add(_value3_.ParameterTypeName);
+            _code_.Add(@"
+                    {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value4_;
+                    _value4_ = _value3_.Parameters;
+                    if (_value4_ != null)
+                    {
+                        int _loopIndex4_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value5_ in _value4_)
+                        {
+            _code_.Add(@"
+                        ");
+            _code_.Add(_value5_.ParameterName);
+            _code_.Add(@" = ");
+            _code_.Add(_value5_.ParameterName);
+            _code_.Add(@",");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex4_;
+                    }
+                }
+            _code_.Add(@"
+                    }");
+            }
+                }
+            _if_ = false;
+                    if (_value2_.CallbackType != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    , __callback__");
+            }
+            _if_ = false;
+                    if (_value2_.IsReadWriteNodeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    , ");
+            _code_.Add(_value2_.IsReadWriteNode);
+            }
+            _code_.Add(@"
+                    );
+            }
+");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void ");
+            _code_.Add(LocalClientNodeMethodName);
+            _code_.Add(@"()
+            {
+                ");
+            _code_.Add(LocalClientNodeConstructorMethodName);
+            _code_.Add(@"(null, null, null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex), false);
+                AutoCSer.AotReflection.NonPublicFields(typeof(");
+            _code_.Add(MethodIndexEnumTypeName);
+            _code_.Add(@"));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(");
+            _code_.Add(TypeName);
+            _code_.Add(@"));
+                AutoCSer.AotReflection.Interfaces(typeof(");
+            _code_.Add(TypeName);
+            _code_.Add(@"));
+            }
+        }");
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
+    internal partial class StreamPersistenceMemoryDatabaseMethodParameterCreator
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(_isOut_))
+            {
+                
+            _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(");
+            _code_.Add(MethodIndexEnumTypeName);
+            _code_.Add(@"), typeof(");
+            _code_.Add(MethodParameterCreatorTypeName);
+            _code_.Add(@")");
+            _if_ = false;
+                    if (IsMethodParameterCreator)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", true");
+            }
+            _code_.Add(@")]
+        ");
+            _code_.Add(TypeNameDefinition);
+            _code_.Add(@" { }
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ");
+            _code_.Add(MethodIndexEnumTypeName);
+            _code_.Add(@"
+        {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.EnumName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// [");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@"] ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.XmlFullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.ParameterName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    if (_value3_.IsReturn)
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// 返回值 ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.XmlFullName);
+                    }
+                }
+            _code_.Add(@" ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            }
+            _code_.Add(@"
+            /// </summary>");
+            }
+            _code_.Add(@"
+            ");
+            _code_.Add(_value2_.EnumName);
+            _code_.Add(@" = ");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@",");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+        }");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" 服务端节点方法
+        /// </summary>");
+            _if_ = false;
+                    if (_value2_.IsCall)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        internal sealed class ");
+            _code_.Add(_value2_.CallMethodTypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallMethod
+        {
+            internal ");
+            _code_.Add(_value2_.CallMethodTypeName);
+            _code_.Add(@"() : base(");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@", ");
+            _code_.Add(_value2_.PersistenceMethodIndex.ToString());
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@") { }
+            public override void Call(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum> callback)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"();
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallMethod.Callback(ref callback);
+            }
+        }");
+            }
+            _if_ = false;
+                    if (_value2_.IsCallOutput)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        internal sealed class ");
+            _code_.Add(_value2_.CallOutputMethodTypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
+        {
+            internal ");
+            _code_.Add(_value2_.CallOutputMethodTypeName);
+            _code_.Add(@"() : base(");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@", ");
+            _code_.Add(_value2_.PersistenceMethodIndex.ToString());
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)");
+            _code_.Add(_value2_.CallTypeValue.ToString());
+            }
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@") { }");
+            _if_ = false;
+                    if (_value2_.IsBeforePersistenceMethod)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.IsPersistenceMethodReturnType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            public override AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> CallOutputBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node)
+            {");
+            _if_ = false;
+                    if (_value2_.IsGetBeforePersistenceResponseParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.GetBeforePersistenceResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(), (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsGetBeforePersistenceResponseParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"();");
+            }
+            _code_.Add(@"
+            }");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsPersistenceMethodReturnType)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            public override bool CallBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node)
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"();
+            }");
+            }
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsBeforePersistenceMethod)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
+            {");
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@"));");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsCallTypeParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.IsResponseParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallbackResponseParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(), ref callback);");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsResponseParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(), ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@");");
+            }
+            }
+            _code_.Add(@"
+            }");
+            }
+            _code_.Add(@"
+        }");
+            }
+            _if_ = false;
+                    if (_value2_.IsCallInput)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        internal sealed class ");
+            _code_.Add(_value2_.CallInputMethodTypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">
+        {
+            internal ");
+            _code_.Add(_value2_.CallInputMethodTypeName);
+            _code_.Add(@"() : base(");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@", ");
+            _code_.Add(_value2_.PersistenceMethodIndex.ToString());
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@") { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                ");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@" parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@");
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }");
+            }
+            _if_ = false;
+                    if (_value2_.IsCallInputOutput)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        internal sealed class ");
+            _code_.Add(_value2_.CallInputOutputMethodTypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">
+        {
+            internal ");
+            _code_.Add(_value2_.CallInputOutputMethodTypeName);
+            _code_.Add(@"() : base(");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@", ");
+            _code_.Add(_value2_.PersistenceMethodIndex.ToString());
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)");
+            _code_.Add(_value2_.CallTypeValue.ToString());
+            }
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@") { }");
+            _if_ = false;
+                    if (_value2_.IsBeforePersistenceMethod)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.IsPersistenceMethodReturnType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            public override AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> CallOutputBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                ");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@" parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">)methodParameter);");
+            _if_ = false;
+                    if (_value2_.IsGetBeforePersistenceResponseParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.GetBeforePersistenceResponseParameter(methodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">.Create(methodParameter)");
+            }
+            _code_.Add(@"));");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsGetBeforePersistenceResponseParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">.Create(methodParameter)");
+            }
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+
+            }");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsPersistenceMethodReturnType)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            public override bool CallBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                ");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@" parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">)methodParameter);
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">.Create(methodParameter)");
+            }
+            _code_.Add(@");
+            }");
+            }
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsBeforePersistenceMethod)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                ");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@" parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">)methodParameter);");
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">.Create(methodParameter));");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsCallTypeParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.IsResponseParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.CallbackResponseParameter(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@"));");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsResponseParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.Callback(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@"));");
+            }
+            }
+            _code_.Add(@"
+            }");
+            }
+            _code_.Add(@"
+        }");
+            }
+            _if_ = false;
+                    if (_value2_.IsSendOnly)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        internal sealed class ");
+            _code_.Add(_value2_.SendOnlyMethodTypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">
+        {
+            internal ");
+            _code_.Add(_value2_.SendOnlyMethodTypeName);
+            _code_.Add(@"() : base(");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@", ");
+            _code_.Add(_value2_.PersistenceMethodIndex.ToString());
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@") { }
+            public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
+            {
+                ");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@" parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@");
+            }
+        }");
+            }
+            _if_ = false;
+                    if (_value2_.IsKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        internal sealed class ");
+            _code_.Add(_value2_.KeepCallbackMethodTypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod
+        {
+            internal ");
+            _code_.Add(_value2_.KeepCallbackMethodTypeName);
+            _code_.Add(@"() : base(");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@", ");
+            _code_.Add(_value2_.PersistenceMethodIndex.ToString());
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)");
+            _code_.Add(_value2_.CallTypeValue.ToString());
+            }
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@") { }
+            public override void KeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> callback)
+            {");
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod.EnumerableCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(), ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@");");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsCallTypeParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">)node).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@"));");
+            }
+            _code_.Add(@"
+            }
+        }");
+            }
+            _if_ = false;
+                    if (_value2_.IsInputKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        internal sealed class ");
+            _code_.Add(_value2_.InputKeepCallbackMethodTypeName);
+            _code_.Add(@" : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">
+        {
+            internal ");
+            _code_.Add(_value2_.InputKeepCallbackMethodTypeName);
+            _code_.Add(@"() : base(");
+            _code_.Add(_value2_.MethodIndex.ToString());
+            _code_.Add(@", ");
+            _code_.Add(_value2_.PersistenceMethodIndex.ToString());
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)");
+            _code_.Add(_value2_.CallTypeValue.ToString());
+            }
+            _code_.Add(@", (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)");
+            _code_.Add(_value2_.MethodFlags.ToString());
+            _code_.Add(@") { }
+            public override void InputKeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter methodParameter)
+            {
+                ");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@" parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<");
+            _code_.Add(_value2_.ParameterTypeFullName);
+            _code_.Add(@">)methodParameter);");
+            _if_ = false;
+                    if (_value2_.IsCallTypeParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter.EnumerableCallback(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@"));");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsCallTypeParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">(methodParameter).");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"parameter.");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">.Create(methodParameter));");
+            }
+            _code_.Add(@"
+            }
+        }");
+            }
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" 创建调用方法与参数信息
+        /// </summary>
+        internal sealed partial class ");
+            _code_.Add(MethodParameterCreatorTypeName);
+            _if_ = false;
+                    if (IsMethodParameterCreator)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@">, ");
+            _code_.Add(InterfaceTypeName);
+            }
+            _code_.Add(@"
+        {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod[] _value1_;
+                    _value1_ = SnapshotMethods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+            private static void ");
+            _code_.Add(_value2_.SnapshotSerializeMethodName);
+            _code_.Add(@"(AutoCSer.BinarySerializer serializer, ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.SnapshotType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" value)
+            {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    _value3_ = _value2_.InputParameterType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                ");
+            _code_.Add(_value3_.ParameterTypeFullName);
+            _code_.Add(@" snapshotMethodParameter = new ");
+            _code_.Add(_value3_.ParameterTypeFullName);
+            _code_.Add(@" { ");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value4_;
+                    _value4_ = _value3_.Parameters;
+                    if (_value4_ != null)
+                    {
+                        int _loopIndex4_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value5_ in _value4_)
+                        {
+            _code_.Add(_value5_.ParameterName);
+            _code_.Add(@" = value");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex4_;
+                    }
+                }
+            _code_.Add(@" };");
+            }
+                }
+            _if_ = false;
+                    if (_value2_.IsSimpleSerialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                serializer.SimpleSerialize(ref snapshotMethodParameter);");
+            }
+            _if_ = false;
+                if (!(bool)_value2_.IsSimpleSerialize)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                serializer.InternalIndependentSerializeNotNull(ref snapshotMethodParameter);");
+            }
+            _code_.Add(@"
+            }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+            /// <summary>
+            /// 获取生成服务端节点方法信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod ");
+            _code_.Add(GetServerNodeCreatorMethodName);
+            _code_.Add(@"()
+            {
+                return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[]
+                    {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                        new ");
+            _code_.Add(_value2_.CallMethodTypeName);
+            _code_.Add(@"(),");
+            }
+            _if_ = false;
+                if (_value2_.Method == default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                        null,");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
+                    {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(");
+            _code_.Add(_value2_.LoadPersistenceMethodIndex.ToString());
+            _code_.Add(@"),");
+            }
+            _if_ = false;
+                if (_value2_.Method == default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                        null,");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo[]
+                    {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod[] _value1_;
+                    _value1_ = SnapshotMethods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo(");
+            _code_.Add(_value2_.MethodArrayIndex.ToString());
+            _code_.Add(@", typeof(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.SnapshotType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@"), ");
+            _code_.Add(_value2_.SnapshotSerializeMethodName);
+            _code_.Add(@"),");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+                    });
+            }");
+            _if_ = false;
+                    if (IsMethodParameterCreator)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            private ");
+            _code_.Add(MethodParameterCreatorTypeName);
+            _code_.Add(@"(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@"> node) : base(node) { }
+            internal static ");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@" ");
+            _code_.Add(MethodParameterCreatorMethodName);
+            _code_.Add(@"(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<");
+            _code_.Add(InterfaceTypeName);
+            _code_.Add(@"> node)
+            {
+                return new ");
+            _code_.Add(MethodParameterCreatorTypeName);
+            _code_.Add(@"(node);
+            }");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.StreamPersistenceMemoryDatabaseMethodParameterCreator.NodeMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// <param name=""");
+            _code_.Add(_value4_.ParameterName);
+            _code_.Add(@""">");
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.MethodIsReturn)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.ReturnValueType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value2_.MethodInterfaceTypeName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_;
+                    _value3_ = _value2_.MethodParameters;
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@")
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.");
+            _code_.Add(_value2_.MethodParameterCreatorCallMethodName);
+            _code_.Add(@"(this, ");
+            _code_.Add(_value2_.MethodArrayIndex.ToString());
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    _value3_ = _value2_.InputParameterType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    , new ");
+            _code_.Add(_value3_.ParameterTypeFullName);
+            _code_.Add(@"
+                    {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value4_;
+                    _value4_ = _value3_.Parameters;
+                    if (_value4_ != null)
+                    {
+                        int _loopIndex4_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value5_ in _value4_)
+                        {
+            _code_.Add(@"
+                        ");
+            _code_.Add(_value5_.ParameterName);
+            _code_.Add(@" = ");
+            _code_.Add(_value5_.ParameterName);
+            _code_.Add(@",");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex4_;
+                    }
+                }
+            _code_.Add(@"
+                    }");
+            }
+                }
+            _if_ = false;
+                    if (_value2_.CallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                    , ");
+            _code_.Add(_value2_.CallbackParameterName);
+            }
+            _code_.Add(@"
+                    );");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    if (_value3_.IsReturn)
+                    {
+                        _if_ = true;
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return default(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.ReturnValueType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@");");
+            }
+            _code_.Add(@"
+            }");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            }
+            _code_.Add(@"
+            internal static void ");
+            _code_.Add(MethodParameterCreatorMethodName);
+            _code_.Add(@"()
+            {
+                ");
+            _code_.Add(GetServerNodeCreatorMethodName);
+            _code_.Add(@"();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(");
+            _code_.Add(MethodParameterCreatorTypeName);
+            _code_.Add(@"));");
+            _if_ = false;
+                    if (IsMethodParameterCreator)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                ");
+            _code_.Add(MethodParameterCreatorMethodName);
+            _code_.Add(@"(null);
+                AutoCSer.AotReflection.Interfaces(typeof(");
+            _code_.Add(MethodParameterCreatorTypeName);
+            _code_.Add(@"));");
+            }
+            _code_.Add(@"
+            }
+        }");
                 if (_isOut_) outEnd();
             }
         }

@@ -6,7 +6,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 数组节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
     public partial interface IArrayNode<T>
     {
         /// <summary>

@@ -5,7 +5,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.Data
     /// <summary>
     /// 测试数据 https://redis.io/docs/latest/integrate/redisom-for-net/
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class Address
     {
         public int StreetNumber;

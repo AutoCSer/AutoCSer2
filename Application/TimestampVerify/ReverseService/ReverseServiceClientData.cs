@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.TimestampVerify
     /// 反向服务客户端验证原始数据
     /// </summary>
     /// <typeparam name="T">附加数据类型</typeparam>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct ReverseServiceClientData<T>
     {

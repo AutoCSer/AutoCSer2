@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
     /// <summary>
     /// 字符串 Trie 图三级及以下节点
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct GrahpNode
     {

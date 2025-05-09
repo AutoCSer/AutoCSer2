@@ -9,8 +9,9 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// </summary>
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
 #endif
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial class CallData
     {
         /// <summary>

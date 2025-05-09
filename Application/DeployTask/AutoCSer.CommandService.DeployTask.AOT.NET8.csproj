@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.CommandService.DeployTask.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.CommandService.DeployTask</RootNamespace>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DeployTask\AutoCSer.CommandService.DeployTask.AOT.xml</DocumentationFile>
+    <DefineConstants>TRACE;DEBUG;AOT;NetStandard21</DefineConstants>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\AutoCSer2\Application\DeployTask\AutoCSer.CommandService.DeployTask.AOT.xml</DocumentationFile>
+    <DefineConstants>AOT;NetStandard21</DefineConstants>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DatabaseBackup\DatabaseBackupClient.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupClientDownloader.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupClientTable.cs" />
+    <Compile Include="DatabaseBackup\DatabaseBackupDownloadBuffer.cs" />
+    <Compile Include="DatabaseBackup\IDatabaseBackupClientSocketEvent.cs" />
+    <Compile Include="DatabaseBackup\IDatabaseBackupService.cs" />
+    <Compile Include="DatabaseBackup\IDatabaseBackupServiceClientController.cs" />
+    <Compile Include="DirectoryName.cs" />
+    <Compile Include="FileSynchronousClient.cs" />
+    <Compile Include="PullFile\IPullFileClientSocketEvent.cs" />
+    <Compile Include="PullFile\IPullFileService.cs" />
+    <Compile Include="PullFile\IPullFileServiceClientController.cs" />
+    <Compile Include="PullFile\PullFile.cs" />
+    <Compile Include="PullFile\PullFileBuffer.cs" />
+    <Compile Include="PullFile\PullFileClient.cs" />
+    <Compile Include="PullFile\PullFileStateEnum.cs" />
+    <Compile Include="SynchronousFile.cs" />
+    <Compile Include="SynchronousFileInfo.cs" />
+    <Compile Include="UploadFile\IUploadFileClientSocketEvent.cs" />
+    <Compile Include="UploadFile\IUploadFileService.cs" />
+    <Compile Include="UploadFile\IUploadFileServiceClientController.cs" />
+    <Compile Include="UploadFile\UploaderInfo.cs" />
+    <Compile Include="UploadFile\UploadFile.cs" />
+    <Compile Include="UploadFile\UploadFileBuffer.cs" />
+    <Compile Include="UploadFile\UploadFileClient.cs" />
+    <Compile Include="UploadFile\UploadFileIndex.cs" />
+    <Compile Include="UploadFile\UploadFileInfo.cs" />
+    <Compile Include="UploadFile\UploadFileStateEnum.cs" />
+    <Compile Include="{AutoCSer.CommandService.DeployTask}.AOT.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCSer">
+      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+  </Target>
+
+</Project>

@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 发布任务状态变更回调日志
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DeployTaskLog
     {

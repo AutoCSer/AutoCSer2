@@ -118,6 +118,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                     }
                 }
+#if !AOT
                 else
                 {
                     if (ReturnValueType.IsGenericType)
@@ -186,9 +187,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                     }
                 }
+#endif
                 if (!isReturnType)
                 {
+#if AOT
+                    Type awaitType = typeof(LocalServiceQueueNode<LocalResult>);
+#else
                     Type awaitType = isLocalClient ? typeof(LocalServiceQueueNode<LocalResult>) : typeof(ResponseResultAwaiter);
+#endif
                     Error = $"节点方法 {type.fullName()}.{method.Name} 返回值类型必须是 {awaitType.fullName()}";
                     return;
                 }

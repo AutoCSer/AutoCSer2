@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
-using AutoCSer.Extensions;
+﻿using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
@@ -8,6 +7,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+#if !AOT
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -422,6 +424,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="rebuilder"></param>
         /// <returns></returns>
         internal virtual bool Rebuild(PersistenceRebuilder rebuilder) { return false; }
+#if !AOT
         /// <summary>
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
         /// </summary>
@@ -438,6 +441,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
         public abstract void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback);
+#endif
 
         /// <summary>
         /// 获取快照数据集合
@@ -638,7 +642,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 默认节点接口配置
         /// </summary>
-        internal static readonly ServerNodeMethodIndexAttribute DefaultMethodIndexAttribute = new ServerNodeMethodIndexAttribute();
+        internal static readonly ServerNodeTypeAttribute DefaultNodeTypeAttribute = new ServerNodeTypeAttribute();
     }
     /// <summary>
     /// 服务端节点
@@ -757,6 +761,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return (ServerNodeCreator<T>.MethodParameterCreator(this) as MethodParameterCreator<T>).notNull();
         }
+#if !AOT
         /// <summary>
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
         /// </summary>
@@ -779,6 +784,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             NodeCreator.Bind<T>(rawAssembly, method, methodAttribute, callback).NotWait();
         }
+#endif
 
         /// <summary>
         /// 获取操作节点对象
@@ -786,7 +792,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="node"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static T GetTarget(ServerNode<T> node)
+        public static T GetTarget(ServerNode<T> node)
         {
             return node.target;
         }

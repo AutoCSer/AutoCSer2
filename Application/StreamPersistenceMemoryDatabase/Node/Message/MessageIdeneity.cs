@@ -6,9 +6,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 正在处理的消息标识
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+    [AutoCSer.CodeGenerator.JsonSerialize]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct MessageIdeneity
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct MessageIdeneity
     {
         /// <summary>
         /// 消息唯一编号（节点内唯一编号）

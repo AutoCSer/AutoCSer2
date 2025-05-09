@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 调用方法与参数信息
     /// </summary>
-    internal abstract class InputKeepCallbackMethodParameter : InputMethodParameter
+    public abstract class InputKeepCallbackMethodParameter : InputMethodParameter
     {
         /// <summary>
         /// 服务端节点方法
@@ -200,7 +200,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodParameter"></param>
         /// <param name="values"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void EnumerableCallback<T>(InputKeepCallbackMethodParameter methodParameter, System.Collections.Generic.IEnumerable<T> values)
+        public static void EnumerableCallback<T>(InputKeepCallbackMethodParameter methodParameter, System.Collections.Generic.IEnumerable<T> values)
         {
             methodParameter.enumerableCallback(values);
         }
@@ -226,7 +226,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 调用方法与参数信息
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class InputKeepCallbackMethodParameter<T> : InputKeepCallbackMethodParameter
+    public sealed class InputKeepCallbackMethodParameter<T> : InputKeepCallbackMethodParameter
         where T : struct
     {
         /// <summary>
@@ -317,7 +317,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static T GetParameter(InputKeepCallbackMethodParameter<T> parameter)
+        public static T GetParameter(InputKeepCallbackMethodParameter<T> parameter)
         {
             return parameter.Parameter;
         }

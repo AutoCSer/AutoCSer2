@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点方法
     /// </summary>
-    internal abstract class Method
+    public abstract class Method
     {
         /// <summary>
         /// 方法编号

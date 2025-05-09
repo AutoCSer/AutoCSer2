@@ -13,6 +13,10 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// 成员方法信息
         /// </summary>
         public MethodInfo Method { get; private set; }
+        /// <summary>
+        /// 是否存在返回值
+        /// </summary>
+        public bool IsReturn { get { return Method.ReturnType != typeof(void); } }
         ///// <summary>
         ///// 返回值类型
         ///// </summary>
@@ -61,7 +65,10 @@ namespace AutoCSer.CodeGenerator.Metadata
         {
             get
             {
-                if (returnXmlDocument == null) returnXmlDocument = AutoCSer.Reflection.XmlDocument.GetReturn(Method);
+                if (returnXmlDocument == null)
+                {
+                    returnXmlDocument = IsReturn ? AutoCSer.Reflection.XmlDocument.GetReturn(Method) : string.Empty;
+                }
                 return returnXmlDocument.Length == 0 ? null : returnXmlDocument;
             }
         }

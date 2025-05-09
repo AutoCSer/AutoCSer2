@@ -9,7 +9,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
     {
         internal static async Task Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
-            ResponseResult<IManyHashBitMapClientFilterNodeClientNode> node = await client.GetOrCreateManyHashBitMapClientFilterNode(typeof(IManyHashBitMapClientFilterNodeClientNode).FullName, 1 << 16);
+            AutoCSer.Algorithm.ManyHashBitMapCapacity capacity = new Algorithm.ManyHashBitMapCapacity(1 << 10);
+            ResponseResult<IManyHashBitMapClientFilterNodeClientNode> node = await client.GetOrCreateManyHashBitMapClientFilterNode(typeof(IManyHashBitMapClientFilterNodeClientNode).FullName, capacity.GetHashCapacity());
             if (!Program.Breakpoint(node)) return;
 
             var dataResult = await node.Value.GetData();

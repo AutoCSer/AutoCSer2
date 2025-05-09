@@ -6,11 +6,21 @@ using System.Threading;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
+#if AOT
+    /// <summary>
+    /// 消息处理节点
+    /// </summary>
+    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="IT">消息处理节点接口类型</typeparam>
+    public abstract class MessageNode<T, IT> : ContextNode<IT, T>, ISnapshot<T>
+        where IT : class, IMessageNode<T>
+#else
     /// <summary>
     /// 消息处理节点
     /// </summary>
     /// <typeparam name="T">消息数据类型</typeparam>
     public sealed class MessageNode<T> : ContextNode<IMessageNode<T>, T>, IMessageNode<T>, ISnapshot<T>
+#endif
         where T : Message<T>
     {
         /// <summary>
@@ -20,11 +30,37 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 超时检查定时
         /// </summary>
+#if AOT
+        private readonly MessageNodeCheckTimer<T, IT> checkTimer;
+#else
         private readonly MessageNodeCheckTimer<T> checkTimer;
+#endif
         /// <summary>
         /// 正在处理的消息集合
         /// </summary>
         internal readonly MessageArrayItem<T>[] MessageArray;
+        /// <summary>
+        /// 初始化加载节点
+        /// </summary>
+#if AOT
+        private MessageNodeLoader<T, IT> loader;
+#else
+        private MessageNodeLoader<T> loader;
+#endif
+        /// <summary>
+        /// 是否默认空初始化加载节点
+        /// </summary>
+        private bool isNullLoader
+        {
+            get
+            {
+#if AOT
+                return object.ReferenceEquals(loader, MessageNodeLoader<T, IT>.Null);
+#else
+                return object.ReferenceEquals(loader, MessageNodeLoader<T>.Null);
+#endif
+            }
+        }
         /// <summary>
         /// 消息处理客户端回调集合
         /// </summary>
@@ -107,10 +143,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="arraySize">正在处理消息数组大小</param>
         /// <param name="timeoutSeconds">消息处理超时秒数</param>
         /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-        private MessageNode(int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1)
+        public MessageNode(int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1)
         {
             timeoutTimestamp = AutoCSer.Date.GetTimestampBySeconds(Math.Max(timeoutSeconds, 1));
+#if AOT
+            loader = MessageNodeLoader<T, IT>.Null;
+            checkTimer = new MessageNodeCheckTimer<T, IT>(Math.Max(checkTimeoutSeconds, 1));
+#else
+            loader = MessageNodeLoader<T>.Null;
             checkTimer = new MessageNodeCheckTimer<T>(Math.Max(checkTimeoutSeconds, 1));
+#endif
             MessageArray = new MessageArrayItem<T>[Math.Max(arraySize, 1)];
             callbacks = new LeftArray<MessageNodeCallbackCount<T>>(sizeof(int));
             timeoutMessages = AutoCSer.DictionaryCreator.CreateLong<T>();
@@ -121,31 +163,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             sendFailedIndex = -1;
         }
         /// <summary>
-        /// 创建消息处理节点
-        /// </summary>
-        /// <param name="service"></param>
-        /// <param name="arraySize">正在处理消息数组大小</param>
-        /// <param name="timeoutSeconds">消息处理超时秒数</param>
-        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-        /// <returns></returns>
-        public static IMessageNode<T> Create(StreamPersistenceMemoryDatabaseService service, int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1)
-        {
-            MessageNode<T> messageNode = new MessageNode<T>(arraySize, timeoutSeconds, checkTimeoutSeconds);
-            if (service.IsLoaded) return messageNode;
-            return new MessageNodeLoader<T>(messageNode);
-        }
-        /// <summary>
         /// 初始化加载完毕处理
         /// </summary>
         /// <returns>加载完毕替换的新节点</returns>
+#if AOT
+        public override IT? StreamPersistenceMemoryDatabaseServiceLoaded()
+#else
 #if NetStandard21
         public override IMessageNode<T>? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
         public override IMessageNode<T> StreamPersistenceMemoryDatabaseServiceLoaded()
 #endif
+#endif
         {
+            if (!isNullLoader)
+            {
+                foreach (T message in loader.Messages.Values) AppendLinkCount(message);
+                foreach (T message in loader.FailedMessages.Values) AppendFailedCount(message);
+#if AOT
+                loader = MessageNodeLoader<T, IT>.Null;
+#else
+                loader = MessageNodeLoader<T>.Null;
+#endif
+            }
             checkTimer.Set(this);
+#if AOT
+            return this as IT;
+#else
             return this;
+#endif
         }
         /// <summary>
         /// 节点移除后处理
@@ -199,7 +245,41 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value">数据</param>
         public void SnapshotAdd(T value)
         {
-            throw new InvalidOperationException();
+            if (getLoader().SnapshotAdd(value)) CurrentIdentity = value.MessageIdeneity.Identity;
+        }
+        /// <summary>
+        /// 获取初始化加载节点
+        /// </summary>
+        /// <returns></returns>
+#if AOT
+        private MessageNodeLoader<T, IT> getLoader()
+#else
+        private MessageNodeLoader<T> getLoader()
+#endif
+        {
+            if (!isNullLoader) return loader;
+#if AOT
+            return loader = new MessageNodeLoader<T, IT>(this);
+#else
+            return loader = new MessageNodeLoader<T>(this);
+#endif
+        }
+        /// <summary>
+        /// 获取初始化加载节点
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if AOT
+        private MessageNodeLoader<T, IT>? tryGetLoader()
+#else
+#if NetStandard21
+        private MessageNodeLoader<T>? tryGetLoader()
+#else
+        private MessageNodeLoader<T> tryGetLoader()
+#endif
+#endif
+        {
+            return !isNullLoader ? loader : null;
         }
         /// <summary>
         /// 添加等待处理消息
@@ -269,6 +349,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 清除所有消息
         /// </summary>
+        public void ClearLoadPersistence()
+        {
+            tryGetLoader()?.Clear();
+        }
+        /// <summary>
+        /// 清除所有消息
+        /// </summary>
         public void Clear()
         {
             clearFailed();
@@ -298,6 +385,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             nextFailed = failedHead;
             failedCount = 0;
             failedHead.LinkNext = null;
+        }
+        /// <summary>
+        /// 清除所有失败消息（包括处理超时消息）
+        /// </summary>
+        public void ClearFailedLoadPersistence()
+        {
+            tryGetLoader()?.ClearFailed();
         }
         /// <summary>
         /// 清除所有失败消息（包括处理超时消息）
@@ -530,6 +624,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 生产者添加新消息
         /// </summary>
         /// <param name="message"></param>
+        public void AppendMessageLoadPersistence(T message)
+        {
+            message.MessageIdeneity.SetNew(++CurrentIdentity);
+            getLoader().AppendMessage(message);
+        }
+        /// <summary>
+        /// 生产者添加新消息
+        /// </summary>
+        /// <param name="message"></param>
         public void AppendMessage(T message)
         {
             if (message != null)
@@ -558,6 +661,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 removeCallback(currentCallback);
             }
             //while (currentCallback != null);
+        }
+        /// <summary>
+        /// 消息完成处理
+        /// </summary>
+        /// <param name="identity"></param>
+        public void CompletedLoadPersistence(MessageIdeneity identity)
+        {
+            tryGetLoader()?.Completed(identity);
         }
         /// <summary>
         /// 消息完成处理
@@ -628,6 +739,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 消息失败处理
         /// </summary>
         /// <param name="identity"></param>
+        public void FailedLoadPersistence(MessageIdeneity identity)
+        {
+            tryGetLoader()?.Failed(identity);
+        }
+        /// <summary>
+        /// 消息失败处理
+        /// </summary>
+        /// <param name="identity"></param>
         public void Failed(MessageIdeneity identity)
         {
             if ((uint)identity.ArrayIndex < (uint)MessageArray.Length && (ulong)(identity.Identity - 1) < (ulong)CurrentIdentity)
@@ -670,7 +789,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 bool isCallback = false;
                 try
                 {
+#if AOT
+                    StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(new MessageNodeCheckTimeoutCallback<T, IT>(this));
+#else
                     StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(new MessageNodeCheckTimeoutCallback<T>(this));
+#endif
                     isCallback = true;
                 }
                 finally

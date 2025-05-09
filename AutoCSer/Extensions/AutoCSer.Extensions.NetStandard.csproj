@@ -35,6 +35,8 @@
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickRangeSort.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeQuickSort.cs" />
     <Compile Include="Algorithm\CombinationTemplate\UnsafeSortArray.cs" />
+    <Compile Include="Algorithm\Hash\HashCode128.cs" />
+    <Compile Include="Algorithm\Hash\ManyHashBitMapCapacity.cs" />
     <Compile Include="Algorithm\ModMultiplier.cs" />
     <Compile Include="Algorithm\QuickRangeSort.cs" />
     <Compile Include="Algorithm\RadixSort.cs" />

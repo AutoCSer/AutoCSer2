@@ -1,4 +1,4 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.Net;
@@ -7,22 +7,28 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+#if !AOT
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+#endif
 
-namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+namespace AutoCSer.CommandService
 {
     /// <summary>
     /// 日志流持久化内存数据库服务端
     /// </summary>
     public abstract class StreamPersistenceMemoryDatabaseServiceBase
     {
+#if !AOT
         /// <summary>
         /// 默认空待加载修复方法节点集合
         /// </summary>
         internal static readonly Dictionary<ulong, RepairNodeMethodLoader> NullRepairNodeMethodLoaders = AutoCSer.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
+#endif
 
         /// <summary>
         /// 日志流持久化内存数据库服务端配置
@@ -72,10 +78,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         protected readonly object nodeCreatorLock;
         /// <summary>
-        /// 待加载修复方法节点集合
-        /// </summary>
-        internal Dictionary<ulong, RepairNodeMethodLoader> RepairNodeMethodLoaders;
-        /// <summary>
         /// 持久化回调异常位置写入缓冲区
         /// </summary>
         internal readonly byte[] PersistenceDataPositionBuffer;
@@ -122,6 +124,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
         internal PersistenceRebuilder Rebuilder;
 #endif
+#if !AOT
+        /// <summary>
+        /// 待加载修复方法节点集合
+        /// </summary>
+        internal Dictionary<ulong, RepairNodeMethodLoader> RepairNodeMethodLoaders;
+        /// <summary>
+        /// 已加载加载修复节点方法
+        /// </summary>
+#if NetStandard21
+        internal RepairNodeMethod? LoadedRepairNodeMethod;
+#else
+        internal RepairNodeMethod LoadedRepairNodeMethod;
+#endif
         /// <summary>
         /// 从节点客户端信息
         /// </summary>
@@ -131,12 +146,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ServiceSlave Slave;
 #endif
         /// <summary>
-        /// 已加载加载修复节点方法
+        /// 是否允许创建从节点
         /// </summary>
-#if NetStandard21
-        internal RepairNodeMethod? LoadedRepairNodeMethod;
-#else
-        internal RepairNodeMethod LoadedRepairNodeMethod;
+        internal readonly bool CanCreateSlave;
 #endif
         /// <summary>
         /// 持久化流重建起始位置
@@ -174,10 +186,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否主节点
         /// </summary>
         internal readonly bool IsMaster;
-        /// <summary>
-        /// 是否允许创建从节点
-        /// </summary>
-        internal readonly bool CanCreateSlave;
         /// <summary>
         /// 是否备份客户端
         /// </summary>
@@ -229,14 +237,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 
             Config = config;
             IsMaster = isMaster;
+#if !AOT
             CanCreateSlave = isMaster & config.CanCreateSlave;
+            RepairNodeMethodLoaders = AutoCSer.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
+#endif
             NodeIndex = 1;
             CurrentCallIsPersistence = true;
             nodeDictionary = DictionaryCreator<string>.Create<ServerNode>();
             CreateNodes = DictionaryCreator<string>.Create<CreatingNodeInfo>();
             nodeCreatorLock = new object();
             nodeCreators = DictionaryCreator.CreateHashObject<Type, ServerNodeCreator>();
-            RepairNodeMethodLoaders = AutoCSer.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
             PersistenceDataPositionBuffer = AutoCSer.Common.GetUninitializedArray<byte>(Math.Max(ServiceLoader.FileHeadSize, sizeof(long)));
             Nodes = new NodeIdentity[sizeof(int)];
         }
@@ -395,6 +405,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             finally
             {
                 if (Interlocked.Decrement(ref serviceCallbackCount) == 0) serviceCallbackWait.Set();
+#if !AOT
                 var slave = Slave;
                 if (slave != null)
                 {
@@ -423,6 +434,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     while ((slave = slave.LinkNext) != null);
                     Slave = slave;
                 }
+#endif
                 if (Rebuilder == null && checkRebuild) CheckRebuild();
             }
         }
@@ -472,7 +484,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 positionStream.Write(PersistenceDataPositionBuffer, 0, sizeof(long));
             }
             PersistenceCallbackExceptionFilePosition += sizeof(long);
-
+#if !AOT
             var slave = Slave;
             if (slave != null)
             {
@@ -501,7 +513,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 while ((slave = slave.LinkNext) != null);
                 Slave = slave;
             }
+#endif
         }
+        /// <summary>
+        /// 获取生成服务端节点
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        internal ServerNodeCreator GetNodeCreator<T>()
+        {
+            var nodeCreator = default(ServerNodeCreator);
+            HashObject<Type> type = typeof(T);
+            Monitor.Enter(nodeCreatorLock);
+            if (nodeCreators.TryGetValue(type, out nodeCreator))
+            {
+                Monitor.Exit(nodeCreatorLock);
+                return nodeCreator;
+            }
+            try
+            {
+                nodeCreators.Add(type, nodeCreator = ServerNodeCreator<T>.Create(this));
+            }
+            finally { Monitor.Exit(nodeCreatorLock); }
+            return nodeCreator;
+        }
+#if AOT
+        ///// <summary>
+        ///// 添加待加载修复方法节点方法信息
+        ///// </summary>
+        //private static readonly MethodInfo appendRepairNodeMethodLoaderMethod = typeof(StreamPersistenceMemoryDatabaseServiceBase).GetMethod(nameof(AppendRepairNodeMethodLoader), BindingFlags.Static | BindingFlags.NonPublic).notNull();
+#else
         /// <summary>
         /// 添加修复接口方法文件
         /// </summary>
@@ -533,7 +574,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!IsBackup)
             {
                 var type = default(Type);
-                if (repairNodeMethod.RemoteType.TryGet(out type)) GenericType.Get(type).AppendRepairNodeMethodLoader(this, methodDirectory, repairNodeMethod.RepairNodeMethodDirectory);
+                if (repairNodeMethod.RemoteType.TryGet(out type))
+                {
+                    //appendRepairNodeMethodLoaderMethod.MakeGenericMethod(type).Invoke(null, new object[] { this, methodDirectory, repairNodeMethod.RepairNodeMethodDirectory });
+                    GenericType.Get(type).AppendRepairNodeMethodLoader(this, methodDirectory, repairNodeMethod.RepairNodeMethodDirectory);
+                }
                 else await AutoCSer.LogHelper.Fatal($"没有找到节点类型 {repairNodeMethod.RemoteType.AssemblyName} + {repairNodeMethod.RemoteType.Name}");
             }
         }
@@ -576,28 +621,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             finally { Monitor.Exit(nodeCreatorLock); }
         }
         /// <summary>
-        /// 获取生成服务端节点
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        internal ServerNodeCreator GetNodeCreator<T>()
-        {
-            var nodeCreator = default(ServerNodeCreator);
-            HashObject<Type> type = typeof(T);
-            Monitor.Enter(nodeCreatorLock);
-            if (nodeCreators.TryGetValue(type, out nodeCreator))
-            {
-                Monitor.Exit(nodeCreatorLock);
-                return nodeCreator;
-            }
-            try
-            {
-                nodeCreators.Add(type, nodeCreator = ServerNodeCreator<T>.Create(this));
-            }
-            finally { Monitor.Exit(nodeCreatorLock); }
-            return nodeCreator;
-        }
-        /// <summary>
         /// 添加已加载加载修复节点方法
         /// </summary>
         /// <param name="repairNodeMethod"></param>
@@ -605,7 +628,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             repairNodeMethod.LinkNext = LoadedRepairNodeMethod;
             LoadedRepairNodeMethod = repairNodeMethod;
-
             var slave = Slave;
             if (slave != null)
             {
@@ -641,11 +663,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="loader"></param>
         /// <param name="isRetry"></param>
         internal abstract void CloseLoader(SlaveLoader loader, bool isRetry);
+#endif
 
         static StreamPersistenceMemoryDatabaseServiceBase()
         {
+#if !AOT
             AutoCSer.Common.Config.AppendRemoteType(typeof(ServerByteArrayMessage));
             AutoCSer.Common.Config.AppendRemoteType(typeof(BinaryMessage<>));
+#endif
             //AutoCSer.Common.Config.AppendRemoteType(typeof(HashBytes));
             //AutoCSer.Common.Config.AppendRemoteType(typeof(HashSubString));
             //AutoCSer.Common.Config.AppendRemoteType(typeof(AutoCSer.SearchTree.Set<>));

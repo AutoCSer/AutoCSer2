@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 上传文件最后移动文件操作任务
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class UploadCompletedTask : IStepTask
     {
         /// <summary>

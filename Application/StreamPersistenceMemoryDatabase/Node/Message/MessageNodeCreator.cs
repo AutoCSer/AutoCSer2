@@ -72,7 +72,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private void create<T>() where T : Message<T>
         {
-            index = node.CreateSnapshotNode(index, key, nodeInfo, () => MessageNode<T>.Create(node.Service, arraySize, timeoutSeconds, checkTimeoutSeconds));
+            index = node.CreateSnapshotNode<IMessageNode<T>>(index, key, nodeInfo, () => new MessageNode<T>(arraySize, timeoutSeconds, checkTimeoutSeconds));
         }
 
         /// <summary>

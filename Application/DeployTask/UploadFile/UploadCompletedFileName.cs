@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// 文件上传完成文件名称信息
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     internal struct UploadCompletedFileName
     {
         /// <summary>

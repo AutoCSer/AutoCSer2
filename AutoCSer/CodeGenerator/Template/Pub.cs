@@ -34,11 +34,13 @@ namespace AutoCSer.CodeGenerator.Template
 
             public static void MethodName() { }
             public static object Get(params object[] values) { return null; }
+            public static MethodReturnType.FullName Create<T>(params object[] values) { return null; }
         }
         public partial class GenericDefinitionFullName : FullName { }
         public partial class GenericTypeName : FullName { }
         public partial class ParameterTypeName : FullName { }
         public partial class TypeFullName : FullName { }
+        public partial class MethodIndexEnumTypeName : FullName { }
         public partial class CurrentType : Pub { }
         public partial class BaseType : Pub { }
         public partial class UnderlyingType : Pub { }
@@ -47,11 +49,13 @@ namespace AutoCSer.CodeGenerator.Template
         public partial class ReturnValueType : Pub { }
         public partial class ParameterType : Pub { }
         public partial class ServerType : Pub { }
+        public partial class ClientType : Pub { }
         public partial class CallbackType : Pub { }
         public partial class EnumType : Pub { }
-        public interface MethodInterfaceTypeName
+        public partial class SnapshotType : Pub { }
+        public interface InterfaceTypeName
         {
-            MethodReturnType.FullName MethodName(ParameterType.FullName ParameterJoinName);
+            MethodReturnType.FullName MethodName(params object[] values);
         }
 #if !DotNet45 && !AOT
         public partial class NetCoreWebViewTypeFullName : AutoCSer.NetCoreWeb.View { }

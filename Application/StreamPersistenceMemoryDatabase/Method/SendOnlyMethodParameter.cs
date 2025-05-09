@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 调用方法与参数信息
     /// </summary>
-    internal abstract class SendOnlyMethodParameter : InputMethodParameter
+    public abstract class SendOnlyMethodParameter : InputMethodParameter
     {
         /// <summary>
         /// 服务端节点方法
@@ -123,7 +123,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 调用方法与参数信息
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class SendOnlyMethodParameter<T> : SendOnlyMethodParameter
+    public sealed class SendOnlyMethodParameter<T> : SendOnlyMethodParameter
         where T : struct
     {
         /// <summary>
@@ -213,7 +213,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static T GetParameter(SendOnlyMethodParameter<T> parameter)
+        public static T GetParameter(SendOnlyMethodParameter<T> parameter)
         {
             return parameter.Parameter;
         }

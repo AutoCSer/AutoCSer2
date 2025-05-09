@@ -66,15 +66,15 @@
     <Compile Include="TemplateGenerator\NetCoreWebView.cs" />
     <Compile Include="TemplateGenerator\NetCoreWebViewMiddleware.cs" />
     <Compile Include="TemplateGenerator\CommandServerClientControllerInterface.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNodeInterface.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseNode.cs" />
-    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseClientNode.cs" />
     <Compile Include="Template\NetCoreWebViewMiddleware.cs" />
     <Compile Include="Template\NetCoreWebView.cs" />
     <Compile Include="Template\CommandServerClientControllerInterface.cs" />
     <Compile Include="Template\Pub.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNodeInterface.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseNode.cs" />
-    <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
     <Compile Include="Template\StreamPersistenceMemoryDatabaseClientNode.cs" />
     <Compile Include="TreeTemplate\ITreeTemplateNode.cs" />
     <Compile Include="Messages.cs" />

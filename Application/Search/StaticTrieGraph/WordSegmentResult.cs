@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
     /// <summary>
     /// 查询分词结果
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct WordSegmentResult
     {

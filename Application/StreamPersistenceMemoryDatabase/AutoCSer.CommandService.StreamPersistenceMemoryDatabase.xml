@@ -1207,6 +1207,16 @@
             客户端节点自定义属性
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeAttribute.LocalClientNodeConstructorMethodName">
+            <summary>
+            本地客户端节点构造函数名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeAttribute.LocalClientNodeMethodName">
+            <summary>
+            本地客户端节点激活 AOT 反射函数名称
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeAttribute.ServerNodeType">
             <summary>
             匹配服务端节点接口类型
@@ -5619,7 +5629,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1">
             <summary>
-            超时任务消息节点接口（用于分布式事务数据一致性检查） 客户端节点接口
+            超时任务消息节点接口（用于分布式事务数据一致性检查） 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeLocalClientNode`1.Append(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.TimeoutMessage{`0})">
@@ -5759,7 +5769,6 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.ITimeoutMessageNodeMethodEnum.GetRunTask">
             <summary>
             [13] 获取执行任务消息数据
-            返回值 T 
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode">
@@ -5974,7 +5983,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.GetHashCode3(System.String)">
             <summary>
-            获取 3 个 21b+21b+22b 的哈希值
+            获取 3 个 32b 的哈希值
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter.GetHashCode4(System.String)">
+            <summary>
+            获取 4 个 32b 的哈希值
             </summary>
             <param name="value"></param>
             <returns></returns>
@@ -6084,9 +6100,23 @@
             <param name="result"></param>
             <param name="command"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.GetHashCode2(System.String)">
+            <summary>
+            获取 2 个 32b 的哈希值
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.GetHashCode3(System.String)">
+            <summary>
+            获取 3 个 32b 的哈希值
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.GetHashCode4(System.String)">
             <summary>
-            获取 4 个 16b 的哈希值
+            获取 4 个 32b 的哈希值
             </summary>
             <param name="value"></param>
             <returns></returns>
@@ -6503,7 +6533,7 @@
             消息处理节点 客户端节点接口
             </summary>
             <summary>
-            消息处理节点 客户端节点接口
+            消息处理节点接口 客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode`1.AppendMessage(`0)">
@@ -6519,7 +6549,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode`1.ClearFailed">
             <summary>
-            清除所有失败消息
+            清除所有失败消息（包括处理超时消息）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode`1.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
@@ -6576,7 +6606,7 @@
             消息处理节点 客户端节点接口
             </summary>
             <summary>
-            消息处理节点 客户端节点接口
+            消息处理节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeLocalClientNode`1.AppendMessage(`0)">
@@ -6592,7 +6622,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeLocalClientNode`1.ClearFailed">
             <summary>
-            清除所有失败消息
+            清除所有失败消息（包括处理超时消息）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeLocalClientNode`1.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
@@ -6649,7 +6679,7 @@
             分布式锁节点 客户端节点接口
             </summary>
             <summary>
-            分布式锁节点 客户端节点接口
+            分布式锁节点 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeLocalClientNode`1.Enter(`0,System.UInt16)">
@@ -6680,7 +6710,7 @@
             排序列表节点 客户端节点接口
             </summary>
             <summary>
-            排序列表节点 客户端节点接口
+            排序列表节点 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNodeLocalClientNode`2.Clear">
@@ -6858,7 +6888,7 @@
             排序集合节点接口 客户端节点接口
             </summary>
             <summary>
-            排序集合节点接口 客户端节点接口
+            排序集合节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeLocalClientNode`1.Add(`0)">
@@ -6990,7 +7020,7 @@
             二叉搜索树集合节点接口 客户端节点接口
             </summary>
             <summary>
-            二叉搜索树集合节点接口 客户端节点接口
+            二叉搜索树集合节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNodeLocalClientNode`1.Add(`0)">
@@ -7178,7 +7208,7 @@
             哈希表节点接口 客户端节点接口
             </summary>
             <summary>
-            哈希表节点接口 客户端节点接口
+            哈希表节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeLocalClientNode`1.Add(`0)">
@@ -7308,7 +7338,7 @@
             256 基分片 哈希表 节点接口 客户端节点接口
             </summary>
             <summary>
-            256 基分片 哈希表 节点接口 客户端节点接口
+            256 基分片 哈希表 节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeLocalClientNode`1.Add(`0)">
@@ -7436,7 +7466,7 @@
             排序字典节点 客户端节点接口
             </summary>
             <summary>
-            排序字典节点 客户端节点接口
+            排序字典节点 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNodeLocalClientNode`2.Clear">
@@ -7588,95 +7618,95 @@
             字典节点接口 客户端节点接口
             </summary>
             <summary>
-            字典节点接口 客户端节点接口
+            字典节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.Clear">
             <summary>
-            清除所有数据
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.ContainsKey(`0)">
             <summary>
-            判断关键字是否存在
+            
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.ReusableClear">
             <summary>
-            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.Count">
             <summary>
-            获取数据数量
+            
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.GetRemove(`0)">
             <summary>
-            删除关键字并返回被删除数据
+            
             </summary>
             <param name="key"></param>
-            <returns>被删除数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.Remove(`0)">
             <summary>
-            删除关键字
+            
             </summary>
             <param name="key"></param>
-            <returns>是否删除成功</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.Renew(System.Int32)">
             <summary>
-            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            
             </summary>
-            <param name="capacity">新容器初始化大小</param>
+            <param name="capacity"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.Set(`0,`1)">
             <summary>
-            强制设置数据，如果关键字已存在则覆盖
+            
             </summary>
             <param name="key"></param>
             <param name="value"></param>
-            <returns>是否设置成功</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.TryAdd(`0,`1)">
             <summary>
-            尝试添加数据
+            
             </summary>
             <param name="key"></param>
             <param name="value"></param>
-            <returns>是否添加成功，否则表示关键字已经存在</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.TryGetValue(`0)">
             <summary>
-            根据关键字获取数据
+            
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.GetValueArray(`0[])">
             <summary>
-            根据关键字获取数据
+            
             </summary>
             <param name="keys"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeLocalClientNode`2.RemoveKeys(`0[])">
             <summary>
-            删除关键字
+            
             </summary>
             <param name="keys"></param>
-            <returns>删除关键字数量</returns>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeLocalClientNode`2">
             <summary>
             256 基分片字典 节点接口 客户端节点接口
             </summary>
             <summary>
-            256 基分片字典 节点接口 客户端节点接口
+            256 基分片字典 节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeLocalClientNode`2.Clear">
@@ -7763,324 +7793,324 @@
             二叉搜索树节点 客户端节点接口
             </summary>
             <summary>
-            二叉搜索树节点 客户端节点接口
+            二叉搜索树节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.Clear">
             <summary>
-            清除数据
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.ContainsKey(`0)">
             <summary>
-            判断是否包含关键字
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>是否包含关键字</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.Count">
             <summary>
-            获取节点数据数量
+            
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.CountLess(`0)">
             <summary>
-            根据关键字比它小的节点数量
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>节点数量，失败返回 -1</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.CountThan(`0)">
             <summary>
-            根据关键字比它大的节点数量
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>节点数量，失败返回 -1</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.GetHeight">
             <summary>
-            获取树高度，时间复杂度 O(n)
+            
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.GetRemove(`0)">
             <summary>
-            根据关键字删除节点
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>被删除数据</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.GetValues(System.Int32,System.Byte)">
             <summary>
-            获取范围数据集合
+            
             </summary>
-            <param name="skipCount">跳过记录数</param>
-            <param name="getCount">获取记录数</param>
+            <param name="skipCount"></param>
+            <param name="getCount"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.IndexOf(`0)">
             <summary>
-            根据关键字获取一个匹配节点位置
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>一个匹配节点位置,失败返回-1</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.Remove(`0)">
             <summary>
-            根据关键字删除节点
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>是否存在关键字</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.Set(`0,`1)">
             <summary>
-            设置数据
+            
             </summary>
-            <param name="key">关键字</param>
-            <param name="value">数据</param>
-            <returns>是否添加了关键字</returns>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryAdd(`0,`1)">
             <summary>
-            添加数据
+            
             </summary>
-            <param name="key">关键字</param>
-            <param name="value">数据</param>
-            <returns>是否添加了数据</returns>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetFirstKey">
             <summary>
-            获取第一个关键字数据
+            
             </summary>
-            <returns>第一个关键字数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetFirstKeyValue">
             <summary>
-            获取第一组数据
+            
             </summary>
-            <returns>第一组数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetFirstValue">
             <summary>
-            获取第一个数据
+            
             </summary>
-            <returns>第一个数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetKeyValueByIndex(System.Int32)">
             <summary>
-            根据节点位置获取数据
+            
             </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
+            <param name="index"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetLastKey">
             <summary>
-            获取最后一个关键字数据
+            
             </summary>
-            <returns>最后一个关键字数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetLastKeyValue">
             <summary>
-            获取最后一组数据
+            
             </summary>
-            <returns>最后一组数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetLastValue">
             <summary>
-            获取最后一个数据
+            
             </summary>
-            <returns>最后一个数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetValue(`0)">
             <summary>
-            根据关键字获取数据
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>目标数据</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.TryGetValueByIndex(System.Int32)">
             <summary>
-            根据节点位置获取数据
+            
             </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
+            <param name="index"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.GetValueArray(`0[])">
             <summary>
-            根据关键字获取数据
+            
             </summary>
             <param name="keys"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeLocalClientNode`2.RemoveKeys(`0[])">
             <summary>
-            删除关键字
+            
             </summary>
             <param name="keys"></param>
-            <returns>删除关键字数量</returns>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2">
             <summary>
             二叉搜索树节点 客户端节点接口
             </summary>
             <summary>
-            二叉搜索树节点 客户端节点接口
+            二叉搜索树节点接口 客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.Clear">
             <summary>
-            清除数据
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.ContainsKey(`0)">
             <summary>
-            判断是否包含关键字
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>是否包含关键字</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.Count">
             <summary>
-            获取节点数据数量
+            
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.CountLess(`0)">
             <summary>
-            根据关键字比它小的节点数量
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>节点数量，失败返回 -1</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.CountThan(`0)">
             <summary>
-            根据关键字比它大的节点数量
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>节点数量，失败返回 -1</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.GetHeight">
             <summary>
-            获取树高度，时间复杂度 O(n)
+            
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.GetRemove(`0)">
             <summary>
-            根据关键字删除节点
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>被删除数据</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.GetValues(System.Int32,System.Byte)">
             <summary>
-            获取范围数据集合
+            
             </summary>
-            <param name="skipCount">跳过记录数</param>
-            <param name="getCount">获取记录数</param>
+            <param name="skipCount"></param>
+            <param name="getCount"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.IndexOf(`0)">
             <summary>
-            根据关键字获取一个匹配节点位置
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>一个匹配节点位置,失败返回-1</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.Remove(`0)">
             <summary>
-            根据关键字删除节点
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>是否存在关键字</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.Set(`0,`1)">
             <summary>
-            设置数据
+            
             </summary>
-            <param name="key">关键字</param>
-            <param name="value">数据</param>
-            <returns>是否添加了关键字</returns>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryAdd(`0,`1)">
             <summary>
-            添加数据
+            
             </summary>
-            <param name="key">关键字</param>
-            <param name="value">数据</param>
-            <returns>是否添加了数据</returns>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetFirstKey">
             <summary>
-            获取第一个关键字数据
+            
             </summary>
-            <returns>第一个关键字数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetFirstKeyValue">
             <summary>
-            获取第一组数据
+            
             </summary>
-            <returns>第一组数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetFirstValue">
             <summary>
-            获取第一个数据
+            
             </summary>
-            <returns>第一个数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetKeyValueByIndex(System.Int32)">
             <summary>
-            根据节点位置获取数据
+            
             </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
+            <param name="index"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetLastKey">
             <summary>
-            获取最后一个关键字数据
+            
             </summary>
-            <returns>最后一个关键字数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetLastKeyValue">
             <summary>
-            获取最后一组数据
+            
             </summary>
-            <returns>最后一组数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetLastValue">
             <summary>
-            获取最后一个数据
+            
             </summary>
-            <returns>最后一个数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetValue(`0)">
             <summary>
-            根据关键字获取数据
+            
             </summary>
-            <param name="key">关键字</param>
-            <returns>目标数据</returns>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.TryGetValueByIndex(System.Int32)">
             <summary>
-            根据节点位置获取数据
+            
             </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
+            <param name="index"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.GetValueArray(`0[])">
             <summary>
-            根据关键字获取数据
+            
             </summary>
             <param name="keys"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode`2.RemoveKeys(`0[])">
             <summary>
-            删除关键字
+            
             </summary>
             <param name="keys"></param>
-            <returns>删除关键字数量</returns>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2">
             <summary>
@@ -8092,83 +8122,83 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.Clear">
             <summary>
-            清除所有数据
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.ContainsKey(`0)">
             <summary>
-            判断关键字是否存在
+            
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.ReusableClear">
             <summary>
-            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.Count">
             <summary>
-            获取数据数量
+            
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.GetRemove(`0)">
             <summary>
-            删除关键字并返回被删除数据
+            
             </summary>
             <param name="key"></param>
-            <returns>被删除数据</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.Remove(`0)">
             <summary>
-            删除关键字
+            
             </summary>
             <param name="key"></param>
-            <returns>是否删除成功</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.Renew(System.Int32)">
             <summary>
-            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            
             </summary>
-            <param name="capacity">新容器初始化大小</param>
+            <param name="capacity"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.Set(`0,`1)">
             <summary>
-            强制设置数据，如果关键字已存在则覆盖
+            
             </summary>
             <param name="key"></param>
             <param name="value"></param>
-            <returns>是否设置成功</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.TryAdd(`0,`1)">
             <summary>
-            尝试添加数据
+            
             </summary>
             <param name="key"></param>
             <param name="value"></param>
-            <returns>是否添加成功，否则表示关键字已经存在</returns>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.TryGetValue(`0)">
             <summary>
-            根据关键字获取数据
+            
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.GetValueArray(`0[])">
             <summary>
-            根据关键字获取数据
+            
             </summary>
             <param name="keys"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode`2.RemoveKeys(`0[])">
             <summary>
-            删除关键字
+            
             </summary>
             <param name="keys"></param>
-            <returns>删除关键字数量</returns>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeClientNode`2">
             <summary>
@@ -9929,11 +9959,11 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1">
             <summary>
-            消息处理节点
+            消息处理节点接口
             </summary>
             <typeparam name="T"></typeparam>
             <summary>
-            消息处理节点
+            消息处理节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.SnapshotAdd(`0)">
@@ -9972,14 +10002,24 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.ClearLoadPersistence">
+            <summary>
+            清除所有消息
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.Clear">
             <summary>
             清除所有消息
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.ClearFailedLoadPersistence">
+            <summary>
+            清除所有失败消息（包括处理超时消息）
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.ClearFailed">
             <summary>
-            清除所有失败消息
+            清除所有失败消息（包括处理超时消息）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.GetMessage(System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{`0})">
@@ -9989,15 +10029,33 @@
             <param name="maxCount">当前客户端最大并发消息数量</param>
             <param name="callback">null 表示心跳测试数据，客户端应该忽略该消息</param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.AppendMessageLoadPersistence(`0)">
+            <summary>
+            生产者添加新消息
+            </summary>
+            <param name="message"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.AppendMessage(`0)">
             <summary>
             生产者添加新消息
             </summary>
             <param name="message"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.CompletedLoadPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            消息完成处理
+            </summary>
+            <param name="identity"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
             <summary>
             消息完成处理
+            </summary>
+            <param name="identity"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNode`1.FailedLoadPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            消息失败处理
             </summary>
             <param name="identity"></param>
         </member>
@@ -10690,39 +10748,37 @@
             </summary>
             <returns>没有可弹出数据则返回无数据</returns>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3">
             <summary>
-            二叉搜索树节点
+            二叉搜索树节点接口
             </summary>
             <typeparam name="KT">排序关键字类型</typeparam>
             <typeparam name="VT">数据类型</typeparam>
-            <summary>
-            二叉搜索树节点
-            </summary>
+            <typeparam name="ST">快照数据类型</typeparam>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.SnapshotAdd(AutoCSer.KeyValue{`0,`1})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.SnapshotAdd(`2)">
             <summary>
             快照添加数据
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.Count">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.Count">
             <summary>
             获取节点数据数量
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.GetHeight">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.GetHeight">
             <summary>
             获取树高度，时间复杂度 O(n)
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.Clear">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.Clear">
             <summary>
             清除数据
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.Set(`0,`1)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.Set(`0,`1)">
             <summary>
             设置数据
             </summary>
@@ -10730,7 +10786,7 @@
             <param name="value">数据</param>
             <returns>是否添加了关键字</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryAdd(`0,`1)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryAdd(`0,`1)">
             <summary>
             添加数据
             </summary>
@@ -10738,126 +10794,136 @@
             <param name="value">数据</param>
             <returns>是否添加了数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.Remove(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.Remove(`0)">
             <summary>
             根据关键字删除节点
             </summary>
             <param name="key">关键字</param>
             <returns>是否存在关键字</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.RemoveKeys(`0[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.RemoveKeys(`0[])">
             <summary>
             删除关键字
             </summary>
             <param name="keys"></param>
             <returns>删除关键字数量</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.GetRemove(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.GetRemove(`0)">
             <summary>
             根据关键字删除节点
             </summary>
             <param name="key">关键字</param>
             <returns>被删除数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.ContainsKey(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.ContainsKey(`0)">
             <summary>
             判断是否包含关键字
             </summary>
             <param name="key">关键字</param>
             <returns>是否包含关键字</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetValue(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetValue(`0)">
             <summary>
             根据关键字获取数据
             </summary>
             <param name="key">关键字</param>
             <returns>目标数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.GetValueArray(`0[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.GetValueArray(`0[])">
             <summary>
             根据关键字获取数据
             </summary>
             <param name="keys"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.IndexOf(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.IndexOf(`0)">
             <summary>
             根据关键字获取一个匹配节点位置
             </summary>
             <param name="key">关键字</param>
             <returns>一个匹配节点位置,失败返回-1</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.CountLess(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.CountLess(`0)">
             <summary>
             根据关键字比它小的节点数量
             </summary>
             <param name="key">关键字</param>
             <returns>节点数量，失败返回 -1</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.CountThan(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.CountThan(`0)">
             <summary>
             根据关键字比它大的节点数量
             </summary>
             <param name="key">关键字</param>
             <returns>节点数量，失败返回 -1</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetKeyValueByIndex(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetKeyValueByIndex(System.Int32)">
             <summary>
             根据节点位置获取数据
             </summary>
             <param name="index">节点位置</param>
             <returns>数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetValueByIndex(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetValueByIndex(System.Int32)">
             <summary>
             根据节点位置获取数据
             </summary>
             <param name="index">节点位置</param>
             <returns>数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetFirstKeyValue">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetFirstKeyValue">
             <summary>
             获取第一组数据
             </summary>
             <returns>第一组数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetLastKeyValue">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetLastKeyValue">
             <summary>
             获取最后一组数据
             </summary>
             <returns>最后一组数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetFirstKey">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetFirstKey">
             <summary>
             获取第一个关键字数据
             </summary>
             <returns>第一个关键字数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetLastKey">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetLastKey">
             <summary>
             获取最后一个关键字数据
             </summary>
             <returns>最后一个关键字数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetFirstValue">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetFirstValue">
             <summary>
             获取第一个数据
             </summary>
             <returns>第一个数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.TryGetLastValue">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.TryGetLastValue">
             <summary>
             获取最后一个数据
             </summary>
             <returns>最后一个数据</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2.GetValues(System.Int32,System.Byte)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`3.GetValues(System.Int32,System.Byte)">
             <summary>
             获取范围数据集合
             </summary>
             <param name="skipCount">跳过记录数</param>
             <param name="getCount">获取记录数</param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNode`2">
+            <summary>
+            二叉搜索树节点接口
+            </summary>
+            <typeparam name="KT">排序关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <summary>
+            二叉搜索树节点接口
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNode`1">
             <summary>
@@ -11204,11 +11270,11 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode`1">
             <summary>
-            栈节点（后进先出）
+            栈节点接口（后进先出）
             </summary>
             <typeparam name="T"></typeparam>
             <summary>
-            栈节点（后进先出）
+            栈节点接口（后进先出）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNode`1.Count">
@@ -11896,6 +11962,16 @@
             正在处理的消息集合
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.loader">
+            <summary>
+            初始化加载节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.isNullLoader">
+            <summary>
+            是否默认空初始化加载节点
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.callbacks">
             <summary>
             消息处理客户端回调集合
@@ -11989,16 +12065,6 @@
             <param name="timeoutSeconds">消息处理超时秒数</param>
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            创建消息处理节点
-            </summary>
-            <param name="service"></param>
-            <param name="arraySize">正在处理消息数组大小</param>
-            <param name="timeoutSeconds">消息处理超时秒数</param>
-            <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.StreamPersistenceMemoryDatabaseServiceLoaded">
             <summary>
             初始化加载完毕处理
@@ -12035,6 +12101,18 @@
             快照设置数据
             </summary>
             <param name="value">数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.getLoader">
+            <summary>
+            获取初始化加载节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.tryGetLoader">
+            <summary>
+            获取初始化加载节点
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.AppendLinkCount(`0)">
             <summary>
@@ -12078,6 +12156,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.ClearLoadPersistence">
+            <summary>
+            清除所有消息
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.Clear">
             <summary>
             清除所有消息
@@ -12092,6 +12175,11 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.clearFailed">
             <summary>
             清除所有失败消息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.ClearFailedLoadPersistence">
+            <summary>
+            清除所有失败消息（包括处理超时消息）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.ClearFailed">
@@ -12134,6 +12222,12 @@
             <param name="message"></param>
             <returns>message.LinkNext</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.AppendMessageLoadPersistence(`0)">
+            <summary>
+            生产者添加新消息
+            </summary>
+            <param name="message"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.AppendMessage(`0)">
             <summary>
             生产者添加新消息
@@ -12144,6 +12238,12 @@
             <summary>
             发送新消息
             </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.CompletedLoadPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            消息完成处理
+            </summary>
+            <param name="identity"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.Completed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
             <summary>
@@ -12157,6 +12257,12 @@
             </summary>
             <param name="message"></param>
             <param name="nextIndex"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.FailedLoadPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
+            <summary>
+            消息失败处理
+            </summary>
+            <param name="identity"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode`1.Failed(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity)">
             <summary>
@@ -12369,19 +12475,19 @@
             </summary>
             <typeparam name="T">消息数据类型</typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.messageNode">
-            <summary>
-            消息处理节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.messages">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.Messages">
             <summary>
             未完成消息集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.failedMessages">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.FailedMessages">
             <summary>
             处理失败消息集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.#ctor">
+            <summary>
+            消息处理节点初始化加载节点
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNode{`0})">
@@ -12390,62 +12496,12 @@
             </summary>
             <param name="messageNode">消息处理节点</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.StreamPersistenceMemoryDatabaseServiceLoaded">
-            <summary>
-            初始化加载完毕处理
-            </summary>
-            <returns>加载完毕替换的新节点</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetSnapshotResult(`0[],System.Object)">
-            <summary>
-            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
-            </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.SnapshotAdd(`0)">
             <summary>
             快照设置数据
             </summary>
-            <param name="value">数据</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetTotalCount">
-            <summary>
-            获取未处理完成消息数量（包括失败消息）
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetCount">
-            <summary>
-            获取未处理完成消息数量（不包括失败消息）
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetFailedCount">
-            <summary>
-            获取失败消息数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetCallbackCount">
-            <summary>
-            获取消费者回调数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetTimeoutCount">
-            <summary>
-            获取未完成处理超时消息数量
-            </summary>
-            <returns></returns>
+            <param name="value"></param>
+            <returns>是否快照结束数据</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.Clear">
             <summary>
@@ -12456,13 +12512,6 @@
             <summary>
             清除所有失败消息
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.GetMessage(System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{`0})">
-            <summary>
-            消费客户端获取消息
-            </summary>
-            <param name="maxCount">当前客户端最大并发消息数量</param>
-            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.AppendMessage(`0)">
             <summary>
@@ -12481,6 +12530,11 @@
             消息失败处理
             </summary>
             <param name="identity"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageNodeLoader`1.Null">
+            <summary>
+            消息处理节点初始化加载节点
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.OnServerByteArrayMessageConsumer">
             <summary>
@@ -14996,29 +15050,178 @@
             </summary>
             <param name="node"></param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3">
+            <summary>
+            二叉搜索树字典节点
+            </summary>
+            <typeparam name="KT">排序关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <typeparam name="ST">快照数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.dictionary">
+            <summary>
+            二叉搜索树字典
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.#ctor">
+            <summary>
+            二叉搜索树字典
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.GetSnapshotCapacity(System.Object@)">
+            <summary>
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">自定义对象，用于预生成辅助数据</param>
+            <returns>快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.SetSnapshotResult(AutoCSer.LeftArray{`2}@,AutoCSer.LeftArray{`2}@)">
+            <summary>
+            持久化之前重组快照数据
+            </summary>
+            <param name="array">预申请快照容器数组</param>
+            <param name="newArray">超预申请快照数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.Count">
+            <summary>
+            获取节点数据数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.GetHeight">
+            <summary>
+            获取树高度，时间复杂度 O(n)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.Set(`0,`1)">
+            <summary>
+            设置数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据</param>
+            <returns>是否添加了关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.TryAdd(`0,`1)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key">关键字</param>
+            <param name="value">数据</param>
+            <returns>是否添加了数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.Remove(`0)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.RemoveKeys(`0[])">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.GetRemove(`0)">
+            <summary>
+            根据关键字删除节点
+            </summary>
+            <param name="key">关键字</param>
+            <returns>被删除数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.ContainsKey(`0)">
+            <summary>
+            判断是否包含关键字
+            </summary>
+            <param name="key">关键字</param>
+            <returns>是否包含关键字</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.TryGetValue(`0)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key">关键字</param>
+            <returns>目标数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.GetValueArray(`0[])">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.IndexOf(`0)">
+            <summary>
+            根据关键字获取一个匹配节点位置
+            </summary>
+            <param name="key">关键字</param>
+            <returns>一个匹配节点位置,失败返回-1</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.CountLess(`0)">
+            <summary>
+            根据关键字比它小的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量，失败返回 -1</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.CountThan(`0)">
+            <summary>
+            根据关键字比它大的节点数量
+            </summary>
+            <param name="key">关键字</param>
+            <returns>节点数量，失败返回 -1</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.TryGetValueByIndex(System.Int32)">
+            <summary>
+            根据节点位置获取数据
+            </summary>
+            <param name="index">节点位置</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.TryGetFirstKey">
+            <summary>
+            获取第一个关键字数据
+            </summary>
+            <returns>第一个关键字数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.TryGetLastKey">
+            <summary>
+            获取最后一个关键字数据
+            </summary>
+            <returns>最后一个关键字数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.TryGetFirstValue">
+            <summary>
+            获取第一个数据
+            </summary>
+            <returns>第一个数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.TryGetLastValue">
+            <summary>
+            获取最后一个数据
+            </summary>
+            <returns>最后一个数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`3.GetValues(System.Int32,System.Byte)">
+            <summary>
+            获取范围数据集合
+            </summary>
+            <param name="skipCount">跳过记录数</param>
+            <param name="getCount">获取记录数</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2">
             <summary>
             二叉搜索树字典节点
             </summary>
             <typeparam name="KT">排序关键字类型</typeparam>
             <typeparam name="VT">数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.dictionary">
-            <summary>
-            二叉搜索树字典
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.#ctor">
-            <summary>
-            二叉搜索树字典
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.GetSnapshotCapacity(System.Object@)">
-            <summary>
-            获取快照数据集合容器大小，用于预申请快照数据容器
-            </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.GetSnapshotResult(AutoCSer.KeyValue{`0,`1}[],System.Object)">
             <summary>
@@ -15028,122 +15231,13 @@
             <param name="customObject">自定义对象，用于预生成辅助数据</param>
             <returns>快照数据信息</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.SetSnapshotResult(AutoCSer.LeftArray{AutoCSer.KeyValue{`0,`1}}@,AutoCSer.LeftArray{AutoCSer.KeyValue{`0,`1}}@)">
-            <summary>
-            持久化之前重组快照数据
-            </summary>
-            <param name="array">预申请快照容器数组</param>
-            <param name="newArray">超预申请快照数据</param>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.SnapshotAdd(AutoCSer.KeyValue{`0,`1})">
             <summary>
             快照添加数据
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.Count">
-            <summary>
-            获取节点数据数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.GetHeight">
-            <summary>
-            获取树高度，时间复杂度 O(n)
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.Clear">
-            <summary>
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.Set(`0,`1)">
-            <summary>
-            设置数据
-            </summary>
-            <param name="key">关键字</param>
-            <param name="value">数据</param>
-            <returns>是否添加了关键字</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryAdd(`0,`1)">
-            <summary>
-            添加数据
-            </summary>
-            <param name="key">关键字</param>
-            <param name="value">数据</param>
-            <returns>是否添加了数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.Remove(`0)">
-            <summary>
-            根据关键字删除节点
-            </summary>
-            <param name="key">关键字</param>
-            <returns>是否存在关键字</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.RemoveKeys(`0[])">
-            <summary>
-            删除关键字
-            </summary>
-            <param name="keys"></param>
-            <returns>删除关键字数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.GetRemove(`0)">
-            <summary>
-            根据关键字删除节点
-            </summary>
-            <param name="key">关键字</param>
-            <returns>被删除数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.ContainsKey(`0)">
-            <summary>
-            判断是否包含关键字
-            </summary>
-            <param name="key">关键字</param>
-            <returns>是否包含关键字</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryGetValue(`0)">
-            <summary>
-            根据关键字获取数据
-            </summary>
-            <param name="key">关键字</param>
-            <returns>目标数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.GetValueArray(`0[])">
-            <summary>
-            根据关键字获取数据
-            </summary>
-            <param name="keys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.IndexOf(`0)">
-            <summary>
-            根据关键字获取一个匹配节点位置
-            </summary>
-            <param name="key">关键字</param>
-            <returns>一个匹配节点位置,失败返回-1</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.CountLess(`0)">
-            <summary>
-            根据关键字比它小的节点数量
-            </summary>
-            <param name="key">关键字</param>
-            <returns>节点数量，失败返回 -1</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.CountThan(`0)">
-            <summary>
-            根据关键字比它大的节点数量
-            </summary>
-            <param name="key">关键字</param>
-            <returns>节点数量，失败返回 -1</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryGetKeyValueByIndex(System.Int32)">
-            <summary>
-            根据节点位置获取数据
-            </summary>
-            <param name="index">节点位置</param>
-            <returns>数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryGetValueByIndex(System.Int32)">
             <summary>
             根据节点位置获取数据
             </summary>
@@ -15161,38 +15255,6 @@
             获取最后一组数据
             </summary>
             <returns>最后一组数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryGetFirstKey">
-            <summary>
-            获取第一个关键字数据
-            </summary>
-            <returns>第一个关键字数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryGetLastKey">
-            <summary>
-            获取最后一个关键字数据
-            </summary>
-            <returns>最后一个关键字数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryGetFirstValue">
-            <summary>
-            获取第一个数据
-            </summary>
-            <returns>第一个数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.TryGetLastValue">
-            <summary>
-            获取最后一个数据
-            </summary>
-            <returns>最后一个数据</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeDictionaryNode`2.GetValues(System.Int32,System.Byte)">
-            <summary>
-            获取范围数据集合
-            </summary>
-            <param name="skipCount">跳过记录数</param>
-            <param name="getCount">获取记录数</param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SearchTreeSetNode`1">
             <summary>
@@ -17228,17 +17290,112 @@
             未知，定义不合法
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3">
+            <summary>
+            字典节点
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <typeparam name="ST">快照数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.dictionary">
+            <summary>
+            字典
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.#ctor(System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
+            <summary>
+            字典节点
+            </summary>
+            <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.Renew(System.Int32)">
+            <summary>
+            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            </summary>
+            <param name="capacity">新容器初始化大小</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.Count">
+            <summary>
+            获取数据数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.TryAdd(`0,`1)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>是否添加成功，否则表示关键字已经存在</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.Set(`0,`1)">
+            <summary>
+            强制设置数据，如果关键字已存在则覆盖
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>是否设置成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.TryGetValue(`0)">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.GetValueArray(`0[])">
+            <summary>
+            根据关键字获取数据
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.Clear">
+            <summary>
+            清除所有数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.ReusableClear">
+            <summary>
+            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.ContainsKey(`0)">
+            <summary>
+            判断关键字是否存在
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.Remove(`0)">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="key"></param>
+            <returns>是否删除成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.RemoveKeys(`0[])">
+            <summary>
+            删除关键字
+            </summary>
+            <param name="keys"></param>
+            <returns>删除关键字数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`3.GetRemove(`0)">
+            <summary>
+            删除关键字并返回被删除数据
+            </summary>
+            <param name="key"></param>
+            <returns>被删除数据</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2">
             <summary>
             字典节点
             </summary>
             <typeparam name="KT">关键字类型</typeparam>
             <typeparam name="VT">数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.dictionary">
-            <summary>
-            字典
-            </summary>
         </member>
         <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{AutoCSer#KeyValue{KT,VT}}#SnapshotEnumerable">
             <summary>
@@ -17258,27 +17415,41 @@
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.Renew(System.Int32)">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3">
+            <summary>
+            字典节点接口
+            </summary>
+            <typeparam name="KT">关键字类型</typeparam>
+            <typeparam name="VT">数据类型</typeparam>
+            <typeparam name="ST">快照数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.SnapshotAdd(`2)">
+            <summary>
+            快照添加数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.Renew(System.Int32)">
             <summary>
             清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
             </summary>
             <param name="capacity">新容器初始化大小</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.Count">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.Count">
             <summary>
             获取数据数量
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.TryAdd(`0,`1)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.TryAdd(`0,`1)">
             <summary>
-            添加数据
+            尝试添加数据
             </summary>
             <param name="key"></param>
             <param name="value"></param>
             <returns>是否添加成功，否则表示关键字已经存在</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.Set(`0,`1)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.Set(`0,`1)">
             <summary>
             强制设置数据，如果关键字已存在则覆盖
             </summary>
@@ -17286,52 +17457,52 @@
             <param name="value"></param>
             <returns>是否设置成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.TryGetValue(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.TryGetValue(`0)">
             <summary>
             根据关键字获取数据
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.GetValueArray(`0[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.GetValueArray(`0[])">
             <summary>
             根据关键字获取数据
             </summary>
             <param name="keys"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.Clear">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.Clear">
             <summary>
             清除所有数据
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.ReusableClear">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.ReusableClear">
             <summary>
             可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.ContainsKey(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.ContainsKey(`0)">
             <summary>
             判断关键字是否存在
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.Remove(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.Remove(`0)">
             <summary>
             删除关键字
             </summary>
             <param name="key"></param>
             <returns>是否删除成功</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.RemoveKeys(`0[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.RemoveKeys(`0[])">
             <summary>
             删除关键字
             </summary>
             <param name="keys"></param>
             <returns>删除关键字数量</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DictionaryNode`2.GetRemove(`0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`3.GetRemove(`0)">
             <summary>
             删除关键字并返回被删除数据
             </summary>
@@ -17347,92 +17518,6 @@
             <summary>
             字典节点接口
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.SnapshotAdd(AutoCSer.KeyValue{`0,`1})">
-            <summary>
-            快照添加数据
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.Renew(System.Int32)">
-            <summary>
-            清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
-            </summary>
-            <param name="capacity">新容器初始化大小</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.Count">
-            <summary>
-            获取数据数量
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.TryAdd(`0,`1)">
-            <summary>
-            尝试添加数据
-            </summary>
-            <param name="key"></param>
-            <param name="value"></param>
-            <returns>是否添加成功，否则表示关键字已经存在</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.Set(`0,`1)">
-            <summary>
-            强制设置数据，如果关键字已存在则覆盖
-            </summary>
-            <param name="key"></param>
-            <param name="value"></param>
-            <returns>是否设置成功</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.TryGetValue(`0)">
-            <summary>
-            根据关键字获取数据
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.GetValueArray(`0[])">
-            <summary>
-            根据关键字获取数据
-            </summary>
-            <param name="keys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.Clear">
-            <summary>
-            清除所有数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.ReusableClear">
-            <summary>
-            可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.ContainsKey(`0)">
-            <summary>
-            判断关键字是否存在
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.Remove(`0)">
-            <summary>
-            删除关键字
-            </summary>
-            <param name="key"></param>
-            <returns>是否删除成功</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.RemoveKeys(`0[])">
-            <summary>
-            删除关键字
-            </summary>
-            <param name="keys"></param>
-            <returns>删除关键字数量</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode`2.GetRemove(`0)">
-            <summary>
-            删除关键字并返回被删除数据
-            </summary>
-            <param name="key"></param>
-            <returns>被删除数据</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter">
             <summary>
@@ -18148,35 +18233,6 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateManyHashBitMapClientFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="size">位图大小（位数量）</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateManyHashBitMapFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            创建多哈希位图过滤节点 IManyHashBitMapFilterNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="size">位图大小（位数量）</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
-            <summary>
-            创建字典节点 HashBytesFragmentDictionaryNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
             <summary>
             创建字典节点 ByteArrayFragmentDictionaryNode{KT}
@@ -18196,17 +18252,6 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="valueType">数据类型</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
-            <summary>
-            创建字典节点 HashBytesDictionaryNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="capacity">容器初始化大小</param>
-            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
@@ -18310,16 +18355,6 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            创建队列节点（先进先出） ByteArrayQueueNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="capacity">容器初始化大小</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
             <summary>
             创建队列节点（先进先出） QueueNode{T}
@@ -18328,16 +18363,6 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
-            <param name="capacity">容器初始化大小</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            创建栈节点（后进先出） ByteArrayStackNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -18372,6 +18397,66 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建字典节点 HashBytesFragmentDictionaryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
+            <summary>
+            创建字典节点 HashBytesDictionaryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） ByteArrayQueueNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） ByteArrayStackNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateManyHashBitMapClientFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="size">位图大小（位数量）</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateManyHashBitMapFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="size">位图大小（位数量）</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
@@ -19307,21 +19392,39 @@
             </summary>
             <param name="values"></param>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndexAttribute">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute">
             <summary>
-            节点方法序号映射枚举类型配置
+            服务端节点类型配置
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndexAttribute.MethodIndexEnumType">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute.MethodParameterCreatorMethodName">
+            <summary>
+            创建调用方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute.GetServerNodeCreatorMethodName">
+            <summary>
+            获取生成服务端节点方法信息方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute.MethodIndexEnumType">
             <summary>
             方法序号映射枚举类型
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndexAttribute.#ctor(System.Type)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute.#ctor(System.Type)">
             <summary>
-            节点方法序号映射枚举类型配置
+            服务端节点类型配置
             </summary>
             <param name="methodIndexEnumType">方法序号映射枚举类型</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute.#ctor(System.Type,System.Type,System.Boolean)">
+            <summary>
+            代码生成模板
+            </summary>
+            <param name="methodIndexEnumType"></param>
+            <param name="methodParameterCreatorType"></param>
+            <param name="isMethodParameterCreator"></param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotNode`1">
             <summary>
@@ -20916,6 +21019,18 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode.Create``1(System.Object)">
+            <summary>
+            快照接口节点
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode.CreateMethod">
+            <summary>
+            创建快照接口节点方法信息
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode`1">
             <summary>
             快照接口节点
@@ -21043,347 +21158,6 @@
             </summary>
             <param name="snapshotArray">预申请快照数据容器</param>
             <param name="value">快照数据</param>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase">
-            <summary>
-            日志流持久化内存数据库服务端
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.NullRepairNodeMethodLoaders">
-            <summary>
-            默认空待加载修复方法节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Config">
-            <summary>
-            日志流持久化内存数据库服务端配置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CommandServerCallQueue">
-            <summary>
-            服务端执行队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceDirectory">
-            <summary>
-            持久化文件主目录
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceFileInfo">
-            <summary>
-            持久化文件信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionPositionFileInfo">
-            <summary>
-            持久化回调异常位置文件信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceSwitchFileInfo">
-            <summary>
-            重建持久化文件信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionPositionSwitchFileInfo">
-            <summary>
-            重建持久化回调异常位置文件信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.removeHistoryFile">
-            <summary>
-            删除历史持久化文件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.nodeCreators">
-            <summary>
-            生成服务端节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.nodeCreatorLock">
-            <summary>
-            生成服务端节点集合访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RepairNodeMethodLoaders">
-            <summary>
-            待加载修复方法节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceDataPositionBuffer">
-            <summary>
-            持久化回调异常位置写入缓冲区
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.nodeDictionary">
-            <summary>
-            根节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CreateNodes">
-            <summary>
-            正在创建节点的关键字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.serviceCallbackWait">
-            <summary>
-            持久化回调完成等待
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Nodes">
-            <summary>
-            节点集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CurrentMethodParameter">
-            <summary>
-            当前执行的调用方法与参数信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceQueue">
-            <summary>
-            调用持久化链表
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceWaitHandle">
-            <summary>
-            等待事件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Rebuilder">
-            <summary>
-            日志流持久化文件重建
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Slave">
-            <summary>
-            从节点客户端信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.LoadedRepairNodeMethod">
-            <summary>
-            已加载加载修复节点方法
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RebuildPosition">
-            <summary>
-            持久化流重建起始位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistencePosition">
-            <summary>
-            持久化流已写入位置
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RebuildPersistenceEndPosition">
-            <summary>
-            持久化流重建绝对结束位置 RebuildPosition + PersistencePosition
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionFilePosition">
-            <summary>
-            持久化回调异常位置文件已写入位置
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.RebuildSnapshotPosition">
-            <summary>
-            重建快照结束位置
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.NodeIndex">
-            <summary>
-            当前分配节点索引
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.serviceCallbackCount">
-            <summary>
-            未完成持久化回调次数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.SnapshotTransactionNodeVersion">
-            <summary>
-            快照事务关系节点版本
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsMaster">
-            <summary>
-            是否主节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CanCreateSlave">
-            <summary>
-            是否允许创建从节点
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsBackup">
-            <summary>
-            是否备份客户端
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CurrentCallIsPersistence">
-            <summary>
-            当前调用是否持久化
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsLoaded">
-            <summary>
-            是否已经加载完数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.IsDisposed">
-            <summary>
-            是否已经释放资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig,System.Boolean)">
-            <summary>
-            服务端会话绑定日志流持久化内存数据库服务
-            </summary>
-            <param name="config">日志流持久化内存数据库服务端配置</param>
-            <param name="isMaster">是否主节点</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.NodeDispose">
-            <summary>
-            释放节点资源
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetNode(System.String)">
-            <summary>
-            根据关键字获取节点信息
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile)">
-            <summary>
-            设置删除历史持久化文件
-            </summary>
-            <param name="removeHistoryFile"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.SwitchPersistenceFileInfo">
-            <summary>
-            切换持久化文件信息
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetPersistencePosition">
-            <summary>
-            获取持久化流已写入位置
-            </summary>
-            <returns>持久化流已写入位置</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetRebuildSnapshotPosition">
-            <summary>
-            获取重建快照结束位置
-            </summary>
-            <returns>重建快照结束位置</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.String)">
-            <summary>
-            添加新节点
-            </summary>
-            <param name="node"></param>
-            <param name="key"></param>
-            <returns>当前执行的持久化回调</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
-            <summary>
-            添加持久化调用方法与参数信息
-            </summary>
-            <param name="methodParameter"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,``0@)">
-            <summary>
-            添加持久化调用方法与参数信息
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodParameter"></param>
-            <param name="callback"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.SetCurrentMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
-            <summary>
-            设置当前执行的调用方法与参数信息
-            </summary>
-            <param name="methodParameter"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,System.Int64,System.Boolean)">
-            <summary>
-            持久化回调
-            </summary>
-            <param name="head"></param>
-            <param name="end"></param>
-            <param name="persistencePosition"></param>
-            <param name="checkRebuild"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CheckRebuild">
-            <summary>
-            重建持久化文件
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.PersistenceException(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
-            <summary>
-            持久化结束释放队列
-            </summary>
-            <param name="head"></param>
-            <param name="end"></param>
-            <param name="state"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.WritePersistenceCallbackExceptionPosition(System.Int64)">
-            <summary>
-            写入持久化回调异常数据位置
-            </summary>
-            <param name="persistenceCallbackExceptionPosition">持久化异常位置信息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
-            <summary>
-            添加修复接口方法文件
-            </summary>
-            <param name="repairNodeMethod"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethodLoader``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase,System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory)">
-            <summary>
-            添加待加载修复方法节点
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="service"></param>
-            <param name="methodDirectory"></param>
-            <param name="repairNodeMethodDirectory"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.appendRepairNodeMethodLoader``1(System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory@)">
-            <summary>
-            添加待加载修复方法节点
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="methodDirectory"></param>
-            <param name="repairNodeMethodDirectory"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethodLoader(System.UInt64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodLoader)">
-            <summary>
-            添加待加载修复方法节点
-            </summary>
-            <param name="position"></param>
-            <param name="loader"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.GetNodeCreator``1">
-            <summary>
-            获取生成服务端节点
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.AppendLoadedRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
-            <summary>
-            添加已加载加载修复节点方法
-            </summary>
-            <param name="repairNodeMethod"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase.CloseLoader(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader,System.Boolean)">
-            <summary>
-            关闭数据加载
-            </summary>
-            <param name="loader"></param>
-            <param name="isRetry"></param>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ContextNode`1">
             <summary>
@@ -22427,13 +22201,13 @@
             重建持久化文件切换目录
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase)">
             <summary>
             删除历史持久化文件
             </summary>
             <param name="service">日志流持久化内存数据库服务端</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile.Remove(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase)">
             <summary>
             删除文件
             </summary>
@@ -23122,6 +22896,13 @@
             <param name="methodIndex"></param>
             <param name="parameter"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.MethodParameterCreatorCallMethodName(System.Object[])">
+            <summary>
+            代码生成模板
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator`1">
             <summary>
             创建调用方法与参数信息，用于服务端自定义持久化调用，调用接口方法会添加到持久化队列
@@ -23430,7 +23211,7 @@
             默认节点接口配置
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.DefaultMethodIndexAttribute">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.DefaultNodeTypeAttribute">
             <summary>
             默认节点接口配置
             </summary>
@@ -23570,7 +23351,7 @@
             节点状态
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase,System.Type,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethod[])">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase,System.Type,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethod[])">
             <summary>
             生成服务端节点
             </summary>
@@ -23579,13 +23360,6 @@
             <param name="methods">节点方法集合</param>
             <param name="nodeMethods">节点方法信息集合</param>
             <param name="snapshotMethods">快照方法集合</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.getSnapshotMethodIndex(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method)">
-            <summary>
-            获取快照方法索引位置
-            </summary>
-            <param name="method"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.GetSnapshotMethod(System.Type)">
             <summary>
@@ -23599,6 +23373,13 @@
             快照节点检查
             </summary>
             <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.getSnapshotMethodIndex(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method)">
+            <summary>
+            获取快照方法索引位置
+            </summary>
+            <param name="method"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator.LoadRepairNodeMethod``1">
@@ -23928,7 +23709,7 @@
             快照方法集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreator`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase)">
             <summary>
             生成服务端节点
             </summary>
@@ -24067,22 +23848,22 @@
             修复方法集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.PersistenceMethodName">
-            <summary>
-            持久化方法名称
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.persistenceMethodReturnType">
-            <summary>
-            持久化方法返回数据类型
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.RepairNodeMethod">
             <summary>
             修复节点方法信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.beforePersistenceMethodIndex">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.PersistenceMethodName">
+            <summary>
+            持久化方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.PersistenceMethodReturnType">
+            <summary>
+            持久化方法返回数据类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.BeforePersistenceMethodIndex">
             <summary>
             持久化之前参数检查方法编号
             </summary>
@@ -24178,6 +23959,12 @@
             <param name="repairMethod">修复方法信息</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.GetMethodFlags">
+            <summary>
+            获取服务端节点方法标记
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.CheckCustomServiceNode">
             <summary>
             自定义基础服务节点方法检查
@@ -24209,7 +23996,7 @@
             节点接口配置
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType.ServerNodeMethodIndexAttribute">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType.ServerNodeTypeAttribute">
             <summary>
             节点方法序号映射枚举类型配置
             </summary>
@@ -24259,13 +24046,13 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType.CheckType(System.Type,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndexAttribute@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType.CheckType(System.Type,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute@)">
             <summary>
             检查节点接口类型
             </summary>
             <param name="type"></param>
             <param name="nodeAttribute"></param>
-            <param name="serverNodeMethodIndexAttribute"></param>
+            <param name="serverNodeTypeAttribute"></param>
             <returns>错误信息</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceBuffer">
@@ -25205,35 +24992,6 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateManyHashBitMapClientFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="size">位图大小（位数量）</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateManyHashBitMapFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            创建多哈希位图过滤节点 IManyHashBitMapFilterNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="size">位图大小（位数量）</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
-            <summary>
-            创建字典节点 IHashBytesFragmentDictionaryNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType)">
             <summary>
             创建字典节点 IByteArrayFragmentDictionaryNode{KT}
@@ -25281,17 +25039,6 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="valueType">数据类型</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
-            <summary>
-            创建字典节点 HashBytesDictionaryNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="capacity">容器初始化大小</param>
-            <param name="groupType">可重用字典重组操作类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
@@ -25413,16 +25160,6 @@
             <param name="keyType">关键字类型</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            创建队列节点（先进先出） ByteArrayQueueNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
-            <param name="capacity">容器初始化大小</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
             <summary>
             创建队列节点（先进先出） QueueNode{T}
@@ -25431,16 +25168,6 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
-            <param name="capacity">容器初始化大小</param>
-            <returns>节点标识，已经存在节点则直接返回</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
-            <summary>
-            创建栈节点（后进先出） ByteArrayStackNode
-            </summary>
-            <param name="index">节点索引信息</param>
-            <param name="key">节点全局关键字</param>
-            <param name="nodeInfo">节点信息</param>
             <param name="capacity">容器初始化大小</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -25475,6 +25202,66 @@
             <param name="nodeInfo">节点信息</param>
             <param name="keyType">关键字类型</param>
             <param name="length">数组长度</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashBytesFragmentDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建字典节点 IHashBytesFragmentDictionaryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateHashBytesDictionaryNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32,AutoCSer.ReusableDictionaryGroupTypeEnum)">
+            <summary>
+            创建字典节点 HashBytesDictionaryNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <param name="groupType">可重用字典重组操作类型</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayQueueNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建队列节点（先进先出） ByteArrayQueueNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateByteArrayStackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建栈节点（后进先出） ByteArrayStackNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="capacity">容器初始化大小</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateManyHashBitMapClientFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="size">位图大小（位数量）</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateManyHashBitMapFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int32)">
+            <summary>
+            创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <param name="size">位图大小（位数量）</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
@@ -25628,7 +25415,7 @@
             是否备份客户端
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.StreamPersistenceMemoryDatabaseServiceBase,AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClientSocketEvent)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase,AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseClientSocketEvent)">
             <summary>
             从服务节点加载数据
             </summary>
@@ -25779,44 +25566,43 @@
             持久化回调异常位置文件
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer`1">
             <summary>
             快照方法序列化调用
             </summary>
+            <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer.serializer">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer`1.serializer">
             <summary>
             二进制序列化
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer.nodeIndex">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer`1.nodeIndex">
             <summary>
             节点标识
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer.methodIndex">
-            <summary>
-            方法编号
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer.isSimpleSerializeParamter">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer`1.isSimpleSerializeParamter">
             <summary>
             是否简单序列化输出数据
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer.#ctor(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.Type)">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer`1.methodIndex">
+            <summary>
+            方法编号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer`1.#ctor(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode)">
             <summary>
             快照方法序列化调用
             </summary>
             <param name="serializer">二进制序列化</param>
             <param name="node">节点信息</param>
-            <param name="snapshotType">快照数据类型</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer.Serialize``1(``0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodSerializer`1.Serialize(`0)">
             <summary>
             参数序列化
             </summary>
-            <typeparam name="T"></typeparam>
             <param name="parameter"></param>
             <returns>是否序列化成功</returns>
         </member>
@@ -27619,7 +27405,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeClientNode`1">
             <summary>
-            栈节点（后进先出） 客户端节点接口
+            栈节点接口（后进先出） 客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeClientNode`1.Clear">
@@ -27660,7 +27446,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeLocalClientNode`1">
             <summary>
-            数组节点接口 客户端节点接口
+            数组节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeLocalClientNode`1.Clear(System.Int32,System.Int32)">
@@ -27780,7 +27566,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeLocalClientNode">
             <summary>
-            位图节点接口 客户端节点接口
+            位图节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeLocalClientNode.ClearBit(System.UInt32)">
@@ -27845,7 +27631,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode">
             <summary>
-            64 位自增ID 节点接口 客户端节点接口
+            64 位自增ID 节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeLocalClientNode.Next">
@@ -27863,7 +27649,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNodeLocalClientNode`1">
             <summary>
-            数组节点接口 客户端节点接口
+            数组节点接口 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNodeLocalClientNode`1.Add(`0)">
@@ -28066,9 +27852,65 @@
             </summary>
             <returns>是否存在可移除数据</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode">
+            <summary>
+            多哈希位图客户端同步过滤节点接口（类似布隆过滤器，适合小容器） 本地客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetBit(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
+            <summary>
+            获取设置新位操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetData">
+            <summary>
+            获取当前位图数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.SetBit(System.Int32)">
+            <summary>
+            设置位
+            </summary>
+            <param name="bit">位置</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetSize">
+            <summary>
+            获取位图大小（位数量）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeLocalClientNode">
+            <summary>
+            多哈希位图过滤节点接口（类似布隆过滤器） 本地客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeLocalClientNode.GetSize">
+            <summary>
+            获取位图大小（位数量）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeLocalClientNode.SetBits(System.Int32,System.UInt32[])">
+            <summary>
+            设置位
+            </summary>
+            <param name="size">位图大小（位数量）</param>
+            <param name="bits">位置集合</param>
+            <returns>返回 false 表示位图大小不匹配</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapFilterNodeLocalClientNode.CheckBits(System.Int32,System.UInt32[])">
+            <summary>
+            检查位图数据
+            </summary>
+            <param name="size">位图大小（位数量）</param>
+            <param name="bits">位置集合</param>
+            <returns>返回 false 表示数据不存在</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNodeLocalClientNode`1">
             <summary>
-            队列节点接口（先进先出） 客户端节点接口
+            队列节点接口（先进先出） 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNodeLocalClientNode`1.Clear">
@@ -28109,7 +27951,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode">
             <summary>
-            服务基础操作接口方法映射枚举 客户端节点接口
+            服务基础操作接口方法映射枚举 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateArrayNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Reflection.RemoteType,System.Int32)">
@@ -28428,7 +28270,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeLocalClientNode`1">
             <summary>
-            栈节点（后进先出） 客户端节点接口
+            栈节点接口（后进先出） 本地客户端节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeLocalClientNode`1.Clear">
@@ -28974,88 +28816,88 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.Clear">
             <summary>
-            [0] 清除所有数据
+            [0] 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.ContainsKey">
             <summary>
-            [1] 判断关键字是否存在
+            [1] 
             KT key 
             返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.ReusableClear">
             <summary>
-            [2] 可重用字典重置数据位置（存在引用类型数据会造成内存泄露）
+            [2] 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.Count">
             <summary>
-            [3] 获取数据数量
+            [3] 
             返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.GetRemove">
             <summary>
-            [4] 删除关键字并返回被删除数据
+            [4] 
             KT key 
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 被删除数据
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.Remove">
             <summary>
-            [5] 删除关键字
+            [5] 
             KT key 
-            返回值 bool 是否删除成功
+            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.Renew">
             <summary>
-            [6] 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
-            int capacity 新容器初始化大小
+            [6] 
+            int capacity 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.Set">
             <summary>
-            [7] 强制设置数据，如果关键字已存在则覆盖
+            [7] 
             KT key 
             VT value 
-            返回值 bool 是否设置成功
+            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.SnapshotAdd">
             <summary>
-            [8] 快照添加数据
+            [8] 
             AutoCSer.KeyValue{KT,VT} value 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.TryAdd">
             <summary>
-            [9] 尝试添加数据
+            [9] 
             KT key 
             VT value 
-            返回值 bool 是否添加成功，否则表示关键字已经存在
+            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.TryGetValue">
             <summary>
-            [10] 根据关键字获取数据
+            [10] 
             KT key 
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.GetValueArray">
             <summary>
-            [11] 根据关键字获取数据
+            [11] 
             KT[] keys 
             返回值 VT[] 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeMethodEnum.RemoveKeys">
             <summary>
-            [12] 删除关键字
+            [12] 
             KT[] keys 
-            返回值 int 删除关键字数量
+            返回值 int 
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeMethodEnum">
@@ -29068,7 +28910,6 @@
             [0] 申请锁
             T key 锁关键字
             ushort timeoutSeconds 超时秒数
-            返回值 long 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeMethodEnum.Release">
@@ -29719,7 +29560,6 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.GetBit">
             <summary>
             [0] 获取设置新位操作
-            返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.GetData">
@@ -29796,7 +29636,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum">
             <summary>
-            消息处理节点 节点方法序号映射枚举类型
+            消息处理节点接口 节点方法序号映射枚举类型
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.AppendMessage">
@@ -29812,7 +29652,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.ClearFailed">
             <summary>
-            [2] 清除所有失败消息
+            [2] 清除所有失败消息（包括处理超时消息）
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.Completed">
@@ -29849,7 +29689,6 @@
             <summary>
             [8] 消费客户端获取消息
             int maxCount 当前客户端最大并发消息数量
-            返回值 T 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.GetTimeoutCount">
@@ -29868,6 +29707,34 @@
             <summary>
             [11] 快照设置数据
             T value 数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.AppendMessageLoadPersistence">
+            <summary>
+            [12] 生产者添加新消息
+            T message 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.ClearFailedLoadPersistence">
+            <summary>
+            [13] 清除所有失败消息（包括处理超时消息）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.ClearLoadPersistence">
+            <summary>
+            [14] 清除所有消息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.CompletedLoadPersistence">
+            <summary>
+            [15] 消息完成处理
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeMethodEnum.FailedLoadPersistence">
+            <summary>
+            [16] 消息失败处理
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity identity 
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum">
@@ -29900,7 +29767,6 @@
             <summary>
             [3] 切换进程
             string key 切换进程关键字
-            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNodeMethodEnum.GuardLoadPersistence">
@@ -29953,167 +29819,167 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum">
             <summary>
-            二叉搜索树节点 节点方法序号映射枚举类型
+            二叉搜索树节点接口 节点方法序号映射枚举类型
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.Clear">
             <summary>
-            [0] 清除数据
+            [0] 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.ContainsKey">
             <summary>
-            [1] 判断是否包含关键字
-            KT key 关键字
-            返回值 bool 是否包含关键字
+            [1] 
+            KT key 
+            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.Count">
             <summary>
-            [2] 获取节点数据数量
+            [2] 
             返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.CountLess">
             <summary>
-            [3] 根据关键字比它小的节点数量
-            KT key 关键字
-            返回值 int 节点数量，失败返回 -1
+            [3] 
+            KT key 
+            返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.CountThan">
             <summary>
-            [4] 根据关键字比它大的节点数量
-            KT key 关键字
-            返回值 int 节点数量，失败返回 -1
+            [4] 
+            KT key 
+            返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.GetHeight">
             <summary>
-            [5] 获取树高度，时间复杂度 O(n)
+            [5] 
             返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.GetRemove">
             <summary>
-            [6] 根据关键字删除节点
-            KT key 关键字
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 被删除数据
+            [6] 
+            KT key 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.GetValues">
             <summary>
-            [7] 获取范围数据集合
-            int skipCount 跳过记录数
-            byte getCount 获取记录数
+            [7] 
+            int skipCount 
+            byte getCount 
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.IndexOf">
             <summary>
-            [8] 根据关键字获取一个匹配节点位置
-            KT key 关键字
-            返回值 int 一个匹配节点位置,失败返回-1
+            [8] 
+            KT key 
+            返回值 int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.Remove">
             <summary>
-            [9] 根据关键字删除节点
-            KT key 关键字
-            返回值 bool 是否存在关键字
+            [9] 
+            KT key 
+            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.Set">
             <summary>
-            [10] 设置数据
-            KT key 关键字
-            VT value 数据
-            返回值 bool 是否添加了关键字
+            [10] 
+            KT key 
+            VT value 
+            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.SnapshotAdd">
             <summary>
-            [11] 快照添加数据
+            [11] 
             AutoCSer.KeyValue{KT,VT} value 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryAdd">
             <summary>
-            [12] 添加数据
-            KT key 关键字
-            VT value 数据
-            返回值 bool 是否添加了数据
+            [12] 
+            KT key 
+            VT value 
+            返回值 bool 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetFirstKey">
             <summary>
-            [13] 获取第一个关键字数据
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{KT} 第一个关键字数据
+            [13] 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{KT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetFirstKeyValue">
             <summary>
-            [14] 获取第一组数据
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.KeyValue{KT,VT}} 第一组数据
+            [14] 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.KeyValue{KT,VT}} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetFirstValue">
             <summary>
-            [15] 获取第一个数据
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 第一个数据
+            [15] 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetKeyValueByIndex">
             <summary>
-            [16] 根据节点位置获取数据
-            int index 节点位置
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.KeyValue{KT,VT}} 数据
+            [16] 
+            int index 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.KeyValue{KT,VT}} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetLastKey">
             <summary>
-            [17] 获取最后一个关键字数据
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{KT} 最后一个关键字数据
+            [17] 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{KT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetLastKeyValue">
             <summary>
-            [18] 获取最后一组数据
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.KeyValue{KT,VT}} 最后一组数据
+            [18] 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{AutoCSer.KeyValue{KT,VT}} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetLastValue">
             <summary>
-            [19] 获取最后一个数据
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 最后一个数据
+            [19] 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetValue">
             <summary>
-            [20] 根据关键字获取数据
-            KT key 关键字
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 目标数据
+            [20] 
+            KT key 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.TryGetValueByIndex">
             <summary>
-            [21] 根据节点位置获取数据
-            int index 节点位置
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 数据
+            [21] 
+            int index 
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult{VT} 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.GetValueArray">
             <summary>
-            [22] 根据关键字获取数据
+            [22] 
             KT[] keys 
             返回值 VT[] 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeMethodEnum.RemoveKeys">
             <summary>
-            [23] 删除关键字
+            [23] 
             KT[] keys 
-            返回值 int 删除关键字数量
+            返回值 int 
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNodeMethodEnum">
@@ -30229,14 +30095,12 @@
             <summary>
             [2] 获取服务注册日志
             string serverName 监视服务名称，空字符串表示所有服务
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.ServiceCallback">
             <summary>
             [3] 服务注册回调委托，主要用于注册组件检查服务的在线状态
             long sessionID 服务会话标识ID
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServerRegistryNodeMethodEnum.SnapshotSet">
@@ -30821,7 +30685,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeMethodEnum">
             <summary>
-            栈节点（后进先出） 节点方法序号映射枚举类型
+            栈节点接口（后进先出） 节点方法序号映射枚举类型
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeMethodEnum.Clear">
@@ -32659,6 +32523,347 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase">
+            <summary>
+            日志流持久化内存数据库服务端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.NullRepairNodeMethodLoaders">
+            <summary>
+            默认空待加载修复方法节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.Config">
+            <summary>
+            日志流持久化内存数据库服务端配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.CommandServerCallQueue">
+            <summary>
+            服务端执行队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceDirectory">
+            <summary>
+            持久化文件主目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceFileInfo">
+            <summary>
+            持久化文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionPositionFileInfo">
+            <summary>
+            持久化回调异常位置文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceSwitchFileInfo">
+            <summary>
+            重建持久化文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionPositionSwitchFileInfo">
+            <summary>
+            重建持久化回调异常位置文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.removeHistoryFile">
+            <summary>
+            删除历史持久化文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.nodeCreators">
+            <summary>
+            生成服务端节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.nodeCreatorLock">
+            <summary>
+            生成服务端节点集合访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceDataPositionBuffer">
+            <summary>
+            持久化回调异常位置写入缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.nodeDictionary">
+            <summary>
+            根节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.CreateNodes">
+            <summary>
+            正在创建节点的关键字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.serviceCallbackWait">
+            <summary>
+            持久化回调完成等待
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.Nodes">
+            <summary>
+            节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.CurrentMethodParameter">
+            <summary>
+            当前执行的调用方法与参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceQueue">
+            <summary>
+            调用持久化链表
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceWaitHandle">
+            <summary>
+            等待事件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.Rebuilder">
+            <summary>
+            日志流持久化文件重建
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.RepairNodeMethodLoaders">
+            <summary>
+            待加载修复方法节点集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.LoadedRepairNodeMethod">
+            <summary>
+            已加载加载修复节点方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.Slave">
+            <summary>
+            从节点客户端信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.CanCreateSlave">
+            <summary>
+            是否允许创建从节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.RebuildPosition">
+            <summary>
+            持久化流重建起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistencePosition">
+            <summary>
+            持久化流已写入位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.RebuildPersistenceEndPosition">
+            <summary>
+            持久化流重建绝对结束位置 RebuildPosition + PersistencePosition
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallbackExceptionFilePosition">
+            <summary>
+            持久化回调异常位置文件已写入位置
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.RebuildSnapshotPosition">
+            <summary>
+            重建快照结束位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.NodeIndex">
+            <summary>
+            当前分配节点索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.serviceCallbackCount">
+            <summary>
+            未完成持久化回调次数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.SnapshotTransactionNodeVersion">
+            <summary>
+            快照事务关系节点版本
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.IsMaster">
+            <summary>
+            是否主节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.IsBackup">
+            <summary>
+            是否备份客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.CurrentCallIsPersistence">
+            <summary>
+            当前调用是否持久化
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.IsLoaded">
+            <summary>
+            是否已经加载完数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.IsDisposed">
+            <summary>
+            是否已经释放资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig,System.Boolean)">
+            <summary>
+            服务端会话绑定日志流持久化内存数据库服务
+            </summary>
+            <param name="config">日志流持久化内存数据库服务端配置</param>
+            <param name="isMaster">是否主节点</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.NodeDispose">
+            <summary>
+            释放节点资源
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.GetNode(System.String)">
+            <summary>
+            根据关键字获取节点信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile)">
+            <summary>
+            设置删除历史持久化文件
+            </summary>
+            <param name="removeHistoryFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.SwitchPersistenceFileInfo">
+            <summary>
+            切换持久化文件信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.GetPersistencePosition">
+            <summary>
+            获取持久化流已写入位置
+            </summary>
+            <returns>持久化流已写入位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.GetRebuildSnapshotPosition">
+            <summary>
+            获取重建快照结束位置
+            </summary>
+            <returns>重建快照结束位置</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.AppendNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.String)">
+            <summary>
+            添加新节点
+            </summary>
+            <param name="node"></param>
+            <param name="key"></param>
+            <returns>当前执行的持久化回调</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
+            <summary>
+            添加持久化调用方法与参数信息
+            </summary>
+            <param name="methodParameter"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,``0@)">
+            <summary>
+            添加持久化调用方法与参数信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodParameter"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.SetCurrentMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
+            <summary>
+            设置当前执行的调用方法与参数信息
+            </summary>
+            <param name="methodParameter"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,System.Int64,System.Boolean)">
+            <summary>
+            持久化回调
+            </summary>
+            <param name="head"></param>
+            <param name="end"></param>
+            <param name="persistencePosition"></param>
+            <param name="checkRebuild"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.CheckRebuild">
+            <summary>
+            重建持久化文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceException(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            持久化结束释放队列
+            </summary>
+            <param name="head"></param>
+            <param name="end"></param>
+            <param name="state"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.WritePersistenceCallbackExceptionPosition(System.Int64)">
+            <summary>
+            写入持久化回调异常数据位置
+            </summary>
+            <param name="persistenceCallbackExceptionPosition">持久化异常位置信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.GetNodeCreator``1">
+            <summary>
+            获取生成服务端节点
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
+            <summary>
+            添加修复接口方法文件
+            </summary>
+            <param name="repairNodeMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethodLoader``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase,System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory)">
+            <summary>
+            添加待加载修复方法节点
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="service"></param>
+            <param name="methodDirectory"></param>
+            <param name="repairNodeMethodDirectory"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.appendRepairNodeMethodLoader``1(System.IO.DirectoryInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodDirectory@)">
+            <summary>
+            添加待加载修复方法节点
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodDirectory"></param>
+            <param name="repairNodeMethodDirectory"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.AppendRepairNodeMethodLoader(System.UInt64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodLoader)">
+            <summary>
+            添加待加载修复方法节点
+            </summary>
+            <param name="position"></param>
+            <param name="loader"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.AppendLoadedRepairNodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethod)">
+            <summary>
+            添加已加载加载修复节点方法
+            </summary>
+            <param name="repairNodeMethod"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.CloseLoader(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SlaveLoader,System.Boolean)">
+            <summary>
+            关闭数据加载
+            </summary>
+            <param name="loader"></param>
+            <param name="isRetry"></param>
+        </member>
         <member name="T:AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService">
             <summary>
             日志流持久化内存数据库服务端接口
@@ -32901,6 +33106,11 @@
             持久化重建完毕关闭从节点等待事件
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.slaveClientTimestamp">
+            <summary>
+            最后一次生成的从节点时间戳标识
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.persistenceHead">
             <summary>
             未处理持久化队列首节点
@@ -32929,11 +33139,6 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.rebuildLoadExceptionNode">
             <summary>
             持久化重建加载异常节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.slaveClientTimestamp">
-            <summary>
-            最后一次生成的从节点时间戳标识
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.isRebuilderPersistenceWaitting">
@@ -33009,12 +33214,6 @@
             </summary>
             <param name="key"></param>
             <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.LoadRepairNodeMethod(System.Int64)">
-            <summary>
-            初始化加载修复方法
-            </summary>
-            <param name="position"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.SetPersistencePosition(System.Int64,System.Int64)">
             <summary>
@@ -33522,11 +33721,6 @@
             持久化文件重建异常并已关闭
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.RebuildCompleted">
-            <summary>
-            持久化重建完毕关闭从节点
-            </summary>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.SetPersistenceFileHeadVersion(System.UInt32,System.UInt64,System.Int64)">
             <summary>
             设置持久化文件头部版本信息
@@ -33538,6 +33732,17 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.SetRebuilderPersistenceWaitting">
             <summary>
             设置重建持久化等待操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.LoadRepairNodeMethod(System.Int64)">
+            <summary>
+            初始化加载修复方法
+            </summary>
+            <param name="position"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.RebuildCompleted">
+            <summary>
+            持久化重建完毕关闭从节点
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.getRepairMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Byte[],AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RepairNodeMethodName@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode@,System.Reflection.MethodInfo@,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute@)">

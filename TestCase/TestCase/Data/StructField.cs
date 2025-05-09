@@ -15,6 +15,7 @@ namespace AutoCSer.TestCase.Data
     [AutoCSer.CodeGenerator.RandomObject]
     [AutoCSer.CodeGenerator.FieldEquals]
 #endif
+    [AutoCSer.BinarySerialize(IsMemberMap = true)]
     internal partial struct StructField
     {
 

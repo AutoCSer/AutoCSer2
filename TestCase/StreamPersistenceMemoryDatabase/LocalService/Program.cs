@@ -18,15 +18,20 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             await AutoCSer.Threading.SwitchAwaiter.Default;
             try
             {
+#if AOT
+                string Aot = "AOT";
+#else
+                string Aot = string.Empty;
+#endif
                 ServiceConfig databaseServiceConfig = new ServiceConfig
                 {
-                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)),
-                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(ServiceConfig.PersistenceSwitchPath)),
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + Aot),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + Aot + nameof(ServiceConfig.PersistenceSwitchPath)),
                 };
                 ServiceConfig readWriteQueueDatabaseServiceConfig = new ServiceConfig
                 {
-                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService)) + nameof(IReadWriteQueueService),
-                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + nameof(IReadWriteQueueService) + nameof(ServiceConfig.PersistenceSwitchPath)),
+                    PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + "ReadWriteQueue" + Aot),
+                    PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase) + nameof(LocalService) + "ReadWriteQueue" + Aot + nameof(ServiceConfig.PersistenceSwitchPath)),
                 };
                 using (LocalService cacheService = databaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p)))
                 using (LocalService readWriteQueueCacheService = readWriteQueueDatabaseServiceConfig.Create<ICustomServiceNode>(p => new CustomServiceNode(p), -1))
@@ -41,7 +46,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 
                         await Task.WhenAll(
                             CallbackNode.Test(client, false)
+#if !AOT
                             , DistributedLockNode.Test(client, false)
+#endif
                             , MessageConsumer.Test(client, false)
                             , FragmentDictionaryNode.Test(client, false)
                             , DictionaryNode.Test(client, false)
@@ -63,7 +70,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                         await new PerformanceMessageNode().Test(client, false);
                         await Task.WhenAll(
                             CallbackNode.Test(readWriteQueueClient, true)
+#if !AOT
                             , DistributedLockNode.Test(readWriteQueueClient, true)
+#endif
                             , MessageConsumer.Test(readWriteQueueClient, true)
                             , FragmentDictionaryNode.Test(readWriteQueueClient, true)
                             , DictionaryNode.Test(readWriteQueueClient, true)
@@ -84,7 +93,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                         await new PerformanceSearchTreeDictionaryNode().Test(readWriteQueueClient, true);
                         await new PerformanceMessageNode().Test(readWriteQueueClient, true);
                     }
-                    while (true);
+                    while (Console.ReadLine() != "quit");
                 }
             }
             catch (Exception exception)
@@ -92,6 +101,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint(exception.ToString());
                 Console.ReadLine();
             }
+#if AOT
+            AutoCSer.TestCase.StreamPersistenceMemoryDatabase.AotMethod.Call();
+#endif
         }
         internal static bool Breakpoint(LocalResult result, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
         {

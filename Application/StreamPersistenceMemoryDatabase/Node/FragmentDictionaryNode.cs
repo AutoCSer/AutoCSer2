@@ -7,7 +7,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
+#if AOT
+    public abstract class FragmentDictionaryNode<KT, VT> : IEnumerableSnapshot<KeyValue<KT, VT>>
+#else
     public sealed class FragmentDictionaryNode<KT, VT> : IFragmentDictionaryNode<KT, VT>, IEnumerableSnapshot<KeyValue<KT, VT>>
+#endif
         where KT : IEquatable<KT>
     {
         /// <summary>

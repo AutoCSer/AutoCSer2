@@ -216,7 +216,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             value = AutoCSer.Random.Default.Next();
             result = await node.Value.CallCustomPersistence(value);
             if (!Program.Breakpoint(result)) return;
-
+#if !AOT
             TestClass testClass = AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull();
             ServerByteArray serverByteArray = AutoCSer.BinarySerializer.Serialize(testClass);
             result = await node.Value.SetServerByteArray(serverByteArray);
@@ -228,7 +228,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 ConsoleWriteQueue.Breakpoint($"*ERROR*");
                 return;
             }
-
+#endif
             result = await node.Value.PersistenceCallbackException();
             if (result.CallState != CallStateEnum.IgnorePersistenceCallbackException)
             {
@@ -240,7 +240,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         }
         private static void completed(bool isReadWriteQueue)
         {
-            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            string readWriteQueue = isReadWriteQueue ? "ReadWriteQueue" : null;
             Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }

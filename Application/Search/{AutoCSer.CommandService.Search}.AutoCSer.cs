@@ -326,7 +326,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search.DiskBlockIndex
 {
         /// <summary>
-        /// 带移除标记的可重用哈希索引节点接口 客户端节点接口
+        /// 带移除标记的可重用哈希索引节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashIndexNode<,>))]
         public partial interface IRemoveMarkHashIndexNodeLocalClientNode<KT,VT>
@@ -354,7 +354,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// 获取更新关键字集合
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<KT>> callback);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<KT>> __callback__);
             /// <summary>
             /// 删除匹配数据关键字
             /// </summary>
@@ -397,7 +397,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search.DiskBlockIndex
 {
         /// <summary>
-        /// 带移除标记的可重用哈希索引节点接口 客户端节点接口
+        /// 带移除标记的可重用哈希索引节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.DiskBlockIndex.IRemoveMarkHashKeyIndexNode<>))]
         public partial interface IRemoveMarkHashKeyIndexNodeLocalClientNode<T>
@@ -425,7 +425,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// 获取更新关键字集合
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> callback);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __callback__);
             /// <summary>
             /// 删除匹配数据关键字
             /// </summary>
@@ -480,7 +480,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search
 {
         /// <summary>
-        /// 非索引条件查询数据节点接口 客户端节点接口
+        /// 非索引条件查询数据节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.IConditionDataNode<,>))]
         public partial interface IConditionDataNodeLocalClientNode<KT,VT>
@@ -512,7 +512,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search
 {
         /// <summary>
-        /// 分词结果磁盘块索引信息节点接口 客户端节点接口
+        /// 分词结果磁盘块索引信息节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.IWordIdentityBlockIndexNode<>))]
         public partial interface IWordIdentityBlockIndexNodeLocalClientNode<T>
@@ -546,7 +546,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search.MemoryIndex
 {
         /// <summary>
-        /// 哈希索引节点接口 客户端节点接口
+        /// 哈希索引节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.MemoryIndex.IHashCodeKeyIndexNode<>))]
         public partial interface IHashCodeKeyIndexNodeLocalClientNode<T>
@@ -593,7 +593,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search.MemoryIndex
 {
         /// <summary>
-        /// 哈希索引节点接口 客户端节点接口
+        /// 哈希索引节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.MemoryIndex.IHashIndexNode<,>))]
         public partial interface IHashIndexNodeLocalClientNode<KT,VT>
@@ -640,7 +640,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search.StaticTrieGraph
 {
         /// <summary>
-        /// 字符串 Trie 图节点接口 客户端节点接口
+        /// 字符串 Trie 图节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.StaticTrieGraph.IStaticTrieGraphNode))]
         public partial interface IStaticTrieGraphNodeLocalClientNode
@@ -688,7 +688,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 }namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
 {
         /// <summary>
-        /// 分词结果磁盘块索引信息节点接口 客户端节点接口
+        /// 分词结果磁盘块索引信息节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.Search.WordIdentityBlockIndex.ILocalNode<>))]
         public partial interface ILocalNodeLocalClientNode<T>
@@ -724,7 +724,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 带移除标记的可重用哈希索引节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IRemoveMarkHashIndexNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IRemoveMarkHashIndexNodeMethodEnum))]
         public partial interface IRemoveMarkHashIndexNode<KT,VT> { }
         /// <summary>
         /// 带移除标记的可重用哈希索引节点接口 节点方法序号映射枚举类型
@@ -765,7 +765,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             GetBlockIndexData = 4,
             /// <summary>
             /// [5] 获取更新关键字集合
-            /// 返回值 KT 
             /// </summary>
             GetChangeKeys = 5,
             /// <summary>
@@ -849,7 +848,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 带移除标记的可重用哈希索引节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IRemoveMarkHashKeyIndexNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IRemoveMarkHashKeyIndexNodeMethodEnum))]
         public partial interface IRemoveMarkHashKeyIndexNode<T> { }
         /// <summary>
         /// 带移除标记的可重用哈希索引节点接口 节点方法序号映射枚举类型
@@ -890,7 +889,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             GetBlockIndexData = 4,
             /// <summary>
             /// [5] 获取更新关键字集合
-            /// 返回值 T 
             /// </summary>
             GetChangeKeys = 5,
             /// <summary>
@@ -986,7 +984,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 非索引条件查询数据节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IConditionDataNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IConditionDataNodeMethodEnum))]
         public partial interface IConditionDataNode<KT,VT> { }
         /// <summary>
         /// 非索引条件查询数据节点接口 节点方法序号映射枚举类型
@@ -1001,13 +999,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <summary>
             /// [1] 创建非索引条件查询数据
             /// KT key 数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Create = 1,
             /// <summary>
             /// [2] 更新非索引条件查询数据
             /// KT key 数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Update = 2,
             /// <summary>
@@ -1022,7 +1018,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <summary>
             /// [5] 非索引条件查询数据完成更新操作
             /// VT value 非索引条件查询数据
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Completed = 5,
             /// <summary>
@@ -1034,19 +1029,16 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <summary>
             /// [7] 删除非索引条件查询数据
             /// KT key 数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             Delete = 7,
             /// <summary>
             /// [8] 非索引条件查询数据完成更新操作
             /// VT value 非索引条件查询数据
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             CompletedLoadPersistence = 8,
             /// <summary>
             /// [9] 删除非索引条件查询数据
             /// KT key 数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.ConditionDataUpdateStateEnum 
             /// </summary>
             DeleteLoadPersistence = 9,
             /// <summary>
@@ -1071,7 +1063,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 创建哈希索引节点的自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IDiskBlockIndexServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IDiskBlockIndexServiceNodeMethodEnum))]
         public partial interface IDiskBlockIndexServiceNode { }
         /// <summary>
         /// 创建哈希索引节点的自定义基础服务接口 节点方法序号映射枚举类型
@@ -1387,7 +1379,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 创建字符串 Trie 图节点的自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IStaticTrieGraphServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IStaticTrieGraphServiceNodeMethodEnum))]
         public partial interface IStaticTrieGraphServiceNode { }
         /// <summary>
         /// 创建字符串 Trie 图节点的自定义基础服务接口 节点方法序号映射枚举类型
@@ -1696,7 +1688,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 分词结果磁盘块索引信息节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IWordIdentityBlockIndexNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IWordIdentityBlockIndexNodeMethodEnum))]
         public partial interface IWordIdentityBlockIndexNode<T> { }
         /// <summary>
         /// 分词结果磁盘块索引信息节点接口 节点方法序号映射枚举类型
@@ -1707,37 +1699,31 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// [0] 分词结果磁盘块索引信息完成更新操作
             /// T key 分词数据关键字
             /// AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 磁盘块索引信息
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Completed = 0,
             /// <summary>
             /// [1] 创建分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Create = 1,
             /// <summary>
             /// [2] 创建分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             CreateLoadPersistence = 2,
             /// <summary>
             /// [3] 删除分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Delete = 3,
             /// <summary>
             /// [4] 删除分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             DeleteLoadPersistence = 4,
             /// <summary>
             /// [5] 删除分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Deleted = 5,
             /// <summary>
@@ -1748,26 +1734,22 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <summary>
             /// [7] 更新分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Update = 7,
             /// <summary>
             /// [8] 更新分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             UpdateLoadPersistence = 8,
             /// <summary>
             /// [9] 分词结果磁盘块索引信息完成更新操作
             /// T key 分词数据关键字
             /// AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 磁盘块索引信息
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             CompletedLoadPersistence = 9,
             /// <summary>
             /// [10] 删除分词结果磁盘块索引信息
             /// T key 分词数据关键字
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             DeletedLoadPersistence = 10,
             /// <summary>
@@ -1783,7 +1765,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// [13] 创建分词结果磁盘块索引信息
             /// T key 分词数据关键字
             /// string text 分词文本数据
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             LoadCreate = 13,
             /// <summary>
@@ -1797,7 +1778,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// [15] 创建分词结果磁盘块索引信息
             /// T key 分词数据关键字
             /// string text 分词文本数据
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             LoadCreateLoadPersistence = 15,
         }
@@ -1806,7 +1786,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 哈希索引节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IHashCodeKeyIndexNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IHashCodeKeyIndexNodeMethodEnum))]
         public partial interface IHashCodeKeyIndexNode<T> { }
         /// <summary>
         /// 哈希索引节点接口 节点方法序号映射枚举类型
@@ -1876,7 +1856,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 哈希索引节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IHashIndexNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IHashIndexNodeMethodEnum))]
         public partial interface IHashIndexNode<KT,VT> { }
         /// <summary>
         /// 哈希索引节点接口 节点方法序号映射枚举类型
@@ -1946,7 +1926,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 字符串 Trie 图节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IStaticTrieGraphNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IStaticTrieGraphNodeMethodEnum))]
         public partial interface IStaticTrieGraphNode { }
         /// <summary>
         /// 字符串 Trie 图节点接口 节点方法序号映射枚举类型
@@ -2019,7 +1999,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 分词结果磁盘块索引信息节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ILocalNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ILocalNodeMethodEnum))]
         public partial interface ILocalNode<T> { }
         /// <summary>
         /// 分词结果磁盘块索引信息节点接口 节点方法序号映射枚举类型
@@ -2030,57 +2010,48 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// [0] 
             /// T key 
             /// AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Completed = 0,
             /// <summary>
             /// [1] 
             /// T key 
             /// AutoCSer.CommandService.DiskBlock.BlockIndex blockIndex 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             CompletedLoadPersistence = 1,
             /// <summary>
             /// [2] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Create = 2,
             /// <summary>
             /// [3] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             CreateLoadPersistence = 3,
             /// <summary>
             /// [4] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Delete = 4,
             /// <summary>
             /// [5] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             DeleteLoadPersistence = 5,
             /// <summary>
             /// [6] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Deleted = 6,
             /// <summary>
             /// [7] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             DeletedLoadPersistence = 7,
             /// <summary>
             /// [8] 
             /// T key 
             /// string text 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             LoadCreate = 8,
             /// <summary>
@@ -2094,7 +2065,6 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// [10] 
             /// T key 
             /// string text 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             LoadCreateLoadPersistence = 10,
             /// <summary>
@@ -2114,13 +2084,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// <summary>
             /// [14] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             Update = 14,
             /// <summary>
             /// [15] 
             /// T key 
-            /// 返回值 AutoCSer.CommandService.Search.WordIdentityBlockIndexUpdateStateEnum 
             /// </summary>
             UpdateLoadPersistence = 15,
         }

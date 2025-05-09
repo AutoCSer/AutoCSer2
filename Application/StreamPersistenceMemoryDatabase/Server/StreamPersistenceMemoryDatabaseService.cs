@@ -18,16 +18,25 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 日志流持久化内存数据库服务端
     /// </summary>
-    public class StreamPersistenceMemoryDatabaseService : StreamPersistenceMemoryDatabaseServiceBase, IStreamPersistenceMemoryDatabaseService, IReadWriteQueueService, ICommandServerBindController, IDisposable
+    public class StreamPersistenceMemoryDatabaseService : StreamPersistenceMemoryDatabaseServiceBase, ICommandServerBindController, IDisposable
+#if !AOT
+        , IStreamPersistenceMemoryDatabaseService, IReadWriteQueueService
+#endif
     {
         /// <summary>
         /// 持久化缓冲区池
         /// </summary>
         internal readonly ByteArrayPool PersistenceBufferPool;
+#if !AOT
         /// <summary>
         /// 持久化重建完毕关闭从节点等待事件
         /// </summary>
         private AutoCSer.Threading.OnceAutoWaitHandle rebuildCompletedWaitHandle;
+        /// <summary>
+        /// 最后一次生成的从节点时间戳标识
+        /// </summary>
+        private long slaveClientTimestamp;
+#endif
         /// <summary>
         /// 未处理持久化队列首节点
         /// </summary>
@@ -64,10 +73,6 @@ namespace AutoCSer.CommandService
 #else
         private ServerNode rebuildLoadExceptionNode;
 #endif
-        /// <summary>
-        /// 最后一次生成的从节点时间戳标识
-        /// </summary>
-        private long slaveClientTimestamp;
         /// <summary>
         /// 重建持久化是否正在等待操作
         /// </summary>
@@ -133,9 +138,11 @@ namespace AutoCSer.CommandService
             }
             IsLoaded = true;
             serviceCallbackWait = new ManualResetEvent(true);
+#if !AOT
             rebuildCompletedWaitHandle.Set(new object());
-            AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
             RepairNodeMethodLoaders = NullRepairNodeMethodLoaders;
+#endif
+            AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
             Config.RemoveHistoryFile(this);
         }
         /// <summary>
@@ -257,30 +264,6 @@ namespace AutoCSer.CommandService
         {
             var node = default(ServerNode);
             return nodeDictionary.TryGetValue(key, out node) ? node : null;
-        }
-        /// <summary>
-        /// 初始化加载修复方法
-        /// </summary>
-        /// <param name="position"></param>
-        internal void LoadRepairNodeMethod(long position)
-        {
-            var loader = default(RepairNodeMethodLoader);
-            Monitor.Enter(nodeCreatorLock);
-            if (!RepairNodeMethodLoaders.Remove(RebuildPosition + (ulong)position, out loader)) Monitor.Exit(nodeCreatorLock);
-            else
-            {
-                Monitor.Exit(nodeCreatorLock);
-                do
-                {
-                    var repairNodeMethod = loader.LoadRepair();
-                    if (repairNodeMethod != null)
-                    {
-                        repairNodeMethod.LinkNext = LoadedRepairNodeMethod;
-                        LoadedRepairNodeMethod = repairNodeMethod;
-                    }
-                }
-                while ((loader = loader.LinkNext) != null);
-            }
         }
         /// <summary>
         /// 设置持久化文件写入位置
@@ -1120,9 +1103,8 @@ namespace AutoCSer.CommandService
                     }
                     persistenceBuffer.GetBufferLength();
                     SubArray<byte> outputData = default(SubArray<byte>);
-                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                     {
-                        outputSerializer.SetDefault();
                         persistenceBuffer.OutputStream = outputStream;
                         do
                         {
@@ -1139,6 +1121,9 @@ namespace AutoCSer.CommandService
                                     var rebuilder = Rebuilder;
                                     if (rebuilder != null)
                                     {
+#if AOT
+                                        serviceCallbackWait.WaitOne();
+#else
                                         var completedCallback = CanCreateSlave ? new PersistenceRebuilderCallback(rebuilder, PersistenceRebuilderCallbackTypeEnum.Completed) : null;
                                         serviceCallbackWait.WaitOne();
                                         if (Slave != null)
@@ -1146,6 +1131,7 @@ namespace AutoCSer.CommandService
                                             CommandServerCallQueue.AppendWriteOnly(completedCallback.notNull());
                                             rebuildCompletedWaitHandle.Wait();
                                         }
+#endif
                                         persistenceStream.Dispose();
 
                                         if (rebuilder.QueuePersistence())
@@ -1346,7 +1332,7 @@ namespace AutoCSer.CommandService
                         var method = node.NodeCreator.Methods[methodIndex];
                         if (method != null)
                         {
-                            ServerNodeMethod serverNodeMethod = node.NodeCreator.NodeMethods[methodIndex].notNull();
+                            var serverNodeMethod = node.NodeCreator.NodeMethods[methodIndex].notNull();
                             if (serverNodeMethod.LoadPersistenceMethodIndex >= 0) method = node.NodeCreator.Methods[serverNodeMethod.LoadPersistenceMethodIndex].notNull();
                             switch (method.CallType)
                             {
@@ -1511,6 +1497,53 @@ namespace AutoCSer.CommandService
         /// </summary>
         public virtual void RebuildError() { }
         /// <summary>
+        /// 设置持久化文件头部版本信息
+        /// </summary>
+        /// <param name="persistenceFileHeadVersion"></param>
+        /// <param name="rebuildPosition"></param>
+        /// <param name="rebuildSnapshotPosition"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetPersistenceFileHeadVersion(uint persistenceFileHeadVersion, ulong rebuildPosition, long rebuildSnapshotPosition)
+        {
+            PersistenceFileHeadVersion = persistenceFileHeadVersion;
+            RebuildPosition = rebuildPosition;
+            this.RebuildSnapshotPosition = rebuildSnapshotPosition;
+        }
+        /// <summary>
+        /// 设置重建持久化等待操作
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetRebuilderPersistenceWaitting()
+        {
+            isRebuilderPersistenceWaitting = true;
+            PersistenceWaitHandle.Set();
+        }
+#if !AOT
+        /// <summary>
+        /// 初始化加载修复方法
+        /// </summary>
+        /// <param name="position"></param>
+        internal void LoadRepairNodeMethod(long position)
+        {
+            var loader = default(RepairNodeMethodLoader);
+            Monitor.Enter(nodeCreatorLock);
+            if (!RepairNodeMethodLoaders.Remove(RebuildPosition + (ulong)position, out loader)) Monitor.Exit(nodeCreatorLock);
+            else
+            {
+                Monitor.Exit(nodeCreatorLock);
+                do
+                {
+                    var repairNodeMethod = loader.LoadRepair();
+                    if (repairNodeMethod != null)
+                    {
+                        repairNodeMethod.LinkNext = LoadedRepairNodeMethod;
+                        LoadedRepairNodeMethod = repairNodeMethod;
+                    }
+                }
+                while ((loader = loader.LinkNext) != null);
+            }
+        }
+        /// <summary>
         /// 持久化重建完毕关闭从节点
         /// </summary>
         internal void RebuildCompleted()
@@ -1535,28 +1568,6 @@ namespace AutoCSer.CommandService
             }
             while ((slave = slave.notNull().LinkNext) != null);
             rebuildCompletedWaitHandle.Set();
-        }
-        /// <summary>
-        /// 设置持久化文件头部版本信息
-        /// </summary>
-        /// <param name="persistenceFileHeadVersion"></param>
-        /// <param name="rebuildPosition"></param>
-        /// <param name="rebuildSnapshotPosition"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void SetPersistenceFileHeadVersion(uint persistenceFileHeadVersion, ulong rebuildPosition, long rebuildSnapshotPosition)
-        {
-            PersistenceFileHeadVersion = persistenceFileHeadVersion;
-            RebuildPosition = rebuildPosition;
-            this.RebuildSnapshotPosition = rebuildSnapshotPosition;
-        }
-        /// <summary>
-        /// 设置重建持久化等待操作
-        /// </summary>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void SetRebuilderPersistenceWaitting()
-        {
-            isRebuilderPersistenceWaitting = true;
-            PersistenceWaitHandle.Set();
         }
         /// <summary>
         /// 获取修复方法信息
@@ -1834,7 +1845,8 @@ namespace AutoCSer.CommandService
                         else left.LinkNext = slave.LinkNext;
                     }
                 }
-                else state = CallStateEnum.SlaveTimestampNotMatch;
+                else
+                state = CallStateEnum.SlaveTimestampNotMatch;
             }
             finally
             {
@@ -1906,7 +1918,8 @@ namespace AutoCSer.CommandService
                     }
                     else state = CallStateEnum.FileHeadNotMatch;
                 }
-                else state = CallStateEnum.SlaveTimestampNotMatch;
+                else
+                state = CallStateEnum.SlaveTimestampNotMatch;
             }
             finally
             {
@@ -1969,7 +1982,7 @@ namespace AutoCSer.CommandService
                     state = CallStateEnum.Callbacked;
                     return;
                 }
-                else state = CallStateEnum.SlaveTimestampNotMatch;
+                state = CallStateEnum.SlaveTimestampNotMatch;
             }
             finally
             {
@@ -2031,7 +2044,8 @@ namespace AutoCSer.CommandService
                     }
                     else state = CallStateEnum.FileHeadNotMatch;
                 }
-                else state = CallStateEnum.SlaveTimestampNotMatch;
+                else
+                state = CallStateEnum.SlaveTimestampNotMatch;
             }
             finally
             {
@@ -2075,5 +2089,6 @@ namespace AutoCSer.CommandService
         {
             throw new InvalidOperationException();
         }
+#endif
     }
 }

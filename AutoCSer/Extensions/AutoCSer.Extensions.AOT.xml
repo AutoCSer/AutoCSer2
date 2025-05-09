@@ -3359,6 +3359,111 @@
             <param name="startIndex">起始位置</param>
             <param name="endIndex">结束位置 - sizeof(uint)</param>
         </member>
+        <member name="T:AutoCSer.Algorithm.HashCode128">
+            <summary>
+            128b 哈希值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.HashCode128.high">
+            <summary>
+            高 64b
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.HashCode128.low">
+            <summary>
+            低 64b
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.#ctor(System.String)">
+            <summary>
+            128b 哈希值
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.#ctor(System.UInt64,System.UInt64)">
+            <summary>
+            128b 哈希值
+            </summary>
+            <param name="high">高 64b</param>
+            <param name="low">低 64b</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.getHashCode2">
+            <summary>
+            获取 2 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.GetHashCode2">
+            <summary>
+            获取 2 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.GetHashCodeArray2">
+            <summary>
+            获取 2 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.getHashCode">
+            <summary>
+            获取 4 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.GetHashCode3">
+            <summary>
+            获取 3 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.GetHashCodeArray3">
+            <summary>
+            获取 3 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.GetHashCode4">
+            <summary>
+            获取 4 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.HashCode128.GetHashCodeArray4">
+            <summary>
+            获取 4 个 32b 的哈希值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Algorithm.ManyHashBitMapCapacity">
+            <summary>
+            多哈希位图容器参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ManyHashBitMapCapacity.hashCount">
+            <summary>
+            哈希值数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ManyHashBitMapCapacity.capacity">
+            <summary>
+            位图容器大小
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ManyHashBitMapCapacity.#ctor(System.UInt32,System.Byte,System.Double)">
+            <summary>
+            多哈希位图容器参数
+            </summary>
+            <param name="estimatedCount">预期数据数量</param>
+            <param name="hashCount">哈希值数量</param>
+            <param name="misjudgmentProbability">误判概率=(estimatedCount*hashCount/capacity)^hashCount</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ManyHashBitMapCapacity.GetHashCapacity">
+            <summary>
+            获取位图容器大小
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Algorithm.ModMultiplier">
             <summary>
             整数取余，可用于哈希表操作

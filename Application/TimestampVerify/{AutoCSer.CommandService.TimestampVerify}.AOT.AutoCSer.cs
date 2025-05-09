@@ -8,20 +8,23 @@ using AutoCSer;
 #pragma warning disable
 namespace AutoCSer.CommandService
 {
-        [AutoCSer.Net.CommandClientControllerType(typeof(TimestampVerifyClient))]
+        /// <summary>
+        /// 基于递增登录时间戳验证的服务认证客户端接口
+        /// </summary>
+        [AutoCSer.Net.CommandClientControllerType(typeof(TimestampVerifyClientController))]
         public partial interface ITimestampVerifyClient { }
         /// <summary>
         /// 基于递增登录时间戳验证的服务认证客户端接口 客户端控制器
         /// </summary>
-        internal unsafe partial class TimestampVerifyClient : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.ITimestampVerifyClient, AutoCSer.CommandService.ITimestampVerifyService>, ITimestampVerifyClient
+        internal unsafe partial class TimestampVerifyClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.ITimestampVerifyClient, AutoCSer.CommandService.ITimestampVerifyService>, ITimestampVerifyClient
         {
-            private TimestampVerifyClient(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, 0) { }
+            private TimestampVerifyClientController(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, 0) { }
             internal static AutoCSer.Net.CommandClientController __CommandClientControllerConstructor__(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
             {
-                return new TimestampVerifyClient(socket, controllerName, startMethodIndex, serverMethodNames);
+                return new TimestampVerifyClientController(socket, controllerName, startMethodIndex, serverMethodNames);
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-            internal struct __pi0__
+            internal struct __ip0__
             {
                 internal ulong randomPrefix;
                 internal byte[] hashData;
@@ -32,7 +35,7 @@ namespace AutoCSer.CommandService
             /// </summary>
             /// <param name="stream"></param>
             /// <param name="value"></param>
-            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.TimestampVerifyClient.__pi0__ value)
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.TimestampVerifyClientController.__ip0__ value)
             {
                 value.simpleSerialize(stream);
             }
@@ -54,13 +57,13 @@ namespace AutoCSer.CommandService
             /// </summary>
             internal unsafe static void SimpleSerialize()
             {
-                AutoCSer.CommandService.TimestampVerifyClient.__pi0__ value = default(AutoCSer.CommandService.TimestampVerifyClient.__pi0__);
+                AutoCSer.CommandService.TimestampVerifyClientController.__ip0__ value = default(AutoCSer.CommandService.TimestampVerifyClientController.__ip0__);
                 SimpleSerialize(null, ref value);
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.TimestampVerifyClient.__pi0__));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.TimestampVerifyClientController.__ip0__));
             }
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-            internal struct __po0__
+            internal struct __op0__
             {
                 internal long timestamp;
                 internal AutoCSer.Net.CommandServerVerifyStateEnum ReturnValue;
@@ -72,7 +75,7 @@ namespace AutoCSer.CommandService
             /// <param name="value"></param>
             /// <param name="end"></param>
             /// <returns></returns>
-            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.TimestampVerifyClient.__po0__ value, byte* end)
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.TimestampVerifyClientController.__op0__ value, byte* end)
             {
                 return value.simpleDeserialize(start, end);
             }
@@ -89,6 +92,7 @@ namespace AutoCSer.CommandService
                 __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref ReturnValue);
                 this.ReturnValue = (AutoCSer.Net.CommandServerVerifyStateEnum)ReturnValue;
                 __start__ += 3;
+                if (__start__ == null || __start__ > __end__) return null;
                 return __start__;
             }
             /// <summary>
@@ -96,9 +100,9 @@ namespace AutoCSer.CommandService
             /// </summary>
             internal unsafe static void SimpleSerialize()
             {
-                AutoCSer.CommandService.TimestampVerifyClient.__po0__ value = default(AutoCSer.CommandService.TimestampVerifyClient.__po0__);
+                AutoCSer.CommandService.TimestampVerifyClientController.__op0__ value = default(AutoCSer.CommandService.TimestampVerifyClientController.__op0__);
                 SimpleDeserialize(null, ref value, null);
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.TimestampVerifyClient.__po0__));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.TimestampVerifyClientController.__op0__));
             }
             }
             /// <summary>
@@ -110,16 +114,16 @@ namespace AutoCSer.CommandService
             /// <returns></returns>
             AutoCSer.Net.CommandClientReturnValue<AutoCSer.Net.CommandServerVerifyStateEnum> AutoCSer.CommandService.ITimestampVerifyClient/**/.Verify(ulong randomPrefix, byte[] hashData, ref long timestamp)
             {
-                __pi0__ __inputParameter__ = new __pi0__
+                __ip0__ __inputParameter__ = new __ip0__
                 {
                     randomPrefix = randomPrefix,
                     hashData = hashData,
                     timestamp = timestamp,
                 };
-                __po0__ __outputParameter__ = new __po0__
+                __op0__ __outputParameter__ = new __op0__
                 {
                 };
-                var __returnValue__ = base.SynchronousInputOutput<__pi0__, __po0__>(0
+                var __returnValue__ = base.SynchronousInputOutput<__ip0__, __op0__>(0
                     , ref __inputParameter__
                     , ref __outputParameter__
                     );
@@ -143,7 +147,7 @@ namespace AutoCSer.CommandService
             {
                 __CommandClientControllerConstructor__(null, null, 0, null);
                 __CommandClientControllerMethods__();
-                AutoCSer.AotReflection.Interfaces(typeof(TimestampVerifyClient));
+                AutoCSer.AotReflection.Interfaces(typeof(TimestampVerifyClientController));
             }
         }
 }namespace AutoCSer.CommandService.TimestampVerify
@@ -162,9 +166,10 @@ namespace AutoCSer.CommandService
                 if (AutoCSer.Date.StartTimestamp == long.MinValue)
                 {
                     AutoCSer.AotMethod.Call();
-                    AutoCSer.CommandService.TimestampVerifyClient.__pi0__.SimpleSerialize();
-                    AutoCSer.CommandService.TimestampVerifyClient.__po0__.SimpleSerialize();
-                    AutoCSer.CommandService.TimestampVerifyClient.__CommandClientControllerConstructor__();
+                    AutoCSer.CommandService.TimestampVerifyClientController.__ip0__.SimpleSerialize();
+                    AutoCSer.CommandService.TimestampVerifyClientController.__op0__.SimpleSerialize();
+                    AutoCSer.CommandService.TimestampVerifyClientController.__CommandClientControllerConstructor__();
+
 
 
 

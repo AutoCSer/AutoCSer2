@@ -1,0 +1,3282 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoCSer.CommandService.DeployTask.AOT</name>
+    </assembly>
+    <members>
+        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupClient">
+            <summary>
+            数据库备份客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.CommandClient">
+            <summary>
+            命令客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.Client">
+            <summary>
+            数据库备份客户端套接字事件
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.DeployTask.IDatabaseBackupClientSocketEvent)">
+            <summary>
+            数据库备份客户端
+            </summary>
+            <param name="commandClient">命令客户端</param>
+            <param name="client">数据库备份客户端套接字事件</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.OnError(System.String)">
+            <summary>
+            输出错误信息
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.OnMessage(System.String)">
+            <summary>
+            输出信息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.Start">
+            <summary>
+            开始备份数据库
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.checkDatabase(System.String)">
+            <summary>
+            检查数据库是否需要备份
+            </summary>
+            <param name="database"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.getDatabaseBackupClientDownloader(System.String,System.String)">
+            <summary>
+            数据库备份客户端文件下载器
+            </summary>
+            <param name="database">数据库名称</param>
+            <param name="backupFullName">备份文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.BackupTable">
+            <summary>
+            开始备份数据库表格
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClient.getDatabaseBackupClientTable(System.String,System.String)">
+            <summary>
+            获取数据库表格备份操作对象
+            </summary>
+            <param name="database">数据库名称</param>
+            <param name="tableName">数据库表格名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader">
+            <summary>
+            数据库备份客户端文件下载器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.client">
+            <summary>
+            数据库备份客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.database">
+            <summary>
+            数据库名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.backupFullName">
+            <summary>
+            备份文件名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.backupFileName">
+            <summary>
+            备份文件名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.tryErrorCount">
+            <summary>
+            连续错误尝试次数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.#ctor(AutoCSer.CommandService.DeployTask.DatabaseBackupClient,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            数据库备份客户端文件下载器
+            </summary>
+            <param name="client">数据库备份客户端</param>
+            <param name="database">数据库名称</param>
+            <param name="backupFullName">备份文件名称</param>
+            <param name="backupFileName">备份文件名称</param>
+            <param name="tryErrorCount">连续错误尝试次数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.Download">
+            <summary>
+            下载文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientDownloader.deleteFile(System.Boolean)">
+            <summary>
+            删除历史文件
+            </summary>
+            <param name="isCompleted">当前文件是否下载成功</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable">
+            <summary>
+            数据库备份模型模式客户端数据库表格
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.Client">
+            <summary>
+            数据库备份客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.Database">
+            <summary>
+            数据库名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.TableName">
+            <summary>
+            数据库表格名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.SavePath">
+            <summary>
+            序列化文件保存路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.fileIndex">
+            <summary>
+            文件编号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.#ctor(AutoCSer.CommandService.DeployTask.DatabaseBackupClient,System.String,System.String,System.String)">
+            <summary>
+            数据库备份模型模式客户端数据库表格
+            </summary>
+            <param name="client">数据库备份客户端</param>
+            <param name="database">数据库名称</param>
+            <param name="tableName">数据库表格名称</param>
+            <param name="savePath">序列化文件保存路径</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.Backup">
+            <summary>
+            备份操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable.BinarySerializeConfig">
+            <summary>
+            序列化配置参数
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1">
+            <summary>
+            数据库备份模型模式客户端数据库表格
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.getCommand">
+            <summary>
+            获取数据命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.values">
+            <summary>
+            接收数据缓冲区
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.#ctor(AutoCSer.CommandService.DeployTask.DatabaseBackupClient,System.String,System.String,System.String,System.Func{System.String,System.String,AutoCSer.Net.EnumeratorCommand{`0}},System.Int32)">
+            <summary>
+            数据库备份模型模式客户端数据库表格
+            </summary>
+            <param name="client">数据库备份客户端</param>
+            <param name="database">数据库名称</param>
+            <param name="tableName">数据库表格名称</param>
+            <param name="savePath">序列化文件保存路径</param>
+            <param name="getCommand">获取数据命令</param>
+            <param name="capacity">缓存区大小，默认为 65536</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.Backup">
+            <summary>
+            备份操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.save">
+            <summary>
+            保存缓冲区数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.setDataSize(System.Byte[],System.Int32)">
+            <summary>
+            设置数据字节大小
+            </summary>
+            <param name="data"></param>
+            <param name="dataSize"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.completed(System.Boolean)">
+            <summary>
+            备份完成处理
+            </summary>
+            <param name="isCompleted">是否备份成功</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer">
+            <summary>
+            下载备份文件缓冲区
+            </summary>
+            <summary>
+            下载备份文件缓冲区
+            </summary>
+            <summary>
+            下载备份文件缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.Buffer">
+            <summary>
+            缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.Size">
+            <summary>
+            字节数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupClientSocketEvent">
+            <summary>
+            数据库备份客户端套接字事件
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.IDatabaseBackupClientSocketEvent.DatabaseBackupClient">
+            <summary>
+            数据库备份客户端接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupService">
+            <summary>
+            数据库备份服务接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupService.GetDatabase(AutoCSer.Net.CommandServerCallQueue)">
+            <summary>
+            获取可备份数据库名称集合
+            </summary>
+            <param name="queue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupService.Backup(AutoCSer.Net.CommandServerCallQueue,System.String,AutoCSer.Net.CommandServerCallback{System.String})">
+            <summary>
+            备份数据库并返回文件名称
+            </summary>
+            <param name="queue"></param>
+            <param name="database">数据库名称</param>
+            <param name="callback">重写必须保证回调执行，返回空字符串表示没有找到数据库</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupService.Download(System.String,System.Int64,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer})">
+            <summary>
+            下载备份文件
+            </summary>
+            <param name="backupFullName">备份文件名称</param>
+            <param name="startIndex">读取文件起始位置</param>
+            <param name="callback">下载文件数据回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupService.GetTableName(AutoCSer.Net.CommandServerCallQueue,System.String)">
+            <summary>
+            获取可备份数据库表格名称集合
+            </summary>
+            <param name="queue"></param>
+            <param name="database">数据库名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController">
+            <summary>
+            数据库备份服务接口 客户端接口
+            </summary>
+            <summary>
+            数据库备份服务接口 客户端接口
+            </summary>
+            <summary>
+            数据库备份服务接口 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Backup(System.String)">
+            <summary>
+            备份数据库并返回文件名称
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns>重写必须保证回调执行，返回空字符串表示没有找到数据库</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Download(System.String,System.Int64)">
+            <summary>
+            下载备份文件
+            </summary>
+            <param name="backupFullName">备份文件名称</param>
+            <param name="startIndex">读取文件起始位置</param>
+            <returns>下载文件数据回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.GetDatabase">
+            <summary>
+            获取可备份数据库名称集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.GetTableName(System.String)">
+            <summary>
+            获取可备份数据库表格名称集合
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.DirectoryName">
+            <summary>
+            目录名称
+            </summary>
+            <summary>
+            目录名称
+            </summary>
+            <summary>
+            目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DirectoryName.Name">
+            <summary>
+            目录名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DirectoryName.FullName">
+            <summary>
+            目录名称（包含路径）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.#ctor(System.IO.DirectoryInfo)">
+            <summary>
+            目录名称
+            </summary>
+            <param name="directoryInfo"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.#ctor(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            目录名称
+            </summary>
+            <param name="directoryInfo"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DirectoryName@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.DirectoryName@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.FileSynchronousClient">
+            <summary>
+            文件同步客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.fileLock">
+            <summary>
+            上传文件集合访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.synchronousLock">
+            <summary>
+            文件同步访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.completedLock">
+            <summary>
+            同步完成等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.waitPaths">
+            <summary>
+            未同步路径集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.clientFiles">
+            <summary>
+            同步目录处理客户端文件集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.clientDirectorys">
+            <summary>
+            同步目录处理客户端目录集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.synchronousFileCount">
+            <summary>
+            正在同步的文件数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.isSynchronousPath">
+            <summary>
+            是否正在处理同步目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.pathErrorCount">
+            <summary>
+            目录同步错误次数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.fileErrorCount">
+            <summary>
+            文件同步错误次数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient.IsDelete">
+            <summary>
+            是否同步删除不存在的文件与目录
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient.#ctor(System.Boolean)">
+            <summary>
+            文件同步客户端
+            </summary>
+            <param name="isDelete">是否同步删除不存在的文件与目录</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient.onCompleted(System.IO.FileInfo,System.String)">
+            <summary>
+            文件同步完成
+            </summary>
+            <param name="clientFile">客户端文件信息</param>
+            <param name="serverFileName">服务端文件名称</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2">
+            <summary>
+            文件同步客户端
+            </summary>
+            <typeparam name="FT">同步文件处理类型</typeparam>
+            <typeparam name="ST">同步状态类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.files">
+            <summary>
+            正在同步的文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.waitFiles">
+            <summary>
+            未同步文件集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.synchronousState">
+            <summary>
+            最后一次文件同步错误状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.SynchronousState">
+            <summary>
+            最后一次文件同步错误状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.#ctor(System.Boolean,System.Int32)">
+            <summary>
+            文件同步客户端
+            </summary>
+            <param name="isDelete">是否同步删除不存在的文件与目录</param>
+            <param name="concurrency">同步并发数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.synchronous(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            同步目录处理
+            </summary>
+            <param name="clientDirectory"></param>
+            <param name="serverPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.appendFile(`0)">
+            <summary>
+            添加客户端同步文件
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.Completed(`0)">
+            <summary>
+            文件上传完成
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.onPathError(`1)">
+            <summary>
+            目录上传错误计数
+            </summary>
+            <param name="state">错误状态</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.onPathError(System.IO.DirectoryInfo,System.String,`1)">
+            <summary>
+            目录上传错误
+            </summary>
+            <param name="clientDirectory">客户端目录信息</param>
+            <param name="serverPath">服务端路径</param>
+            <param name="state">错误状态</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.onFileError(`1)">
+            <summary>
+            文件上传错误计数
+            </summary>
+            <param name="state">错误状态</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.onFileError(System.IO.FileInfo,System.String,`1)">
+            <summary>
+            文件上传错误
+            </summary>
+            <param name="clientFile">客户端文件信息</param>
+            <param name="serverFileName">服务端文件名称</param>
+            <param name="state">错误状态</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IPullFileClientSocketEvent">
+            <summary>
+            拉取文件客户端接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.IPullFileClientSocketEvent.PullFileClient">
+            <summary>
+            拉取文件客户端接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IPullFileService">
+            <summary>
+            文件拉取服务接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileService.GetFiles(AutoCSer.Net.CommandServerSocket,System.String,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.SynchronousFileInfo})">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="socket"></param>
+            <param name="path">指定路径</param>
+            <param name="callback">获取文件信息集合回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileService.GetDirectoryNames(AutoCSer.Net.CommandServerSocket,System.String,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DirectoryName})">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="socket"></param>
+            <param name="path">指定路径</param>
+            <param name="callback">获取目录名称集合回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileService.GetFile(AutoCSer.Net.CommandServerSocket,System.String)">
+            <summary>
+            获取文件信息
+            </summary>
+            <param name="socket"></param>
+            <param name="fileName">文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileService.GetFileData(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.SynchronousFileInfo,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.PullFileBuffer})">
+            <summary>
+            获取指定文件数据
+            </summary>
+            <param name="socket"></param>
+            <param name="fileInfo">文件信息</param>
+            <param name="callback">获取文件数据回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController">
+            <summary>
+            拉取文件客户端接口
+            </summary>
+            <summary>
+            拉取文件客户端接口
+            </summary>
+            <summary>
+            文件拉取服务接口 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController.GetFileData(AutoCSer.CommandService.DeployTask.PullFileBuffer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            获取指定文件数据
+            </summary>
+            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="fileInfo">文件信息</param>
+            <returns>文件数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController.GetDirectoryNames(System.String)">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="path">指定路径</param>
+            <returns>获取目录名称集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController.GetFile(System.String)">
+            <summary>
+            获取文件信息
+            </summary>
+            <param name="fileName">文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController.GetFileData(AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            获取指定文件数据
+            </summary>
+            <param name="fileInfo">文件信息</param>
+            <returns>获取文件数据回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController.GetFiles(System.String)">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="path">指定路径</param>
+            <returns>获取文件信息集合回调委托</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.PullFile">
+            <summary>
+            客户端写文件操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFile.client">
+            <summary>
+            拉取文件客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFile.writeStream">
+            <summary>
+            客户端写入文件流
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFile.getFileDataCommand">
+            <summary>
+            获取文件数据命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFile.fileReadState">
+            <summary>
+            文件读取状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFile.#ctor(AutoCSer.CommandService.DeployTask.PullFileClient,System.IO.FileInfo,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@)">
+            <summary>
+            客户端写文件操作
+            </summary>
+            <param name="client">拉取文件客户端</param>
+            <param name="clientFile">客户端文件信息</param>
+            <param name="fileInfo">文件信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFile.Synchronous">
+            <summary>
+            开始拉取文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFile.Write(AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            写入文件数据
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFile.Error(System.Int32)">
+            <summary>
+            错误处理
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.PullFileBuffer">
+            <summary>
+            拉取文件数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.fileWriter">
+            <summary>
+            客户端写文件操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.callback">
+            <summary>
+            读取文件数据回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.releaseSerializeLockHandle">
+            <summary>
+            输出错误处理释放序列化等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.serializeLock">
+            <summary>
+            序列化等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.buffer">
+            <summary>
+            读取数据缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.bufferSize">
+            <summary>
+            读取文件字节数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.serializeSize">
+            <summary>
+            实际序列化字节数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileBuffer.ReadState">
+            <summary>
+            文件读取状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.#ctor(AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.PullFileBuffer})">
+            <summary>
+            服务端读取文件数据
+            </summary>
+            <param name="callback">读取文件数据回调委托</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.#ctor(AutoCSer.CommandService.DeployTask.PullFile)">
+            <summary>
+            客户端写文件操作
+            </summary>
+            <param name="fileWriter">客户端写文件操作</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.Read(AutoCSer.CommandService.DeployTask.SynchronousFileInfo,System.Int32)">
+            <summary>
+            读取文件数据
+            </summary>
+            <param name="fileInfo">文件信息</param>
+            <param name="bufferSize">缓冲区大小</param>
+            <returns>是否已经结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.callbackAsync">
+            <summary>
+            回调处理
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.releaseSerializeLock">
+            <summary>
+            输出错误处理释放序列化等待锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DeployTask#PullFileBuffer}#Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            服务端序列化
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DeployTask#PullFileBuffer}#Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            客户端反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.PullFileClient">
+            <summary>
+            拉取文件客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileClient.Client">
+            <summary>
+            拉取文件客户端接口
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileClient.pathFiles">
+            <summary>
+            拉取目录处理文件集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileClient.#ctor(AutoCSer.CommandService.DeployTask.IPullFileClientSocketEvent,System.Boolean,System.Int32)">
+            <summary>
+            拉取文件客户端
+            </summary>
+            <param name="client">拉取文件客户端接口</param>
+            <param name="isDelete">当服务端不存在时，是否删除客户端文件与目录</param>
+            <param name="concurrency">同步并发数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileClient.PullDirectory(System.String,System.String)">
+            <summary>
+            开始拉取目录文件
+            </summary>
+            <param name="serverPath">服务端路径</param>
+            <param name="clientPath">客户端路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileClient.PullFile(System.String,System.String)">
+            <summary>
+            开始拉取文件
+            </summary>
+            <param name="serverFileName">服务端文件名称</param>
+            <param name="clientFileName">客户端文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileClient.synchronous(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            拉取目录处理
+            </summary>
+            <param name="clientDirectory"></param>
+            <param name="serverPath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.PullFileStateEnum">
+            <summary>
+            文件拉取状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.Unknown">
+            <summary>
+            未知错误或者异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.NotExist">
+            <summary>
+            文件不存在
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.LengthLess">
+            <summary>
+            文件长度不足
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.LastWriteTimeNotMatch">
+            <summary>
+            文件最后修改时间不匹配
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.Completed">
+            <summary>
+            拉取完成，存在部分错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.InitializeOnlyOnce">
+            <summary>
+            初始化操作仅允许调用一次
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.CallFail">
+            <summary>
+            服务接口调用失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.ClientException">
+            <summary>
+            客户端异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileStateEnum.DeserializeError">
+            <summary>
+            客户端反序列化错误
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.SynchronousFile">
+            <summary>
+            客户端同步文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.SynchronousFile.ClientFile">
+            <summary>
+            客户端文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.SynchronousFile.FileInfo">
+            <summary>
+            服务端文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.SynchronousFile.FileIndex">
+            <summary>
+            正在处理的文件索引位置
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFile.#ctor(System.IO.FileInfo,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@)">
+            <summary>
+            客户端同步文件
+            </summary>
+            <param name="clientFile">客户端文件信息</param>
+            <param name="fileInfo">文件信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFile.#ctor(System.IO.FileInfo,System.String)">
+            <summary>
+            客户端读文件操作
+            </summary>
+            <param name="clientFile">客户端文件信息</param>
+            <param name="serverFileName">服务端文件名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFile.Synchronous">
+            <summary>
+            文件同步
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.SynchronousFileInfo">
+            <summary>
+            文件信息
+            </summary>
+            <summary>
+            文件信息
+            </summary>
+            <summary>
+            文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.Name">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.fullName">
+            <summary>
+            文件名称（包含路径）/ 上传目录
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.FullName">
+            <summary>
+            文件名称（包含路径）/ 上传目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.length">
+            <summary>
+            文件长度
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.Length">
+            <summary>
+            文件长度
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.lastWriteTime">
+            <summary>
+            最后修改日期
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.LastWriteTime">
+            <summary>
+            最后修改日期
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.#ctor(System.IO.FileInfo)">
+            <summary>
+            文件信息
+            </summary>
+            <param name="fileInfo"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.#ctor(System.IO.FileInfo,System.String)">
+            <summary>
+            文件信息
+            </summary>
+            <param name="fileInfo"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.#ctor(System.String,System.IO.FileInfo)">
+            <summary>
+            上传目录与文件信息
+            </summary>
+            <param name="uploadPath">上传目录</param>
+            <param name="fileInfo">最后修改的切换进程文件信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SetLength(System.Int64)">
+            <summary>
+            设置客户端文件长度
+            </summary>
+            <param name="length">文件长度</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SetUploadLength(System.Int64)">
+            <summary>
+            设置上传文件长度
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SetLastWriteTime(System.DateTime)">
+            <summary>
+            设置上传文件最后修改日期
+            </summary>
+            <param name="lastWriteTime"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SetUpload(System.IO.FileInfo,System.String)">
+            <summary>
+            设置上传文件信息
+            </summary>
+            <param name="clientFile"></param>
+            <param name="serverFileName"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileClientSocketEvent">
+            <summary>
+            文件上传客户端接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.IUploadFileClientSocketEvent.UploadFileClient">
+            <summary>
+            文件上传客户端接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileService">
+            <summary>
+            文件上传服务接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.GetPath(AutoCSer.Net.CommandServerSocket,System.String)">
+            <summary>
+            根据上传类型获取文件上传路径
+            </summary>
+            <param name="socket"></param>
+            <param name="type">上传类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.CombinePath(System.String,System.String)">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.CombinePathArray(System.String[])">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="pathArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.CreateUploader(AutoCSer.Net.CommandServerSocket,System.String,System.String,System.String[],System.Boolean)">
+            <summary>
+            创建文件上传操作对象
+            </summary>
+            <param name="socket"></param>
+            <param name="path">上传根目录</param>
+            <param name="backupPath">备份文件根目录</param>
+            <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
+            <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
+            <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.RemoveUploader(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件上传实例
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.GetFiles(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.UploadFileInfo})">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <param name="callback">获取文件信息集合回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.GetFile(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定文件信息集合
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.GetDirectoryNames(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DirectoryName})">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <param name="callback">获取目录名称集合回调委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.CreateDirectory(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String,System.String)">
+            <summary>
+            创建目录
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <param name="directoryName">目录名称</param>
+            <returns>返回 null 表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.CreateFile(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo,System.Int64)">
+            <summary>
+            创建上传文件
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">文件信息</param>
+            <param name="serverFileLength">服务端文件匹配长度</param>
+            <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.RemoveFile(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">文件上传索引信息</param>
+            <param name="fileIndex">上传文件索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.UploadFileData(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileBuffer)">
+            <summary>
+            上传文件写入数据
+            </summary>
+            <param name="socket"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.AppendCompletedFile(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            添加上传完成文件
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">对比文件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.AppendDeleteFile(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除文件
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径文件名称</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.AppendDeleteDirectory(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除目录
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.Completed(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            上传完成最后移动文件操作
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回 false 表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.GetCompletedFileName(AutoCSer.Net.CommandServerSocket,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            将上传完成操作数据写入文件并返回文件名称
+            </summary>
+            <param name="socket"></param>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回空字符串表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileService.GetSwitchProcessPathFileInfo(AutoCSer.Net.CommandServerSocket,System.String,System.String,System.String)">
+            <summary>
+            获取切换进程的上传目录与文件信息
+            </summary>
+            <param name="socket"></param>
+            <param name="path">默认上传目录</param>
+            <param name="switchPath">默认切换进程上传目录</param>
+            <param name="fileName">切换进程文件相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController">
+            <summary>
+            文件上传服务接口 客户端接口
+            </summary>
+            <summary>
+            文件上传服务接口 客户端接口
+            </summary>
+            <summary>
+            文件上传服务接口 客户端接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            添加上传完成文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">对比文件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendDeleteDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendDeleteFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径文件名称</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CombinePath(System.String,System.String)">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CombinePathArray(System.String[])">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="pathArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.Completed(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            上传完成最后移动文件操作
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回 false 表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String,System.String)">
+            <summary>
+            创建目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <param name="directoryName">目录名称</param>
+            <returns>返回 null 表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo,System.Int64)">
+            <summary>
+            创建上传文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">文件信息</param>
+            <param name="serverFileLength">服务端文件匹配长度</param>
+            <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateUploader(System.String,System.String,System.String[],System.Boolean)">
+            <summary>
+            创建文件上传操作对象
+            </summary>
+            <param name="path">上传根目录</param>
+            <param name="backupPath">备份文件根目录</param>
+            <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
+            <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
+            <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetCompletedFileName(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            将上传完成操作数据写入文件并返回文件名称
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回空字符串表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetDirectoryNames(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取目录名称集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetFiles(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取文件信息集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetPath(System.String)">
+            <summary>
+            根据上传类型获取文件上传路径
+            </summary>
+            <param name="type">上传类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetSwitchProcessPathFileInfo(System.String,System.String,System.String)">
+            <summary>
+            获取切换进程的上传目录与文件信息
+            </summary>
+            <param name="path">默认上传目录</param>
+            <param name="switchPath">默认切换进程上传目录</param>
+            <param name="fileName">切换进程文件相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.RemoveFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件
+            </summary>
+            <param name="uploaderIndex">文件上传索引信息</param>
+            <param name="fileIndex">上传文件索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.RemoveUploader(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件上传实例
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.UploadFileData(AutoCSer.CommandService.DeployTask.UploadFileBuffer)">
+            <summary>
+            上传文件写入数据
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploaderInfo">
+            <summary>
+            上传索引与路径信息
+            </summary>
+            <summary>
+            上传索引与路径信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploaderInfo.Index">
+            <summary>
+            上传文件索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploaderInfo.Path">
+            <summary>
+            上传根路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploaderInfo.BackupPath">
+            <summary>
+            上传备份根路径
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.#ctor(AutoCSer.CommandService.DeployTask.UploadFileStateEnum)">
+            <summary>
+            错误信息
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.Set(System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+            <summary>
+            设置目录信息
+            </summary>
+            <param name="directory"></param>
+            <param name="backupDirectory"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploaderInfo@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFile">
+            <summary>
+            客户端上传文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFile.client">
+            <summary>
+            文件上传客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFile.uploadFileBuffer">
+            <summary>
+            文件上传数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFile.buffer">
+            <summary>
+            读取数据缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFile.bufferSize">
+            <summary>
+            读取文件字节数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFile.#ctor(AutoCSer.CommandService.DeployTask.UploadFileClient,System.IO.FileInfo,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@)">
+            <summary>
+            客户端读文件操作
+            </summary>
+            <param name="client">文件上传客户端</param>
+            <param name="clientFile">客户端文件信息</param>
+            <param name="fileInfo">文件信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFile.#ctor(AutoCSer.CommandService.DeployTask.UploadFileClient,System.IO.FileInfo,System.String)">
+            <summary>
+            客户端读文件操作
+            </summary>
+            <param name="client">文件上传客户端</param>
+            <param name="clientFile">客户端文件信息</param>
+            <param name="serverFileName">服务端文件名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFile.Synchronous">
+            <summary>
+            文件上传
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFile.upload">
+            <summary>
+            上传文件数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileBuffer">
+            <summary>
+            文件上传数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.UploaderIndex">
+            <summary>
+            上传索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.FileIndex">
+            <summary>
+            上传文件索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.Buffer">
+            <summary>
+            上传文件数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.SerializeSize">
+            <summary>
+            序列化数据字节数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.State">
+            <summary>
+            文件上传状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.#ctor">
+            <summary>
+            默认空文件上传数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.#ctor(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            文件上传数据
+            </summary>
+            <param name="uploaderIndex">上传索引信息</param>
+            <param name="fileIndex">上传文件索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DeployTask#UploadFileBuffer}#Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            客户端序列化
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DeployTask#UploadFileBuffer}#Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            服务端反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileBuffer.Null">
+            <summary>
+            默认空文件上传数据
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileClient">
+            <summary>
+            文件上传客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.Client">
+            <summary>
+            文件上传客户端接口
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.directory">
+            <summary>
+            客户端目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.extensions">
+            <summary>
+            扩展名称集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.completedFileName">
+            <summary>
+            完成操作数据文件名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.UploaderInfo">
+            <summary>
+            上传索引与路径信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.BufferSize">
+            <summary>
+            缓冲区池字节数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.isCaseExtension">
+            <summary>
+            是否将上传完成操作数据写入文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.isGetCompletedFileName">
+            <summary>
+            是否将上传完成操作数据写入文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileClient.isCombinePath">
+            <summary>
+            是否拼接服务端路径
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.#ctor(AutoCSer.CommandService.DeployTask.IUploadFileClientSocketEvent,System.String,System.String,System.String[],System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            文件上传客户端
+            </summary>
+            <param name="client">文件上传客户端接口</param>
+            <param name="clientPath">客户端路径</param>
+            <param name="serverPath">服务端路径</param>
+            <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
+            <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
+            <param name="isGetCompletedFileName">是否将上传完成操作数据写入文件</param>
+            <param name="isDelete">当客户端不存在时，是否删除服务端文件与目录</param>
+            <param name="concurrency">同步并发数</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.Upload(System.Boolean)">
+            <summary>
+            开始上传目录文件
+            </summary>
+            <param name="checkSuccessState">默认为 true 表示状态为 Success 时直接返回，设置为 false 表示重新上传操作</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.check(AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DeployTask.UploaderInfo}@)">
+            <summary>
+            检查上传索引与路径信息
+            </summary>
+            <param name="uploaderInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.completed">
+            <summary>
+            上传操作完成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.Upload(System.String,System.String,System.Boolean)">
+            <summary>
+            开始上传文件
+            </summary>
+            <param name="fileName">客户端相对路径文件名称</param>
+            <param name="serverFileName">服务端相对路径文件名称，默认为 null 表示与客户端相同</param>
+            <param name="checkSuccessState">默认为 true 表示状态为 Success 时直接返回，设置为 false 表示重新上传操作</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.isExtension(System.IO.FileInfo)">
+            <summary>
+            匹配文件扩展名
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileClient.synchronous(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            上传目录处理
+            </summary>
+            <param name="clientDirectory"></param>
+            <param name="serverPath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileIndex">
+            <summary>
+            上传文件索引信息
+            </summary>
+            <summary>
+            上传文件索引信息
+            </summary>
+            <summary>
+            上传文件索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileIndex.Index">
+            <summary>
+            上传文件索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileIndex.Identity">
+            <summary>
+            上传文件标识
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.#ctor(System.Int32,System.UInt32)">
+            <summary>
+            上传文件索引信息
+            </summary>
+            <param name="index">上传文件索引</param>
+            <param name="identity">上传文件标识</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.#ctor(AutoCSer.CommandService.DeployTask.UploadFileStateEnum)">
+            <summary>
+            错误信息
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileIndex@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileIndex@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileIndex@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileInfo">
+            <summary>
+            文件信息
+            </summary>
+            <summary>
+            文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileInfo.FileInfo">
+            <summary>
+            文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileInfo.IsBackup">
+            <summary>
+            是否备份文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileInfo.IsFile">
+            <summary>
+            文件是否存在
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileInfo.State">
+            <summary>
+            文件上传状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.#ctor(System.IO.FileInfo,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            文件信息
+            </summary>
+            <param name="fileInfo"></param>
+            <param name="path"></param>
+            <param name="isFile"></param>
+            <param name="isBackup"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileInfo@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileStateEnum">
+            <summary>
+            文件上传状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.Unknown">
+            <summary>
+            未知错误或者异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.FileInfoNotMatch">
+            <summary>
+            文件信息不匹配
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.NotFoundUploader">
+            <summary>
+            没有找到文件上传信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.NotFoundDirectory">
+            <summary>
+            客户端未找到上传目录
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.NotFoundFile">
+            <summary>
+            客户端未找到上传文件
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.Completed">
+            <summary>
+            上传完成，存在部分错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.NotCompleted">
+            <summary>
+            服务端任务未完成
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.CallFail">
+            <summary>
+            服务接口调用失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.ClientException">
+            <summary>
+            客户端异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.NotSupportBackupPath">
+            <summary>
+            不支持的备份路径
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.PathUploading">
+            <summary>
+            指定的上传已经创建实例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.NotFoundSessionObject">
+            <summary>
+            服务端反序列化输入参数没有找到套接字会话对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.NotFoundUploadFile">
+            <summary>
+            没有找到上传文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileStateEnum.ServerException">
+            <summary>
+            服务端执行异常
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController">
+            <summary>
+            数据库备份服务接口 客户端接口 客户端控制器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.AutoCSer#CommandService#DeployTask#IDatabaseBackupServiceClientController#Backup(System.String)">
+            <summary>
+            备份数据库并返回文件名称
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns>重写必须保证回调执行，返回空字符串表示没有找到数据库</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.AutoCSer#CommandService#DeployTask#IDatabaseBackupServiceClientController#Download(System.String,System.Int64)">
+            <summary>
+            下载备份文件
+            </summary>
+            <param name="backupFullName">备份文件名称</param>
+            <param name="startIndex">读取文件起始位置</param>
+            <returns>下载文件数据回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.AutoCSer#CommandService#DeployTask#IDatabaseBackupServiceClientController#GetDatabase">
+            <summary>
+            获取可备份数据库名称集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.AutoCSer#CommandService#DeployTask#IDatabaseBackupServiceClientController#GetTableName(System.String)">
+            <summary>
+            获取可备份数据库表格名称集合
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__CommandClientControllerMethods__">
+            <summary>
+            获取客户端接口方法信息集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__CommandClientControllerConstructor__">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.PullFileServiceClientController">
+            <summary>
+            拉取文件客户端接口 客户端控制器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.AutoCSer#CommandService#DeployTask#IPullFileServiceClientController#GetFileData(AutoCSer.CommandService.DeployTask.PullFileBuffer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            获取指定文件数据
+            </summary>
+            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="fileInfo">文件信息</param>
+            <returns>文件数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.AutoCSer#CommandService#DeployTask#IPullFileServiceClientController#GetDirectoryNames(System.String)">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="path">指定路径</param>
+            <returns>获取目录名称集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.AutoCSer#CommandService#DeployTask#IPullFileServiceClientController#GetFile(System.String)">
+            <summary>
+            获取文件信息
+            </summary>
+            <param name="fileName">文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.AutoCSer#CommandService#DeployTask#IPullFileServiceClientController#GetFileData(AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            获取指定文件数据
+            </summary>
+            <param name="fileInfo">文件信息</param>
+            <returns>获取文件数据回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.AutoCSer#CommandService#DeployTask#IPullFileServiceClientController#GetFiles(System.String)">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="path">指定路径</param>
+            <returns>获取文件信息集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__CommandClientControllerMethods__">
+            <summary>
+            获取客户端接口方法信息集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__CommandClientControllerConstructor__">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController">
+            <summary>
+            文件上传服务接口 客户端接口 客户端控制器
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            添加上传完成文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">对比文件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#AppendDeleteDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#AppendDeleteFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径文件名称</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#CombinePath(System.String,System.String)">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#CombinePathArray(System.String[])">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="pathArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#Completed(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            上传完成最后移动文件操作
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回 false 表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#CreateDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String,System.String)">
+            <summary>
+            创建目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <param name="directoryName">目录名称</param>
+            <returns>返回 null 表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#CreateFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo,System.Int64)">
+            <summary>
+            创建上传文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">文件信息</param>
+            <param name="serverFileLength">服务端文件匹配长度</param>
+            <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#CreateUploader(System.String,System.String,System.String[],System.Boolean)">
+            <summary>
+            创建文件上传操作对象
+            </summary>
+            <param name="path">上传根目录</param>
+            <param name="backupPath">备份文件根目录</param>
+            <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
+            <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
+            <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#GetCompletedFileName(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            将上传完成操作数据写入文件并返回文件名称
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回空字符串表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#GetDirectoryNames(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取目录名称集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#GetFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#GetFiles(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取文件信息集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#GetPath(System.String)">
+            <summary>
+            根据上传类型获取文件上传路径
+            </summary>
+            <param name="type">上传类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#GetSwitchProcessPathFileInfo(System.String,System.String,System.String)">
+            <summary>
+            获取切换进程的上传目录与文件信息
+            </summary>
+            <param name="path">默认上传目录</param>
+            <param name="switchPath">默认切换进程上传目录</param>
+            <param name="fileName">切换进程文件相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#RemoveFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件
+            </summary>
+            <param name="uploaderIndex">文件上传索引信息</param>
+            <param name="fileIndex">上传文件索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#RemoveUploader(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件上传实例
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#UploadFileData(AutoCSer.CommandService.DeployTask.UploadFileBuffer)">
+            <summary>
+            上传文件写入数据
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__CommandClientControllerMethods__">
+            <summary>
+            获取客户端接口方法信息集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__CommandClientControllerConstructor__">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum">
+            <summary>
+            数据库备份服务接口方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.Backup">
+            <summary>
+            [0] 备份数据库并返回文件名称
+            AutoCSer.Net.CommandServerCallQueue queue 
+            string database 数据库名称
+            AutoCSer.Net.CommandServerCallback{string} callback 重写必须保证回调执行，返回空字符串表示没有找到数据库
+            返回值 string 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.Download">
+            <summary>
+            [1] 下载备份文件
+            string backupFullName 备份文件名称
+            long startIndex 读取文件起始位置
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer} callback 下载文件数据回调委托
+            返回值 AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.GetDatabase">
+            <summary>
+            [2] 获取可备份数据库名称集合
+            AutoCSer.Net.CommandServerCallQueue queue 
+            返回值 string[] 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.GetTableName">
+            <summary>
+            [3] 获取可备份数据库表格名称集合
+            AutoCSer.Net.CommandServerCallQueue queue 
+            string database 数据库名称
+            返回值 string[] 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum">
+            <summary>
+            文件拉取服务接口方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetDirectoryNames">
+            <summary>
+            [0] 获取指定路径下的目录名称集合
+            AutoCSer.Net.CommandServerSocket socket 
+            string path 指定路径
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DirectoryName} callback 获取目录名称集合回调委托
+            返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFile">
+            <summary>
+            [1] 获取文件信息
+            AutoCSer.Net.CommandServerSocket socket 
+            string fileName 文件名称
+            返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFileData">
+            <summary>
+            [2] 获取指定文件数据
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo 文件信息
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.PullFileBuffer} callback 获取文件数据回调委托
+            返回值 AutoCSer.CommandService.DeployTask.PullFileBuffer 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFiles">
+            <summary>
+            [3] 获取指定路径下的文件信息集合
+            AutoCSer.Net.CommandServerSocket socket 
+            string path 指定路径
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.SynchronousFileInfo} callback 获取文件信息集合回调委托
+            返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum">
+            <summary>
+            文件上传服务接口方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendCompletedFile">
+            <summary>
+            [0] 添加上传完成文件
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo 对比文件信息
+            返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendDeleteDirectory">
+            <summary>
+            [1] 添加待删除目录
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            string path 相对路径
+            返回值 bool 返回 false 表示没有找到文件上传操作对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendDeleteFile">
+            <summary>
+            [2] 添加待删除文件
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            string fileName 相对路径文件名称
+            返回值 bool 返回 false 表示没有找到文件上传操作对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CombinePath">
+            <summary>
+            [3] 拼接路径
+            string left 
+            string right 
+            返回值 string 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CombinePathArray">
+            <summary>
+            [4] 拼接路径
+            string[] pathArray 
+            返回值 string 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.Completed">
+            <summary>
+            [5] 上传完成最后移动文件操作
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            返回值 bool 返回 false 表示没有找到文件上传操作对象，或者上传未结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateDirectory">
+            <summary>
+            [6] 创建目录
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            string path 相对路径
+            string directoryName 目录名称
+            返回值 string 返回 null 表示失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateFile">
+            <summary>
+            [7] 创建上传文件
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo 文件信息
+            long serverFileLength 服务端文件匹配长度
+            返回值 AutoCSer.CommandService.DeployTask.UploadFileIndex 上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateUploader">
+            <summary>
+            [8] 创建文件上传操作对象
+            AutoCSer.Net.CommandServerSocket socket 
+            string path 上传根目录
+            string backupPath 备份文件根目录
+            string[] extensions 扩展名称集合，扩展名称包括小数点，比如 .txt
+            bool isCaseExtension 扩展名匹配是否区分大小写
+            返回值 AutoCSer.CommandService.DeployTask.UploaderInfo 上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetCompletedFileName">
+            <summary>
+            [9] 将上传完成操作数据写入文件并返回文件名称
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            返回值 string 返回空字符串表示没有找到文件上传操作对象，或者上传未结束
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetDirectoryNames">
+            <summary>
+            [10] 获取指定路径下的目录名称集合
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            string path 相对路径
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.DirectoryName} callback 获取目录名称集合回调委托
+            返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetFile">
+            <summary>
+            [11] 获取指定文件信息集合
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            string fileName 相对路径
+            返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetFiles">
+            <summary>
+            [12] 获取指定路径下的文件信息集合
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            string path 相对路径
+            AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.UploadFileInfo} callback 获取文件信息集合回调委托
+            返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetPath">
+            <summary>
+            [13] 根据上传类型获取文件上传路径
+            AutoCSer.Net.CommandServerSocket socket 
+            string type 上传类型
+            返回值 string 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetSwitchProcessPathFileInfo">
+            <summary>
+            [14] 获取切换进程的上传目录与文件信息
+            AutoCSer.Net.CommandServerSocket socket 
+            string path 默认上传目录
+            string switchPath 默认切换进程上传目录
+            string fileName 切换进程文件相对路径
+            返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.RemoveFile">
+            <summary>
+            [15] 移除文件
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 文件上传索引信息
+            AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex 上传文件索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.RemoveUploader">
+            <summary>
+            [16] 移除文件上传实例
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.UploadFileData">
+            <summary>
+            [17] 上传文件写入数据
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.CommandService.DeployTask.UploadFileBuffer buffer 
+            返回值 AutoCSer.CommandService.DeployTask.UploadFileStateEnum 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.AotMethod">
+            <summary>
+            触发 AOT 编译
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.AotMethod.Call">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.AotMethod.binaryDeserializeMemberTypes">
+            <summary>
+            二进制反序列化成员类型代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+    </members>
+</doc>

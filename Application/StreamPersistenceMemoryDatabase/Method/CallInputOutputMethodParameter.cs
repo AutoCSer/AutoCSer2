@@ -10,7 +10,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 调用方法与参数信息
     /// </summary>
-    internal abstract class CallInputOutputMethodParameter : InputMethodParameter
+    public abstract class CallInputOutputMethodParameter : InputMethodParameter
     {
         /// <summary>
         /// 服务端节点方法
@@ -200,7 +200,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodParameter"></param>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void Callback<T>(CallInputOutputMethodParameter methodParameter, T value)
+        public static void Callback<T>(CallInputOutputMethodParameter methodParameter, T value)
         {
             methodParameter.SuccessCallback(value);
         }
@@ -230,7 +230,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodParameter"></param>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void CallbackResponseParameter(CallInputOutputMethodParameter methodParameter, ResponseParameter value)
+        public static void CallbackResponseParameter(CallInputOutputMethodParameter methodParameter, ResponseParameter value)
         {
             methodParameter.SuccessCallback(value);
         }
@@ -248,7 +248,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static ValueResult<ResponseParameter> GetBeforePersistenceResponseParameter<T>(CallInputOutputMethodParameter methodParameter, ValueResult<T> value)
+        public static ValueResult<ResponseParameter> GetBeforePersistenceResponseParameter<T>(CallInputOutputMethodParameter methodParameter, ValueResult<T> value)
         {
             if (value.IsValue) return ResponseParameter.Create(value.Value, methodParameter.Method.Flags);
             return default(ValueResult<ResponseParameter>);
@@ -284,7 +284,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 调用方法与参数信息
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class CallInputOutputMethodParameter<T> : CallInputOutputMethodParameter
+    public class CallInputOutputMethodParameter<T> : CallInputOutputMethodParameter
         where T : struct
     {
         /// <summary>
@@ -402,7 +402,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="parameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static T GetParameter(CallInputOutputMethodParameter<T> parameter)
+        public static T GetParameter(CallInputOutputMethodParameter<T> parameter)
         {
             return parameter.Parameter;
         }

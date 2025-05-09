@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点方法
     /// </summary>
-    internal abstract class InputKeepCallbackMethod : Method
+    public abstract class InputKeepCallbackMethod : Method
     {
         /// <summary>
         /// 服务端节点方法
@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 服务端节点方法
     /// </summary>
     /// <typeparam name="T">输入参数类型</typeparam>
-    internal abstract class InputKeepCallbackMethod<T> : InputKeepCallbackMethod
+    public abstract class InputKeepCallbackMethod<T> : InputKeepCallbackMethod
         where T : struct
     {
         /// <summary>
@@ -67,7 +67,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">方法编号</param>
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal InputKeepCallbackMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, flags) { }
+        public InputKeepCallbackMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, flags) { }
         /// <summary>
         /// 服务端节点方法
         /// </summary>
@@ -75,7 +75,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="callType">方法调用类型</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal InputKeepCallbackMethod(int index, int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
+        public InputKeepCallbackMethod(int index, int beforePersistenceMethodIndex, CallTypeEnum callType, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, callType, flags) { }
         /// <summary>
         /// 创建方法调用参数信息
         /// </summary>

@@ -4,7 +4,11 @@ using System;
 #pragma warning disable
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
-    public class TestClassMessage : Message<TestClassMessage>, IEquatable<TestClassMessage>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
+#endif
+    public partial class TestClassMessage : Message<TestClassMessage>, IEquatable<TestClassMessage>
     {
         public int Int;
         public string String;

@@ -9,7 +9,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">排序关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
+#if AOT
+    public abstract class SortedDictionaryNode<KT, VT> : ISnapshot<KeyValue<KT, VT>>
+#else
     public sealed class SortedDictionaryNode<KT, VT> : ISortedDictionaryNode<KT, VT>, ISnapshot<KeyValue<KT, VT>>
+#endif
         where KT : IComparable<KT>
     {
         /// <summary>

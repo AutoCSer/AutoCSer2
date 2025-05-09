@@ -21,6 +21,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">节点全局关键字</param>
         /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
         bool RemoveNodeByKey(string key);
+#if !AOT
         /// <summary>
         /// 创建服务注册节点 IServerRegistryNode
         /// </summary>
@@ -71,32 +72,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateDistributedLockNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
         /// <summary>
-        /// 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="size">位图大小（位数量）</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateManyHashBitMapClientFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size);
-        /// <summary>
-        /// 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="size">位图大小（位数量）</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateManyHashBitMapFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size);
-        /// <summary>
-        /// 创建字典节点 HashBytesFragmentDictionaryNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateHashBytesFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo);
-        /// <summary>
         /// 创建字典节点 ByteArrayFragmentDictionaryNode{KT}
         /// </summary>
         /// <param name="index">节点索引信息</param>
@@ -115,16 +90,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="valueType">数据类型</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType);
-        /// <summary>
-        /// 创建字典节点 HashBytesDictionaryNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType);
         /// <summary>
         /// 创建字典节点 ByteArrayDictionaryNode{KT}
         /// </summary>
@@ -218,15 +183,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateSortedSetNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType);
         /// <summary>
-        /// 创建队列节点（先进先出） ByteArrayQueueNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateByteArrayQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
-        /// <summary>
         /// 创建队列节点（先进先出） QueueNode{T}
         /// </summary>
         /// <param name="index">节点索引信息</param>
@@ -236,15 +192,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="capacity">容器初始化大小</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int capacity);
-        /// <summary>
-        /// 创建栈节点（后进先出） ByteArrayStackNode
-        /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
-        NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
         /// <summary>
         /// 创建栈节点（后进先出） StackNode{T}
         /// </summary>
@@ -275,6 +222,61 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="length">数组长度</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateArrayNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, int length);
+        /// <summary>
+        /// 创建字典节点 HashBytesFragmentDictionaryNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateHashBytesFragmentDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo);
+        /// <summary>
+        /// 创建字典节点 HashBytesDictionaryNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateHashBytesDictionaryNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity, ReusableDictionaryGroupTypeEnum groupType);
+        /// <summary>
+        /// 创建队列节点（先进先出） ByteArrayQueueNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateByteArrayQueueNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        /// <summary>
+        /// 创建栈节点（后进先出） ByteArrayStackNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+#endif
+        /// <summary>
+        /// 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateManyHashBitMapClientFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size);
+        /// <summary>
+        /// 创建多哈希位图过滤节点 IManyHashBitMapFilterNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="size">位图大小（位数量）</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateManyHashBitMapFilterNode(NodeIndex index, string key, NodeInfo nodeInfo, int size);
         /// <summary>
         /// 创建 64 位自增ID 节点 IdentityGeneratorNode
         /// </summary>

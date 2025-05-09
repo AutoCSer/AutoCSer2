@@ -7,7 +7,10 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 磁盘块客户端接口
     /// </summary>
-    public interface IDiskBlockClient
+#if AOT
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IDiskBlockService))]
+#endif
+    public partial interface IDiskBlockClient
     {
         /// <summary>
         /// 获取磁盘块当前写入位置

@@ -6,7 +6,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 256 基分片哈希表节点
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
+#if AOT
+    public abstract class FragmentHashSetNode<T> : IEnumerableSnapshot<T>
+#else
     public sealed class FragmentHashSetNode<T> : IFragmentHashSetNode<T>, IEnumerableSnapshot<T>
+#endif
         where T : IEquatable<T>
     {
         /// <summary>

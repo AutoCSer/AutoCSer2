@@ -10,33 +10,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    public sealed class DictionaryNode<KT, VT> : IDictionaryNode<KT, VT>, IEnumerableSnapshot<KeyValue<KT, VT>>
+    /// <typeparam name="ST">快照数据类型</typeparam>
+    public abstract class DictionaryNode<KT, VT, ST>
         where KT : IEquatable<KT>
     {
         /// <summary>
         /// 字典
         /// </summary>
-        private SnapshotDictionary<KT, VT> dictionary;
-        /// <summary>
-        /// 快照集合
-        /// </summary>
-        ISnapshotEnumerable<KeyValue<KT, VT>> IEnumerableSnapshot<KeyValue<KT, VT>>.SnapshotEnumerable { get { return dictionary.Nodes; } }
+        protected SnapshotDictionary<KT, VT> dictionary;
         /// <summary>
         /// 字典节点
         /// </summary>
         /// <param name="capacity">容器初始化大小</param>
         /// <param name="groupType">可重用字典重组操作类型</param>
-        public DictionaryNode(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex)
+        protected DictionaryNode(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex)
         {
             dictionary = new SnapshotDictionary<KT, VT>(capacity, groupType);
-        }
-        /// <summary>
-        /// 快照添加数据
-        /// </summary>
-        /// <param name="value"></param>
-        public void SnapshotAdd(KeyValue<KT, VT> value)
-        {
-            dictionary[value.Key] = value.Value;
         }
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
@@ -157,6 +146,37 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (dictionary.Remove(key, (uint)key.GetHashCode(), out value)) return value;
             }
             return default(ValueResult<VT>);
+        }
+    }
+    /// <summary>
+    /// 字典节点
+    /// </summary>
+    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="VT">数据类型</typeparam>
+#if AOT
+    public abstract class DictionaryNode<KT, VT> : DictionaryNode<KT, VT, KeyValue<KT, VT>>, IEnumerableSnapshot<KeyValue<KT, VT>>
+#else
+    public sealed class DictionaryNode<KT, VT> : DictionaryNode<KT, VT, KeyValue<KT, VT>>, IDictionaryNode<KT, VT>, IEnumerableSnapshot<KeyValue<KT, VT>>
+#endif
+        where KT : IEquatable<KT>
+    {
+        /// <summary>
+        /// 快照集合
+        /// </summary>
+        ISnapshotEnumerable<KeyValue<KT, VT>> IEnumerableSnapshot<KeyValue<KT, VT>>.SnapshotEnumerable { get { return dictionary.Nodes; } }
+        /// <summary>
+        /// 字典节点
+        /// </summary>
+        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="groupType">可重用字典重组操作类型</param>
+        public DictionaryNode(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex) : base(capacity, groupType) { }
+        /// <summary>
+        /// 快照添加数据
+        /// </summary>
+        /// <param name="value"></param>
+        public void SnapshotAdd(KeyValue<KT, VT> value)
+        {
+            dictionary[value.Key] = value.Value;
         }
     }
 }

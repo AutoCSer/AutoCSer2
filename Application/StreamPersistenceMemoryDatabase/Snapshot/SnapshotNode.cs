@@ -1,11 +1,13 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
+using System.Reflection;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
     /// 快照接口节点
     /// </summary>
-    internal abstract class SnapshotNode
+    public abstract class SnapshotNode
     {
         /// <summary>
         /// 自定义对象，用于预生成辅助数据
@@ -54,6 +56,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return false;
         }
+
+        /// <summary>
+        /// 快照接口节点
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static object Create<T>(object target)
+        {
+            return new SnapshotNode<T>((ISnapshot<T>)target);
+        }
+        /// <summary>
+        /// 创建快照接口节点方法信息
+        /// </summary>
+        internal static readonly MethodInfo CreateMethod = typeof(SnapshotNode).GetMethod(nameof(Create), BindingFlags.Static | BindingFlags.Public).notNull();
     }
     /// <summary>
     /// 快照接口节点

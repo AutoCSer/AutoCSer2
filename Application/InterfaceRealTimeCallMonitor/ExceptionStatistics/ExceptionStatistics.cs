@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// <summary>
     /// 异常调用统计信息
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class ExceptionStatistics
     {
         /// <summary>

@@ -7,9 +7,12 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 文件信息
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct SynchronousFileInfo
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct SynchronousFileInfo
     {
         /// <summary>
         /// 文件名称

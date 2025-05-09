@@ -207,7 +207,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         {
             this.endPoint = endPoint;
             int version = this.version;
-            if (keepCallback == null) await client.Client.GetSocketEvent();
+            if (keepCallback == null) await client.Client.GetSocketEvent<T>();
             if (version == this.version && keepCallback != null)
             {
                 serverRegistryLog = getServerRegistryLog(endPoint);

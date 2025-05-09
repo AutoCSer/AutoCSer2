@@ -5,7 +5,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点方法
     /// </summary>
-    internal abstract class SendOnlyMethod : Method
+    public abstract class SendOnlyMethod : Method
     {
         /// <summary>
         /// 服务端节点方法
@@ -49,7 +49,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 服务端节点方法
     /// </summary>
     /// <typeparam name="T">输入参数类型</typeparam>
-    internal abstract class SendOnlyMethod<T> : SendOnlyMethod
+    public abstract class SendOnlyMethod<T> : SendOnlyMethod
         where T : struct
     {
         /// <summary>
@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index">方法编号</param>
         /// <param name="beforePersistenceMethodIndex">持久化之前参数检查方法编号</param>
         /// <param name="flags">服务端节点方法标记</param>
-        internal SendOnlyMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, flags) { }
+        public SendOnlyMethod(int index, int beforePersistenceMethodIndex, MethodFlagsEnum flags) : base(index, beforePersistenceMethodIndex, flags) { }
         /// <summary>
         /// 创建方法调用参数信息
         /// </summary>

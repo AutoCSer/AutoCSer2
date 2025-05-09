@@ -5,7 +5,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
     /// <summary>
     /// 禁用成员位图 示例
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false)]
+    [AutoCSer.BinarySerialize(IsMemberMap = false)]//已经修改为默认设置
     class DisabledMemberMap
     {
         /// <summary>

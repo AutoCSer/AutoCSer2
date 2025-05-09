@@ -7,7 +7,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
     /// 缓存数据同步回调数据
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CallbackValue<T> where T : class
     {

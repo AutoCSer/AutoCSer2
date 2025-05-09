@@ -43,6 +43,20 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         protected virtual ExtensionType definitionType { get { return CurrentType; } }
         /// <summary>
+        /// 是否 AOT 环境
+        /// </summary>
+        public bool IsAOT
+        {
+            get
+            {
+#if AOT
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+        /// <summary>
         /// 命名空间
         /// </summary>
         public string Namespace { get { return CurrentType.Type.Namespace; } }

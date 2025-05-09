@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 #if AOT
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator.AOT")]
 [assembly: InternalsVisibleTo("AutoCSer.Drawing.AOT")]
+[assembly: InternalsVisibleTo("AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT")]
 #else
 [assembly: InternalsVisibleTo("AutoCSer.DynamicAssembly")]
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator")]

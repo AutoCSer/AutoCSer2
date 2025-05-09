@@ -62,10 +62,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         void PersistenceCallbackException();
-
+#if !AOT
         void SetServerByteArray(ServerByteArray value);
         [ServerMethod(IsPersistence = false)]
         ServerByteArray GetServerByteArray();
+#endif
         void SetJsonValue(Game.Monster value);
         [ServerMethod(IsPersistence = false)]
         Game.Monster GetJsonValue();

@@ -10,6 +10,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct LocalResult
     {
+#if AOT
+        /// <summary>
+        /// 错误信息
+        /// </summary>
+        public string? ErrorMessage;
+#endif
         /// <summary>
         /// 读取数据状态
         /// </summary>
@@ -31,6 +37,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="state"></param>
         public static implicit operator LocalResult(CallStateEnum state) { return new LocalResult(state); }
+#if AOT
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="errorMessage"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void Set(CallStateEnum state, string? errorMessage)
+        {
+            CallState = state;
+            ErrorMessage = errorMessage;
+        }
+#endif
     }
     /// <summary>
     /// 本地服务返回结果

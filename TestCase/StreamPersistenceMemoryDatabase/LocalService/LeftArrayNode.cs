@@ -9,7 +9,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     {
         internal static async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
+#if AOT
+            LocalResult<IStringLeftArrayNodeLocalClientNode> node = await client.GetOrCreateNode<IStringLeftArrayNodeLocalClientNode>(typeof(IStringLeftArrayNodeLocalClientNode).FullName, (index, nodeKey, nodeInfo) => client.ClientNode.CreateStringLeftArrayNode(index, nodeKey, nodeInfo, 0));
+#else
             LocalResult<ILeftArrayNodeLocalClientNode<string>> node = await client.GetOrCreateLeftArrayNode<string>(typeof(ILeftArrayNodeLocalClientNode<string>).FullName, 0);
+#endif
             if (!Program.Breakpoint(node)) return;
             LocalResult result = await node.Value.SetEmpty();
             if (!Program.Breakpoint(result)) return;
@@ -447,7 +451,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         }
         private static void completed(bool isReadWriteQueue)
         {
-            string readWriteQueue = isReadWriteQueue ? nameof(IReadWriteQueueService) : null;
+            string readWriteQueue = isReadWriteQueue ? "ReadWriteQueue" : null;
             Console.WriteLine($"*{System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name} {readWriteQueue} Completed*");
         }
     }

@@ -12,17 +12,27 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
     /// </summary>
     internal class PerformanceSearchTreeDictionaryNode : PerformanceClient
     {
+#if AOT
+        private IPerformanceSearchTreeDictionaryNodeLocalClientNode node;
+#else
         private ISearchTreeDictionaryNodeLocalClientNode<int, int> node;
+#endif
         internal PerformanceSearchTreeDictionaryNode() { }
         internal async Task Test(LocalClient<ICustomServiceNodeLocalClientNode> client, bool isReadWriteQueue)
         {
+#if AOT
+            LocalResult<IPerformanceSearchTreeDictionaryNodeLocalClientNode> node = await client.GetOrCreateNode<IPerformanceSearchTreeDictionaryNodeLocalClientNode>(typeof(IPerformanceSearchTreeDictionaryNodeLocalClientNode).FullName, client.ClientNode.CreatePerformanceSearchTreeDictionaryNode);
+            if (!Program.Breakpoint(node)) return;
+            this.node = LocalClientNode<IPerformanceSearchTreeDictionaryNodeLocalClientNode>.GetSynchronousCallback(node.Value);
+#else
             LocalResult<ISearchTreeDictionaryNodeLocalClientNode<int, int>> node = await client.GetOrCreateSearchTreeDictionaryNode<int, int>(typeof(ISearchTreeDictionaryNodeLocalClientNode<int, int>).FullName);
             if (!Program.Breakpoint(node)) return;
             this.node = LocalClientNode<ISearchTreeDictionaryNodeLocalClientNode<int, int>>.GetSynchronousCallback(node.Value);
+#endif
             LocalResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
-            string typeName = isReadWriteQueue ? $"{nameof(IReadWriteQueueService)}.{nameof(PerformanceSearchTreeDictionaryNode)}" : nameof(PerformanceSearchTreeDictionaryNode);
+            string typeName = isReadWriteQueue ? $"ReadWriteQueue.{nameof(PerformanceSearchTreeDictionaryNode)}" : nameof(PerformanceSearchTreeDictionaryNode);
             int taskCount = getTaskCount();
             testValue = reset(maxTestCount >> 1, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();

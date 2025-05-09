@@ -299,7 +299,7 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNodeCallback.cs" />
-    <Compile Include="Server\ServerNodeMethodIndexAttribute.cs" />
+    <Compile Include="Server\ServerNodeTypeAttribute.cs" />
     <Compile Include="Server\ServerSnapshotNode.cs" />
     <Compile Include="Server\ServiceCallbackTypeEnum.cs" />
     <Compile Include="Snapshot\EmptySnapshot.cs" />

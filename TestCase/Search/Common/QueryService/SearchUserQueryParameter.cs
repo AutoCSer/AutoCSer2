@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.SearchQueryService
     /// <summary>
     /// 用户搜索非索引条件数据查询参数
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public class SearchUserQueryParameter : PageParameter
     {
         /// <summary>

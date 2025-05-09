@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 子任务信息
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct StepTaskData : AutoCSer.BinarySerialize.ICustomSerialize<StepTaskData>
     {

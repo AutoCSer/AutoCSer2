@@ -5,7 +5,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionCommon
     /// <summary>
     /// 测试日志数据定义
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public class LogInfo
     {
         /// <summary>

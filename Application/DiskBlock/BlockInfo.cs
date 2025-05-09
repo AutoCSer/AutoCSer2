@@ -5,9 +5,12 @@ namespace AutoCSer.CommandService.DiskBlock
     /// <summary>
     /// 磁盘块信息
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct BlockInfo
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct BlockInfo
     {
         /// <summary>
         /// 起始位置
@@ -17,6 +20,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 结束位置
         /// </summary>
         public long EndIndex;
+#if !AOT
         /// <summary>
         /// 磁盘块信息
         /// </summary>
@@ -26,5 +30,6 @@ namespace AutoCSer.CommandService.DiskBlock
             StartIndex = block.StartIndex;
             EndIndex = block.Position;
         }
+#endif
     }
 }

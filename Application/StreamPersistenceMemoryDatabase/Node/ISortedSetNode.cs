@@ -6,7 +6,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 排序集合节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
     public partial interface ISortedSetNode<T> where T : IComparable<T>
     {
         /// <summary>

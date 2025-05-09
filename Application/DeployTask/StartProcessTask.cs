@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 执行程序任务
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class StartProcessTask : ProcessInfo, IStepTask
     {
         /// <summary>

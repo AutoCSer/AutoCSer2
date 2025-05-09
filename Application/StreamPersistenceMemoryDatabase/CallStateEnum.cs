@@ -248,6 +248,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         CustomException,
 
+
+
         /// <summary>
         /// 已回调（可用于计数）
         /// </summary>

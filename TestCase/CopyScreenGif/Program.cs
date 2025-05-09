@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 
-namespace AutoCSer.TestCase.Search
+namespace AutoCSer.TestCase.CopyScreenGif
 {
     class Program
     {
@@ -13,7 +13,9 @@ namespace AutoCSer.TestCase.Search
             try
             {
                 Size size = AutoCSer.Drawing.Gif.CopyScreen.CheckSize();
-                FileInfo file = new FileInfo(Path.Combine(AutoCSer.Common.ApplicationDirectory.FullName, AutoCSer.IO.File.BakPrefix + ((ulong)AutoCSer.Threading.SecondTimer.Now.Ticks).toHex() + ".gif"));
+                FileInfo file = new FileInfo(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.CopyScreenGif), AutoCSer.IO.File.BakPrefix + ((ulong)AutoCSer.Threading.SecondTimer.Now.Ticks).toHex() + ".gif"));
+                DirectoryInfo directory = file.Directory;
+                if (!directory.Exists) directory.Create();
                 using (FileStream fileStream = new FileStream(file.FullName, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1, FileOptions.WriteThrough))
                 using (AutoCSer.Drawing.Gif.CopyScreen gif = new AutoCSer.Drawing.Gif.CopyScreen(fileStream, (short)size.Width, (short)size.Height))
                 {
@@ -28,6 +30,7 @@ namespace AutoCSer.TestCase.Search
             catch(Exception exception)
             {
                 ConsoleWriteQueue.Breakpoint(exception.ToString());
+                Console.ReadKey();
             }
         }
     }

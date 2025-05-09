@@ -1,5 +1,4 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
-using AutoCSer.Extensions;
+﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Reflection;
 using System;
@@ -13,6 +12,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+#if !AOT
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -41,6 +43,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
         internal Method[] Methods;
 #endif
+#if AOT
+        /// <summary>
+        /// 节点方法信息集合
+        /// </summary>
+        internal ServerNodeMethodInfo?[] NodeMethods;
+        /// <summary>
+        /// 快照方法集合
+        /// </summary>
+        internal SnapshotMethodInfo[] SnapshotMethods;
+#else
         /// <summary>
         /// 节点方法信息集合
         /// </summary>
@@ -53,6 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 快照方法集合
         /// </summary>
         internal SnapshotMethod[] SnapshotMethods;
+#endif
         /// <summary>
         /// 节点状态
         /// </summary>
@@ -65,10 +78,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methods">节点方法集合</param>
         /// <param name="nodeMethods">节点方法信息集合</param>
         /// <param name="snapshotMethods">快照方法集合</param>
+#if AOT
+        unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method?[] methods, ServerNodeMethodInfo?[] nodeMethods, SnapshotMethodInfo[] snapshotMethods)
+#else
 #if NetStandard21
         unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method?[] methods, ServerNodeMethod?[] nodeMethods, SnapshotMethod[] snapshotMethods)
 #else
         unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method[] methods, ServerNodeMethod[] nodeMethods, SnapshotMethod[] snapshotMethods)
+#endif
 #endif
         {
             Service = service;
@@ -81,28 +98,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             methodLock = new object();
         }
         /// <summary>
-        /// 获取快照方法索引位置
-        /// </summary>
-        /// <param name="method"></param>
-        /// <returns></returns>
-        private int getSnapshotMethodIndex(Method method)
-        {
-            int index = 0;
-            foreach (SnapshotMethod snapshotMethod in SnapshotMethods)
-            {
-                if (object.ReferenceEquals(snapshotMethod.Method, method)) return index;
-                ++index;
-            }
-            return -1;
-        }
-        /// <summary>
         /// 获取快照方法索引
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
         internal Method GetSnapshotMethod(Type type)
         {
-            foreach (SnapshotMethod snapshotMethod in SnapshotMethods)
+            foreach (var snapshotMethod in SnapshotMethods)
             {
                 if (snapshotMethod.Type == type) return snapshotMethod.Method;
             }
@@ -131,6 +133,42 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
             }
             return isSnapshot ? CallStateEnum.Success : CallStateEnum.NotFoundSnapshotNode;
+        }
+#if AOT
+        /// <summary>
+        /// 获取快照方法索引
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="serializeDelegate"></param>
+        /// <returns></returns>
+        internal Method GetSnapshotMethod(Type type, out Delegate serializeDelegate)
+        {
+            foreach (var snapshotMethod in SnapshotMethods)
+            {
+                if (snapshotMethod.Type == type)
+                {
+                    serializeDelegate = snapshotMethod.SerializeDelegate;
+                    return snapshotMethod.Method;
+                }
+            }
+            throw new MissingMethodException(Type.fullName() + @"
+" + type.fullName());
+        }
+#else
+        /// <summary>
+        /// 获取快照方法索引位置
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        private int getSnapshotMethodIndex(Method method)
+        {
+            int index = 0;
+            foreach (var snapshotMethod in SnapshotMethods)
+            {
+                if (object.ReferenceEquals(snapshotMethod.Method, method)) return index;
+                ++index;
+            }
+            return -1;
         }
         /// <summary>
         /// 初始化节点加载修复方法
@@ -705,6 +743,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 创建调用方法与参数信息
         /// </summary>
         internal static readonly Action<MethodParameterCreator, int> MethodParameterCreatorCreateKeepCallbackMethodParameter = MethodParameterCreator.CreateKeepCallbackMethodParameter;
+#endif
     }
     /// <summary>
     /// 生成服务端节点
@@ -736,6 +775,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
         private static Method[] methods;
 #endif
+#if AOT
+        /// <summary>
+        /// 节点方法信息集合
+        /// </summary>
+        private static ServerNodeMethodInfo?[] nodeMethods;
+        /// <summary>
+        /// 快照方法集合
+        /// </summary>
+        private static SnapshotMethodInfo[] snapshotMethods;
+#else
         /// <summary>
         /// 节点方法信息集合
         /// </summary>
@@ -748,6 +797,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 快照方法集合
         /// </summary>
         private static SnapshotMethod[] snapshotMethods;
+#endif
         /// <summary>
         /// 生成服务端节点
         /// </summary>
@@ -763,7 +813,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     creatorMessages = null;
                 }
                 ServerNodeCreator nodeCreator = new ServerNodeCreator(service, typeof(T), methods.copy(), nodeMethods.copy(), snapshotMethods);
+#if !AOT
                 nodeCreator.LoadRepairNodeMethod<T>();
+#endif
                 return nodeCreator;
             }
             throw creatorException;
@@ -781,10 +833,44 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Type type = typeof(T);
             NodeType nodeType = default(NodeType);
             methods = EmptyArray<Method>.Array;
+#if AOT
+            nodeMethods = EmptyArray<ServerNodeMethodInfo>.Array;
+            snapshotMethods = EmptyArray<SnapshotMethodInfo>.Array;
+#else
             nodeMethods = EmptyArray<ServerNodeMethod>.Array;
             snapshotMethods = EmptyArray<SnapshotMethod>.Array;
+#endif
             try
             {
+#if AOT
+                var attribute = type.GetCustomAttribute(typeof(ServerNodeTypeAttribute)).castType<ServerNodeTypeAttribute>();
+                if (attribute != null)
+                {
+                    if (attribute.MethodParameterCreatorType != null)
+                    {
+                        var getServerNodeCreatorMethod = attribute.MethodParameterCreatorType.GetMethod(ServerNodeTypeAttribute.GetServerNodeCreatorMethodName, BindingFlags.Static | BindingFlags.NonPublic, EmptyArray<Type>.Array);
+                        if (getServerNodeCreatorMethod != null && !getServerNodeCreatorMethod.IsGenericMethod && getServerNodeCreatorMethod.ReturnType == typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod))
+                        {
+                            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod serverNodeCreatorMethod = getServerNodeCreatorMethod.Invoke(null, null).castValue<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod>();
+                            methods = serverNodeCreatorMethod.Methods;
+                            nodeMethods = serverNodeCreatorMethod.NodeMethods;
+                            snapshotMethods = serverNodeCreatorMethod.SnapshotMethods;
+
+                            if (!attribute.IsMethodParameterCreator) return;
+                            var methodParameterCreatorMethod = attribute.MethodParameterCreatorType.GetMethod(ServerNodeTypeAttribute.MethodParameterCreatorMethodName, BindingFlags.Static | BindingFlags.NonPublic, new Type[] { typeof(ServerNode<>).MakeGenericType(type) });
+                            if (methodParameterCreatorMethod != null && !methodParameterCreatorMethod.IsGenericMethod && methodParameterCreatorMethod.ReturnType == type)
+                            {
+                                MethodParameterCreator = (Func<ServerNode<T>, T>)methodParameterCreatorMethod.CreateDelegate(typeof(Func<ServerNode<T>, T>));
+                                return;
+                            }
+                            throw new MissingMethodException(attribute.MethodParameterCreatorType.fullName(), ServerNodeTypeAttribute.MethodParameterCreatorMethodName);
+                        }
+                        throw new MissingMethodException(attribute.MethodParameterCreatorType.fullName(), ServerNodeTypeAttribute.GetServerNodeCreatorMethodName);
+                    }
+                    throw new MissingFieldException(type.fullName(), nameof(attribute.MethodParameterCreatorType));
+                }
+                throw new MissingMethodException(type.fullName(), typeof(ServerNodeTypeAttribute).fullName());
+#else
                 nodeType = new NodeType(type);
                 if (nodeType.Error != null)
                 {
@@ -828,6 +914,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                     ++methodIndex;
                 }
+
                 if (nodeType.NodeAttribute.IsMethodParameterCreator)
                 {
                     Type methodParameterCreatorType = typeof(MethodParameterCreator<>).MakeGenericType(type);
@@ -931,7 +1018,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 ServerNodeCreator<T>.nodeMethods = nodeMethods;
                 snapshotMethods.Sort(ServerNodeCreator.SnapshotMethodSort);
                 ServerNodeCreator<T>.snapshotMethods = snapshotMethods.ToArray();
-                //ServerNodeCreator<T>.snapshotType = snapshotType;
+#endif
             }
             catch (Exception exception)
             {

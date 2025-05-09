@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT</AssemblyName>
+    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabase</RootNamespace>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;AOT</DefineConstants>
+    <DocumentationFile>C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT.xml</DocumentationFile>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>AOT</DefineConstants>
+    <DocumentationFile>C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT.xml</DocumentationFile>
+    <IsAotCompatible>True</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="CallbackNode.cs" />
+    <Compile Include="CustomServiceNode.cs" />
+    <Compile Include="Game\GameNode.cs" />
+    <Compile Include="Game\IGameNode.cs" />
+    <Compile Include="Game\Monster.cs" />
+    <Compile Include="Game\Pos.cs" />
+    <Compile Include="ICallbackNode.cs" />
+    <Compile Include="ICustomServiceNode.cs" />
+    <Compile Include="ILongSortedSetNode.cs" />
+    <Compile Include="ILongStringSearchTreeDictionaryNode.cs" />
+    <Compile Include="ILongStringSortedListNode.cs" />
+    <Compile Include="IPerformanceSearchTreeDictionaryNode.cs" />
+    <Compile Include="IStringArrayNode.cs" />
+    <Compile Include="ILongSearchTreeSetNode.cs" />
+    <Compile Include="ILongStringSortedDictionaryNode.cs" />
+    <Compile Include="IPerformanceDictionaryNode.cs" />
+    <Compile Include="IStringFragmentHashSetNode.cs" />
+    <Compile Include="IPerformanceMessageNode.cs" />
+    <Compile Include="PerformanceMessage.cs" />
+    <Compile Include="PerformanceSearchTreeDictionaryNode.cs" />
+    <Compile Include="PerformanceKeyValue.cs" />
+    <Compile Include="PerformanceDictionaryNode.cs" />
+    <Compile Include="PerformanceMessageNode.cs" />
+    <Compile Include="TestClassMessageNode.cs" />
+    <Compile Include="ITestClassMessageNode.cs" />
+    <Compile Include="IStringStackNode.cs" />
+    <Compile Include="IStringQueueNode.cs" />
+    <Compile Include="IStringLeftArrayNode.cs" />
+    <Compile Include="IStringHashSetNode.cs" />
+    <Compile Include="IStringFragmentDictionaryNode.cs" />
+    <Compile Include="IStringDictionaryNode.cs" />
+    <Compile Include="LongSortedSetNode.cs" />
+    <Compile Include="LongStringSearchTreeDictionaryNode.cs" />
+    <Compile Include="LongStringSortedListNode.cs" />
+    <Compile Include="StringArrayNode.cs" />
+    <Compile Include="LongSearchTreeSetNode.cs" />
+    <Compile Include="LongStringSortedDictionaryNode.cs" />
+    <Compile Include="StringFragmentHashSetNode.cs" />
+    <Compile Include="StringStackNode.cs" />
+    <Compile Include="StringQueueNode.cs" />
+    <Compile Include="StringLeftArrayNode.cs" />
+    <Compile Include="StringHashSetNode.cs" />
+    <Compile Include="StringFragmentDictionaryNode.cs" />
+    <Compile Include="StringDictionaryNode.cs" />
+    <Compile Include="TestClass.cs" />
+    <Compile Include="TestClassMessage.cs" />
+    <Compile Include="{AutoCSer.TestCase.StreamPersistenceMemoryDatabase}.AOT.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.NET8.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="AutoCSer">
+			<HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="if exist &quot;$(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+	</Target>
+  
+</Project>

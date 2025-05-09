@@ -1,0 +1,1117 @@
+﻿//本文件由程序自动生成，请不要自行修改
+using System;
+using System.Numerics;
+using AutoCSer;
+
+#if NoAutoCSer
+#else
+#pragma warning disable
+namespace AutoCSer.CommandService.DiskBlock
+{
+        /// <summary>
+        /// 磁盘块索引信息
+        /// </summary>
+    public partial struct BlockIndex
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DiskBlock.BlockIndex value)
+            {
+                serializer.Simple(value);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DiskBlock.BlockIndex value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741827);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DiskBlock.BlockIndex value = default(AutoCSer.CommandService.DiskBlock.BlockIndex);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DiskBlock.BlockIndex));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlock.BlockIndex));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DiskBlock.BlockIndex>();
+            }
+    }
+}namespace AutoCSer.CommandService.DiskBlock
+{
+        /// <summary>
+        /// 磁盘块信息
+        /// </summary>
+    public partial struct BlockInfo
+    {
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DiskBlock.BlockInfo value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741826);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DiskBlock.BlockInfo value = default(AutoCSer.CommandService.DiskBlock.BlockInfo);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DiskBlock.BlockInfo));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlock.BlockInfo));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DiskBlock.BlockInfo>();
+            }
+    }
+}namespace AutoCSer.CommandService
+{
+        /// <summary>
+        /// 磁盘块客户端接口
+        /// </summary>
+        [AutoCSer.Net.CommandClientControllerType(typeof(DiskBlockClientController))]
+        public partial interface IDiskBlockClient { }
+        /// <summary>
+        /// 磁盘块客户端接口 客户端控制器
+        /// </summary>
+        internal unsafe partial class DiskBlockClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.IDiskBlockClient, AutoCSer.CommandService.IDiskBlockService>, IDiskBlockClient
+        {
+            private DiskBlockClientController(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, -2147483648) { }
+            internal static AutoCSer.Net.CommandClientController __CommandClientControllerConstructor__(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
+            {
+                return new DiskBlockClientController(socket, controllerName, startMethodIndex, serverMethodNames);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip2__
+            {
+                internal uint identity;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DiskBlockClientController.__ip2__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.identity);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__ip2__ value = default(AutoCSer.CommandService.DiskBlockClientController.__ip2__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__ip2__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op2__
+            {
+                internal long ReturnValue;
+                private static long getReturnValue(__op2__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op2__, long> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DiskBlockClientController.__op2__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.ReturnValue);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__op2__ value = default(AutoCSer.CommandService.DiskBlockClientController.__op2__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op2__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip5__
+            {
+                internal AutoCSer.CommandService.DiskBlock.WriteBuffer buffer;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DiskBlockClientController.__ip5__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.ICustom(buffer);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(AutoCSer.CommandService.DiskBlock.WriteBuffer));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__ip5__ value = default(AutoCSer.CommandService.DiskBlockClientController.__ip5__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__ip5__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DiskBlockClientController.__ip5__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op5__
+            {
+                internal AutoCSer.CommandService.DiskBlock.BlockIndex ReturnValue;
+                private static AutoCSer.CommandService.DiskBlock.BlockIndex getReturnValue(__op5__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op5__, AutoCSer.CommandService.DiskBlock.BlockIndex> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DiskBlockClientController.__op5__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__op5__ value = default(AutoCSer.CommandService.DiskBlockClientController.__op5__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op5__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op5__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DiskBlockClientController.__op5__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip3__
+            {
+                internal AutoCSer.CommandService.DiskBlock.BlockIndex index;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.DiskBlockClientController.__ip3__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.Simple(index);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(AutoCSer.CommandService.DiskBlock.BlockIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__ip3__ value = default(AutoCSer.CommandService.DiskBlockClientController.__ip3__);
+                BinarySerialize(null, value);
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__ip3__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DiskBlockClientController.__ip3__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op3__
+            {
+                internal AutoCSer.CommandService.DiskBlock.ReadBuffer ReturnValue;
+                private static AutoCSer.CommandService.DiskBlock.ReadBuffer getReturnValue(__op3__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op3__, AutoCSer.CommandService.DiskBlock.ReadBuffer> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DiskBlockClientController.__op3__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.ICustom(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__op3__ value = default(AutoCSer.CommandService.DiskBlockClientController.__op3__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op3__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op3__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DiskBlockClientController.__op3__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op1__
+            {
+                internal AutoCSer.CommandService.DiskBlock.BlockInfo[] ReturnValue;
+                private static AutoCSer.CommandService.DiskBlock.BlockInfo[] getReturnValue(__op1__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op1__, AutoCSer.CommandService.DiskBlock.BlockInfo[]> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.DiskBlockClientController.__op1__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.StructArray(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__op1__ value = default(AutoCSer.CommandService.DiskBlockClientController.__op1__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op1__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op1__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.DiskBlockClientController.__op1__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip0__
+            {
+                internal uint identity;
+                internal long startIndex;
+                
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DiskBlockClientController.__ip0__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(12))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.startIndex);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.identity);
+                }
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__ip0__ value = default(AutoCSer.CommandService.DiskBlockClientController.__ip0__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__ip0__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op0__
+            {
+                internal bool ReturnValue;
+                private static bool getReturnValue(__op0__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op0__, bool> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DiskBlockClientController.__op0__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.ReturnValue);
+                __start__ += 3;
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DiskBlockClientController.__op0__ value = default(AutoCSer.CommandService.DiskBlockClientController.__op0__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlockClientController.__op0__));
+            }
+            }
+            /// <summary>
+            /// 获取磁盘块当前写入位置
+            /// </summary>
+            /// <param name="identity"></param>
+            /// <param name="callback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.GetPosition(uint identity, System.Action<AutoCSer.Net.CommandClientReturnValue<long>,AutoCSer.Net.KeepCallbackCommand> callback)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                var __returnValue__ = base.KeepCallbackOutput<__ip2__, long, __op2__>(0
+                    , AutoCSer.Net.CommandClientKeepCallback<long>/**/.Get(callback)
+                    , __op2__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取磁盘块当前写入位置（客户端 IO 线程同步回调）
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <param name="callback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.ClientSynchronousGetPosition(uint identity, System.Action<AutoCSer.Net.CommandClientReturnValue<long>,AutoCSer.Net.KeepCallbackCommand> callback)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                var __returnValue__ = base.KeepCallbackOutput<__ip2__, long, __op2__>(1
+                    , AutoCSer.Net.CommandClientKeepCallback<long>/**/.Get(callback)
+                    , __op2__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 写入数据
+            /// </summary>
+            /// <param name="buffer">写入数据缓冲区</param>
+            /// <param name="callback">写入数据起始位置</param>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.Write(AutoCSer.CommandService.DiskBlock.WriteBuffer buffer, System.Action<AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.BlockIndex>> callback)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    buffer = buffer,
+                };
+                var __returnValue__ = base.CallbackOutput<__ip5__, AutoCSer.CommandService.DiskBlock.BlockIndex, __op5__>(2
+                    , AutoCSer.Net.CommandClientCallback<AutoCSer.CommandService.DiskBlock.BlockIndex>/**/.Get(callback)
+                    , __op5__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 写入数据（客户端 IO 线程同步回调）
+            /// </summary>
+            /// <param name="buffer">写入数据缓冲区</param>
+            /// <param name="callback">写入数据起始位置</param>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.ClientSynchronousWrite(AutoCSer.CommandService.DiskBlock.WriteBuffer buffer, System.Action<AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.BlockIndex>> callback)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    buffer = buffer,
+                };
+                var __returnValue__ = base.CallbackOutput<__ip5__, AutoCSer.CommandService.DiskBlock.BlockIndex, __op5__>(3
+                    , AutoCSer.Net.CommandClientCallback<AutoCSer.CommandService.DiskBlock.BlockIndex>/**/.Get(callback)
+                    , __op5__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 写入数据
+            /// </summary>
+            /// <param name="buffer">写入数据缓冲区</param>
+            /// <returns>写入数据起始位置</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DiskBlock.BlockIndex> AutoCSer.CommandService.IDiskBlockClient/**/.Write(AutoCSer.CommandService.DiskBlock.WriteBuffer buffer)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    buffer = buffer,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip5__, AutoCSer.CommandService.DiskBlock.BlockIndex, __op5__>(4
+                    , __op5__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 写入数据（客户端 IO 线程同步回调）
+            /// </summary>
+            /// <param name="buffer">写入数据缓冲区</param>
+            /// <returns>写入数据起始位置</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DiskBlock.BlockIndex> AutoCSer.CommandService.IDiskBlockClient/**/.ClientSynchronousWrite(AutoCSer.CommandService.DiskBlock.WriteBuffer buffer)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    buffer = buffer,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip5__, AutoCSer.CommandService.DiskBlock.BlockIndex, __op5__>(5
+                    , __op5__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 写入数据
+            /// </summary>
+            /// <param name="buffer">写入数据缓冲区</param>
+            /// <returns>写入数据起始位置</returns>
+            AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.BlockIndex> AutoCSer.CommandService.IDiskBlockClient/**/.WaitWrite(AutoCSer.CommandService.DiskBlock.WriteBuffer buffer)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    buffer = buffer,
+                };
+                __op5__ __outputParameter__ = new __op5__
+                {
+                };
+                var __returnValue__ = base.SynchronousInputOutput<__ip5__, __op5__>(6
+                    , ref __inputParameter__
+                    , ref __outputParameter__
+                    );
+                if (__returnValue__.IsSuccess) return __outputParameter__.ReturnValue;
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 读取数据
+            /// </summary>
+            /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            /// <param name="index"></param>
+            /// <param name="callback">读取数据缓冲区</param>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.Read(AutoCSer.CommandService.DiskBlock.ReadBuffer returnValue, AutoCSer.CommandService.DiskBlock.BlockIndex index, System.Action<AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.ReadBuffer>> callback)
+            {
+                __ip3__ __inputParameter__ = new __ip3__
+                {
+                    index = index,
+                };
+                __op3__ __outputParameter__ = new __op3__
+                {
+                    ReturnValue = returnValue
+                };
+                var __returnValue__ = base.CallbackOutputReturnValue<__ip3__, AutoCSer.CommandService.DiskBlock.ReadBuffer, __op3__>(7
+                    , AutoCSer.Net.CommandClientCallback<AutoCSer.CommandService.DiskBlock.ReadBuffer>/**/.Get(callback)
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    , __outputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 读取数据
+            /// </summary>
+            /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            /// <param name="index"></param>
+            /// <returns>读取数据缓冲区</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DiskBlock.ReadBuffer> AutoCSer.CommandService.IDiskBlockClient/**/.Read(AutoCSer.CommandService.DiskBlock.ReadBuffer returnValue, AutoCSer.CommandService.DiskBlock.BlockIndex index)
+            {
+                __ip3__ __inputParameter__ = new __ip3__
+                {
+                    index = index,
+                };
+                __op3__ __outputParameter__ = new __op3__
+                {
+                    ReturnValue = returnValue
+                };
+                var __returnValue__ = base.ReturnValueOutputReturnValue<__ip3__, AutoCSer.CommandService.DiskBlock.ReadBuffer, __op3__>(8
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    , __outputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 读取数据
+            /// </summary>
+            /// <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            /// <param name="index"></param>
+            /// <returns>读取数据缓冲区</returns>
+            AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.ReadBuffer> AutoCSer.CommandService.IDiskBlockClient/**/.WaitRead(AutoCSer.CommandService.DiskBlock.ReadBuffer returnValue, AutoCSer.CommandService.DiskBlock.BlockIndex index)
+            {
+                __ip3__ __inputParameter__ = new __ip3__
+                {
+                    index = index,
+                };
+                __op3__ __outputParameter__ = new __op3__
+                {
+                    ReturnValue = returnValue
+                };
+                var __returnValue__ = base.SynchronousInputOutput<__ip3__, __op3__>(9
+                    , ref __inputParameter__
+                    , ref __outputParameter__
+                    );
+                if (__returnValue__.IsSuccess) return __outputParameter__.ReturnValue;
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取磁盘块信息集合
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <param name="callback">null 表示失败</param>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.GetBlocks(uint identity, System.Action<AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.BlockInfo[]>> callback)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                var __returnValue__ = base.CallbackOutput<__ip2__, AutoCSer.CommandService.DiskBlock.BlockInfo[], __op1__>(10
+                    , AutoCSer.Net.CommandClientCallback<AutoCSer.CommandService.DiskBlock.BlockInfo[]>/**/.Get(callback)
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取磁盘块信息集合
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <returns>null 表示失败</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DiskBlock.BlockInfo[]> AutoCSer.CommandService.IDiskBlockClient/**/.GetBlocks(uint identity)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip2__, AutoCSer.CommandService.DiskBlock.BlockInfo[], __op1__>(11
+                    , __op1__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取磁盘块信息集合
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <returns>null 表示失败</returns>
+            AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.BlockInfo[]> AutoCSer.CommandService.IDiskBlockClient/**/.WaitGetBlocks(uint identity)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                __op1__ __outputParameter__ = new __op1__
+                {
+                };
+                var __returnValue__ = base.SynchronousInputOutput<__ip2__, __op1__>(12
+                    , ref __inputParameter__
+                    , ref __outputParameter__
+                    );
+                if (__returnValue__.IsSuccess) return __outputParameter__.ReturnValue;
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 切换磁盘块（正常情况下，只有在需要清理历史垃圾数据时才需要切换磁盘块，切换磁盘块以后，需要自行处理掉所有历史引用，比如可以将数据写入新的磁盘块并更新历史引用，然后删除垃圾磁盘块）
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <param name="callback">磁盘块当前写入位置</param>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.SwitchBlock(uint identity, System.Action<AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.BlockIndex>> callback)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                var __returnValue__ = base.CallbackOutput<__ip2__, AutoCSer.CommandService.DiskBlock.BlockIndex, __op5__>(13
+                    , AutoCSer.Net.CommandClientCallback<AutoCSer.CommandService.DiskBlock.BlockIndex>/**/.Get(callback)
+                    , __op5__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 切换磁盘块（正常情况下，只有在需要清理历史垃圾数据时才需要切换磁盘块，切换磁盘块以后，需要自行处理掉所有历史引用，比如可以将数据写入新的磁盘块并更新历史引用，然后删除垃圾磁盘块）
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <returns>磁盘块当前写入位置</returns>
+            AutoCSer.Net.ReturnCommand<AutoCSer.CommandService.DiskBlock.BlockIndex> AutoCSer.CommandService.IDiskBlockClient/**/.SwitchBlock(uint identity)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip2__, AutoCSer.CommandService.DiskBlock.BlockIndex, __op5__>(14
+                    , __op5__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 切换磁盘块（正常情况下，只有在需要清理历史垃圾数据时才需要切换磁盘块，切换磁盘块以后，需要自行处理掉所有历史引用，比如可以将数据写入新的磁盘块并更新历史引用，然后删除垃圾磁盘块）
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <returns>磁盘块当前写入位置</returns>
+            AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.DiskBlock.BlockIndex> AutoCSer.CommandService.IDiskBlockClient/**/.WaitSwitchBlock(uint identity)
+            {
+                __ip2__ __inputParameter__ = new __ip2__
+                {
+                    identity = identity,
+                };
+                __op5__ __outputParameter__ = new __op5__
+                {
+                };
+                var __returnValue__ = base.SynchronousInputOutput<__ip2__, __op5__>(15
+                    , ref __inputParameter__
+                    , ref __outputParameter__
+                    );
+                if (__returnValue__.IsSuccess) return __outputParameter__.ReturnValue;
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 删除垃圾磁盘块（只有在确认不再存在引用的情况下才删除）
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <param name="startIndex">磁盘块起始位置，不允许删除当前写操作的磁盘块</param>
+            /// <param name="callback">是否删除成功</param>
+            /// <returns></returns>
+            AutoCSer.Net.CallbackCommand AutoCSer.CommandService.IDiskBlockClient/**/.DeleteBlock(uint identity, long startIndex, System.Action<AutoCSer.Net.CommandClientReturnValue<bool>> callback)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    identity = identity,
+                    startIndex = startIndex,
+                };
+                var __returnValue__ = base.CallbackOutput<__ip0__, bool, __op0__>(16
+                    , AutoCSer.Net.CommandClientCallback<bool>/**/.Get(callback)
+                    , __op0__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 删除垃圾磁盘块（只有在确认不再存在引用的情况下才删除）
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <param name="startIndex">磁盘块起始位置，不允许删除当前写操作的磁盘块</param>
+            /// <returns>是否删除成功</returns>
+            AutoCSer.Net.ReturnCommand<bool> AutoCSer.CommandService.IDiskBlockClient/**/.DeleteBlock(uint identity, long startIndex)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    identity = identity,
+                    startIndex = startIndex,
+                };
+                var __returnValue__ = base.ReturnValueOutput<__ip0__, bool, __op0__>(17
+                    , __op0__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 删除垃圾磁盘块（只有在确认不再存在引用的情况下才删除）
+            /// </summary>
+            /// <param name="identity">磁盘块服务唯一编号</param>
+            /// <param name="startIndex">磁盘块起始位置，不允许删除当前写操作的磁盘块</param>
+            /// <returns>是否删除成功</returns>
+            AutoCSer.Net.CommandClientReturnValue<bool> AutoCSer.CommandService.IDiskBlockClient/**/.WaitDeleteBlock(uint identity, long startIndex)
+            {
+                __ip0__ __inputParameter__ = new __ip0__
+                {
+                    identity = identity,
+                    startIndex = startIndex,
+                };
+                __op0__ __outputParameter__ = new __op0__
+                {
+                };
+                var __returnValue__ = base.SynchronousInputOutput<__ip0__, __op0__>(18
+                    , ref __inputParameter__
+                    , ref __outputParameter__
+                    );
+                if (__returnValue__.IsSuccess) return __outputParameter__.ReturnValue;
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取客户端接口方法信息集合
+            /// </summary>
+            internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
+            {
+                AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(19);
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetPosition", 2, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetPosition", 2, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                return methods;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void __CommandClientControllerConstructor__()
+            {
+                __CommandClientControllerConstructor__(null, null, 0, null);
+                __CommandClientControllerMethods__();
+                AutoCSer.AotReflection.Interfaces(typeof(DiskBlockClientController));
+            }
+        }
+}namespace AutoCSer.CommandService.DiskBlock
+{
+        /// <summary>
+        /// 磁盘块索引信息
+        /// </summary>
+    public partial struct BlockIndex
+    {
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.DiskBlock.BlockIndex value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(16))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Index);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Identity);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.Size);
+                }
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DiskBlock.BlockIndex value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Index);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Identity);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.Size);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DiskBlock.BlockIndex value = default(AutoCSer.CommandService.DiskBlock.BlockIndex);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlock.BlockIndex));
+            }
+    }
+}namespace AutoCSer.CommandService.DiskBlock
+{
+        /// <summary>
+        /// 磁盘块信息
+        /// </summary>
+    public partial struct BlockInfo
+    {
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.DiskBlock.BlockInfo value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.EndIndex);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.StartIndex);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.DiskBlock.BlockInfo value = default(AutoCSer.CommandService.DiskBlock.BlockInfo);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.DiskBlock.BlockInfo));
+            }
+    }
+}namespace AutoCSer.CommandService.DiskBlock
+{
+    /// <summary>
+    /// 触发 AOT 编译
+    /// </summary>
+    public static class AotMethod
+    {
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            /// <returns></returns>
+            public static bool Call()
+            {
+                if (AutoCSer.Date.StartTimestamp == long.MinValue)
+                {
+                    AutoCSer.AotMethod.Call();
+                    AutoCSer.CommandService.DiskBlock.BlockIndex/**/.BinarySerialize();
+                    AutoCSer.CommandService.DiskBlock.BlockInfo/**/.BinarySerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__ip2__.SimpleSerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__op2__.SimpleSerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__ip5__.BinarySerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__op5__.BinarySerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__ip3__.BinarySerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__op3__.BinarySerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__op1__.BinarySerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__ip0__.SimpleSerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__op0__.SimpleSerialize();
+                    AutoCSer.CommandService.DiskBlockClientController.__CommandClientControllerConstructor__();
+                    AutoCSer.CommandService.DiskBlock.BlockIndex/**/.SimpleSerialize();
+                    AutoCSer.CommandService.DiskBlock.BlockInfo/**/.SimpleSerialize();
+
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.WriteBuffer>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DiskBlock.WriteBuffer>(null, default(AutoCSer.CommandService.DiskBlock.WriteBuffer));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.BlockIndex>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DiskBlock.BlockIndex>(null, default(AutoCSer.CommandService.DiskBlock.BlockIndex));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.ReadBuffer>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DiskBlock.ReadBuffer>(null, default(AutoCSer.CommandService.DiskBlock.ReadBuffer));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.BlockInfo>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DiskBlock.BlockInfo>(null, default(AutoCSer.CommandService.DiskBlock.BlockInfo));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.BlockInfo[]>));
+                    AutoCSer.BinarySerializer.StructArray<AutoCSer.CommandService.DiskBlock.BlockInfo>(null, default(AutoCSer.CommandService.DiskBlock.BlockInfo[]));
+                    binaryDeserializeMemberTypes();
+
+
+
+                    return true;
+                }
+                return false;
+            }
+            /// <summary>
+            /// 二进制反序列化成员类型代码生成调用激活 AOT 反射
+            /// </summary>
+            private static void binaryDeserializeMemberTypes()
+            {
+                AutoCSer.CommandService.DiskBlock.WriteBuffer t1 = default(AutoCSer.CommandService.DiskBlock.WriteBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DiskBlock.WriteBuffer>(null, ref t1);
+                AutoCSer.CommandService.DiskBlock.BlockIndex t2 = default(AutoCSer.CommandService.DiskBlock.BlockIndex);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DiskBlock.BlockIndex>(null, ref t2);
+                AutoCSer.CommandService.DiskBlock.ReadBuffer t3 = default(AutoCSer.CommandService.DiskBlock.ReadBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DiskBlock.ReadBuffer>(null, ref t3);
+                AutoCSer.CommandService.DiskBlock.BlockInfo t4 = default(AutoCSer.CommandService.DiskBlock.BlockInfo);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DiskBlock.BlockInfo>(null, ref t4);
+                AutoCSer.CommandService.DiskBlock.BlockInfo[] t5 = default(AutoCSer.CommandService.DiskBlock.BlockInfo[]);
+                AutoCSer.BinaryDeserializer.StructArray<AutoCSer.CommandService.DiskBlock.BlockInfo>(null, ref t5);
+            }
+    }
+}
+#endif

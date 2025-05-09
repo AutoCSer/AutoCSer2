@@ -7,7 +7,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 数组节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if AOT
+    public abstract class LeftArrayNode<T> : ISnapshot<T>
+#else
     public sealed class LeftArrayNode<T> : ILeftArrayNode<T>, ISnapshot<T>
+#endif
     {
         /// <summary>
         /// 数组

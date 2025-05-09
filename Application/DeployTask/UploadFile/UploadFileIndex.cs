@@ -5,9 +5,12 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 上传文件索引信息
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct UploadFileIndex
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct UploadFileIndex
     {
         /// <summary>
         /// 上传文件索引

@@ -5,6 +5,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
     /// <summary>
     /// 成员位图选择 示例
     /// </summary>
+    [AutoCSer.BinarySerialize(IsMemberMap = true)]
     class MemberMap
     {
         /// <summary>

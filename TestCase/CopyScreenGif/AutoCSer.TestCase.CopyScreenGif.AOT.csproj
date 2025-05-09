@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Drawing\AutoCSer.Drawing.AOT.NET8.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
   </ItemGroup>
 
   <ItemGroup>

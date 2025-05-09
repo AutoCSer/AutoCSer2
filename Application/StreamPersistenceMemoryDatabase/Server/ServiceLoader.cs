@@ -212,7 +212,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="position">当前数据所在持久化流中的位置</param>
         protected override void load(SubArray<byte> data, long position)
         {
+#if !AOT
             service.LoadRepairNodeMethod(position);
+#endif
             fixed (byte* dataFixed = data.GetFixedBuffer())
             {
                 long dataPosition = position;

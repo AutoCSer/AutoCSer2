@@ -9,7 +9,7 @@ using AutoCSer;
 namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
 {
         /// <summary>
-        /// 计数器节点接口 客户端节点接口
+        /// 计数器节点接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.Document.MemoryDatabaseLocalService.CustomNode.ICounterNode))]
         public partial interface ICounterNodeLocalClientNode
@@ -27,7 +27,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
 }namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
 {
         /// <summary>
-        /// 自定义基础服务接口 客户端节点接口
+        /// 自定义基础服务接口 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.Document.MemoryDatabaseLocalService.CustomNode.ICustomServiceNode))]
         public partial interface ICustomServiceNodeLocalClientNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode
@@ -46,7 +46,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
         /// <summary>
         /// 计数器节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ICounterNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ICounterNodeMethodEnum))]
         public partial interface ICounterNode { }
         /// <summary>
         /// 计数器节点接口 节点方法序号映射枚举类型
@@ -73,7 +73,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.CustomNode
         /// <summary>
         /// 自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ICustomServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ICustomServiceNodeMethodEnum))]
         public partial interface ICustomServiceNode { }
         /// <summary>
         /// 自定义基础服务接口 节点方法序号映射枚举类型

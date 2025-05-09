@@ -1,14 +1,17 @@
-﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
-using AutoCSer.Extensions;
+﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
+#if !AOT
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
+#if !AOT
     /// <summary>
     /// 生成客户端节点
     /// </summary>
@@ -43,6 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly MethodInfo LocalServiceInputKeepCallbackNodeCreateMethod = typeof(LocalServiceInputKeepCallbackNode).GetMethod(nameof(LocalServiceInputKeepCallbackNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
     }
+#endif
     /// <summary>
     /// 生成客户端节点
     /// </summary>
@@ -126,6 +130,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             var serverType = typeof(Type);
             try
             {
+#if AOT
+                var attribute = type.GetCustomAttribute<ClientNodeAttribute>();
+                if (attribute?.ClientNodeType != null)
+                {
+                    var method = attribute.ClientNodeType.GetMethod(ClientNodeAttribute.LocalClientNodeConstructorMethodName, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public, new Type[] { typeof(string), typeof(Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>), typeof(LocalClient), typeof(NodeIndex), typeof(bool) });
+                    if (method != null && !method.IsGenericMethod && method.ReturnType == type)
+                    {
+                        creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>)method.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>));
+                        nodeInfo = new NodeInfo(serverType = attribute.ServerNodeType);
+                        return;
+                    }
+                    throw new MissingMethodException(attribute.ClientNodeType.fullName(), ClientNodeAttribute.LocalClientNodeConstructorMethodName);
+                }
+                throw new MissingMemberException(type.fullName(), typeof(ClientNodeAttribute).fullName());
+#else
                 var error = NodeType.CheckType(type);
                 if (error != null)
                 {
@@ -251,6 +270,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>, LocalClient, NodeIndex, bool, T>));
 #endif
                 nodeInfo = new NodeInfo(serverType);
+#endif
             }
             catch (Exception exception)
             {

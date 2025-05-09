@@ -8,7 +8,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
     /// <summary>
     /// Trie 图序列化数据
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GraphData
     {

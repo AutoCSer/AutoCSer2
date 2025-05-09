@@ -7,15 +7,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
     /// <typeparam name="VT">数据类型</typeparam>
-    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
-    public partial interface IDictionaryNode<KT, VT> where KT : IEquatable<KT>
+    /// <typeparam name="ST">快照数据类型</typeparam>
+    public interface IDictionaryNode<KT, VT, ST> where KT : IEquatable<KT>
     {
         /// <summary>
         /// 快照添加数据
         /// </summary>
         /// <param name="value"></param>
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
-        void SnapshotAdd(KeyValue<KT, VT> value);
+        void SnapshotAdd(ST value);
         /// <summary>
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>
@@ -97,5 +97,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>被删除数据</returns>
         [ServerMethod(IsIgnorePersistenceCallbackException = true)]
         ValueResult<VT> GetRemove(KT key);
+    }
+    /// <summary>
+    /// 字典节点接口
+    /// </summary>
+    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="VT">数据类型</typeparam>
+#if !AOT
+    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
+    public partial interface IDictionaryNode<KT, VT> : IDictionaryNode<KT, VT, KeyValue<KT, VT>>
+        where KT : IEquatable<KT>
+    {
     }
 }

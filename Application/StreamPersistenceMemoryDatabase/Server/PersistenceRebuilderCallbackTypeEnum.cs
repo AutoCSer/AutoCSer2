@@ -31,9 +31,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 关闭版本重建
         /// </summary>
         CloseVersion,
+#if !AOT
         /// <summary>
         /// 重建完成
         /// </summary>
         Completed
+#endif
     }
 }

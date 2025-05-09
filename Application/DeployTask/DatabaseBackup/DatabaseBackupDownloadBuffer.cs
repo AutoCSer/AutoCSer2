@@ -5,9 +5,12 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 下载备份文件缓冲区
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
+#endif
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct DatabaseBackupDownloadBuffer
+    public partial struct DatabaseBackupDownloadBuffer
     {
         /// <summary>
         /// 缓冲区

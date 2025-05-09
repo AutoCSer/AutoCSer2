@@ -5,9 +5,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点信息 
     /// </summary>
+#if AOT
+    [AutoCSer.CodeGenerator.BinarySerialize]
+#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
-    public struct NodeInfo
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
+    public partial struct NodeInfo
     {
         /// <summary>
         /// 服务端节点接口类型

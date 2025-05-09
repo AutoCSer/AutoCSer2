@@ -13,7 +13,7 @@ namespace AutoCSer.TestCase.SerializePerformance
     [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.RandomObject]
 #endif
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
     partial class FieldData
     {

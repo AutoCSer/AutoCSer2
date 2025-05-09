@@ -3,20 +3,34 @@ using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
+#if AOT
+    /// <summary>
+    /// 超时检查定时
+    /// </summary>
+    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="IT">消息处理节点接口类型</typeparam>
+    internal sealed class MessageNodeCheckTimer<T, IT> : AutoCSer.Threading.SecondTimerArrayNode
+        where IT : class, IMessageNode<T>
+#else
     /// <summary>
     /// 超时检查定时
     /// </summary>
     /// <typeparam name="T">消息数据类型</typeparam>
     internal sealed class MessageNodeCheckTimer<T> : AutoCSer.Threading.SecondTimerArrayNode
+#endif
          where T : Message<T>
     {
         /// <summary>
         /// 消息处理节点
         /// </summary>
+#if AOT
+        private MessageNode<T, IT>? messageNode;
+#else
 #if NetStandard21
         private MessageNode<T>? messageNode;
 #else
         private MessageNode<T> messageNode;
+#endif
 #endif
         /// <summary>
         /// 超时检查定时
@@ -38,7 +52,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="messageNode"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if AOT
+        internal void Set(MessageNode<T, IT> messageNode)
+#else
         internal void Set(MessageNode<T> messageNode)
+#endif
         {
             if (KeepSeconds != 0)
             {

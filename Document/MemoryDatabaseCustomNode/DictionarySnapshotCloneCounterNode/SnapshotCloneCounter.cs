@@ -7,7 +7,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
     /// 引用类型计数器对象（支持快照数据对象在持久化 API 中手动触发克隆操作的快照数据）
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false)]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class SnapshotCloneCounter<T> : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneObject<SnapshotCloneCounter<T>>
     {
         /// <summary>

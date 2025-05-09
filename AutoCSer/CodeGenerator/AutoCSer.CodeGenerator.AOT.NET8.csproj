@@ -55,6 +55,8 @@
     <Compile Include="TemplateGenerator\JsonSerialize.cs" />
     <Compile Include="TemplateGenerator\SimpleSerialize.cs" />
     <Compile Include="TemplateGenerator\JavaScriptTypeDefinition.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
+    <Compile Include="TemplateGenerator\StreamPersistenceMemoryDatabaseMethodParameterCreator.cs" />
     <Compile Include="TemplateGenerator\XmlSerialize.cs" />
     <Compile Include="Template\CommandServerClientController.cs" />
     <Compile Include="Template\CommandServerClientControllerInterface.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="Template\MemberCopy.cs" />
     <Compile Include="Template\BinarySerialize.cs" />
     <Compile Include="Template\Configuration.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseLocalClientNode.cs" />
+    <Compile Include="Template\StreamPersistenceMemoryDatabaseMethodParameterCreator.cs" />
     <Compile Include="Template\XmlSerialize.cs" />
     <Compile Include="Template\JsonSerialize.cs" />
     <Compile Include="Template\SimpleSerialize.cs" />
@@ -100,6 +104,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.NET8.csproj" />
     <ProjectReference Include="..\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
     <ProjectReference Include="..\FieldEquals\AutoCSer.FieldEquals.AOT.NET8.csproj" />
     <ProjectReference Include="..\RandomObject\AutoCSer.RandomObject.AOT.NET8.csproj" />

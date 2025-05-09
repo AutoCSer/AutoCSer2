@@ -33,7 +33,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 #if DEBUG
         protected const int maxTestCount = 1 << 10;
 #else
-        protected const int maxTestCount = 1 << 25;
+        protected const int maxTestCount = 1 << 24;
 #endif
         /// <summary>
         /// 测试验证位图

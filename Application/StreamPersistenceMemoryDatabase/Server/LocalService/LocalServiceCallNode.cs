@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 本地服务调用节点方法队列节点
     /// </summary>
-    internal sealed class LocalServiceCallNode : LocalServiceQueueNode<LocalResult>
+    public sealed class LocalServiceCallNode : LocalServiceQueueNode<LocalResult>
     {
         /// <summary>
         /// 本地服务客户端节点
@@ -66,7 +66,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="isWriteQueue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static LocalServiceQueueNode<LocalResult> Create(LocalClientNode clientNode, int methodIndex, bool isWriteQueue)
+        public static LocalServiceQueueNode<LocalResult> Create(LocalClientNode clientNode, int methodIndex, bool isWriteQueue)
         {
             return new LocalServiceCallNode(clientNode, methodIndex, isWriteQueue);
         }

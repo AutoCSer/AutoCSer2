@@ -150,7 +150,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
         /// <summary>
         /// 持久化前置检查示例节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IBeforePersistenceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IBeforePersistenceNodeMethodEnum))]
         public partial interface IBeforePersistenceNode { }
         /// <summary>
         /// 持久化前置检查示例节点接口 节点方法序号映射枚举类型
@@ -203,7 +203,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
         /// <summary>
         /// 计数器节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ICounterNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ICounterNodeMethodEnum))]
         public partial interface ICounterNode { }
         /// <summary>
         /// 计数器节点接口 节点方法序号映射枚举类型
@@ -230,7 +230,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
         /// <summary>
         /// 自定义基础服务接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(ICustomServiceNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ICustomServiceNodeMethodEnum))]
         public partial interface ICustomServiceNode { }
         /// <summary>
         /// 自定义基础服务接口 节点方法序号映射枚举类型
@@ -564,7 +564,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
         /// <summary>
         /// 字典计数器节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IDictionaryCounterNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IDictionaryCounterNodeMethodEnum))]
         public partial interface IDictionaryCounterNode<T> { }
         /// <summary>
         /// 字典计数器节点接口 节点方法序号映射枚举类型
@@ -594,7 +594,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
         /// <summary>
         /// 支持快照克隆的字典计数器节点接口
         /// </summary>
-        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodIndex(typeof(IDictionarySnapshotCloneCounterNodeMethodEnum))]
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IDictionarySnapshotCloneCounterNodeMethodEnum))]
         public partial interface IDictionarySnapshotCloneCounterNode<T> { }
         /// <summary>
         /// 支持快照克隆的字典计数器节点接口 节点方法序号映射枚举类型

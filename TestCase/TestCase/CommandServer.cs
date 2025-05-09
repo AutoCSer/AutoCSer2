@@ -153,7 +153,7 @@ namespace AutoCSer.TestCase
         /// <summary>
         /// 是否 AOT 客户端测试
         /// </summary>
-        internal static bool IsAotClient;
+        internal static bool IsAotClient = false;
         /// <summary>
         /// 创建测试服务端
         /// </summary>

@@ -11,7 +11,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 拉取文件数据
     /// </summary>
-    [AutoCSer.BinarySerialize(IsMemberMap = false, IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
+    [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     public sealed class PullFileBuffer : AutoCSer.BinarySerialize.ICustomSerialize<PullFileBuffer>
     {
         /// <summary>

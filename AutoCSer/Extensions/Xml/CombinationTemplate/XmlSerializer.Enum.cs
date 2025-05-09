@@ -13,7 +13,11 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
+#if AOT
         public void EnumULong<T>(T value) where T : struct, IConvertible
+#else
+        internal void EnumULong<T>(T value) where T : struct, IConvertible
+#endif
         {
             if (!Config.IsEnumToString) XmlSerialize(AutoCSer.Metadata.EnumGenericType<T, ulong>.ToInt(value));
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));

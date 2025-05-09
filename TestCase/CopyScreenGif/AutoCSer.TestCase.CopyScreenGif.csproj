@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Drawing\AutoCSer.Drawing.NET8.csproj" />
+    <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
 
   <ItemGroup>

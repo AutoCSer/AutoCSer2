@@ -23,7 +23,6 @@ namespace AutoCSer.Document.ServiceDataSerialize
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.IgnoreMember)} {BinarySerialize.IgnoreMember.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.AnonymousType)} {BinarySerialize.AnonymousType.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.MemberMap)} {BinarySerialize.MemberMap.TestCase()}");
-            Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.DisabledMemberMap)} {BinarySerialize.DisabledMemberMap.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.BaseType)} {BinarySerialize.BaseType.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.RealType)} {BinarySerialize.RealType.TestCase()}");
             Console.WriteLine($"{nameof(BinarySerialize)}.{nameof(BinarySerialize.JsonMember)} {BinarySerialize.JsonMember.TestCase()}");

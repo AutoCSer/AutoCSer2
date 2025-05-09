@@ -4,7 +4,9 @@
     /// 256 基分片 哈希表 节点接口
     /// </summary>
     /// <typeparam name="T">关键字类型</typeparam>
+#if !AOT
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+#endif
     public partial interface IFragmentHashSetNode<T>
     {
         /// <summary>
