@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.SerializePerformance
     [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.RandomObject]
 #endif
-    [AutoCSer.BinarySerialize(IsMixJsonSerialize = true)]
+    [AutoCSer.BinarySerialize(IsMixJsonSerialize = true, IsReferenceMember = false)]
     partial class JsonFloatFieldData : FloatFieldData
     {
     }

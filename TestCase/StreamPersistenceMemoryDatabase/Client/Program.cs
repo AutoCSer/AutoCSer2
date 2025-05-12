@@ -65,6 +65,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                         , LeftArrayNode.Test(clientNode)
                         , ArrayNode.Test(clientNode)
                         , BitmapNode.Test(clientNode)
+                        , OnlyPersistenceNode.Test(clientNode)
                         );
                     
                     await new PerformanceDictionaryNode().Test(commandClientConfig, clientNode);

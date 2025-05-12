@@ -116,25 +116,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 foreach (ServerNode node in service.GetNodes())
                 {
-                    if (node.IsRebuild)
+                    if (!node.IsLoadException)
                     {
-                        if (!node.IsLoadException)
+                        if (node.SnapshotTransactionNodeCount == 0)
                         {
-                            if (node.SnapshotTransactionNodeCount == 0)
-                            {
-                                nodes[nodeCount++].Set(node, 1);
-                                node.Rebuilding = true;
-                            }
-                            else snapshotTransactionNodes.Add(node.Key, node);
+                            nodes[nodeCount++].Set(node, 1);
+                            node.Rebuilding = true;
                         }
-                        else
-                        {
-                            LoadExceptionNode = node;
-                            isLoaded = true;
-                            while (nodeCount != 0) nodes[--nodeCount].Key.CloseRebuild();
-                            Service.Rebuilder = null;
-                            return;
-                        }
+                        else snapshotTransactionNodes.Add(node.Key, node);
+                    }
+                    else
+                    {
+                        LoadExceptionNode = node;
+                        isLoaded = true;
+                        while (nodeCount != 0) nodes[--nodeCount].Key.CloseRebuild();
+                        Service.Rebuilder = null;
+                        return;
                     }
                 }
                 while (snapshotTransactionNodes.Count != 0)
@@ -386,11 +383,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 当前节点持久化操作
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="array"></param>
-        /// <param name="newArray"></param>
         /// <returns></returns>
-        internal unsafe bool Rebuild<T>(ref LeftArray<T> array, ref LeftArray<T> newArray)
+        internal unsafe bool Rebuild()
         {
             var outputSerializer = default(BinarySerializer);
             PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
@@ -415,7 +409,53 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                         if (isClosedOrServiceDisposed) return false;
                         persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
-
+                    }
+                    persistencePosition = persistenceStream.Position;
+                }
+                return true;
+            }
+            finally
+            {
+                persistenceBuffer.Free();
+                outputSerializer?.FreeContext(isSerializeCopyString);
+            }
+        }
+        /// <summary>
+        /// 当前节点持久化操作
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="isCreateNode"></param>
+        /// <param name="array"></param>
+        /// <param name="newArray"></param>
+        /// <returns></returns>
+        internal unsafe bool Rebuild<T>(bool isCreateNode, ref LeftArray<T> array, ref LeftArray<T> newArray)
+        {
+            var outputSerializer = default(BinarySerializer);
+            PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
+            bool isSerializeCopyString = Service.Config.IsSerializeCopyString;
+            try
+            {
+                if (isClosedOrServiceDisposed) return false;
+                using (FileStream persistenceStream = new FileStream(persistenceFileInfo.FullName, FileMode.Open, FileAccess.Write, FileShare.None, persistenceBuffer.SendBufferMaxSize, FileOptions.None))
+                {
+                    if (!checkPersistencePosition(persistenceStream)) return false;
+                    persistenceBuffer.GetBufferLength();
+                    SubArray<byte> outputData;
+                    using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
+                    {
+                        persistenceBuffer.OutputStream = outputStream;
+                        if (isCreateNode)
+                        {
+                            fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                            {
+                                persistenceBuffer.SetStart(dataFixed);
+                                persistenceBuffer.Reset();
+                                node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
+                                outputData = persistenceBuffer.GetData();
+                            }
+                            if (isClosedOrServiceDisposed) return false;
+                            persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
+                        }
                         SnapshotMethodSerializer<T> snapshotMethodSerializer = new SnapshotMethodSerializer<T>(outputSerializer, node.notNull());
                         for (int valueIndex = 0; valueIndex != array.Length;)
                         {
@@ -506,10 +546,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 当前节点持久化操作
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="isCreateNode"></param>
         /// <param name="array"></param>
         /// <param name="newArray"></param>
         /// <returns></returns>
-        internal unsafe bool RebuildSnapshotClone<T>(ref LeftArray<T> array, ref LeftArray<T> newArray) where T : SnapshotCloneObject<T>
+        internal unsafe bool RebuildSnapshotClone<T>(bool isCreateNode, ref LeftArray<T> array, ref LeftArray<T> newArray) where T : SnapshotCloneObject<T>
         {
             var outputSerializer = default(BinarySerializer);
             object snapshotLock = this;
@@ -526,16 +567,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                     {
                         persistenceBuffer.OutputStream = outputStream;
-                        fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                        if (isCreateNode)
                         {
-                            persistenceBuffer.SetStart(dataFixed);
-                            persistenceBuffer.Reset();
-                            node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
-                            outputData = persistenceBuffer.GetData();
+                            fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                            {
+                                persistenceBuffer.SetStart(dataFixed);
+                                persistenceBuffer.Reset();
+                                node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
+                                outputData = persistenceBuffer.GetData();
+                            }
+                            if (isClosedOrServiceDisposed) return false;
+                            persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
                         }
-                        if (isClosedOrServiceDisposed) return false;
-                        persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
-
                         SnapshotMethodSerializer<T> snapshotMethodSerializer = new SnapshotMethodSerializer<T>(outputSerializer, node.notNull());
                         for (int valueIndex = 0; valueIndex != array.Length;)
                         {
@@ -663,9 +706,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 当前节点持久化操作
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="isCreateNode"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        internal unsafe bool Rebuild<T>(ISnapshotEnumerable<T> values)
+        internal unsafe bool Rebuild<T>(bool isCreateNode, ISnapshotEnumerable<T> values)
         {
             var outputSerializer = default(BinarySerializer);
             PersistenceBuffer persistenceBuffer = new PersistenceBuffer(Service);
@@ -681,16 +725,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
                     {
                         persistenceBuffer.OutputStream = outputStream;
-                        fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                        if (isCreateNode)
                         {
-                            persistenceBuffer.SetStart(dataFixed);
-                            persistenceBuffer.Reset();
-                            node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
-                            outputData = persistenceBuffer.GetData();
+                            fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                            {
+                                persistenceBuffer.SetStart(dataFixed);
+                                persistenceBuffer.Reset();
+                                node.notNull().CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, persistencePosition);
+                                outputData = persistenceBuffer.GetData();
+                            }
+                            if (isClosedOrServiceDisposed) return false;
+                            persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
                         }
-                        if (isClosedOrServiceDisposed) return false;
-                        persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
-
                         SnapshotMethodSerializer<T> snapshotMethodSerializer = new SnapshotMethodSerializer<T>(outputSerializer, node.notNull());
                         IEnumerator<T> enumerator = values.SnapshotValues.GetEnumerator();
                         bool isCurrentValue = false;
@@ -765,9 +811,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isPushQueue = false;
             try
             {
-                //methodParameter = methodParameter.Clone();
-                //methodParameter.LinkNext = null;
-                //persistenceQueue.IsPushHead(methodParameter);
                 persistenceQueue.IsPushHead(methodParameter.Clone());
                 isPushQueue = true;
             }

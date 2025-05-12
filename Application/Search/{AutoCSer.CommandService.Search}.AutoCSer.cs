@@ -1355,6 +1355,15 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// </summary>
             RemoveNodeByKey = 29,
             /// <summary>
+            /// [30] 创建仅存档节点 PersistenceNode{T}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// AutoCSer.Reflection.RemoteType valueType 存档数据类型
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateOnlyPersistenceNode = 30,
+            /// <summary>
             /// [256] 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
             /// string key 节点全局关键字
@@ -1670,6 +1679,15 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             /// 返回值 bool 是否成功删除节点，否则表示没有找到节点
             /// </summary>
             RemoveNodeByKey = 29,
+            /// <summary>
+            /// [30] 创建仅存档节点 PersistenceNode{T}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// AutoCSer.Reflection.RemoteType valueType 存档数据类型
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateOnlyPersistenceNode = 30,
             /// <summary>
             /// [256] 创建字符串 Trie 图节点 IStaticTrieGraphNode
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息

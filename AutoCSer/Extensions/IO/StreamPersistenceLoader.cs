@@ -3,6 +3,7 @@ using AutoCSer.Memory;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace AutoCSer.IO
@@ -57,7 +58,7 @@ namespace AutoCSer.IO
         /// <summary>
         /// 文件头部字节大小
         /// </summary>
-        private int fileHeadSize;
+        private readonly int fileHeadSize;
         /// <summary>
         /// 读取数据块头部字节大小，最小为 8 字节
         /// </summary>
@@ -79,6 +80,10 @@ namespace AutoCSer.IO
         /// </summary>
         private bool isReadException;
         /// <summary>
+        /// 是否已经读取文件头部
+        /// </summary>
+        private bool isReadedHead;
+        /// <summary>
         /// 加载数据异常
         /// </summary>
 #if NetStandard21
@@ -95,6 +100,15 @@ namespace AutoCSer.IO
         {
             this.fileHeadSize = Math.Max(fileHeadSize, 0);
             this.blockHeadSize = Math.Max(blockHeadSize, sizeof(int) * 2);
+            setBufferWait();
+        }
+        /// <summary>
+        /// 初始化缓冲区等待锁
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        protected void setBufferWait()
+        {
+            isReadedHead = false;
             buffer.SetWait();
             buffer2.SetWait();
         }
@@ -161,7 +175,7 @@ namespace AutoCSer.IO
         /// <returns>是否结束</returns>
         private bool readFile(ref StreamPersistenceLoaderBuffer buffer, ref StreamPersistenceLoaderBuffer buffer2)
         {
-            if (fileHeadSize == 0)
+            if (isReadedHead)
             {
                 if ((endIndex -= readIndex) == 0) endIndex = 0;
                 else AutoCSer.Common.CopyTo(buffer2.ReadBufferStart + readIndex, buffer.ReadBufferStart, endIndex);
@@ -173,7 +187,7 @@ namespace AutoCSer.IO
                 unreadSize -= readSize;
                 endIndex = readSize;
                 position = readIndex = loadHead(buffer.ReadBuffer.GetSubArray(readSize));
-                fileHeadSize = 0;
+                isReadedHead = true;
 
                 if ((endIndex -= readIndex) == 0) endIndex = 0;
                 else AutoCSer.Common.CopyTo(buffer.ReadBufferStart + readIndex, buffer.ReadBufferStart, endIndex);

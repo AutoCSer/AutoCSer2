@@ -158,6 +158,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         internal abstract NodeIndex CreateArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int length);
         /// <summary>
+        /// 创建仅存档节点 IOnlyPersistenceNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal abstract NodeIndex CreateOnlyPersistenceNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo);
+        /// <summary>
         /// 快照接口节点
         /// </summary>
         /// <param name="target"></param>
@@ -373,6 +382,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         internal override NodeIndex CreateArrayNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int length)
         {
             return node.CreateSnapshotNode<IArrayNode<T>>(index, key, nodeInfo, () => new ArrayNode<T>(length));
+        }
+        /// <summary>
+        /// 创建仅存档节点 IOnlyPersistenceNode{T}
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        internal override NodeIndex CreateOnlyPersistenceNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
+        {
+            return node.CreateNode<IOnlyPersistenceNode<T>>(index, key, nodeInfo, () => new OnlyPersistenceNode<T>(), true);
         }
         /// <summary>
         /// 快照接口节点

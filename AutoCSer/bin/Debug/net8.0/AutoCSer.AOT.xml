@@ -576,6 +576,11 @@
             成员位图
             </summary>
         </member>
+        <member name="F:AutoCSer.BinaryDeserializer.MemberMapType">
+            <summary>
+            成员位图类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinaryDeserializer.points">
             <summary>
             历史对象指针位置
@@ -1541,6 +1546,20 @@
             </summary>
             <param name="deserializer"></param>
             <param name="value">字符串</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SetCustomMemberMapType(System.Type)">
+            <summary>
+            获取并设置自定义序列化成员位图
+            </summary>
+            <param name="memberMapType">设置的自定义序列化成员位图</param>
+            <returns>序列化成员位图</returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.GetCustomMemberMap(System.Type)">
+            <summary>
+            获取自定义序列化成员位图
+            </summary>
+            <param name="memberMapType">设置的自定义序列化成员位图类型</param>
+            <returns>序列化成员位图</returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.SetCustomMemberMap(AutoCSer.Metadata.MemberMap)">
             <summary>
@@ -25849,6 +25868,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Metadata.MemberMap`1.Default">
+            <summary>
+            默认公共缺省反序列化成员位图
+            </summary>
+        </member>
         <member name="T:AutoCSer.Metadata.MemberMapIndex`1">
             <summary>
             成员位图索引
@@ -37950,19 +37974,19 @@
             客户端执行队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.nodeQueue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.head">
             <summary>
             首节点
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.end">
+        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.isQueue">
             <summary>
-            尾节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.queueLock">
-            <summary>
-            弹出节点访问锁
+            是否已经添加到队列
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.#ctor(AutoCSer.Net.CommandClientCallQueue)">
@@ -45668,24 +45692,24 @@
             服务端执行队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.nodeQueue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.head">
             <summary>
             首节点
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.end">
-            <summary>
-            尾节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.queueLock">
-            <summary>
-            弹出节点访问锁
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.currentTask">
             <summary>
             当前执行任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.isQueue">
+            <summary>
+            是否已经添加到队列
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallLowPriorityQueue.#ctor(AutoCSer.Net.CommandServerCallQueue)">
@@ -49822,6 +49846,99 @@
         <member name="M:AutoCSer.Reflection.RemoteType.BinarySerialize">
             <summary>
             二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.Reflection.RemoteType)">
+            <summary>
+            JSON 序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.Reflection.RemoteType},AutoCSer.JsonSerializer,AutoCSer.Reflection.RemoteType,AutoCSer.Memory.CharStream)">
+            <summary>
+            JSON 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.jsonSerialize(AutoCSer.JsonSerializer)">
+            <summary>
+            JSON 序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.jsonSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.Reflection.RemoteType},AutoCSer.JsonSerializer,AutoCSer.Memory.CharStream)">
+            <summary>
+            JSON 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.Reflection.RemoteType@,AutoCSer.Memory.Pointer@)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+            <param name="names"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonDeserializeMemberMap(AutoCSer.JsonDeserializer,AutoCSer.Reflection.RemoteType@,AutoCSer.Memory.Pointer@,AutoCSer.Metadata.MemberMap{AutoCSer.Reflection.RemoteType})">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+            <param name="names"></param>
+            <param name="memberMap"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.jsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@)">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__names__"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.jsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@,AutoCSer.Metadata.MemberMap{AutoCSer.Reflection.RemoteType})">
+            <summary>
+            JSON 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__names__"></param>
+            <param name="__memberMap__"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.Reflection.RemoteType@,System.Int32)">
+            <summary>
+            成员 JSON 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonDeserializeMemberNames">
+            <summary>
+            获取 JSON 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.jsonDeserializeMemberName">
+            <summary>
+            获取 JSON 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
             </summary>
         </member>
         <member name="M:AutoCSer.Reflection.RemoteType.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.Reflection.RemoteType@)">

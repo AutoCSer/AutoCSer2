@@ -208,6 +208,15 @@
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNode.CreateTestClassOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建测试仅存档节点 TestClassOnlyPersistenceNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode" -->
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.DefaultConstructor">
             <summary>
@@ -866,6 +875,15 @@
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode.CreateTestClassOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建测试仅存档节点 TestClassOnlyPersistenceNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ILongSortedSetNode">
             <summary>
             测试排序集合节点接口 节点接口
@@ -896,6 +914,14 @@
             </summary>
             <summary>
             性能测试二叉搜索树节点接口
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode">
+            <summary>
+            测试仅存档节点接口
+            </summary>
+            <summary>
+            测试仅存档节点接口
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.IStringArrayNode">
@@ -1166,6 +1192,11 @@
             <param name="timeoutSeconds">消息处理超时秒数</param>
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNode">
+            <summary>
+            测试仅存档节点
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNode">
             <summary>
             测试消息处理节点
@@ -1343,6 +1374,77 @@
             </summary>
             <param name="capacity">容器初始化大小</param>
             <param name="groupType">可重用字典重组操作类型</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.DefaultConstructorReflection">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.CreateRandomObject(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass@,AutoCSer.RandomObject.Config)">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.createRandomObject(AutoCSer.RandomObject.Config)">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass.CreateRandomObject">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage)">
             <summary>
@@ -2035,6 +2137,15 @@
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode.CreateTestClassOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建测试仅存档节点 TestClassOnlyPersistenceNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient">
             <summary>
             服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 本地客户端节点
@@ -2712,6 +2823,15 @@
             <param name="arraySize">正在处理消息数组大小</param>
             <param name="timeoutSeconds">消息处理超时秒数</param>
             <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+            <returns>节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.AutoCSer#TestCase#StreamPersistenceMemoryDatabase#ICustomServiceNodeLocalClientNode#CreateTestClassOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+            <summary>
+            创建测试仅存档节点 TestClassOnlyPersistenceNode
+            </summary>
+            <param name="index">节点索引信息</param>
+            <param name="key">节点全局关键字</param>
+            <param name="nodeInfo">节点信息</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.LocalClientNode">
@@ -8271,6 +8391,98 @@
             代码生成调用激活 AOT 反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeLocalClientNode">
+            <summary>
+            测试仅存档节点接口 本地客户端节点接口
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeLocalClientNode.Save(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeLocalClientNode.SaveSendOnly(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient">
+            <summary>
+            测试仅存档节点接口 本地客户端节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.#ctor(System.String,System.Func{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}}},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Boolean)">
+            <summary>
+            本地客户端节点
+            </summary>
+            <param name="key">节点全局关键字</param>
+            <param name="creator">创建节点操作对象委托</param>
+            <param name="client">日志流持久化内存数据库客户端</param>
+            <param name="index">节点索引信息</param>
+            <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.AutoCSer#TestCase#StreamPersistenceMemoryDatabase#ITestClassOnlyPersistenceNodeLocalClientNode#Save(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.AutoCSer#TestCase#StreamPersistenceMemoryDatabase#ITestClassOnlyPersistenceNodeLocalClientNode#SaveSendOnly(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.LocalClientNode">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeMethodEnum">
             <summary>
             回调测试节点 节点方法序号映射枚举类型
@@ -9145,6 +9357,15 @@
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateTestClassOnlyPersistenceNode">
+            <summary>
+            [275] 创建测试仅存档节点 TestClassOnlyPersistenceNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            string key 节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode_CreateBitmapNode_0">
             <summary>
             创建位图节点 BitmapNode 服务端节点方法
@@ -9268,6 +9489,11 @@
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode_CreatePerformanceMessageNode_274">
             <summary>
             创建性能测试消息处理节点 PerformanceMessageNode 服务端节点方法
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode_CreateTestClassOnlyPersistenceNode_275">
+            <summary>
+            创建测试仅存档节点 TestClassOnlyPersistenceNode 服务端节点方法
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodParameterCreator">
@@ -12347,6 +12573,66 @@
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeMethodParameterCreator.GetServerNodeCreatorMethod">
+            <summary>
+            获取生成服务端节点方法信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeMethodEnum">
+            <summary>
+            测试仅存档节点接口 节点方法序号映射枚举类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeMethodEnum.Save">
+            <summary>
+            [0] 
+            AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeMethodEnum.SaveLoadPersistence">
+            <summary>
+            [1] 
+            AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeMethodEnum.SaveSendOnly">
+            <summary>
+            [2] 
+            AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNodeMethodEnum.SaveSendOnlyLoadPersistence">
+            <summary>
+            [3] 
+            AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode_Save_0">
+            <summary>
+             服务端节点方法
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode_SaveLoadPersistence_1">
+            <summary>
+             服务端节点方法
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode_SaveSendOnly_2">
+            <summary>
+             服务端节点方法
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode_SaveSendOnlyLoadPersistence_3">
+            <summary>
+             服务端节点方法
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeMethodParameterCreator">
+            <summary>
+            测试仅存档节点接口 创建调用方法与参数信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeMethodParameterCreator.GetServerNodeCreatorMethod">
             <summary>
             获取生成服务端节点方法信息
             </summary>

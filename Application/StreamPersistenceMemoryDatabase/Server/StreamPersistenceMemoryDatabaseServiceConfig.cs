@@ -93,6 +93,10 @@ namespace AutoCSer.CommandService
         /// 持久化数据缓存区池字节大小二进制位数量，默认为 17 表示 128KB，最小值为 12 表示 4KB
         /// </summary>
         public BufferSizeBitsEnum BufferSizeBits = BufferSizeBitsEnum.Kilobyte128;
+        /// <summary>
+        /// 持久化类型
+        /// </summary>
+        public PersistenceTypeEnum PersistenceType;
 #if !AOT
         /// <summary>
         /// 默认为 false 表示不允许创建从节点，如果没有从节点需求设置为 true 会导致内存空间浪费

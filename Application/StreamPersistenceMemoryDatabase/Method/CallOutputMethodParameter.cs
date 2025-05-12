@@ -85,7 +85,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         var rebuilder = service.Rebuilder;
                         if (callback == null)
                         {
-                            if (rebuilder != null && Node.IsRebuild && !Node.Rebuilding)
+                            if (rebuilder != null && !Node.Rebuilding)
                             {
                                 IsPersistenceCallback = true;
                                 rebuilder.PushQueue(this);
@@ -101,14 +101,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     service.WritePersistenceCallbackExceptionPosition(persistenceCallbackExceptionPosition);
                                     rebuilder = null;
                                     isPersistenceCallbackException = false;
-                                    callback.SynchronousCallback(new ResponseParameter(CallStateEnum.IgnorePersistenceCallbackException));
+                                    callback.SynchronousCallback(ResponseParameter.CallStates[(byte)CallStateEnum.IgnorePersistenceCallbackException]);
                                 }
-                                else callback.SynchronousCallback(new ResponseParameter(CallStateEnum.PersistenceCallbackException));
+                                else callback.SynchronousCallback(ResponseParameter.CallStates[(byte)CallStateEnum.PersistenceCallbackException]);
                             }
                             finally
                             {
                                 if (isPersistenceCallbackException) Node.SetPersistenceCallbackException();
-                                if (rebuilder != null && Node.IsRebuild && !Node.Rebuilding) rebuilder.PushQueue(this);
+                                if (rebuilder != null && !Node.Rebuilding) rebuilder.PushQueue(this);
                             }
                         }
                     }
@@ -132,7 +132,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                callback.Callback(new ResponseParameter(state));
+                callback.Callback(ResponseParameter.CallStates[(byte)state]);
             }
             return LinkNext;
         }

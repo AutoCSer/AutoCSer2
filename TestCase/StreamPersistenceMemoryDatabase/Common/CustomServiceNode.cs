@@ -244,6 +244,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         {
             return CreateSnapshotNode<IPerformanceMessageNode>(index, key, nodeInfo, () => new PerformanceMessageNode(arraySize, timeoutSeconds, checkTimeoutSeconds));
         }
+        /// <summary>
+        /// 创建测试仅存档节点 TestClassOnlyPersistenceNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public NodeIndex CreateTestClassOnlyPersistenceNode(NodeIndex index, string key, NodeInfo nodeInfo)
+        {
+            return CreateNode<ITestClassOnlyPersistenceNode>(index, key, nodeInfo, () => new TestClassOnlyPersistenceNode(), true);
+        }
 #endif
     }
 }

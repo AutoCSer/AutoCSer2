@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net.Packet;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net.Packet;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -75,16 +76,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal async Task<LocalResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>> creator) where T : class
         {
             var exception = default(Exception);
-            NodeInfo nodeInfo = LocalClientNodeCreator<T>.GetNodeInfo(out exception);
+            var nodeInfo = LocalClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {
-                NodeIndex index = await new LocalServiceGetNodeIndex(Service, key, nodeInfo).AppendWrite();
+                NodeIndex index = await new LocalServiceGetNodeIndex(Service, key, nodeInfo.notNull()).AppendWrite();
                 CallStateEnum state = index.GetState();
                 if (state == CallStateEnum.Success)
                 {
                     if (index.GetFree())
                     {
-                        LocalResult<NodeIndex> nodeIndex = await creator(index, key, nodeInfo);
+                        LocalResult<NodeIndex> nodeIndex = await creator(index, key, nodeInfo.notNull());
                         if (nodeIndex.IsSuccess)
                         {
                             state = nodeIndex.Value.GetState();
@@ -361,6 +362,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public Task<LocalResult<IArrayNodeLocalClientNode<T>>> GetOrCreateArrayNode<T>(string key, int length, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IArrayNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateArrayNode(index, nodeKey, nodeInfo, typeof(T), length), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
+        /// 获取仅存档节点，不存在则创建节点 OnlyPersistenceNode{T}
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<LocalResult<IOnlyPersistenceNodeLocalClientNode<T>>> GetOrCreateOnlyPersistenceNode<T>(string key)
+        {
+            return GetOrCreateNode<IOnlyPersistenceNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateOnlyPersistenceNode(index, nodeKey, nodeInfo, typeof(T)), false);
         }
 #endif
         /// <summary>

@@ -38,6 +38,7 @@
     <Compile Include="ILongStringSearchTreeDictionaryNode.cs" />
     <Compile Include="ILongStringSortedListNode.cs" />
     <Compile Include="IPerformanceSearchTreeDictionaryNode.cs" />
+    <Compile Include="ITestClassOnlyPersistenceNode.cs" />
     <Compile Include="IStringArrayNode.cs" />
     <Compile Include="ILongSearchTreeSetNode.cs" />
     <Compile Include="ILongStringSortedDictionaryNode.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="PerformanceKeyValue.cs" />
     <Compile Include="PerformanceDictionaryNode.cs" />
     <Compile Include="PerformanceMessageNode.cs" />
+    <Compile Include="TestClassOnlyPersistenceNode.cs" />
     <Compile Include="TestClassMessageNode.cs" />
     <Compile Include="ITestClassMessageNode.cs" />
     <Compile Include="IStringStackNode.cs" />
@@ -77,6 +79,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.NET8.csproj" />
+    <ProjectReference Include="..\..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.AOT.NET8.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

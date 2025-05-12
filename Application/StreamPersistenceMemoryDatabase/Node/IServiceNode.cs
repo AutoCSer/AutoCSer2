@@ -258,6 +258,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="capacity">容器初始化大小</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
+        /// <summary>
+        /// 创建仅存档节点 PersistenceNode{T}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="valueType">存档数据类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateOnlyPersistenceNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType valueType);
 #endif
         /// <summary>
         /// 多哈希位图客户端同步过滤节点 IManyHashBitMapClientFilterNode

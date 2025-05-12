@@ -87,7 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!isResponseParameter)
                     {
                         bool isCallback;
-                        ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
+                        ResponseParameter responseParameter = ResponseParameter.CallStates[(byte)CallStateEnum.Unknown];
                         try
                         {
                             responseParameter = ResponseParameter.Create(value, flag);
@@ -114,7 +114,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     this.isCallback = true;
                     bool isCallback;
-                    ResponseParameter responseParameter = new ResponseParameter(CallStateEnum.Unknown);
+                    ResponseParameter responseParameter = ResponseParameter.CallStates[(byte)CallStateEnum.Unknown];
                     try
                     {
                         responseParameter = ResponseParameter.Create(value, flag);
@@ -137,7 +137,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!isCallback)
             {
                 isCallback = true;
-                return callback.Callback(new ResponseParameter(state));
+                return callback.Callback(ResponseParameter.CallStates[(byte)state]);
             }
             return false;
         }
@@ -152,7 +152,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!isCallback)
             {
                 isCallback = true;
-                return callback.SynchronousCallback(new ResponseParameter(state));
+                return callback.SynchronousCallback(ResponseParameter.CallStates[(byte)state]);
             }
             return false;
         }

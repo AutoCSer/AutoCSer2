@@ -1,4 +1,4 @@
-using AutoCSer.Extensions;
+﻿using AutoCSer.Extensions;
 using System;
 using System.Runtime.CompilerServices;
 

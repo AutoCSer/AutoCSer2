@@ -64,6 +64,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                             , StackNode.Test(client, false)
                             , LeftArrayNode.Test(client, false)
                             , ArrayNode.Test(client, false)
+                            , OnlyPersistenceNode.Test(client, false)
                             );
                         await new PerformanceDictionaryNode().Test(client, false);
                         await new PerformanceSearchTreeDictionaryNode().Test(client, false);
@@ -88,6 +89,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                             , StackNode.Test(readWriteQueueClient, true)
                             , LeftArrayNode.Test(readWriteQueueClient, true)
                             , ArrayNode.Test(readWriteQueueClient, true)
+                            , OnlyPersistenceNode.Test(readWriteQueueClient, true)
                             );
                         await new PerformanceDictionaryNode().Test(readWriteQueueClient, true);
                         await new PerformanceSearchTreeDictionaryNode().Test(readWriteQueueClient, true);

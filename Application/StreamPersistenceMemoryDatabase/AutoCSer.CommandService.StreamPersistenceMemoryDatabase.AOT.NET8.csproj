@@ -79,6 +79,8 @@
     <Compile Include="Node\Message\MessageNodeCheckTimeoutCallback.cs" />
     <Compile Include="Node\Message\MessageNodeCheckTimer.cs" />
     <Compile Include="Node\Message\MessageNodeLoader.cs" />
+    <Compile Include="Node\OnlyPersistenceNode.cs" />
+    <Compile Include="Node\IOnlyPersistenceNode.cs" />
     <Compile Include="Node\QueueNode.cs" />
     <Compile Include="Node\SearchTreeDictionaryNode.cs" />
     <Compile Include="Node\SearchTreeSetNode.cs" />
@@ -158,6 +160,9 @@
     <Compile Include="Server\LocalService\ServerNodeMethodInfo.cs" />
     <Compile Include="Server\LocalService\SnapshotMethodCreatorInfo.cs" />
     <Compile Include="Server\LocalService\SnapshotMethodInfo.cs" />
+    <Compile Include="Server\PersistenceFile.cs" />
+    <Compile Include="Server\PersistenceTypeEnum.cs" />
+    <Compile Include="Server\ScanPersistenceServiceLoader.cs" />
     <Compile Include="Server\ServerNodeTypeAttribute.cs" />
     <Compile Include="Server\ServerSnapshotNode.cs" />
     <Compile Include="Server\ServiceCallbackTypeEnum.cs" />

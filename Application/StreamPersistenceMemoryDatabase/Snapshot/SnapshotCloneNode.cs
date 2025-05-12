@@ -73,12 +73,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 持久化重建
         /// </summary>
         /// <param name="rebuilder"></param>
+        /// <param name="isCreateNode"></param>
         /// <returns></returns>
-        internal override bool Rebuild(PersistenceRebuilder rebuilder)
+        internal override bool Rebuild(PersistenceRebuilder rebuilder, bool isCreateNode)
         {
             LeftArray<T> array, newArray;
             rebuild(out array, out newArray);
-            return rebuilder.RebuildSnapshotClone(ref array, ref newArray);
+            return rebuilder.RebuildSnapshotClone(isCreateNode, ref array, ref newArray);
         }
     }
 }

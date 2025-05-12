@@ -74,7 +74,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     var rebuilder = service.Rebuilder;
                     if (IsPersistenceCallback)
                     {
-                        if (rebuilder != null && Node.IsRebuild && !Node.Rebuilding) rebuilder.PushQueue(this);
+                        if (rebuilder != null && !Node.Rebuilding) rebuilder.PushQueue(this);
                     }
                     else
                     {
@@ -91,7 +91,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         finally
                         {
                             if (isPersistenceCallbackException) Node.SetPersistenceCallbackException();
-                            if (rebuilder != null && Node.IsRebuild && !Node.Rebuilding) rebuilder.PushQueue(this);
+                            if (rebuilder != null && !Node.Rebuilding) rebuilder.PushQueue(this);
                         }
                     }
                 }

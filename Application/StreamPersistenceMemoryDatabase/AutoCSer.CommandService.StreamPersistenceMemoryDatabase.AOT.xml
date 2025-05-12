@@ -94,6 +94,11 @@
             创建服务端节点仅支持接口类型，说明调用泛型类型参数不正确
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.NullNodeInfo">
+            <summary>
+            请求参数缺少节点信息
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.NotFoundNodeCreator">
             <summary>
             服务端节点生成失败，说明该接口类型不符合节点定义
@@ -332,6 +337,16 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.CustomException">
             <summary>
             自定义操作异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.NotSupportPersistence">
+            <summary>
+            不支持持久化操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.UnknownPersistenceType">
+            <summary>
+            未知的持久化类型
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.Callbacked">
@@ -4287,6 +4302,66 @@
             消息处理节点初始化加载节点
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.OnlyPersistenceNode`1">
+            <summary>
+            仅存档节点（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+            </summary>
+            <typeparam name="T">存档数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.OnlyPersistenceNode`1.SaveLoadPersistence(`0)">
+            <summary>
+            加载保存数据，用于扫描存档模式
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.OnlyPersistenceNode`1.Save(`0)">
+            <summary>
+            保存数据
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.OnlyPersistenceNode`1.SaveSendOnlyLoadPersistence(`0)">
+            <summary>
+            加载保存数据，用于扫描存档模式
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.OnlyPersistenceNode`1.SaveSendOnly(`0)">
+            <summary>
+            保存数据（服务端不响应）
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1">
+            <summary>
+            仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+            </summary>
+            <typeparam name="T">存档数据类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1.SaveLoadPersistence(`0)">
+            <summary>
+            加载保存数据，用于扫描存档模式
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1.Save(`0)">
+            <summary>
+            保存数据
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1.SaveSendOnlyLoadPersistence(`0)">
+            <summary>
+            加载保存数据，用于扫描存档模式
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1.SaveSendOnly(`0)">
+            <summary>
+            保存数据（服务端不响应）
+            </summary>
+            <param name="value">存档数据</param>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.QueueNode`1">
             <summary>
             队列节点（先进先出）
@@ -5136,7 +5211,7 @@
             <param name="index"></param>
             <param name="nodeInfo"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo.Check(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo.Check(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             检查节点信息是否匹配
             </summary>
@@ -5227,6 +5302,13 @@
             </summary>
             <param name="fileName">持久化文件名称</param>
             <param name="verison">内存数据库版本号</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetNotFoundPersistenceFile(System.String)">
+            <summary>
+            持久化文件缺失
+            </summary>
+            <param name="fileName">持久化文件</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetNotFoundExceptionPositionFile(System.String)">
@@ -5350,6 +5432,13 @@
             <param name="verison">内存数据库版本号</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetNotFoundPersistenceFile(System.String)">
+            <summary>
+            持久化文件缺失
+            </summary>
+            <param name="fileName">持久化文件</param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetNotFoundExceptionPositionFile(System.String)">
             <summary>
             持久化回调异常位置文件缺失
@@ -5469,6 +5558,13 @@
             </summary>
             <param name="fileName">Persistent file name</param>
             <param name="verison">Memory database version number</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetNotFoundPersistenceFile(System.String)">
+            <summary>
+            Persistent file is missing
+            </summary>
+            <param name="fileName">Persistent File name</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetNotFoundExceptionPositionFile(System.String)">
@@ -6398,47 +6494,97 @@
             </summary>
             <param name="type">服务端节点接口类型</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
-            二进制序列化
+            JSON 序列化
             </summary>
             <param name="serializer"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.binarySerialize(AutoCSer.BinarySerializer)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonSerializeMemberMap(AutoCSer.Metadata.MemberMap{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo},AutoCSer.JsonSerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Memory.CharStream)">
             <summary>
-            二进制序列化
+            JSON 序列化
+            </summary>
+            <param name="memberMap"></param>
+            <param name="serializer"></param>
+            <param name="value"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.jsonSerialize(AutoCSer.JsonSerializer)">
+            <summary>
+            JSON 序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.jsonSerialize(AutoCSer.Metadata.MemberMap{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo},AutoCSer.JsonSerializer,AutoCSer.Memory.CharStream)">
             <summary>
-            二进制反序列化
+            JSON 序列化
+            </summary>
+            <param name="__memberMap__"></param>
+            <param name="__serializer__"></param>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@,AutoCSer.Memory.Pointer@)">
+            <summary>
+            JSON 反序列化
             </summary>
             <param name="deserializer"></param>
             <param name="value"></param>
+            <param name="names"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonDeserializeMemberMap(AutoCSer.JsonDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@,AutoCSer.Memory.Pointer@,AutoCSer.Metadata.MemberMap{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo})">
             <summary>
-            二进制反序列化
+            JSON 反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+            <param name="names"></param>
+            <param name="memberMap"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.jsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@)">
+            <summary>
+            JSON 反序列化
             </summary>
             <param name="__deserializer__"></param>
+            <param name="__names__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.jsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.Memory.Pointer@,AutoCSer.Metadata.MemberMap{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo})">
             <summary>
-            二进制反序列化
+            JSON 反序列化
             </summary>
             <param name="__deserializer__"></param>
+            <param name="__names__"></param>
+            <param name="__memberMap__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.BinarySerializeMemberTypes">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@,System.Int32)">
             <summary>
-            获取二进制序列化类型信息
+            成员 JSON 反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+            <param name="__value__"></param>
+            <param name="__memberIndex__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonDeserializeMemberNames">
+            <summary>
+            获取 JSON 反序列化成员名称
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.BinarySerialize">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.jsonDeserializeMemberName">
             <summary>
-            二进制序列化代码生成调用激活 AOT 反射
+            获取 JSON 反序列化成员名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeMethod">
@@ -7319,6 +7465,11 @@
             <param name="value"></param>
             <param name="flag">服务端节点方法标记</param>
             <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter.CallStates">
+            <summary>
+            调用状态返回参数集合
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter`1">
             <summary>
@@ -9116,6 +9267,92 @@
             <param name="method">服务端节点方法</param>
             <param name="serializeDelegate">快照序列化委托</param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile">
+            <summary>
+            持久化文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile.RebuildPosition">
+            <summary>
+            持久化流重建起始位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile.FileInfo">
+            <summary>
+            持久化文件信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile.CallbackExceptionPositionFileInfo">
+            <summary>
+            持久化回调异常位置文件信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile.comparer(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile)">
+            <summary>
+            文件排序
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile.Comparer">
+            <summary>
+            文件排序
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceTypeEnum">
+            <summary>
+            持久化类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceTypeEnum.MemoryDatabase">
+            <summary>
+            常规模式，数据库冷启动时加载历史数据恢复内存数据状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceTypeEnum.ScanPersistence">
+            <summary>
+            扫描存档模式，按照时间顺序加载所有历史数据，用于快速存档模式（主体数据不设置快照持久化的场景）的离线数据的迁移等操作
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ScanPersistenceServiceLoader">
+            <summary>
+            扫描存档模式数据加载
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ScanPersistenceServiceLoader.persistenceFileInfo">
+            <summary>
+            持久化文件信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ScanPersistenceServiceLoader.persistenceFileName">
+            <summary>
+            日志流持久化文件名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ScanPersistenceServiceLoader.persistenceCallbackExceptionPositionFileInfo">
+            <summary>
+            持久化回调异常位置文件信息
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ScanPersistenceServiceLoader.persistenceCallbackExceptionPositionFileName">
+            <summary>
+            持久化回调异常位置文件名称
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ScanPersistenceServiceLoader.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService)">
+            <summary>
+            日志流持久化内存数据库服务端数据加载
+            </summary>
+            <param name="service">日志流持久化内存数据库服务端</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ScanPersistenceServiceLoader.Load(System.IO.FileInfo,System.IO.FileInfo)">
+            <summary>
+            加载数据
+            </summary>
+            <param name="persistenceFileInfo"></param>
+            <param name="persistenceCallbackExceptionPositionFileInfo"></param>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeTypeAttribute">
             <summary>
             服务端节点类型配置
@@ -9160,11 +9397,6 @@
             </summary>
             <typeparam name="T">节点接口类型</typeparam>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotNode`1.IsRebuild">
-            <summary>
-            当前节点是否支持重建
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotNode`1.snapshots">
             <summary>
             快照接口集合
@@ -9178,7 +9410,7 @@
             <param name="index"></param>
             <param name="key">节点全局关键字</param>
             <param name="target"></param>
-            <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+            <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotNode`1.getSnapshots(`0)">
             <summary>
@@ -9198,12 +9430,6 @@
             <summary>
             关闭重建
             </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotNode`1.CheckSnapshot">
-            <summary>
-            检查快照重建状态
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerSnapshotNode`1.GetSnapshotArray">
             <summary>
@@ -9691,11 +9917,12 @@
             获取快照数据集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneNode`1.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneNode`1.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder,System.Boolean)">
             <summary>
             持久化重建
             </summary>
             <param name="rebuilder"></param>
+            <param name="isCreateNode"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotCloneObject`1">
@@ -10643,11 +10870,12 @@
             获取快照数据集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.EnumerableSnapshotNode`1.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder,System.Boolean)">
             <summary>
             持久化重建
             </summary>
             <param name="rebuilder"></param>
+            <param name="isCreateNode"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotArrayNode`1">
@@ -10775,11 +11003,12 @@
             获取快照数据集合
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder,System.Boolean)">
             <summary>
             持久化重建
             </summary>
             <param name="rebuilder"></param>
+            <param name="isCreateNode"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode.Check(System.Type)">
@@ -10850,11 +11079,12 @@
             <param name="array"></param>
             <param name="newArray"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode`1.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotNode`1.Rebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder,System.Boolean)">
             <summary>
             持久化重建
             </summary>
             <param name="rebuilder"></param>
+            <param name="isCreateNode"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotResult`1">
@@ -12389,6 +12619,7 @@
             添加到持久化队列
             </summary>
             <param name="methodParameter"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.createCallMethodParameter(System.Int32)">
             <summary>
@@ -12637,7 +12868,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.IsPersistence">
             <summary>
-            是否持久化，设置为 false 为纯内存模式在重启服务是数据将丢失
+            是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.callState">
@@ -12665,11 +12896,6 @@
             持久化回调是否存在数据更新，节点数据更新以后应该将该状态修改为 true
             </summary>
         </member>
-        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.IsRebuild">
-            <summary>
-            当前节点是否支持重建
-            </summary>
-        </member>
         <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.IsRemoved">
             <summary>
             当前节点是否已被移除
@@ -12682,7 +12908,7 @@
             <param name="nodeCreator"></param>
             <param name="index"></param>
             <param name="key">节点全局关键字</param>
-            <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+            <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.Loaded">
             <summary>
@@ -12857,7 +13083,7 @@
             <param name="index"></param>
             <param name="key">节点全局关键字</param>
             <param name="target"></param>
-            <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+            <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,`0)">
             <summary>
@@ -13608,29 +13834,38 @@
             <param name="persistenceStream"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.Rebuild``1(AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.Rebuild">
+            <summary>
+            当前节点持久化操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.Rebuild``1(System.Boolean,AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{``0}@)">
             <summary>
             当前节点持久化操作
             </summary>
             <typeparam name="T"></typeparam>
+            <param name="isCreateNode"></param>
             <param name="array"></param>
             <param name="newArray"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.RebuildSnapshotClone``1(AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{``0}@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.RebuildSnapshotClone``1(System.Boolean,AutoCSer.LeftArray{``0}@,AutoCSer.LeftArray{``0}@)">
             <summary>
             当前节点持久化操作
             </summary>
             <typeparam name="T"></typeparam>
+            <param name="isCreateNode"></param>
             <param name="array"></param>
             <param name="newArray"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.Rebuild``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{``0})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceRebuilder.Rebuild``1(System.Boolean,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISnapshotEnumerable{``0})">
             <summary>
             当前节点持久化操作
             </summary>
             <typeparam name="T"></typeparam>
+            <param name="isCreateNode"></param>
             <param name="values"></param>
             <returns></returns>
         </member>
@@ -13950,7 +14185,7 @@
             <param name="key">节点全局关键字</param>
             <returns>是否成功删除节点，否则表示没有找到节点</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateNode``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``0})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateNode``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Func{``0},System.Boolean)">
             <summary>
             创建服务端节点（不支持持久化，只有支持快照的节点才支持持久化）
             </summary>
@@ -13959,6 +14194,7 @@
             <param name="key">节点全局关键字</param>
             <param name="nodeInfo">节点信息</param>
             <param name="getNode">获取节点操作对象</param>
+            <param name="isPersistence">默认为 false 为纯内存模式在重启服务时数据将丢失</param>
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateNodeBeforePersistence``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -15852,6 +16088,11 @@
             是否已经释放资源
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PersistenceType">
+            <summary>
+            持久化类型
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig,System.Boolean)">
             <summary>
             服务端会话绑定日志流持久化内存数据库服务
@@ -15908,6 +16149,7 @@
             添加持久化调用方法与参数信息
             </summary>
             <param name="methodParameter"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,``0@)">
             <summary>
@@ -16015,6 +16257,21 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.Load">
             <summary>
             加载数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.getPersistenceFile(System.IO.FileInfo[],System.String,System.String,System.Collections.Generic.Dictionary{System.UInt64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceFile},System.Byte*)">
+            <summary>
+            获取持久化文件信息
+            </summary>
+            <param name="files"></param>
+            <param name="persistenceFileName"></param>
+            <param name="exceptionPositionFileName"></param>
+            <param name="persistenceFiles"></param>
+            <param name="bufferFixed"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.nodeLoaded">
+            <summary>
+            初始化加载完毕处理
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.load(AutoCSer.LeftArray{System.Threading.Tasks.Task})">
@@ -16126,7 +16383,7 @@
             <param name="isCreate">关键字不存在时创建空闲节点标识</param>
             <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.check(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.check(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             检查节点信息是否匹配
             </summary>
@@ -16134,7 +16391,7 @@
             <param name="nodeInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.CheckCreateNodeIndex(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.CheckCreateNodeIndex(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             创建节点之前检查节点标识是否匹配
             </summary>
@@ -16143,7 +16400,7 @@
             <param name="nodeInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.LoadCreateNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.LoadCreateNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
             <summary>
             初始化加载数据创建节点
             </summary>
@@ -16663,6 +16920,11 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.BufferSizeBits">
             <summary>
             持久化数据缓存区池字节大小二进制位数量，默认为 17 表示 128KB，最小值为 12 表示 4KB
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.PersistenceType">
+            <summary>
+            持久化类型
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceConfig.IsSerializeCopyString">

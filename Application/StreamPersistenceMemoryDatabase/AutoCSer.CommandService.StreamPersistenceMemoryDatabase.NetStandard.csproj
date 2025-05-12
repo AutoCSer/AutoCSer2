@@ -209,6 +209,8 @@
     <Compile Include="Node\Message\ServerByteArrayMessageConsumer.cs" />
     <Compile Include="Node\Message\ServerByteArrayMessageJsonConsumer.cs" />
     <Compile Include="Node\Message\ServerByteArrayMessageStringConsumer.cs" />
+    <Compile Include="Node\OnlyPersistenceNode.cs" />
+    <Compile Include="Node\IOnlyPersistenceNode.cs" />
     <Compile Include="Node\ProcessGuard\ProcessGuardCommandClientSocketEvent.cs" />
     <Compile Include="Node\ProcessGuard\GuardProcess.cs" />
     <Compile Include="Node\ProcessGuard\IProcessGuardNode.cs" />
@@ -320,6 +322,9 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNodeCallback.cs" />
+    <Compile Include="Server\PersistenceFile.cs" />
+    <Compile Include="Server\PersistenceTypeEnum.cs" />
+    <Compile Include="Server\ScanPersistenceServiceLoader.cs" />
     <Compile Include="Server\RemoveHistoryFile.cs" />
     <Compile Include="Server\RepairNodeMethodLoader.cs" />
     <Compile Include="Server\RepairNodeMethodCallback.cs" />

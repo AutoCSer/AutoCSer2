@@ -86,7 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (!IsDisposed) state = parameter.CallInputOutput(ref refCallback);
                 else state = CallStateEnum.Disposed;
             }
-            finally { refCallback?.Callback(new ResponseParameter(state)); }
+            finally { refCallback?.Callback(ResponseParameter.CallStates[(byte)state]); }
         }
         /// <summary>
         /// 调用节点方法

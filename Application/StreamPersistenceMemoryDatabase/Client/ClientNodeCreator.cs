@@ -136,7 +136,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="exception"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static NodeInfo GetNodeInfo(out Exception? exception)
+        internal static NodeInfo? GetNodeInfo(out Exception? exception)
 #else
         internal static NodeInfo GetNodeInfo(out Exception exception)
 #endif
@@ -150,7 +150,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 服务端信息
         /// </summary>
+#if NetStandard21
+        internal static readonly NodeInfo? NodeInfo;
+#else
         internal static readonly NodeInfo NodeInfo;
+#endif
         /// <summary>
         /// 创建客户端节点委托
         /// </summary>

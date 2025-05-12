@@ -306,11 +306,6 @@
             时间戳最大验证时间差
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.TimestampVerifyChecker.timestampLock">
-            <summary>
-            最后一次验证时间戳访问锁
-            </summary>
-        </member>
         <member name="M:AutoCSer.CommandService.TimestampVerifyChecker.#ctor(System.Byte)">
             <summary>
             递增登录时间戳检查器

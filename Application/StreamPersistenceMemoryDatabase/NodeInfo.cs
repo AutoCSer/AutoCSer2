@@ -7,10 +7,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
+    [AutoCSer.CodeGenerator.JsonSerialize]
+    [AutoCSer.CodeGenerator.DefaultConstructor]
 #endif
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    [AutoCSer.BinarySerialize(IsReferenceMember = false)]
-    public partial struct NodeInfo
+    [AutoCSer.BinarySerialize(IsMixJsonSerialize = true, IsReferenceMember = false)]
+    [AutoCSer.JsonSerialize(Filter = AutoCSer.Metadata.MemberFiltersEnum.InstanceField)]
+    public partial class NodeInfo
     {
         /// <summary>
         /// 服务端节点接口类型

@@ -80,10 +80,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 持久化重建
         /// </summary>
         /// <param name="rebuilder"></param>
+        /// <param name="isCreateNode"></param>
         /// <returns></returns>
-        internal override bool Rebuild(PersistenceRebuilder rebuilder)
+        internal override bool Rebuild(PersistenceRebuilder rebuilder, bool isCreateNode)
         {
-            return rebuilder.Rebuild(values);
+            return rebuilder.Rebuild(isCreateNode, values);
         }
     }
 }

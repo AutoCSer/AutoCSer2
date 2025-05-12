@@ -13,10 +13,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class ServerSnapshotNode<T> : ServerNode<T>
     {
         /// <summary>
-        /// 当前节点是否支持重建
-        /// </summary>
-        internal override bool IsRebuild { get { return IsPersistence; } }
-        /// <summary>
         /// 快照接口集合
         /// </summary>
         private SnapshotNode[] snapshots;
@@ -27,7 +23,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index"></param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="target"></param>
-        /// <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+        /// <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         internal ServerSnapshotNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, bool isPersistence = true) : base(service, index, key, target, isPersistence)
         {
             snapshots = getSnapshots(target);
@@ -108,20 +104,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             foreach (SnapshotNode snapshot in snapshots) snapshot.Close();
         }
         /// <summary>
-        /// 检查快照重建状态
-        /// </summary>
-        /// <returns></returns>
-        internal override bool CheckSnapshot()
-        {
-            Rebuilding = false;
-            return !IsLoadException;
-        }
-        /// <summary>
         /// 预申请快照容器数组
         /// </summary>
         internal override void GetSnapshotArray()
         {
-            foreach (SnapshotNode snapshot in snapshots) snapshot.GetArray();
+            if (IsPersistence)
+            {
+                foreach (SnapshotNode snapshot in snapshots) snapshot.GetArray();
+            }
         }
         /// <summary>
         /// 获取快照数据集合
@@ -131,7 +121,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (!IsLoadException)
             {
-                foreach (SnapshotNode snapshot in snapshots) snapshot.GetResult();
+                if (IsPersistence)
+                {
+                    foreach (SnapshotNode snapshot in snapshots) snapshot.GetResult();
+                }
                 return true;
             }
             return false;
@@ -143,11 +136,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal override bool Rebuild(PersistenceRebuilder rebuilder)
         {
-            foreach (SnapshotNode snapshot in snapshots)
+            if (IsPersistence)
             {
-                if (!snapshot.Rebuild(rebuilder)) return false;
+                bool isCreateNode = true;
+                foreach (SnapshotNode snapshot in snapshots)
+                {
+                    if (!snapshot.Rebuild(rebuilder, isCreateNode)) return false;
+                    isCreateNode = false;
+                }
+                return true;
             }
-            return true;
+            return rebuilder.Rebuild();
         }
     }
 }

@@ -498,6 +498,11 @@
             成员位图
             </summary>
         </member>
+        <member name="F:AutoCSer.BinaryDeserializer.MemberMapType">
+            <summary>
+            成员位图类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.BinaryDeserializer.points">
             <summary>
             历史对象指针位置
@@ -1463,6 +1468,20 @@
             </summary>
             <param name="deserializer"></param>
             <param name="value">字符串</param>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SetCustomMemberMapType(System.Type)">
+            <summary>
+            获取并设置自定义序列化成员位图
+            </summary>
+            <param name="memberMapType">设置的自定义序列化成员位图</param>
+            <returns>序列化成员位图</returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.GetCustomMemberMap(System.Type)">
+            <summary>
+            获取自定义序列化成员位图
+            </summary>
+            <param name="memberMapType">设置的自定义序列化成员位图类型</param>
+            <returns>序列化成员位图</returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.SetCustomMemberMap(AutoCSer.Metadata.MemberMap)">
             <summary>
@@ -22571,6 +22590,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="F:AutoCSer.Metadata.MemberMap`1.Default">
+            <summary>
+            默认公共缺省反序列化成员位图
+            </summary>
+        </member>
         <member name="T:AutoCSer.Metadata.MemberMapIndex`1">
             <summary>
             成员位图索引
@@ -34063,24 +34087,24 @@
             服务端执行队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.nodeQueue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.head">
             <summary>
             首节点
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.end">
-            <summary>
-            尾节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.queueLock">
-            <summary>
-            弹出节点访问锁
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.currentTask">
             <summary>
             当前执行任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallLowPriorityQueue.isQueue">
+            <summary>
+            是否已经添加到队列
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallLowPriorityQueue.#ctor(AutoCSer.Net.CommandServerCallQueue)">
@@ -36474,19 +36498,19 @@
             客户端执行队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.nodeQueue">
+            <summary>
+            任务队列
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.head">
             <summary>
             首节点
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.end">
+        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.isQueue">
             <summary>
-            尾节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.queueLock">
-            <summary>
-            弹出节点访问锁
+            是否已经添加到队列
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandClientCallQueueLowPriorityLink.#ctor(AutoCSer.Net.CommandClientCallQueue)">

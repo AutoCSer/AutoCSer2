@@ -98,52 +98,154 @@ namespace AutoCSer.CommandService
         /// </summary>
         internal unsafe void Load()
         {
-            if (PersistenceFileInfo.Exists)
+            switch (PersistenceType)
             {
-                if (PersistenceCallbackExceptionPositionFileInfo.Exists)
-                {
-                    long startTimestamp = Stopwatch.GetTimestamp(), count = new ServiceLoader(this).Load();
-                    //if (count != 0) Console.WriteLine($"初始化加载 {count} 条持久化数据耗时 {AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp)}ms");
-                    LeftArray<Task> loadedTasks = new LeftArray<Task>(NodeIndex - 1);
-                    for (int index = NodeIndex; index > 1;)
+                case PersistenceTypeEnum.MemoryDatabase:
+                    if (PersistenceFileInfo.Exists)
                     {
-                        var node = Nodes[--index].Node;
-                        if (node != null)
+                        if (PersistenceCallbackExceptionPositionFileInfo.Exists)
                         {
-                            Task task = node.Loaded();
-                            if (!task.IsCompleted) loadedTasks.Add(task);
+                            long startTimestamp = Stopwatch.GetTimestamp(), count = new ServiceLoader(this).Load();
+                            //if (count != 0) Console.WriteLine($"初始化加载 {count} 条持久化数据耗时 {AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp)}ms");
+                            nodeLoaded();
                         }
+                        else throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetNotFoundExceptionPositionFile(PersistenceCallbackExceptionPositionFileInfo.FullName));
                     }
-                    if (loadedTasks.Count != 0) load(loadedTasks).Wait();
-                }
-                else throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetNotFoundExceptionPositionFile(PersistenceCallbackExceptionPositionFileInfo.FullName));
-            }
-            else
-            {
-                if (PersistenceCallbackExceptionPositionFileInfo.Exists)
-                {
-                    File.Move(PersistenceCallbackExceptionPositionFileInfo.FullName, PersistenceCallbackExceptionPositionFileInfo.FullName + Config.GetBackupFileNameSuffix() + ".bak");
-                }
-                fixed (byte* bufferFixed = PersistenceDataPositionBuffer)
-                {
-                    *(uint*)bufferFixed = PersistenceCallbackExceptionPositionFileHeadVersion = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;
-                    *(ulong*)(bufferFixed + sizeof(int)) = 0;
-                    using (FileStream fileStream = PersistenceCallbackExceptionPositionFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
-                    *(uint*)bufferFixed = PersistenceFileHeadVersion = ServiceLoader.FieHead;
-                    *(long*)(bufferFixed + (sizeof(int) + sizeof(ulong))) = 0;
-                    using (FileStream fileStream = PersistenceFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
-                }
-                PersistenceCallbackExceptionFilePosition = ServiceLoader.ExceptionPositionFileHeadSize;
-                PersistencePosition = ServiceLoader.FileHeadSize;
-            }
-            IsLoaded = true;
-            serviceCallbackWait = new ManualResetEvent(true);
+                    else
+                    {
+                        if (PersistenceCallbackExceptionPositionFileInfo.Exists)
+                        {
+                            File.Move(PersistenceCallbackExceptionPositionFileInfo.FullName, PersistenceCallbackExceptionPositionFileInfo.FullName + Config.GetBackupFileNameSuffix() + ".bak");
+                        }
+                        fixed (byte* bufferFixed = PersistenceDataPositionBuffer)
+                        {
+                            *(uint*)bufferFixed = PersistenceCallbackExceptionPositionFileHeadVersion = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;
+                            *(ulong*)(bufferFixed + sizeof(int)) = 0;
+                            using (FileStream fileStream = PersistenceCallbackExceptionPositionFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
+                            *(uint*)bufferFixed = PersistenceFileHeadVersion = ServiceLoader.FieHead;
+                            *(long*)(bufferFixed + (sizeof(int) + sizeof(ulong))) = 0;
+                            using (FileStream fileStream = PersistenceFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
+                        }
+                        PersistenceCallbackExceptionFilePosition = ServiceLoader.ExceptionPositionFileHeadSize;
+                        PersistencePosition = ServiceLoader.FileHeadSize;
+                    }
+                    IsLoaded = true;
+                    serviceCallbackWait = new ManualResetEvent(true);
 #if !AOT
-            rebuildCompletedWaitHandle.Set(new object());
-            RepairNodeMethodLoaders = NullRepairNodeMethodLoaders;
+                    rebuildCompletedWaitHandle.Set(new object());
+                    RepairNodeMethodLoaders = NullRepairNodeMethodLoaders;
 #endif
-            AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
-            Config.RemoveHistoryFile(this);
+                    AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
+                    Config.RemoveHistoryFile(this);
+                    return;
+                case PersistenceTypeEnum.ScanPersistence:
+                    if (!PersistenceFileInfo.Exists) throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetNotFoundPersistenceFile(PersistenceFileInfo.FullName));
+                    if (!PersistenceCallbackExceptionPositionFileInfo.Exists) throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetNotFoundExceptionPositionFile(PersistenceCallbackExceptionPositionFileInfo.FullName));
+                    string persistenceFileName = PersistenceFileInfo.Name, exceptionPositionFileName = PersistenceCallbackExceptionPositionFileInfo.Name;
+                    DirectoryInfo switchDirectory = PersistenceSwitchFileInfo.Directory.notNull();
+                    Dictionary<ulong, PersistenceFile> persistenceFiles = DictionaryCreator.CreateULong<PersistenceFile>();
+                    FileInfo[] bakFiles = PersistenceDirectory.GetFiles("*.bak"), switchFiles = PersistenceDirectory.FullName != switchDirectory.FullName ? switchDirectory.GetFiles("*.bak") : EmptyArray<FileInfo>.Array;
+                    fixed (byte* bufferFixed = PersistenceDataPositionBuffer)
+                    {
+                        getPersistenceFile(bakFiles, persistenceFileName, exceptionPositionFileName, persistenceFiles, bufferFixed);
+                        getPersistenceFile(switchFiles, persistenceFileName, exceptionPositionFileName, persistenceFiles, bufferFixed);
+                    }
+                    LeftArray<PersistenceFile> persistenceFileArray = new LeftArray<PersistenceFile>(persistenceFiles.Count);
+                    foreach (PersistenceFile persistenceFile in persistenceFiles.Values)
+                    {
+                        if (persistenceFile.FileInfo != null && persistenceFile.CallbackExceptionPositionFileInfo != null) persistenceFileArray.Add(persistenceFile);
+                    }
+                    ScanPersistenceServiceLoader serviceLoader = new ScanPersistenceServiceLoader(this);
+                    if (persistenceFileArray.Length != 0)
+                    {
+                        persistenceFileArray.Sort(PersistenceFile.Comparer);
+                        foreach (PersistenceFile persistenceFile in persistenceFileArray) serviceLoader.Load(persistenceFile.FileInfo.notNull(), persistenceFile.CallbackExceptionPositionFileInfo.notNull());
+                    }
+                    serviceLoader.Load(PersistenceFileInfo, PersistenceCallbackExceptionPositionFileInfo);
+                    nodeLoaded();
+                    IsLoaded = true;
+                    return;
+                default: throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetServiceLoaderFailed(CallStateEnum.UnknownPersistenceType, string.Empty, 0, 0));
+            }
+        }
+        /// <summary>
+        /// 获取持久化文件信息
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="persistenceFileName"></param>
+        /// <param name="exceptionPositionFileName"></param>
+        /// <param name="persistenceFiles"></param>
+        /// <param name="bufferFixed"></param>
+        private unsafe void getPersistenceFile(FileInfo[] files, string persistenceFileName, string exceptionPositionFileName, Dictionary<ulong, PersistenceFile> persistenceFiles, byte* bufferFixed)
+        {
+            foreach (FileInfo file in files)
+            {
+                if (file.Length >= ServiceLoader.ExceptionPositionFileHeadSize)
+                {
+                    string fileName = file.Name;
+                    if (fileName.StartsWith(persistenceFileName, StringComparison.Ordinal))
+                    {
+                        ulong rebuildPosition;
+                        PersistenceFile persistenceFile;
+                        if (fileName.StartsWith(exceptionPositionFileName, StringComparison.Ordinal))
+                        {
+                            using (FileStream fileStream = file.OpenRead())
+                            {
+                                if (fileStream.Read(PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize) != ServiceLoader.ExceptionPositionFileHeadSize)
+                                {
+                                    throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetServiceLoaderExceptionPositionFileHeaderNotMatch(file.FullName));
+                                }
+                                if (persistenceFiles.TryGetValue(rebuildPosition = *(ulong*)(bufferFixed + sizeof(int)), out persistenceFile))
+                                {
+                                    if (persistenceFile.CallbackExceptionPositionFileInfo != null)
+                                    {
+                                        throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetServiceLoaderExceptionPositionFileHeaderNotMatch(file.FullName));
+                                    }
+                                }
+                                else persistenceFile.RebuildPosition = rebuildPosition;
+                                persistenceFile.CallbackExceptionPositionFileInfo = file;
+                            }
+                        }
+                        else
+                        {
+                            using (FileStream fileStream = file.OpenRead())
+                            {
+                                if (fileStream.Read(PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize) != ServiceLoader.ExceptionPositionFileHeadSize)
+                                {
+                                    throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetServiceLoaderFileHeaderNotMatch(file.FullName));
+                                }
+                                if (persistenceFiles.TryGetValue(rebuildPosition = *(ulong*)(bufferFixed + sizeof(int)), out persistenceFile))
+                                {
+                                    if (persistenceFile.FileInfo != null)
+                                    {
+                                        throw new Exception(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default.GetServiceLoaderFileHeaderNotMatch(file.FullName));
+                                    }
+                                }
+                                else persistenceFile.RebuildPosition = rebuildPosition;
+                                persistenceFile.FileInfo = file;
+                            }
+                        }
+                        persistenceFiles[rebuildPosition] = persistenceFile;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 初始化加载完毕处理
+        /// </summary>
+        private void nodeLoaded()
+        {
+            LeftArray<Task> loadedTasks = new LeftArray<Task>(NodeIndex - 1);
+            for (int index = NodeIndex; index > 1;)
+            {
+                var node = Nodes[--index].Node;
+                if (node != null)
+                {
+                    Task task = node.Loaded();
+                    if (!task.IsCompleted) loadedTasks.Add(task);
+                }
+            }
+            if (loadedTasks.Count != 0) load(loadedTasks).Wait();
         }
         /// <summary>
         /// 等待加载数据
@@ -288,7 +390,7 @@ namespace AutoCSer.CommandService
             if (key != null)
             {
                 var node = default(ServerNode);
-                if (nodeDictionary.TryGetValue(key, out node)) return check(node, ref nodeInfo);
+                if (nodeDictionary.TryGetValue(key, out node)) return check(node, nodeInfo);
                 if (isCreate)
                 {
                     var creatingNodeInfo = default(CreatingNodeInfo);
@@ -298,7 +400,7 @@ namespace AutoCSer.CommandService
                         CreateNodes.Add(key, new CreatingNodeInfo(index, nodeInfo));
                         return new NodeIndex(index, Nodes[index].GetFreeIdentity());
                     }
-                    if (creatingNodeInfo.Check(ref nodeInfo)) return new NodeIndex(creatingNodeInfo.Index, Nodes[creatingNodeInfo.Index].Identity);
+                    if (creatingNodeInfo.Check(nodeInfo)) return new NodeIndex(creatingNodeInfo.Index, Nodes[creatingNodeInfo.Index].Identity);
                     return new NodeIndex(CallStateEnum.NodeTypeNotMatch);
                 }
                 return new NodeIndex(CallStateEnum.NotFoundNodeKey);
@@ -317,12 +419,12 @@ namespace AutoCSer.CommandService
             if (key != null)
             {
                 var node = default(ServerNode);
-                if (nodeDictionary.TryGetValue(key, out node)) return check(node, ref nodeInfo);
+                if (nodeDictionary.TryGetValue(key, out node)) return check(node, nodeInfo);
                 if (isCreate)
                 {
                     var creatingNodeInfo = default(CreatingNodeInfo);
                     if (!CreateNodes.TryGetValue(key, out creatingNodeInfo)) return default(ValueResult<NodeIndex>);
-                    if (creatingNodeInfo.Check(ref nodeInfo)) return new NodeIndex(creatingNodeInfo.Index, Nodes[creatingNodeInfo.Index].Identity);
+                    if (creatingNodeInfo.Check(nodeInfo)) return new NodeIndex(creatingNodeInfo.Index, Nodes[creatingNodeInfo.Index].Identity);
                     return new NodeIndex(CallStateEnum.NodeTypeNotMatch);
                 }
                 return new NodeIndex(CallStateEnum.NotFoundNodeKey);
@@ -350,7 +452,7 @@ namespace AutoCSer.CommandService
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
         public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
         {
-            return GetNodeIndex(key, nodeInfo, isCreate);
+            return nodeInfo != null ? GetNodeIndex(key, nodeInfo, isCreate) : new NodeIndex(CallStateEnum.NullNodeInfo);
         }
         /// <summary>
         /// 获取节点标识
@@ -363,7 +465,7 @@ namespace AutoCSer.CommandService
         /// <returns>关键字不存在时返回一个空闲节点标识用于创建节点</returns>
         public virtual NodeIndex GetNodeIndex(CommandServerSocket socket, CommandServerCallWriteQueue queue, string key, NodeInfo nodeInfo, bool isCreate)
         {
-            return GetNodeIndex(key, nodeInfo, isCreate);
+            return nodeInfo != null ? GetNodeIndex(key, nodeInfo, isCreate) : new NodeIndex(CallStateEnum.NullNodeInfo);
         }
         /// <summary>
         /// 检查节点信息是否匹配
@@ -371,7 +473,7 @@ namespace AutoCSer.CommandService
         /// <param name="node"></param>
         /// <param name="nodeInfo"></param>
         /// <returns></returns>
-        private NodeIndex check(ServerNode node, ref NodeInfo nodeInfo)
+        private NodeIndex check(ServerNode node, NodeInfo nodeInfo)
         {
             CallStateEnum state = node.CallState;
             if (state == CallStateEnum.Success)
@@ -388,12 +490,12 @@ namespace AutoCSer.CommandService
         /// <param name="key"></param>
         /// <param name="nodeInfo"></param>
         /// <returns></returns>
-        internal NodeIndex CheckCreateNodeIndex(NodeIndex index, string key, ref NodeInfo nodeInfo)
+        internal NodeIndex CheckCreateNodeIndex(NodeIndex index, string key, NodeInfo nodeInfo)
         {
             if (key != null)
             {
                 var node = default(ServerNode);
-                if (nodeDictionary.TryGetValue(key, out node)) return check(node, ref nodeInfo);
+                if (nodeDictionary.TryGetValue(key, out node)) return check(node, nodeInfo);
                 if ((uint)index.Index < (uint)NodeIndex)
                 {
                     if (Nodes[index.Index].CheckFreeIdentity(ref index.Identity)) return index;
@@ -409,7 +511,7 @@ namespace AutoCSer.CommandService
         /// <param name="index"></param>
         /// <param name="key"></param>
         /// <param name="nodeInfo"></param>
-        internal void LoadCreateNode(NodeIndex index, string key, ref NodeInfo nodeInfo)
+        internal void LoadCreateNode(NodeIndex index, string key, NodeInfo nodeInfo)
         {
             if (index.Index >= Nodes.Length) Nodes = AutoCSer.Common.GetCopyArray(Nodes, Math.Max(Nodes.Length << 1, index.Index + 1));
             while (NodeIndex < index.Index) freeIndexs.Add(NodeIndex++);
@@ -511,11 +613,14 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async Task GetNodeKeys(NodeInfo nodeInfo, CommandServerKeepCallbackCount<string> callback)
         {
-            foreach (ServerNode node in GetNodes())
+            if (nodeInfo != null)
             {
-                if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                foreach (ServerNode node in GetNodes())
                 {
-                    if (!await callback.CallbackAsync(node.Key)) return;
+                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                    {
+                        if (!await callback.CallbackAsync(node.Key)) return;
+                    }
                 }
             }
         }
@@ -527,11 +632,14 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async Task GetNodeIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<NodeIndex> callback)
         {
-            foreach (ServerNode node in GetNodes())
+            if (nodeInfo != null)
             {
-                if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                foreach (ServerNode node in GetNodes())
                 {
-                    if (!await callback.CallbackAsync(node.Index)) return;
+                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                    {
+                        if (!await callback.CallbackAsync(node.Index)) return;
+                    }
                 }
             }
         }
@@ -543,11 +651,14 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         public async Task GetNodeKeyIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<BinarySerializeKeyValue<string, NodeIndex>> callback)
         {
-            foreach (ServerNode node in GetNodes())
+            if (nodeInfo != null)
             {
-                if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                foreach (ServerNode node in GetNodes())
                 {
-                    if (!await callback.CallbackAsync(new BinarySerializeKeyValue<string, NodeIndex>(node.Key, node.Index))) return;
+                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                    {
+                        if (!await callback.CallbackAsync(new BinarySerializeKeyValue<string, NodeIndex>(node.Key, node.Index))) return;
+                    }
                 }
             }
         }
@@ -661,7 +772,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { refCallback?.SynchronousCallback(new ResponseParameter(state)); }
+            finally { refCallback?.SynchronousCallback(ResponseParameter.CallStates[(byte)state]); }
         }
         /// <summary>
         /// 调用节点方法
@@ -801,7 +912,7 @@ namespace AutoCSer.CommandService
                 }
                 else state = CallStateEnum.Disposed;
             }
-            finally { refCallback?.SynchronousCallback(new ResponseParameter(state)); }
+            finally { refCallback?.SynchronousCallback(ResponseParameter.CallStates[(byte)state]); }
         }
         /// <summary>
         /// 调用节点方法
@@ -1484,7 +1595,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal override bool CheckRebuild()
         {
-            if (rebuildLoadExceptionNode == null)
+            if (rebuildLoadExceptionNode == null && PersistenceType == PersistenceTypeEnum.MemoryDatabase)
             {
                 rebuildLoadExceptionNode = new PersistenceRebuilder(this).LoadExceptionNode;
                 if (rebuildLoadExceptionNode == null) return true;

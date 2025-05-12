@@ -111,6 +111,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
             return $"文件 {fileName} 头部版本号不被支持 {verison.toString()}";
         }
         /// <summary>
+        /// 持久化文件缺失
+        /// </summary>
+        /// <param name="fileName">持久化文件</param>
+        /// <returns></returns>
+        public override string GetNotFoundPersistenceFile(string fileName)
+        {
+            return $"持久化文件缺失 {fileName}，请确认文件组完整性。";
+        }
+        /// <summary>
         /// 持久化回调异常位置文件缺失
         /// </summary>
         /// <param name="fileName">持久化回调异常位置文件</param>

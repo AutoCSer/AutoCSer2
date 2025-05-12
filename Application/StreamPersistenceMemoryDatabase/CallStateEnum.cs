@@ -56,6 +56,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         OnlySupportInterface,
         /// <summary>
+        /// 请求参数缺少节点信息
+        /// </summary>
+        NullNodeInfo,
+        /// <summary>
         /// 服务端节点生成失败，说明该接口类型不符合节点定义
         /// </summary>
         NotFoundNodeCreator,
@@ -247,6 +251,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 自定义操作异常
         /// </summary>
         CustomException,
+        /// <summary>
+        /// 不支持持久化操作
+        /// </summary>
+        NotSupportPersistence,
+        /// <summary>
+        /// 未知的持久化类型
+        /// </summary>
+        UnknownPersistenceType,
 
 
 

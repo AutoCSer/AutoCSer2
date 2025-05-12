@@ -31,17 +31,12 @@ namespace AutoCSer.CommandService
         /// </summary>
         private long maxTimestampDifference;
         /// <summary>
-        /// 最后一次验证时间戳访问锁
-        /// </summary>
-        private AutoCSer.Threading.SpinLock timestampLock;
-        /// <summary>
         /// 递增登录时间戳检查器
         /// </summary>
         /// <param name="maxSecondsDifference">最大时间差秒数</param>
         public TimestampVerifyChecker(byte maxSecondsDifference)
         {
             maxTimestampDifference = AutoCSer.Date.GetTimestampBySeconds(Math.Max((int)maxSecondsDifference, 1));
-            timestampLock = default(AutoCSer.Threading.SpinLock);
             lastTimestamp = CurrentTimestamp;
         }
         /// <summary>
@@ -58,10 +53,7 @@ namespace AutoCSer.CommandService
                 serverTimestamp = timestamp;
                 return CommandServerVerifyStateEnum.Success;
             }
-            timestampLock.EnterYield();
-            serverTimestamp = ++lastTimestamp;
-            timestampLock.Exit();
-            timestamp = serverTimestamp;
+            timestamp = serverTimestamp = System.Threading.Interlocked.Increment(ref lastTimestamp);
             return CommandServerVerifyStateEnum.Retry;
         }
         /// <summary>
@@ -88,12 +80,16 @@ namespace AutoCSer.CommandService
         /// <param name="timestamp"></param>
         public void Set(long timestamp)
         {
-            if (timestamp > lastTimestamp)
+            do
             {
-                timestampLock.EnterYield();
-                if (timestamp > lastTimestamp) lastTimestamp = timestamp;
-                timestampLock.Exit();
+                long lastTimestamp = this.lastTimestamp;
+                if (timestamp > lastTimestamp)
+                {
+                    if (System.Threading.Interlocked.CompareExchange(ref this.lastTimestamp, timestamp, lastTimestamp) == lastTimestamp) return;
+                }
+                else return;
             }
+            while (true);
         }
         /// <summary>
         /// 设置最后一次验证时间戳
@@ -111,11 +107,16 @@ namespace AutoCSer.CommandService
         public long GetTimestamp()
         {
             long timestamp = CurrentTimestamp;
-            timestampLock.EnterYield();
-            if (timestamp > lastTimestamp) lastTimestamp = timestamp;
-            else timestamp = ++lastTimestamp;
-            timestampLock.Exit();
-            return timestamp;
+            do
+            {
+                long lastTimestamp = this.lastTimestamp;
+                if (timestamp > lastTimestamp)
+                {
+                    if (System.Threading.Interlocked.CompareExchange(ref this.lastTimestamp, timestamp, lastTimestamp) == lastTimestamp) return timestamp;
+                }
+                else return System.Threading.Interlocked.Increment(ref this.lastTimestamp);
+            }
+            while (true);
         }
 
         ///// <summary>

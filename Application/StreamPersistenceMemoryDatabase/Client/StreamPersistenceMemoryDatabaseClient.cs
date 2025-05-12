@@ -74,13 +74,13 @@ namespace AutoCSer.CommandService
         internal async Task<ResponseResult<NodeIndex>> GetOrCreateNodeIndex<T>(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator) where T : class
         {
             var exception = default(Exception);
-            NodeInfo nodeInfo = ClientNodeCreator<T>.GetNodeInfo(out exception);
+            var nodeInfo = ClientNodeCreator<T>.GetNodeInfo(out exception);
             if (exception == null)
             {
                 await createNodeLock.WaitAsync();
                 try
                 {
-                    CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo, true);
+                    CommandClientReturnValue<NodeIndex> index = await Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(key, nodeInfo.notNull(), true);
                     if (index.IsSuccess)
                     {
                         CallStateEnum state = index.Value.GetState();
@@ -88,7 +88,7 @@ namespace AutoCSer.CommandService
                         {
                             if (index.Value.GetFree())
                             {
-                                ResponseResult<NodeIndex> nodeIndex = await creator(index.Value, key, nodeInfo);
+                                ResponseResult<NodeIndex> nodeIndex = await creator(index.Value, key, nodeInfo.notNull());
                                 if (nodeIndex.IsSuccess)
                                 {
                                     state = nodeIndex.Value.GetState();
@@ -1530,6 +1530,16 @@ namespace AutoCSer.CommandService
         public Task<ResponseResult<IArrayNodeClientNode<T>>> GetOrCreateArrayNode<T>(string key, int length, bool isPersistenceCallbackExceptionRenewNode = false)
         {
             return GetOrCreateNode<IArrayNodeClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateArrayNode(index, nodeKey, nodeInfo, typeof(T), length), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
+        /// 获取仅存档节点，不存在则创建节点 OnlyPersistenceNode{T}
+        /// </summary>
+        /// <param name="key">节点全局关键字</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IOnlyPersistenceNodeClientNode<T>>> GetOrCreateOnlyPersistenceNode<T>(string key)
+        {
+            return GetOrCreateNode<IOnlyPersistenceNodeClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateOnlyPersistenceNode(index, nodeKey, nodeInfo, typeof(T)), false);
         }
         /// <summary>
         /// 获取 64 位自增ID 节点，不存在则创建节点 IdentityGeneratorNode

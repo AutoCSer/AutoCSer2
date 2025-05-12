@@ -135,7 +135,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             RepairNodeMethodName nodeMethodName = new RepairNodeMethodName(method);
             foreach (StreamPersistenceMemoryDatabaseClient client in getAllClients())
             {
-                CommandClientReturnValue<NodeIndex> index = await client.Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(node.Key, ClientNodeCreator<T>.NodeInfo, false);
+                CommandClientReturnValue<NodeIndex> index = await client.Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(node.Key, ClientNodeCreator<T>.NodeInfo.notNull(), false);
                 if (!index.IsSuccess) return new DistributedClientRepairNodeMethodState(index.ReturnType, client);
                 CallStateEnum state = index.Value.GetState();
                 if (state != CallStateEnum.Success) return new DistributedClientRepairNodeMethodState(state, client);
@@ -160,7 +160,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             RepairNodeMethodName nodeMethodName = new RepairNodeMethodName(method);
             foreach (StreamPersistenceMemoryDatabaseClient client in getAllClients())
             {
-                CommandClientReturnValue<NodeIndex> index = await client.Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(node.Key, ClientNodeCreator<T>.NodeInfo, false);
+                CommandClientReturnValue<NodeIndex> index = await client.Client.StreamPersistenceMemoryDatabaseClient.GetNodeIndex(node.Key, ClientNodeCreator<T>.NodeInfo.notNull(), false);
                 if (!index.IsSuccess) return new DistributedClientRepairNodeMethodState(index.ReturnType, client);
                 CallStateEnum state = index.Value.GetState();
                 if (state != CallStateEnum.Success) return new DistributedClientRepairNodeMethodState(state, client);

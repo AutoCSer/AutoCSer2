@@ -111,6 +111,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
             return $"File {fileName} header version {verison.toString()} is not supported.";
         }
         /// <summary>
+        /// Persistent file is missing
+        /// </summary>
+        /// <param name="fileName">Persistent File name</param>
+        /// <returns></returns>
+        public override string GetNotFoundPersistenceFile(string fileName)
+        {
+            return $"Missing persistent file {fileName}, please confirm filegroup integrity.";
+        }
+        /// <summary>
         /// Persistent callback exception location file is missing
         /// </summary>
         /// <param name="fileName">Persistent callback exception location File name</param>

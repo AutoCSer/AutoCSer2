@@ -44,10 +44,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 添加到持久化队列
         /// </summary>
         /// <param name="methodParameter"></param>
-        private void pushPersistence(MethodParameter methodParameter)
+        /// <returns></returns>
+        private bool pushPersistence(MethodParameter methodParameter)
         {
-            if (methodParameter.Node.IsPersistence) node.NodeCreator.Service.PushPersistenceMethodParameter(methodParameter);
-            else node.NodeCreator.Service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(methodParameter));
+            if (methodParameter.Node.IsPersistence) return node.NodeCreator.Service.PushPersistenceMethodParameter(methodParameter);
+            node.NodeCreator.Service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(methodParameter));
+            return true;
         }
 
         /// <summary>
@@ -91,14 +93,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <param name="callback"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private void createCallOutputMethodParameter(int methodIndex, CommandServerCallback<ResponseParameter>? callback)
 #else
         private void createCallOutputMethodParameter(int methodIndex, CommandServerCallback<ResponseParameter> callback)
 #endif
         {
-            pushPersistence(new CallOutputMethodParameter(node, methodIndex, callback));
+            if (!pushPersistence(new CallOutputMethodParameter(node, methodIndex, callback))) callback?.Callback(ResponseParameter.CallStates[(byte)CallStateEnum.NotSupportPersistence]);
         }
         /// <summary>
         /// 创建调用方法与参数信息
@@ -165,14 +166,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
         /// <param name="callback"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private void createCallInputOutputMethodParameter<T>(int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter>? callback) where T : struct
 #else
         private void createCallInputOutputMethodParameter<T>(int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter> callback) where T : struct
 #endif
         {
-            pushPersistence(new CallInputOutputMethodParameter<T>(node, methodIndex, ref parameter, callback));
+            if (!pushPersistence(new CallInputOutputMethodParameter<T>(node, methodIndex, ref parameter, callback))) callback?.Callback(ResponseParameter.CallStates[(byte)CallStateEnum.NotSupportPersistence]);
         }
         /// <summary>
         /// 创建调用方法与参数信息

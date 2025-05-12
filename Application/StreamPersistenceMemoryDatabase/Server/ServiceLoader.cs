@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 日志流持久化内存数据库服务端数据加载
     /// </summary>
-    internal unsafe sealed class ServiceLoader : StreamPersistenceLoader
+    internal unsafe class ServiceLoader : StreamPersistenceLoader
     {
         /// <summary>
         /// 文件版本号
@@ -73,7 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 持久化回调异常位置文件名称
         /// </summary>
-        private string persistenceCallbackExceptionPositionFileName { get { return service.PersistenceCallbackExceptionPositionFileInfo.FullName; } }
+        protected virtual string persistenceCallbackExceptionPositionFileName { get { return service.PersistenceCallbackExceptionPositionFileInfo.FullName; } }
         /// <summary>
         /// 日志流持久化内存数据库服务端数据加载
         /// </summary>

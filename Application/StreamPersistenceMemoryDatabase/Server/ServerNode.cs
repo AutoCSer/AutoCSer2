@@ -54,7 +54,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             get { return SnapshotTransactionNodes == null ? 0 : SnapshotTransactionNodes.Count; }
         }
         /// <summary>
-        /// 是否持久化，设置为 false 为纯内存模式在重启服务是数据将丢失
+        /// 是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失
         /// </summary>
         internal readonly bool IsPersistence;
         /// <summary>
@@ -84,10 +84,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public bool IsPersistenceCallbackChanged;
         /// <summary>
-        /// 当前节点是否支持重建
-        /// </summary>
-        internal virtual bool IsRebuild { get { return false; } }
-        /// <summary>
         /// 当前节点是否已被移除
         /// </summary>
         public bool IsRemoved { get; private set; }
@@ -97,7 +93,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeCreator"></param>
         /// <param name="index"></param>
         /// <param name="key">节点全局关键字</param>
-        /// <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
+        /// <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         internal ServerNode(ServerNodeCreator nodeCreator, NodeIndex index, string key, bool isPersistence)
         {
             if (nodeCreator == null) throw new InvalidOperationException(Culture.Configuration.Default.GetServerNodeCreateFailed(GetType()));
@@ -401,10 +397,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 检查快照重建状态
         /// </summary>
         /// <returns></returns>
-        internal virtual bool CheckSnapshot()
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool CheckSnapshot()
         {
             Rebuilding = false;
-            return false;
+            return !IsLoadException;
         }
         /// <summary>
         /// 预申请快照容器数组
@@ -416,14 +413,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否成功</returns>
         internal virtual bool GetSnapshotResult()
         {
-            return false;
+            return !IsLoadException;
         }
         /// <summary>
         /// 持久化重建
         /// </summary>
         /// <param name="rebuilder"></param>
         /// <returns></returns>
-        internal virtual bool Rebuild(PersistenceRebuilder rebuilder) { return false; }
+        internal virtual bool Rebuild(PersistenceRebuilder rebuilder)
+        {
+            return rebuilder.Rebuild();
+        }
 #if !AOT
         /// <summary>
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
@@ -665,8 +665,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="index"></param>
         /// <param name="key">节点全局关键字</param>
         /// <param name="target"></param>
-        /// <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务是数据将丢失</param>
-        protected ServerNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, bool isPersistence) : base(service.GetNodeCreator<T>(), index, key, isPersistence)
+        /// <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
+        public ServerNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, bool isPersistence) : base(service.GetNodeCreator<T>(), index, key, isPersistence)
         {
             this.target = target;
             (target as INode<T>)?.SetContext(this);

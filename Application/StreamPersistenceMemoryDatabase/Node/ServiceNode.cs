@@ -58,18 +58,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="key">节点全局关键字</param>
         /// <param name="nodeInfo">节点信息</param>
         /// <param name="getNode">获取节点操作对象</param>
+        /// <param name="isPersistence">默认为 false 为纯内存模式在重启服务时数据将丢失</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
-        public virtual NodeIndex CreateNode<T>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode) where T : class
+        public virtual NodeIndex CreateNode<T>(NodeIndex index, string key, NodeInfo nodeInfo, Func<T> getNode, bool isPersistence = false) where T : class
         {
             try
             {
-                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
+                if (nodeInfo == null) return new NodeIndex(CallStateEnum.NullNodeInfo);
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, nodeInfo);
                 if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
                 ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
                 if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
-                NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
+                NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, nodeInfo);
                 if (nodeIndex.Index < 0 || !nodeIndex.GetFree()) return nodeIndex;
-                return new ServerNode<T>(Service, nodeIndex, key, getNode()).Index;
+                return new ServerNode<T>(Service, nodeIndex, key, getNode(), isPersistence).Index;
             }
             finally { Service.RemoveFreeIndex(index); }
         }
@@ -84,6 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual ValueResult<NodeIndex> CreateNodeBeforePersistence<T>(CreateNodeIndex index, string key, NodeInfo nodeInfo) where T : class
         {
             if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
+            if (nodeInfo == null) return new NodeIndex(CallStateEnum.NullNodeInfo);
             ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
             if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
             ValueResult<NodeIndex> result = Service.GetNodeIndexBeforePersistence(key, nodeInfo, true);
@@ -109,7 +112,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             NodeIndex index = createNodeIndex.Index;
             try
             {
-                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, nodeInfo);
                 return new ServerNode<T>(Service, index, key, getNode()).Index;
             }
             finally { Service.RemoveFreeIndex(index); }
@@ -129,7 +132,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             var disposable = default(IDisposable);
             try
             {
-                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
+                if (nodeInfo == null) return new NodeIndex(CallStateEnum.NullNodeInfo);
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, nodeInfo);
                 if (!typeof(T).IsInterface) return new NodeIndex(CallStateEnum.OnlySupportInterface);
                 ServerNodeCreator nodeCreator = Service.GetNodeCreator<T>();
                 if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
@@ -137,7 +141,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 disposable = node as IDisposable;
                 CallStateEnum state = nodeCreator.CheckSnapshotNode(node.GetType());
                 if (state != CallStateEnum.Success) return new NodeIndex(state);
-                NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, ref nodeInfo);
+                NodeIndex nodeIndex = Service.CheckCreateNodeIndex(index, key, nodeInfo);
                 if (nodeIndex.Index < 0 || !nodeIndex.GetFree()) return nodeIndex;
                 index = new ServerSnapshotNode<T>(Service, nodeIndex, key, node, Service.CurrentCallIsPersistence).Index;
                 disposable = null;
@@ -170,6 +174,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 nodeCreator = null;
                 return new NodeIndex(CallStateEnum.OnlySupportInterface);
             }
+            if (nodeInfo == null)
+            {
+                nodeCreator = null;
+                return new NodeIndex(CallStateEnum.NullNodeInfo);
+            }
             nodeCreator = Service.GetNodeCreator<T>();
             if (nodeCreator == null) return new NodeIndex(CallStateEnum.NotFoundNodeCreator);
             ValueResult<NodeIndex> result = Service.GetNodeIndexBeforePersistence(key, nodeInfo, true);
@@ -198,7 +207,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             NodeIndex index = createNodeIndex.Index;
             try
             {
-                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, ref nodeInfo);
+                if (!Service.IsLoaded) Service.LoadCreateNode(index, key, nodeInfo);
                 T node = getNode();
                 disposable = node as IDisposable;
                 CallStateEnum state = nodeCreator.CheckSnapshotNode(node.GetType());
@@ -727,6 +736,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public virtual NodeIndex CreateByteArrayStackNode(NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
             return CreateSnapshotNode<IByteArrayStackNode>(index, key, nodeInfo, () => new ByteArrayStackNode(capacity));
+        }
+        /// <summary>
+        /// 创建仅存档节点 PersistenceNode{T}
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="valueType">存档数据类型</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateOnlyPersistenceNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType valueType)
+        {
+            var type = default(Type);
+            if (valueType.TryGet(out type, isCheckRemoveType))
+            {
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType.Get(type.notNull()).CreateOnlyPersistenceNode(this, index, key, nodeInfo);
+            }
+            return new NodeIndex(CallStateEnum.NotFoundRemoteType);
         }
 #endif
         /// <summary>

@@ -37,6 +37,7 @@
     <Compile Include="HashSetNode.cs" />
     <Compile Include="LeftArrayNode.cs" />
     <Compile Include="MessageConsumer.cs" />
+    <Compile Include="OnlyPersistenceNode.cs" />
     <Compile Include="PerformanceClient.cs" />
     <Compile Include="PerformanceDictionaryNode.cs" />
     <Compile Include="PerformanceMessageNode.cs" />

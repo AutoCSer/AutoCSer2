@@ -5631,6 +5631,11 @@
             读取文件数据是否异常
             </summary>
         </member>
+        <member name="F:AutoCSer.IO.StreamPersistenceLoader.isReadedHead">
+            <summary>
+            是否已经读取文件头部
+            </summary>
+        </member>
         <member name="F:AutoCSer.IO.StreamPersistenceLoader.loadBufferException">
             <summary>
             加载数据异常
@@ -5642,6 +5647,11 @@
             </summary>
             <param name="fileHeadSize">文件头部字节大小</param>
             <param name="blockHeadSize">读取数据块头部字节大小，最小为 8 字节</param>
+        </member>
+        <member name="M:AutoCSer.IO.StreamPersistenceLoader.setBufferWait">
+            <summary>
+            初始化缓冲区等待锁
+            </summary>
         </member>
         <member name="M:AutoCSer.IO.StreamPersistenceLoader.Load">
             <summary>

@@ -1525,6 +1525,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） 客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode<>))]
+        public partial interface IOnlyPersistenceNodeClientNode<T>
+        {
+            /// <summary>
+            /// 保存数据
+            /// </summary>
+            /// <param name="value">存档数据</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter Save(T value);
+            /// <summary>
+            /// 保存数据（服务端不响应）
+            /// </summary>
+            /// <param name="value">存档数据</param>
+            AutoCSer.Net.SendOnlyCommand SaveSendOnly(T value);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 进程守护节点接口（服务端需要以管理员身份运行，否则可能异常） 客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IProcessGuardNode))]
@@ -2147,6 +2166,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">节点全局关键字</param>
             /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<bool> RemoveNodeByKey(string key);
+            /// <summary>
+            /// 创建仅存档节点 PersistenceNode{T}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="valueType">存档数据类型</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex> CreateOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType valueType);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -3225,6 +3253,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） 本地客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode<>))]
+        public partial interface IOnlyPersistenceNodeLocalClientNode<T>
+        {
+            /// <summary>
+            /// 保存数据
+            /// </summary>
+            /// <param name="value">存档数据</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Save(T value);
+            /// <summary>
+            /// 保存数据（服务端不响应）
+            /// </summary>
+            /// <param name="value">存档数据</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter SaveSendOnly(T value);
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 队列节点接口（先进先出） 本地客户端节点接口
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNode<>))]
@@ -3775,6 +3822,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="key">节点全局关键字</param>
             /// <returns>是否成功删除节点，否则表示没有找到节点</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<bool>> RemoveNodeByKey(string key);
+            /// <summary>
+            /// 创建仅存档节点 PersistenceNode{T}
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <param name="valueType">存档数据类型</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType valueType);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -5474,6 +5530,39 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IOnlyPersistenceNodeMethodEnum))]
+        public partial interface IOnlyPersistenceNode<T> { }
+        /// <summary>
+        /// 仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） 节点方法序号映射枚举类型
+        /// </summary>
+        public enum IOnlyPersistenceNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] 保存数据
+            /// T value 存档数据
+            /// </summary>
+            Save = 0,
+            /// <summary>
+            /// [1] 加载保存数据，用于扫描存档模式
+            /// T value 存档数据
+            /// </summary>
+            SaveLoadPersistence = 1,
+            /// <summary>
+            /// [2] 保存数据（服务端不响应）
+            /// T value 存档数据
+            /// </summary>
+            SaveSendOnly = 2,
+            /// <summary>
+            /// [3] 加载保存数据，用于扫描存档模式
+            /// T value 存档数据
+            /// </summary>
+            SaveSendOnlyLoadPersistence = 3,
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 进程守护节点接口（服务端需要以管理员身份运行，否则可能异常）
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IProcessGuardNodeMethodEnum))]
@@ -6144,6 +6233,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// 返回值 bool 是否成功删除节点，否则表示没有找到节点
             /// </summary>
             RemoveNodeByKey = 29,
+            /// <summary>
+            /// [30] 创建仅存档节点 PersistenceNode{T}
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// AutoCSer.Reflection.RemoteType valueType 存档数据类型
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateOnlyPersistenceNode = 30,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

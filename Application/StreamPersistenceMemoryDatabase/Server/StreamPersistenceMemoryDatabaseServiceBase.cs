@@ -203,6 +203,10 @@ namespace AutoCSer.CommandService
         /// </summary>
         public bool IsDisposed { get; protected set; }
         /// <summary>
+        /// 持久化类型
+        /// </summary>
+        internal readonly PersistenceTypeEnum PersistenceType;
+        /// <summary>
         /// 服务端会话绑定日志流持久化内存数据库服务
         /// </summary>
         /// <param name="config">日志流持久化内存数据库服务端配置</param>
@@ -237,8 +241,9 @@ namespace AutoCSer.CommandService
 
             Config = config;
             IsMaster = isMaster;
+            PersistenceType = config.PersistenceType;
 #if !AOT
-            CanCreateSlave = isMaster & config.CanCreateSlave;
+            CanCreateSlave = (isMaster & config.CanCreateSlave) && PersistenceType == PersistenceTypeEnum.MemoryDatabase;
             RepairNodeMethodLoaders = AutoCSer.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
 #endif
             NodeIndex = 1;
@@ -329,11 +334,16 @@ namespace AutoCSer.CommandService
         /// 添加持久化调用方法与参数信息
         /// </summary>
         /// <param name="methodParameter"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void PushPersistenceMethodParameter(MethodParameter methodParameter)
+        /// <returns></returns>
+        internal bool PushPersistenceMethodParameter(MethodParameter methodParameter)
         {
-            if (PersistenceQueue.IsPushHead(methodParameter)) PersistenceWaitHandle.Set();
-            if (IsDisposed) PersistenceException(PersistenceQueue.Get());
+            if (PersistenceType == PersistenceTypeEnum.MemoryDatabase)
+            {
+                if (PersistenceQueue.IsPushHead(methodParameter)) PersistenceWaitHandle.Set();
+                if (IsDisposed) PersistenceException(PersistenceQueue.Get());
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 添加持久化调用方法与参数信息
@@ -348,13 +358,16 @@ namespace AutoCSer.CommandService
 #endif
              where T : class
         {
-            if (PersistenceQueue.IsPushHead(methodParameter))
+            if (PersistenceType == PersistenceTypeEnum.MemoryDatabase)
             {
-                callback = null;
-                PersistenceWaitHandle.Set();
+                if (PersistenceQueue.IsPushHead(methodParameter))
+                {
+                    callback = null;
+                    PersistenceWaitHandle.Set();
+                }
+                else callback = null;
+                if (IsDisposed) PersistenceException(PersistenceQueue.Get());
             }
-            else callback = null;
-            if (IsDisposed) PersistenceException(PersistenceQueue.Get());
         }
         /// <summary>
         /// 设置当前执行的调用方法与参数信息

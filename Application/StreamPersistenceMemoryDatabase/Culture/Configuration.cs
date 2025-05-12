@@ -80,6 +80,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         /// <returns></returns>
         public abstract string GetServiceLoaderFileVersionNotSupported(string fileName, byte verison);
         /// <summary>
+        /// 持久化文件缺失
+        /// </summary>
+        /// <param name="fileName">持久化文件</param>
+        /// <returns></returns>
+        public abstract string GetNotFoundPersistenceFile(string fileName);
+        /// <summary>
         /// 持久化回调异常位置文件缺失
         /// </summary>
         /// <param name="fileName">持久化回调异常位置文件</param>

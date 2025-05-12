@@ -36,8 +36,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 持久化重建
         /// </summary>
         /// <param name="rebuilder"></param>
+        /// <param name="isCreateNode"></param>
         /// <returns></returns>
-        internal abstract bool Rebuild(PersistenceRebuilder rebuilder);
+        internal abstract bool Rebuild(PersistenceRebuilder rebuilder, bool isCreateNode);
 
         /// <summary>
         /// 检查类型是否存在快照功能接口
@@ -140,12 +141,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 持久化重建
         /// </summary>
         /// <param name="rebuilder"></param>
+        /// <param name="isCreateNode"></param>
         /// <returns></returns>
-        internal override bool Rebuild(PersistenceRebuilder rebuilder)
+        internal override bool Rebuild(PersistenceRebuilder rebuilder, bool isCreateNode)
         {
             LeftArray<T> array, newArray;
             rebuild(out array, out newArray);
-            return rebuilder.Rebuild(ref array, ref newArray);
+            return rebuilder.Rebuild(isCreateNode, ref array, ref newArray);
         }
     }
 }

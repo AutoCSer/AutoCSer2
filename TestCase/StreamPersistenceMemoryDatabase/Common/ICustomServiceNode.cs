@@ -179,6 +179,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
         /// <returns>节点标识，已经存在节点则直接返回</returns>
         NodeIndex CreatePerformanceMessageNode(NodeIndex index, string key, NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+        /// <summary>
+        /// 创建测试仅存档节点 TestClassOnlyPersistenceNode
+        /// </summary>
+        /// <param name="index">节点索引信息</param>
+        /// <param name="key">节点全局关键字</param>
+        /// <param name="nodeInfo">节点信息</param>
+        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        NodeIndex CreateTestClassOnlyPersistenceNode(NodeIndex index, string key, NodeInfo nodeInfo);
 #endif
     }
 }

@@ -60,6 +60,8 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
     <Compile Include="CreateNodeIndex.cs" />
     <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
+    <Compile Include="Node\OnlyPersistenceNode.cs" />
+    <Compile Include="Node\IOnlyPersistenceNode.cs" />
     <Compile Include="Server\CreatingNodeInfo.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
@@ -299,6 +301,9 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNodeCallback.cs" />
+    <Compile Include="Server\PersistenceFile.cs" />
+    <Compile Include="Server\PersistenceTypeEnum.cs" />
+    <Compile Include="Server\ScanPersistenceServiceLoader.cs" />
     <Compile Include="Server\ServerNodeTypeAttribute.cs" />
     <Compile Include="Server\ServerSnapshotNode.cs" />
     <Compile Include="Server\ServiceCallbackTypeEnum.cs" />

@@ -34,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="nodeInfo"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal bool Check(ref NodeInfo nodeInfo)
+        internal bool Check(NodeInfo nodeInfo)
         {
             return this.nodeInfo.RemoteType.Equals(nodeInfo.RemoteType);
         }

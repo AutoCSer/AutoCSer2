@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "AutoCSer/2.0.53": {
+      "AutoCSer/2.0.54": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "System.Numerics.Vectors": "4.6.1",
@@ -85,7 +85,7 @@
     }
   },
   "libraries": {
-    "AutoCSer/2.0.53": {
+    "AutoCSer/2.0.54": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

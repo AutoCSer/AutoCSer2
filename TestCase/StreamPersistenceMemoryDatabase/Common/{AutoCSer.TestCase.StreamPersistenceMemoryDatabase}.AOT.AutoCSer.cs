@@ -128,6 +128,79 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
+    public partial class TestClass
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value)
+            {
+                if (serializer.WriteMemberCountVerify(8, 1073741826)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(Int);
+                __serializer__.BinarySerialize(String);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.Int);
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.String);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 2, 1073741826);
+                typeInfo.Add(typeof(int));
+                typeInfo.Add(typeof(string));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value = default(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>();
+            }
+    }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
+{
     public partial class TestClassMessage
     {
             /// <summary>
@@ -243,6 +316,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 DefaultConstructor();
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage>();
+            }
+    }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
+{
+    public partial class TestClass
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass DefaultConstructor()
+            {
+                return new AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>();
             }
     }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -513,6 +606,37 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster));
                 JsonSerializeMemberTypes();
+            }
+    }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
+{
+    public partial class TestClass
+    {
+            /// <summary>
+            /// 随机对象生成
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="config"></param>
+            internal static void CreateRandomObject(ref AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value, AutoCSer.RandomObject.Config config)
+            {
+                value.createRandomObject(config);
+            }
+            /// <summary>
+            /// 随机对象生成
+            /// </summary>
+            /// <param name="config"></param>
+            private void createRandomObject(AutoCSer.RandomObject.Config __config__)
+            {
+                Int = AutoCSer.RandomObject.Creator.Create<int>(__config__, true);
+                String = AutoCSer.RandomObject.Creator.Create<string>(__config__, true);
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void CreateRandomObject()
+            {
+                var value = AutoCSer.RandomObject.Creator.CallCreate<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>();
+                CreateRandomObject(ref value, null);
             }
     }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
@@ -1811,6 +1935,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
             /// <returns>节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreatePerformanceMessageNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int arraySize, int timeoutSeconds, int checkTimeoutSeconds);
+            /// <summary>
+            /// 创建测试仅存档节点 TestClassOnlyPersistenceNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateTestClassOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo);
         }
         /// <summary>
         /// 服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 本地客户端节点
@@ -1857,7 +1989,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 __serializer__.BinarySerialize(capacity);
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -1885,7 +2017,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -1940,7 +2072,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 __serializer__.BinarySerialize(identity);
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -1968,7 +2100,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -2153,7 +2285,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 __serializer__.BinarySerialize(size);
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -2181,7 +2313,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -2234,7 +2366,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -2261,7 +2393,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -2315,7 +2447,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 __serializer__.BinarySerialize(length);
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -2343,7 +2475,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -2401,7 +2533,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 __serializer__.FixedFillSize(3);
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -2431,7 +2563,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -2487,7 +2619,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 __serializer__.BinarySerialize(capacity);
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -2515,7 +2647,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -2574,7 +2706,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 __serializer__.BinarySerialize(timeoutSeconds);
                 __serializer__.Simple(index);
                 __serializer__.BinarySerialize(key);
-                __serializer__.BinarySerialize(nodeInfo);
+                __serializer__.Json(nodeInfo);
             }
             /// <summary>
             /// 二进制反序列化
@@ -2604,7 +2736,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             {
                 __deserializer__.Simple(ref this.index);
                 __deserializer__.BinaryDeserialize(ref this.key);
-                __deserializer__.BinaryDeserialize(ref this.nodeInfo);
+                __deserializer__.Json(ref this.nodeInfo);
             }
             /// <summary>
             /// 获取二进制序列化类型信息
@@ -3163,6 +3295,26 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                         arraySize = arraySize,
                         timeoutSeconds = timeoutSeconds,
                         checkTimeoutSeconds = checkTimeoutSeconds,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// 创建测试仅存档节点 TestClassOnlyPersistenceNode
+            /// </summary>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="nodeInfo">节点信息</param>
+            /// <returns>节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> ICustomServiceNodeLocalClientNode/**/.CreateTestClassOnlyPersistenceNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip256__>(this, 275
+                    , new __ip256__
+                    {
+                        index = index,
+                        key = key,
+                        nodeInfo = nodeInfo,
                     }
                     );
             }
@@ -12122,6 +12274,156 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.Interfaces(typeof(TestClassMessageNodeLocalClient));
             }
         }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 测试仅存档节点接口 本地客户端节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ITestClassOnlyPersistenceNode), typeof(TestClassOnlyPersistenceNodeLocalClient))]
+        public partial interface ITestClassOnlyPersistenceNodeLocalClientNode
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Save(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter SaveSendOnly(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value);
+        }
+        /// <summary>
+        /// 测试仅存档节点接口 本地客户端节点
+        /// </summary>
+        internal unsafe partial class TestClassOnlyPersistenceNodeLocalClient : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode<ITestClassOnlyPersistenceNodeLocalClientNode>, ITestClassOnlyPersistenceNodeLocalClientNode
+        {
+            /// <summary>
+            /// 本地客户端节点
+            /// </summary>
+            /// <param name="key">节点全局关键字</param>
+            /// <param name="creator">创建节点操作对象委托</param>
+            /// <param name="client">日志流持久化内存数据库客户端</param>
+            /// <param name="index">节点索引信息</param>
+            /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+            private TestClassOnlyPersistenceNodeLocalClient(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+                : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
+            internal static ITestClassOnlyPersistenceNodeLocalClientNode LocalClientNodeConstructor(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+            {
+                return new TestClassOnlyPersistenceNodeLocalClient(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip0__
+            {
+                internal AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value;
+                
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(value);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ value = default(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>();
+            }
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> ITestClassOnlyPersistenceNodeLocalClientNode/**/.Save(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode/**/.Create(this, 0
+                    , new __ip0__
+                    {
+                        value = value,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter ITestClassOnlyPersistenceNodeLocalClientNode/**/.SaveSendOnly(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceSendOnlyNode/**/.Create(this, 2
+                    , new __ip0__
+                    {
+                        value = value,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void LocalClientNode()
+            {
+                LocalClientNodeConstructor(null, null, null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex), false);
+                AutoCSer.AotReflection.NonPublicFields(typeof(ITestClassOnlyPersistenceNodeMethodEnum));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(TestClassOnlyPersistenceNodeLocalClient));
+                AutoCSer.AotReflection.Interfaces(typeof(TestClassOnlyPersistenceNodeLocalClient));
+            }
+        }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 {
         /// <summary>
@@ -13716,6 +14018,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
             /// </summary>
             CreatePerformanceMessageNode = 274,
+            /// <summary>
+            /// [275] 创建测试仅存档节点 TestClassOnlyPersistenceNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index 节点索引信息
+            /// string key 节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo 节点信息
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex 节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateTestClassOnlyPersistenceNode = 275,
         }
         /// <summary>
         /// 创建位图节点 BitmapNode 服务端节点方法
@@ -14018,6 +14328,18 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 创建测试仅存档节点 TestClassOnlyPersistenceNode 服务端节点方法
+        /// </summary>
+        internal sealed class ICustomServiceNode_CreateTestClassOnlyPersistenceNode_275 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip256__>
+        {
+            internal ICustomServiceNode_CreateTestClassOnlyPersistenceNode_275() : base(275, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)3) { }
+            public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip256__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip256__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip256__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.Callback(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<ICustomServiceNode>(methodParameter).CreateTestClassOnlyPersistenceNode(parameter.index, parameter.key, parameter.nodeInfo));
+            }
+        }
+        /// <summary>
         /// 服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 创建调用方法与参数信息
         /// </summary>
         internal sealed partial class CustomServiceNodeMethodParameterCreator
@@ -14305,6 +14627,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                         new ICustomServiceNode_CreatePerformanceDictionaryNode_272(),
                         new ICustomServiceNode_CreatePerformanceSearchTreeDictionaryNode_273(),
                         new ICustomServiceNode_CreatePerformanceMessageNode_274(),
+                        new ICustomServiceNode_CreateTestClassOnlyPersistenceNode_275(),
                     }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
                     {
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
@@ -14563,6 +14886,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                         null,
                         null,
                         null,
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
@@ -20055,6 +20379,122 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
+        /// <summary>
+        /// 测试仅存档节点接口
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(ITestClassOnlyPersistenceNodeMethodEnum), typeof(TestClassOnlyPersistenceNodeMethodParameterCreator))]
+        public partial interface ITestClassOnlyPersistenceNode { }
+        /// <summary>
+        /// 测试仅存档节点接口 节点方法序号映射枚举类型
+        /// </summary>
+        public enum ITestClassOnlyPersistenceNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] 
+            /// AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            /// </summary>
+            Save = 0,
+            /// <summary>
+            /// [1] 
+            /// AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            /// </summary>
+            SaveLoadPersistence = 1,
+            /// <summary>
+            /// [2] 
+            /// AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            /// </summary>
+            SaveSendOnly = 2,
+            /// <summary>
+            /// [3] 
+            /// AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass value 
+            /// </summary>
+            SaveSendOnlyLoadPersistence = 3,
+        }
+        /// <summary>
+        ///  服务端节点方法
+        /// </summary>
+        internal sealed class ITestClassOnlyPersistenceNode_Save_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
+        {
+            internal ITestClassOnlyPersistenceNode_Save_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<ITestClassOnlyPersistenceNode>(methodParameter).Save(parameter.value);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }
+        /// <summary>
+        ///  服务端节点方法
+        /// </summary>
+        internal sealed class ITestClassOnlyPersistenceNode_SaveLoadPersistence_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
+        {
+            internal ITestClassOnlyPersistenceNode_SaveLoadPersistence_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<ITestClassOnlyPersistenceNode>(methodParameter).SaveLoadPersistence(parameter.value);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }
+        /// <summary>
+        ///  服务端节点方法
+        /// </summary>
+        internal sealed class ITestClassOnlyPersistenceNode_SaveSendOnly_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
+        {
+            internal ITestClassOnlyPersistenceNode_SaveSendOnly_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
+            {
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<ITestClassOnlyPersistenceNode>(methodParameter).SaveSendOnly(parameter.value);
+            }
+        }
+        /// <summary>
+        ///  服务端节点方法
+        /// </summary>
+        internal sealed class ITestClassOnlyPersistenceNode_SaveSendOnlyLoadPersistence_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
+        {
+            internal ITestClassOnlyPersistenceNode_SaveSendOnlyLoadPersistence_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
+            {
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<ITestClassOnlyPersistenceNode>(methodParameter).SaveSendOnlyLoadPersistence(parameter.value);
+            }
+        }
+        /// <summary>
+        /// 测试仅存档节点接口 创建调用方法与参数信息
+        /// </summary>
+        internal sealed partial class TestClassOnlyPersistenceNodeMethodParameterCreator
+        {
+            /// <summary>
+            /// 获取生成服务端节点方法信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod GetServerNodeCreatorMethod()
+            {
+                return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[]
+                    {
+                        new ITestClassOnlyPersistenceNode_Save_0(),
+                        new ITestClassOnlyPersistenceNode_SaveLoadPersistence_1(),
+                        new ITestClassOnlyPersistenceNode_SaveSendOnly_2(),
+                        new ITestClassOnlyPersistenceNode_SaveSendOnlyLoadPersistence_3(),
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
+                    {
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(1),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(3),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo[]
+                    {
+                    });
+            }
+            internal static void MethodParameterCreator()
+            {
+                GetServerNodeCreatorMethod();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(TestClassOnlyPersistenceNodeMethodParameterCreator));
+            }
+        }
+}namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
+{
     public partial struct PerformanceKeyValue
     {
             /// <summary>
@@ -20132,11 +20572,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AotMethod.Call();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue/**/.BinarySerialize();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage/**/.BinarySerialize();
+                    AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass/**/.BinarySerialize();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage/**/.BinarySerialize();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessage/**/.DefaultConstructorReflection();
+                    AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster/**/.JsonSerialize();
+                    AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass/**/.CreateRandomObject();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.GameNodeLocalClient.__ip0__.BinarySerialize();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.GameNodeLocalClient.__ip1__.BinarySerialize();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.GameNodeLocalClient.__ip3__.SimpleSerialize();
@@ -20232,6 +20675,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__.BinarySerialize();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip16__.BinarySerialize();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.LocalClientNode();
+                    AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__.BinarySerialize();
+                    AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.LocalClientNode();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.GameNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeMethodParameterCreator.MethodParameterCreator();
@@ -20252,7 +20697,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringQueueNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringStackNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeMethodParameterCreator.MethodParameterCreator();
+                    AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue/**/.SimpleSerialize();
+                    AutoCSer.RandomObject.Creator.CreateInt(null);
+                    AutoCSer.RandomObject.Creator.CreateString(null);
 
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster>));
                     AutoCSer.BinarySerializer.Json<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster>(null, default(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster));
@@ -20269,6 +20717,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>));
                     AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>));
+                    AutoCSer.BinarySerializer.Json<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.ReusableDictionaryGroupTypeEnum>));
                     AutoCSer.BinarySerializer.EnumByte<AutoCSer.ReusableDictionaryGroupTypeEnum>(null, default(AutoCSer.ReusableDictionaryGroupTypeEnum));
@@ -20283,6 +20732,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                     AutoCSer.BinarySerializer.Array<string>(null, default(string[]));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.KeyValue<string,string>>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessage>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClass>));
                     binaryDeserializeMemberTypes();
                     AutoCSer.AotReflection.FieldsAndProperties(typeof(AutoCSer.KeyValue<long,string>));
                     AutoCSer.AotReflection.FieldsAndProperties(typeof(AutoCSer.KeyValue<int,string>));
@@ -20332,12 +20782,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                 AutoCSer.BinaryDeserializer.StructArray<AutoCSer.KeyValue<int,int>>(null, ref t4);
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex t5 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex);
                 AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>(null, ref t5);
-                AutoCSer.ReusableDictionaryGroupTypeEnum t6 = default(AutoCSer.ReusableDictionaryGroupTypeEnum);
-                AutoCSer.BinaryDeserializer.EnumByte<AutoCSer.ReusableDictionaryGroupTypeEnum>(null, ref t6);
-                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue t7 = default(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue>(null, ref t7);
-                string[] t8 = default(string[]);
-                AutoCSer.BinaryDeserializer.Array<string>(null, ref t8);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo t6 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo);
+                AutoCSer.BinaryDeserializer.Json<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>(null, ref t6);
+                AutoCSer.ReusableDictionaryGroupTypeEnum t7 = default(AutoCSer.ReusableDictionaryGroupTypeEnum);
+                AutoCSer.BinaryDeserializer.EnumByte<AutoCSer.ReusableDictionaryGroupTypeEnum>(null, ref t7);
+                AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue t8 = default(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceKeyValue>(null, ref t8);
+                string[] t9 = default(string[]);
+                AutoCSer.BinaryDeserializer.Array<string>(null, ref t9);
             }
     }
 }

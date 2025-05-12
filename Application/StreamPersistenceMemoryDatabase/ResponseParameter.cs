@@ -88,6 +88,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if ((flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) return new SimpleSerializeResponseParameter<T>(value);
             return new BinarySerializeResponseParameter<T>(value); 
         }
+
+        /// <summary>
+        /// 调用状态返回参数集合
+        /// </summary>
+        internal static readonly ResponseParameter[] CallStates;
+        static ResponseParameter()
+        {
+            CallStates = new ResponseParameter[(byte)CallStateEnum.Callbacked];
+            for (byte state = 0; state != CallStates.Length; ++state) CallStates[state] = new ResponseParameter((CallStateEnum)state);
+        }
     }
     /// <summary>
     /// 返回参数
