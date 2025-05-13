@@ -10,7 +10,6 @@ namespace AutoCSer.TestCase.Data
     [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.RandomObject]
     [AutoCSer.CodeGenerator.FieldEquals]
 #endif

@@ -1,12 +1,117 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|c:\\autocser2\\testcase\\testcase\\program.aot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|solutionrelative:testcase\\testcase\\program.aot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3A141AC-E046-933E-C5FD-798E365E1AB9}|TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT.csproj|c:\\autocser2\\testcase\\streampersistencememorydatabase\\localservice\\dictionarynode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3A141AC-E046-933E-C5FD-798E365E1AB9}|TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT.csproj|solutionrelative:testcase\\streampersistencememorydatabase\\localservice\\dictionarynode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4622856-D408-7A8C-0CA9-9F902521927D}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.NET8.csproj|c:\\autocser2\\application\\streampersistencememorydatabase\\node\\ibitmapnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4622856-D408-7A8C-0CA9-9F902521927D}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.NET8.csproj|solutionrelative:application\\streampersistencememorydatabase\\node\\ibitmapnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|c:\\autocser2\\testcase\\testcase\\commandserver\\iclienttaskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|solutionrelative:testcase\\testcase\\commandserver\\iclienttaskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|c:\\autocser2\\testcase\\testcase\\data\\jsonproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|solutionrelative:testcase\\testcase\\data\\jsonproperty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|c:\\autocser2\\testcase\\testcase\\data\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9CC27F9-FD1D-A171-B46D-1FB07A49EA46}|TestCase\\TestCase\\AutoCSer.TestCase.AOT.NET8.csproj|solutionrelative:testcase\\testcase\\data\\property.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.AOT.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\TestCase\\Program.AOT.cs",
+              "RelativeDocumentMoniker": "TestCase\\TestCase\\Program.AOT.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\TestCase\\Program.AOT.cs",
+              "RelativeToolTip": "TestCase\\TestCase\\Program.AOT.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T14:25:32.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DictionaryNode.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\DictionaryNode.cs",
+              "RelativeDocumentMoniker": "TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\DictionaryNode.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\DictionaryNode.cs",
+              "RelativeToolTip": "TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\DictionaryNode.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T14:22:37.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IBitmapNode.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Node\\IBitmapNode.cs",
+              "RelativeDocumentMoniker": "Application\\StreamPersistenceMemoryDatabase\\Node\\IBitmapNode.cs",
+              "ToolTip": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Node\\IBitmapNode.cs",
+              "RelativeToolTip": "Application\\StreamPersistenceMemoryDatabase\\Node\\IBitmapNode.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T14:20:43.545Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IClientTaskController.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\TestCase\\CommandServer\\IClientTaskController.cs",
+              "RelativeDocumentMoniker": "TestCase\\TestCase\\CommandServer\\IClientTaskController.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\TestCase\\CommandServer\\IClientTaskController.cs",
+              "RelativeToolTip": "TestCase\\TestCase\\CommandServer\\IClientTaskController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T14:19:29.37Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "JsonProperty.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\TestCase\\Data\\JsonProperty.cs",
+              "RelativeDocumentMoniker": "TestCase\\TestCase\\Data\\JsonProperty.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\TestCase\\Data\\JsonProperty.cs",
+              "RelativeToolTip": "TestCase\\TestCase\\Data\\JsonProperty.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T14:15:27.54Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Property.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\TestCase\\Data\\Property.cs",
+              "RelativeDocumentMoniker": "TestCase\\TestCase\\Data\\Property.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\TestCase\\Data\\Property.cs",
+              "RelativeToolTip": "TestCase\\TestCase\\Data\\Property.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T14:12:59.383Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

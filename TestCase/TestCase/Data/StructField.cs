@@ -9,7 +9,6 @@ namespace AutoCSer.TestCase.Data
     /// 字段数据定义(值类型外壳)
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
     [AutoCSer.CodeGenerator.RandomObject]

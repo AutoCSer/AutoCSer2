@@ -9,7 +9,6 @@ namespace AutoCSer.TestCase.Data
 #if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.FieldEquals]
 #endif
     public partial class Float

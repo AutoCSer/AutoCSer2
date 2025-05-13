@@ -12,9 +12,6 @@ namespace AutoCSer.CommandService.DiskBlock
     /// <summary>
     /// 磁盘块索引信息
     /// </summary>
-#if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
-#endif
     [StructLayout(LayoutKind.Explicit, Size = sizeof(long) + sizeof(uint) + sizeof(int))]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial struct BlockIndex : IEquatable<BlockIndex>

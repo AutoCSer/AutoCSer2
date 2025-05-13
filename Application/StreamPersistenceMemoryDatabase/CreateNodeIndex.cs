@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 创建节点索引信息
     /// </summary>
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
-    public sealed class CreateNodeIndex
+    public sealed partial class CreateNodeIndex
     {
         /// <summary>
         /// 节点索引信息

@@ -1,71 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|c:\\autocser2\\application\\streampersistencememorydatabase\\client\\localclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|solutionrelative:application\\streampersistencememorydatabase\\client\\localclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|c:\\autocser2\\application\\streampersistencememorydatabase\\client\\localclientnodecreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|solutionrelative:application\\streampersistencememorydatabase\\client\\localclientnodecreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|c:\\autocser2\\application\\streampersistencememorydatabase\\client\\distributedclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|solutionrelative:application\\streampersistencememorydatabase\\client\\distributedclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LocalClient.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClient.cs",
-              "RelativeDocumentMoniker": "Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClient.cs",
-              "ToolTip": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClient.cs",
-              "RelativeToolTip": "Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClient.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAswFcAAABnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:30:14.923Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LocalClientNodeCreator.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClientNodeCreator.cs",
-              "RelativeDocumentMoniker": "Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClientNodeCreator.cs",
-              "ToolTip": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClientNodeCreator.cs",
-              "RelativeToolTip": "Application\\StreamPersistenceMemoryDatabase\\Client\\LocalClientNodeCreator.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAowFYAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:29:53.703Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DistributedClient.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Client\\DistributedClient.cs",
-              "RelativeDocumentMoniker": "Application\\StreamPersistenceMemoryDatabase\\Client\\DistributedClient.cs",
-              "ToolTip": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Client\\DistributedClient.cs",
-              "RelativeToolTip": "Application\\StreamPersistenceMemoryDatabase\\Client\\DistributedClient.cs",
-              "ViewState": "AgIAAJIAAAAAAAAAAAAowKIAAAC0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T12:29:38.766Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

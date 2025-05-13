@@ -98,6 +98,66 @@
             <param name="dividend">被除数，必须大于 0</param>
             <returns>模数（余数）</returns>
         </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.Algorithm.IntegerDivision)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.Algorithm.IntegerDivision@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.Algorithm.IntegerDivision@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.SimpleDeserialize(System.Byte*,AutoCSer.Algorithm.IntegerDivision@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Algorithm.IntegerDivision.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
         <member name="T:AutoCSer.Algorithm.QuickSort`1">
             <summary>
             排序器
@@ -5813,6 +5873,11 @@
         <member name="F:AutoCSer.BinarySerializeAttribute.IsMemberMap">
             <summary>
             是否序列化成员位图
+            </summary>
+        </member>
+        <member name="F:AutoCSer.BinarySerializeAttribute.IsCodeGenerator">
+            <summary>
+            默认为 true 表示调用代码生成
             </summary>
         </member>
         <member name="M:AutoCSer.BinarySerializeAttribute.GetIsMemberMap(System.Type)">

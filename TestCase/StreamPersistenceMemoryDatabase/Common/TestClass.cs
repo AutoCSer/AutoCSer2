@@ -6,7 +6,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.CodeGenerator.RandomObject]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
 #endif
     public partial class TestClass : IEquatable<TestClass>
     {

@@ -232,6 +232,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             MemberTypes = memberTypes.getArray(p => new AotMethod.ReflectionMemberType(p.Value));
             create(true);
             AotMethod.Append(CurrentType, XmlSerializeMethodName);
+            DefaultConstructor.Create(type);
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>

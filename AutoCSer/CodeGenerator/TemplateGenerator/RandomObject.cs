@@ -86,6 +86,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             create(true);
             AotMethod.Append(CurrentType, CreateRandomObjectMethodName);
+            DefaultConstructor.Create(type);
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>

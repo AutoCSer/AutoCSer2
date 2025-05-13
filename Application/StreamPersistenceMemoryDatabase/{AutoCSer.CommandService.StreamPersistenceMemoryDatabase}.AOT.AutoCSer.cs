@@ -9,6 +9,225 @@ using AutoCSer;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 创建节点索引信息
+        /// </summary>
+    public partial class CreateNodeIndex
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.Simple(Index);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.Index);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 1, 1073741825);
+                typeInfo.Add(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex>();
+            }
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 创建节点索引信息
+        /// </summary>
+    public partial class CreateNodeIndex
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex DefaultConstructor()
+            {
+                return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex>();
+            }
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 自增 ID 分段
+        /// </summary>
+    public partial struct IdentityFragment
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment value)
+            {
+                serializer.Simple(value);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741826);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment>();
+            }
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 多哈希位图数据
+        /// </summary>
+    public partial struct ManyHashBitMap
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap value)
+            {
+                if (serializer.WriteMemberCountVerify(4, 1073741826)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(Map);
+                __serializer__.Simple(SizeDivision);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.Map);
+                __deserializer__.Simple(ref this.SizeDivision);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 2, 1073741826);
+                typeInfo.Add(typeof(ulong[]));
+                typeInfo.Add(typeof(AutoCSer.Algorithm.IntegerDivision));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>();
+            }
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 正在处理的消息标识
         /// </summary>
     public partial struct MessageIdeneity
@@ -98,167 +317,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 BinarySerializeMemberTypes();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex));
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>();
-            }
-    }
-}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
-{
-        /// <summary>
-        /// 重建持久化文件调用结果
-        /// </summary>
-    public partial struct RebuildResult
-    {
-            /// <summary>
-            /// 二进制序列化
-            /// </summary>
-            /// <param name="serializer"></param>
-            /// <param name="value"></param>
-            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult value)
-            {
-                if (serializer.WriteMemberCountVerify(8, 1073741828)) value.binarySerialize(serializer);
-            }
-            /// <summary>
-            /// 二进制序列化
-            /// </summary>
-            /// <param name="__serializer__"></param>
-            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
-            {
-                __serializer__.Stream.Write((byte)this.CallState);
-                __serializer__.Stream.Write((byte)this.LoadExceptionNodeState);
-                __serializer__.FixedFillSize(2);
-                __serializer__.BinarySerialize(LoadExceptionNodeKey);
-                __serializer__.Simple(LoadExceptionNodeType);
-            }
-            /// <summary>
-            /// 二进制反序列化
-            /// </summary>
-            /// <param name="deserializer"></param>
-            /// <param name="value"></param>
-            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult value)
-            {
-                value.binaryDeserialize(deserializer);
-            }
-            /// <summary>
-            /// 二进制反序列化
-            /// </summary>
-            /// <param name="__deserializer__"></param>
-            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
-            {
-                this.CallState = (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)__deserializer__.FixedEnumByte();
-                this.LoadExceptionNodeState = (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)__deserializer__.FixedEnumByte();
-                __deserializer__.FixedFillSize(2);
-                binaryFieldDeserialize(__deserializer__);
-            }
-            /// <summary>
-            /// 二进制反序列化
-            /// </summary>
-            /// <param name="__deserializer__"></param>
-            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
-            {
-                __deserializer__.BinaryDeserialize(ref this.LoadExceptionNodeKey);
-                __deserializer__.Simple(ref this.LoadExceptionNodeType);
-            }
-            /// <summary>
-            /// 获取二进制序列化类型信息
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
-            {
-                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 3, 1073741828);
-                typeInfo.Add(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum));
-                typeInfo.Add(typeof(string));
-                typeInfo.Add(typeof(AutoCSer.Reflection.RemoteType));
-                return typeInfo;
-            }
-            /// <summary>
-            /// 二进制序列化代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void BinarySerialize()
-            {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult);
-                BinarySerialize(null, value);
-                BinaryDeserialize(null, ref value);
-                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult));
-                BinarySerializeMemberTypes();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult));
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult>();
-            }
-    }
-}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
-{
-        /// <summary>
-        /// 正在处理的消息标识
-        /// </summary>
-    public partial struct MessageIdeneity
-    {
-            /// <summary>
-            /// JSON 序列化
-            /// </summary>
-            /// <param name="serializer"></param>
-            /// <param name="value"></param>
-            internal static void JsonSerialize(AutoCSer.JsonSerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value)
-            {
-            }
-            /// <summary>
-            /// JSON 序列化
-            /// </summary>
-            /// <param name="memberMap"></param>
-            /// <param name="serializer"></param>
-            /// <param name="value"></param>
-            /// <param name="stream"></param>
-            internal static void JsonSerializeMemberMap(AutoCSer.Metadata.MemberMap<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity> memberMap, JsonSerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value, AutoCSer.Memory.CharStream stream)
-            {
-            }
-            /// <summary>
-            /// JSON 反序列化
-            /// </summary>
-            /// <param name="deserializer"></param>
-            /// <param name="value"></param>
-            /// <param name="names"></param>
-            internal static void JsonDeserialize(AutoCSer.JsonDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value, ref AutoCSer.Memory.Pointer names)
-            {
-            }
-            /// <summary>
-            /// JSON 反序列化
-            /// </summary>
-            /// <param name="deserializer"></param>
-            /// <param name="value"></param>
-            /// <param name="names"></param>
-            /// <param name="memberMap"></param>
-            internal static void JsonDeserializeMemberMap(AutoCSer.JsonDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value, ref AutoCSer.Memory.Pointer names, AutoCSer.Metadata.MemberMap<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity> memberMap)
-            {
-            }
-            /// <summary>
-            /// 成员 JSON 反序列化
-            /// </summary>
-            /// <param name="__deserializer__"></param>
-            /// <param name="__value__"></param>
-            /// <param name="__memberIndex__"></param>
-            internal static void JsonDeserialize(AutoCSer.JsonDeserializer __deserializer__, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity __value__, int __memberIndex__)
-            {
-            }
-            /// <summary>
-            /// 获取 JSON 反序列化成员名称
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>> JsonDeserializeMemberNames()
-            {
-                return default(AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>);
-            }
-            /// <summary>
-            /// 代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void JsonSerialize()
-            {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity);
-                JsonSerialize(null, value);
-                JsonSerializeMemberMap(null, null, value, null);
-                AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
-                JsonDeserialize(null, ref value, ref names);
-                JsonDeserializeMemberMap(null, ref value, ref names, null);
-                JsonDeserialize(null, ref value, 0);
-                JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity));
-                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity));
             }
     }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -427,6 +485,167 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo));
                 JsonSerializeMemberTypes();
+            }
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 重建持久化文件调用结果
+        /// </summary>
+    public partial struct RebuildResult
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult value)
+            {
+                if (serializer.WriteMemberCountVerify(8, 1073741828)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.Stream.Write((byte)this.CallState);
+                __serializer__.Stream.Write((byte)this.LoadExceptionNodeState);
+                __serializer__.FixedFillSize(2);
+                __serializer__.BinarySerialize(LoadExceptionNodeKey);
+                __serializer__.Simple(LoadExceptionNodeType);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                this.CallState = (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)__deserializer__.FixedEnumByte();
+                this.LoadExceptionNodeState = (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)__deserializer__.FixedEnumByte();
+                __deserializer__.FixedFillSize(2);
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.LoadExceptionNodeKey);
+                __deserializer__.Simple(ref this.LoadExceptionNodeType);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 3, 1073741828);
+                typeInfo.Add(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum));
+                typeInfo.Add(typeof(string));
+                typeInfo.Add(typeof(AutoCSer.Reflection.RemoteType));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult>();
+            }
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// 正在处理的消息标识
+        /// </summary>
+    public partial struct MessageIdeneity
+    {
+            /// <summary>
+            /// JSON 序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void JsonSerialize(AutoCSer.JsonSerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value)
+            {
+            }
+            /// <summary>
+            /// JSON 序列化
+            /// </summary>
+            /// <param name="memberMap"></param>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            /// <param name="stream"></param>
+            internal static void JsonSerializeMemberMap(AutoCSer.Metadata.MemberMap<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity> memberMap, JsonSerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value, AutoCSer.Memory.CharStream stream)
+            {
+            }
+            /// <summary>
+            /// JSON 反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            /// <param name="names"></param>
+            internal static void JsonDeserialize(AutoCSer.JsonDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value, ref AutoCSer.Memory.Pointer names)
+            {
+            }
+            /// <summary>
+            /// JSON 反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            /// <param name="names"></param>
+            /// <param name="memberMap"></param>
+            internal static void JsonDeserializeMemberMap(AutoCSer.JsonDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value, ref AutoCSer.Memory.Pointer names, AutoCSer.Metadata.MemberMap<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity> memberMap)
+            {
+            }
+            /// <summary>
+            /// 成员 JSON 反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            /// <param name="__value__"></param>
+            /// <param name="__memberIndex__"></param>
+            internal static void JsonDeserialize(AutoCSer.JsonDeserializer __deserializer__, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity __value__, int __memberIndex__)
+            {
+            }
+            /// <summary>
+            /// 获取 JSON 反序列化成员名称
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>> JsonDeserializeMemberNames()
+            {
+                return default(AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>);
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void JsonSerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity);
+                JsonSerialize(null, value);
+                JsonSerializeMemberMap(null, null, value, null);
+                AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
+                JsonDeserialize(null, ref value, ref names);
+                JsonDeserializeMemberMap(null, ref value, ref names, null);
+                JsonDeserialize(null, ref value, 0);
+                JsonDeserializeMemberNames();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity));
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity));
             }
     }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -2865,6 +3084,69 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
+        /// 自增 ID 分段
+        /// </summary>
+    public partial struct IdentityFragment
+    {
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(12))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.identity);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.count);
+                }
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.identity);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.count);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment));
+            }
+    }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
         /// 正在处理的消息标识
         /// </summary>
     public partial struct MessageIdeneity
@@ -3011,11 +3293,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     AutoCSer.AotMethod.Call();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AotMethod.Call();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex/**/.BinarySerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex/**/.DefaultConstructorReflection();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment/**/.BinarySerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap/**/.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity/**/.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex/**/.BinarySerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo/**/.JsonSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RebuildResult/**/.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity/**/.JsonSerialize();
-                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo/**/.JsonSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip9__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.LocalClientNode();
@@ -3039,9 +3325,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodParameterCreator.MethodParameterCreator();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment/**/.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity/**/.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex/**/.SimpleSerialize();
 
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<ulong[]>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.Algorithm.IntegerDivision>));
+                    AutoCSer.BinarySerializer.Simple<AutoCSer.Algorithm.IntegerDivision>(null, default(AutoCSer.Algorithm.IntegerDivision));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>));
                     AutoCSer.BinarySerializer.Json<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum>));
@@ -3049,12 +3343,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<string>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.Reflection.RemoteType>));
                     AutoCSer.BinarySerializer.Simple<AutoCSer.Reflection.RemoteType>(null, default(AutoCSer.Reflection.RemoteType));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<int>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<uint[]>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<uint>));
-                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>));
-                    AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
                     binaryDeserializeMemberTypes();
 
@@ -3076,14 +3372,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             private static void binaryDeserializeMemberTypes()
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo t1 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo);
-                AutoCSer.BinaryDeserializer.Json<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>(null, ref t1);
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum t2 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum);
-                AutoCSer.BinaryDeserializer.EnumByte<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum>(null, ref t2);
-                AutoCSer.Reflection.RemoteType t3 = default(AutoCSer.Reflection.RemoteType);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.Reflection.RemoteType>(null, ref t3);
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex t4 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>(null, ref t4);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex t1 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>(null, ref t1);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter t2 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter>(null, ref t2);
+                AutoCSer.Algorithm.IntegerDivision t3 = default(AutoCSer.Algorithm.IntegerDivision);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.Algorithm.IntegerDivision>(null, ref t3);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo t4 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo);
+                AutoCSer.BinaryDeserializer.Json<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>(null, ref t4);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum t5 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum);
+                AutoCSer.BinaryDeserializer.EnumByte<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum>(null, ref t5);
+                AutoCSer.Reflection.RemoteType t6 = default(AutoCSer.Reflection.RemoteType);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.Reflection.RemoteType>(null, ref t6);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter t7 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter>(null, ref t7);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter t8 = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter>(null, ref t8);
             }
     }
 }

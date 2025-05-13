@@ -8079,6 +8079,12 @@
             <summary>
             索引范围
             </summary>
+            <summary>
+            索引范围
+            </summary>
+            <summary>
+            索引范围
+            </summary>
         </member>
         <member name="F:AutoCSer.Range.StartIndex">
             <summary>
@@ -8122,6 +8128,66 @@
             </summary>
             <param name="startIndex">起始位置</param>
             <param name="endIndex">结束位置</param>
+        </member>
+        <member name="M:AutoCSer.Range.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.Range)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Range.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.Range@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Range.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Range.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Range.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.Range@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Range.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.Range.SimpleDeserialize(System.Byte*,AutoCSer.Range@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Range.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Range.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
         </member>
         <member name="T:AutoCSer.Reflection.LoadAssemblyCache">
             <summary>

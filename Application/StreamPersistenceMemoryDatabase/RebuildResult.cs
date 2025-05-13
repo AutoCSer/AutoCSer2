@@ -6,9 +6,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 重建持久化文件调用结果
     /// </summary>
-#if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
-#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial struct RebuildResult

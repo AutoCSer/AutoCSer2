@@ -6,9 +6,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 节点索引信息
     /// </summary>
-#if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
-#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial struct NodeIndex : IEquatable<NodeIndex>

@@ -4165,16 +4165,6 @@
             浮点数测试
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.Float.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.Float.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.Float.FieldEquals(AutoCSer.TestCase.Data.Float,AutoCSer.TestCase.Data.Float)">
             <summary>
             对象对比
@@ -4299,6 +4289,16 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.Data.Float.JsonSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.Float.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.Float.DefaultConstructorReflection">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
@@ -4501,51 +4501,6 @@
             二进制混杂 JSON 序列化
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.FieldEquals(AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.TestCase.Data.JsonEmpty)">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.fieldEquals(AutoCSer.TestCase.Data.JsonEmpty)">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonEmpty})">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <param name="memberMap"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.fieldEquals(AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonEmpty})">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-            <param name="__memberMap__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.FieldEquals">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonEmpty.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.TestCase.Data.JsonEmpty)">
             <summary>
             JSON 序列化
@@ -4598,6 +4553,51 @@
             代码生成调用激活 AOT 反射
             </summary>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.DefaultConstructorReflection">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.FieldEquals(AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.TestCase.Data.JsonEmpty)">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.fieldEquals(AutoCSer.TestCase.Data.JsonEmpty)">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonEmpty})">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="memberMap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.fieldEquals(AutoCSer.TestCase.Data.JsonEmpty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonEmpty})">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+            <param name="__memberMap__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonEmpty.FieldEquals">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
         <member name="T:AutoCSer.TestCase.Data.JsonField">
             <summary>
             二进制混杂 JSON 序列化
@@ -4613,51 +4613,6 @@
             </summary>
             <summary>
             二进制混杂 JSON 序列化
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.FieldEquals(AutoCSer.TestCase.Data.JsonField,AutoCSer.TestCase.Data.JsonField)">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.fieldEquals(AutoCSer.TestCase.Data.JsonField)">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonField,AutoCSer.TestCase.Data.JsonField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonField})">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <param name="memberMap"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.fieldEquals(AutoCSer.TestCase.Data.JsonField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonField})">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-            <param name="__memberMap__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.FieldEquals">
-            <summary>
-            代码生成调用激活 AOT 反射
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.Data.JsonField.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.TestCase.Data.JsonField)">
@@ -4753,6 +4708,51 @@
             代码生成调用激活 AOT 反射
             </summary>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.DefaultConstructorReflection">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.FieldEquals(AutoCSer.TestCase.Data.JsonField,AutoCSer.TestCase.Data.JsonField)">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.fieldEquals(AutoCSer.TestCase.Data.JsonField)">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonField,AutoCSer.TestCase.Data.JsonField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonField})">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="memberMap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.fieldEquals(AutoCSer.TestCase.Data.JsonField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonField})">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+            <param name="__memberMap__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.FieldEquals">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonField.CreateRandomObject(AutoCSer.TestCase.Data.JsonField@,AutoCSer.RandomObject.Config)">
             <summary>
             随机对象生成
@@ -4789,51 +4789,6 @@
             </summary>
             <summary>
             二进制混杂 JSON 序列化
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.FieldEquals(AutoCSer.TestCase.Data.JsonProperty,AutoCSer.TestCase.Data.JsonProperty)">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.fieldEquals(AutoCSer.TestCase.Data.JsonProperty)">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonProperty,AutoCSer.TestCase.Data.JsonProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonProperty})">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <param name="memberMap"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.fieldEquals(AutoCSer.TestCase.Data.JsonProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonProperty})">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-            <param name="__memberMap__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.FieldEquals">
-            <summary>
-            代码生成调用激活 AOT 反射
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.Data.JsonProperty.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.TestCase.Data.JsonProperty)">
@@ -4925,6 +4880,51 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.Data.JsonProperty.JsonSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.DefaultConstructorReflection">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.FieldEquals(AutoCSer.TestCase.Data.JsonProperty,AutoCSer.TestCase.Data.JsonProperty)">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.fieldEquals(AutoCSer.TestCase.Data.JsonProperty)">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonProperty,AutoCSer.TestCase.Data.JsonProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonProperty})">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="memberMap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.fieldEquals(AutoCSer.TestCase.Data.JsonProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonProperty})">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+            <param name="__memberMap__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.FieldEquals">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
@@ -5477,36 +5477,10 @@
             <summary>
             ORM 业务模型定义
             </summary>
-            <summary>
-            ORM 业务模型定义
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.BusinessModel.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.BusinessModel.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.ORM.BusinessModelAssociated">
             <summary>
             ORM 业务模型定义
-            </summary>
-            <summary>
-            ORM 业务模型定义
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.BusinessModelAssociated.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.BusinessModelAssociated.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.ORM.CommonModel">
@@ -5521,16 +5495,6 @@
             </summary>
             <summary>
             ORM 基本数据模型定义
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.CommonModel.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.CommonModel.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.Data.ORM.CommonModel.FieldEquals(AutoCSer.TestCase.Data.ORM.CommonModel,AutoCSer.TestCase.Data.ORM.CommonModel)">
@@ -5582,6 +5546,16 @@
             <param name="config"></param>
         </member>
         <member name="M:AutoCSer.TestCase.Data.ORM.CommonModel.CreateRandomObject">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.ORM.CommonModel.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.ORM.CommonModel.DefaultConstructorReflection">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
@@ -5741,16 +5715,6 @@
             ORM 关联模型定义
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.ModelGeneric.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.ORM.ModelGeneric.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.ORM.ModelGeneric.CreateRandomObject(AutoCSer.TestCase.Data.ORM.ModelGeneric@,AutoCSer.RandomObject.Config)">
             <summary>
             随机对象生成
@@ -5765,6 +5729,16 @@
             <param name="config"></param>
         </member>
         <member name="M:AutoCSer.TestCase.Data.ORM.ModelGeneric.CreateRandomObject">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.ORM.ModelGeneric.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.ORM.ModelGeneric.DefaultConstructorReflection">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
@@ -6066,41 +6040,6 @@
             二进制混杂 JSON 序列化
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructField.FieldEquals(AutoCSer.TestCase.Data.JsonStructField,AutoCSer.TestCase.Data.JsonStructField)">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructField.fieldEquals(AutoCSer.TestCase.Data.JsonStructField)">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructField.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonStructField,AutoCSer.TestCase.Data.JsonStructField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructField})">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <param name="memberMap"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructField.fieldEquals(AutoCSer.TestCase.Data.JsonStructField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructField})">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-            <param name="__memberMap__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructField.FieldEquals">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonStructField.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.TestCase.Data.JsonStructField)">
             <summary>
             JSON 序列化
@@ -6190,6 +6129,41 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.Data.JsonStructField.JsonSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructField.FieldEquals(AutoCSer.TestCase.Data.JsonStructField,AutoCSer.TestCase.Data.JsonStructField)">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructField.fieldEquals(AutoCSer.TestCase.Data.JsonStructField)">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructField.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonStructField,AutoCSer.TestCase.Data.JsonStructField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructField})">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="memberMap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructField.fieldEquals(AutoCSer.TestCase.Data.JsonStructField,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructField})">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+            <param name="__memberMap__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructField.FieldEquals">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
@@ -6527,41 +6501,6 @@
             二进制混杂 JSON 序列化
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.FieldEquals(AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.TestCase.Data.JsonStructProperty)">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.fieldEquals(AutoCSer.TestCase.Data.JsonStructProperty)">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructProperty})">
-            <summary>
-            对象对比
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <param name="memberMap"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.fieldEquals(AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructProperty})">
-            <summary>
-            随机对象生成
-            </summary>
-            <param name="__value__"></param>
-            <param name="__memberMap__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.FieldEquals">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.TestCase.Data.JsonStructProperty)">
             <summary>
             JSON 序列化
@@ -6651,6 +6590,41 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.JsonSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.FieldEquals(AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.TestCase.Data.JsonStructProperty)">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.fieldEquals(AutoCSer.TestCase.Data.JsonStructProperty)">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.MemberMapFieldEquals(AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructProperty})">
+            <summary>
+            对象对比
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="memberMap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.fieldEquals(AutoCSer.TestCase.Data.JsonStructProperty,AutoCSer.Metadata.MemberMap{AutoCSer.TestCase.Data.JsonStructProperty})">
+            <summary>
+            随机对象生成
+            </summary>
+            <param name="__value__"></param>
+            <param name="__memberMap__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.FieldEquals">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>

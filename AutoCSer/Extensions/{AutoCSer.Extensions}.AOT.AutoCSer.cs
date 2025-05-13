@@ -56,6 +56,53 @@ namespace AutoCSer.Diagnostics
 }namespace AutoCSer
 {
         /// <summary>
+        /// 索引范围
+        /// </summary>
+    internal partial struct Range
+    {
+            /// <summary>
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.Range value)
+            {
+                serializer.Simple(value);
+            }
+            /// <summary>
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.Range value)
+            {
+                deserializer.Simple(ref value);
+            }
+            /// <summary>
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                return new AutoCSer.BinarySerialize.TypeInfo(true, 0, 1073741826);
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.Range value = default(AutoCSer.Range);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.Range));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Range));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.Range>();
+            }
+    }
+}namespace AutoCSer
+{
+        /// <summary>
         /// 键值对（用于二进制序列化屏蔽引用操作）
         /// </summary>
     public partial struct BinarySerializeKeyValue<KT,VT>
@@ -1657,6 +1704,69 @@ namespace AutoCSer.Diagnostics
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Diagnostics.ServerTimestamp));
             }
     }
+}namespace AutoCSer
+{
+        /// <summary>
+        /// 索引范围
+        /// </summary>
+    internal partial struct Range
+    {
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.Range value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// 简单序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(8))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.EndIndex);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.StartIndex);
+                }
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.Range value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// 简单反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.EndIndex);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.StartIndex);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.Range value = default(AutoCSer.Range);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Range));
+            }
+    }
 }namespace AutoCSer.Extensions
 {
     /// <summary>
@@ -1673,6 +1783,7 @@ namespace AutoCSer.Diagnostics
                 if (AutoCSer.Date.StartTimestamp == long.MinValue)
                 {
                     AutoCSer.Diagnostics.ServerTimestamp/**/.BinarySerialize();
+                    AutoCSer.Range/**/.BinarySerialize();
                     AutoCSer.Extensions.SerializeComplex/**/.XmlSerialize();
                     AutoCSer.Extensions.SerializeMatrix3x2/**/.XmlSerialize();
                     AutoCSer.Extensions.SerializeMatrix4x4/**/.XmlSerialize();
@@ -1682,6 +1793,7 @@ namespace AutoCSer.Diagnostics
                     AutoCSer.Extensions.SerializeVector3/**/.XmlSerialize();
                     AutoCSer.Extensions.SerializeVector4/**/.XmlSerialize();
                     AutoCSer.Diagnostics.ServerTimestamp/**/.SimpleSerialize();
+                    AutoCSer.Range/**/.SimpleSerialize();
 
 
 

@@ -8,7 +8,6 @@ namespace AutoCSer.TestCase.Data.ORM
     /// </summary>
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
 #endif
     public partial class BusinessModelAssociated : ModelAssociated
     {

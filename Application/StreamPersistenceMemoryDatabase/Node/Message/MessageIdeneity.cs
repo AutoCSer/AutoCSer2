@@ -7,7 +7,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 正在处理的消息标识
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.CodeGenerator.JsonSerialize]
 #endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]

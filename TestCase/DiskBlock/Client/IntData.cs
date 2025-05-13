@@ -7,7 +7,6 @@ namespace AutoCSer.TestCase.DiskBlockClient
     /// </summary>
     [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.CodeGenerator.JsonSerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.FieldEquals]
     internal partial class IntData
     {

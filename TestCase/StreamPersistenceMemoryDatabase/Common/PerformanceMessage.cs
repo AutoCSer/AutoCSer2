@@ -6,10 +6,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 吞吐性能测试消息
     /// </summary>
-#if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
-#endif
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed partial class PerformanceMessage : Message<PerformanceMessage>
     {

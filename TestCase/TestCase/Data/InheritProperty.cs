@@ -9,7 +9,6 @@ namespace AutoCSer.TestCase.Data
     /// </summary>
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.RandomObject]
     [AutoCSer.CodeGenerator.FieldEquals]
 #endif

@@ -218,16 +218,6 @@
             <returns>节点标识，已经存在节点则直接返回</returns>
         </member>
         <!-- Badly formed XML comment ignored for member "T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode" -->
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.DefaultConstructor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.DefaultConstructorReflection">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.JsonSerialize(AutoCSer.JsonSerializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
             <summary>
             JSON 序列化
@@ -317,6 +307,16 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.JsonSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.DefaultConstructorReflection">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>

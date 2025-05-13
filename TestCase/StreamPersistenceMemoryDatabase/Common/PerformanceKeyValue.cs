@@ -3,7 +3,6 @@
 #pragma warning disable
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
-    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct PerformanceKeyValue

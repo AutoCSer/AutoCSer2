@@ -70,6 +70,26 @@ namespace AutoCSer.TestCase.DiskBlockClient
     }
 }namespace AutoCSer.TestCase.DiskBlockClient
 {
+    internal partial class IntData
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.TestCase.DiskBlockClient.IntData DefaultConstructor()
+            {
+                return new AutoCSer.TestCase.DiskBlockClient.IntData();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.DiskBlockClient.IntData>();
+            }
+    }
+}namespace AutoCSer.TestCase.DiskBlockClient
+{
     internal partial class StringData
     {
             /// <summary>
@@ -136,26 +156,6 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 BinarySerializeMemberTypes();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.DiskBlockClient.StringData));
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.DiskBlockClient.StringData>();
-            }
-    }
-}namespace AutoCSer.TestCase.DiskBlockClient
-{
-    internal partial class IntData
-    {
-            /// <summary>
-            /// 默认构造函数
-            /// </summary>
-            internal static AutoCSer.TestCase.DiskBlockClient.IntData DefaultConstructor()
-            {
-                return new AutoCSer.TestCase.DiskBlockClient.IntData();
-            }
-            /// <summary>
-            /// 代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void DefaultConstructorReflection()
-            {
-                DefaultConstructor();
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.DiskBlockClient.IntData>();
             }
     }
 }namespace AutoCSer.TestCase.DiskBlockClient
@@ -693,8 +693,8 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 if (AutoCSer.Date.StartTimestamp == long.MinValue)
                 {
                     AutoCSer.TestCase.DiskBlockClient.IntData/**/.BinarySerialize();
-                    AutoCSer.TestCase.DiskBlockClient.StringData/**/.BinarySerialize();
                     AutoCSer.TestCase.DiskBlockClient.IntData/**/.DefaultConstructorReflection();
+                    AutoCSer.TestCase.DiskBlockClient.StringData/**/.BinarySerialize();
                     AutoCSer.TestCase.DiskBlockClient.StringData/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.DiskBlockClient.IntData/**/.FieldEquals();
                     AutoCSer.TestCase.DiskBlockClient.StringData/**/.FieldEquals();

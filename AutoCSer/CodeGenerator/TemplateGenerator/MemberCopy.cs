@@ -58,6 +58,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             Fields = fields.getArray(p => new CopyMember(p));
             create(true);
             AotMethod.Append(CurrentType, MemberCopyMethodName);
+            DefaultConstructor.Create(type);
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>

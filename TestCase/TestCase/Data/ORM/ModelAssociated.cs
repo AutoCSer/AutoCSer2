@@ -7,8 +7,6 @@ namespace AutoCSer.TestCase.Data.ORM
     /// ORM 基本数据模型定义
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.FieldEquals]
     [AutoCSer.CodeGenerator.RandomObject]
 #endif

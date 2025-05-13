@@ -4,6 +4,7 @@ using AutoCSer.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CodeGenerator.TemplateGenerator
@@ -118,7 +119,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 IsProperty = field.FieldIndex.AnonymousProperty != null;
                 var baseType = default(Type);
                 AutoCSer.BinarySerializeAttribute attribute = default(AutoCSer.BinarySerializeAttribute);
-                types.Add(memberType);
+                BinarySerialize.memberTypes.Add(memberType);
                 memberTypes.Add(memberType);
                 if (!getSerializeMethodInfo(memberType, ref MethodInfo, out attribute, out baseType) && memberType.IsValueType && !attribute.IsMemberMap && !memberType.IsGenericType)
                 {
@@ -220,21 +221,37 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         {
             Type type = CurrentType.Type, baseType;
             if (type.IsGenericTypeDefinition) return AutoCSer.Common.CompletedTask;
-            AutoCSer.CodeGenerator.BinarySerializeMethodInfo binarySerializeMethodInfo = default(AutoCSer.CodeGenerator.BinarySerializeMethodInfo);
-            AutoCSer.BinarySerializeAttribute attribute = default(AutoCSer.BinarySerializeAttribute);
-            if (getSerializeMethodInfo(type, ref binarySerializeMethodInfo, out attribute, out baseType))
+            if (types.Add(type))
             {
-                types.Add(type);
-                if (baseType != null && baseType.IsGenericType) genericTypes[baseType] = true;
-                return AutoCSer.Common.CompletedTask;
+                AutoCSer.CodeGenerator.BinarySerializeMethodInfo binarySerializeMethodInfo = default(AutoCSer.CodeGenerator.BinarySerializeMethodInfo);
+                AutoCSer.BinarySerializeAttribute attribute = default(AutoCSer.BinarySerializeAttribute);
+                if (getSerializeMethodInfo(type, ref binarySerializeMethodInfo, out attribute, out baseType))
+                {
+                    memberTypes.Add(type);
+                    if (baseType != null && baseType.IsGenericType) genericTypes[baseType] = true;
+                    return AutoCSer.Common.CompletedTask;
+                }
+                IsMemberMap = attribute.GetIsMemberMap(type);
+                IsSerialize = CurrentAttribute.IsSerialize;
+                IsDeserialize = CurrentAttribute.IsDeserialize;
+                TypeFullName = CurrentType.FullName;
+                nextCreate(true, attribute);
+                AotMethod.Append(CurrentType, BinarySerializeMethodName);
+                if (IsDeserialize) DefaultConstructor.Create(type);
             }
-            IsMemberMap = attribute.GetIsMemberMap(type);
-            IsSerialize = CurrentAttribute.IsSerialize;
-            IsDeserialize = CurrentAttribute.IsDeserialize;
-            TypeFullName = CurrentType.FullName;
-            nextCreate(true, attribute);
-            AotMethod.Append(CurrentType, BinarySerializeMethodName);
             return AutoCSer.Common.CompletedTask;
+        }
+        /// <summary>
+        /// 代码生成调用
+        /// </summary>
+        /// <param name="type"></param>
+        internal static void Create(Type type)
+        {
+            BinarySerialize serialize = new BinarySerialize();
+            serialize.generatorAttribute = defaultGeneratorAttribute;
+            serialize.CurrentAttribute = (AutoCSer.CodeGenerator.BinarySerializeAttribute)type.GetCustomAttribute(typeof(AutoCSer.CodeGenerator.BinarySerializeAttribute)) ?? defaultBinarySerializeAttribute;
+            serialize.CurrentType = type;
+            serialize.nextCreate().NotWait();
         }
         /// <summary>
         /// 生成代码
@@ -275,6 +292,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         internal string Create(Type type, string typeFullName, bool isSerialize, bool isDeserialize)
         {
             CurrentType = type;
+            generatorAttribute = defaultGeneratorAttribute;
             TypeFullName = typeFullName;
             IsSerialize = isSerialize;
             IsDeserialize = isDeserialize;
@@ -290,6 +308,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <returns></returns>
         protected override Task onCreated() { return AutoCSer.Common.CompletedTask; }
 
+        /// <summary>
+        /// 代码生成类型集合
+        /// </summary>
+        private static readonly HashSet<HashObject<Type>> types = HashSetCreator.CreateHashObject<Type>();
         /// <summary>
         /// 获取序列化信息
         /// </summary>
@@ -660,16 +682,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 成员类型集合
         /// </summary>
-        private static readonly HashSet<HashObject<Type>> types = HashSetCreator.CreateHashObject<Type>();
+        private static readonly HashSet<HashObject<Type>> memberTypes = HashSetCreator.CreateHashObject<Type>();
         /// <summary>
         /// 成员类型集合
         /// </summary>
         /// <returns></returns>
         internal static LeftArray<AotMethod.ReflectionMemberType> GetReflectionMemberTypes()
         {
-            LeftArray<AotMethod.ReflectionMemberType> memberTypes = new LeftArray<AotMethod.ReflectionMemberType>(types.Count);
-            foreach (HashObject<Type> type in types.getArray()) getMemberType(type.Value, ref memberTypes);
-            return memberTypes;
+            LeftArray<AotMethod.ReflectionMemberType> reflectionMemberTypes = new LeftArray<AotMethod.ReflectionMemberType>(memberTypes.Count);
+            foreach (HashObject<Type> type in BinarySerialize.memberTypes.getArray()) getMemberType(type.Value, ref reflectionMemberTypes);
+            return reflectionMemberTypes;
         }
         /// <summary>
         /// 获取成员类型
@@ -693,7 +715,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (type.GetArrayRank() == 1)
                 {
                     Type elementType = type.GetElementType().notNull();
-                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes);
+                    if (BinarySerialize.memberTypes.Add(elementType)) getMemberType(elementType, ref memberTypes);
                     if (!elementType.IsAbstract && !elementType.isSerializeNotSupport())
                     {
                         if (elementType.IsValueType)
@@ -753,7 +775,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (genericTypeDefinition == typeof(LeftArray<>))
                 {
                     Type elementType = type.GetGenericArguments()[0];
-                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes);
+                    if (BinarySerialize.memberTypes.Add(elementType)) getMemberType(elementType, ref memberTypes);
                     if (elementType.IsValueType)
                     {
                         if (elementType.IsEnum)
@@ -787,7 +809,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (genericTypeDefinition == typeof(ListArray<>))
                 {
                     Type elementType = type.GetGenericArguments()[0];
-                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes);
+                    if (BinarySerialize.memberTypes.Add(elementType)) getMemberType(elementType, ref memberTypes);
                     if (elementType.IsValueType)
                     {
                         if (elementType.IsEnum)
@@ -830,7 +852,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 {
                     Type elementType = type.GetGenericArguments()[0];
                     memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Nullable), elementType.fullName()));
-                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes);
+                    if (BinarySerialize.memberTypes.Add(elementType)) getMemberType(elementType, ref memberTypes);
                     return;
                 }
             }
@@ -846,7 +868,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Dictionary), $"{type.fullName()}, {referenceTypes[0].fullName()}, {referenceTypes[1].fullName()}"));
                         foreach (var elementType in referenceTypes)
                         {
-                            if (types.Add(elementType)) getMemberType(elementType, ref memberTypes);
+                            if (BinarySerialize.memberTypes.Add(elementType)) getMemberType(elementType, ref memberTypes);
                         }
                         return;
                     }
@@ -856,7 +878,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 {
                     Type elementType = collectionType.GetGenericArguments()[0];
                     memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Collection), $"{type.fullName()}, {elementType.fullName()}"));
-                    if (types.Add(elementType)) getMemberType(elementType, ref memberTypes);
+                    if (BinarySerialize.memberTypes.Add(elementType)) getMemberType(elementType, ref memberTypes);
                     return;
                 }
             }
@@ -865,7 +887,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (baseType != null)
             {
                 memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Base), $"{type.fullName()}, {baseType.fullName()}"));
-                if (types.Add(baseType)) getMemberType(baseType, ref memberTypes);
+                if (BinarySerialize.memberTypes.Add(baseType)) getMemberType(baseType, ref memberTypes);
                 return;
             }
             if (attribute.IsMixJsonSerialize)
@@ -888,5 +910,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             memberTypes.Add(new AotMethod.ReflectionMemberType(type));
             return;
         }
+        /// <summary>
+        /// 代码生成器配置
+        /// </summary>
+        private static readonly GeneratorAttribute defaultGeneratorAttribute = typeof(BinarySerialize).GetCustomAttribute(typeof(GeneratorAttribute)).castType<GeneratorAttribute>();
+        /// <summary>
+        /// 二进制序列化代码生成配置
+        /// </summary>
+        private static readonly AutoCSer.CodeGenerator.BinarySerializeAttribute defaultBinarySerializeAttribute = new AutoCSer.CodeGenerator.BinarySerializeAttribute();
     }
 }

@@ -22,7 +22,6 @@ namespace AutoCSer.TestCase.Data.ORM
     /// </summary>
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.RandomObject]
 #endif
     public partial class ModelGeneric : ModelGeneric<ModelAssociated>

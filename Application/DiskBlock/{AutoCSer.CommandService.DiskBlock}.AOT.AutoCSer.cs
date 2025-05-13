@@ -1078,12 +1078,12 @@ namespace AutoCSer.CommandService.DiskBlock
                     AutoCSer.CommandService.DiskBlock.BlockIndex/**/.SimpleSerialize();
                     AutoCSer.CommandService.DiskBlock.BlockInfo/**/.SimpleSerialize();
 
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.ReadBuffer>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DiskBlock.ReadBuffer>(null, default(AutoCSer.CommandService.DiskBlock.ReadBuffer));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.WriteBuffer>));
                     AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DiskBlock.WriteBuffer>(null, default(AutoCSer.CommandService.DiskBlock.WriteBuffer));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.BlockIndex>));
                     AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DiskBlock.BlockIndex>(null, default(AutoCSer.CommandService.DiskBlock.BlockIndex));
-                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.ReadBuffer>));
-                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DiskBlock.ReadBuffer>(null, default(AutoCSer.CommandService.DiskBlock.ReadBuffer));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.BlockInfo>));
                     AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DiskBlock.BlockInfo>(null, default(AutoCSer.CommandService.DiskBlock.BlockInfo));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DiskBlock.BlockInfo[]>));
@@ -1101,12 +1101,12 @@ namespace AutoCSer.CommandService.DiskBlock
             /// </summary>
             private static void binaryDeserializeMemberTypes()
             {
-                AutoCSer.CommandService.DiskBlock.WriteBuffer t1 = default(AutoCSer.CommandService.DiskBlock.WriteBuffer);
-                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DiskBlock.WriteBuffer>(null, ref t1);
-                AutoCSer.CommandService.DiskBlock.BlockIndex t2 = default(AutoCSer.CommandService.DiskBlock.BlockIndex);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DiskBlock.BlockIndex>(null, ref t2);
-                AutoCSer.CommandService.DiskBlock.ReadBuffer t3 = default(AutoCSer.CommandService.DiskBlock.ReadBuffer);
-                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DiskBlock.ReadBuffer>(null, ref t3);
+                AutoCSer.CommandService.DiskBlock.ReadBuffer t1 = default(AutoCSer.CommandService.DiskBlock.ReadBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DiskBlock.ReadBuffer>(null, ref t1);
+                AutoCSer.CommandService.DiskBlock.WriteBuffer t2 = default(AutoCSer.CommandService.DiskBlock.WriteBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DiskBlock.WriteBuffer>(null, ref t2);
+                AutoCSer.CommandService.DiskBlock.BlockIndex t3 = default(AutoCSer.CommandService.DiskBlock.BlockIndex);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DiskBlock.BlockIndex>(null, ref t3);
                 AutoCSer.CommandService.DiskBlock.BlockInfo t4 = default(AutoCSer.CommandService.DiskBlock.BlockInfo);
                 AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DiskBlock.BlockInfo>(null, ref t4);
                 AutoCSer.CommandService.DiskBlock.BlockInfo[] t5 = default(AutoCSer.CommandService.DiskBlock.BlockInfo[]);

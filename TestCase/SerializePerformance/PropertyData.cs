@@ -9,7 +9,6 @@ namespace AutoCSer.TestCase.SerializePerformance
 #if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.RandomObject]
 #endif
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]

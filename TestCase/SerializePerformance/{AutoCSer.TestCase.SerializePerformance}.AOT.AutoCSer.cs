@@ -158,6 +158,26 @@ namespace AutoCSer.TestCase.SerializePerformance
     }
 }namespace AutoCSer.TestCase.SerializePerformance
 {
+    internal partial class FieldData
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.TestCase.SerializePerformance.FieldData DefaultConstructor()
+            {
+                return new AutoCSer.TestCase.SerializePerformance.FieldData();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FieldData>();
+            }
+    }
+}namespace AutoCSer.TestCase.SerializePerformance
+{
     internal partial class FloatFieldData
     {
             /// <summary>
@@ -321,6 +341,26 @@ namespace AutoCSer.TestCase.SerializePerformance
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatFieldData));
                 BinarySerializeMemberTypes();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatFieldData));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FloatFieldData>();
+            }
+    }
+}namespace AutoCSer.TestCase.SerializePerformance
+{
+    internal partial class FloatFieldData
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.TestCase.SerializePerformance.FloatFieldData DefaultConstructor()
+            {
+                return new AutoCSer.TestCase.SerializePerformance.FloatFieldData();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FloatFieldData>();
             }
     }
@@ -560,46 +600,6 @@ namespace AutoCSer.TestCase.SerializePerformance
     }
 }namespace AutoCSer.TestCase.SerializePerformance
 {
-    internal partial class FieldData
-    {
-            /// <summary>
-            /// 默认构造函数
-            /// </summary>
-            internal static AutoCSer.TestCase.SerializePerformance.FieldData DefaultConstructor()
-            {
-                return new AutoCSer.TestCase.SerializePerformance.FieldData();
-            }
-            /// <summary>
-            /// 代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void DefaultConstructorReflection()
-            {
-                DefaultConstructor();
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FieldData>();
-            }
-    }
-}namespace AutoCSer.TestCase.SerializePerformance
-{
-    internal partial class FloatFieldData
-    {
-            /// <summary>
-            /// 默认构造函数
-            /// </summary>
-            internal static AutoCSer.TestCase.SerializePerformance.FloatFieldData DefaultConstructor()
-            {
-                return new AutoCSer.TestCase.SerializePerformance.FloatFieldData();
-            }
-            /// <summary>
-            /// 代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void DefaultConstructorReflection()
-            {
-                DefaultConstructor();
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FloatFieldData>();
-            }
-    }
-}namespace AutoCSer.TestCase.SerializePerformance
-{
     internal partial class FloatPropertyData
     {
             /// <summary>
@@ -616,66 +616,6 @@ namespace AutoCSer.TestCase.SerializePerformance
             {
                 DefaultConstructor();
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.FloatPropertyData>();
-            }
-    }
-}namespace AutoCSer.TestCase.SerializePerformance
-{
-    internal partial class JsonFloatFieldData
-    {
-            /// <summary>
-            /// 默认构造函数
-            /// </summary>
-            internal static AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData DefaultConstructor()
-            {
-                return new AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData();
-            }
-            /// <summary>
-            /// 代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void DefaultConstructorReflection()
-            {
-                DefaultConstructor();
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData>();
-            }
-    }
-}namespace AutoCSer.TestCase.SerializePerformance
-{
-    internal partial class JsonFloatPropertyData
-    {
-            /// <summary>
-            /// 默认构造函数
-            /// </summary>
-            internal static AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData DefaultConstructor()
-            {
-                return new AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData();
-            }
-            /// <summary>
-            /// 代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void DefaultConstructorReflection()
-            {
-                DefaultConstructor();
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData>();
-            }
-    }
-}namespace AutoCSer.TestCase.SerializePerformance
-{
-    internal partial class PropertyData
-    {
-            /// <summary>
-            /// 默认构造函数
-            /// </summary>
-            internal static AutoCSer.TestCase.SerializePerformance.PropertyData DefaultConstructor()
-            {
-                return new AutoCSer.TestCase.SerializePerformance.PropertyData();
-            }
-            /// <summary>
-            /// 代码生成调用激活 AOT 反射
-            /// </summary>
-            internal static void DefaultConstructorReflection()
-            {
-                DefaultConstructor();
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.PropertyData>();
             }
     }
 }namespace AutoCSer.TestCase.SerializePerformance
@@ -5072,6 +5012,26 @@ namespace AutoCSer.TestCase.SerializePerformance
     }
 }namespace AutoCSer.TestCase.SerializePerformance
 {
+    internal partial class PropertyData
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.TestCase.SerializePerformance.PropertyData DefaultConstructor()
+            {
+                return new AutoCSer.TestCase.SerializePerformance.PropertyData();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.PropertyData>();
+            }
+    }
+}namespace AutoCSer.TestCase.SerializePerformance
+{
     internal partial class FieldData
     {
             /// <summary>
@@ -5233,6 +5193,26 @@ namespace AutoCSer.TestCase.SerializePerformance
     }
 }namespace AutoCSer.TestCase.SerializePerformance
 {
+    internal partial class JsonFloatFieldData
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData DefaultConstructor()
+            {
+                return new AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData>();
+            }
+    }
+}namespace AutoCSer.TestCase.SerializePerformance
+{
     internal partial class JsonFloatPropertyData
     {
             /// <summary>
@@ -5260,6 +5240,26 @@ namespace AutoCSer.TestCase.SerializePerformance
             {
                 var value = AutoCSer.RandomObject.Creator.CallCreate<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData>();
                 CreateRandomObject(ref value, null);
+            }
+    }
+}namespace AutoCSer.TestCase.SerializePerformance
+{
+    internal partial class JsonFloatPropertyData
+    {
+            /// <summary>
+            /// 默认构造函数
+            /// </summary>
+            internal static AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData DefaultConstructor()
+            {
+                return new AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData();
+            }
+            /// <summary>
+            /// 代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void DefaultConstructorReflection()
+            {
+                DefaultConstructor();
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData>();
             }
     }
 }namespace AutoCSer.TestCase.SerializePerformance
@@ -7936,23 +7936,23 @@ namespace AutoCSer.TestCase.SerializePerformance
                 if (AutoCSer.Date.StartTimestamp == long.MinValue)
                 {
                     AutoCSer.TestCase.SerializePerformance.FieldData/**/.BinarySerialize();
-                    AutoCSer.TestCase.SerializePerformance.FloatFieldData/**/.BinarySerialize();
-                    AutoCSer.TestCase.SerializePerformance.FloatPropertyData/**/.BinarySerialize();
                     AutoCSer.TestCase.SerializePerformance.FieldData/**/.DefaultConstructorReflection();
+                    AutoCSer.TestCase.SerializePerformance.FloatFieldData/**/.BinarySerialize();
                     AutoCSer.TestCase.SerializePerformance.FloatFieldData/**/.DefaultConstructorReflection();
+                    AutoCSer.TestCase.SerializePerformance.FloatPropertyData/**/.BinarySerialize();
                     AutoCSer.TestCase.SerializePerformance.FloatPropertyData/**/.DefaultConstructorReflection();
-                    AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData/**/.DefaultConstructorReflection();
-                    AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData/**/.DefaultConstructorReflection();
-                    AutoCSer.TestCase.SerializePerformance.PropertyData/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.SerializePerformance.FieldData/**/.JsonSerialize();
                     AutoCSer.TestCase.SerializePerformance.FloatFieldData/**/.JsonSerialize();
                     AutoCSer.TestCase.SerializePerformance.FloatPropertyData/**/.JsonSerialize();
                     AutoCSer.TestCase.SerializePerformance.PropertyData/**/.JsonSerialize();
+                    AutoCSer.TestCase.SerializePerformance.PropertyData/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.SerializePerformance.FieldData/**/.CreateRandomObject();
                     AutoCSer.TestCase.SerializePerformance.FloatFieldData/**/.CreateRandomObject();
                     AutoCSer.TestCase.SerializePerformance.FloatPropertyData/**/.CreateRandomObject();
                     AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData/**/.CreateRandomObject();
+                    AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData/**/.CreateRandomObject();
+                    AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData/**/.DefaultConstructorReflection();
                     AutoCSer.TestCase.SerializePerformance.PropertyData/**/.CreateRandomObject();
                     AutoCSer.TestCase.SerializePerformance.FieldData/**/.XmlSerialize();
                     AutoCSer.TestCase.SerializePerformance.FloatFieldData/**/.XmlSerialize();
@@ -8031,6 +8031,10 @@ namespace AutoCSer.TestCase.SerializePerformance
                     AutoCSer.BinarySerializer.Json<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData>(null, default(AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData));
                     binaryDeserializeMemberTypes();
 
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData>));
+                    AutoCSer.JsonSerializer.Base<AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData, AutoCSer.TestCase.SerializePerformance.FloatFieldData>(null, default(AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData>));
+                    AutoCSer.JsonSerializer.Base<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData, AutoCSer.TestCase.SerializePerformance.FloatPropertyData>(null, default(AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<bool>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<bool?>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<byte>));
@@ -8064,10 +8068,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<double?>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<float>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<float?>));
-                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData>));
-                    AutoCSer.JsonSerializer.Base<AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData, AutoCSer.TestCase.SerializePerformance.FloatFieldData>(null, default(AutoCSer.TestCase.SerializePerformance.JsonFloatFieldData));
-                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData>));
-                    AutoCSer.JsonSerializer.Base<AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData, AutoCSer.TestCase.SerializePerformance.FloatPropertyData>(null, default(AutoCSer.TestCase.SerializePerformance.JsonFloatPropertyData));
                     jsonDeserializeMemberTypes();
 
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Xml.TypeSerializer<bool>));

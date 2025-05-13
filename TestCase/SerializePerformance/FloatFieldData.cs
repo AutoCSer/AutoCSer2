@@ -7,10 +7,8 @@ namespace AutoCSer.TestCase.SerializePerformance
     /// 浮点数字段测试数据
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
     [AutoCSer.CodeGenerator.RandomObject]
 #endif
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]

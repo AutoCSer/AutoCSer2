@@ -7,9 +7,6 @@ namespace AutoCSer.Diagnostics
     /// <summary>
     /// 服务端时间戳
     /// </summary>
-#if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
-#endif
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct ServerTimestamp

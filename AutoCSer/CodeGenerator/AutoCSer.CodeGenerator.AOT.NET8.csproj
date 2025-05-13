@@ -43,6 +43,7 @@
     <Compile Include="Metadata\MethodParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateGenerator\AotMethod.cs" />
+    <Compile Include="TemplateGenerator\BinaryMixJsonSerialize.cs" />
     <Compile Include="TemplateGenerator\CommandServerClientController.cs" />
     <Compile Include="TemplateGenerator\CommandServerClientControllerInterface.cs" />
     <Compile Include="TemplateGenerator\CommandServerMethodIndexEnumType.cs" />

@@ -3128,6 +3128,10 @@ namespace AutoCSer.CommandService.DeployTask
                     AutoCSer.CommandService.DeployTask.SynchronousFileInfo/**/.SimpleSerialize();
                     AutoCSer.CommandService.DeployTask.UploadFileIndex/**/.SimpleSerialize();
 
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.PullFileBuffer>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DeployTask.PullFileBuffer>(null, default(AutoCSer.CommandService.DeployTask.PullFileBuffer));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileBuffer>));
+                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DeployTask.UploadFileBuffer>(null, default(AutoCSer.CommandService.DeployTask.UploadFileBuffer));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<bool>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileStateEnum>));
                     AutoCSer.BinarySerializer.EnumByte<AutoCSer.CommandService.DeployTask.UploadFileStateEnum>(null, default(AutoCSer.CommandService.DeployTask.UploadFileStateEnum));
@@ -3140,15 +3144,11 @@ namespace AutoCSer.CommandService.DeployTask
                     AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer>(null, default(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<string[]>));
                     AutoCSer.BinarySerializer.Array<string>(null, default(string[]));
-                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.PullFileBuffer>));
-                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DeployTask.PullFileBuffer>(null, default(AutoCSer.CommandService.DeployTask.PullFileBuffer));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.DirectoryName>));
                     AutoCSer.BinarySerializer.Simple<AutoCSer.CommandService.DeployTask.DirectoryName>(null, default(AutoCSer.CommandService.DeployTask.DirectoryName));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileInfo>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploaderInfo>));
-                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.DeployTask.UploadFileBuffer>));
-                    AutoCSer.BinarySerializer.ICustom<AutoCSer.CommandService.DeployTask.UploadFileBuffer>(null, default(AutoCSer.CommandService.DeployTask.UploadFileBuffer));
                     binaryDeserializeMemberTypes();
 
 
@@ -3162,22 +3162,22 @@ namespace AutoCSer.CommandService.DeployTask
             /// </summary>
             private static void binaryDeserializeMemberTypes()
             {
-                AutoCSer.CommandService.DeployTask.UploadFileStateEnum t1 = default(AutoCSer.CommandService.DeployTask.UploadFileStateEnum);
-                AutoCSer.BinaryDeserializer.EnumByte<AutoCSer.CommandService.DeployTask.UploadFileStateEnum>(null, ref t1);
-                AutoCSer.CommandService.DeployTask.SynchronousFileInfo t2 = default(AutoCSer.CommandService.DeployTask.SynchronousFileInfo);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.SynchronousFileInfo>(null, ref t2);
-                AutoCSer.CommandService.DeployTask.UploadFileIndex t3 = default(AutoCSer.CommandService.DeployTask.UploadFileIndex);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.UploadFileIndex>(null, ref t3);
-                AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer t4 = default(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer>(null, ref t4);
-                string[] t5 = default(string[]);
-                AutoCSer.BinaryDeserializer.Array<string>(null, ref t5);
-                AutoCSer.CommandService.DeployTask.PullFileBuffer t6 = default(AutoCSer.CommandService.DeployTask.PullFileBuffer);
-                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DeployTask.PullFileBuffer>(null, ref t6);
-                AutoCSer.CommandService.DeployTask.DirectoryName t7 = default(AutoCSer.CommandService.DeployTask.DirectoryName);
-                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.DirectoryName>(null, ref t7);
-                AutoCSer.CommandService.DeployTask.UploadFileBuffer t8 = default(AutoCSer.CommandService.DeployTask.UploadFileBuffer);
-                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DeployTask.UploadFileBuffer>(null, ref t8);
+                AutoCSer.CommandService.DeployTask.PullFileBuffer t1 = default(AutoCSer.CommandService.DeployTask.PullFileBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DeployTask.PullFileBuffer>(null, ref t1);
+                AutoCSer.CommandService.DeployTask.UploadFileBuffer t2 = default(AutoCSer.CommandService.DeployTask.UploadFileBuffer);
+                AutoCSer.BinaryDeserializer.ICustom<AutoCSer.CommandService.DeployTask.UploadFileBuffer>(null, ref t2);
+                AutoCSer.CommandService.DeployTask.UploadFileStateEnum t3 = default(AutoCSer.CommandService.DeployTask.UploadFileStateEnum);
+                AutoCSer.BinaryDeserializer.EnumByte<AutoCSer.CommandService.DeployTask.UploadFileStateEnum>(null, ref t3);
+                AutoCSer.CommandService.DeployTask.SynchronousFileInfo t4 = default(AutoCSer.CommandService.DeployTask.SynchronousFileInfo);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.SynchronousFileInfo>(null, ref t4);
+                AutoCSer.CommandService.DeployTask.UploadFileIndex t5 = default(AutoCSer.CommandService.DeployTask.UploadFileIndex);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.UploadFileIndex>(null, ref t5);
+                AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer t6 = default(AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer>(null, ref t6);
+                string[] t7 = default(string[]);
+                AutoCSer.BinaryDeserializer.Array<string>(null, ref t7);
+                AutoCSer.CommandService.DeployTask.DirectoryName t8 = default(AutoCSer.CommandService.DeployTask.DirectoryName);
+                AutoCSer.BinaryDeserializer.Simple<AutoCSer.CommandService.DeployTask.DirectoryName>(null, ref t8);
             }
     }
 }

@@ -10,7 +10,7 @@ namespace AutoCSer
     [RemoteType]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [StructLayout(LayoutKind.Explicit, Size = sizeof(int) * 2)]
-    internal struct Range
+    internal partial struct Range
     {
         /// <summary>
         /// 起始位置

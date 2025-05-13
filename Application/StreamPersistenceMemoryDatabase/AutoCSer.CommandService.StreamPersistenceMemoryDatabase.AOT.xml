@@ -990,10 +990,69 @@
             <summary>
             创建节点索引信息
             </summary>
+            <summary>
+            创建节点索引信息
+            </summary>
+            <summary>
+            创建节点索引信息
+            </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.Index">
             <summary>
             节点索引信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.DefaultConstructor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex.DefaultConstructorReflection">
+            <summary>
+            代码生成调用激活 AOT 反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ArrayNode`1">
@@ -3123,6 +3182,9 @@
             <summary>
             多哈希位图数据
             </summary>
+            <summary>
+            多哈希位图数据
+            </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.Map">
             <summary>
@@ -3192,6 +3254,49 @@
             设置位
             </summary>
             <param name="bit"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode">
             <summary>
@@ -6769,6 +6874,12 @@
             <summary>
             自增 ID 分段
             </summary>
+            <summary>
+            自增 ID 分段
+            </summary>
+            <summary>
+            自增 ID 分段
+            </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.identity">
             <summary>
@@ -6803,6 +6914,66 @@
             </summary>
             <param name="identity">分配的分配 ID</param>
             <returns>返回 false 表示没有可分配 ID</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment@)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.BinarySerializeMemberTypes">
+            <summary>
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNode">
             <summary>

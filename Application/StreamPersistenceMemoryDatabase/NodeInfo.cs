@@ -5,11 +5,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 服务端节点信息 
     /// </summary>
-#if AOT
-    [AutoCSer.CodeGenerator.BinarySerialize]
-    [AutoCSer.CodeGenerator.JsonSerialize]
-    [AutoCSer.CodeGenerator.DefaultConstructor]
-#endif
     [AutoCSer.BinarySerialize(IsMixJsonSerialize = true, IsReferenceMember = false)]
     [AutoCSer.JsonSerialize(Filter = AutoCSer.Metadata.MemberFiltersEnum.InstanceField)]
     public partial class NodeInfo
