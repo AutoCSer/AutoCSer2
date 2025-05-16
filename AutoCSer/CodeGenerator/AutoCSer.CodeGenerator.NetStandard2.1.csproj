@@ -146,12 +146,6 @@
     </PackageReference>
   </ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="AutoCSer">
-			<HintPath>..\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NetStandard2.1.csproj" />
     <ProjectReference Include="..\Extensions\AutoCSer.Extensions.NetStandard2.1.csproj" />

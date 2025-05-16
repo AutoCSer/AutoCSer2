@@ -40,6 +40,9 @@ namespace AutoCSer
         internal static readonly MethodInfo CopyArrayMemberMapMethod;
         static MemberCopyMethod()
         {
+#if NetStandard21
+            CopyArrayMethod = CopyArrayMemberMapMethod = AutoCSer.Common.NullMethodInfo;
+#endif
             foreach (MethodInfo method in typeof(MemberCopyMethod).GetMethods(BindingFlags.Static | BindingFlags.NonPublic))
             {
                 switch (method.Name.Length)

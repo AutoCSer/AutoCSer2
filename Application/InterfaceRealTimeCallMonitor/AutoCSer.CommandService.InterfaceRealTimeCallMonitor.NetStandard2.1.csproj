@@ -56,10 +56,4 @@
     <ProjectReference Include="..\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NetStandard2.1.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

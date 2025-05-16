@@ -239,15 +239,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="System.Numerics.Vectors" Version="4.6.1" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCSer.NetStandard.csproj" />
   </ItemGroup>
   
 </Project>

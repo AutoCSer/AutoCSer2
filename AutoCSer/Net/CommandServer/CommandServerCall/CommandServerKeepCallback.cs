@@ -1,0 +1,611 @@
+﻿using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace AutoCSer.Net
+{
+    /// <summary>
+    /// TCP 服务器端异步保持回调
+    /// </summary>
+    public class CommandServerKeepCallback : CommandServerCallback
+    {
+        /// <summary>
+        /// 是否已经取消保持回调
+        /// </summary>
+        internal volatile int IsCancelKeep;
+        /// <summary>
+        /// 是否已经取消保持回调
+        /// </summary>
+        public bool IsCancelKeepCallback { get { return IsCancelKeep != 0; } }
+        /// <summary>
+        /// 输出数据计数
+        /// </summary>
+        protected int outputCount;
+        /// <summary>
+        /// 空回调
+        /// </summary>
+        protected CommandServerKeepCallback() { IsCancelKeep = 1; }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="offlineCount"></param>
+        protected CommandServerKeepCallback(CommandServerSocket socket, OfflineCount offlineCount) : base(socket, offlineCount)
+        {
+            socket.Add(this);
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="socket"></param>
+        protected CommandServerKeepCallback(CommandServerSocket socket) : base(socket)
+        {
+            socket.Add(this);
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        protected CommandServerKeepCallback(CommandServerCallQueueNode node) : base(node)
+        {
+            Socket.Add(this);
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        protected CommandServerKeepCallback(CommandServerCallReadWriteQueueNode node) : base(node)
+        {
+            Socket.Add(this);
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        protected CommandServerKeepCallback(CommandServerCallConcurrencyReadQueueNode node) : base(node)
+        {
+            Socket.Add(this);
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        protected CommandServerKeepCallback(CommandServerCallTaskQueueNode node) : base(node)
+        {
+            Socket.Add(this);
+        }
+        /// <summary>
+        /// 返回值回调
+        /// </summary>
+        public override bool Callback()
+        {
+            return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, CommandClientReturnTypeEnum.Success);
+        }
+        ///// <summary>
+        ///// 返回数据集合以后关闭保持回调
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <returns></returns>
+        //public async Task Callback(IEnumeratorTask values)
+        //{
+        //    if (IsCancelKeep == 0)
+        //    {
+        //        if (values != null)
+        //        {
+        //            try
+        //            {
+        //                while (IsCancelKeep == 0 && await values.MoveNextAsync())
+        //                {
+        //                    if (IsCancelKeep == 0 && !Socket.Send(CallbackIdentity, CommandClientReturnTypeEnum.Success))
+        //                    {
+        //                        SetCancelKeep();
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception exception)
+        //            {
+        //                SetCancelKeep();
+        //                Socket.RemoveKeepCallback(CallbackIdentity, exception);
+        //            }
+        //            finally { await values.DisposeAsync(); }
+        //        }
+        //        if (IsCancelKeep == 0)
+        //        {
+        //            SetCancelKeep();
+        //            Socket.RemoveKeepCallback(CallbackIdentity, CommandClientReturnTypeEnum.Success);
+        //        }
+        //    }
+        //    else if (values != null) await values.DisposeAsync();
+        //}
+        /// <summary>
+        /// 取消保持回调命令
+        /// </summary>
+        /// <param name="returnType"></param>
+        /// <param name="exception"></param>
+#if NetStandard21
+        public override void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception? exception = null)
+#else
+        public override void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception exception = null)
+#endif
+        {
+            if (IsCancelKeep == 0)
+            {
+                SetCancelKeep();
+                Socket.RemoveKeepCallback(CallbackIdentity, returnType, exception);
+            }
+        }
+        /// <summary>
+        /// 取消保持回调命令
+        /// </summary>
+        internal virtual void SetCancelKeep()
+        {
+            IsCancelKeep = 1;
+        }
+
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback CreateServerKeepCallback(CommandServerSocket socket)
+        {
+            return new CommandServerKeepCallback(socket, OfflineCount.Null);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback CreateServerKeepCallback(CommandServerCallQueueNode node)
+        {
+            return new CommandServerKeepCallback(node);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback CreateServerKeepCallback(CommandServerCallReadWriteQueueNode node)
+        {
+            return new CommandServerKeepCallback(node);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback CreateServerKeepCallback(CommandServerCallConcurrencyReadQueueNode node)
+        {
+            return new CommandServerKeepCallback(node);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback CreateServerKeepCallback(CommandServerCallTaskQueueNode node)
+        {
+            return new CommandServerKeepCallback(node);
+        }
+        /// <summary>
+        /// 取消保持回调命令
+        /// </summary>
+        /// <param name="keepCallback"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static void CancelKeep(CommandServerKeepCallback keepCallback)
+        {
+            keepCallback.CancelKeep();
+        }
+
+        /// <summary>
+        /// 默认空 TCP 服务器端异步保持回调
+        /// </summary>
+        internal static readonly CommandServerKeepCallback Null = new CommandServerKeepCallback();
+    }
+    /// <summary>
+    /// TCP 服务器端异步保持回调
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class CommandServerKeepCallback<T> : CommandServerKeepCallback
+    {
+        /// <summary>
+        /// 链表下一个节点
+        /// </summary>
+#if NetStandard21
+        internal CommandServerKeepCallback<T>? LinkNext;
+#else
+        internal CommandServerKeepCallback<T> LinkNext;
+#endif
+        /// <summary>
+        /// 服务端输出信息
+        /// </summary>
+        internal readonly ServerInterfaceMethod Method;
+        /// <summary>
+        /// 空回调
+        /// </summary>
+        internal CommandServerKeepCallback()
+        {
+#if NetStandard21
+            Method = CommandServerConfig.NullServerInterfaceMethod;
+#endif
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="offlineCount"></param>
+        /// <param name="method"></param>
+        internal CommandServerKeepCallback(CommandServerSocket socket, OfflineCount offlineCount, ServerInterfaceMethod method) : base(socket, offlineCount)
+        {
+            this.Method = method;
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="method"></param>
+        internal CommandServerKeepCallback(CommandServerSocket socket, ServerInterfaceMethod method) : base(socket)
+        {
+            this.Method = method;
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        private CommandServerKeepCallback(CommandServerCallQueueNode node, ServerInterfaceMethod method) : base(node)
+        {
+            this.Method = method;
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        private CommandServerKeepCallback(CommandServerCallReadWriteQueueNode node, ServerInterfaceMethod method) : base(node)
+        {
+            this.Method = method;
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        private CommandServerKeepCallback(CommandServerCallConcurrencyReadQueueNode node, ServerInterfaceMethod method) : base(node)
+        {
+            this.Method = method;
+        }
+        /// <summary>
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        private CommandServerKeepCallback(CommandServerCallTaskQueueNode node, ServerInterfaceMethod method) : base(node)
+        {
+            this.Method = method;
+        }
+        /// <summary>
+        /// 不支持无输出回调
+        /// </summary>
+        /// <returns></returns>
+        public override bool Callback()
+        {
+            throw new InvalidOperationException();
+        }
+        /// <summary>
+        /// 返回值回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public bool Callback(T returnValue)
+        {
+            return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(returnValue));
+        }
+        ///// <summary>
+        ///// 返回值回调
+        ///// </summary>
+        ///// <param name="returnValue"></param>
+        ///// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public bool Callback(ref T returnValue)
+        //{
+        //    return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(ref returnValue));
+        //}
+        /// <summary>
+        /// 返回值回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        public virtual bool VirtualCallback(T returnValue)
+        {
+            return Callback(returnValue);
+        }
+        /// <summary>
+        /// 返回值回调
+        /// </summary>
+        /// <param name="queue"></param>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        internal virtual bool Callback(CommandServerCallQueue queue, T returnValue)
+        {
+            if(IsCancelKeep == 0)
+            {
+                ServerReturnValue<T> result = new ServerReturnValue<T>(returnValue);
+                queue.Send(Socket, Socket.GetOutput(CallbackIdentity, Method, ref result));
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 返回值回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="onFree"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool Callback(T returnValue, Action onFree)
+        {
+            return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(returnValue), onFree);
+        }
+        /// <summary>
+        /// 返回值回调并结束回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallbackCancelKeep(T returnValue)
+        {
+            if (Callback(returnValue)) CancelKeep();
+        }
+        /// <summary>
+        /// 返回值回调并结束回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        public virtual void VirtualCallbackCancelKeep(T returnValue)
+        {
+            CallbackCancelKeep(returnValue);
+        }
+        /// <summary>
+        /// 返回数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="isCancel">回调完成之后是否关闭</param>
+        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        public virtual bool Callback(IEnumerable<T> values, bool isCancel = true)
+        {
+            if (IsCancelKeep == 0)
+            {
+                if (values != null)
+                {
+                    try
+                    {
+                        if (!Socket.SendKeepCallback(CallbackIdentity, Method, values)) SetCancelKeep();
+                    }
+                    catch (Exception exception)
+                    {
+                        SetCancelKeep();
+                        Socket.RemoveKeepCallback(CallbackIdentity, exception);
+                    }
+                }
+                if (isCancel && IsCancelKeep == 0)
+                {
+                    SetCancelKeep();
+                    Socket.RemoveKeepCallback(CallbackIdentity, CommandClientReturnTypeEnum.Success);
+                }
+                return true;
+            }
+            return false;
+        }
+        ///// <summary>
+        ///// 返回数据集合以后关闭保持回调
+        ///// </summary>
+        ///// <param name="values"></param>
+        ///// <returns></returns>
+        //public async Task CallbackAsync(IEnumeratorTask<T> values)
+        //{
+        //    if (IsCancelKeep == 0)
+        //    {
+        //        if (values != null)
+        //        {
+        //            try
+        //            {
+        //                while (IsCancelKeep == 0 && await values.MoveNextAsync())
+        //                {
+        //                    if (IsCancelKeep == 0 && !Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(values.Current)))
+        //                    {
+        //                        SetCancelKeep();
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception exception)
+        //            {
+        //                SetCancelKeep();
+        //                Socket.RemoveKeepCallback(CallbackIdentity, exception);
+        //            }
+        //            finally { await values.DisposeAsync(); }
+        //        }
+        //        if (IsCancelKeep == 0)
+        //        {
+        //            SetCancelKeep();
+        //            Socket.RemoveKeepCallback(CallbackIdentity, CommandClientReturnTypeEnum.Success);
+        //        }
+        //    }
+        //    else if (values != null) await values.DisposeAsync();
+        //}
+#if NetStandard21
+        /// <summary>
+        /// 返回数据集合以后关闭保持回调
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public async Task CallbackAsync(IAsyncEnumerator<T> values)
+        {
+            if (IsCancelKeep == 0)
+            {
+                if (values != null)
+                {
+                    try
+                    {
+                        while (IsCancelKeep == 0 && await values.MoveNextAsync())
+                        {
+                            if (IsCancelKeep == 0 && !Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(values.Current)))
+                            {
+                                IsCancelKeep = 1;
+                            }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        IsCancelKeep = 1;
+                        Socket.RemoveKeepCallback(CallbackIdentity, exception);
+                    }
+                    finally { await values.DisposeAsync(); }
+                }
+                if (IsCancelKeep == 0)
+                {
+                    IsCancelKeep = 1;
+                    Socket.RemoveKeepCallback(CallbackIdentity, CommandClientReturnTypeEnum.Success);
+                }
+            }
+        }
+#endif
+
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback<T> CreateServerKeepCallback(CommandServerSocket socket, ServerInterfaceMethod method)
+        {
+            return new CommandServerKeepCallback<T>(socket, OfflineCount.Null, method);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback<T> CreateServerKeepCallback(CommandServerCallQueueNode node, ServerInterfaceMethod method)
+        {
+            return new CommandServerKeepCallback<T>(node, method);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback<T> CreateServerKeepCallback(CommandServerCallReadWriteQueueNode node, ServerInterfaceMethod method)
+        {
+            return new CommandServerKeepCallback<T>(node, method);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback<T> CreateServerKeepCallback(CommandServerCallConcurrencyReadQueueNode node, ServerInterfaceMethod method)
+        {
+            return new CommandServerKeepCallback<T>(node, method);
+        }
+        /// <summary>
+        /// 创建 TCP 服务器端异步回调对象
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerKeepCallback<T> CreateServerKeepCallback(CommandServerCallTaskQueueNode node, ServerInterfaceMethod method)
+        {
+            return new CommandServerKeepCallback<T>(node, method);
+        }
+
+        /// <summary>
+        /// TCP 服务器端异步保持回调链表
+        /// </summary>
+        public struct Link
+        {
+            /// <summary>
+            /// 头节点
+            /// </summary>
+#if NetStandard21
+            private CommandServerKeepCallback<T>? head;
+#else
+            private CommandServerKeepCallback<T> head;
+#endif
+            /// <summary>
+            /// 判断是否存在头节点
+            /// </summary>
+            public bool IsHead { get { return head != null; } }
+            /// <summary>
+            /// 添加头节点
+            /// </summary>
+            /// <param name="head"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void PushHead(CommandServerKeepCallback<T> head)
+            {
+                head.LinkNext = this.head;
+                this.head = head;
+            }
+            /// <summary>
+            ///  返回值回调，清理回调失败对象
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns>回调输出次数（不保证回调成功）</returns>
+            public int Callback(T value)
+            {
+                int count = 0;
+                while (head != null)
+                {
+                    if (head.Callback(value))
+                    {
+                        count = 1;
+                        break;
+                    }
+                    head = head.LinkNext;
+                }
+                if (head != null)
+                {
+                    var current = head;
+                    for (var next = current.LinkNext; next != null;)
+                    {
+                        if (next.Callback(value))
+                        {
+                            current = next;
+                            ++count;
+                            next = next.LinkNext;
+                        }
+                        else current.LinkNext = next = next.LinkNext;
+                    }
+                }
+                return count;
+            }
+            /// <summary>
+            /// 取消所有回调
+            /// </summary>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void CancelKeep()
+            {
+                while (head != null)
+                {
+                    head.CancelKeep();
+                    head = head.LinkNext;
+                }
+            }
+        }
+    }
+}

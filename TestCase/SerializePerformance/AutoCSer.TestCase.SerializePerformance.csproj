@@ -37,11 +37,5 @@
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
     <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   
 </Project>

@@ -1,0 +1,21 @@
+﻿using System;
+using System.Threading.Tasks;
+
+namespace AutoCSer
+{
+    /// <summary>
+    /// 默认值已完成任务
+    /// </summary>
+    /// <typeparam name="T">返回值类型</typeparam>
+    public static class CompletedTask<T>
+    {
+        /// <summary>
+        /// 默认值已完成任务
+        /// </summary>
+#if NetStandard21
+        public static readonly Task<T?> Default = Task.FromResult(default(T));
+#else
+        public static readonly Task<T> Default = Task.FromResult(default(T));
+#endif
+    }
+}

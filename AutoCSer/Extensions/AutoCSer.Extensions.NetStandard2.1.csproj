@@ -238,9 +238,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\bin\$(ConfigurationName)\netstandard2.1\AutoCSer.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\AutoCSer.NetStandard2.1.csproj" />
   </ItemGroup>
   
 </Project>

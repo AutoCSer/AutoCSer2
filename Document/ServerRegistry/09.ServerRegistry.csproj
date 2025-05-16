@@ -36,10 +36,4 @@
     <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

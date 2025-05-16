@@ -37,9 +37,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
@@ -164,6 +161,10 @@
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5.csproj">
       <Project>{16850f6e-850a-46e4-af12-cf48e9e771b1}</Project>
       <Name>AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AutoCSer\AutoCSer.DotNet4.5.csproj">
+      <Project>{c941bd13-25aa-4f36-8c3b-873ba299f237}</Project>
+      <Name>AutoCSer.DotNet4.5</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.DotNet4.5.csproj">
       <Project>{90fc149a-e986-4e5b-b659-5c94d03474c9}</Project>

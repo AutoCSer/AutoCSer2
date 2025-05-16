@@ -1,0 +1,223 @@
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+
+namespace AutoCSer.Net
+{
+    /// <summary>
+    /// 返回值
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct CommandClientReturnValue
+    {
+        /// <summary>
+        /// 返回值类型
+        /// </summary>
+        public CommandClientReturnTypeEnum ReturnType;
+        /// <summary>
+        /// 错误信息
+        /// </summary>
+#if NetStandard21
+        public string? ErrorMessage;
+#else
+        public string ErrorMessage;
+#endif
+        /// <summary>
+        /// 是否成功
+        /// </summary>
+        public bool IsSuccess { get { return ReturnType == CommandClientReturnTypeEnum.Success; } }
+        /// <summary>
+        /// 返回值
+        /// </summary>
+        /// <param name="returnType"></param>
+        /// <param name="errorMessage"></param>
+#if NetStandard21
+        public CommandClientReturnValue(CommandClientReturnTypeEnum returnType, string? errorMessage)
+#else
+        public CommandClientReturnValue(CommandClientReturnTypeEnum returnType, string errorMessage)
+#endif
+        {
+            ReturnType = returnType;
+            ErrorMessage = errorMessage;
+        }
+        /// <summary>
+        /// 获取返回值
+        /// </summary>
+        /// <param name="returnType"></param>
+        /// <returns>返回值</returns>
+        public static implicit operator CommandClientReturnValue(CommandClientReturnTypeEnum returnType)
+        {
+            return new CommandClientReturnValue(returnType, null);
+        }
+#if AOT
+        /// <summary>
+        /// 获取异常信息
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public string GetThrowMessage()
+        {
+            return string.IsNullOrEmpty(ErrorMessage) ? ReturnType.ToString() : (ReturnType.ToString() + " : " + ErrorMessage);
+        }
+#else
+        /// <summary>
+        /// 是否成功
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static bool GetIsSuccess(CommandClientReturnValue returnValue)
+        {
+            return returnValue.IsSuccess;
+        }
+        /// <summary>
+        /// 检查状态并抛出异常
+        /// </summary>
+        /// <param name="returnValue"></param>
+        internal static void CheckThrowException(CommandClientReturnValue returnValue)
+        {
+            if (returnValue.IsSuccess) return;
+            if (string.IsNullOrEmpty(returnValue.ErrorMessage)) throw new Exception(returnValue.ReturnType.ToString());
+            throw new Exception(returnValue.ReturnType.ToString() + " : " + returnValue.ErrorMessage);
+        }
+#endif
+    }
+    /// <summary>
+    /// 返回值
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct CommandClientReturnValue<T>
+    {
+        /// <summary>
+        /// 返回值
+        /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
+        public T Value;
+        /// <summary>
+        /// 返回值类型
+        /// </summary>
+        public CommandClientReturnTypeEnum ReturnType;
+        /// <summary>
+        /// 错误信息
+        /// </summary>
+#if NetStandard21
+        public string? ErrorMessage;
+#else
+        public string ErrorMessage;
+#endif
+        /// <summary>
+        /// 是否成功
+        /// </summary>
+        public bool IsSuccess { get { return ReturnType == CommandClientReturnTypeEnum.Success; } }
+        /// <summary>
+        /// 返回值
+        /// </summary>
+        public CommandClientReturnValue ReturnValue { get { return new CommandClientReturnValue(ReturnType, ErrorMessage); } }
+        /// <summary>
+        /// 返回值
+        /// </summary>
+        /// <param name="value"></param>
+#if NetStandard21
+        private CommandClientReturnValue(T? value)
+#else
+        private CommandClientReturnValue(T value)
+#endif
+        {
+            Value = value;
+            ReturnType = CommandClientReturnTypeEnum.Success;
+            ErrorMessage = null;
+        }
+        /// <summary>
+        /// 返回值
+        /// </summary>
+        /// <param name="returnValue"></param>
+        internal CommandClientReturnValue(ref CommandClientReturnValue returnValue)
+        {
+            Value = default(T);
+            ReturnType = returnValue.ReturnType;
+            ErrorMessage = returnValue.ErrorMessage;
+        }
+        /// <summary>
+        /// 返回值
+        /// </summary>
+        /// <param name="returnType"></param>
+        /// <param name="errorMessage"></param>
+#if NetStandard21
+        public CommandClientReturnValue(CommandClientReturnTypeEnum returnType, string? errorMessage)
+#else
+        public CommandClientReturnValue(CommandClientReturnTypeEnum returnType, string errorMessage)
+#endif
+        {
+            Value = default(T);
+            ReturnType = returnType;
+            ErrorMessage = errorMessage;
+        }
+        /// <summary>
+        /// 返回值类型转换
+        /// </summary>
+        /// <typeparam name="VT"></typeparam>
+        /// <param name="getValue"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public CommandClientReturnValue<VT> Cast<VT>(Func<T, VT> getValue)
+        {
+            if (ReturnType == CommandClientReturnTypeEnum.Success) return getValue(Value);
+            return new CommandClientReturnValue<VT>(ReturnType, ErrorMessage);
+        }
+        /// <summary>
+        /// 获取返回值
+        /// </summary>
+        /// <param name="value">异步返回值</param>
+        /// <returns>返回值</returns>
+#if NetStandard21
+        public static implicit operator CommandClientReturnValue<T>(T? value)
+#else
+        public static implicit operator CommandClientReturnValue<T>(T value)
+#endif
+        {
+            return new CommandClientReturnValue<T>(value);
+        }
+        /// <summary>
+        /// 获取返回值
+        /// </summary>
+        /// <param name="returnValue">返回值类型</param>
+        /// <returns>返回值</returns>
+        public static implicit operator CommandClientReturnValue<T>(CommandClientReturnValue returnValue)
+        {
+            return new CommandClientReturnValue<T>(returnValue.ReturnType, returnValue.ErrorMessage);
+        }
+        /// <summary>
+        /// 获取返回值
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandClientReturnValue<T> GetReturnValue(T value)
+        {
+            return new CommandClientReturnValue<T>(value);
+        }
+        /// <summary>
+        /// 获取错误返回值
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandClientReturnValue<T> GetReturnValue(CommandClientReturnValue returnValue)
+        {
+            return new CommandClientReturnValue<T>(ref returnValue);
+        }
+        ///// <summary>
+        ///// 获取错误返回值
+        ///// </summary>
+        ///// <param name="returnType"></param>
+        ///// <param name="errorMessage"></param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal static CommandClientReturnValue<T> GetReturnValue(CommandClientReturnType returnType, string errorMessage)
+        //{
+        //    return new CommandClientReturnValue<T>(returnType, errorMessage);
+        //}
+    }
+}

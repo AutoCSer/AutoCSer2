@@ -58,11 +58,5 @@
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   
 </Project>

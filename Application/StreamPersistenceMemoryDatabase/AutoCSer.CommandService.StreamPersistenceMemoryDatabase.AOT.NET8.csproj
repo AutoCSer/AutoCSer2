@@ -247,12 +247,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 	
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.AOT.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />

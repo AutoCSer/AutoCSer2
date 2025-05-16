@@ -98,12 +98,6 @@
     <Compile Include="{AutoCSer}.AOT.CSharper.cs" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="AutoCSer">
-			<HintPath>..\bin\$(ConfigurationName)\net8.0\AutoCSer.AOT.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT.NET8.csproj" />
     <ProjectReference Include="..\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />

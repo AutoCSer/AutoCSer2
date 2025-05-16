@@ -38,10 +38,8 @@
     <Compile Include="Data\Enum\UShortFlagEnum.cs" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="AutoCSer">
-			<HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
-		</Reference>
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\AutoCSer.NET8.csproj" />
+  </ItemGroup>
   
 </Project>

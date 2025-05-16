@@ -34,9 +34,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\DotNet4.5\AutoCSer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
@@ -80,6 +77,10 @@
     <Compile Include="WriteRequest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AutoCSer\AutoCSer.DotNet4.5.csproj">
+      <Project>{c941bd13-25aa-4f36-8c3b-873ba299f237}</Project>
+      <Name>AutoCSer.DotNet4.5</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.DotNet4.5.csproj">
       <Project>{f62f389d-d5ea-4765-8e78-39a1dd06f731}</Project>
       <Name>AutoCSer.Extensions.DotNet4.5</Name>

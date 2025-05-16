@@ -39,11 +39,5 @@
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   
 </Project>

@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// 测试字典节点接口
     /// </summary>
     [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
-    public partial interface IStringDictionaryNode : IDictionaryNode<string, string>
+    public partial interface IStringDictionaryNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode<string, string>
     {
     }
 }

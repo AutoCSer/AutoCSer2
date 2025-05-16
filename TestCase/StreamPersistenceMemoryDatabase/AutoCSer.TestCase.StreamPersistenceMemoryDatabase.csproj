@@ -33,11 +33,5 @@
     <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
     <ProjectReference Include="Common\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\net8.0\AutoCSer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   
 </Project>

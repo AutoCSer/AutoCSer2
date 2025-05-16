@@ -83,10 +83,4 @@
     <ProjectReference Include="..\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NetStandard.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="AutoCSer">
-      <HintPath>..\..\AutoCSer\bin\$(ConfigurationName)\netstandard2.0\AutoCSer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

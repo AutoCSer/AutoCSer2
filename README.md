@@ -112,6 +112,7 @@ RPC 是 AutoCSer 的核心基础组件，[高并发吞吐测试性能](https://g
 4. [鉴权与传输数据编码](https://zhuanlan.zhihu.com/p/11427440200) - [4.ServiceAuthentication](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServiceAuthentication)
 5. [服务信息注册与推送](https://zhuanlan.zhihu.com/p/19143730420) - [9.ServerRegistry](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServerRegistry)
 6. [反向 RPC 服务](https://zhuanlan.zhihu.com/p/20033747254) - [10.ReverseServer](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ReverseServer)
+7. [RPC 客户端支持 .NET NativeAOT](https://zhuanlan.zhihu.com/p/1905995585607152565) - [11.NativeAOT](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/CommandServerPerformance/Client)
 
 # An in-memory database for object-oriented programming（面向对象编程的内存数据库）
 ## Server configuration definition（服务端配置定义）
@@ -235,3 +236,5 @@ Based on AutoCSer RPC implementation of memory database, [high concurrent throug
 3. [自定义数据结构](https://zhuanlan.zhihu.com/p/15454610569) - [7.MemoryDatabaseCustomNode](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseCustomNode)
 4. [本地嵌入模式](https://zhuanlan.zhihu.com/p/16409903680) - [8.MemoryDatabaseLocalService](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/MemoryDatabaseLocalService)
 5. [服务信息注册与推送](https://zhuanlan.zhihu.com/p/19143730420) - [9.ServerRegistry](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServerRegistry)
+6. [本地嵌入模式支持 .NET NativeAOT](https://zhuanlan.zhihu.com/p/1905995585607152565) - [11.NativeAOT](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/StreamPersistenceMemoryDatabase/LocalService)
+
