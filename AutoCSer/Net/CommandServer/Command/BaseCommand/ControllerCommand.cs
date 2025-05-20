@@ -28,9 +28,11 @@ namespace AutoCSer.Net.CommandServer
             buildInfo.IsFullSend = 1;
             if ((buildInfo.SendBufferSize - stream.Data.Pointer.CurrentIndex) >= sizeof(uint) || buildInfo.Count == 0)
             {
+                var nextCommand = LinkNext;
                 Socket.OutputSerializer.Stream.Data.Pointer.Write(CommandListener.ControllerMethodIndex);
                 buildInfo.AddCount();
-                return LinkNext;
+                LinkNext = null;
+                return nextCommand;
             }
             return this;
         }

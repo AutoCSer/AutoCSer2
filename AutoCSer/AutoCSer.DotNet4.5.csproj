@@ -104,6 +104,7 @@
     <Compile Include="Extensions\CommandServerKeepCallbackExtension.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
+    <Compile Include="Extensions\EventWaitHandleExtension.cs" />
     <Compile Include="Extensions\FieldInfoExtension.cs" />
     <Compile Include="Extensions\IDisposableExtension.cs" />
     <Compile Include="Extensions\LogExtension.cs" />
@@ -491,7 +492,6 @@
     <Compile Include="TextSerialize\WarningEnum.cs" />
     <Compile Include="Threading\CpuCachePad.cs" />
     <Compile Include="Threading\ActionQueueTaskNode.cs" />
-    <Compile Include="Threading\OnceAutoWaitHandle.cs" />
     <Compile Include="Threading\LockCaller.cs" />
     <Compile Include="Threading\LockObject.cs" />
     <Compile Include="Log\File.cs" />

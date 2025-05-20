@@ -13,7 +13,7 @@ namespace AutoCSer
         /// <summary>
         /// 公共配置日志，默认为文件日志
         /// </summary>
-        public static readonly ILog Default = Configuration.Common.Get<ILog>(string.Empty)?.Value ?? new AutoCSer.Log.File();
+        public static readonly ILog Default = Configuration.Common.Get<ILog>(string.Empty)?.Value ?? new AutoCSer.Log.File(LogLevelEnum.All, AutoCSer.Log.File.GetDefaultFileName());
         /// <summary>
         /// 添加普通日志
         /// </summary>

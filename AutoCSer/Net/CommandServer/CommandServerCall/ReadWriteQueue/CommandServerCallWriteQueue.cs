@@ -28,7 +28,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 写操作等待事件
         /// </summary>
-        private OnceAutoWaitHandle writeWaitHandle;
+        private readonly System.Threading.AutoResetEvent writeWaitHandle;
         /// <summary>
         /// 等待执行的读取任务队列
         /// </summary>
@@ -54,7 +54,7 @@ namespace AutoCSer.Net
         /// </summary>
         protected CommandServerCallWriteQueue()
         {
-            writeWaitHandle.Set(this);
+            writeWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             ConcurrencyReadThread = new ConcurrencyReadWriteQueueThread(this, true);
         }
         /// <summary>
@@ -70,7 +70,7 @@ namespace AutoCSer.Net
 #endif
         {
             readCount = 1;
-            writeWaitHandle.Set(new object());
+            writeWaitHandle = new AutoResetEvent(false);
             if (maxConcurrency <= 0) maxConcurrency = Math.Max(AutoCSer.Common.ProcessorCount - maxConcurrency, 1);
             bool isThread = false;
             try
@@ -97,10 +97,10 @@ namespace AutoCSer.Net
         internal void Close()
         {
             IsClose = true;
-            QueueWaitHandle.Set();
-            writeWaitHandle.Set();
-            for (var node = readThreads.Get(); node != null; node = node.LinkNext) node.WaitHandle.Set();
-            ConcurrencyReadThread.WaitHandle.Set();
+            QueueWaitHandle.setDispose();
+            writeWaitHandle.setDispose();
+            for (var node = readThreads.Get(); node != null; node = node.LinkNext) node.WaitHandle.setDispose();
+            ConcurrencyReadThread.WaitHandle.setDispose();
         }
         /// <summary>
         /// 任务分配线程
@@ -123,7 +123,7 @@ namespace AutoCSer.Net
             do
             {
             WAITQUEUE:
-                QueueWaitHandle.Wait();
+                QueueWaitHandle.WaitOne();
                 if (!IsClose)
                 {
                     newConcurrencyReadHead = newConcurrencyReadEnd = newWriteHead = newWriteEnd = newReadHead = newReadEnd = null;
@@ -261,7 +261,7 @@ namespace AutoCSer.Net
                             WAITWRITE:
                             if (System.Threading.Interlocked.Decrement(ref readCount) != 0)
                             {
-                                if (!IsClose) writeWaitHandle.Wait();
+                                if (!IsClose) writeWaitHandle.WaitOne();
                                 else return;
                             }
                             if (!IsClose)

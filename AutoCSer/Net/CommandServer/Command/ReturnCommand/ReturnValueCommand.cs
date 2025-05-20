@@ -89,6 +89,7 @@ namespace AutoCSer.Net.CommandServer
             if (stream.Data.Pointer.FreeSize >= sizeof(uint) + sizeof(CallbackIdentity) || buildInfo.Count == 0)
             {
                 uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
+                var nextCommand = LinkNext;
                 if (methodIndex != 0)
                 {
                     SetTimeoutSeconds();
@@ -100,7 +101,8 @@ namespace AutoCSer.Net.CommandServer
                         *(uint*)data = methodIndex | (uint)CommandFlagsEnum.Callback;
                         *(CallbackIdentity*)(data + sizeof(uint)) = new CallbackIdentity((uint)callbackIndex, identity);
                         buildInfo.SetIsCallback();
-                        return LinkNext;
+                        LinkNext = null;
+                        return nextCommand;
                     }
                     ++buildInfo.FreeCount;
                     SetReturn(CommandClientReturnTypeEnum.ClientBuildError, null);
@@ -110,7 +112,8 @@ namespace AutoCSer.Net.CommandServer
                     ++buildInfo.FreeCount;
                     SetReturn(CommandClientReturnTypeEnum.ControllerMethodIndexError, null);
                 }
-                return LinkNext;
+                LinkNext = null;
+                return nextCommand;
             }
             buildInfo.IsFullSend = 1;
             return this;

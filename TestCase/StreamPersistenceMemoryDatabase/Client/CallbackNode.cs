@@ -151,75 +151,77 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 return;
             }
 
-            System.Threading.AutoResetEvent callbackWait = new System.Threading.AutoResetEvent(false);
-            value = AutoCSer.Random.Default.Next();
-            bool isCommand = await node.Value.SetValueCommand(value, p =>
+            using(System.Threading.AutoResetEvent callbackWait = new System.Threading.AutoResetEvent(false))
             {
-                result = p;
-                callbackWait.Set();
-            });
-            if (!isCommand)
-            {
-                ConsoleWriteQueue.Breakpoint();
-                return;
-            }
-            callbackWait.WaitOne();
-            if (!Program.Breakpoint(result)) return;
-            isCommand = await node.Value.GetValueCommand(p =>
-            {
-                intResult = p;
-                callbackWait.Set();
-            });
-            if (!isCommand)
-            {
-                ConsoleWriteQueue.Breakpoint();
-                return;
-            }
-            callbackWait.WaitOne();
-            if (!Program.Breakpoint(intResult)) return;
-            if (intResult.Value != value + 1)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
-                return;
-            }
+                value = AutoCSer.Random.Default.Next();
+                bool isCommand = await node.Value.SetValueCommand(value, p =>
+                {
+                    result = p;
+                    callbackWait.Set();
+                });
+                if (!isCommand)
+                {
+                    ConsoleWriteQueue.Breakpoint();
+                    return;
+                }
+                callbackWait.WaitOne();
+                if (!Program.Breakpoint(result)) return;
+                isCommand = await node.Value.GetValueCommand(p =>
+                {
+                    intResult = p;
+                    callbackWait.Set();
+                });
+                if (!isCommand)
+                {
+                    ConsoleWriteQueue.Breakpoint();
+                    return;
+                }
+                callbackWait.WaitOne();
+                if (!Program.Breakpoint(intResult)) return;
+                if (intResult.Value != value + 1)
+                {
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                    return;
+                }
 
-            callbackTask = node.Value.SetCallback();
-            isCommand = await node.Value.CallbackCommand(p =>
-            {
-                result = p;
-                callbackWait.Set();
-            });
-            if (!isCommand)
-            {
-                ConsoleWriteQueue.Breakpoint();
-                return;
-            }
-            callbackWait.WaitOne();
-            if (!Program.Breakpoint(result)) return;
-            intResult = await callbackTask;
-            if (!Program.Breakpoint(intResult)) return;
-            if (intResult.Value != value + 1)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
-                return;
-            }
+                callbackTask = node.Value.SetCallback();
+                isCommand = await node.Value.CallbackCommand(p =>
+                {
+                    result = p;
+                    callbackWait.Set();
+                });
+                if (!isCommand)
+                {
+                    ConsoleWriteQueue.Breakpoint();
+                    return;
+                }
+                callbackWait.WaitOne();
+                if (!Program.Breakpoint(result)) return;
+                intResult = await callbackTask;
+                if (!Program.Breakpoint(intResult)) return;
+                if (intResult.Value != value + 1)
+                {
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                    return;
+                }
 
-            isCommand = await node.Value.CallInoutOutputCommand(value, p =>
-            {
-                intResult = p;
-                callbackWait.Set();
-            });
-            if (!isCommand)
-            {
-                ConsoleWriteQueue.Breakpoint();
-                return;
-            }
-            callbackWait.WaitOne();
-            if (!Program.Breakpoint(intResult)) return;
-            if (intResult.Value != value + 1)
-            {
-                ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
-                return;
+                isCommand = await node.Value.CallInoutOutputCommand(value, p =>
+                {
+                    intResult = p;
+                    callbackWait.Set();
+                });
+                if (!isCommand)
+                {
+                    ConsoleWriteQueue.Breakpoint();
+                    return;
+                }
+                callbackWait.WaitOne();
+                if (!Program.Breakpoint(intResult)) return;
+                if (intResult.Value != value + 1)
+                {
+                    ConsoleWriteQueue.Breakpoint($"*ERROR+{intResult.Value}<>{value + 1}+ERROR*");
+                    return;
+                }
             }
 
             value = AutoCSer.Random.Default.Next();

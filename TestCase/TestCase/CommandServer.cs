@@ -19,7 +19,7 @@ namespace AutoCSer.TestCase
 
             CommandClientConfig commandClientConfig = new CommandClientConfig
             {
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase),
+                Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.TestCase),
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
@@ -160,7 +160,7 @@ namespace AutoCSer.TestCase
         /// <returns></returns>
         internal static CommandListener CreateCommandListener()
         {
-            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase) };
+            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase, string.Empty) };
             return new CommandListenerBuilder(32)
                     .Append<IServerSynchronousController>(new ServerSynchronousController())
                     .Append<IServerSendOnlyController>(new ServerSendOnlyController())

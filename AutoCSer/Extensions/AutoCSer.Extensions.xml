@@ -11367,6 +11367,11 @@
             等待事件
             </summary>
         </member>
+        <member name="M:AutoCSer.Threading.AutoWaitCount.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
         <member name="M:AutoCSer.Threading.AutoWaitCount.#ctor(System.Int32)">
             <summary>
             计数等待
@@ -12050,6 +12055,43 @@
             获取下一个ID
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.OnceAutoWaitHandle">
+            <summary>
+            一次性等待锁（在 .NET8 NativeAOT 模式中会产生内存泄漏 https://github.com/dotnet/runtime/issues/115691#issuecomment-2891586165 ，waitLock 不允许使用频繁 new 出来的对象，可以用于一些静态对象）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.waitLock">
+            <summary>
+            同步等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.IsWait">
+            <summary>
+            是否等待中
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.Reserved">
+            <summary>
+            保留
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set(System.Object,System.Int32)">
+            <summary>
+            初始化数据
+            </summary>
+            <param name="waitLock">同步等待锁</param>
+            <param name="isWait">是否等待中</param>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Wait">
+            <summary>
+            等待结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set">
+            <summary>
+            结束等待
+            </summary>
         </member>
         <member name="T:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager">
             <summary>

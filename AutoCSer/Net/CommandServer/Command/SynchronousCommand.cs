@@ -14,15 +14,16 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 命令等待锁
         /// </summary>
-        internal AutoCSer.Threading.OnceAutoWaitHandle WaitLock;
+        internal readonly System.Threading.ManualResetEvent WaitLock;
+        //internal AutoCSer.Threading.OnceAutoWaitHandle WaitLock;
         /// <summary>
         /// 返回值类型
         /// </summary>
-        internal CommandClientReturnTypeEnum ReturnType
-        {
-            get { return (CommandClientReturnTypeEnum)(byte)WaitLock.Reserved; }
-            set { WaitLock.Reserved = (byte)value; }
-        }
+        internal CommandClientReturnTypeEnum ReturnType;
+        //{
+        //    get { return (CommandClientReturnTypeEnum)(byte)WaitLock.Reserved; }
+        //    set { WaitLock.Reserved = (byte)value; }
+        //}
         /// <summary>
         /// 错误信息
         /// </summary>
@@ -42,7 +43,8 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="methodIndex"></param>
         internal SynchronousCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex)
         {
-            WaitLock.Set(this);
+            WaitLock = new System.Threading.ManualResetEvent(false);
+            //WaitLock.Set(this);
         }
         /// <summary>
         /// 创建命令输入数据
@@ -59,6 +61,7 @@ namespace AutoCSer.Net.CommandServer
             if (stream.Data.Pointer.FreeSize >= sizeof(uint) + sizeof(CallbackIdentity) || buildInfo.Count == 0)
             {
                 uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
+                var nextCommand = LinkNext;
                 if (methodIndex != 0)
                 {
                     SetTimeoutSeconds();
@@ -70,14 +73,16 @@ namespace AutoCSer.Net.CommandServer
                         *(uint*)data = methodIndex | (uint)CommandFlagsEnum.Callback;
                         *(CallbackIdentity*)(data + sizeof(uint)) = new CallbackIdentity((uint)callbackIndex, identity);
                         buildInfo.SetIsCallback();
-                        return LinkNext;
+                        LinkNext = null;
+                        return nextCommand;
                     }
                     ReturnType = CommandClientReturnTypeEnum.ClientBuildError;
                 }
                 else ReturnType = CommandClientReturnTypeEnum.ControllerMethodIndexError;
                 ++buildInfo.FreeCount;
-                WaitLock.Set();
-                return LinkNext;
+                WaitLock.setDispose();
+                LinkNext = null;
+                return nextCommand;
             }
             buildInfo.IsFullSend = 1;
             return this;
@@ -89,7 +94,7 @@ namespace AutoCSer.Net.CommandServer
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType)
         {
             ReturnType = returnType;
-            WaitLock.Set();
+            WaitLock.setDispose();
         }
         /// <summary>
         /// 返回值回调
@@ -100,7 +105,7 @@ namespace AutoCSer.Net.CommandServer
         {
             ReturnType = (CommandClientReturnTypeEnum)(byte)data.Start;
             this.errorMessage = Controller.Socket.ReceiveErrorMessage;
-            WaitLock.Set();
+            WaitLock.setDispose();
             return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
@@ -112,7 +117,7 @@ namespace AutoCSer.Net.CommandServer
         {
             if (Controller.Socket.TryPush(this) != CommandPushStateEnum.Closed)
             {
-                WaitLock.Wait();
+                WaitLock.WaitOne();
                 return ReturnValue;
             }
             return CommandClientReturnTypeEnum.SocketClosed;
@@ -128,7 +133,7 @@ namespace AutoCSer.Net.CommandServer
                 case CommandPushStateEnum.WaitCount: return true;
                 case CommandPushStateEnum.Closed:
                     ReturnType = CommandClientReturnTypeEnum.SocketClosed;
-                    WaitLock.Set();
+                    WaitLock.setDispose();
                     return false;
             }
             return false;
@@ -147,7 +152,7 @@ namespace AutoCSer.Net.CommandServer
             {
                 ReturnType = (CommandClientReturnTypeEnum)(byte)data.Start;
                 this.errorMessage = Controller.Socket.ReceiveErrorMessage;
-                WaitLock.Set();
+                WaitLock.setDispose();
                 return ClientReceiveErrorTypeEnum.Success;
             }
             try
@@ -167,7 +172,7 @@ namespace AutoCSer.Net.CommandServer
                     ReturnType = CommandClientReturnTypeEnum.ClientDeserializeError;
                     this.errorMessage = Controller.Socket.ReceiveErrorMessage;
                 }
-                WaitLock.Set();
+                WaitLock.setDispose();
             }
         }
     }
@@ -227,7 +232,7 @@ namespace AutoCSer.Net.CommandServer
         {
             if (Controller.Socket.TryPush(this) != CommandPushStateEnum.Closed)
             {
-                WaitLock.Wait();
+                WaitLock.WaitOne();
                 return ReturnValue;
             }
             return CommandClientReturnTypeEnum.SocketClosed;

@@ -116,6 +116,10 @@ namespace AutoCSer.Net
         /// 异步读写队列驻留超时秒数，默认为 60 表示等待指定时间以后没有新任务再删除队列，设置为 0 表示队列任务执行完以后立即删除队列避免占用内存，设置为负数表示永久驻留内存
         /// </summary>
         public int TaskQueueTimeoutSeconds = 60;
+        /// <summary>
+        /// 最大保持回调数量，默认为 0 表示不限制，开放服务应该根据实际情况设置避免内存占用攻击
+        /// </summary>
+        public int MaxKeepCallbackCount;
 
         /// <summary>
         /// Validation sockets, such as IP addresses, return true by default

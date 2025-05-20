@@ -31,8 +31,10 @@ namespace AutoCSer.Net.CommandServer
                 buildInfo.AddCount();
                 return null;
             }
+            var nextCommand = LinkNext;
             ++buildInfo.FreeCount;
-            return LinkNext;
+            LinkNext = null;
+            return nextCommand;
         }
     }
 }

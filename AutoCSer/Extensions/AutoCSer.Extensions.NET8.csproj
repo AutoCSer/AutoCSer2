@@ -189,6 +189,7 @@
     <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceControllerMethod.cs" />
     <Compile Include="Threading\LocalMillisecondIdentityGenerator.cs" />
     <Compile Include="Threading\MillisecondIdentityGenerator.cs" />
+    <Compile Include="Threading\OnceAutoWaitHandle.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockManager.cs" />
     <Compile Include="Threading\ReentrantSemaphoreSlimLockCount.cs" />
     <Compile Include="Threading\SemaphoreSlimCache.cs" />

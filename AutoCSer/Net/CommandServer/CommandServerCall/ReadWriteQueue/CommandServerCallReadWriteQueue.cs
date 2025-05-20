@@ -45,13 +45,13 @@ namespace AutoCSer.Net
         /// <summary>
         /// 新任务队列等待事件
         /// </summary>
-        internal OnceAutoWaitHandle QueueWaitHandle;
+        internal System.Threading.AutoResetEvent QueueWaitHandle;
         /// <summary>
         /// 空队列
         /// </summary>
         protected CommandServerCallReadWriteQueue()
         {
-            QueueWaitHandle.Set(this);
+            QueueWaitHandle = AutoCSer.Common.NullAutoResetEvent;
 #if NetStandard21
             threadHandle = AutoCSer.Threading.ThreadPool.BackgroundExitThread.Handle;
 #endif
@@ -70,7 +70,7 @@ namespace AutoCSer.Net
         {
             Server = server;
             Controller = controller;
-            QueueWaitHandle.Set(new object());
+            QueueWaitHandle = new System.Threading.AutoResetEvent(false);
 #if NetStandard21
             threadHandle = AutoCSer.Threading.ThreadPool.BackgroundExitThread.Handle;
 #endif

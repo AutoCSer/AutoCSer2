@@ -21,7 +21,7 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 等待事件
         /// </summary>
-        internal OnceAutoWaitHandle WaitHandle;
+        internal readonly System.Threading.AutoResetEvent WaitHandle;
         /// <summary>
         /// 当前分配任务
         /// </summary>
@@ -34,7 +34,7 @@ namespace AutoCSer.Net.CommandServer
         {
             this.queue = queue;
             node = NullReadWriteQueueNode.Null;
-            WaitHandle.Set(this);
+            WaitHandle = new System.Threading.AutoResetEvent(false);
             threadHandle = new System.Threading.Thread(run, AutoCSer.Threading.ThreadPool.TinyStackSize);
             threadHandle.IsBackground = true;
             threadHandle.Start();
@@ -46,7 +46,7 @@ namespace AutoCSer.Net.CommandServer
         {
             do
             {
-                WaitHandle.Wait();
+                WaitHandle.WaitOne();
                 if (!queue.IsClose)
                 {
                     var node = this.node;

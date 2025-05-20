@@ -136,6 +136,7 @@ namespace AutoCSer.Net.CommandServer
             where T : struct
         {
             uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
+            var nextCommand = LinkNext;
             if (methodIndex != 0)
             {
                 UnmanagedStream stream = Controller.Socket.OutputSerializer.Stream;
@@ -166,12 +167,14 @@ namespace AutoCSer.Net.CommandServer
                             *(CallbackIdentity*)(dataFixed + sizeof(uint)) = new CallbackIdentity((uint)callbackIndex, identity);
                             *(int*)(dataFixed + (sizeof(uint) + sizeof(CallbackIdentity))) = dataLength;
                             buildInfo.SetIsCallback();
-                            return LinkNext;
+                            LinkNext = null;
+                            return nextCommand;
                         }
                         stream.Data.Pointer.CurrentIndex = streamLength;
                         ++buildInfo.FreeCount;
                         OnBuildError(CommandClientReturnTypeEnum.ClientBuildError);
-                        return LinkNext;
+                        LinkNext = null;
+                        return nextCommand;
                     }
                 }
                 stream.Data.Pointer.CurrentIndex = streamLength;
@@ -181,7 +184,8 @@ namespace AutoCSer.Net.CommandServer
             inputParameter = default(T);
             ++buildInfo.FreeCount;
             OnBuildError(CommandClientReturnTypeEnum.ControllerMethodIndexError);
-            return LinkNext;
+            LinkNext = null;
+            return nextCommand;
         }
         /// <summary>
         /// 创建命令输入数据错误处理

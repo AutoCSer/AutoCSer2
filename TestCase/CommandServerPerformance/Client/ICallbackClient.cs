@@ -144,9 +144,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                     ConsoleWriteQueue.WriteLine("ERROR", ConsoleColor.Red);
                     return;
                 }
-                int left = Left = AutoCSer.Random.Default.Next();
+                int left = Left = AutoCSer.Random.Default.Next(), testCount;
 
-                int testCount = Reset(commandClient, maxTestCount);
+                testCount = Reset(commandClient, maxTestCount);
                 for (int right = testCount; right != 0; await client.InterfaceController.ConcurrencyReadQueue(left, --right, CheckSynchronousHandle)) ;
                 await LoopCompleted(nameof(CallbackClientPerformance), nameof(client.InterfaceController.ConcurrencyReadQueue));
 

@@ -69,6 +69,7 @@ namespace AutoCSer.Net
                 || (stream.Data.Pointer.FreeSize >= prepLength && prepLength > buildInfo.SendBufferSize - Command.StreamStartIndex))
             {
                 byte* write = stream.GetCanResizeBeforeMove(prepLength);
+                var nextCommand = LinkNext;
                 *(uint*)write = (uint)CommandListener.CustomDataMethodIndex | (uint)CommandFlagsEnum.SendData;
                 *(int*)(write + sizeof(uint)) = dataSize;
                 *(int*)(write + (sizeof(uint) + sizeof(int))) = data.Length;
@@ -78,7 +79,8 @@ namespace AutoCSer.Net
                 }
                 data.SetEmpty();
                 buildInfo.AddCount();
-                return LinkNext;
+                LinkNext = null;
+                return nextCommand;
             }
             buildInfo.IsFullSend = 1;
             return this;

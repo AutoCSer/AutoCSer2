@@ -37,10 +37,12 @@ namespace AutoCSer.Net.CommandServer
             if (stream.Data.Pointer.FreeSize >= sizeof(uint) + sizeof(CallbackIdentity) || buildInfo.Count == 0)
             {
                 byte* data = stream.GetBeforeMove(sizeof(uint) + sizeof(CallbackIdentity));
+                var nextCommand = LinkNext;
                 *(uint*)data = CommandListener.CancelKeepMethodIndex;
                 *(CallbackIdentity*)(data + sizeof(uint)) = callbackIdentity;
                 buildInfo.AddCount();
-                return LinkNext;
+                LinkNext = null;
+                return nextCommand;
             }
             buildInfo.IsFullSend = 1;
             return this;

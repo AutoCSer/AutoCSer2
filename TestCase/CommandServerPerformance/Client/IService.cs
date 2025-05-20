@@ -16,7 +16,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
         int Synchronous(int left, int right);
         /// <summary>
         /// 服务端回调返回结果
@@ -24,7 +23,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <param name="callback"></param>
-        //[CommandServerMethod(IsInitobj = false)]
         void Callback(int left, int right, CommandServerCallback<int> callback);
         /// <summary>
         /// 服务端配置队列执行返回结果
@@ -33,7 +31,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
         int Queue(CommandServerCallQueue queue, int left, int right);
         /// <summary>
         /// 服务端配置支持并发读队列执行返回结果
@@ -42,7 +39,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
         int ConcurrencyReadQueue(CommandServerCallConcurrencyReadQueue queue, int left, int right);
         /// <summary>
         /// 服务端配置读写队列执行返回结果
@@ -51,7 +47,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
         int ReadWriteQueue(CommandServerCallReadQueue queue, int left, int right);
         /// <summary>
         /// 服务端 async 任务返回返回结果
@@ -59,7 +54,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
         Task<int> Task(int left, int right);
         /// <summary>
         /// 服务端 async 任务返回返回结果
@@ -76,7 +70,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
         Task<int> TaskQueue(CommandServerCallTaskQueue queue, int left, int right);
         /// <summary>
         /// 服务端 async 任务动态队列返回返回结果
@@ -86,7 +79,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false, IsControllerTaskQueue = false)]
         [CommandServerMethod(IsControllerTaskQueue = false)]
         Task<int> TaskQueueKey(CommandServerCallTaskQueue<int> queue, int left, int right);
 
@@ -94,7 +86,6 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// 服务端保持回调返回结果，配合 SendOnly 应答处理
         /// </summary>
         /// <param name="callback"></param>
-        //[CommandServerMethod(IsInitobj = false, AutoCancelKeep = false)]
         [CommandServerMethod(AutoCancelKeep = false)]
         void KeepCallback(CommandServerKeepCallback<int> callback);
         /// <summary>
@@ -103,14 +94,12 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        //[CommandServerMethod(IsInitobj = false)]
         CommandServerSendOnly SendOnly(int left, int right);
 
         /// <summary>
         /// 服务端保持回调返回结果，配合 SendOnlyTask 应答处理
         /// </summary>
         /// <param name="callback"></param>
-        //[CommandServerMethod(IsInitobj = false, KeepCallbackOutputCount = 1 << 12, AutoCancelKeep = false)]
         [CommandServerMethod(KeepCallbackOutputCount = 1 << 12, AutoCancelKeep = false)]
         void KeepCallbackCount(CommandServerKeepCallbackCount<int> callback);
         /// <summary>

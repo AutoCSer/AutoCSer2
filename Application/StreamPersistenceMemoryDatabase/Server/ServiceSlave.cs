@@ -142,7 +142,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!isClosed)
             {
                 isClosed = true;
-                readPersistenceWaitLock?.Set();
+                readPersistenceWaitLock?.setDispose();
                 repairNodeMethodPositionCallback?.CancelKeep();
                 persistenceCallbackExceptionPositionFileCallback?.CancelKeep();
                 PersistenceCallbackExceptionPositionCallback?.CancelKeep();

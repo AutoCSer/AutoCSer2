@@ -216,6 +216,10 @@ namespace AutoCSer
         /// <summary>
         /// 空事件
         /// </summary>
+        internal static readonly System.Threading.AutoResetEvent NullAutoResetEvent = new System.Threading.AutoResetEvent(true);
+        /// <summary>
+        /// 空事件
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
 #if NetStandard21

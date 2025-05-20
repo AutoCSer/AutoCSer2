@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -65,7 +66,7 @@ namespace AutoCSer.Threading
             {
                 this.exception = exception;
             }
-            finally { wait.Set(); }
+            finally { wait.setDispose(); }
         }
         /// <summary>
         /// 任务执行结果
@@ -185,7 +186,7 @@ namespace AutoCSer.Threading
             {
                 this.exception = exception;
             }
-            finally { wait.Set(); }
+            finally { wait.setDispose(); }
         }
         /// <summary>
         /// 任务执行结果

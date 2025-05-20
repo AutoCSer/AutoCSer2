@@ -26,7 +26,7 @@ namespace AutoCSer.Threading
             ThreadId = System.Environment.CurrentManagedThreadId;
             do
             {
-                waitHandle.Wait();
+                WaitHandle.WaitOne();
                 if (isDisposed) return;
                 AutoCSer.Threading.ThreadYield.YieldOnly();
                 var value = queue.GetQueue();
@@ -67,7 +67,7 @@ namespace AutoCSer.Threading
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void AddOnly(InterfaceControllerTaskQueueNodeBase node)
         {
-            if (queue.IsPushHead(node)) waitHandle.Set();
+            if (queue.IsPushHead(node)) WaitHandle.Set();
         }
         /// <summary>
         /// 添加任务

@@ -48,7 +48,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 等待事件
         /// </summary>
-        internal OnceAutoWaitHandle WaitHandle;
+        internal System.Threading.AutoResetEvent WaitHandle;
         /// <summary>
         /// 线程句柄
         /// </summary>
@@ -59,7 +59,7 @@ namespace AutoCSer.Net
         /// <param name="client"></param>
         internal CommandClientCallQueue(CommandClient client) : base(client)
         {
-            WaitHandle.Set(this);
+            WaitHandle = new System.Threading.AutoResetEvent(false);
             threadHandle = new System.Threading.Thread(run, ThreadPool.TinyStackSize);
             threadHandle.IsBackground = true;
             threadHandle.Start();
@@ -70,7 +70,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Close()
         {
-            WaitHandle.Set();
+            WaitHandle.setDispose();
         }
         /// <summary>
         /// 添加任务
@@ -98,7 +98,7 @@ namespace AutoCSer.Net
         {
             do
             {
-                WaitHandle.Wait();
+                WaitHandle.WaitOne();
                 if (client.IsDisposed) return;
                 AutoCSer.Threading.ThreadYield.YieldOnly();
                 var value = Queue.GetQueue();

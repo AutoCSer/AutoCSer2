@@ -31,6 +31,10 @@ namespace AutoCSer.Threading
         /// </summary>
         private bool isTryAppended;
         /// <summary>
+        /// 保留
+        /// </summary>
+        internal byte Reserved;
+        /// <summary>
         /// 超时秒计数
         /// </summary>
         internal long TimeoutSeconds;

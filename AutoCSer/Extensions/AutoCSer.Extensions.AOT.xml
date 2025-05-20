@@ -1829,11 +1829,14 @@
             异步锁扩展
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock)">
+        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
             <summary>
             异步锁重入计数，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效（非线程安全，不支持多线程并发操作同一个异步上下文）
             </summary>
             <param name="semaphoreSlimLock"></param>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
         </member>
         <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.ReentrantExit(AutoCSer.Threading.SemaphoreSlimLock)">
             <summary>
@@ -9561,6 +9564,13 @@
             <param name="getCount">获取记录数</param>
             <returns>数据集合</returns>
         </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Check(System.Int32)">
+            <summary>
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.Dictionary`2">
             <summary>
             二叉搜索树字典
@@ -9933,6 +9943,13 @@
             </summary>
             <param name="skipCount">跳过记录数</param>
             <param name="getCount">获取记录数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Check(System.Int32)">
+            <summary>
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.SearchTree.FindArray`1">
@@ -10358,6 +10375,19 @@
             </summary>
             <param name="array"></param>
         </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.Check(System.Int32)">
+            <summary>
+            检查数据正确性
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.check">
+            <summary>
+            检查数据正确性
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.PageArray`1">
             <summary>
             分页数组数据
@@ -10621,6 +10651,13 @@
             <param name="getCount">获取记录数</param>
             <param name="getValue">数据转换委托</param>
             <returns>数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Check(System.Int32)">
+            <summary>
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.SearchTree.SetRemoveNode`2">
             <summary>
@@ -11056,6 +11093,11 @@
             等待事件
             </summary>
         </member>
+        <member name="M:AutoCSer.Threading.AutoWaitCount.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
         <member name="M:AutoCSer.Threading.AutoWaitCount.#ctor(System.Int32)">
             <summary>
             计数等待
@@ -11401,6 +11443,43 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Threading.OnceAutoWaitHandle">
+            <summary>
+            一次性等待锁（在 .NET8 NativeAOT 模式中会产生内存泄漏 https://github.com/dotnet/runtime/issues/115691#issuecomment-2891586165 ，waitLock 不允许使用频繁 new 出来的对象，可以用于一些静态对象）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.waitLock">
+            <summary>
+            同步等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.IsWait">
+            <summary>
+            是否等待中
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.Reserved">
+            <summary>
+            保留
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set(System.Object,System.Int32)">
+            <summary>
+            初始化数据
+            </summary>
+            <param name="waitLock">同步等待锁</param>
+            <param name="isWait">是否等待中</param>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Wait">
+            <summary>
+            等待结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set">
+            <summary>
+            结束等待
+            </summary>
+        </member>
         <member name="T:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager">
             <summary>
             可重入异步锁管理（非线程安全，不支持多线程并发操作同一个异步上下文）
@@ -11433,16 +11512,19 @@
             </summary>
             <param name="semaphoreSlimLock"></param>
         </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock)">
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock)">
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
             <param name="semaphoreSlimLock"></param>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">

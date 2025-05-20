@@ -63,6 +63,7 @@ namespace AutoCSer.Net.CommandServer
             UnmanagedStream stream = Controller.Socket.OutputSerializer.Stream;
             if (stream.Data.Pointer.FreeSize >= sizeof(uint) + sizeof(CallbackIdentity) || buildInfo.Count == 0)
             {
+                var nextCommand = LinkNext;
                 uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
                 if (methodIndex != 0)
                 {
@@ -75,7 +76,8 @@ namespace AutoCSer.Net.CommandServer
                         *(uint*)data = methodIndex | (uint)CommandFlagsEnum.Callback;
                         *(CallbackIdentity*)(data + sizeof(uint)) = new CallbackIdentity((uint)callbackIndex, identity);
                         buildInfo.SetIsCallback();
-                        return LinkNext;
+                        LinkNext = null;
+                        return nextCommand;
                     }
                     ++buildInfo.FreeCount;
                     SetReturnQueue(CommandClientReturnTypeEnum.ClientBuildError, null);
@@ -85,7 +87,8 @@ namespace AutoCSer.Net.CommandServer
                     ++buildInfo.FreeCount;
                     SetReturnQueue(CommandClientReturnTypeEnum.ControllerMethodIndexError, null);
                 }
-                return LinkNext;
+                LinkNext = null;
+                return nextCommand;
             }
             buildInfo.IsFullSend = 1;
             return this;

@@ -12923,6 +12923,11 @@
             当前写入位置
             </summary>
         </member>
+        <member name="F:AutoCSer.BinarySerialize.SerializeArrayMap.endIndex">
+            <summary>
+            写入结束位置
+            </summary>
+        </member>
         <member name="M:AutoCSer.BinarySerialize.SerializeArrayMap.#ctor(AutoCSer.Memory.UnmanagedStream,System.Int32)">
             <summary>
             数组位图
@@ -12963,6 +12968,11 @@
         <member name="M:AutoCSer.BinarySerialize.SerializeArrayMap.End">
             <summary>
             位图写入结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.BinarySerialize.SerializeArrayMap.debugCheck">
+            <summary>
+            检查数据
             </summary>
         </member>
         <member name="T:AutoCSer.BinarySerialize.SerializeDelegate">
@@ -13549,6 +13559,11 @@
         <member name="F:AutoCSer.Common.NullMethodInfo">
             <summary>
             空方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Common.NullAutoResetEvent">
+            <summary>
+            空事件
             </summary>
         </member>
         <member name="M:AutoCSer.Common.emptyEventHandler(System.Object,System.EventArgs)">
@@ -15108,6 +15123,17 @@
             <param name="path">目录</param>
             <returns>\结尾的路径全名</returns>
         </member>
+        <member name="T:AutoCSer.Extensions.EventWaitHandleExtension">
+            <summary>
+            事件扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.EventWaitHandleExtension.setDispose(System.Threading.EventWaitHandle)">
+            <summary>
+            调用 Set
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.Extensions.LogExtension">
             <summary>
             日志扩展操作
@@ -15533,6 +15559,15 @@
             <param name="array">字符串集合，长度必须大于 0</param>
             <param name="join">字符连接</param>
             <returns>连接后的字符串</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtension.debugCheckRange``1(``0[],System.Int32,System.Int32)">
+            <summary>
+            检查数组范围
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+            <param name="count"></param>
         </member>
         <member name="T:AutoCSer.Extensions.CollectionExtension">
             <summary>
@@ -15966,6 +16001,14 @@
             <summary>
             字符串相关操作
             </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.StringExtension.DebugCheckSize(System.String,System.Int32,System.Int32)">
+            <summary>
+            检查字符串长度
+            </summary>
+            <param name="source"></param>
+            <param name="index"></param>
+            <param name="count"></param>
         </member>
         <member name="M:AutoCSer.Extensions.StringExtension.toLower(System.String)">
             <summary>
@@ -22357,6 +22400,12 @@
             </summary>
             <returns>新的日志文件名称</returns>
         </member>
+        <member name="M:AutoCSer.Log.File.GetDefaultFileName">
+            <summary>
+            获取默认日志文件名称
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Memory.ByteArray">
             <summary>
             字节数组缓冲区
@@ -22661,11 +22710,12 @@
             <param name="size"></param>
             <param name="bufferCount"></param>
         </member>
-        <member name="M:AutoCSer.Memory.ByteArrayPool.Get(AutoCSer.Memory.ByteArrayBuffer@)">
+        <member name="M:AutoCSer.Memory.ByteArrayPool.Get(AutoCSer.Memory.ByteArrayBuffer@,System.Boolean)">
             <summary>
             获取字节数组缓冲区
             </summary>
             <param name="buffer"></param>
+            <param name="isDebugSize"></param>
         </member>
         <member name="M:AutoCSer.Memory.ByteArrayPool.get(AutoCSer.Memory.ByteArrayBuffer@)">
             <summary>
@@ -22688,6 +22738,11 @@
         <member name="M:AutoCSer.Memory.ByteArrayPool.free">
             <summary>
             清理缓存
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.ByteArrayPool.checkBufferCount">
+            <summary>
+            检查已经创建的缓存区数量
             </summary>
         </member>
         <member name="F:AutoCSer.Memory.ByteArrayPool.minSizeBits">
@@ -22731,18 +22786,20 @@
             <param name="size"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Memory.ByteArrayPool.GetBuffer(AutoCSer.Memory.ByteArrayBuffer@,System.Int32)">
+        <member name="M:AutoCSer.Memory.ByteArrayPool.GetBuffer(AutoCSer.Memory.ByteArrayBuffer@,System.Int32,System.Boolean)">
             <summary>
             获取缓冲区
             </summary>
             <param name="buffer"></param>
             <param name="size"></param>
+            <param name="isDebugSize"></param>
         </member>
-        <member name="M:AutoCSer.Memory.ByteArrayPool.GetBuffer(System.Int32)">
+        <member name="M:AutoCSer.Memory.ByteArrayPool.GetBuffer(System.Int32,System.Boolean)">
             <summary>
             获取缓冲区
             </summary>
             <param name="size"></param>
+            <param name="isDebugSize"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.ByteArrayPool.GetSingleBuffer(AutoCSer.Memory.ByteArrayBuffer@,System.Int32)">
@@ -24013,6 +24070,29 @@
             转换成字符串
             </summary>
             <returns>字符串</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.DebugCheck">
+            <summary>
+            检查数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.debugCheckWriteSize(System.Int32)">
+            <summary>
+            检测写入数据长度
+            </summary>
+            <param name="size"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.debugCheckCurrentIndex(System.Int32)">
+            <summary>
+            检测设置当前写入位置
+            </summary>
+            <param name="newIndex"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.DebugCheckEnd(System.Byte*)">
+            <summary>
+            检查数据写入结束位置是否超出范围
+            </summary>
+            <param name="data"></param>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.SerializeWriteNullable(System.Int64)">
             <summary>
@@ -31077,7 +31157,7 @@
             命令等待锁
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandServer.SynchronousCommand.ReturnType">
+        <member name="F:AutoCSer.Net.CommandServer.SynchronousCommand.ReturnType">
             <summary>
             返回值类型
             </summary>
@@ -32982,13 +33062,16 @@
             </summary>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.Command.Callback(System.Action,AutoCSer.Net.CommandServer.ClientCallbackTypeEnum,System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandServer.Command.Callback(System.Action,AutoCSer.Net.CommandServer.ClientCallbackTypeEnum,System.Boolean,System.String,System.String,System.Int32)">
             <summary>
             异步回调
             </summary>
             <param name="callback"></param>
             <param name="callbackType"></param>
             <param name="isSynchronousThread"></param>
+            <param name="methodName"></param>
+            <param name="controllerName"></param>
+            <param name="methodIndex"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.Command.AppendQueue(System.Action)">
             <summary>
@@ -33774,6 +33857,55 @@
             检查服务控制器相关错误信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.RunTask.GetTask">
+            <summary>
+            获取 Task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.CallbackRunTask.GetTask">
+            <summary>
+            获取 Task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.Queue0">
+            <summary>
+            服务端执行队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.queueLowPriority0">
+            <summary>
+            服务端执行队列（低优先级）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.taskQueueSet0">
+            <summary>
+            服务端异步调用队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.#ctor(AutoCSer.Net.CommandListener,System.String,`0,System.Func{AutoCSer.Net.CommandServerController,AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerBindContextController})">
+            <summary>
+            命令服务控制器
+            </summary>
+            <param name="server">命令服务</param>
+            <param name="controllerName">控制器名称</param>
+            <param name="controller">控制器接口实例</param>
+            <param name="getBindController">获取控制器接口实例</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.DoCommand(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            命令处理
+            </summary>
+            <param name="socket"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceControllerIL`1.Method0">
+            <summary>
+            服务端接口方法信息
+            </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerInterfaceMethod">
             <summary>
@@ -34793,6 +34925,19 @@
             检查服务控制器相关错误信息
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerTaskQueueInterfaceControllerIL`2.DoCommand(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            命令处理
+            </summary>
+            <param name="socket"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerTaskQueueInterfaceControllerIL`2.Method0">
+            <summary>
+            服务端接口方法信息
+            </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandClientCompressConfig">
             <summary>
@@ -39207,7 +39352,7 @@
             </summary>
             <param name="controller"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue.EnterContext">
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueue.EnterContext(System.String,System.String,System.Int32)">
             <summary>
             进入队列上下文异步锁（用于多个读取任务并发操作 ContextObject 的情况）
             </summary>
@@ -40766,8 +40911,8 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.QueueTimeoutSeconds">
             <summary>
-            The default value is 0, indicating no check. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
-            同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
+            The default value is 5 seconds. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
+            同步队列任务执行超时检查秒数默认为 5 ，用于检查队列任务是否存在长时间阻塞或者死锁问题
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.BuildOutputThread">
@@ -40821,6 +40966,11 @@
             <summary>
             The default value is 60, indicating that the queue is deleted after no new tasks are performed within the specified period. If the value is 0, the queue is deleted immediately after the queue is executed to avoid memory occupation. If the value is negative, the memory is permanently occupied
             异步读写队列驻留超时秒数，默认为 60 表示等待指定时间以后没有新任务再删除队列，设置为 0 表示队列任务执行完以后立即删除队列避免占用内存，设置为负数表示永久驻留内存
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.MaxKeepCallbackCount">
+            <summary>
+            最大保持回调数量，默认为 0 表示不限制，开放服务应该根据实际情况设置避免内存占用攻击
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerConfig.Verify(System.Net.Sockets.Socket,AutoCSer.Net.CommandListener)">
@@ -41660,7 +41810,7 @@
             完成状态
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CallbackCommand.pushState">
+        <member name="F:AutoCSer.Net.CallbackCommand.PushState">
             <summary>
             命令添加状态
             </summary>
@@ -44620,6 +44770,11 @@
             </summary>
             <param name="buildInfo">TCP 客户端创建命令参数</param>
             <returns>是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.SendOnlyCommand.PushSendOnly">
+            <summary>
+            添加命令到发送队列
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.SendOnlyCommand.Discard">
             <summary>
@@ -48114,6 +48269,11 @@
             <param name="type"></param>
             <returns>重定向类型</returns>
         </member>
+        <member name="F:AutoCSer.Config.LockTimeoutSeconds">
+            <summary>
+            锁超时检查时间戳，默认为 60s
+            </summary>
+        </member>
         <member name="M:AutoCSer.Config.CheckRemoteType(System.Type)">
             <summary>
             Check whether the remote type is valid
@@ -50889,7 +51049,7 @@
             线程句柄
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.waitHandle">
+        <member name="F:AutoCSer.Threading.TaskQueueBase.WaitHandle">
             <summary>
             等待事件
             </summary>
@@ -50947,42 +51107,97 @@
             CPU 高速缓存填充数据块，默认为 64b 应用，填充 7 * 8 = 56b
             </summary>
         </member>
-        <member name="T:AutoCSer.Threading.OnceAutoWaitHandle">
+        <member name="T:AutoCSer.Threading.LockCaller">
             <summary>
-            一次性等待锁
+            锁调用信息
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.waitLock">
+        <member name="F:AutoCSer.Threading.LockCaller.timeoutTimestamp">
             <summary>
-            同步等待锁
+            锁超时时间戳
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.IsWait">
+        <member name="F:AutoCSer.Threading.LockCaller.timeoutCount">
             <summary>
-            是否等待中
+            超时检查次数
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.Reserved">
+        <member name="F:AutoCSer.Threading.LockCaller.callerLineNumber">
             <summary>
-            保留
+            锁调用行数
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set(System.Object,System.Int32)">
+        <member name="F:AutoCSer.Threading.LockCaller.callerMemberName">
             <summary>
-            初始化数据
-            </summary>
-            <param name="waitLock">同步等待锁</param>
-            <param name="isWait">是否等待中</param>
-        </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Wait">
-            <summary>
-            等待结束
+             锁调用成员
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set">
+        <member name="F:AutoCSer.Threading.LockCaller.callerFilePath">
             <summary>
-            结束等待
+            锁调用文件
             </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Set(System.String,System.String,System.Int32)">
+            <summary>
+            锁调用信息
+            </summary>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.CheckTimeout(System.String)">
+            <summary>
+            锁超时检查
+            </summary>
+            <param name="callerMemberName"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Enter(System.Object,System.String,System.String,System.Int32)">
+            <summary>
+            锁申请
+            </summary>
+            <param name="lockObject">锁对象</param>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Enter(System.Threading.SemaphoreSlim,System.String,System.String,System.Int32)">
+            <summary>
+            锁申请
+            </summary>
+            <param name="lockObject">锁对象</param>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.EnterAsync(System.Threading.SemaphoreSlim,System.String,System.String,System.Int32)">
+            <summary>
+            锁申请
+            </summary>
+            <param name="lockObject">锁对象</param>
+            <param name="callerMemberName">锁调用成员</param>
+            <param name="callerFilePath">锁调用文件</param>
+            <param name="callerLineNumber">锁调用行数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.Exit">
+            <summary>
+            释放锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.lockTimeout">
+            <summary>
+            锁超时检查时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.LockCaller.lockTimeoutTimestamp">
+            <summary>
+            锁超时检查时间戳
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LockCaller.getLockTimeoutTimestamp">
+            <summary>
+            获取锁超时检查时间戳
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Threading.LockObject">
             <summary>
@@ -50994,13 +51209,18 @@
             锁对象
             </summary>
         </member>
+        <member name="F:AutoCSer.Threading.LockObject.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
         <member name="M:AutoCSer.Threading.LockObject.#ctor(System.Object)">
             <summary>
             锁对象
             </summary>
             <param name="lockObject"></param>
         </member>
-        <member name="M:AutoCSer.Threading.LockObject.Enter">
+        <member name="M:AutoCSer.Threading.LockObject.Enter(System.String,System.String,System.Int32)">
             <summary>
             等待锁
             </summary>
@@ -51008,6 +51228,19 @@
         <member name="M:AutoCSer.Threading.LockObject.Exit">
             <summary>
             释放锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LockObject.CheckThread(System.String,System.String,System.Int32)">
+            <summary>
+            启动线程检测锁占用状态
+            </summary>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.LockObject.checkThread">
+            <summary>
+            线程检测锁占用状态
             </summary>
         </member>
         <member name="T:AutoCSer.Threading.CatchTask">
@@ -51709,6 +51942,11 @@
             是否已经添加任务到任务数组
             </summary>
         </member>
+        <member name="F:AutoCSer.Threading.SecondTimerTaskArrayNode.Reserved">
+            <summary>
+            保留
+            </summary>
+        </member>
         <member name="F:AutoCSer.Threading.SecondTimerTaskArrayNode.TimeoutSeconds">
             <summary>
             超时秒计数
@@ -51988,6 +52226,11 @@
             锁对象
             </summary>
         </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimLock.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
         <member name="M:AutoCSer.Threading.SemaphoreSlimLock.#ctor(System.Int32,System.Int32)">
             <summary>
             异步锁（不支持重入，重入则死锁）
@@ -51995,12 +52238,12 @@
             <param name="initialCount">初始允许并发数量，默认应该传 1</param>
             <param name="maxCount">最大并发数量</param>
         </member>
-        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.Enter">
+        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.Enter(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.EnterAsync">
+        <member name="M:AutoCSer.Threading.SemaphoreSlimLock.EnterAsync(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
@@ -52032,33 +52275,38 @@
             休眠标志
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.TryEnter">
+        <member name="F:AutoCSer.Threading.SleepFlagSpinLock.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.TryEnter(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.Enter">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.Enter(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enter">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enter(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterSleepFlag">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterSleepFlag(System.String,System.String,System.Int32)">
             <summary>
             申请锁并设置休眠标志，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterNotCheckSleepFlag">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.EnterNotCheckSleepFlag(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频高冲突场景（不检测休眠标识，和 SpinLock.Enter4 效果一样）
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enterNotCheckSleepFlag">
+        <member name="M:AutoCSer.Threading.SleepFlagSpinLock.enterNotCheckSleepFlag(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频高冲突场景（不检测休眠标识，和 SpinLock.Enter4 效果一样）
             </summary>
@@ -52088,23 +52336,28 @@
             保留
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.TryEnter">
+        <member name="F:AutoCSer.Threading.SpinLock.caller">
+            <summary>
+            锁调用信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SpinLock.TryEnter(System.String,System.String,System.Int32)">
             <summary>
             申请锁
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.EnterYield">
+        <member name="M:AutoCSer.Threading.SpinLock.EnterYield(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.enterYield">
+        <member name="M:AutoCSer.Threading.SpinLock.enterYield(System.String,System.String,System.Int32)">
             <summary>
             申请锁，每间隔 4 次调用 1 次 Thread.Sleep(0)，用于高频一般冲突场景
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.SpinLock.EnterSleep">
+        <member name="M:AutoCSer.Threading.SpinLock.EnterSleep(System.String,System.String,System.Int32)">
             <summary>
             申请锁，一直调用 Thread.Sleep(0)，用于低频场景
             </summary>
@@ -53653,6 +53906,11 @@
             获取 fixed 缓冲区，DEBUG 模式对数据范围进行检测
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.LeftArray`1.DebugCheckFixed">
+            <summary>
+            fixed 之前检查数据
+            </summary>
         </member>
         <member name="T:AutoCSer.ListArray`1">
             <summary>
@@ -55633,6 +55891,11 @@
             获取 fixed 缓冲区，DEBUG 模式对数据范围进行检测
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SubArray`1.DebugCheckFixed">
+            <summary>
+            fixed 之前检查数据
+            </summary>
         </member>
         <member name="T:AutoCSer.TextSerializer`2">
             <summary>

@@ -153,18 +153,27 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new AwaiterClientPerformance(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClientPerformance(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
 
-                #region 服务端仅执行模式，异常会导致测试中断，属于正常现象
+                #region 服务端仅执行模式，异常会导致测试中断，属于正常现象（高性能需求场景应该使用 ICallbackClient.KeepCallback 获取 CommandKeepCallback，比如该测试中消费速度低于生产速度会导致服务端累积大量任务占用大量内存）
                 int testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
-                checkEnumeratorCommand(enumeratorCommand).NotWait();
-                for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
-                await LoopCompleted(nameof(AwaiterClientPerformance), nameof(client.InterfaceController.KeepCallback));
+                await using ((IAsyncDisposable)enumeratorCommand)
+                {
+                    checkEnumeratorCommand(enumeratorCommand).NotWait();
+                    for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right))
+                    {
+                        //if ((right & ((1 << 6) - 1)) == 0) AutoCSer.Threading.ThreadYield.YieldOnly();//降低生产速度测试
+                    }
+                    await LoopCompleted(nameof(AwaiterClientPerformance), nameof(client.InterfaceController.KeepCallback));
+                }
 
-                Reset(commandClient, maxTestCount);
+                testCount = Reset(commandClient, maxTestCount);
                 enumeratorCommand = await client.InterfaceController.KeepCallbackCount();
-                checkEnumeratorCommand(enumeratorCommand).NotWait();
-                for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right)) ;
-                await LoopCompleted(nameof(AwaiterClientPerformance), nameof(client.InterfaceController.KeepCallbackCount));
+                await using ((IAsyncDisposable)enumeratorCommand)
+                {
+                    checkEnumeratorCommand(enumeratorCommand).NotWait();
+                    for (int right = testCount; right != 0; await client.InterfaceController.SendOnlyTask(left, --right)) ;
+                    await LoopCompleted(nameof(AwaiterClientPerformance), nameof(client.InterfaceController.KeepCallbackCount));
+                }
                 #endregion
             }
         }

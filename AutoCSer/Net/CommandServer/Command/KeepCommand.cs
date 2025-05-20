@@ -67,6 +67,7 @@ namespace AutoCSer.Net.CommandServer
             if (stream.Data.Pointer.FreeSize >= sizeof(uint) + sizeof(CallbackIdentity) || buildInfo.Count == 0)
             {
                 uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
+                var nextCommand = LinkNext;
                 if (methodIndex != 0)
                 {
                     SetTimeoutSeconds();
@@ -79,7 +80,8 @@ namespace AutoCSer.Net.CommandServer
                         *(CallbackIdentity*)(data + sizeof(uint)) = new CallbackIdentity((uint)callbackIndex, identity);
                         buildInfo.SetIsCallback();
                         keepCallback.Set(callbackIndex, identity);
-                        return LinkNext;
+                        LinkNext = null;
+                        return nextCommand;
                     }
                     ++buildInfo.FreeCount;
                     OnBuildError(CommandClientReturnTypeEnum.ClientBuildError);
@@ -89,7 +91,8 @@ namespace AutoCSer.Net.CommandServer
                     ++buildInfo.FreeCount;
                     OnBuildError(CommandClientReturnTypeEnum.ControllerMethodIndexError);
                 }
-                return LinkNext;
+                LinkNext = null;
+                return nextCommand;
             }
             buildInfo.IsFullSend = 1;
             return this;
@@ -108,6 +111,7 @@ namespace AutoCSer.Net.CommandServer
             where T : struct
         {
             uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
+            var nextCommand = LinkNext;
             if (methodIndex != 0)
             {
                 UnmanagedStream stream = Controller.Socket.OutputSerializer.Stream;
@@ -139,12 +143,14 @@ namespace AutoCSer.Net.CommandServer
                             *(int*)(dataFixed + (sizeof(uint) + sizeof(CallbackIdentity))) = dataLength;
                             buildInfo.SetIsCallback();
                             keepCallback.Set(callbackIndex, identity);
-                            return LinkNext;
+                            LinkNext = null;
+                            return nextCommand;
                         }
                         stream.Data.Pointer.CurrentIndex = streamLength;
                         ++buildInfo.FreeCount;
                         OnBuildError(CommandClientReturnTypeEnum.ClientBuildError);
-                        return LinkNext;
+                        LinkNext = null;
+                        return nextCommand;
                     }
                 }
                 stream.Data.Pointer.CurrentIndex = streamLength;
@@ -154,7 +160,8 @@ namespace AutoCSer.Net.CommandServer
             inputParameter = default(T);
            ++buildInfo.FreeCount;
             OnBuildError(CommandClientReturnTypeEnum.ControllerMethodIndexError);
-            return LinkNext;
+            LinkNext = null;
+            return nextCommand;
         }
         ///// <summary>
         ///// 创建命令输入数据

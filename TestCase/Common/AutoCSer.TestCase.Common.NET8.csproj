@@ -36,6 +36,7 @@
     <Compile Include="Data\Enum\ULongFlagEnum.cs" />
     <Compile Include="Data\Enum\UShortEnum.cs" />
     <Compile Include="Data\Enum\UShortFlagEnum.cs" />
+    <Compile Include="JsonFileConfig.cs" />
   </ItemGroup>
 
   <ItemGroup>

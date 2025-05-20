@@ -9787,6 +9787,11 @@
             空方法信息
             </summary>
         </member>
+        <member name="F:AutoCSer.Common.NullAutoResetEvent">
+            <summary>
+            空事件
+            </summary>
+        </member>
         <member name="M:AutoCSer.Common.emptyEventHandler(System.Object,System.EventArgs)">
             <summary>
             空事件
@@ -11329,6 +11334,17 @@
             </summary>
             <param name="path">目录</param>
             <returns>\结尾的路径全名</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.EventWaitHandleExtension">
+            <summary>
+            事件扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.EventWaitHandleExtension.setDispose(System.Threading.EventWaitHandle)">
+            <summary>
+            调用 Set
+            </summary>
+            <param name="value"></param>
         </member>
         <member name="T:AutoCSer.Extensions.FieldInfoExtension">
             <summary>
@@ -20450,6 +20466,20 @@
             枚举转数字
             </summary>
         </member>
+        <member name="M:AutoCSer.Metadata.EnumGenericType`2.toInt(`0)">
+            <summary>
+            枚举转数字（不支持）
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Metadata.EnumGenericType`2.fromInt(`1)">
+            <summary>
+            枚举转数字（不支持）
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Metadata.GenericType">
             <summary>
             泛型类型元数据
@@ -26389,7 +26419,7 @@
             命令等待锁
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandServer.SynchronousCommand.ReturnType">
+        <member name="F:AutoCSer.Net.CommandServer.SynchronousCommand.ReturnType">
             <summary>
             返回值类型
             </summary>
@@ -38346,6 +38376,11 @@
             异步读写队列驻留超时秒数，默认为 60 表示等待指定时间以后没有新任务再删除队列，设置为 0 表示队列任务执行完以后立即删除队列避免占用内存，设置为负数表示永久驻留内存
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.MaxKeepCallbackCount">
+            <summary>
+            最大保持回调数量，默认为 0 表示不限制，开放服务应该根据实际情况设置避免内存占用攻击
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerConfig.Verify(System.Net.Sockets.Socket,AutoCSer.Net.CommandListener)">
             <summary>
             Validation sockets, such as IP addresses, return true by default
@@ -40711,7 +40746,7 @@
             完成状态
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CallbackCommand.pushState">
+        <member name="F:AutoCSer.Net.CallbackCommand.PushState">
             <summary>
             命令添加状态
             </summary>
@@ -41472,6 +41507,11 @@
             <param name="buildInfo">TCP 客户端创建命令参数</param>
             <returns>是否成功</returns>
         </member>
+        <member name="M:AutoCSer.Net.SendOnlyCommand.PushSendOnly">
+            <summary>
+            添加命令到发送队列
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.SendOnlyCommand.Discard">
             <summary>
             丢弃命令，用于清除 async 内部提示 await 的警告，仅用于确定不会超过客户端最大未处理命令数量限制，如果是批量请求并且可能超过限制则应该 await 等待
@@ -42227,6 +42267,12 @@
             移动日志文件
             </summary>
             <returns>新的日志文件名称</returns>
+        </member>
+        <member name="M:AutoCSer.Log.File.GetDefaultFileName">
+            <summary>
+            获取默认日志文件名称
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.LogLevelEnum">
             <summary>
@@ -50356,43 +50402,6 @@
             默认空队列任务节点
             </summary>
         </member>
-        <member name="T:AutoCSer.Threading.OnceAutoWaitHandle">
-            <summary>
-            一次性等待锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.waitLock">
-            <summary>
-            同步等待锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.IsWait">
-            <summary>
-            是否等待中
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.Reserved">
-            <summary>
-            保留
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set(System.Object,System.Int32)">
-            <summary>
-            初始化数据
-            </summary>
-            <param name="waitLock">同步等待锁</param>
-            <param name="isWait">是否等待中</param>
-        </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Wait">
-            <summary>
-            等待结束
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set">
-            <summary>
-            结束等待
-            </summary>
-        </member>
         <member name="T:AutoCSer.Threading.LinkPoolBase`1">
             <summary>
             缓存对象链表（用于冲突概率低的场景）
@@ -50952,7 +50961,7 @@
             线程句柄
             </summary>
         </member>
-        <member name="F:AutoCSer.Threading.TaskQueueBase.waitHandle">
+        <member name="F:AutoCSer.Threading.TaskQueueBase.WaitHandle">
             <summary>
             等待事件
             </summary>
@@ -51702,6 +51711,11 @@
         <member name="F:AutoCSer.Threading.SecondTimerTaskArrayNode.isTryAppended">
             <summary>
             是否已经添加任务到任务数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SecondTimerTaskArrayNode.Reserved">
+            <summary>
+            保留
             </summary>
         </member>
         <member name="F:AutoCSer.Threading.SecondTimerTaskArrayNode.TimeoutSeconds">

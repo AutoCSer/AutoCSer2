@@ -38,7 +38,7 @@ namespace AutoCSer.Net.CommandServer
         {
             if (Controller.Socket.TryPush(this) != CommandPushStateEnum.Closed)
             {
-                WaitLock.Wait();
+                WaitLock.WaitOne();
                 outputParameter = this.outputParameter;
                 return ReturnValue;
             }
@@ -88,7 +88,7 @@ namespace AutoCSer.Net.CommandServer
         {
             if (Controller.Socket.TryPush(this) != CommandPushStateEnum.Closed)
             {
-                WaitLock.Wait();
+                WaitLock.WaitOne();
                 outputParameter = this.outputParameter;
                 return ReturnValue;
             }

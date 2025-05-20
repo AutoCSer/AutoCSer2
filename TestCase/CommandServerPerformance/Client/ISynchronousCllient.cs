@@ -153,6 +153,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             this.serverMethodName = serverMethodName;
             right = Reset(commandClient, maxTestCount >> 4, threadCount);
             while (--threadCount >= 0) AutoCSer.Threading.ThreadPool.TinyBackground.Start(task);
+            //while (--threadCount >= 0) new System.Threading.Thread(task, 128 << 10).Start();
         }
         /// <summary>
         /// 等待测试完成

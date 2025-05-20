@@ -9,6 +9,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <PublishAot>True</PublishAot>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
 
@@ -35,7 +36,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="{AutoCSer.TestCase.CommandClientPerformance}.AOT.AutoCSer.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\AutoCSer\Extensions\AutoCSer.Extensions.AOT.NET8.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />

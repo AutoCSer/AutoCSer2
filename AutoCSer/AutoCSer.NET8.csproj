@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.54</Version>
+    <Version>2.0.55</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -102,6 +102,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Culture\English.cs" />
     <Compile Include="EmptyArrayCompletedTask.cs" />
     <Compile Include="EmptyLeftArrayCompletedTask.cs" />
+    <Compile Include="Extensions\EventWaitHandleExtension.cs" />
     <Compile Include="Extensions\CommandServerKeepCallbackExtension.cs" />
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
     <Compile Include="Extensions\LogExtension.cs" />
@@ -477,7 +478,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="SubArray.cs" />
     <Compile Include="TextSerialize\TextSerializer.cs" />
     <Compile Include="Threading\CpuCachePad.cs" />
-    <Compile Include="Threading\OnceAutoWaitHandle.cs" />
     <Compile Include="Threading\LockCaller.cs" />
     <Compile Include="Threading\LockObject.cs" />
     <Compile Include="Log\File.cs" />

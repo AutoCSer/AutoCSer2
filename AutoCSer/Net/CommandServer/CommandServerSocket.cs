@@ -245,9 +245,9 @@ namespace AutoCSer.Net
         /// 异步保持回调集合
         /// </summary>
 #if NetStandard21
-        private Dictionary<CallbackIdentity, CommandServerKeepCallback>? keepCallbacks;
+        private ReusableDictionary<CallbackIdentity, CommandServerKeepCallback>? keepCallbacks;
 #else
-        private Dictionary<CallbackIdentity, CommandServerKeepCallback> keepCallbacks;
+        private ReusableDictionary<CallbackIdentity, CommandServerKeepCallback> keepCallbacks;
 #endif
         /// <summary>
         /// 输出数据二进制序列化
@@ -2965,13 +2965,19 @@ namespace AutoCSer.Net
         {
             if (closeLock == 0)
             {
+                var removeKeepCallback = default(CommandServerKeepCallback);
                 Monitor.Enter(keepCallbackLock);
                 try
                 {
-                    if (keepCallbacks == null) keepCallbacks = DictionaryCreator<CallbackIdentity>.Create<CommandServerKeepCallback>();
+                    if (keepCallbacks == null) keepCallbacks = new ReusableDictionary<CallbackIdentity, CommandServerKeepCallback>(0, ReusableDictionaryGroupTypeEnum.Roll);
                     keepCallbacks[keepCallback.CallbackIdentity] = keepCallback;
+                    if (Server.Config.MaxKeepCallbackCount > 0 && keepCallbacks.Count > Server.Config.MaxKeepCallbackCount) keepCallbacks.RemoveRoll(out removeKeepCallback);
                 }
-                finally { Monitor.Exit(keepCallbackLock); }
+                finally
+                {
+                    Monitor.Exit(keepCallbackLock);
+                    removeKeepCallback?.CancelKeep(CommandClientReturnTypeEnum.CancelKeepCallback);
+                }
             }
             else keepCallback.SetCancelKeep();
         }
@@ -3133,7 +3139,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 套接字集合发送数据等待事件
         /// </summary>
-        private static OnceAutoWaitHandle socketOutputWaitHandle;
+        private static readonly System.Threading.AutoResetEvent socketOutputWaitHandle = new AutoResetEvent(false);
         /// <summary>
         /// 套接字集合发送数据
         /// </summary>
@@ -3141,7 +3147,7 @@ namespace AutoCSer.Net
         {
             do
             {
-                socketOutputWaitHandle.Wait();
+                socketOutputWaitHandle.WaitOne();
                 var head = System.Threading.Interlocked.Exchange(ref outputSocketHead, null).notNull();
                 var socket = head;
                 do
@@ -3171,7 +3177,6 @@ namespace AutoCSer.Net
         /// </summary>
         internal static void StartSocketBuildOutputThread()
         {
-            socketOutputWaitHandle.Set(new object());
             AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(socketBuildOutput);
         }
     }

@@ -31,7 +31,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 持久化重建完毕关闭从节点等待事件
         /// </summary>
-        private AutoCSer.Threading.OnceAutoWaitHandle rebuildCompletedWaitHandle;
+        private System.Threading.AutoResetEvent rebuildCompletedWaitHandle;
         /// <summary>
         /// 最后一次生成的从节点时间戳标识
         /// </summary>
@@ -90,7 +90,9 @@ namespace AutoCSer.CommandService
             PersistenceBufferPool = ByteArrayPool.GetPool((BufferSizeBitsEnum)Math.Max((byte)BufferSizeBitsEnum.Kilobyte4, (byte)config.BufferSizeBits));
             createServiceNode(this);
             createInputMethodParameter = new CreateInputMethodParameter(Nodes[0].Node.notNull());
-
+#if !AOT
+            rebuildCompletedWaitHandle = AutoCSer.Common.NullAutoResetEvent;
+#endif
             if (isMaster) PersistenceWaitHandle.Set(new object());
         }
         /// <summary>
@@ -132,7 +134,7 @@ namespace AutoCSer.CommandService
                     IsLoaded = true;
                     serviceCallbackWait = new ManualResetEvent(true);
 #if !AOT
-                    rebuildCompletedWaitHandle.Set(new object());
+                    rebuildCompletedWaitHandle = new AutoResetEvent(false);
                     RepairNodeMethodLoaders = NullRepairNodeMethodLoaders;
 #endif
                     AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(persistence);
@@ -272,6 +274,10 @@ namespace AutoCSer.CommandService
 
                 PersistenceWaitHandle.Set();
                 PersistenceException(PersistenceQueue.Get());
+                serviceCallbackWait.Dispose();
+#if !AOT
+                rebuildCompletedWaitHandle.setDispose();
+#endif
             }
         }
         /// <summary>
@@ -1240,7 +1246,7 @@ namespace AutoCSer.CommandService
                                         if (Slave != null)
                                         {
                                             CommandServerCallQueue.AppendWriteOnly(completedCallback.notNull());
-                                            rebuildCompletedWaitHandle.Wait();
+                                            rebuildCompletedWaitHandle.WaitOne();
                                         }
 #endif
                                         persistenceStream.Dispose();

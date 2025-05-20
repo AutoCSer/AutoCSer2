@@ -40,7 +40,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 等待事件
         /// </summary>
-        internal OnceAutoWaitHandle WaitHandle;
+        internal readonly System.Threading.AutoResetEvent WaitHandle;
         /// <summary>
         /// 线程句柄
         /// </summary>
@@ -96,7 +96,7 @@ namespace AutoCSer.Net
             outputEnd = outputHead = CommandServerConfig.NullServerOutput;
             Index = index;
             runSeconds = long.MaxValue;
-            WaitHandle.Set(this);
+            WaitHandle = new System.Threading.AutoResetEvent(false);
             threadHandle = new System.Threading.Thread(run, ThreadPool.TinyStackSize);
             threadHandle.IsBackground = true;
             threadHandle.Start();
@@ -109,7 +109,7 @@ namespace AutoCSer.Net
         internal void Close()
         {
             KeepSeconds = 0;
-            WaitHandle.Reserved = 1;
+            base.Reserved = 1;
             if (queue.IsEmpty) WaitHandle.Set();
         }
         /// <summary>
@@ -163,8 +163,8 @@ namespace AutoCSer.Net
             ThreadId = System.Environment.CurrentManagedThreadId;
             do
             {
-                WaitHandle.Wait();
-                if (Server.IsDisposed || WaitHandle.Reserved != 0) return;
+                WaitHandle.WaitOne();
+                if (Server.IsDisposed || base.Reserved != 0) return;
                 AutoCSer.Threading.ThreadYield.YieldOnly();
                 //bool isThreadAffinity = AutoCSer.Threading.Thread.BeginThreadAffinity();
                 var value = queue.GetQueue();
@@ -178,7 +178,7 @@ namespace AutoCSer.Net
                             currentTask = value;
                             value.RunTask(ref value);
                             runSeconds = long.MaxValue;
-                            if (Server.IsDisposed || WaitHandle.Reserved != 0) return;
+                            if (Server.IsDisposed || base.Reserved != 0) return;
                         }
                         break;
                     }
@@ -195,7 +195,7 @@ namespace AutoCSer.Net
 
                 //if (isThreadAffinity) System.Threading.Thread.EndThreadAffinity();
             }
-            while (!Server.IsDisposed && WaitHandle.Reserved == 0);
+            while (!Server.IsDisposed && base.Reserved == 0);
         }
         /// <summary>
         /// 创建低优先级任务队列链表

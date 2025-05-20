@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace AutoCSer
         /// <summary>
         /// 返回值等待锁
         /// </summary>
-        private AutoCSer.Threading.OnceAutoWaitHandle waitLock;
+        private System.Threading.ManualResetEvent waitLock;
         /// <summary>
         /// 获取 Task.Result
         /// </summary>
@@ -25,7 +26,7 @@ namespace AutoCSer
         internal WaitTask(Task task)
         {
             this.task = task;
-            waitLock.Set(task);
+            waitLock = new System.Threading.ManualResetEvent(false);
             AutoCSer.Threading.ThreadPool.TinyBackground.Start(wait);
         }
         /// <summary>
@@ -37,7 +38,7 @@ namespace AutoCSer
             {
                 task.Wait();
             }
-            finally { waitLock.Set(); }
+            finally { waitLock.setDispose(); }
         }
         /// <summary>
         /// 获取返回值
@@ -50,7 +51,7 @@ namespace AutoCSer
         internal Exception Wait()
 #endif
         {
-            waitLock.Wait();
+            waitLock.WaitOne();
             return task.Exception;
         }
     }
@@ -67,7 +68,7 @@ namespace AutoCSer
         /// <summary>
         /// 返回值等待锁
         /// </summary>
-        private AutoCSer.Threading.OnceAutoWaitHandle waitLock;
+        private System.Threading.ManualResetEvent waitLock;
         /// <summary>
         /// 任务返回值
         /// </summary>
@@ -82,7 +83,7 @@ namespace AutoCSer
         internal WaitTask(Task<T> task)
         {
             this.task = task;
-            waitLock.Set(task);
+            waitLock = new System.Threading.ManualResetEvent(false);
             AutoCSer.Threading.ThreadPool.TinyBackground.Start(getResult);
         }
         /// <summary>
@@ -94,7 +95,7 @@ namespace AutoCSer
             {
                 result = task.Result;
             }
-            finally { waitLock.Set(); }
+            finally { waitLock.setDispose(); }
         }
         /// <summary>
         /// 获取返回值
@@ -108,7 +109,7 @@ namespace AutoCSer
         internal T GetResult(out Exception exception)
 #endif
         {
-            waitLock.Wait();
+            waitLock.WaitOne();
             exception = task.Exception;
             return result;
         }

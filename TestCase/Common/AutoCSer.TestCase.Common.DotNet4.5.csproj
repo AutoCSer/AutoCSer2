@@ -55,6 +55,7 @@
     <Compile Include="Data\Enum\ULongFlagEnum.cs" />
     <Compile Include="Data\Enum\UShortEnum.cs" />
     <Compile Include="Data\Enum\UShortFlagEnum.cs" />
+    <Compile Include="JsonFileConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.DotNet4.5.csproj">

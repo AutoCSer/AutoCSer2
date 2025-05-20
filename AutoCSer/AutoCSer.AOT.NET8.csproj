@@ -115,6 +115,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="EmptyLeftArrayCompletedTask.cs" />
     <Compile Include="Extensions\CommandServerKeepCallbackExtension.cs" />
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
+    <Compile Include="Extensions\EventWaitHandleExtension.cs" />
     <Compile Include="Extensions\LogExtension.cs" />
     <Compile Include="Extensions\FieldInfoExtension.cs" />
     <Compile Include="Extensions\IDisposableExtension.cs" />
@@ -487,7 +488,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="SubArray.cs" />
     <Compile Include="TextSerialize\TextSerializer.cs" />
     <Compile Include="Threading\CpuCachePad.cs" />
-    <Compile Include="Threading\OnceAutoWaitHandle.cs" />
     <Compile Include="Threading\LockCaller.cs" />
     <Compile Include="Threading\LockObject.cs" />
     <Compile Include="Log\File.cs" />
@@ -570,12 +570,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

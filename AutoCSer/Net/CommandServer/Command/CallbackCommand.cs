@@ -14,9 +14,9 @@ namespace AutoCSer.Net
         /// 异步回调
         /// </summary>
 #if NetStandard21
-        private Action? continuation;
+        protected Action? continuation;
 #else
-        private Action continuation;
+        protected Action continuation;
 #endif
         /// <summary>
         /// 完成状态
@@ -25,7 +25,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 命令添加状态
         /// </summary>
-        private CommandPushStateEnum pushState;
+        internal CommandPushStateEnum PushState;
         /// <summary>
         /// 添加输出命令通知
         /// </summary>
@@ -48,7 +48,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool GetResult()
         {
-            return pushState == CommandPushStateEnum.Success;
+            return PushState == CommandPushStateEnum.Success;
         }
         /// <summary>
         /// 设置异步回调
@@ -75,8 +75,8 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Push()
         {
-            pushState = Controller.Socket.TryPush(this);
-            if (pushState != CommandPushStateEnum.WaitCount)
+            PushState = Controller.Socket.TryPush(this);
+            if (PushState != CommandPushStateEnum.WaitCount)
             {
                 IsCompleted = true;
                 continuation = Common.EmptyAction;
@@ -88,8 +88,8 @@ namespace AutoCSer.Net
         /// <returns>是否需要继续等待</returns>
         internal override bool CheckWaitPush()
         {
-            pushState = Controller.Socket.TryPush(this);
-            if (pushState != CommandPushStateEnum.WaitCount)
+            PushState = Controller.Socket.TryPush(this);
+            if (PushState != CommandPushStateEnum.WaitCount)
             {
                 IsCompleted = true;
                 if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null)

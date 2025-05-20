@@ -33,7 +33,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Add(RawSocketBuffer buffer)
         {
-            if(bufferQueue.IsPushHead(buffer)) waitHandle.Set();
+            if(bufferQueue.IsPushHead(buffer)) WaitHandle.Set();
         }
         /// <summary>
         /// 任务线程处理
@@ -42,7 +42,7 @@ namespace AutoCSer.Net
         {
             do
             {
-                waitHandle.Wait();
+                WaitHandle.WaitOne();
                 if (isDisposed) return;
                 AutoCSer.Threading.ThreadYield.YieldOnly();
                 var value = bufferQueue.GetQueue();

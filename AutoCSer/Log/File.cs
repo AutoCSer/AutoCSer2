@@ -361,5 +361,15 @@ namespace AutoCSer.Log
             finally { logLock.Exit(); }
             return null;
         }
+        /// <summary>
+        /// 获取默认日志文件名称
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static string GetDefaultFileName()
+        {
+            if (System.IO.Path.DirectorySeparatorChar != '/') return AutoCSer.Common.NamePrefix + ".log";
+            return Path.Combine(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory ?? Environment.CurrentDirectory).FullName, AutoCSer.Common.NamePrefix + ".log");
+        }
     }
 }

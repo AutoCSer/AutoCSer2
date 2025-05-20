@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 
 namespace AutoCSer.Threading
 {
@@ -14,7 +15,7 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 等待事件
         /// </summary>
-        internal OnceAutoWaitHandle waitHandle;
+        internal readonly System.Threading.AutoResetEvent WaitHandle;
         /// <summary>
         /// 是否已经释放资源
         /// </summary>
@@ -25,14 +26,14 @@ namespace AutoCSer.Threading
         public void Dispose()
         {
             isDisposed = true;
-            waitHandle.Set();
+            WaitHandle.setDispose();
         }
         /// <summary>
         /// 任务队列
         /// </summary>
         public TaskQueueBase()
         {
-            waitHandle.Set(this);
+            WaitHandle = new System.Threading.AutoResetEvent(false);
             threadHandle = new System.Threading.Thread(run, AutoCSer.Threading.ThreadPool.TinyStackSize);
             threadHandle.IsBackground = true;
             threadHandle.Start();

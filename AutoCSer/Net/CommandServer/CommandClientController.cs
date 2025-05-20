@@ -187,7 +187,7 @@ namespace AutoCSer.Net
         public SendOnlyCommand SendOnly(int methodIndex)
         {
             SendOnlyCommand command = new SendOnlyCommand(this, methodIndex);
-            command.Push();
+            command.PushSendOnly();
             return command;
         }
 #else
@@ -201,7 +201,7 @@ namespace AutoCSer.Net
         internal static SendOnlyCommand SendOnly(CommandClientController controller, int methodIndex)
         {
             SendOnlyCommand command = new SendOnlyCommand(controller, methodIndex);
-            command.Push();
+            command.PushSendOnly();
             return command;
         }
 #endif

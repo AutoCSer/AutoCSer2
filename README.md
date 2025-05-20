@@ -238,3 +238,5 @@ Based on AutoCSer RPC implementation of memory database, [high concurrent throug
 5. [服务信息注册与推送](https://zhuanlan.zhihu.com/p/19143730420) - [9.ServerRegistry](https://github.com/AutoCSer/AutoCSer2/tree/main/Document/ServerRegistry)
 6. [本地嵌入模式支持 .NET NativeAOT](https://zhuanlan.zhihu.com/p/1905995585607152565) - [11.NativeAOT](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/StreamPersistenceMemoryDatabase/LocalService)
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/AutoCSer/AutoCSer2)
+

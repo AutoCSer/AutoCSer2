@@ -22,7 +22,7 @@ namespace AutoCSer.Net.CommandServer
         {
             do
             {
-                WaitHandle.Wait();
+                WaitHandle.WaitOne();
                 if (!queue.IsClose)
                 {
                     try

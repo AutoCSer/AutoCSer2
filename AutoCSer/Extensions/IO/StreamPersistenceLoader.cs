@@ -152,8 +152,8 @@ namespace AutoCSer.IO
             finally
             {
                 if (!isReadCompleted) isReadException = true;
-                buffer.LoadDataWait.Set();
-                buffer2.LoadDataWait.Set();
+                buffer.LoadDataWait.setDispose();
+                buffer2.LoadDataWait.setDispose();
                 if (isLoadBuffer) loadBufferWait.WaitOne();
                 buffer.Free();
                 buffer2.Free();
@@ -323,9 +323,9 @@ namespace AutoCSer.IO
             }
             finally
             {
-                buffer.ReadFileWait.Set();
-                buffer2.ReadFileWait.Set();
-                loadBufferWait.Set();
+                buffer.ReadFileWait.setDispose();
+                buffer2.ReadFileWait.setDispose();
+                loadBufferWait.setDispose();
             }
         }
         /// <summary>

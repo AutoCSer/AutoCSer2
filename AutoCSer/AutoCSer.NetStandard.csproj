@@ -5,13 +5,13 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.54</Version>
+    <Version>2.0.55</Version>
     <PackageId>AutoCSer2</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.0]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
 AutoCSer based on the implementation of support reliable persistence and object-oriented programming memory database, high concurrency throughput performance is much higher than Garnet + StackExchange.Redis, support according to the business logic to customize any data structure node, Supports the local embedding mode to meet the needs of high-performance game intra-office services.</Description>
     <Copyright>Copyright © Jin Xiao 2021</Copyright>
-    <PackageTags>RPC;high-performance;JSON;serialization;in-memory-database;distributed-search;distributed-storage;distributed-lock;ORM;daemon;service-registration;reverse-service;API-monitor;GIF;file-synchronous;database-backup;AOT</PackageTags>
+    <PackageTags>RPC;high-performance;JSON;serialization;in-memory-database;distributed-search;distributed-storage;distributed-lock;ORM;daemon;service-registration;reverse-service;API-monitor;GIF;file-synchronous;database-backup</PackageTags>
     <PackageProjectUrl>https://github.com/AutoCSer/AutoCSer2</PackageProjectUrl>
     <Company>Jin Xiao</Company>
     <ApplicationIcon />
@@ -106,6 +106,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Extensions\CommandServerKeepCallbackExtension.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
+    <Compile Include="Extensions\EventWaitHandleExtension.cs" />
     <Compile Include="Extensions\FieldInfoExtension.cs" />
     <Compile Include="Extensions\IDisposableExtension.cs" />
     <Compile Include="Extensions\LogExtension.cs" />
@@ -477,7 +478,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="TextSerialize\WarningEnum.cs" />
     <Compile Include="Threading\CpuCachePad.cs" />
     <Compile Include="Threading\ActionQueueTaskNode.cs" />
-    <Compile Include="Threading\OnceAutoWaitHandle.cs" />
     <Compile Include="Threading\LinkPoolBase.cs" />
     <Compile Include="Threading\LinkPool.cs" />
     <Compile Include="Threading\LinkStack.cs" />

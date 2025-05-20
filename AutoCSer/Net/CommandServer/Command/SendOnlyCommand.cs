@@ -35,16 +35,32 @@ namespace AutoCSer.Net
             if (stream.Data.Pointer.FreeSize >= sizeof(uint) || buildInfo.Count == 0)
             {
                 uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
+                var nextCommand = LinkNext;
                 if (methodIndex != 0)
                 {
                     stream.Data.Pointer.Write(methodIndex);
                     buildInfo.AddCount();
                 }
                 else ++buildInfo.FreeCount;
-                return LinkNext;
+                LinkNext = null;
+                return nextCommand;
             }
             buildInfo.IsFullSend = 1;
             return this;
+        }
+        /// <summary>
+        /// 添加命令到发送队列
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void PushSendOnly()
+        {
+            PushState = Controller.Socket.TryPush(this);
+            if (PushState != CommandPushStateEnum.WaitCount)
+            {
+                IsCompleted = true;
+                continuation = Common.EmptyAction;
+            }
+            else AutoCSer.Threading.ThreadYield.YieldOnly();
         }
         /// <summary>
         /// 丢弃命令，用于清除 async 内部提示 await 的警告，仅用于确定不会超过客户端最大未处理命令数量限制，如果是批量请求并且可能超过限制则应该 await 等待
@@ -72,7 +88,7 @@ namespace AutoCSer.Net
         internal SendOnlyCommand(CommandClientController controller, int methodIndex, ref T inputParameter) : base(controller, methodIndex)
         {
             this.inputParameter = inputParameter;
-            Push();
+            PushSendOnly();
         }
         /// <summary>
         /// 创建命令输入数据
@@ -86,6 +102,7 @@ namespace AutoCSer.Net
 #endif
         {
             uint methodIndex = Controller.GetMethodIndex(Method.MethodIndex);
+            var nextCommand = LinkNext;
             if (methodIndex != 0)
             {
                 UnmanagedStream stream = Controller.Socket.OutputSerializer.Stream;
@@ -102,7 +119,8 @@ namespace AutoCSer.Net
                         *(uint*)dataFixed = methodIndex | (uint)CommandFlagsEnum.SendData;
                         *(int*)(dataFixed + sizeof(uint)) = dataLength;
                         buildInfo.AddCount();
-                        return LinkNext;
+                        LinkNext = null;
+                        return nextCommand;
                     }
                 }
                 stream.Data.Pointer.CurrentIndex = streamLength;
@@ -112,7 +130,8 @@ namespace AutoCSer.Net
             inputParameter = default(T);
             ++buildInfo.FreeCount;
             OnBuildError(CommandClientReturnTypeEnum.ControllerMethodIndexError);
-            return LinkNext;
+            LinkNext = null;
+            return nextCommand;
         }
         ///// <summary>
         ///// 创建命令输入数据

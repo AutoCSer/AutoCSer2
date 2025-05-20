@@ -239,7 +239,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 等待事件
         /// </summary>
-        internal OnceAutoWaitHandle outputWaitHandle;
+        private System.Threading.AutoResetEvent outputWaitHandle;
         /// <summary>
         /// 等待添加到队列的命令集合
         /// </summary>
@@ -284,6 +284,7 @@ namespace AutoCSer.Net
             CommandPool = new CommandPool(Client, new CompletedReturnCommand<int>(Controller));
             ControllerArray = EmptyArray<CommandClientController>.Array;
             Socket = CommandServerConfigBase.NullSocket;
+            outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(true);
@@ -314,6 +315,7 @@ namespace AutoCSer.Net
             CommandPool = new CommandPool(Client);
             ControllerArray = EmptyArray<CommandClientController>.Array;
             Socket = CommandServerConfigBase.NullSocket;
+            outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
@@ -345,6 +347,7 @@ namespace AutoCSer.Net
             CommandPool = new CommandPool(Client);
             ControllerArray = EmptyArray<CommandClientController>.Array;
             Socket = CommandServerConfigBase.NullSocket;
+            outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
@@ -379,6 +382,7 @@ namespace AutoCSer.Net
             CommandPool = new CommandPool(Client);
             ControllerArray = EmptyArray<CommandClientController>.Array;
             Socket = socket;
+            outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
@@ -392,7 +396,7 @@ namespace AutoCSer.Net
         {
             if (!isNull)
             {
-                outputWaitHandle.Set(new object());
+                outputWaitHandle = new AutoResetEvent(false);
                 CommandPool.Array[CommandServer.KeepCallbackCommand.MergeIndex].Command = new MergeCallbackCommand(this);
                 CommandPool.Array[CommandServer.KeepCallbackCommand.CancelKeepCallbackIndex].Command = new CancelKeepCallbackCommand(this);
                 CommandPool.Array[CommandServer.KeepCallbackCommand.CustomDataIndex].Command = new CustomDataCallbackCommand(this);
@@ -400,7 +404,6 @@ namespace AutoCSer.Net
                 receiveAsyncEventArgs.Completed += onReceive;
                 receiveAsyncEventArgs.UserToken = this;
             }
-            else outputWaitHandle.Set(this);
         }
         /// <summary>
         /// 创建主控制器
@@ -420,7 +423,7 @@ namespace AutoCSer.Net
             {
                 checkTimer?.Cancel();
 
-                outputWaitHandle.Set();
+                outputWaitHandle.setDispose();
                 try
                 {
                     Shutdown();
@@ -1529,7 +1532,7 @@ namespace AutoCSer.Net
                         WAIT:
                             if (head == null)
                             {
-                                outputWaitHandle.Wait();
+                                outputWaitHandle.WaitOne();
                                 if (isClosed != 0) return;
                                 AutoCSer.Threading.ThreadYield.YieldOnly();
                                 if ((head = commands.GetQueue(out end)) == null) return;
@@ -1789,7 +1792,11 @@ namespace AutoCSer.Net
             else if (isClosed == 0)
             {
                 waitPushCommands.Push(command);
-                if (isClosed == 0) return CommandPushStateEnum.WaitCount;
+                if (isClosed == 0)
+                {
+                    //AutoCSer.Threading.ThreadYield.YieldOnly();
+                    return CommandPushStateEnum.WaitCount;
+                }
                 closeWaitPush();
             }
             return CommandPushStateEnum.Closed;

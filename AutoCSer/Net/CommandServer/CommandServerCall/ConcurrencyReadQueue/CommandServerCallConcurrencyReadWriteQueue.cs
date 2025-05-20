@@ -79,8 +79,8 @@ namespace AutoCSer.Net
         {
             IsClose = true;
             KeepSeconds = 0;
-            QueueWaitHandle.Set();
-            ConcurrencyReadThread.WaitHandle.Set();
+            QueueWaitHandle.setDispose();
+            ConcurrencyReadThread.WaitHandle.setDispose();
         }
         /// <summary>
         /// 任务分配线程
@@ -101,7 +101,7 @@ namespace AutoCSer.Net
             bool isWaitConcurrencyRead = false;
             do
             {
-                QueueWaitHandle.Wait();
+                QueueWaitHandle.WaitOne();
                 if (!IsClose)
                 {
                     newConcurrencyReadHead = newConcurrencyReadEnd = newWriteHead = newWriteEnd = null;

@@ -39,14 +39,14 @@ namespace AutoCSer.Threading
         /// <summary>
         /// 等待事件
         /// </summary>
-        private OnceAutoWaitHandle waitHandle;
+        private readonly System.Threading.AutoResetEvent waitHandle;
         /// <summary>
         /// 线程池线程
         /// </summary>
         /// <param name="threadPool">线程池</param>
         internal Thread(ThreadPool threadPool)
         {
-            waitHandle.Set(this);
+            waitHandle = new System.Threading.AutoResetEvent(false);
             this.threadPool = threadPool;
             Handle = new System.Threading.Thread(exitTest, threadPool.StackSize);
             start(true);
@@ -59,7 +59,7 @@ namespace AutoCSer.Threading
         internal Thread(ThreadPool threadPool, Action task)
         {
             Task = task;
-            waitHandle.Set(this);
+            waitHandle = new System.Threading.AutoResetEvent(false);
             this.threadPool = threadPool;
             if (threadPool.IsBackground)
             {
@@ -88,7 +88,7 @@ namespace AutoCSer.Threading
         private void exitTest()
         {
             threadPool.PushBackground(this);
-            waitHandle.Wait();
+            waitHandle.WaitOne();
             if (Task != null) runBackground();
         }
         /// <summary>
@@ -105,7 +105,7 @@ namespace AutoCSer.Threading
                         Task.notNull()();
                         Task = null;
                         threadPool.PushBackground(this);
-                        waitHandle.Wait();
+                        waitHandle.WaitOne();
                     }
                     while (Task != null);
                     return;
@@ -119,7 +119,7 @@ namespace AutoCSer.Threading
                     Task = null;
                 }
                 threadPool.PushBackground(this);
-                waitHandle.Wait();
+                waitHandle.WaitOne();
             }
             while (Task != null);
         }
@@ -136,8 +136,12 @@ namespace AutoCSer.Threading
                     {
                         Task.notNull()();
                         Task = null;
-                        if (threadPool.Push(this)) return;
-                        waitHandle.Wait();
+                        if (!threadPool.Push(this)) waitHandle.WaitOne();
+                        else
+                        {
+                            waitHandle.Dispose();
+                            return;
+                        }
                     }
                     while (Task != null);
                     return;
@@ -150,8 +154,12 @@ namespace AutoCSer.Threading
                 {
                     Task = null;
                 }
-                if (threadPool.Push(this)) return;
-                waitHandle.Wait();
+                if (!threadPool.Push(this)) waitHandle.WaitOne();
+                else
+                {
+                    waitHandle.Dispose();
+                    return;
+                }
             }
             while (Task != null);
         }
@@ -172,7 +180,7 @@ namespace AutoCSer.Threading
         internal void Stop()
         {
             Task = null;
-            waitHandle.Set();
+            waitHandle.setDispose();
         }
         /// <summary>
         /// 结束线程
@@ -188,7 +196,7 @@ namespace AutoCSer.Threading
             var next = LinkNext;
             Task = null;
             LinkNext = null;
-            waitHandle.Set();
+            waitHandle.setDispose();
             return next;
         }
 
