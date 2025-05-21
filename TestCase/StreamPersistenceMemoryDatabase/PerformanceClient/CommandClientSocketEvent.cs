@@ -39,11 +39,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         /// <summary>
         /// 日志流持久化内存数据库客户端
         /// </summary>
-        internal static readonly AutoCSer.Net.CommandClient CommandClient = new AutoCSer.Net.CommandClient(new AutoCSer.Net.CommandClientConfig
-        {
-            Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
-            GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
-        });
+        internal static readonly AutoCSer.Net.CommandClient CommandClient = new AutoCSer.Net.CommandClient(AutoCSer.TestCase.Common.Config.IsCompressConfig
+            ? new AutoCSer.Net.CommandClientCompressConfig
+            {
+                Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
+                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
+            }
+            : new AutoCSer.Net.CommandClientConfig
+            {
+                Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
+                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
+            });
         /// <summary>
         /// 日志流持久化内存数据库客户端单例
         /// </summary>

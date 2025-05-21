@@ -13,7 +13,7 @@ namespace AutoCSer.TestCase.DiskBlockClient
     {
         static async Task Main(string[] args)
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig
+            CommandClientConfig commandClientConfig = new CommandClientCompressConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock),
                 ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
@@ -38,7 +38,7 @@ namespace AutoCSer.TestCase.DiskBlockClient
                     , bufferTest(diskBlockClient)
                     );
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
             }
 #if AOT
             if (AutoCSer.TestCase.DiskBlockClient.AotMethod.Call())

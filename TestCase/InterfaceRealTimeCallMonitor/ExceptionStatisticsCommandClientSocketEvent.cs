@@ -49,7 +49,7 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 日志流持久化内存数据库客户端单例
         /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<IExceptionStatisticsServiceNodeClientNode, ExceptionStatisticsCommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<IExceptionStatisticsServiceNodeClientNode, ExceptionStatisticsCommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<IExceptionStatisticsServiceNodeClientNode, ExceptionStatisticsCommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<IExceptionStatisticsServiceNodeClientNode, ExceptionStatisticsCommandClientSocketEvent>(new AutoCSer.Net.CommandClientCompressConfig
         {
             Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ExceptionStatistics),
             GetSocketEventDelegate = (client) => new ExceptionStatisticsCommandClientSocketEvent(client)

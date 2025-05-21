@@ -62,7 +62,7 @@ namespace AutoCSer.TestCase.NetCoreWeb
         /// <summary>
         /// 客户端单例
         /// </summary>
-        public static readonly AutoCSer.Net.CommandClientSocketEventCache<InterfaceRealTimeCallMonitorCommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<InterfaceRealTimeCallMonitorCommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
+        public static readonly AutoCSer.Net.CommandClientSocketEventCache<InterfaceRealTimeCallMonitorCommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<InterfaceRealTimeCallMonitorCommandClientSocketEvent>(new AutoCSer.Net.CommandClientCompressConfig
         {
             Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.InterfaceRealTimeCallMonitor),
             GetSocketEventDelegate = (client) => new InterfaceRealTimeCallMonitorCommandClientSocketEvent(client)

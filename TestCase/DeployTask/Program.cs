@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.DeployTask
             {
                 program.start().NotWait();
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await program.exit();
             }
         }
@@ -53,7 +53,7 @@ namespace AutoCSer.TestCase.DeployTask
                 BackupPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.DeployTask) + nameof(UploadFileServiceConfig.BackupPath)),
             };
 
-            AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerConfig
+            AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerCompressConfig
             {
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DeployTask, string.Empty),
             };

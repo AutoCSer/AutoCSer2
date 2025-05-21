@@ -34,7 +34,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
                     return;
                 }
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
             }
         }
     }

@@ -30,7 +30,7 @@ namespace AutoCSer.TestCase.ServerRegistry
                 if (await commandListener.Start())
                 {
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
             }
         }

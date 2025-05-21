@@ -11,7 +11,7 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
-            CommandServerConfig commandServerConfig = new CommandServerConfig 
+            CommandServerConfig commandServerConfig = new CommandServerCompressConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.InterfaceRealTimeCallMonitor),
                 SessionObject = new AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CommandListenerSession()
@@ -24,7 +24,7 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
                 if (await commandListener.Start())
                 {
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
             }
         }

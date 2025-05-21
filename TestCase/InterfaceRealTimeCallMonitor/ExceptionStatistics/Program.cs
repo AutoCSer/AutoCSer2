@@ -19,7 +19,7 @@ namespace AutoCSer.TestCase.ExceptionStatistics
             };
             AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService databaseService = databaseServiceConfig.Create<IExceptionStatisticsServiceNode>(p => new ExceptionStatisticsServiceNode(p));
 
-            AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerConfig
+            AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerCompressConfig
             {
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ExceptionStatistics),
             };
@@ -31,7 +31,7 @@ namespace AutoCSer.TestCase.ExceptionStatistics
                 if (await commandListener.Start())
                 {
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
             }
         }

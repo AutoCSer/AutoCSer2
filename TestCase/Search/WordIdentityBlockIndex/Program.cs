@@ -44,7 +44,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
                     if (!userNode.IsSuccess) Console.WriteLine($"{userNode.ReturnType} {userNode.CallState}");
 
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
             }
         }

@@ -5,12 +5,12 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             using (ServerRegistryClusterClient Client = new ServerRegistryClusterClient())
             {
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
             }
         }
     }

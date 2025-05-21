@@ -36,8 +36,7 @@ namespace AutoCSer.Document.ServiceDataSerialize
             Console.WriteLine($"{nameof(JsonSerialize)}.{nameof(JsonSerialize.BaseType)} {JsonSerialize.BaseType.TestCase()}");
             Console.WriteLine($"{nameof(JsonSerialize)}.{nameof(JsonSerialize.JsonNode)} {JsonSerialize.JsonNode.TestCase()}");
 
-            Console.WriteLine("Press quit to exit.");
-            while (Console.ReadLine() != "quit") ;
+            Console.ReadKey();
         }
     }
 }

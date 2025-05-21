@@ -1,0 +1,14 @@
+﻿ssh root@HOST
+
+mkdir /home/AutoCSer
+mkdir /home/AutoCSer/StreamPersistenceMemoryDatabase
+mkdir /home/AutoCSer/StreamPersistenceMemoryDatabaseClient
+	scp C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/StreamPersistenceMemoryDatabase
+	scp C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Client\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/StreamPersistenceMemoryDatabaseClient
+nohup dotnet /home/AutoCSer/StreamPersistenceMemoryDatabase/AutoCSer.TestCase.StreamPersistenceMemoryDatabase.dll </dev/null | tee /dev/tty > /dev/null 2>&1 &
+dotnet /home/AutoCSer/StreamPersistenceMemoryDatabaseClient/AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient.dll
+cat /home/AutoCSer/StreamPersistenceMemoryDatabase/AutoCSer.log
+rm -f /home/AutoCSer/StreamPersistenceMemoryDatabase/AutoCSer.log
+cat /home/AutoCSer/StreamPersistenceMemoryDatabaseClient/AutoCSer.log
+rm -f /home/AutoCSer/StreamPersistenceMemoryDatabaseClient/AutoCSer.log
+

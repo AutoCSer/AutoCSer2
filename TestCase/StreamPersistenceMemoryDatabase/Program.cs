@@ -19,10 +19,15 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 
             try
             {
-                CommandServerConfig commandServerConfig = new CommandServerConfig
-                {
-                    Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
-                };
+                CommandServerConfig commandServerConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
+                    ? new CommandServerCompressConfig
+                    {
+                        Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase, string.Empty),
+                    }
+                    : new CommandServerConfig
+                    {
+                        Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase, string.Empty),
+                    };
                 ServiceConfig databaseServiceConfig = new ServiceConfig
                 {
                     PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase)),
@@ -38,7 +43,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
                     if (await commandListener.Start())
                     {
                         Console.WriteLine("Press quit to exit.");
-                        while (Console.ReadLine() != "quit") ;
+                        while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                     }
                 }
             }

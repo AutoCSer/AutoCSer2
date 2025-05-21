@@ -15,11 +15,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
                 Console.ReadKey();
                 return;
             }
-            CommandServerConfig commandServerConfig = new CommandServerCompressConfig
-            {
-                MinCompressSize = 1024,
-                Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost)
-            };
+            CommandServerConfig commandServerConfig = new CommandServerCompressConfig { Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost) };
             await using (CommandListener commandListener = new CommandListenerBuilder(0)
                 .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, configFile.VerifyString))
                 .Append<IDatabaseBackupService>(server => new DatabaseBackupService())
@@ -29,7 +25,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
                 {
                     Console.WriteLine($"数据库备份服务启动成功 {commandServerConfig.Host.Host}:{commandServerConfig.Host.Port}");
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
                 else
                 {

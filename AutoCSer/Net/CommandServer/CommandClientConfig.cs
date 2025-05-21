@@ -66,8 +66,8 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsAutoSocket = true;
         /// <summary>
-        /// The default value is true to start the Nagle algorithm, and for low latency requirements it should be set to false to send data immediately
-        /// 默认为 true 表示启动 Nagle 算法，对于低延时需求应该设置为 false 表示立即发送数据
+        /// The default is true, indicating that the Nagle algorithm is disabled and data is sent immediately
+        /// 默认为 true 表示禁用 Nagle 算法，立即发送数据
         /// </summary>
         public bool NoDelay = true;
         /// <summary>

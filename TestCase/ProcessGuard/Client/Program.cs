@@ -16,7 +16,7 @@ namespace AutoCSer.TestCase.ProcessGuardClient
             {
                 guard(client.Value, args).NotWait();
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await client.Value.RemoveCurrentProcess();
             }
             else

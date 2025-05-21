@@ -63,6 +63,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Linux.PowerShell.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.NET8.csproj" />
     <ProjectReference Include="..\..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.NET8.csproj" />

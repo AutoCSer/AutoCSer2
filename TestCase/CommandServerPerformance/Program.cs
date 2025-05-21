@@ -10,7 +10,9 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
-            CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), TaskQueueMaxConcurrent = 16 };
+            CommandServerConfig commandServerConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
+                ? new CommandServerCompressConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance, string.Empty), TaskQueueMaxConcurrent = 16 }
+                : new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance, string.Empty), TaskQueueMaxConcurrent = 16 };
             await using (CommandListener commandListener = new CommandListener(commandServerConfig
                 , CommandServerInterfaceControllerCreator.GetCreator<IService>(new Service())
                 ))
@@ -18,7 +20,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
                 if (await commandListener.Start())
                 {
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
             }
         }

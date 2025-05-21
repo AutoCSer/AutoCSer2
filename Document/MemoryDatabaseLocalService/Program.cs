@@ -31,8 +31,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService
             Console.WriteLine($"{nameof(SortedListNode)} {await SortedListNode.Test()}");
             Console.WriteLine($"{nameof(BitmapNode)} {await BitmapNode.Test()}");
 
-            Console.WriteLine("Press quit to exit.");
-            while (Console.ReadLine() != "quit") ;
+            Console.ReadKey();
         }
     }
 }

@@ -39,8 +39,7 @@ namespace AutoCSer.Document.ServerRegistry
                         AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Test().Catch();
                         AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryClusterClient.Test().Catch();
 
-                        Console.WriteLine("Press quit to exit.");
-                        while (Console.ReadLine() != "quit") ;
+                        Console.ReadKey();
                     }
                 }
             }

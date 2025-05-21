@@ -10,9 +10,9 @@ namespace AutoCSer.Net
     public class CommandServerCompressConfig : CommandServerConfig
     {
         /// <summary>
-        /// 发送数据启用压缩最低字节数量，默认为 0 表示不压缩数据；压缩数据需要消耗一定的 CPU 资源降低带宽使用
+        /// 发送数据启用压缩最低字节数量，默认为 1KB
         /// </summary>
-        public int MinCompressSize;
+        public int MinCompressSize = 1 << 10;
         /// <summary>
         /// 压缩级别默认为快速压缩，如果是大数据量传输建议用 CPU 换带宽修改为默认压缩
         /// </summary>

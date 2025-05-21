@@ -24,7 +24,7 @@ namespace AutoCSer.TestCase.NetCoreWeb
             {
                 program.start().Catch();
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await program.exit();
             }
         }

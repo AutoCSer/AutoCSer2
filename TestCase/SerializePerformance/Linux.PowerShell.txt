@@ -1,0 +1,6 @@
+﻿ssh root@HOST
+
+mkdir /home/AutoCSer
+mkdir /home/AutoCSer/SerializePerformance
+	scp C:\AutoCSer2\TestCase\SerializePerformance\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/SerializePerformance
+dotnet /home/AutoCSer/SerializePerformance/AutoCSer.TestCase.SerializePerformance.dll

@@ -19,17 +19,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             ResponseResult<IDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName, 0);
             if (!Program.Breakpoint(node)) return;
+            int taskCount = getTaskCount(config), testCount = AutoCSer.TestCase.Common.Config.IsRemote ? (maxTestCount >> 2) : maxTestCount;
             synchronousNode =  ClientNode<IDictionaryNodeClientNode<int, int>>.GetSynchronousCallback(this.node = node.Value);
-            ResponseResult result = await this.node.Renew(maxTestCount);
+            ResponseResult result = await this.node.Renew(testCount);
             if (!Program.Breakpoint(result)) return;
 
-            int taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, true, taskCount);
+            testValue = reset(testCount, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
             await wait(nameof(PerformanceDictionaryNode), nameof(Set));
 
             taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, true, taskCount);
+            testValue = reset(testCount, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
             await wait(nameof(PerformanceDictionaryNode), nameof(TryGetValue));
 

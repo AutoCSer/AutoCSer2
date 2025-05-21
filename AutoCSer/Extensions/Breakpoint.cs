@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Net;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AutoCSer
 {
@@ -92,6 +93,25 @@ namespace AutoCSer
         {
             AutoCSer.ConsoleWriteQueue.Breakpoint(AutoCSer.JsonSerializer.Serialize(message), callerMemberName, callerFilePath, callerLineNumber);
             return false;
+        }
+
+        /// <summary>
+        /// 读取标准输入延时时间为 100 毫秒
+        /// </summary>
+        private static readonly TimeSpan readLineDelayTime = new TimeSpan(0, 0, 0, 0, 100);
+        /// <summary>
+        /// 读取标准输入并延时，避免 Linux 后台运行 CPU 100%
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        public static async Task<string?> ReadLineDelay()
+#else
+        public static async Task<string> ReadLineDelay()
+#endif
+        {
+            var value = Console.ReadLine();
+            await Task.Delay(readLineDelayTime);
+            return value;
         }
     }
 }

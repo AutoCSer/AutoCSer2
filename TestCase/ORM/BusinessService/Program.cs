@@ -16,7 +16,7 @@ namespace AutoCSer.TestCase.BusinessService
             {
                 program.start().NotWait();
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await program.exit();
             }
         }
@@ -45,7 +45,7 @@ namespace AutoCSer.TestCase.BusinessService
         {
             await Persistence.Initialize();
 
-            commandServerConfig = new CommandServerCompressConfig { MinCompressSize = 1024, Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ORM, null) };
+            commandServerConfig = new CommandServerCompressConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ORM, null) };
             commandListener = new CommandListenerBuilder(0)
                 .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString)) //添加服务认证接口
                 .Append<IAutoIdentityModelService>(string.Empty, server => new AutoIdentityModelService())

@@ -1,0 +1,14 @@
+﻿ssh root@HOST
+
+mkdir /home/AutoCSer
+mkdir /home/AutoCSer/CommandServerPerformance
+mkdir /home/AutoCSer/CommandClientPerformance
+	scp C:\AutoCSer2\TestCase\CommandServerPerformance\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/CommandServerPerformance
+	scp C:\AutoCSer2\TestCase\CommandServerPerformance\Client\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/CommandClientPerformance
+nohup dotnet /home/AutoCSer/CommandServerPerformance/AutoCSer.TestCase.CommandServerPerformance.dll </dev/null | tee /dev/tty > /dev/null 2>&1 &
+dotnet /home/AutoCSer/CommandClientPerformance/AutoCSer.TestCase.CommandClientPerformance.dll
+cat /home/AutoCSer/CommandServerPerformance/AutoCSer.log
+rm -f /home/AutoCSer/CommandServerPerformance/AutoCSer.log
+cat /home/AutoCSer/CommandClientPerformance/AutoCSer.log
+rm -f /home/AutoCSer/CommandClientPerformance/AutoCSer.log
+

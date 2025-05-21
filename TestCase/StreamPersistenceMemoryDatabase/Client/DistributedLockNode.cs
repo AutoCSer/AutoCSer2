@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         /// <summary>
         /// 循环调用次数
         /// </summary>
-        private const int loopCount = 1 << 10;
+        private static readonly int loopCount = AutoCSer.TestCase.Common.Config.IsRemote ? (1 << 6) : (1 << 10);
 
         internal static async Task Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {
@@ -33,6 +33,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         }
         private static async Task Test(IDistributedLockNodeClientNode<int> node)
         {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
             for (int count = loopCount; count != 0; --count)
             {
                 ResponseResult<long> identity = await node.Enter(lockKey, 5);

@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseService
                 {
                     AutoCSer.Threading.ThreadPool.TinyBackground.Start(() => Test(commandListener));
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
             }
         }

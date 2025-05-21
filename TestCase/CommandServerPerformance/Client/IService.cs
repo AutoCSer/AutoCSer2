@@ -100,7 +100,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// 服务端保持回调返回结果，配合 SendOnlyTask 应答处理
         /// </summary>
         /// <param name="callback"></param>
-        [CommandServerMethod(KeepCallbackOutputCount = 1 << 12, AutoCancelKeep = false)]
+        [CommandServerMethod(KeepCallbackOutputCount = 1 << 13, AutoCancelKeep = false)]
         void KeepCallbackCount(CommandServerKeepCallbackCount<int> callback);
         /// <summary>
         /// 服务端配合 KeepCallbackCount 应答处理
@@ -236,6 +236,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
              keepCallbackCount?.CancelKeep();
              keepCallbackCount = callback;
         }
+        //private static int c;
         /// <summary>
         /// 服务端配合 KeepCallbackCount 应答处理
         /// </summary>
@@ -244,6 +245,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         /// <returns></returns>
         async Task<CommandServerSendOnly> IService.SendOnlyTask(int left, int right)
         {
+            //if ((++c & ((1 << 20) - 1)) == 0) Console.Write('.');
             await keepCallbackCount.CallbackAsync(left + right);
             return CommandServerSendOnly.Null;
         }

@@ -146,6 +146,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Linux.PowerShell.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
     <ProjectReference Include="..\..\AutoCSer\FieldEquals\AutoCSer.FieldEquals.NET8.csproj" />
     <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />

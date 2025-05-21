@@ -22,8 +22,7 @@ namespace AutoCSer.Document.SymmetryService
                 {
                     Client.Test().NotWait();
 
-                    Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    Console.ReadKey();
                 }
             }
         }

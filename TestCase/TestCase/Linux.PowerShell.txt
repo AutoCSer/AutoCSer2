@@ -1,0 +1,10 @@
+﻿ssh root@HOST
+
+mkdir /home/AutoCSer
+mkdir /home/AutoCSer/TestCase
+	scp C:\AutoCSer2\TestCase\TestCase\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/TestCase/
+	scp C:\AutoCSer2\TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.* root@HOST:/home/AutoCSer/TestCase/
+dotnet /home/AutoCSer/TestCase/AutoCSer.TestCase.dll
+dotnet /home/AutoCSer/TestCase/AutoCSer.TestCase.dll AotClient
+cat /home/AutoCSer/TestCase/AutoCSer.log
+rm -f /home/AutoCSer/TestCase/AutoCSer.log

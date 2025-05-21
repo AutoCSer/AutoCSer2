@@ -23,6 +23,15 @@ namespace AutoCSer.TestCase.Common
         /// 服务认证验证字符串
         /// </summary>
         public static string TimestampVerifyString { get { return JsonFileConfig.Default.TimestampVerifyString ?? nameof(TimestampVerifyString); } }
+        /// <summary>
+        /// 是否远程模式
+        /// </summary>
+        public static bool IsRemote { get { return JsonFileConfig.Default.IsRemote; } }
+        //public static bool IsRemote;
+        /// <summary>
+        /// RPC 是否使用压缩配置
+        /// </summary>
+        public static bool IsCompressConfig { get { return IsRemote; } }
 
         /// <summary>
         /// 项目文件路径

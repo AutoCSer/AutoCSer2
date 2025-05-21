@@ -13,7 +13,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
     {
         static async Task Main(string[] args)
         {
-            CommandClientConfig commandClientConfig = new CommandClientConfig
+            CommandClientConfig commandClientConfig = new CommandClientCompressConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.FileSynchronous),
                 ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
@@ -47,7 +47,7 @@ namespace AutoCSer.TestCase.FileSynchronousClient
                 }
                 else AutoCSer.ConsoleWriteQueue.Breakpoint("没有找到目标目录");
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
             }
 #if AOT
             if (AutoCSer.CommandService.DeployTask.AotMethod.Call())

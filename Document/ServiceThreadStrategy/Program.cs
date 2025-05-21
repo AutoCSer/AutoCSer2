@@ -50,8 +50,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy
                 {
                     client().Catch();
 
-                    Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    Console.ReadKey();
                 }
             }
         }

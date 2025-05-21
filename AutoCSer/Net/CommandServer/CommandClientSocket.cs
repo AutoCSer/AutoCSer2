@@ -1576,6 +1576,7 @@ namespace AutoCSer.Net
                                 buildInfo.IsNewBuffer = 1;
                                 //Console.WriteLine("*NewBuffer*");
                             }
+                            //Console.WriteLine(buildInfo.Count.toString());
                             if (buildInfo.Count == 1)
                             {
                                 int dataStartIndex = buildInfo.IsCallback ? (Command.StreamStartIndex + sizeof(CallbackIdentity)) : Command.StreamStartIndex, transferDataStartIndex = dataStartIndex + sizeof(int);

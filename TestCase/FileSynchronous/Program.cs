@@ -12,7 +12,7 @@ namespace AutoCSer.TestCase.FileSynchronous
         {
             try
             {
-                CommandServerConfig commandServerConfig = new CommandServerConfig
+                CommandServerConfig commandServerConfig = new CommandServerCompressConfig
                 {
                     Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.FileSynchronous),
                 };
@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.FileSynchronous
                     if (await commandListener.Start())
                     {
                         Console.WriteLine("Press quit to exit.");
-                        while (Console.ReadLine() != "quit") ;
+                        while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                     }
                 }
             }

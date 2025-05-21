@@ -1829,14 +1829,11 @@
             异步锁扩展
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock)">
             <summary>
             异步锁重入计数，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效（非线程安全，不支持多线程并发操作同一个异步上下文）
             </summary>
             <param name="semaphoreSlimLock"></param>
-            <param name="callerMemberName"></param>
-            <param name="callerFilePath"></param>
-            <param name="callerLineNumber"></param>
         </member>
         <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.ReentrantExit(AutoCSer.Threading.SemaphoreSlimLock)">
             <summary>
@@ -4401,6 +4398,17 @@
             <param name="callerFilePath">调用源代码文件路径</param>
             <param name="callerLineNumber">调用源代码行号</param>
             <returns>返回值状态是否成功</returns>
+        </member>
+        <member name="F:AutoCSer.Breakpoint.readLineDelayTime">
+            <summary>
+            读取标准输入延时时间为 100 毫秒
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Breakpoint.ReadLineDelay">
+            <summary>
+            读取标准输入并延时，避免 Linux 后台运行 CPU 100%
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Data.CompareKey`2">
             <summary>
@@ -9564,13 +9572,6 @@
             <param name="getCount">获取记录数</param>
             <returns>数据集合</returns>
         </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Check(System.Int32)">
-            <summary>
-            检查数据正确性（用于测试）
-            </summary>
-            <param name="count"></param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.SearchTree.Dictionary`2">
             <summary>
             二叉搜索树字典
@@ -9943,13 +9944,6 @@
             </summary>
             <param name="skipCount">跳过记录数</param>
             <param name="getCount">获取记录数</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Dictionary`2.Check(System.Int32)">
-            <summary>
-            检查数据正确性（用于测试）
-            </summary>
-            <param name="count"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.SearchTree.FindArray`1">
@@ -10375,19 +10369,6 @@
             </summary>
             <param name="array"></param>
         </member>
-        <member name="M:AutoCSer.SearchTree.Node`2.Check(System.Int32)">
-            <summary>
-            检查数据正确性
-            </summary>
-            <param name="count"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Node`2.check">
-            <summary>
-            检查数据正确性
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.SearchTree.PageArray`1">
             <summary>
             分页数组数据
@@ -10651,13 +10632,6 @@
             <param name="getCount">获取记录数</param>
             <param name="getValue">数据转换委托</param>
             <returns>数据集合</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.Set`1.Check(System.Int32)">
-            <summary>
-            检查数据正确性（用于测试）
-            </summary>
-            <param name="count"></param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.SearchTree.SetRemoveNode`2">
             <summary>
@@ -11512,19 +11486,16 @@
             </summary>
             <param name="semaphoreSlimLock"></param>
         </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock)">
             <summary>
             申请锁
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock)">
             <summary>
             申请锁
             </summary>
             <param name="semaphoreSlimLock"></param>
-            <param name="callerMemberName"></param>
-            <param name="callerFilePath"></param>
-            <param name="callerLineNumber"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">

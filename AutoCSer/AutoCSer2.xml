@@ -32970,7 +32970,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandClientCompressConfig.MinCompressSize">
             <summary>
-            发送数据启用压缩最低字节数量，默认为 0 表示不压缩数据；压缩数据需要消耗一定的 CPU 资源降低带宽使用
+            发送数据启用压缩最低字节数量，默认为 1KB
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientCompressConfig.CompressionLevel">
@@ -33001,6 +33001,47 @@
             <param name="outputData">等待写入的原始数据缓冲区</param>
             <returns>是否解码成功</returns>
         </member>
+        <member name="T:AutoCSer.Net.CommandClientCompressConfig`1">
+            <summary>
+            Command client configuration
+            支持传输数据默认压缩的命令客户端配置
+            </summary>
+            <typeparam name="T">Primary controller interface type
+            主控制器接口类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientCompressConfig`1.MinCompressSize">
+            <summary>
+            发送数据启用压缩最低字节数量，默认为 1KB
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientCompressConfig`1.CompressionLevel">
+            <summary>
+            压缩级别默认为快速压缩，如果是大数据量传输建议用 CPU 换带宽修改为默认压缩
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCompressConfig`1.TransferEncode(AutoCSer.Net.CommandClientSocket,System.Byte[],System.Int32,System.Int32,AutoCSer.Memory.ByteArrayBuffer@,AutoCSer.SubArray{System.Byte}@,System.Int32,System.Int32)">
+            <summary>
+            发送数据编码
+            </summary>
+            <param name="socket">命令客户端套接字</param>
+            <param name="data">原始数据</param>
+            <param name="dataIndex">原始数据开始位置</param>
+            <param name="dataSize">原始数据字节数量</param>
+            <param name="buffer">输出数据缓冲区</param>
+            <param name="outputData">输出数据</param>
+            <param name="outputSeek">输出数据起始位置</param>
+            <param name="outputHeadSize">输出数据多余头部大小</param>
+            <returns>发送数据是否编码</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCompressConfig`1.TransferDecode(AutoCSer.Net.CommandClientSocket,AutoCSer.SubArray{System.Byte},AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            接收数据解码
+            </summary>
+            <param name="socket">命令客户端套接字</param>
+            <param name="transferData">编码后的数据</param>
+            <param name="outputData">等待写入的原始数据缓冲区</param>
+            <returns>是否解码成功</returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerCompressConfig">
             <summary>
             支持传输数据默认压缩的命令服务端配置
@@ -33008,7 +33049,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerCompressConfig.MinCompressSize">
             <summary>
-            发送数据启用压缩最低字节数量，默认为 0 表示不压缩数据；压缩数据需要消耗一定的 CPU 资源降低带宽使用
+            发送数据启用压缩最低字节数量，默认为 1KB
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerCompressConfig.CompressionLevel">
@@ -33107,8 +33148,8 @@
         </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.NoDelay">
             <summary>
-            The default value is true to start the Nagle algorithm, and for low latency requirements it should be set to false to send data immediately
-            默认为 true 表示启动 Nagle 算法，对于低延时需求应该设置为 false 表示立即发送数据
+            The default is true, indicating that the Nagle algorithm is disabled and data is sent immediately
+            默认为 true 表示禁用 Nagle 算法，立即发送数据
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.ControllerCreatorBindingFlags">
@@ -38343,8 +38384,8 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.NoDelay">
             <summary>
-            The default value of false indicates that the Nagle algorithm is disabled and data is sent immediately
-            默认为 false 表示禁用 Nagle 算法，立即发送数据
+            The default is true, indicating that the Nagle algorithm is disabled and data is sent immediately
+            默认为 true 表示禁用 Nagle 算法，立即发送数据
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.MaxReadWriteQueueConcurrency">

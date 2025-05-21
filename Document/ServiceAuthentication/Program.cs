@@ -18,8 +18,7 @@ namespace AutoCSer.Document.ServiceAuthentication
             Console.WriteLine($"{nameof(SetCommand)} {await setCommand()}");
             Console.WriteLine($"{nameof(TransferEncoding)} {await transferEncoding()}");
 
-            Console.WriteLine("Press quit to exit.");
-            while (Console.ReadLine() != "quit") ;
+            Console.ReadKey();
         }
         /// <summary>
         /// 无身份认证（字符串匹配认证）测试

@@ -35,7 +35,7 @@ namespace AutoCSer.TestCase.SearchTrieGraph
                     await appendWords();
 
                     Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 }
             }
         }

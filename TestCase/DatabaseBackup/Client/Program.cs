@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.DatabaseBackupClient
             }
             CommandClientConfig commandClientConfig = new CommandClientCompressConfig
             {
-                MinCompressSize = 1024, Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost),
+                Host = new HostEndPoint(configFile.ServerPort, configFile.ServerHost),
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))

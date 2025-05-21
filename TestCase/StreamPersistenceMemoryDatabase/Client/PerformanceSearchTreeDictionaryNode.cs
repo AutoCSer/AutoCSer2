@@ -19,17 +19,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             ResponseResult<ISearchTreeDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateSearchTreeDictionaryNode<int, int>(typeof(ISearchTreeDictionaryNodeClientNode<int, int>).FullName);
             if (!Program.Breakpoint(node)) return;
+            int taskCount = getTaskCount(config), testCount = AutoCSer.TestCase.Common.Config.IsRemote ? (maxTestCount >> 3) : maxTestCount;
             this.synchronousNode = ClientNode<ISearchTreeDictionaryNodeClientNode<int, int>>.GetSynchronousCallback(this.node = node.Value);
             ResponseResult result = await this.node.Clear();
             if (!Program.Breakpoint(result)) return;
 
-            int taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, true, taskCount);
+            testValue = reset(testCount, true, taskCount);
             while (--taskCount >= 0) Set().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(Set));
 
             taskCount = getTaskCount(config);
-            testValue = reset(maxTestCount, true, taskCount);
+            testValue = reset(testCount, true, taskCount);
             while (--taskCount >= 0) TryGetValue().NotWait();
             await wait(nameof(PerformanceSearchTreeDictionaryNode), nameof(TryGetValue));
 

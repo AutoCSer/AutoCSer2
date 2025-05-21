@@ -88,10 +88,10 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsOutputExceptionMessage = true;
         /// <summary>
-        /// The default value of false indicates that the Nagle algorithm is disabled and data is sent immediately
-        /// 默认为 false 表示禁用 Nagle 算法，立即发送数据
+        /// The default is true, indicating that the Nagle algorithm is disabled and data is sent immediately
+        /// 默认为 true 表示禁用 Nagle 算法，立即发送数据
         /// </summary>
-        public bool NoDelay;
+        public bool NoDelay = true;
         /// <summary>
         /// 默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
         /// </summary>

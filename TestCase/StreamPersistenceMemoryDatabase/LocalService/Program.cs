@@ -95,7 +95,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                         await new PerformanceSearchTreeDictionaryNode().Test(readWriteQueueClient, true);
                         await new PerformanceMessageNode().Test(readWriteQueueClient, true);
                     }
-                    while (Console.ReadLine() != "quit");
+                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit");
                 }
             }
             catch (Exception exception)

@@ -33,7 +33,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                 await IntDictionaryNode.Test();
 
                 Console.WriteLine("Press quit to exit.");
-                if (Console.ReadLine() == "quit") return;
+                if (await AutoCSer.Breakpoint.ReadLineDelay() == "quit") return;
             }
             while (true);
         }

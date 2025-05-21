@@ -19,7 +19,7 @@ namespace AutoCSer.TestCase.DiskBlock
                     Path = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.CommandService.DiskBlock))
                 };
                 DiskBlockService diskBlockService = await fileBlockServiceConfig.CreateFileBlockService();
-                CommandServerConfig commandServerConfig = new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock) };
+                CommandServerConfig commandServerConfig = new CommandServerCompressConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock) };
                 await using (CommandListener commandListener = new CommandListenerBuilder(0)
                     .Append<AutoCSer.CommandService.ITimestampVerifyService>(server => new AutoCSer.CommandService.TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                     .Append<IDiskBlockService>(diskBlockService)
@@ -28,7 +28,7 @@ namespace AutoCSer.TestCase.DiskBlock
                     if (await commandListener.Start())
                     {
                         Console.WriteLine("Press quit to exit.");
-                        while (Console.ReadLine() != "quit") ;
+                        while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                     }
                 }
             }

@@ -15,11 +15,15 @@ namespace AutoCSer.TestCase.Common
     public sealed partial class JsonFileConfig
     {
         /// <summary>
+        /// 是否远程模式
+        /// </summary>
+        public bool IsRemote;
+        /// <summary>
         /// 测试服务端 IP 地址
         /// </summary>
         public string ServerHost;
         /// <summary>
-        /// 服务认证验证字符串
+        /// RPC 服务认证验证字符串
         /// </summary>
         public string TimestampVerifyString;
 

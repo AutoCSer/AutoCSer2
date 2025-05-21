@@ -34,8 +34,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode
                 {
                     await Client.CommandClientSocketEvent.Test();
 
-                    Console.WriteLine("Press quit to exit.");
-                    while (Console.ReadLine() != "quit") ;
+                    Console.ReadKey();
                 }
             }
         }

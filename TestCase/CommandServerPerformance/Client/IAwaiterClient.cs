@@ -128,7 +128,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task Test()
         {
-            CommandClientConfig<IAwaiterClient> commandClientConfig = new CommandClientConfig<IAwaiterClient> { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
+            CommandClientConfig<IAwaiterClient> commandClientConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
+                ? new CommandClientCompressConfig<IAwaiterClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 }
+                : new CommandClientConfig<IAwaiterClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<IAwaiterClient, IService>()))
             {
                 CommandClientSocketEvent<IAwaiterClient> client = await commandClient.GetSocketEvent<CommandClientSocketEvent<IAwaiterClient>>();

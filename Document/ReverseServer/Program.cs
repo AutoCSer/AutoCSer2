@@ -12,8 +12,7 @@ namespace AutoCSer.Document.ReverseServer
 
             await CommandClientSocketEvent.Test();
 
-            Console.WriteLine("Press quit to exit.");
-            while (Console.ReadLine() != "quit") ;
+            Console.ReadKey();
         }
     }
 }

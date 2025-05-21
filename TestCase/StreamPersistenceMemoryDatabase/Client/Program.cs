@@ -16,12 +16,19 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
-            CommandClientConfig commandClientConfig = new CommandClientConfig
-            {
-                Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
-                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
-                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
-            };
+            CommandClientConfig commandClientConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
+                ? new CommandClientCompressConfig
+                {
+                    Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
+                    ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                    GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
+                }
+                : new CommandClientConfig
+                {
+                    Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
+                    ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
+                    GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
+                };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
                 IStreamPersistenceMemoryDatabaseClientSocketEvent client = (IStreamPersistenceMemoryDatabaseClientSocketEvent)await commandClient.GetSocketEvent();
@@ -72,7 +79,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                     await new PerformanceSearchTreeDictionaryNode().Test(commandClientConfig, clientNode);
                     await new PerformanceMessageNode().Test(commandClientConfig, clientNode);
                 }
-                while (Console.ReadLine() != "quit");
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit");
             }
         }
         internal static bool Breakpoint(ResponseResult result, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)

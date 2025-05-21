@@ -1,0 +1,21 @@
+﻿ssh root@HOST
+
+cat /proc/version
+sudo rpm -Uvh https://packages.microsoft.com/config/centos/8/packages-microsoft-prod.rpm
+	sudo dnf info aspnetcore-runtime-8.0
+sudo dnf -y install dotnet-sdk-8.0	//安装 sdk 不需要安装 runtime
+	sudo dnf -y install aspnetcore-runtime-8.0
+	sudo dnf -y install dotnet-runtime-8.0
+dotnet --info
+dotnet tool install -g dotnet-dump
+
+mkdir /home/AutoCSer
+mkdir /home/AutoCSer/DeployTask
+	scp C:\Showjim\AutoCSer.TestCase.Common.JsonFileConfig.Server.json root@HOST:/var/AutoCSer.TestCase.Common.JsonFileConfig.json
+	scp C:\AutoCSer2\TestCase\DeployTask\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/DeployTask/
+nohup dotnet /home/AutoCSer/DeployTask/AutoCSer.TestCase.DeployTask.dll </dev/null | tee /dev/tty > /dev/null 2>&1 &
+cat /home/AutoCSer/DeployTask/AutoCSer.log
+rm -f /home/AutoCSer/DeployTask/AutoCSer.log
+	ls -l /var/AutoCSerTemporaryFilePath
+	rm -rf /var/AutoCSerTemporaryFilePath
+	mkdir /var/AutoCSerTemporaryFilePath

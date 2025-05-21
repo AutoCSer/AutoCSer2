@@ -17,15 +17,15 @@ namespace AutoCSer.TestCase.Common
         /// <summary>
         /// 单并发线程每次循环获取任务数量
         /// </summary>
-        public const int LoopCountBit = 12;
+        public static readonly int LoopCountBit = AutoCSer.TestCase.Common.Config.IsRemote ? 6 : 12;
         /// <summary>
         /// 单并发线程每次循环获取任务数量
         /// </summary>
-        public const int LoopCount = 1 << LoopCountBit;
+        public static readonly int LoopCount = 1 << LoopCountBit;
         /// <summary>
         /// 服务端同步最大测试请求次数
         /// </summary>
-        protected const int maxTestCount = 1 << 26;
+        protected static readonly int maxTestCount = 1 << (AutoCSer.TestCase.Common.Config.IsRemote ? 24 : 26);
         /// <summary>
         /// 当前测试随机左值
         /// </summary>
@@ -61,7 +61,7 @@ namespace AutoCSer.TestCase.Common
         /// <summary>
         /// 测试并发数量
         /// </summary>
-        private static int concurrent;
+        protected static int concurrent;
         /// <summary>
         /// 重置测试数据
         /// </summary>

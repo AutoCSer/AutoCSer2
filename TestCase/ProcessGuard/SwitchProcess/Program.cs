@@ -16,7 +16,7 @@ namespace AutoCSer.TestCase.ProcessGuardSwitchProcess
             {
                 program.start().NotWait();
                 Console.WriteLine("Press quit to exit.");
-                while (Console.ReadLine() != "quit") ;
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await program.exit();
             }
         }

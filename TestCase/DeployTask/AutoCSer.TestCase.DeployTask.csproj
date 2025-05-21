@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Huawei Cloud EulerOS.txt" />
+    <Content Include="Huawei Cloud EulerOS.PowerShell.txt" />
   </ItemGroup>
 
   <ItemGroup>

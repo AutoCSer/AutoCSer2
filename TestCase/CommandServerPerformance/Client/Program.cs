@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await SynchronousCllientPerformance.Test();
 
                 Console.WriteLine("Press quit to exit.");
-                if (Console.ReadLine() == "quit") break;
+                if (await AutoCSer.Breakpoint.ReadLineDelay() == "quit") break;
             }
             while (true);
 #if AOT

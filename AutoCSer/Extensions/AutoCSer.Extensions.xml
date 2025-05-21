@@ -4327,6 +4327,17 @@
             <param name="callerLineNumber">调用源代码行号</param>
             <returns>返回值状态是否成功</returns>
         </member>
+        <member name="F:AutoCSer.Breakpoint.readLineDelayTime">
+            <summary>
+            读取标准输入延时时间为 100 毫秒
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Breakpoint.ReadLineDelay">
+            <summary>
+            读取标准输入并延时，避免 Linux 后台运行 CPU 100%
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Data.CompareKey`2">
             <summary>
             排序关键字
