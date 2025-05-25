@@ -120,6 +120,11 @@ namespace AutoCSer.TestCase.Common
         SearchQueryService,
 
         /// <summary>
+        /// WEB view test port
+        /// WEB 视图测试端口
+        /// </summary>
+        WebViewHttp = 12999,
+        /// <summary>
         /// Register the service test port
         /// 注册服务测试端口
         /// </summary>

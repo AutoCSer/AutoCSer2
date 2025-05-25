@@ -44,6 +44,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal bool IsRemove;
         /// <summary>
+        /// 是否初始化加载数据
+        /// </summary>
+        internal bool IsLoad;
+        /// <summary>
         /// 被守护进程信息
         /// </summary>
         /// <param name="node"></param>
@@ -60,7 +64,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 guardHandle = guard;
                 process.Exited += guardHandle;
             }
-            else guardHandle = AutoCSer.Common.EmptyEventHandler;
+            else
+            {
+                guardHandle = AutoCSer.Common.EmptyEventHandler;
+                IsLoad = true;
+            }
         }
         /// <summary>
         /// 被守护进程信息
@@ -73,6 +81,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.ProcessInfo = processInfo;
             process = AutoCSer.Common.CurrentProcess;
             guardHandle = AutoCSer.Common.EmptyEventHandler;
+            IsLoad = true;
         }
         /// <summary>
         /// 数据库冷启动初始化启动被守护进程
@@ -85,6 +94,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     isReStart = 1;
                     NewProcess = ProcessInfo.Start();
+                    ProcessGuardNode.Output(nameof(Loaded), ProcessInfo);
                 }
                 catch (Exception exception)
                 {
@@ -99,7 +109,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 try
                 {
-                    if (!IsRemove) setExited();
+                    if (!IsRemove)
+                    {
+                        setExited();
+                        IsLoad = false;
+                    }
                 }
                 catch (Exception exception)
                 {

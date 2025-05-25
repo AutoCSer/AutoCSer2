@@ -932,6 +932,42 @@ namespace AutoCSer.TestCase.SerializePerformance
                 }
             }
             /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(27);
+                types.Add(typeof(bool));
+                types.Add(typeof(bool?));
+                types.Add(typeof(byte));
+                types.Add(typeof(byte?));
+                types.Add(typeof(char));
+                types.Add(typeof(char?));
+                types.Add(typeof(System.DateTime));
+                types.Add(typeof(System.DateTime?));
+                types.Add(typeof(System.Guid));
+                types.Add(typeof(System.Guid?));
+                types.Add(typeof(int));
+                types.Add(typeof(int?));
+                types.Add(typeof(long));
+                types.Add(typeof(long?));
+                types.Add(typeof(sbyte));
+                types.Add(typeof(sbyte?));
+                types.Add(typeof(short));
+                types.Add(typeof(short?));
+                types.Add(typeof(string));
+                types.Add(typeof(System.TimeSpan));
+                types.Add(typeof(System.TimeSpan?));
+                types.Add(typeof(uint));
+                types.Add(typeof(uint?));
+                types.Add(typeof(ulong));
+                types.Add(typeof(ulong?));
+                types.Add(typeof(ushort));
+                types.Add(typeof(ushort?));
+                return types;
+            }
+            /// <summary>
             /// JSON 反序列化
             /// </summary>
             /// <param name="deserializer"></param>
@@ -1486,42 +1522,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(27);
-                types.Add(typeof(bool));
-                types.Add(typeof(bool?));
-                types.Add(typeof(byte));
-                types.Add(typeof(byte?));
-                types.Add(typeof(char));
-                types.Add(typeof(char?));
-                types.Add(typeof(System.DateTime));
-                types.Add(typeof(System.DateTime?));
-                types.Add(typeof(System.Guid));
-                types.Add(typeof(System.Guid?));
-                types.Add(typeof(int));
-                types.Add(typeof(int?));
-                types.Add(typeof(long));
-                types.Add(typeof(long?));
-                types.Add(typeof(sbyte));
-                types.Add(typeof(sbyte?));
-                types.Add(typeof(short));
-                types.Add(typeof(short?));
-                types.Add(typeof(string));
-                types.Add(typeof(System.TimeSpan));
-                types.Add(typeof(System.TimeSpan?));
-                types.Add(typeof(uint));
-                types.Add(typeof(uint?));
-                types.Add(typeof(ulong));
-                types.Add(typeof(ulong?));
-                types.Add(typeof(ushort));
-                types.Add(typeof(ushort?));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -1529,14 +1529,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 AutoCSer.TestCase.SerializePerformance.FieldData value = default(AutoCSer.TestCase.SerializePerformance.FieldData);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FieldData));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FieldData));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FieldData));
             }
     }
 }namespace AutoCSer.TestCase.SerializePerformance
@@ -1911,6 +1911,48 @@ namespace AutoCSer.TestCase.SerializePerformance
                     __stream__.SimpleWrite(@"""UShortNull"":");
                     __serializer__.JsonSerialize(UShortNull);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(33);
+                types.Add(typeof(bool));
+                types.Add(typeof(bool?));
+                types.Add(typeof(byte));
+                types.Add(typeof(byte?));
+                types.Add(typeof(char));
+                types.Add(typeof(char?));
+                types.Add(typeof(System.DateTime));
+                types.Add(typeof(System.DateTime?));
+                types.Add(typeof(decimal));
+                types.Add(typeof(decimal?));
+                types.Add(typeof(double));
+                types.Add(typeof(double?));
+                types.Add(typeof(float));
+                types.Add(typeof(float?));
+                types.Add(typeof(System.Guid));
+                types.Add(typeof(System.Guid?));
+                types.Add(typeof(int));
+                types.Add(typeof(int?));
+                types.Add(typeof(long));
+                types.Add(typeof(long?));
+                types.Add(typeof(sbyte));
+                types.Add(typeof(sbyte?));
+                types.Add(typeof(short));
+                types.Add(typeof(short?));
+                types.Add(typeof(string));
+                types.Add(typeof(System.TimeSpan));
+                types.Add(typeof(System.TimeSpan?));
+                types.Add(typeof(uint));
+                types.Add(typeof(uint?));
+                types.Add(typeof(ulong));
+                types.Add(typeof(ulong?));
+                types.Add(typeof(ushort));
+                types.Add(typeof(ushort?));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -2575,48 +2617,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(33);
-                types.Add(typeof(bool));
-                types.Add(typeof(bool?));
-                types.Add(typeof(byte));
-                types.Add(typeof(byte?));
-                types.Add(typeof(char));
-                types.Add(typeof(char?));
-                types.Add(typeof(System.DateTime));
-                types.Add(typeof(System.DateTime?));
-                types.Add(typeof(decimal));
-                types.Add(typeof(decimal?));
-                types.Add(typeof(double));
-                types.Add(typeof(double?));
-                types.Add(typeof(float));
-                types.Add(typeof(float?));
-                types.Add(typeof(System.Guid));
-                types.Add(typeof(System.Guid?));
-                types.Add(typeof(int));
-                types.Add(typeof(int?));
-                types.Add(typeof(long));
-                types.Add(typeof(long?));
-                types.Add(typeof(sbyte));
-                types.Add(typeof(sbyte?));
-                types.Add(typeof(short));
-                types.Add(typeof(short?));
-                types.Add(typeof(string));
-                types.Add(typeof(System.TimeSpan));
-                types.Add(typeof(System.TimeSpan?));
-                types.Add(typeof(uint));
-                types.Add(typeof(uint?));
-                types.Add(typeof(ulong));
-                types.Add(typeof(ulong?));
-                types.Add(typeof(ushort));
-                types.Add(typeof(ushort?));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -2624,14 +2624,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 AutoCSer.TestCase.SerializePerformance.FloatFieldData value = default(AutoCSer.TestCase.SerializePerformance.FloatFieldData);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatFieldData));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatFieldData));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatFieldData));
             }
     }
 }namespace AutoCSer.TestCase.SerializePerformance
@@ -3006,6 +3006,48 @@ namespace AutoCSer.TestCase.SerializePerformance
                     __stream__.SimpleWrite(@"""UShortNull"":");
                     __serializer__.JsonSerialize(UShortNull);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(33);
+                types.Add(typeof(bool));
+                types.Add(typeof(bool?));
+                types.Add(typeof(byte));
+                types.Add(typeof(byte?));
+                types.Add(typeof(char));
+                types.Add(typeof(char?));
+                types.Add(typeof(System.DateTime));
+                types.Add(typeof(System.DateTime?));
+                types.Add(typeof(decimal));
+                types.Add(typeof(decimal?));
+                types.Add(typeof(double));
+                types.Add(typeof(double?));
+                types.Add(typeof(float));
+                types.Add(typeof(float?));
+                types.Add(typeof(System.Guid));
+                types.Add(typeof(System.Guid?));
+                types.Add(typeof(int));
+                types.Add(typeof(int?));
+                types.Add(typeof(long));
+                types.Add(typeof(long?));
+                types.Add(typeof(sbyte));
+                types.Add(typeof(sbyte?));
+                types.Add(typeof(short));
+                types.Add(typeof(short?));
+                types.Add(typeof(string));
+                types.Add(typeof(System.TimeSpan));
+                types.Add(typeof(System.TimeSpan?));
+                types.Add(typeof(uint));
+                types.Add(typeof(uint?));
+                types.Add(typeof(ulong));
+                types.Add(typeof(ulong?));
+                types.Add(typeof(ushort));
+                types.Add(typeof(ushort?));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -3868,48 +3910,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(33);
-                types.Add(typeof(bool));
-                types.Add(typeof(bool?));
-                types.Add(typeof(byte));
-                types.Add(typeof(byte?));
-                types.Add(typeof(char));
-                types.Add(typeof(char?));
-                types.Add(typeof(System.DateTime));
-                types.Add(typeof(System.DateTime?));
-                types.Add(typeof(decimal));
-                types.Add(typeof(decimal?));
-                types.Add(typeof(double));
-                types.Add(typeof(double?));
-                types.Add(typeof(float));
-                types.Add(typeof(float?));
-                types.Add(typeof(System.Guid));
-                types.Add(typeof(System.Guid?));
-                types.Add(typeof(int));
-                types.Add(typeof(int?));
-                types.Add(typeof(long));
-                types.Add(typeof(long?));
-                types.Add(typeof(sbyte));
-                types.Add(typeof(sbyte?));
-                types.Add(typeof(short));
-                types.Add(typeof(short?));
-                types.Add(typeof(string));
-                types.Add(typeof(System.TimeSpan));
-                types.Add(typeof(System.TimeSpan?));
-                types.Add(typeof(uint));
-                types.Add(typeof(uint?));
-                types.Add(typeof(ulong));
-                types.Add(typeof(ulong?));
-                types.Add(typeof(ushort));
-                types.Add(typeof(ushort?));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -3917,14 +3917,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 AutoCSer.TestCase.SerializePerformance.FloatPropertyData value = default(AutoCSer.TestCase.SerializePerformance.FloatPropertyData);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatPropertyData));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatPropertyData));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.FloatPropertyData));
             }
     }
 }namespace AutoCSer.TestCase.SerializePerformance
@@ -4239,6 +4239,42 @@ namespace AutoCSer.TestCase.SerializePerformance
                     __stream__.SimpleWrite(@"""UShortNull"":");
                     __serializer__.JsonSerialize(UShortNull);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(27);
+                types.Add(typeof(bool));
+                types.Add(typeof(bool?));
+                types.Add(typeof(byte));
+                types.Add(typeof(byte?));
+                types.Add(typeof(char));
+                types.Add(typeof(char?));
+                types.Add(typeof(System.DateTime));
+                types.Add(typeof(System.DateTime?));
+                types.Add(typeof(System.Guid));
+                types.Add(typeof(System.Guid?));
+                types.Add(typeof(int));
+                types.Add(typeof(int?));
+                types.Add(typeof(long));
+                types.Add(typeof(long?));
+                types.Add(typeof(sbyte));
+                types.Add(typeof(sbyte?));
+                types.Add(typeof(short));
+                types.Add(typeof(short?));
+                types.Add(typeof(string));
+                types.Add(typeof(System.TimeSpan));
+                types.Add(typeof(System.TimeSpan?));
+                types.Add(typeof(uint));
+                types.Add(typeof(uint?));
+                types.Add(typeof(ulong));
+                types.Add(typeof(ulong?));
+                types.Add(typeof(ushort));
+                types.Add(typeof(ushort?));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -4957,42 +4993,6 @@ namespace AutoCSer.TestCase.SerializePerformance
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(27);
-                types.Add(typeof(bool));
-                types.Add(typeof(bool?));
-                types.Add(typeof(byte));
-                types.Add(typeof(byte?));
-                types.Add(typeof(char));
-                types.Add(typeof(char?));
-                types.Add(typeof(System.DateTime));
-                types.Add(typeof(System.DateTime?));
-                types.Add(typeof(System.Guid));
-                types.Add(typeof(System.Guid?));
-                types.Add(typeof(int));
-                types.Add(typeof(int?));
-                types.Add(typeof(long));
-                types.Add(typeof(long?));
-                types.Add(typeof(sbyte));
-                types.Add(typeof(sbyte?));
-                types.Add(typeof(short));
-                types.Add(typeof(short?));
-                types.Add(typeof(string));
-                types.Add(typeof(System.TimeSpan));
-                types.Add(typeof(System.TimeSpan?));
-                types.Add(typeof(uint));
-                types.Add(typeof(uint?));
-                types.Add(typeof(ulong));
-                types.Add(typeof(ulong?));
-                types.Add(typeof(ushort));
-                types.Add(typeof(ushort?));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -5000,14 +5000,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 AutoCSer.TestCase.SerializePerformance.PropertyData value = default(AutoCSer.TestCase.SerializePerformance.PropertyData);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.PropertyData));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.PropertyData));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.SerializePerformance.PropertyData));
             }
     }
 }namespace AutoCSer.TestCase.SerializePerformance

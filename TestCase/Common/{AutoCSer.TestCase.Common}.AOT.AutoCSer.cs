@@ -11,55 +11,6 @@ namespace AutoCSer.TestCase.Common
     public partial class JsonFileConfig
     {
             /// <summary>
-            /// JSON 序列化
-            /// </summary>
-            /// <param name="serializer"></param>
-            /// <param name="value"></param>
-            internal static void JsonSerialize(AutoCSer.JsonSerializer serializer, AutoCSer.TestCase.Common.JsonFileConfig value)
-            {
-                value.jsonSerialize(serializer);
-            }
-            /// <summary>
-            /// JSON 序列化
-            /// </summary>
-            /// <param name="memberMap"></param>
-            /// <param name="serializer"></param>
-            /// <param name="value"></param>
-            /// <param name="stream"></param>
-            internal static void JsonSerializeMemberMap(AutoCSer.Metadata.MemberMap<AutoCSer.TestCase.Common.JsonFileConfig> memberMap, JsonSerializer serializer, AutoCSer.TestCase.Common.JsonFileConfig value, AutoCSer.Memory.CharStream stream)
-            {
-                value.jsonSerialize(memberMap, serializer, stream);
-            }
-            /// <summary>
-            /// JSON 序列化
-            /// </summary>
-            /// <param name="__serializer__"></param>
-            private void jsonSerialize(AutoCSer.JsonSerializer __serializer__)
-            {
-                AutoCSer.Memory.CharStream __stream__ = __serializer__.CharStream;
-                __stream__.SimpleWrite(@"""ServerHost"":");
-                if (ServerHost == null) __stream__.WriteJsonNull();
-                else __serializer__.JsonSerialize(ServerHost);
-            }
-            /// <summary>
-            /// JSON 序列化
-            /// </summary>
-            /// <param name="__memberMap__"></param>
-            /// <param name="__serializer__"></param>
-            /// <param name="__stream__"></param>
-            private void jsonSerialize(AutoCSer.Metadata.MemberMap<AutoCSer.TestCase.Common.JsonFileConfig> __memberMap__, JsonSerializer __serializer__, AutoCSer.Memory.CharStream __stream__)
-            {
-                bool isNext = false;
-                if (__memberMap__.IsMember(0))
-                {
-                    if (isNext) __stream__.Write(',');
-                    else isNext = true;
-                    __stream__.SimpleWrite(@"""ServerHost"":");
-                    if (ServerHost == null) __stream__.WriteJsonNull();
-                    else __serializer__.JsonSerialize(ServerHost);
-                }
-            }
-            /// <summary>
             /// JSON 反序列化
             /// </summary>
             /// <param name="deserializer"></param>
@@ -89,7 +40,43 @@ namespace AutoCSer.TestCase.Common
             {
                 if (__deserializer__.IsName(ref __names__))
                 {
+                    __deserializer__.JsonDeserialize(ref this.HttpsCertificateFileName);
+                    if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.HttpsCertificatePassword);
+                    if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.IsLinuxServer);
+                    if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.IsRemote);
+                    if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
                     __deserializer__.JsonDeserialize(ref this.ServerHost);
+                    if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.TimestampVerifyString);
+                    if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.UploadPath);
                     if (!AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) return;
                 }
                 else return;
@@ -104,8 +91,50 @@ namespace AutoCSer.TestCase.Common
             {
                 if (__deserializer__.IsName(ref __names__))
                 {
-                    __deserializer__.JsonDeserialize(ref this.ServerHost);
+                    __deserializer__.JsonDeserialize(ref this.HttpsCertificateFileName);
                     if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(0);
+                    else return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.HttpsCertificatePassword);
+                    if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(1);
+                    else return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.IsLinuxServer);
+                    if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(2);
+                    else return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.IsRemote);
+                    if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(3);
+                    else return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.ServerHost);
+                    if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(4);
+                    else return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.TimestampVerifyString);
+                    if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(5);
+                    else return;
+                }
+                else return;
+                if (__deserializer__.IsName(ref __names__))
+                {
+                    __deserializer__.JsonDeserialize(ref this.UploadPath);
+                    if (AutoCSer.JsonDeserializer.NextNameIndex(__deserializer__, ref __names__)) __memberMap__.SetMember(6);
                     else return;
                 }
                 else return;
@@ -121,7 +150,25 @@ namespace AutoCSer.TestCase.Common
                 switch (__memberIndex__)
                 {
                     case 0:
+                        __deserializer__.JsonDeserialize(ref __value__.HttpsCertificateFileName);
+                        return;
+                    case 1:
+                        __deserializer__.JsonDeserialize(ref __value__.HttpsCertificatePassword);
+                        return;
+                    case 2:
+                        __deserializer__.JsonDeserialize(ref __value__.IsLinuxServer);
+                        return;
+                    case 3:
+                        __deserializer__.JsonDeserialize(ref __value__.IsRemote);
+                        return;
+                    case 4:
                         __deserializer__.JsonDeserialize(ref __value__.ServerHost);
+                        return;
+                    case 5:
+                        __deserializer__.JsonDeserialize(ref __value__.TimestampVerifyString);
+                        return;
+                    case 6:
+                        __deserializer__.JsonDeserialize(ref __value__.UploadPath);
                         return;
                 }
             }
@@ -139,21 +186,23 @@ namespace AutoCSer.TestCase.Common
             /// <returns></returns>
             private static AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>> jsonDeserializeMemberName()
             {
-                AutoCSer.LeftArray<string> names = new AutoCSer.LeftArray<string>(1);
-                AutoCSer.LeftArray<int> indexs = new AutoCSer.LeftArray<int>(1);
-                names.Add(nameof(ServerHost));
+                AutoCSer.LeftArray<string> names = new AutoCSer.LeftArray<string>(7);
+                AutoCSer.LeftArray<int> indexs = new AutoCSer.LeftArray<int>(7);
+                names.Add(nameof(HttpsCertificateFileName));
                 indexs.Add(0);
+                names.Add(nameof(HttpsCertificatePassword));
+                indexs.Add(1);
+                names.Add(nameof(IsLinuxServer));
+                indexs.Add(2);
+                names.Add(nameof(IsRemote));
+                indexs.Add(3);
+                names.Add(nameof(ServerHost));
+                indexs.Add(4);
+                names.Add(nameof(TimestampVerifyString));
+                indexs.Add(5);
+                names.Add(nameof(UploadPath));
+                indexs.Add(6);
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
-            }
-            /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(string));
-                return types;
             }
             /// <summary>
             /// 代码生成调用激活 AOT 反射
@@ -161,16 +210,13 @@ namespace AutoCSer.TestCase.Common
             internal static void JsonSerialize()
             {
                 AutoCSer.TestCase.Common.JsonFileConfig value = default(AutoCSer.TestCase.Common.JsonFileConfig);
-                JsonSerialize(null, value);
-                JsonSerializeMemberMap(null, null, value, null);
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.Common.JsonFileConfig));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.Common.JsonFileConfig));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.Common.JsonFileConfig));
             }
     }
 }namespace AutoCSer.TestCase.Common
@@ -213,6 +259,7 @@ namespace AutoCSer.TestCase.Common
 
 
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<string>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<bool>));
 
 
                     return true;

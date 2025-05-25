@@ -15,7 +15,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
 
             try
             {
-                CommandServerConfig commandServerConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
+                CommandServerConfig commandServerConfig = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsCompressConfig
                     ? new CommandServerCompressConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase, string.Empty) }
                     : new CommandServerConfig { Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase, string.Empty) };
                 ServiceConfig databaseServiceConfig = new ServiceConfig

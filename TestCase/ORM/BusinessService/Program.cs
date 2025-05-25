@@ -63,8 +63,6 @@ namespace AutoCSer.TestCase.BusinessService
         /// <returns></returns>
         protected override async Task onStart()
         {
-            await base.onStart();
-
             if (await commandListener.Start())
             {
                 ConsoleWriteQueue.WriteLine($"业务数据服务启动成功 {commandServerConfig.Host.Host}:{commandServerConfig.Host.Port}");

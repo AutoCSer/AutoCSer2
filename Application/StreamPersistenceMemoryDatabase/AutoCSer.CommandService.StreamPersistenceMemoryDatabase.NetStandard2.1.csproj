@@ -214,6 +214,7 @@
     <Compile Include="Node\Message\ServerByteArrayMessageStringConsumer.cs" />
     <Compile Include="Node\OnlyPersistenceNode.cs" />
     <Compile Include="Node\IOnlyPersistenceNode.cs" />
+    <Compile Include="Node\ProcessGuard\CommandListenerSwitchProcess.cs" />
     <Compile Include="Node\ProcessGuard\ProcessGuardCommandClientSocketEvent.cs" />
     <Compile Include="Node\ProcessGuard\GuardProcess.cs" />
     <Compile Include="Node\ProcessGuard\IProcessGuardNode.cs" />

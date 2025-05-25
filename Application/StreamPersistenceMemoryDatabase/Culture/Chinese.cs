@@ -173,6 +173,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         }
 #endif
         /// <summary>
+        /// 服务启动失败
+        /// </summary>
+        /// <param name="listener">命令服务端监听</param>
+        /// <returns></returns>
+        public override string GetCommandListenerStartFailed(AutoCSer.Net.CommandListener listener)
+        {
+            string message = "服务";
+            var serverName = listener.ServerName;
+            if (!string.IsNullOrEmpty(serverName)) message = serverName + " " + message;
+            var endPoint = listener.EndPoint;
+            if (endPoint != null) message += " 监听 " + endPoint.ToString() + " ";
+            return message + "启动失败";
+        }
+        /// <summary>
         /// 默认扩展中文配置
         /// </summary>
         public static readonly new Chinese Default = new Chinese();

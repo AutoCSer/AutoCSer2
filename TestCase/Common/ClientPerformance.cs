@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.Common
         /// <summary>
         /// 单并发线程每次循环获取任务数量
         /// </summary>
-        public static readonly int LoopCountBit = AutoCSer.TestCase.Common.Config.IsRemote ? 6 : 12;
+        public static readonly int LoopCountBit = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsRemote ? 6 : 12;
         /// <summary>
         /// 单并发线程每次循环获取任务数量
         /// </summary>
@@ -25,7 +25,7 @@ namespace AutoCSer.TestCase.Common
         /// <summary>
         /// 服务端同步最大测试请求次数
         /// </summary>
-        protected static readonly int maxTestCount = 1 << (AutoCSer.TestCase.Common.Config.IsRemote ? 24 : 26);
+        protected static readonly int maxTestCount = 1 << (AutoCSer.TestCase.Common.JsonFileConfig.Default.IsRemote ? 24 : 26);
         /// <summary>
         /// 当前测试随机左值
         /// </summary>
@@ -110,6 +110,7 @@ namespace AutoCSer.TestCase.Common
                 CheckSynchronous(value.Value);
                 return;
             }
+            Console.WriteLine(value.ReturnType);
             ++errorCount;
             if (--callbackCount == 0) waitLock.Release();
         }

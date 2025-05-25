@@ -33,5 +33,14 @@ namespace AutoCSer.CodeGenerator
         /// 获取 JSON 反序列化成员名称
         /// </summary>
         internal const string JsonDeserializeMemberNameMethodName = "JsonDeserializeMemberNames";
+
+        /// <summary>
+        /// 默认为 true 表示生成序列化代码
+        /// </summary>
+        public bool IsSerialize = true;
+        /// <summary>
+        /// 默认为 true 表示生成反序列化代码
+        /// </summary>
+        public bool IsDeserialize = true;
     }
 }

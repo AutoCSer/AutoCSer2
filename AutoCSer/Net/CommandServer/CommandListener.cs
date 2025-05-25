@@ -124,18 +124,18 @@ namespace AutoCSer.Net
         /// 命令服务套接字自定义会话对象操作接口
         /// </summary>
         public readonly ICommandListenerSession SessionObject;
-        /// <summary>
-        /// Get listening address
-        /// 获取监听地址
-        /// </summary>
-#if NetStandard21
-        public EndPoint? EndPoint
-#else
-        public EndPoint EndPoint
-#endif
-        {
-            get { return socket.LocalEndPoint; }
-        }
+//        /// <summary>
+//        /// Get listening address
+//        /// 获取监听地址
+//        /// </summary>
+//#if NetStandard21
+//        public EndPoint? EndPoint
+//#else
+//        public EndPoint EndPoint
+//#endif
+//        {
+//            get { return socket.LocalEndPoint; }
+//        }
         /// <summary>
         /// TCP 服务器端同步调用队列数组
         /// </summary>

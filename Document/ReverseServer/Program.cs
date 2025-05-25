@@ -12,6 +12,7 @@ namespace AutoCSer.Document.ReverseServer
 
             await CommandClientSocketEvent.Test();
 
+            Console.WriteLine("Completed");
             Console.ReadKey();
         }
     }

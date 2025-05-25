@@ -2204,6 +2204,45 @@
             </summary>
             <param name="value">存档数据</param>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandListenerSwitchProcess">
+            <summary>
+            命令服务切换进程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandListenerSwitchProcess.commandListener">
+            <summary>
+            命令服务端监听
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandListenerSwitchProcess.startErrorMessage">
+            <summary>
+            服务启动失败输出错误信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandListenerSwitchProcess.#ctor(System.String[])">
+            <summary>
+            命令服务切换进程
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandListenerSwitchProcess.onStart">
+            <summary>
+            开始运行
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandListenerSwitchProcess.createCommandListener">
+            <summary>
+            创建命令服务端监听
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CommandListenerSwitchProcess.onExit">
+            <summary>
+            退出运行
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreatingNodeInfo">
             <summary>
             创建节点信息
@@ -2363,6 +2402,13 @@
             <param name="process">退出的进程信息</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
+            <summary>
+            服务启动失败
+            </summary>
+            <param name="listener">命令服务端监听</param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.Default">
             <summary>
             默认扩展中文配置
@@ -2498,6 +2544,13 @@
             <param name="process">退出的进程信息</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
+            <summary>
+            服务启动失败
+            </summary>
+            <param name="listener">命令服务端监听</param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default">
             <summary>
             默认扩展系统语言文化配置
@@ -2631,6 +2684,13 @@
             The new daemon process failed to start
             </summary>
             <param name="process">Information about the exiting process</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
+            <summary>
+            Service startup failed
+            </summary>
+            <param name="listener">Command server to listen</param>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.Default">
@@ -13134,6 +13194,11 @@
             是否已经被移除
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.IsLoad">
+            <summary>
+            是否初始化加载数据
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.GuardProcess.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo,System.Diagnostics.Process)">
             <summary>
             被守护进程信息
@@ -13267,6 +13332,26 @@
             <param name="process"></param>
             <param name="arguments">Main 传参数组</param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.#ctor(System.Diagnostics.Process)">
+            <summary>
+            当前进程 dotnet 被守护进程信息
+            </summary>
+            <param name="process"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.IsMatch(System.Diagnostics.Process)">
+            <summary>
+            判断进程信息是否匹配
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo.GetCurrent(System.String[])">
+            <summary>
+            获取当前进程被守护进程信息
+            </summary>
+            <param name="arguments">Main 函数传参</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode">
             <summary>
             进程守护节点（服务端需要以管理员身份运行，否则可能异常）
@@ -13334,6 +13419,13 @@
             </summary>
             <param name="processInfo">进程信息</param>
             <returns>是否添加成功</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Output(System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardInfo)">
+            <summary>
+            输出进程信息
+            </summary>
+            <param name="type"></param>
+            <param name="processInfo"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ProcessGuardNode.Remove(System.Int32,System.DateTime,System.String)">
             <summary>

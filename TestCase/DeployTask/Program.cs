@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.DeployTask
 {
-    class Program : ProcessGuardSwitchProcess
+    class Program : CommandListenerSwitchProcess
     {
         static async Task Main(string[] args)
         {
@@ -32,14 +32,10 @@ namespace AutoCSer.TestCase.DeployTask
             get { return ProcessGuardCommandClientSocketEvent.ProcessGuardNodeCache; }
         }
         /// <summary>
-        /// 发布服务端
-        /// </summary>
-        private AutoCSer.Net.CommandListener commandListener;
-        /// <summary>
-        /// 开始运行
+        /// 创建命令服务端监听
         /// </summary>
         /// <returns></returns>
-        protected override async Task onStart()
+        protected override Task<AutoCSer.Net.CommandListener> createCommandListener()
         {
             StreamPersistenceMemoryDatabaseServiceConfig databaseServiceConfig = new StreamPersistenceMemoryDatabaseServiceConfig
             {
@@ -57,24 +53,11 @@ namespace AutoCSer.TestCase.DeployTask
             {
                 Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DeployTask, string.Empty),
             };
-            commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
+            return Task.FromResult(new AutoCSer.Net.CommandListenerBuilder(0)
                 .Append<ITimestampVerifyService>(server => new TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                 .Append<IStreamPersistenceMemoryDatabaseService>(databaseService)
                 .Append<IUploadFileService>(new UploadFileService(uploadFileServiceConfig))
-                .CreateCommandListener(commandServerConfig);
-            if (!await commandListener.Start())
-            {
-                Console.WriteLine("发布服务启动失败");
-            }
-        }
-        /// <summary>
-        /// 退出运行
-        /// </summary>
-        /// <returns></returns>
-        protected override Task onExit()
-        {
-            commandListener?.Dispose();
-            return base.onExit();
+                .CreateCommandListener(commandServerConfig));
         }
     }
 }

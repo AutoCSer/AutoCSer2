@@ -40,10 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public void SnapshotSet(ProcessGuardInfo value)
         {
             Process process = GetProcessById(value.ProcessID);
-            if (!object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) && process.StartTime == value.StartTime && process.ProcessName == value.ProcessName)
-            {
-                guards.TryAdd(value.ProcessID, new GuardProcess(this, value, process));
-            }
+            if (!object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) && value.IsMatch(process)) guards.TryAdd(value.ProcessID, new GuardProcess(this, value, process));
             else guards.TryAdd(value.ProcessID, new GuardProcess(this, value));
         }
         /// <summary>
@@ -102,15 +99,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns>是否添加成功</returns>
         public bool GuardLoadPersistence(ProcessGuardInfo processInfo)
         {
-            var guardProcess = default(GuardProcess);
-            if (guards.TryGetValue(processInfo.ProcessID, out guardProcess))
-            {
-                ProcessGuardInfo currentInfo = guardProcess.ProcessInfo;
-                if (currentInfo.StartTime == processInfo.StartTime && currentInfo.ProcessName == processInfo.ProcessName) return true;
-                guards.TryAdd(processInfo.ProcessID, new GuardProcess(this, processInfo));
-                return true;
-            }
-            SnapshotSet(processInfo);
+            if(!guards.ContainsKey(processInfo.ProcessID)) SnapshotSet(processInfo);
+            //var guardProcess = default(GuardProcess);
+            //if (guards.TryGetValue(processInfo.ProcessID, out guardProcess))
+            //{
+            //    ProcessGuardInfo currentInfo = guardProcess.ProcessInfo;
+            //    if (currentInfo.StartTime == processInfo.StartTime && currentInfo.ProcessName == processInfo.ProcessName) return true;
+            //    guards.TryAdd(processInfo.ProcessID, new GuardProcess(this, processInfo));
+            //    return true;
+            //}
+            //SnapshotSet(processInfo);
             return true;
         }
         /// <summary>
@@ -121,13 +119,40 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public bool Guard(ProcessGuardInfo processInfo)
         {
             Process process = GetProcessById(processInfo.ProcessID);
-            if (object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) || process.StartTime != processInfo.StartTime || process.ProcessName != processInfo.ProcessName) return false;
+            if (object.ReferenceEquals(process, AutoCSer.Common.CurrentProcess) || !processInfo.IsMatch(process)) return false;
             var guardProcess = default(GuardProcess);
             if (!guards.TryGetValue(processInfo.ProcessID, out guardProcess))
             {
                 guards.TryAdd(processInfo.ProcessID, new GuardProcess(this, processInfo, process));
+                Output(nameof(Guard), processInfo);
+                return true;
+            }
+            if (guardProcess.IsLoad)
+            {
+                guards[processInfo.ProcessID] = new GuardProcess(this, processInfo, process);
+                guardProcess.Remove();
+                Output(nameof(Guard), processInfo);
             }
             return true;
+        }
+        /// <summary>
+        /// 输出进程信息
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="processInfo"></param>
+        internal static void Output(string type, ProcessGuardInfo processInfo)
+        {
+            Console.WriteLine();
+            Console.Write(type);
+            Console.Write(' ');
+            Console.Write(processInfo.ProcessID);
+            Console.Write(' ');
+            Console.Write(processInfo.ProcessName);
+            if (processInfo.Arguments != null && processInfo.Arguments.Length != 0)
+            {
+                Console.Write(' ');
+                Console.Write(string.Join(" ", processInfo.Arguments));
+            }
         }
         /// <summary>
         /// 删除被守护进程
@@ -140,11 +165,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             var guardProcess = default(GuardProcess);
             if (guards.TryGetValue(processId, (uint)processId.GetHashCode(), out guardProcess))
             {
-                ProcessGuardInfo info = guardProcess.ProcessInfo;
-                if (info.StartTime == startTime && info.ProcessName == processName)
+                ProcessGuardInfo processInfo = guardProcess.ProcessInfo;
+                if (processInfo.StartTime == startTime && processInfo.ProcessName == processName)
                 {
                     guards.Remove(processId);
                     guardProcess.Remove();
+                    if(StreamPersistenceMemoryDatabaseService.IsLoaded) Output(nameof(Remove), processInfo);
                 }
             }
         }

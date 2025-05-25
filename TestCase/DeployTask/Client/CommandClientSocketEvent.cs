@@ -58,7 +58,7 @@ namespace AutoCSer.TestCase.DeployTaskClient
         /// </summary>
         public static readonly AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent>(new AutoCSer.Net.CommandClientCompressConfig
         {
-            Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DeployTask),
+            Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(AutoCSer.TestCase.Common.CommandServerPortEnum.DeployTask),
             GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
         });
         /// <summary>

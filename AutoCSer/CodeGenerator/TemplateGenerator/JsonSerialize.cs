@@ -192,6 +192,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 成员类型数量
         /// </summary>
         public int MemberTypeCount { get { return MemberTypes.Length; } }
+        /// <summary>
+        /// 是否生成序列化代码
+        /// </summary>
+        public bool IsSerialize;
+        /// <summary>
+        /// 是否生成反序列化代码
+        /// </summary>
+        public bool IsDeserialize;
 
         /// <summary>
         /// 安装下一个类型
@@ -233,6 +241,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 DeserializeMembers = deserializeMembers.ToArray();
                 MemberTypes = memberTypes.getArray(p => new AotMethod.ReflectionMemberType(p.Value));
                 isFirstMember = true;
+                IsDeserialize = CurrentAttribute.IsDeserialize;
+                IsSerialize = CurrentAttribute.IsSerialize;
                 create(true);
                 AotMethod.Append(CurrentType, JsonSerializeMethodName);
                 DefaultConstructor.Create(type);

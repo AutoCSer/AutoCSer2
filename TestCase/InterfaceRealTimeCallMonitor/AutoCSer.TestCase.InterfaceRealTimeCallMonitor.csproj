@@ -26,6 +26,7 @@
     <Compile Include="ExceptionStatisticsCommandClientSocketEvent.cs" />
     <Compile Include="ExceptionStatisticsClient.cs" />
     <Compile Include="InterfaceRealTimeCallMonitorService.cs" />
+    <Compile Include="ProcessGuardCommandClientSocketEvent.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
 

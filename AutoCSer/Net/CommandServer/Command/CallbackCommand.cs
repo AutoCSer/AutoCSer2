@@ -75,12 +75,14 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Push()
         {
+            //PushState = Controller.Socket.TryPushBatch(this);
             PushState = Controller.Socket.TryPush(this);
             if (PushState != CommandPushStateEnum.WaitCount)
             {
                 IsCompleted = true;
                 continuation = Common.EmptyAction;
             }
+            else AutoCSer.Threading.ThreadYield.YieldOnly();
         }
         /// <summary>
         /// 检查等待添加队列命令

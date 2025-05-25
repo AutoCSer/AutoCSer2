@@ -1737,6 +1737,14 @@
             集合相关扩展
             </summary>
         </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtension.valueToEnumerable``1(``0)">
+            <summary>
+            单个数据转换为可枚举集合
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="value">枚举数据</param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Extensions.EnumerableExtension.getLeftArray``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>
             根据集合内容返回数组
@@ -4542,6 +4550,11 @@
             默认切换服务目录后缀名称
             </summary>
         </member>
+        <member name="F:AutoCSer.Diagnostics.ProcessInfo.DotNetProcessName">
+            <summary>
+            dotnet 调用进程名称
+            </summary>
+        </member>
         <member name="F:AutoCSer.Diagnostics.ProcessInfo.FileName">
             <summary>
             运行文件
@@ -4601,6 +4614,12 @@
             <param name="process"></param>
             <param name="arguments">Main 传参数组</param>
         </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(System.Diagnostics.Process)">
+            <summary>
+            当前 dotnet 进程启动信息
+            </summary>
+            <param name="process"></param>
+        </member>
         <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(System.IO.FileInfo,System.String[],System.Diagnostics.Process)">
             <summary>
             进程启动信息
@@ -4608,6 +4627,12 @@
             <param name="switchFile">切换进程启动文件信息</param>
             <param name="arguments">Main 传参数组</param>
             <param name="process"></param>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(System.IO.FileInfo)">
+            <summary>
+            当前 dotnet 进程启动信息
+            </summary>
+            <param name="switchFile">切换进程启动文件信息</param>
         </member>
         <member name="M:AutoCSer.Diagnostics.ProcessInfo.#ctor(System.String,System.String[],System.String,System.Diagnostics.ProcessWindowStyle,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
@@ -4636,6 +4661,12 @@
         <member name="M:AutoCSer.Diagnostics.ProcessInfo.StartAsync">
             <summary>
             启动新进程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Diagnostics.ProcessInfo.IsCurrentProcessDotNet">
+            <summary>
+            判断当前进程是否 dotnet 启动
             </summary>
             <returns></returns>
         </member>

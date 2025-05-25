@@ -88,6 +88,17 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 }
             }
             /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(2);
+                types.Add(typeof(int));
+                types.Add(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Pos));
+                return types;
+            }
+            /// <summary>
             /// JSON 反序列化
             /// </summary>
             /// <param name="deserializer"></param>
@@ -228,17 +239,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(2);
-                types.Add(typeof(int));
-                types.Add(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Pos));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -246,14 +246,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster value = default(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster));
             }
     }
 }namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game

@@ -16,16 +16,16 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
-            CommandClientConfig commandClientConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
+            CommandClientConfig commandClientConfig = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsCompressConfig
                 ? new CommandClientCompressConfig
                 {
-                    Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
+                    Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
                     ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                     GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
                 }
                 : new CommandClientConfig
                 {
-                    Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
+                    Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
                     ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                     GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
                 };

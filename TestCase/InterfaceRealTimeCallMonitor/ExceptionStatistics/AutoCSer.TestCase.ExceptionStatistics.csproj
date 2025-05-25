@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ProcessGuardCommandClientSocketEvent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServiceConfig.cs" />
   </ItemGroup>

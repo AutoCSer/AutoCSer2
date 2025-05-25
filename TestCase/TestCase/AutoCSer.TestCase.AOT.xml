@@ -3973,6 +3973,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.Field.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.Field.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.Field@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -4022,12 +4028,6 @@
         <member name="M:AutoCSer.TestCase.Data.Field.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.Field.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -4230,6 +4230,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.Float.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.Float.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.Float@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -4279,12 +4285,6 @@
         <member name="M:AutoCSer.TestCase.Data.Float.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.Float.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -4645,6 +4645,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonField.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonField.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.JsonField@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -4694,12 +4700,6 @@
         <member name="M:AutoCSer.TestCase.Data.JsonField.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonField.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -4821,6 +4821,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonProperty.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonProperty.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.JsonProperty@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -4870,12 +4876,6 @@
         <member name="M:AutoCSer.TestCase.Data.JsonProperty.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonProperty.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -5121,6 +5121,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.MemberClass.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.MemberClass.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.MemberClass@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -5170,12 +5176,6 @@
         <member name="M:AutoCSer.TestCase.Data.MemberClass.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.MemberClass.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -5884,6 +5884,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.Property.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.Property.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.Property@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -5933,12 +5939,6 @@
         <member name="M:AutoCSer.TestCase.Data.Property.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.Property.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -6070,6 +6070,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructField.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonStructField.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.JsonStructField@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -6119,12 +6125,6 @@
         <member name="M:AutoCSer.TestCase.Data.JsonStructField.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructField.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -6345,6 +6345,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.StructField.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.StructField.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.StructField@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -6394,12 +6400,6 @@
         <member name="M:AutoCSer.TestCase.Data.StructField.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.StructField.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -6531,6 +6531,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.JsonStructProperty@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -6580,12 +6586,6 @@
         <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.JsonStructProperty.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -6729,6 +6729,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.Data.StructProperty.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.Data.StructProperty.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.Data.StructProperty@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -6778,12 +6784,6 @@
         <member name="M:AutoCSer.TestCase.Data.StructProperty.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.Data.StructProperty.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>

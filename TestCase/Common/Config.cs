@@ -24,14 +24,9 @@ namespace AutoCSer.TestCase.Common
         /// </summary>
         public static string TimestampVerifyString { get { return JsonFileConfig.Default.TimestampVerifyString ?? nameof(TimestampVerifyString); } }
         /// <summary>
-        /// 是否远程模式
+        /// 程序文件上传目录
         /// </summary>
-        public static bool IsRemote { get { return JsonFileConfig.Default.IsRemote; } }
-        //public static bool IsRemote;
-        /// <summary>
-        /// RPC 是否使用压缩配置
-        /// </summary>
-        public static bool IsCompressConfig { get { return IsRemote; } }
+        public static string UploadPath { get { return JsonFileConfig.Default.UploadPath ?? AutoCSerTemporaryFilePath; } }
 
         /// <summary>
         /// 项目文件路径

@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService.DeployTask
         public StartProcessTask(string fileName, bool isWaitForExit = false, string[] arguments = null, string workingDirectory = null
 #endif
             , ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal, bool useShellExecute = true, bool isErrorDialog = false, bool isCreateWindow = true)
-            : base(fileName, arguments, workingDirectory, windowStyle, useShellExecute, isErrorDialog, isCreateWindow)
+            : base(fileName, arguments, workingDirectory ?? string.Empty, windowStyle, useShellExecute, isErrorDialog, isCreateWindow)
         {
             IsWaitForExit = isWaitForExit;
         }

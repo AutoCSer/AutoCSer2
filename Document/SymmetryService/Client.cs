@@ -26,6 +26,7 @@ namespace AutoCSer.Document.SymmetryService
             {
                 Console.WriteLine($"2 + 3 = {await client.InterfaceController.AddAsync(2, 3)}");
                 Console.WriteLine($"1 + 2 = {client.InterfaceController.Add(1, 2)}");
+                Console.WriteLine("Completed");
             }
         }
     }

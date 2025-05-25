@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase.DeployTask
         /// <returns></returns>
         public override string GetPath(CommandServerSocket socket, string type)
         {
-            return Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, type);
+            return Path.Combine(AutoCSer.TestCase.Common.Config.UploadPath, type);
         }
     }
 }

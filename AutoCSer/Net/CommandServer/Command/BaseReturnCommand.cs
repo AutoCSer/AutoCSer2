@@ -109,6 +109,7 @@ namespace AutoCSer.Net.CommandServer
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Push()
         {
+            //if (Controller.Socket.TryPushBatch(this) == CommandPushStateEnum.Closed)
             if (Controller.Socket.TryPush(this) == CommandPushStateEnum.Closed)
             {
                 ReturnType = CommandClientReturnTypeEnum.SocketClosed;

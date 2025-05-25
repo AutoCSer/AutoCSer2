@@ -11766,6 +11766,16 @@
             获取 JSON 反序列化成员名称
             </summary>
         </member>
+        <member name="F:AutoCSer.CodeGenerator.JsonSerializeAttribute.IsSerialize">
+            <summary>
+            默认为 true 表示生成序列化代码
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CodeGenerator.JsonSerializeAttribute.IsDeserialize">
+            <summary>
+            默认为 true 表示生成反序列化代码
+            </summary>
+        </member>
         <member name="T:AutoCSer.CodeGenerator.DefaultConstructorAttribute">
             <summary>
             默认构造函数代码生成配置（用于 AOT 环境）
@@ -27667,6 +27677,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializeComplex.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializeComplex.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializeComplex@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -27716,12 +27732,6 @@
         <member name="M:AutoCSer.SerializeComplex.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializeComplex.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -27795,6 +27805,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializeMatrix3x2.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializeMatrix3x2.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializeMatrix3x2@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -27844,12 +27860,6 @@
         <member name="M:AutoCSer.SerializeMatrix3x2.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializeMatrix3x2.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -27973,6 +27983,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializeMatrix4x4.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializeMatrix4x4.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializeMatrix4x4@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -28022,12 +28038,6 @@
         <member name="M:AutoCSer.SerializeMatrix4x4.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializeMatrix4x4.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -28081,6 +28091,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializePlane.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializePlane.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializePlane@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -28130,12 +28146,6 @@
         <member name="M:AutoCSer.SerializePlane.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializePlane.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -28199,6 +28209,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializeQuaternion.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializeQuaternion.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializeQuaternion@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -28248,12 +28264,6 @@
         <member name="M:AutoCSer.SerializeQuaternion.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializeQuaternion.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -28307,6 +28317,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializeVector2.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializeVector2.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializeVector2@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -28356,12 +28372,6 @@
         <member name="M:AutoCSer.SerializeVector2.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializeVector2.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -28420,6 +28430,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializeVector3.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializeVector3.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializeVector3@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -28469,12 +28485,6 @@
         <member name="M:AutoCSer.SerializeVector3.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializeVector3.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -28538,6 +28548,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.SerializeVector4.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.SerializeVector4.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.SerializeVector4@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -28587,12 +28603,6 @@
         <member name="M:AutoCSer.SerializeVector4.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SerializeVector4.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>
@@ -38564,6 +38574,11 @@
             TCP 套接字
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandListenerBase.EndPoint">
+            <summary>
+            获取套接字监听地址
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandListenerBase.listenAcceptEvent">
             <summary>
             监听套接字异步事件
@@ -43048,9 +43063,14 @@
             接收数据套接字异步事件对象
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.CreateVersion">
+        <member name="F:AutoCSer.Net.CommandClientSocket.commandQueueCount">
             <summary>
-            服务更新版本号
+            客户端最大未处理命令数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.reserve">
+            <summary>
+            保留补白
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.MaxInputSize">
@@ -43061,11 +43081,6 @@
         <member name="F:AutoCSer.Net.CommandClientSocket.MaxMergeInputSize">
             <summary>
             最大合并输入数据长度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.commandQueueCount">
-            <summary>
-            客户端最大未处理命令数量
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.pad0">
@@ -43182,6 +43197,11 @@
             创建套接字失败次数
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.CreateVersion">
+            <summary>
+            服务更新版本号
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveType">
             <summary>
             接收数据回调类型
@@ -43193,11 +43213,6 @@
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveReserve">
-            <summary>
-            保留补白
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.receiveReserve2">
             <summary>
             保留补白
             </summary>
@@ -43237,7 +43252,7 @@
             是否已经关闭套接字
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.pushReserve">
+        <member name="F:AutoCSer.Net.CommandClientSocket.commandReserve">
             <summary>
             保留补白
             </summary>
@@ -44134,12 +44149,6 @@
             <summary>
             Command service socket User-defined session object operation interface
             命令服务套接字自定义会话对象操作接口
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandListener.EndPoint">
-            <summary>
-            Get listening address
-            获取监听地址
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandListener.callQueues">
@@ -45409,6 +45418,11 @@
         <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.ServerDisposed">
             <summary>
             服务端已释放资源
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.PushBatch">
+            <summary>
+            已添加批处理命令
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.SocketClosed">
@@ -49886,6 +49900,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Reflection.RemoteType.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.Reflection.RemoteType@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -49935,12 +49955,6 @@
         <member name="M:AutoCSer.Reflection.RemoteType.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Reflection.RemoteType.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>

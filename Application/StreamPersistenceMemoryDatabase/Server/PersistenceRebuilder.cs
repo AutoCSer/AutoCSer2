@@ -210,6 +210,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             bool isPersistence = false;
             try
             {
+                while (File.Exists(Service.PersistenceFileInfo.FullName + Service.Config.GetBackupFileNameSuffix() + ".bak")) System.Threading.Thread.Sleep(1000);//避免文件名称冲突
                 string backupFileNameSuffix = Service.Config.GetBackupFileNameSuffix() + ".rb";
                 persistenceCallbackExceptionPositionFileInfo = new FileInfo(Service.PersistenceCallbackExceptionPositionSwitchFileInfo.FullName + backupFileNameSuffix);
                 persistenceFileInfo = new FileInfo(Service.PersistenceSwitchFileInfo.FullName + backupFileNameSuffix);

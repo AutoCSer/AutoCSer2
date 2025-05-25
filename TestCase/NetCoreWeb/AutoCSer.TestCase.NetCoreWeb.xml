@@ -238,6 +238,12 @@
             开始运行
             </summary>
         </member>
+        <member name="M:AutoCSer.TestCase.NetCoreWeb.Program.useStartup(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            调用 builder.UseStartup()
+            </summary>
+            <param name="builder"></param>
+        </member>
         <member name="T:AutoCSer.TestCase.NetCoreWeb.ExampleView">
             <summary>
             数据视图示例，必须使用 partial 修饰符用于生成静态代码，每一个示例必须对应 类型名称.page.html 页面模板文件

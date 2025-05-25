@@ -54,6 +54,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void PushSendOnly()
         {
+            //PushState = Controller.Socket.TryPushBatch(this);
             PushState = Controller.Socket.TryPush(this);
             if (PushState != CommandPushStateEnum.WaitCount)
             {

@@ -18,6 +18,7 @@ namespace AutoCSer.Document.ServiceAuthentication
             Console.WriteLine($"{nameof(SetCommand)} {await setCommand()}");
             Console.WriteLine($"{nameof(TransferEncoding)} {await transferEncoding()}");
 
+            Console.WriteLine("Completed");
             Console.ReadKey();
         }
         /// <summary>

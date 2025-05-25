@@ -44,9 +44,13 @@ namespace AutoCSer.Net
         /// </summary>
         private readonly SocketAsyncEventArgs receiveAsyncEventArgs;
         /// <summary>
-        /// 服务更新版本号
+        /// 客户端最大未处理命令数量
         /// </summary>
-        internal int CreateVersion;
+        private readonly int commandQueueCount;
+        /// <summary>
+        /// 保留补白
+        /// </summary>
+        private int reserve;
         /// <summary>
         /// 最大输入数据长度
         /// </summary>
@@ -55,10 +59,6 @@ namespace AutoCSer.Net
         /// 最大合并输入数据长度
         /// </summary>
         internal readonly int MaxMergeInputSize;
-        /// <summary>
-        /// 客户端最大未处理命令数量
-        /// </summary>
-        private readonly int commandQueueCount;
         /// <summary>
         /// 填充隔离数据
         /// </summary>
@@ -209,6 +209,10 @@ namespace AutoCSer.Net
         /// </summary>
         private int createErrorCount = 0;
         /// <summary>
+        /// 服务更新版本号
+        /// </summary>
+        internal int CreateVersion;
+        /// <summary>
         /// 接收数据回调类型
         /// </summary>
         private ClientReceiveTypeEnum receiveType;
@@ -221,10 +225,6 @@ namespace AutoCSer.Net
         /// </summary>
         private short receiveReserve;
         /// <summary>
-        /// 保留补白
-        /// </summary>
-        private int receiveReserve2;
-        /// <summary>
         /// 填充隔离数据
         /// </summary>
         private readonly CpuCachePad pad1;
@@ -235,7 +235,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// TCP 客户端输出信息链表
         /// </summary>
-        internal LinkStack<Command> commands;
+        private LinkStack<Command> commands;
         /// <summary>
         /// 等待事件
         /// </summary>
@@ -244,6 +244,10 @@ namespace AutoCSer.Net
         /// 等待添加到队列的命令集合
         /// </summary>
         internal LinkStack<Command> waitPushCommands;
+        ///// <summary>
+        ///// 命令批处理
+        ///// </summary>
+        //internal CommandBatch CommandBatch;
         /// <summary>
         /// 是否已经关闭套接字
         /// </summary>
@@ -255,7 +259,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 保留补白
         /// </summary>
-        private int pushReserve;
+        private int commandReserve;
         /// <summary>
         /// 填充隔离数据
         /// </summary>
@@ -286,6 +290,7 @@ namespace AutoCSer.Net
             Socket = CommandServerConfigBase.NullSocket;
             outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
+            //CommandBatch = new CommandBatch(this);
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(true);
         }
@@ -317,6 +322,7 @@ namespace AutoCSer.Net
             Socket = CommandServerConfigBase.NullSocket;
             outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
+            //CommandBatch = Null.CommandBatch;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
             Controller = createController();
@@ -349,6 +355,7 @@ namespace AutoCSer.Net
             Socket = CommandServerConfigBase.NullSocket;
             outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
+            //CommandBatch = Null.CommandBatch;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
             Controller = createController();
@@ -384,6 +391,7 @@ namespace AutoCSer.Net
             Socket = socket;
             outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
+            //CommandBatch = Null.CommandBatch;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
             Controller = createController();
@@ -1761,6 +1769,59 @@ namespace AutoCSer.Net
                 if (head != null) Command.CancelLink(head);
             }
         }
+        //        /// <summary>
+        //        /// 启动命令批处理（非线程安全，不允许多线程并发操作），不支持 同步等待命令 与 保持回调命令
+        //        /// </summary>
+        //        /// <typeparam name="T">命令类型</typeparam>
+        //        /// <returns>命令批处理，失败返回 null</returns>
+        //#if NetStandard21
+        //        public CommandBatch? BatchStart<T>() where T : Command
+        //#else
+        //        public CommandBatch BatchStart<T>() where T : Command
+        //#endif
+        //        {
+        //            return object.ReferenceEquals(CommandBatch, Null.CommandBatch) && object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref CommandBatch, new CommandBatch(this, typeof(T)), Null.CommandBatch), Null.CommandBatch) ? CommandBatch : null;
+        //        }
+        //        /// <summary>
+        //        /// 启动命令批处理（非线程安全，不允许多线程并发操作），不支持 同步等待命令 与 保持回调命令
+        //        /// </summary>
+        //        /// <returns>命令批处理，失败返回 null</returns>
+        //#if NetStandard21
+        //        public CommandBatch? BatchStart()
+        //#else
+        //        public CommandBatch BatchStart()
+        //#endif
+        //        {
+        //            return object.ReferenceEquals(CommandBatch, Null.CommandBatch) && object.ReferenceEquals(System.Threading.Interlocked.CompareExchange(ref CommandBatch, new CommandBatch(this, typeof(Command)), Null.CommandBatch), Null.CommandBatch) ? CommandBatch : null;
+        //        }
+        //        /// <summary>
+        //        /// 结束命令批处理
+        //        /// </summary>
+        //        /// <param name="commandBatch"></param>
+        //        internal void BatchEnd(CommandBatch commandBatch)
+        //        {
+        //            System.Threading.Interlocked.CompareExchange(ref this.CommandBatch, Null.CommandBatch, commandBatch);
+        //            var head = commandBatch.Head;
+        //            if (head != null)
+        //            {
+        //                if (isClosed == 0)
+        //                {
+        //                    Interlocked.Add(ref commandCount, commandBatch.Count);
+        //                    if (commands.IsPushHeadLink(head, commandBatch.End.notNull())) outputWaitHandle.Set();
+        //                }
+        //                else Command.CancelLink(head);
+        //            }
+        //        }
+        ///// <summary>
+        ///// 尝试添加命令
+        ///// </summary>
+        ///// <param name="command"></param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal CommandPushStateEnum TryPushBatch(Command command)
+        //{
+        //    return CommandBatch.Push(command) ? TryPush(command) : CommandPushStateEnum.Batch;
+        //}
         /// <summary>
         /// 添加命令，不检查计数
         /// </summary>

@@ -20,7 +20,11 @@ namespace AutoCSer.TestCase.DeployTaskClient
             do
             {
                 Console.WriteLine(@"
-1 : AutoCSer.TestCase.NetCoreWeb
+0 : AutoCSer.TestCase.ServerRegistry
+1 : AutoCSer.TestCase.ExceptionStatistics
+2 : InterfaceRealTimeCallMonitor
+3 : AutoCSer.TestCase.NetCoreWeb
+
 T : TestCase
 A : AOT TestCase
 S : Search TestCase
@@ -30,7 +34,11 @@ M : MemorySearch TestCase
 Press quit to exit.");
                 switch (Console.ReadLine())
                 {
-                    case "1": netCoreWeb().NotWait(); break;
+                    case "0": deploy("ServerRegistry").NotWait(); break;
+                    case "1": deploy("InterfaceRealTimeCallMonitor", "ExceptionStatistics").NotWait(); break;
+                    case "2": deploy("InterfaceRealTimeCallMonitor").NotWait(); break;
+                    case "3": netCoreWeb().NotWait(); break;
+
                     case "T": testCase().NotWait(); break;
                     case "A": aot().NotWait(); break;
                     case "S": search().NotWait(); break;
@@ -57,12 +65,129 @@ Press quit to exit.");
                 }
             }
         }
+        private static Task deploy(string type)
+        {
+            return deployAssembly(type, Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, "TestCase", type, "bin", "Release", "net8.0"));
+        }
+        private static Task deploy(string testCaseDirectoryName, string type)
+        {
+            return deployAssembly(type, Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, "TestCase", testCaseDirectoryName, type, "bin", "Release", "net8.0"));
+        }
+        private static async Task deployAssembly(string type, string clientPath)
+        {
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+
+            string fileName = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsLinuxServer ? $"AutoCSer.TestCase.{type}.dll" : $"AutoCSer.TestCase.{type}.exe";
+            FileInfo file = new FileInfo(Path.Combine(clientPath, fileName));
+            if (!await AutoCSer.Common.FileExists(file))
+            {
+                Console.WriteLine($"没有找到文件 {file.FullName}");
+                return;
+            }
+            IUploadFileClientSocketEvent uploadClient = await CommandClientSocketEvent.CommandClient.SocketEvent.Wait();
+            if (uploadClient == null)
+            {
+                Console.WriteLine($"文件上传客户端连接失败");
+                return;
+            }
+            CommandClientReturnValue<string> serverAssemblyPath = await uploadClient.UploadFileClient.GetPath(type);
+            if (!serverAssemblyPath.IsSuccess)
+            {
+                Console.WriteLine($"获取服务端路径失败 {serverAssemblyPath.ReturnType}");
+                return;
+            }
+            CommandClientReturnValue<string> serverFileName = fileName;
+            CommandClientReturnValue<SynchronousFileInfo> serverFile = await uploadClient.UploadFileClient.GetSwitchProcessPathFileInfo(serverAssemblyPath.Value, serverAssemblyPath.Value + ProcessInfo.DefaultSwitchDirectorySuffixName, serverFileName.Value);
+            if (!serverFile.IsSuccess)
+            {
+                Console.WriteLine($"获取切换进程的上传目录与文件信息失败 {serverFile.ReturnType}");
+                return;
+            }
+            if (serverFile.Value.LastWriteTime > file.LastWriteTimeUtc)
+            {
+                Console.WriteLine($"服务端文件最后修改时间 {serverFile.Value.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss")} 与客户端文件最后修改时间 {file.LastWriteTimeUtc.ToString("yyyy/MM/dd HH:mm:ss")} 冲突");
+                return;
+            }
+
+            string serverPath = serverFile.Value.FullName ?? serverAssemblyPath.Value;
+            UploadFileClient uploadAssemblyFileClient = new UploadFileClient(uploadClient, clientPath, serverPath, new string[] { ".exe", ".dll", ".pdb", ".xml", ".json" }, false, true, false);
+            UploadFileStateEnum uploadState = await uploadAssemblyFileClient.Upload();
+            if (uploadState != UploadFileStateEnum.Success)
+            {
+                Console.WriteLine($"文件上传失败 {uploadState}");
+                return;
+            }
+            serverFileName = await uploadClient.UploadFileClient.CombinePath(serverPath, serverFileName.Value);
+            if (!serverFileName.IsSuccess)
+            {
+                Console.WriteLine($"服务端文件名称获取失败 {serverFileName.ReturnType}");
+                return;
+            }
+
+            ResponseResult<IDeployTaskNodeClientNode> node = await CommandClientSocketEvent.DeployTaskNodeCache.GetSynchronousNode();
+            if (!node.IsSuccess)
+            {
+                Console.WriteLine($"客户端发布节点获取失败 {node.ReturnType}.{node.CallState}");
+                return;
+            }
+            ResponseResult<long> identity = await node.Value.Create();
+            if (!identity.IsSuccess)
+            {
+                Console.WriteLine($"发布任务标识ID获取失败 {identity.ReturnType}.{identity.CallState}");
+                return;
+            }
+            bool isStart = false;
+            try
+            {
+                ResponseResult<OperationStateEnum> state = await node.Value.AppendStepTask(identity.Value, uploadAssemblyFileClient);
+                if (!state.IsSuccess)
+                {
+                    Console.WriteLine($"发布任务 {identity.Value} 添加上传完成任务失败 {state.ReturnType}.{state.CallState}");
+                    return;
+                }
+                if (state.Value != OperationStateEnum.Success)
+                {
+                    Console.WriteLine($"发布任务 {identity.Value} 添加上传完成任务失败 {state.Value}");
+                    return;
+                }
+                state = await node.Value.AppendStepTask(identity.Value, serverFileName.Value);
+                if (!state.IsSuccess)
+                {
+                    Console.WriteLine($"发布任务 {identity.Value} 添加启动进程任务失败 {state.ReturnType}.{state.CallState}");
+                    return;
+                }
+                if (state.Value != OperationStateEnum.Success)
+                {
+                    Console.WriteLine($"发布任务 {identity.Value} 添加启动进程任务失败 {state.Value}");
+                    return;
+                }
+                Console.WriteLine(serverFileName.Value);
+                getLog(node.Value, identity.Value).NotWait();
+                state = await node.Value.Start(identity.Value);
+                if (!state.IsSuccess)
+                {
+                    Console.WriteLine($"发布任务 {identity.Value} 启动失败 {state.ReturnType}.{state.CallState}");
+                    return;
+                }
+                if (state.Value != OperationStateEnum.Success)
+                {
+                    Console.WriteLine($"发布任务 {identity.Value} 启动失败 {state.Value}");
+                    return;
+                }
+                isStart = true;
+            }
+            finally
+            {
+                if (!isStart) await node.Value.Remove(identity.Value);
+            }
+        }
         private static async Task netCoreWeb()
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
             string clientPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerPath, "TestCase", "NetCoreWeb");
-            FileInfo file = new FileInfo(Path.Combine(clientPath, Path.Combine("bin", "Release", "net8.0", "AutoCSer.TestCase.NetCoreWeb.exe")));
+            string fileName = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsLinuxServer ? "AutoCSer.TestCase.NetCoreWeb.dll" : "AutoCSer.TestCase.NetCoreWeb.exe";
+            FileInfo file = new FileInfo(Path.Combine(clientPath, Path.Combine("bin", "Release", "net8.0", fileName)));
             if (!await AutoCSer.Common.FileExists(file))
             {
                 Console.WriteLine($"没有找到文件 {file.FullName}");
@@ -80,7 +205,7 @@ Press quit to exit.");
                 Console.WriteLine($"获取服务端路径失败 {serverWebPath.ReturnType}");
                 return;
             }
-            CommandClientReturnValue<string> serverFileName = await uploadClient.UploadFileClient.CombinePathArray(new string[] { "bin", "Release", "net8.0", "AutoCSer.TestCase.NetCoreWeb.exe" });
+            CommandClientReturnValue<string> serverFileName = await uploadClient.UploadFileClient.CombinePathArray(new string[] { "bin", "Release", "net8.0", fileName });
             if (!serverFileName.IsSuccess)
             {
                 Console.WriteLine($"获取服务端路径失败 {serverFileName.ReturnType}");
@@ -92,7 +217,7 @@ Press quit to exit.");
                 Console.WriteLine($"获取切换进程的上传目录与文件信息失败 {serverFile.ReturnType}");
                 return;
             }
-            if (serverFile.Value.LastWriteTime >= file.LastWriteTimeUtc)
+            if (serverFile.Value.LastWriteTime > file.LastWriteTimeUtc)
             {
                 Console.WriteLine($"服务端文件最后修改时间 {serverFile.Value.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss")} 与客户端文件最后修改时间 {file.LastWriteTimeUtc.ToString("yyyy/MM/dd HH:mm:ss")} 冲突");
                 return;
@@ -118,6 +243,12 @@ Press quit to exit.");
             if (uploadState != UploadFileStateEnum.Success)
             {
                 Console.WriteLine($"文件上传失败 {uploadState}");
+                return;
+            }
+            serverFileName = await uploadClient.UploadFileClient.CombinePath(serverPath, serverFileName.Value);
+            if (!serverFileName.IsSuccess)
+            {
+                Console.WriteLine($"服务端文件名称获取失败 {serverFileName.ReturnType}");
                 return;
             }
 
@@ -158,7 +289,7 @@ Press quit to exit.");
                     Console.WriteLine($"发布任务 {identity.Value} 添加上传完成任务失败 {state.Value}");
                     return;
                 }
-                state = await node.Value.AppendStepTask(identity.Value, Path.Combine(serverPath, serverFileName.Value));
+                state = await node.Value.AppendStepTask(identity.Value, serverFileName.Value);
                 if (!state.IsSuccess)
                 {
                     Console.WriteLine($"发布任务 {identity.Value} 添加启动进程任务失败 {state.ReturnType}.{state.CallState}");
@@ -169,6 +300,7 @@ Press quit to exit.");
                     Console.WriteLine($"发布任务 {identity.Value} 添加启动进程任务失败 {state.Value}");
                     return;
                 }
+                Console.WriteLine(serverFileName.Value);
                 getLog(node.Value, identity.Value).NotWait();
                 state = await node.Value.Start(identity.Value);
                 if (!state.IsSuccess)
@@ -188,6 +320,7 @@ Press quit to exit.");
                 if (!isStart) await node.Value.Remove(identity.Value);
             }
         }
+
         private static async Task testCase()
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
@@ -276,6 +409,8 @@ Press quit to exit.");
         private static async Task wait(ProcessArguments fileName, Process process)
         {
             await process.WaitForExitAsync();
+            long memory = process.WorkingSet64;
+            if (memory >= (1 << 30)) Console.WriteLine($"{process.ProcessName}{memory >> 20}MB");
             FileInfo file = fileName.GetLogFileInfo();
             if (await AutoCSer.Common.FileExists(file))
             {
@@ -322,6 +457,7 @@ Press quit to exit.");
                 {
                     if(++index != fileNames.Length) await waitProcess(fileNames, index);
                     await wait(fileName, process);
+                  
                 }
             }
             else Console.WriteLine("Not Found File");

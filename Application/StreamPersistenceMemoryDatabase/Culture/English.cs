@@ -173,6 +173,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         }
 #endif
         /// <summary>
+        /// Service startup failed
+        /// </summary>
+        /// <param name="listener">Command server to listen</param>
+        /// <returns></returns>
+        public override string GetCommandListenerStartFailed(AutoCSer.Net.CommandListener listener)
+        {
+            string message = "Service ";
+            var serverName = listener.ServerName;
+            if (!string.IsNullOrEmpty(serverName)) message = message + serverName + " ";
+            var endPoint = listener.EndPoint;
+            if (endPoint != null) message += "listen for " + endPoint.ToString() + " ";
+            return message + "failed to start.";
+        }
+        /// <summary>
         /// Default Extended English configuration
         /// </summary>
         public static readonly new English Default = new English();

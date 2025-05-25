@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -16,6 +17,10 @@ namespace AutoCSer.Diagnostics
         /// 默认切换服务目录后缀名称
         /// </summary>
         public const string DefaultSwitchDirectorySuffixName = ".SwitchProcess";
+        /// <summary>
+        /// dotnet 调用进程名称
+        /// </summary>
+        public const string DotNetProcessName = "dotnet";
 
         /// <summary>
         /// 运行文件
@@ -89,9 +94,9 @@ namespace AutoCSer.Diagnostics
         /// <param name="process"></param>
         /// <param name="arguments">Main 传参数组</param>
 #if NetStandard21
-        public ProcessInfo(Process process, string[]? arguments = null)
+        public ProcessInfo(Process process, string[]? arguments)
 #else
-        public ProcessInfo(Process process, string[] arguments = null)
+        public ProcessInfo(Process process, string[] arguments)
 #endif
         {
             try
@@ -122,6 +127,33 @@ namespace AutoCSer.Diagnostics
             }
         }
         /// <summary>
+        /// 当前 dotnet 进程启动信息
+        /// </summary>
+        /// <param name="process"></param>
+        internal ProcessInfo(Process process)
+        {
+            Arguments = Environment.GetCommandLineArgs();
+            IsArgumentArray = true;
+            try
+            {
+                ProcessStartInfo startInfo = process.StartInfo;
+                UseShellExecute = startInfo.UseShellExecute;
+                WindowStyle = startInfo.WindowStyle;
+                FileName = startInfo.FileName;
+                IsErrorDialog = startInfo.ErrorDialog;
+                isCreateWindow = !startInfo.CreateNoWindow;
+                WorkingDirectory = startInfo.WorkingDirectory;
+            }
+            catch
+            {
+                UseShellExecute = true;
+
+                FileInfo file = new FileInfo(process.MainModule.notNull().FileName);
+                FileName = file.FullName;
+                WorkingDirectory = Environment.CurrentDirectory;
+            }
+        }
+        /// <summary>
         /// 进程启动信息
         /// </summary>
         /// <param name="switchFile">切换进程启动文件信息</param>
@@ -132,6 +164,31 @@ namespace AutoCSer.Diagnostics
             FileName = switchFile.FullName;
             WorkingDirectory = switchFile.Directory.notNull().FullName;
             Arguments = arguments;
+            IsArgumentArray = true;
+            try
+            {
+                ProcessStartInfo startInfo = process.StartInfo;
+                UseShellExecute = startInfo.UseShellExecute;
+                WindowStyle = startInfo.WindowStyle;
+                IsErrorDialog = startInfo.ErrorDialog;
+                isCreateWindow = !startInfo.CreateNoWindow;
+            }
+            catch
+            {
+                UseShellExecute = true;
+            }
+        }
+        /// <summary>
+        /// 当前 dotnet 进程启动信息
+        /// </summary>
+        /// <param name="switchFile">切换进程启动文件信息</param>
+        internal ProcessInfo(FileInfo switchFile)
+        {
+            Process process = AutoCSer.Common.CurrentProcess;
+            FileName = process.MainModule.notNull().FileName;
+            WorkingDirectory = switchFile.Directory.notNull().FullName;
+            Arguments = Environment.GetCommandLineArgs();
+            Arguments[0] = switchFile.FullName;
             IsArgumentArray = true;
             try
             {
@@ -182,14 +239,26 @@ namespace AutoCSer.Diagnostics
         private Process start()
 #endif
         {
+            ProcessStartInfo startInfo;
+            if (!FileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+            {
 #if NET8
-            ProcessStartInfo startInfo = IsArgumentArray ? new ProcessStartInfo(FileName, Arguments) : new ProcessStartInfo(FileName, Arguments[0]);
+                startInfo = IsArgumentArray ? new ProcessStartInfo(FileName, Arguments) : new ProcessStartInfo(FileName, Arguments[0]);
 #else
-            ProcessStartInfo startInfo = IsArgumentArray ? new ProcessStartInfo(FileName, string.Join(" ", Arguments)) : new ProcessStartInfo(FileName, Arguments[0]);
+                startInfo = IsArgumentArray ? new ProcessStartInfo(FileName, string.Join(" ", Arguments)) : new ProcessStartInfo(FileName, Arguments[0]);
 #endif
+            }
+            else
+            {
+#if NET8
+                startInfo = IsArgumentArray ? new ProcessStartInfo("dotnet", FileName.valueToEnumerable().Concat(Arguments)) : new ProcessStartInfo("dotnet", FileName.valueToEnumerable().Concat(Arguments[0].valueToEnumerable()));
+#else
+                startInfo = IsArgumentArray ? new ProcessStartInfo("dotnet", FileName + " " + string.Join(" ", Arguments)) : new ProcessStartInfo("dotnet", FileName + " " + Arguments[0]);
+#endif
+            }
             startInfo.UseShellExecute = UseShellExecute;
             startInfo.WindowStyle = WindowStyle;
-            startInfo.WorkingDirectory = WorkingDirectory;
+            startInfo.WorkingDirectory = string.IsNullOrEmpty(WorkingDirectory) ? new FileInfo(FileName).Directory.notNull().FullName : WorkingDirectory;
             startInfo.ErrorDialog = IsErrorDialog;
             startInfo.CreateNoWindow = !isCreateWindow;
             return Process.Start(startInfo);
@@ -221,13 +290,21 @@ namespace AutoCSer.Diagnostics
             return null;
         }
         /// <summary>
-        /// 获取当前进程执行文件名称
+        /// 判断当前进程是否 dotnet 启动
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static bool IsCurrentProcessDotNet()
+        {
+            return AutoCSer.Common.CurrentProcess.ProcessName == DotNetProcessName;
+        }
+        /// <summary>
+        /// 获取当前进程执行文件名称
+        /// </summary>
+        /// <returns></returns>
         public static string GetCurrentProcessFileName()
         {
-            return AutoCSer.Common.CurrentProcess.MainModule.notNull().FileName;
+            return IsCurrentProcessDotNet() ? Environment.GetCommandLineArgs()[0] : AutoCSer.Common.CurrentProcess.MainModule.notNull().FileName;
             //processFileName = System.Reflection.Assembly.GetEntryAssembly().notNull().Location;
             //if (string.CompareOrdinal(processFileName.Substring(processFileName.Length - 4), ".dll") == 0)
             //{

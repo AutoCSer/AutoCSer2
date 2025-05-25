@@ -124,6 +124,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         public abstract string GetGuardProcessStartFailed(ProcessGuardInfo process);
 #endif
         /// <summary>
+        /// 服务启动失败
+        /// </summary>
+        /// <param name="listener">命令服务端监听</param>
+        /// <returns></returns>
+        public abstract string GetCommandListenerStartFailed(AutoCSer.Net.CommandListener listener);
+        /// <summary>
         /// 默认扩展系统语言文化配置
         /// </summary>
         internal static readonly Configuration Default = AutoCSer.Configuration.Common.Get<Configuration>()?.Value ?? (AutoCSer.Culture.Configuration.IsChinese ? (Configuration)Chinese.Default : English.Default);

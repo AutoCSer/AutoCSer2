@@ -1,17 +1,40 @@
 ﻿using AutoCSer.CommandService;
 using AutoCSer.CommandService.InterfaceRealTimeCallMonitor;
+using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.ExceptionStatistics
 {
-    class Program
+    class Program : CommandListenerSwitchProcess
     {
         static async Task Main(string[] args)
         {
-            await AutoCSer.Threading.SwitchAwaiter.Default;
-
+            Program program = new Program(args);
+            if (!await program.switchProcess())
+            {
+                program.start().NotWait();
+                Console.WriteLine("Press quit to exit.");
+                while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
+                await program.exit();
+            }
+        }
+        private Program(string[] args) : base(args) { }
+        /// <summary>
+        /// 获取进程守护节点客户端
+        /// </summary>
+        protected override StreamPersistenceMemoryDatabaseClientNodeCache<IProcessGuardNodeClientNode> getProcessGuardClient
+        {
+            get { return ProcessGuardCommandClientSocketEvent.ProcessGuardNodeCache; }
+        }
+        /// <summary>
+        /// 创建命令服务端监听
+        /// </summary>
+        /// <returns></returns>
+        protected override Task<AutoCSer.Net.CommandListener> createCommandListener()
+        {
             ServiceConfig databaseServiceConfig = new ServiceConfig
             {
                 PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.ExceptionStatistics)),
@@ -21,19 +44,12 @@ namespace AutoCSer.TestCase.ExceptionStatistics
 
             AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerCompressConfig
             {
-                Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ExceptionStatistics),
+                Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ExceptionStatistics, string.Empty),
             };
-            await using (AutoCSer.Net.CommandListener commandListener = new AutoCSer.Net.CommandListenerBuilder(0)
+            return Task.FromResult(new AutoCSer.Net.CommandListenerBuilder(0)
                 .Append<ITimestampVerifyService>(server => new TimestampVerifyService(server, AutoCSer.TestCase.Common.Config.TimestampVerifyString))
                 .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseService)
-                .CreateCommandListener(commandServerConfig))
-            {
-                if (await commandListener.Start())
-                {
-                    Console.WriteLine("Press quit to exit.");
-                    while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
-                }
-            }
+                .CreateCommandListener(commandServerConfig));
         }
     }
 }

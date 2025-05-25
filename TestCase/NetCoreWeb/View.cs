@@ -7,5 +7,6 @@ namespace AutoCSer.TestCase.NetCoreWeb
     /// </summary>
     public abstract class View : AutoCSer.NetCoreWeb.View
     {
+
     }
 }

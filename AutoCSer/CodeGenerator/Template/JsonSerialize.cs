@@ -7,6 +7,7 @@ namespace AutoCSer.CodeGenerator.Template
         public unsafe partial class TypeName
         {
             #region PART CLASS
+            #region IF IsSerialize
             /// <summary>
             /// JSON 序列化
             /// </summary>
@@ -89,6 +90,22 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP Members
             }
             #endregion IF Members.Length
+            #region IF MemberTypeCount
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> @JsonSerializeMemberTypeMethodName()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(@MemberTypeCount);
+                #region LOOP MemberTypes
+                types.Add(typeof(@MemberType.FullName));
+                #endregion LOOP MemberTypes
+                return types;
+            }
+            #endregion IF MemberTypeCount
+            #endregion IF IsSerialize
+            #region IF IsDeserialize
             /// <summary>
             /// JSON 反序列化
             /// </summary>
@@ -249,20 +266,7 @@ namespace AutoCSer.CodeGenerator.Template
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             #endregion IF DeserializeMemberCount
-            #region IF MemberTypeCount
-            /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> @JsonSerializeMemberTypeMethodName()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(@MemberTypeCount);
-                #region LOOP MemberTypes
-                types.Add(typeof(@MemberType.FullName));
-                #endregion LOOP MemberTypes
-                return types;
-            }
-            #endregion IF MemberTypeCount
+            #endregion IF IsDeserialize
             /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
@@ -274,18 +278,22 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion NOT CurrentType.Type.IsGenericType
             {
                 @CurrentType.FullName value = default(@CurrentType.FullName);
+                #region IF IsSerialize
                 @JsonSerializeMethodName(null, value);
                 @JsonSerializeMemberMapMethodName(null, null, value, null);
+                #region IF MemberTypeCount
+                @JsonSerializeMemberTypeMethodName();
+                #endregion IF MemberTypeCount
+                #endregion IF IsSerialize
+                #region IF IsDeserialize
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 @JsonDeserializeMethodName(null, ref value, ref names);
                 @JsonDeserializeMemberMapMethodName(null, ref value, ref names, null);
                 @JsonDeserializeMethodName(null, ref value, 0);
                 @JsonDeserializeMemberNameMethodName();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(@CurrentType.FullName));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(@CurrentType.FullName));
-                #region IF MemberTypeCount
-                @JsonSerializeMemberTypeMethodName();
-                #endregion IF MemberTypeCount
+                #endregion IF IsDeserialize
+                AutoCSer.AotReflection.NonPublicMethods(typeof(@CurrentType.FullName));
             }
             #endregion PART CLASS
             private string MemberName;

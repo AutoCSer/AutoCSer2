@@ -39,6 +39,78 @@ namespace AutoCSer.NetCoreWeb
             //    //options.MimeTypes = Microsoft.AspNetCore.ResponseCompression.ResponseCompressionDefaults.MimeTypes;
             //});
         }
+#if NetStandard21
+        /// <summary>
+        /// 运行默认启动配置
+        /// </summary>
+        /// <param name="args">Main 函数参数</param>
+        /// <param name="useStartup">调用 builder.UseStartup()</param>
+        /// <returns></returns>
+        public static bool CreateHostBuilder(string[] args, Action<IWebHostBuilder> useStartup)
+        {
+            try
+            {
+                Host.CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(webBuilder => useStartup(webBuilder))
+                    .Build()
+                    .Run();
+                return true;
+            }
+            catch (OperationCanceledException exception)
+            {
+                AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Debug | LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
+            }
+            catch (Exception exception)
+            {
+                AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Fatal | LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
+            }
+            return false;
+        }
+#endif
+#if NetStandard21
+        /// <summary>
+        /// 运行默认启动配置
+        /// </summary>
+        /// <typeparam name="T">数据视图中间件类型，定义类型需要和 Controller 在同一个程序集中</typeparam>
+        /// <param name="args">Main 函数参数</param>
+        /// <param name="useStartup">调用 builder.UseStartup()</param>
+        /// <returns></returns>
+        public static bool CreateHostBuilder<T>(string[] args, Action<IWebHostBuilder>? useStartup = null)
+#else
+        /// <summary>
+        /// 运行默认启动配置
+        /// </summary>
+        /// <typeparam name="T">数据视图中间件类型，定义类型需要和 Controller 在同一个程序集中</typeparam>
+        /// <param name="args">Main 函数参数</param>
+        /// <returns></returns>
+        public static bool CreateHostBuilder<T>(string[] args)
+#endif
+             where T : ViewMiddleware
+        {
+            try
+            {
+#if NetStandard21
+                if (useStartup == null) useStartup = Startup<T>.UseStartup;
+                Host.CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(webBuilder => useStartup(webBuilder))
+#else
+                WebHost.CreateDefaultBuilder(args)
+                    .UseStartup(typeof(Startup<T>))
+#endif
+                    .Build()
+                    .Run();
+                return true;
+            }
+            catch (OperationCanceledException exception)
+            {
+                AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Debug | LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
+            }
+            catch (Exception exception)
+            {
+                AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Fatal | LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
+            }
+            return false;
+        }
     }
     /// <summary>
     /// 默认启动配置
@@ -71,36 +143,15 @@ namespace AutoCSer.NetCoreWeb
             //app.UseEndpoints(endpoints => endpoints.MapControllers());
             AutoCSer.LogHelper.InfoIgnoreException(nameof(Configure));
         }
-
-        /// <summary>
-        /// 运行默认启动配置
-        /// </summary>
-        /// <param name="args">Main 函数参数</param>
-        /// <returns></returns>
-        public static bool CreateHostBuilder(string[] args)
-        {
-            try
-            {
 #if NetStandard21
-                Host.CreateDefaultBuilder(args)
-                    .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup(typeof(Startup<T>)))
-#else
-                WebHost.CreateDefaultBuilder(args)
-                    .UseStartup(typeof(Startup<T>))
-#endif
-                    .Build()
-                    .Run();
-                return true;
-            }
-            catch (OperationCanceledException exception)
-            {
-                AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Debug | LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
-            }
-            catch (Exception exception)
-            {
-                AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Fatal | LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
-            }
-            return false;
+        /// <summary>
+        /// 调用 builder.UseStartup()
+        /// </summary>
+        /// <param name="builder"></param>
+        internal static void UseStartup(IWebHostBuilder builder)
+        {
+            builder.UseStartup(typeof(Startup<T>));
         }
+#endif
     }
 }

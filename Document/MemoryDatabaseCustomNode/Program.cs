@@ -31,6 +31,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
                 {
                     await Client.CommandClientSocketEvent.Test();
 
+                    Console.WriteLine("Completed");
                     Console.ReadKey();
                 }
             }

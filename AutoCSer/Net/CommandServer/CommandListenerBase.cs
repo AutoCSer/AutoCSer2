@@ -27,6 +27,14 @@ namespace AutoCSer.Net
         /// </summary>
         protected Socket socket;
         /// <summary>
+        /// 获取套接字监听地址
+        /// </summary>
+#if NetStandard21
+        public System.Net.EndPoint? EndPoint { get { return socket?.LocalEndPoint; } }
+#else
+        public System.Net.EndPoint EndPoint { get { return socket?.LocalEndPoint; } }
+#endif
+        /// <summary>
         /// 监听套接字异步事件
         /// </summary>
         protected SocketAsyncEventArgs listenAcceptEvent;

@@ -19,5 +19,9 @@ namespace AutoCSer.Net.CommandServer
         /// 套接字已经关闭
         /// </summary>
         Closed,
+        ///// <summary>
+        ///// 已添加到命令批处理
+        ///// </summary>
+        //Batch,
     }
 }

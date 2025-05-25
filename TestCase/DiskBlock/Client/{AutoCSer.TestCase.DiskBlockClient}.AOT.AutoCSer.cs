@@ -397,6 +397,16 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 }
             }
             /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(int));
+                return types;
+            }
+            /// <summary>
             /// JSON 反序列化
             /// </summary>
             /// <param name="deserializer"></param>
@@ -483,16 +493,6 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(int));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -500,14 +500,14 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 AutoCSer.TestCase.DiskBlockClient.IntData value = default(AutoCSer.TestCase.DiskBlockClient.IntData);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.DiskBlockClient.IntData));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.DiskBlockClient.IntData));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.DiskBlockClient.IntData));
             }
     }
 }namespace AutoCSer.TestCase.DiskBlockClient
@@ -562,6 +562,16 @@ namespace AutoCSer.TestCase.DiskBlockClient
                     if (A == null) __stream__.WriteJsonNull();
                     else __serializer__.JsonSerialize(A);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(string));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -650,16 +660,6 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(string));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -667,14 +667,14 @@ namespace AutoCSer.TestCase.DiskBlockClient
                 AutoCSer.TestCase.DiskBlockClient.StringData value = default(AutoCSer.TestCase.DiskBlockClient.StringData);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.DiskBlockClient.StringData));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.TestCase.DiskBlockClient.StringData));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.TestCase.DiskBlockClient.StringData));
             }
     }
 }namespace AutoCSer.TestCase.DiskBlockClient

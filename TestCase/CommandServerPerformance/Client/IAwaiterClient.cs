@@ -1,5 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.TestCase.CommandServerPerformance;
 using AutoCSer.TestCase.Common;
 using System;
@@ -128,9 +129,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task Test()
         {
-            CommandClientConfig<IAwaiterClient> commandClientConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
-                ? new CommandClientCompressConfig<IAwaiterClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 }
-                : new CommandClientConfig<IAwaiterClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
+            CommandClientConfig<IAwaiterClient> commandClientConfig = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsCompressConfig
+                ? new CommandClientCompressConfig<IAwaiterClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 }
+                : new CommandClientConfig<IAwaiterClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<IAwaiterClient, IService>()))
             {
                 CommandClientSocketEvent<IAwaiterClient> client = await commandClient.GetSocketEvent<CommandClientSocketEvent<IAwaiterClient>>();
@@ -144,7 +145,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //await s0611163(client, false);
                 //await s0611163(client, true);
 
-                int left = Left = AutoCSer.Random.Default.Next();
+                int left = Left = AutoCSer.Random.Default.Next(), batchCount = 1 << 11, testCount;
                 await new AwaiterClientPerformance(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClientPerformance(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClientPerformance(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
@@ -155,8 +156,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 await new AwaiterClientPerformance(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
                 await new AwaiterClientPerformance(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
 
+
                 #region 服务端仅执行模式，异常会导致测试中断，属于正常现象（高性能需求场景应该使用 ICallbackClient.KeepCallback 获取 CommandKeepCallback，比如该测试中消费速度低于生产速度会导致服务端累积大量任务占用大量内存）
-                int testCount = Reset(commandClient, maxTestCount);
+                testCount = Reset(commandClient, maxTestCount);
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
                 await using ((IAsyncDisposable)enumeratorCommand)
                 {

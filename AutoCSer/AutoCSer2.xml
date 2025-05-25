@@ -32781,6 +32781,11 @@
             服务端已释放资源
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.PushBatch">
+            <summary>
+            已添加批处理命令
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.SocketClosed">
             <summary>
             套接字已经关闭
@@ -34070,9 +34075,14 @@
             接收数据套接字异步事件对象
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.CreateVersion">
+        <member name="F:AutoCSer.Net.CommandClientSocket.commandQueueCount">
             <summary>
-            服务更新版本号
+            客户端最大未处理命令数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.reserve">
+            <summary>
+            保留补白
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.MaxInputSize">
@@ -34083,11 +34093,6 @@
         <member name="F:AutoCSer.Net.CommandClientSocket.MaxMergeInputSize">
             <summary>
             最大合并输入数据长度
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.commandQueueCount">
-            <summary>
-            客户端最大未处理命令数量
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.pad0">
@@ -34204,6 +34209,11 @@
             创建套接字失败次数
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientSocket.CreateVersion">
+            <summary>
+            服务更新版本号
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveType">
             <summary>
             接收数据回调类型
@@ -34215,11 +34225,6 @@
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.receiveReserve">
-            <summary>
-            保留补白
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.receiveReserve2">
             <summary>
             保留补白
             </summary>
@@ -34259,7 +34264,7 @@
             是否已经关闭套接字
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.pushReserve">
+        <member name="F:AutoCSer.Net.CommandClientSocket.commandReserve">
             <summary>
             保留补白
             </summary>
@@ -35191,12 +35196,6 @@
             命令服务套接字自定义会话对象操作接口
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandListener.EndPoint">
-            <summary>
-            Get listening address
-            获取监听地址
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandListener.callQueues">
             <summary>
             TCP 服务器端同步调用队列数组
@@ -35630,6 +35629,11 @@
         <member name="F:AutoCSer.Net.CommandListenerBase.socket">
             <summary>
             TCP 套接字
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandListenerBase.EndPoint">
+            <summary>
+            获取套接字监听地址
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandListenerBase.listenAcceptEvent">

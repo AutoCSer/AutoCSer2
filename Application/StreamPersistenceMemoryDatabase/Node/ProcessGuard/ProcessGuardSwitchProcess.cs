@@ -23,7 +23,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 切换进程关键字，默认为当前进程名称
         /// </summary>
-        protected virtual string switchProcessKey { get { return AutoCSer.Common.CurrentProcess.ProcessName; } }
+        protected virtual string switchProcessKey 
+        {
+            get
+            {
+                if (AutoCSer.Diagnostics.ProcessInfo.IsCurrentProcessDotNet())
+                {
+                    string fileName = Environment.GetCommandLineArgs()[0];
+                    int index = fileName.LastIndexOf(Path.DirectorySeparatorChar) + 1;
+                    return index != 0 ? fileName.Substring(index) : fileName;
+                }
+                return AutoCSer.Common.CurrentProcess.ProcessName;
+            }
+        }
         /// <summary>
         /// 执行进程文件名称，默认为当前执行文件
         /// </summary>
@@ -132,7 +144,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             var switchProcessFile = await getSwitchProcessFile();
             if (switchProcessFile != null)
             {
-                new ProcessInfo(switchProcessFile, arguments, AutoCSer.Common.CurrentProcess).Start();
+                if (AutoCSer.Diagnostics.ProcessInfo.IsCurrentProcessDotNet()) new ProcessInfo(switchProcessFile).Start();
+                else new ProcessInfo(switchProcessFile, arguments, AutoCSer.Common.CurrentProcess).Start();
                 return true;
             }
             return false;
@@ -159,13 +172,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         return client;
                     }
                     await initialize();
+                    string switchProcessKey = this.switchProcessKey;
                     ResponseParameterAwaiter<bool> switchAwaiter = client.Value.Switch(switchProcessKey);
                     if (isGuard) guard().NotWait();
                     await onStart();
+                    bool isConsole = true;
                     do
                     {
                         ResponseResult<bool> result = await switchAwaiter;
                         if (result.IsSuccess) break;
+                        if (isConsole) Console.WriteLine($"SwitchError {switchProcessKey} {result.ReturnType}.{result.CallState}");
+                        isConsole = false;
                         await Task.Delay(1);
                         switchAwaiter = client.Value.Switch(switchProcessKey);
                     }
@@ -244,7 +261,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         protected virtual async Task guard()
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
-            ProcessGuardInfo processGuardInfo = new ProcessGuardInfo(AutoCSer.Common.CurrentProcess, arguments);
+            ProcessGuardInfo processGuardInfo = ProcessGuardInfo.GetCurrent(arguments);
+            bool isConsole = true;
             do
             {
                 ResponseResult<IProcessGuardNodeClientNode> client = await getProcessGuardClient.GetNode();
@@ -252,7 +270,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (isExit) return;
                     ResponseResult<bool> result = await client.Value.Guard(processGuardInfo);
-                    if (result.Value) return;
+                    if (result.Value)
+                    {
+                        Console.WriteLine("添加守护成功");
+                        return;
+                    }
+                    if (result.IsSuccess)
+                    {
+                        Console.WriteLine("添加守护失败");
+                        return;
+                    }
+                    if (isConsole) Console.WriteLine($"GuardError {result.ReturnType}.{result.CallState}");
+                    isConsole = false;
                 }
                 await Task.Delay(1);
             }

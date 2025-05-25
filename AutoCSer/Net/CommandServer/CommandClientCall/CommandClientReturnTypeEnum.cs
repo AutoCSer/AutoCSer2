@@ -37,6 +37,10 @@ namespace AutoCSer.Net
         ServerDisposed,
 
         /// <summary>
+        /// 已添加批处理命令
+        /// </summary>
+        PushBatch,
+        /// <summary>
         /// 套接字已经关闭
         /// </summary>
         SocketClosed,

@@ -363,8 +363,8 @@ namespace AutoCSer.Algorithm
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.KeyValue<KT,VT>));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.KeyValue<KT,VT>));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.KeyValue<KT,VT>));
             }
     }
 }namespace AutoCSer.Reflection
@@ -431,6 +431,16 @@ namespace AutoCSer.Algorithm
                     if (Name == null) __stream__.WriteJsonNull();
                     else __serializer__.JsonSerialize(Name);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(string));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -537,16 +547,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(string));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -554,14 +554,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.Reflection.RemoteType value = default(AutoCSer.Reflection.RemoteType);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Reflection.RemoteType));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.Reflection.RemoteType));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Reflection.RemoteType));
             }
     }
 }namespace AutoCSer
@@ -624,6 +624,16 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""Real"":");
                     __serializer__.JsonSerialize(Real);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(double));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -730,16 +740,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(double));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -747,14 +747,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializeComplex value = default(AutoCSer.SerializeComplex);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeComplex));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializeComplex));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeComplex));
             }
     }
 }namespace AutoCSer
@@ -857,6 +857,16 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""M32"":");
                     __serializer__.JsonSerialize(M32);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(float));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -1035,16 +1045,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(float));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -1052,14 +1052,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializeMatrix3x2 value = default(AutoCSer.SerializeMatrix3x2);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeMatrix3x2));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializeMatrix3x2));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeMatrix3x2));
             }
     }
 }namespace AutoCSer
@@ -1262,6 +1262,16 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""M44"":");
                     __serializer__.JsonSerialize(M44);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(float));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -1620,16 +1630,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(float));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -1637,14 +1637,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializeMatrix4x4 value = default(AutoCSer.SerializeMatrix4x4);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeMatrix4x4));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializeMatrix4x4));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeMatrix4x4));
             }
     }
 }namespace AutoCSer
@@ -1707,6 +1707,17 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""Normal"":");
                     __serializer__.JsonSerializeType(Normal);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(2);
+                types.Add(typeof(float));
+                types.Add(typeof(AutoCSer.SerializeVector3));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -1813,17 +1824,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(2);
-                types.Add(typeof(float));
-                types.Add(typeof(AutoCSer.SerializeVector3));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -1831,14 +1831,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializePlane value = default(AutoCSer.SerializePlane);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializePlane));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializePlane));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializePlane));
             }
     }
 }namespace AutoCSer
@@ -1921,6 +1921,16 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""Z"":");
                     __serializer__.JsonSerialize(Z);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(float));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -2063,16 +2073,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(float));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -2080,14 +2080,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializeQuaternion value = default(AutoCSer.SerializeQuaternion);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeQuaternion));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializeQuaternion));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeQuaternion));
             }
     }
 }namespace AutoCSer
@@ -2150,6 +2150,16 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""Y"":");
                     __serializer__.JsonSerialize(Y);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(float));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -2256,16 +2266,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(float));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -2273,14 +2273,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializeVector2 value = default(AutoCSer.SerializeVector2);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeVector2));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializeVector2));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeVector2));
             }
     }
 }namespace AutoCSer
@@ -2353,6 +2353,16 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""Z"":");
                     __serializer__.JsonSerialize(Z);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(float));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -2477,16 +2487,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(float));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -2494,14 +2494,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializeVector3 value = default(AutoCSer.SerializeVector3);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeVector3));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializeVector3));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeVector3));
             }
     }
 }namespace AutoCSer
@@ -2584,6 +2584,16 @@ namespace AutoCSer.Algorithm
                     __stream__.SimpleWrite(@"""Z"":");
                     __serializer__.JsonSerialize(Z);
                 }
+            }
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
+                types.Add(typeof(float));
+                return types;
             }
             /// <summary>
             /// JSON 反序列化
@@ -2726,16 +2736,6 @@ namespace AutoCSer.Algorithm
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }
             /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> JsonSerializeMemberTypes()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(1);
-                types.Add(typeof(float));
-                return types;
-            }
-            /// <summary>
             /// 代码生成调用激活 AOT 反射
             /// </summary>
             internal static void JsonSerialize()
@@ -2743,14 +2743,14 @@ namespace AutoCSer.Algorithm
                 AutoCSer.SerializeVector4 value = default(AutoCSer.SerializeVector4);
                 JsonSerialize(null, value);
                 JsonSerializeMemberMap(null, null, value, null);
+                JsonSerializeMemberTypes();
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 JsonDeserialize(null, ref value, ref names);
                 JsonDeserializeMemberMap(null, ref value, ref names, null);
                 JsonDeserialize(null, ref value, 0);
                 JsonDeserializeMemberNames();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeVector4));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.SerializeVector4));
-                JsonSerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.SerializeVector4));
             }
     }
 }namespace AutoCSer.Algorithm

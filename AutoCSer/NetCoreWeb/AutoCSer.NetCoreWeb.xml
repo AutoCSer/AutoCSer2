@@ -2268,6 +2268,23 @@
             </summary>
             <param name="services"></param>
         </member>
+        <member name="M:AutoCSer.NetCoreWeb.Startup.CreateHostBuilder(System.String[],System.Action{Microsoft.AspNetCore.Hosting.IWebHostBuilder})">
+            <summary>
+            运行默认启动配置
+            </summary>
+            <param name="args">Main 函数参数</param>
+            <param name="useStartup">调用 builder.UseStartup()</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.NetCoreWeb.Startup.CreateHostBuilder``1(System.String[],System.Action{Microsoft.AspNetCore.Hosting.IWebHostBuilder})">
+            <summary>
+            运行默认启动配置
+            </summary>
+            <typeparam name="T">数据视图中间件类型，定义类型需要和 Controller 在同一个程序集中</typeparam>
+            <param name="args">Main 函数参数</param>
+            <param name="useStartup">调用 builder.UseStartup()</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.NetCoreWeb.Startup`1">
             <summary>
             默认启动配置
@@ -2281,12 +2298,11 @@
             <param name="app"></param>
             <param name="env"></param>
         </member>
-        <member name="M:AutoCSer.NetCoreWeb.Startup`1.CreateHostBuilder(System.String[])">
+        <member name="M:AutoCSer.NetCoreWeb.Startup`1.UseStartup(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
             <summary>
-            运行默认启动配置
+            调用 builder.UseStartup()
             </summary>
-            <param name="args">Main 函数参数</param>
-            <returns></returns>
+            <param name="builder"></param>
         </member>
         <member name="T:AutoCSer.NetCoreWeb.ViewAttribute">
             <summary>

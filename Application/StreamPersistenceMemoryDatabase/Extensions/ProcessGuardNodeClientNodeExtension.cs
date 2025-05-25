@@ -34,7 +34,7 @@ namespace AutoCSer.Extensions
         public static ResponseParameterAwaiter<bool> GuardCurrentProcess(this IProcessGuardNodeClientNode node, string[] arguments = null)
 #endif
         {
-            return node.Guard(new ProcessGuardInfo(AutoCSer.Common.CurrentProcess, arguments ?? Environment.GetCommandLineArgs()));
+            return node.Guard(ProcessGuardInfo.GetCurrent(arguments));
         }
     }
 }

@@ -51,7 +51,7 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
         /// </summary>
         public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<IExceptionStatisticsServiceNodeClientNode, ExceptionStatisticsCommandClientSocketEvent> StreamPersistenceMemoryDatabaseClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<IExceptionStatisticsServiceNodeClientNode, ExceptionStatisticsCommandClientSocketEvent>(new AutoCSer.Net.CommandClientCompressConfig
         {
-            Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ExceptionStatistics),
+            Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(AutoCSer.TestCase.Common.CommandServerPortEnum.ExceptionStatistics),
             GetSocketEventDelegate = (client) => new ExceptionStatisticsCommandClientSocketEvent(client)
         });
     }

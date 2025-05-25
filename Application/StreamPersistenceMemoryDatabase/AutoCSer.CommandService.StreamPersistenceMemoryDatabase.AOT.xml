@@ -5446,6 +5446,13 @@
             <param name="messages">节点构造提示信息</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
+            <summary>
+            服务启动失败
+            </summary>
+            <param name="listener">命令服务端监听</param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.Default">
             <summary>
             默认扩展中文配置
@@ -5574,6 +5581,13 @@
             <param name="messages">节点构造提示信息</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
+            <summary>
+            服务启动失败
+            </summary>
+            <param name="listener">命令服务端监听</param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default">
             <summary>
             默认扩展系统语言文化配置
@@ -5700,6 +5714,13 @@
             </summary>
             <param name="type">Type of the client node interface</param>
             <param name="messages">Node construction prompts</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
+            <summary>
+            Service startup failed
+            </summary>
+            <param name="listener">Command server to listen</param>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.Default">
@@ -6629,6 +6650,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -6678,12 +6705,6 @@
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>

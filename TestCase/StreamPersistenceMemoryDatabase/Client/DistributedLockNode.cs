@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         /// <summary>
         /// 循环调用次数
         /// </summary>
-        private static readonly int loopCount = AutoCSer.TestCase.Common.Config.IsRemote ? (1 << 6) : (1 << 10);
+        private static readonly int loopCount = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsRemote ? (1 << 6) : (1 << 10);
 
         internal static async Task Test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient<ICustomServiceNodeClientNode> client)
         {

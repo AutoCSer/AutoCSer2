@@ -3749,6 +3749,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (outStart(_isOut_))
             {
                 
+            _if_ = false;
+                    if (IsSerialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
             _code_.Add(@"
             /// <summary>
             /// JSON 序列化
@@ -4129,6 +4136,61 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
             }");
             }
+            _if_ = false;
+                    if (MemberTypeCount != default(int))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// 获取 JSON 序列化成员类型
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.LeftArray<Type> ");
+            _code_.Add(JsonSerializeMemberTypeMethodName);
+            _code_.Add(@"()
+            {
+                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(");
+            _code_.Add(MemberTypeCount.ToString());
+            _code_.Add(@");");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType[] _value1_;
+                    _value1_ = MemberTypes;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+                types.Add(typeof(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@"));");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+                return types;
+            }");
+            }
+            }
+            _if_ = false;
+                    if (IsDeserialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
             _code_.Add(@"
             /// <summary>
             /// JSON 反序列化
@@ -4805,52 +4867,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 return new AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>>(names, indexs);
             }");
             }
-            _if_ = false;
-                    if (MemberTypeCount != default(int))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-            /// <summary>
-            /// 获取 JSON 序列化成员类型
-            /// </summary>
-            /// <returns></returns>
-            internal static AutoCSer.LeftArray<Type> ");
-            _code_.Add(JsonSerializeMemberTypeMethodName);
-            _code_.Add(@"()
-            {
-                AutoCSer.LeftArray<Type> types = new LeftArray<Type>(");
-            _code_.Add(MemberTypeCount.ToString());
-            _code_.Add(@");");
-                {
-                    AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType[] _value1_;
-                    _value1_ = MemberTypes;
-                    if (_value1_ != null)
-                    {
-                        int _loopIndex1_ = _loopIndex_;
-                        _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.AotMethod.ReflectionMemberType _value2_ in _value1_)
-                        {
-            _code_.Add(@"
-                types.Add(typeof(");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MemberType;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value3_.FullName);
-                    }
-                }
-            _code_.Add(@"));");
-                            ++_loopIndex_;
-                        }
-                        _loopIndex_ = _loopIndex1_;
-                    }
-                }
-            _code_.Add(@"
-                return types;
-            }");
             }
             _code_.Add(@"
             /// <summary>
@@ -4922,13 +4938,42 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(_value1_.FullName);
                     }
                 }
-            _code_.Add(@");
+            _code_.Add(@");");
+            _if_ = false;
+                    if (IsSerialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
                 ");
             _code_.Add(JsonSerializeMethodName);
             _code_.Add(@"(null, value);
                 ");
             _code_.Add(JsonSerializeMemberMapMethodName);
-            _code_.Add(@"(null, null, value, null);
+            _code_.Add(@"(null, null, value, null);");
+            _if_ = false;
+                    if (MemberTypeCount != default(int))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                ");
+            _code_.Add(JsonSerializeMemberTypeMethodName);
+            _code_.Add(@"();");
+            }
+            }
+            _if_ = false;
+                    if (IsDeserialize)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
                 AutoCSer.Memory.Pointer names = default(AutoCSer.Memory.Pointer);
                 ");
             _code_.Add(JsonDeserializeMethodName);
@@ -4942,15 +4987,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 ");
             _code_.Add(JsonDeserializeMemberNameMethodName);
             _code_.Add(@"();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
-                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value1_.FullName);
-                    }
-                }
-            _code_.Add(@"));
                 AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(");
                 {
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
@@ -4960,19 +4996,17 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     }
                 }
             _code_.Add(@"));");
-            _if_ = false;
-                    if (MemberTypeCount != default(int))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-                ");
-            _code_.Add(JsonSerializeMemberTypeMethodName);
-            _code_.Add(@"();");
             }
             _code_.Add(@"
+                AutoCSer.AotReflection.NonPublicMethods(typeof(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"));
             }");
                 if (_isOut_) outEnd();
             }

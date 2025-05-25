@@ -19,7 +19,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             ResponseResult<IDictionaryNodeClientNode<int, int>> node = await client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName, 0);
             if (!Program.Breakpoint(node)) return;
-            int taskCount = getTaskCount(config), testCount = AutoCSer.TestCase.Common.Config.IsRemote ? (maxTestCount >> 2) : maxTestCount;
+            int taskCount = getTaskCount(config), testCount = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsRemote ? (maxTestCount >> 2) : maxTestCount;
             synchronousNode =  ClientNode<IDictionaryNodeClientNode<int, int>>.GetSynchronousCallback(this.node = node.Value);
             ResponseResult result = await this.node.Renew(testCount);
             if (!Program.Breakpoint(result)) return;

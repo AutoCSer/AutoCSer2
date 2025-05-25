@@ -12,6 +12,18 @@ namespace AutoCSer.Extensions
     public static class EnumerableExtension
     {
         /// <summary>
+        /// 单个数据转换为可枚举集合
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="value">枚举数据</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<T> valueToEnumerable<T>(this T value)
+        {
+            yield return value;
+        }
+
+        /// <summary>
         /// 根据集合内容返回数组
         /// </summary>
         /// <typeparam name="T">数据类型</typeparam>

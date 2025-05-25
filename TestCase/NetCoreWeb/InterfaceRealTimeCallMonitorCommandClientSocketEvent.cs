@@ -64,7 +64,7 @@ namespace AutoCSer.TestCase.NetCoreWeb
         /// </summary>
         public static readonly AutoCSer.Net.CommandClientSocketEventCache<InterfaceRealTimeCallMonitorCommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<InterfaceRealTimeCallMonitorCommandClientSocketEvent>(new AutoCSer.Net.CommandClientCompressConfig
         {
-            Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.InterfaceRealTimeCallMonitor),
+            Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(AutoCSer.TestCase.Common.CommandServerPortEnum.InterfaceRealTimeCallMonitor),
             GetSocketEventDelegate = (client) => new InterfaceRealTimeCallMonitorCommandClientSocketEvent(client)
         });
     }

@@ -135,9 +135,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task Test()
         {
-            CommandClientConfig<ICallbackClient> commandClientConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
-                ? new CommandClientCompressConfig<ICallbackClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 }
-                : new CommandClientConfig<ICallbackClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
+            CommandClientConfig<ICallbackClient> commandClientConfig = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsCompressConfig
+                ? new CommandClientCompressConfig<ICallbackClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 }
+                : new CommandClientConfig<ICallbackClient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<ICallbackClient, IService>()))
             {
                 CommandClientSocketEvent<ICallbackClient> client = await commandClient.GetSocketEvent<CommandClientSocketEvent<ICallbackClient>>();

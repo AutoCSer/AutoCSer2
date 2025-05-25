@@ -248,6 +248,12 @@
             <param name="__serializer__"></param>
             <param name="__stream__"></param>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.JsonSerializeMemberTypes">
+            <summary>
+            获取 JSON 序列化成员类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.JsonDeserialize(AutoCSer.JsonDeserializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster@,AutoCSer.Memory.Pointer@)">
             <summary>
             JSON 反序列化
@@ -297,12 +303,6 @@
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.jsonDeserializeMemberName">
             <summary>
             获取 JSON 反序列化成员名称
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster.JsonSerializeMemberTypes">
-            <summary>
-            获取 JSON 序列化成员类型
             </summary>
             <returns></returns>
         </member>

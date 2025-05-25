@@ -89,9 +89,9 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         /// <returns></returns>
         internal static async Task Test()
         {
-            CommandClientConfig<ISynchronousCllient> commandClientConfig = AutoCSer.TestCase.Common.Config.IsCompressConfig
-                ? new CommandClientCompressConfig<ISynchronousCllient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0, CommandPoolBits = 11, CommandQueueCount = 1 << 10 }
-                : new CommandClientConfig<ISynchronousCllient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0, CommandPoolBits = 11, CommandQueueCount = 1 << 10 };
+            CommandClientConfig<ISynchronousCllient> commandClientConfig = AutoCSer.TestCase.Common.JsonFileConfig.Default.IsCompressConfig
+                ? new CommandClientCompressConfig<ISynchronousCllient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0, CommandPoolBits = 11, CommandQueueCount = 1 << 10 }
+                : new CommandClientConfig<ISynchronousCllient> { Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.Performance), CheckSeconds = 0, CommandPoolBits = 11, CommandQueueCount = 1 << 10 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig, CommandClientInterfaceControllerCreator.GetCreator<ISynchronousCllient, IService>()))
             {
                 CommandClientSocketEvent<ISynchronousCllient> client = await commandClient.GetSocketEvent<CommandClientSocketEvent<ISynchronousCllient>>();

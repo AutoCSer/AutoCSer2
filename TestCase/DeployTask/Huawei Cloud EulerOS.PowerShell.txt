@@ -10,12 +10,20 @@ dotnet --info
 dotnet tool install -g dotnet-dump
 
 mkdir /home/AutoCSer
+mkdir /home/AutoCSer/ProcessGuard
 mkdir /home/AutoCSer/DeployTask
+mkdir /home/AutoCSer/dump
 	scp C:\Showjim\AutoCSer.TestCase.Common.JsonFileConfig.Server.json root@HOST:/var/AutoCSer.TestCase.Common.JsonFileConfig.json
+	scp C:\AutoCSer2\TestCase\ProcessGuard\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/ProcessGuard/
 	scp C:\AutoCSer2\TestCase\DeployTask\bin\Release\net8.0\*.* root@HOST:/home/AutoCSer/DeployTask/
-nohup dotnet /home/AutoCSer/DeployTask/AutoCSer.TestCase.DeployTask.dll </dev/null | tee /dev/tty > /dev/null 2>&1 &
+sudo nohup dotnet /home/AutoCSer/ProcessGuard/AutoCSer.TestCase.ProcessGuard.dll </dev/null | tee /dev/tty > /dev/null 2>&1 &
+sudo nohup dotnet /home/AutoCSer/DeployTask/AutoCSer.TestCase.DeployTask.dll </dev/null | tee /dev/tty > /dev/null 2>&1 &
 cat /home/AutoCSer/DeployTask/AutoCSer.log
 rm -f /home/AutoCSer/DeployTask/AutoCSer.log
 	ls -l /var/AutoCSerTemporaryFilePath
 	rm -rf /var/AutoCSerTemporaryFilePath
 	mkdir /var/AutoCSerTemporaryFilePath
+
+	ps -aux|grep dotnet
+	dotnet-dump collect -p ? -o /home/AutoCSer/dump/?.dump
+
