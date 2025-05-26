@@ -157,8 +157,8 @@ namespace AutoCSer.CommandService.DeployTask
             }
             finally
             {
-                if (fileReadState == (byte)PullFileStateEnum.Success) client.Completed(this);
-                else client.onFileError(ClientFile, FileInfo.FullName, (PullFileStateEnum)(byte)fileReadState);
+                client.Completed(this, fileReadState == (byte)PullFileStateEnum.Success);
+                if (fileReadState != (byte)PullFileStateEnum.Success) client.onFileError(ClientFile, FileInfo.FullName, (PullFileStateEnum)(byte)fileReadState);
                 if (writeStream != null)
                 {
 #if NetStandard21

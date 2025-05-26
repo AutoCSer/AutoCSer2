@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.DeployTask
 {
     /// <summary>
-    /// 拉取拉取服务
+    /// 拉取文件服务
     /// </summary>
     public class PullFileService : IPullFileService
     {

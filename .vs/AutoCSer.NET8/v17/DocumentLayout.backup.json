@@ -1,12 +1,197 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|c:\\autocser2\\application\\deploytask\\pullfile\\pullfileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|solutionrelative:application\\deploytask\\pullfile\\pullfileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|c:\\autocser2\\application\\deploytask\\filesynchronousclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|solutionrelative:application\\deploytask\\filesynchronousclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82935606-3E0A-40F5-9762-74B7E3DB7597}|TestCase\\FileSynchronous\\Client\\AutoCSer.TestCase.FileSynchronousClient.csproj|c:\\autocser2\\testcase\\filesynchronous\\client\\pullfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82935606-3E0A-40F5-9762-74B7E3DB7597}|TestCase\\FileSynchronous\\Client\\AutoCSer.TestCase.FileSynchronousClient.csproj|solutionrelative:testcase\\filesynchronous\\client\\pullfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82935606-3E0A-40F5-9762-74B7E3DB7597}|TestCase\\FileSynchronous\\Client\\AutoCSer.TestCase.FileSynchronousClient.csproj|c:\\autocser2\\testcase\\filesynchronous\\client\\uploadfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82935606-3E0A-40F5-9762-74B7E3DB7597}|TestCase\\FileSynchronous\\Client\\AutoCSer.TestCase.FileSynchronousClient.csproj|solutionrelative:testcase\\filesynchronous\\client\\uploadfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|c:\\autocser2\\application\\deploytask\\pullfile\\pullfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|solutionrelative:application\\deploytask\\pullfile\\pullfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|c:\\autocser2\\application\\deploytask\\uploadfile\\uploadfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|solutionrelative:application\\deploytask\\uploadfile\\uploadfileclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|c:\\autocser2\\application\\deploytask\\pullfile\\pullfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|solutionrelative:application\\deploytask\\pullfile\\pullfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|c:\\autocser2\\application\\deploytask\\pullfile\\pullfilebuffer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A4CE20-43C8-474C-9264-3313488569B2}|Application\\DeployTask\\AutoCSer.CommandService.DeployTask.NET8.csproj|solutionrelative:application\\deploytask\\pullfile\\pullfilebuffer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CF026824-D986-4A4F-824C-CCDC616221FD}|TestCase\\Common\\AutoCSer.TestCase.Common.NET8.csproj|c:\\autocser2\\testcase\\common\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CF026824-D986-4A4F-824C-CCDC616221FD}|TestCase\\Common\\AutoCSer.TestCase.Common.NET8.csproj|solutionrelative:testcase\\common\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6425A09-987B-4FDA-93D4-0F5F18BCC4FA}|TestCase\\FileSynchronous\\AutoCSer.TestCase.FileSynchronous.csproj|c:\\autocser2\\testcase\\filesynchronous\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6425A09-987B-4FDA-93D4-0F5F18BCC4FA}|TestCase\\FileSynchronous\\AutoCSer.TestCase.FileSynchronous.csproj|solutionrelative:testcase\\filesynchronous\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82935606-3E0A-40F5-9762-74B7E3DB7597}|TestCase\\FileSynchronous\\Client\\AutoCSer.TestCase.FileSynchronousClient.csproj|c:\\autocser2\\testcase\\filesynchronous\\client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82935606-3E0A-40F5-9762-74B7E3DB7597}|TestCase\\FileSynchronous\\Client\\AutoCSer.TestCase.FileSynchronousClient.csproj|solutionrelative:testcase\\filesynchronous\\client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PullFileClient.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFileClient.cs",
+              "RelativeDocumentMoniker": "Application\\DeployTask\\PullFile\\PullFileClient.cs",
+              "ToolTip": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFileClient.cs",
+              "RelativeToolTip": "Application\\DeployTask\\PullFile\\PullFileClient.cs",
+              "ViewState": "AgIAAMEAAAAAAAAAAAAUwNQAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T03:23:28.601Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UploadFileClient.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\Application\\DeployTask\\UploadFile\\UploadFileClient.cs",
+              "RelativeDocumentMoniker": "Application\\DeployTask\\UploadFile\\UploadFileClient.cs",
+              "ToolTip": "C:\\AutoCSer2\\Application\\DeployTask\\UploadFile\\UploadFileClient.cs",
+              "RelativeToolTip": "Application\\DeployTask\\UploadFile\\UploadFileClient.cs",
+              "ViewState": "AgIAAH0BAAAAAAAAAAAUwJABAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T03:22:55.241Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PullFileClient.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Client\\PullFileClient.cs",
+              "RelativeDocumentMoniker": "TestCase\\FileSynchronous\\Client\\PullFileClient.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Client\\PullFileClient.cs",
+              "RelativeToolTip": "TestCase\\FileSynchronous\\Client\\PullFileClient.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAuwCQAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T03:20:41.539Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UploadFileClient.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Client\\UploadFileClient.cs",
+              "RelativeDocumentMoniker": "TestCase\\FileSynchronous\\Client\\UploadFileClient.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Client\\UploadFileClient.cs",
+              "RelativeToolTip": "TestCase\\FileSynchronous\\Client\\UploadFileClient.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAADwvyUAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T03:19:37.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FileSynchronousClient.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\Application\\DeployTask\\FileSynchronousClient.cs",
+              "RelativeDocumentMoniker": "Application\\DeployTask\\FileSynchronousClient.cs",
+              "ToolTip": "C:\\AutoCSer2\\Application\\DeployTask\\FileSynchronousClient.cs",
+              "RelativeToolTip": "Application\\DeployTask\\FileSynchronousClient.cs",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAIwMEAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T03:16:45.472Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PullFile.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFile.cs",
+              "RelativeDocumentMoniker": "Application\\DeployTask\\PullFile\\PullFile.cs",
+              "ToolTip": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFile.cs",
+              "RelativeToolTip": "Application\\DeployTask\\PullFile\\PullFile.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAjwKAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T03:11:47.19Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PullFileBuffer.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFileBuffer.cs",
+              "RelativeDocumentMoniker": "Application\\DeployTask\\PullFile\\PullFileBuffer.cs",
+              "ToolTip": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFileBuffer.cs",
+              "RelativeToolTip": "Application\\DeployTask\\PullFile\\PullFileBuffer.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAjwNYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T03:00:23.691Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Config.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\Common\\Config.cs",
+              "RelativeDocumentMoniker": "TestCase\\Common\\Config.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\Common\\Config.cs",
+              "RelativeToolTip": "TestCase\\Common\\Config.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAywCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T07:11:54.266Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PullFileService.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFileService.cs",
+              "RelativeDocumentMoniker": "Application\\DeployTask\\PullFile\\PullFileService.cs",
+              "ToolTip": "C:\\AutoCSer2\\Application\\DeployTask\\PullFile\\PullFileService.cs",
+              "RelativeToolTip": "Application\\DeployTask\\PullFile\\PullFileService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T06:38:21.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Client\\Program.cs",
+              "RelativeDocumentMoniker": "TestCase\\FileSynchronous\\Client\\Program.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Client\\Program.cs",
+              "RelativeToolTip": "TestCase\\FileSynchronous\\Client\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T06:34:32.641Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Program.cs",
+              "RelativeDocumentMoniker": "TestCase\\FileSynchronous\\Program.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\FileSynchronous\\Program.cs",
+              "RelativeToolTip": "TestCase\\FileSynchronous\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T06:31:54.339Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

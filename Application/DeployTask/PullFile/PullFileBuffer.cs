@@ -191,7 +191,7 @@ namespace AutoCSer.CommandService.DeployTask
 #else
             if (ReadState == PullFileStateEnum.Success) serializeSize = serializer.CustomWriteFree(buffer.Buffer.notNull().Buffer, buffer.StartIndex, bufferSize);
 #endif
-            if (!stream.IsResizeError) serializeLock.Exit();
+            if (!stream.IsResizeError && releaseSerializeLockHandle != null) serializeLock.Exit();
         }
         /// <summary>
         /// 客户端反序列化

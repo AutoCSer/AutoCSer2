@@ -128,8 +128,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 buffer.Free();
                 if (fileIndex.IsSuccess && fileIndex.Value.Index >= 0) client.Client.UploadFileClient.RemoveFile(client.UploaderInfo.Index, fileIndex.Value).Discard();
-                if (uploadState == (byte)UploadFileStateEnum.Success) client.Completed(this);
-                else client.onFileError(ClientFile, FileInfo.FullName, (UploadFileStateEnum)(byte)(uint)uploadState);
+                client.Completed(this, uploadState == (byte)UploadFileStateEnum.Success);
+                if (uploadState != (byte)UploadFileStateEnum.Success) client.onFileError(ClientFile, FileInfo.FullName, (UploadFileStateEnum)(byte)(uint)uploadState);
             }
         }
         /// <summary>

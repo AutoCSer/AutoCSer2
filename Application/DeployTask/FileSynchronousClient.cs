@@ -148,10 +148,11 @@ namespace AutoCSer.CommandService.DeployTask
             }
         }
         /// <summary>
-        /// 文件上传完成
+        /// 文件同步完成
         /// </summary>
         /// <param name="file"></param>
-        internal void Completed(FT file)
+        /// <param name="isSuccess"></param>
+        internal void Completed(FT file, bool isSuccess)
         {
             if (file.FileIndex >= 0)
             {
@@ -184,7 +185,7 @@ namespace AutoCSer.CommandService.DeployTask
                     if (directory.Key != null) synchronous(directory.Key, directory.Value.notNull()).Catch();
                 }
             }
-            onCompleted(file.ClientFile, file.FileInfo.FullName);
+            if (isSuccess) onCompleted(file.ClientFile, file.FileInfo.FullName);
         }
         /// <summary>
         /// 目录上传错误计数

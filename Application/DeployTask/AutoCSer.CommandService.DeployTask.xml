@@ -656,11 +656,12 @@
             </summary>
             <param name="file"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.Completed(`0)">
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.Completed(`0,System.Boolean)">
             <summary>
-            文件上传完成
+            文件同步完成
             </summary>
             <param name="file"></param>
+            <param name="isSuccess"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.onPathError(`1)">
             <summary>
@@ -972,7 +973,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.PullFileService">
             <summary>
-            拉取拉取服务
+            拉取文件服务
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileService.GetFiles(AutoCSer.Net.CommandServerSocket,System.String,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.SynchronousFileInfo})">
