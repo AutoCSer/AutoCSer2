@@ -276,5 +276,86 @@ namespace AutoCSer.TestCase
 #endif
             return true;
         }
+        /// <summary>
+        /// 短连接命令客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ShortLinkTestCase()
+        {
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientCallbackController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                ReturnValue = default(CommandClientReturnValue<string>);
+                if (!await client.ClientCallbackController.CallbackReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), Callback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                await CallbackWaitLock.WaitAsync();
+                if (!ReturnValue.IsSuccess || ReturnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientCallbackController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                ReturnValue = default(CommandClientReturnValue<string>);
+                if (!await client.ClientCallbackController.CallbackQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), Callback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                await CallbackWaitLock.WaitAsync();
+                if (!ReturnValue.IsSuccess || ReturnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                ReturnValue = default(CommandClientReturnValue<string>);
+                if (!await client.ClientCallbackTaskController.CallbackReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), Callback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                await CallbackWaitLock.WaitAsync();
+                if (!ReturnValue.IsSuccess || ReturnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                ReturnValue = default(CommandClientReturnValue<string>);
+                if (!await client.ClientCallbackTaskController.CallbackQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), Callback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                await CallbackWaitLock.WaitAsync();
+                if (!ReturnValue.IsSuccess || ReturnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            return true;
+        }
     }
 }

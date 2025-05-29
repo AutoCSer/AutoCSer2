@@ -44,5 +44,9 @@ namespace AutoCSer.Net.CommandServer
         /// 获取临时压缩数据
         /// </summary>
         CompressionBigData,
+        /// <summary>
+        /// 等待短连接客户端关闭
+        /// </summary>
+        ShortLinkClose,
     }
 }

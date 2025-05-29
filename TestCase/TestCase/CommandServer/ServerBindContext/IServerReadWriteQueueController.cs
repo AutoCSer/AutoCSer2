@@ -33,7 +33,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         string IServerReadWriteQueueController.QueueReturn(CommandServerCallWriteQueue queue, int Value, ref int Ref, out long Out)
         {
-            return ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, ref Ref, out Out).ToString();
+            return AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, ref Ref, out Out).ToString();
         }
         string IServerReadWriteQueueController.QueueReturn(CommandServerCallWriteQueue queue, int Value, ref int Ref)
         {
@@ -65,7 +65,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         void IServerReadWriteQueueController.Queue(CommandServerCallReadQueue queue, int Value, ref int Ref, out long Out)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, ref Ref, out Out);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, ref Ref, out Out);
         }
         void IServerReadWriteQueueController.Queue(CommandServerCallWriteQueue queue, int Value, ref int Ref)
         {

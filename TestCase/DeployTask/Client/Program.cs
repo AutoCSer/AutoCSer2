@@ -8,6 +8,8 @@ using AutoCSer.Net;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -15,7 +17,7 @@ namespace AutoCSer.TestCase.DeployTaskClient
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             do
             {
@@ -31,21 +33,22 @@ S : Search TestCase
 L : LocalSearch TestCase
 M : MemorySearch TestCase
 
+Z : AutoCSer2.zip
 Press quit to exit.");
                 switch (Console.ReadLine())
                 {
-                    case "0": deploy("ServerRegistry").NotWait(); break;
-                    case "1": deploy("InterfaceRealTimeCallMonitor", "ExceptionStatistics").NotWait(); break;
-                    case "2": deploy("InterfaceRealTimeCallMonitor").NotWait(); break;
-                    case "3": netCoreWeb().NotWait(); break;
+                    case "0": await deploy("ServerRegistry"); break;
+                    case "1": await deploy("InterfaceRealTimeCallMonitor", "ExceptionStatistics"); break;
+                    case "2": await deploy("InterfaceRealTimeCallMonitor"); break;
+                    case "3": await netCoreWeb(); break;
 
-                    case "T": testCase().NotWait(); break;
-                    case "A": aot().NotWait(); break;
-                    case "S": search().NotWait(); break;
-                    case "L": localSearch().NotWait(); break;
-                    case "M": memorySearch().NotWait(); break;
-                    case "quit":
-                        return;
+                    case "T": await testCase(); break;
+                    case "A": await aot(); break;
+                    case "S": await search(); break;
+                    case "L": await localSearch(); break;
+                    case "M": await memorySearch(); break;
+                    case "Z": await zip(); break;
+                    case "quit": return;
                 }
             }
             while (true);
@@ -320,6 +323,132 @@ Press quit to exit.");
                 if (!isStart) await node.Value.Remove(identity.Value);
             }
         }
+        private static async Task zip()
+        {
+            FileInfo zipFile = new FileInfo(@"C:\Showjim\AutoCSer2.zip");
+            await using (FileStream stream = new FileStream(zipFile.FullName, FileMode.Create))
+            using (ZipArchive zipArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
+            {
+                DirectoryInfo directory = new DirectoryInfo(@"C:\AutoCSer2");
+                string[] githubPaths = new string[] { @"C:\AutoCSer2\Github\", @"C:\AutoCSer2\AtomGit\" };
+                foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory))
+                {
+                    await using (Stream entryStream = zipArchive.CreateEntry(file.Name).Open()) await githubFile(file, entryStream, githubPaths);
+                }
+                foreach (DirectoryInfo nextDircectory in await AutoCSer.Common.GetDirectories(directory))
+                {
+                    switch (nextDircectory.Name.ToLower())
+                    {
+                        case "autocser":
+                        case ".vs":
+                        case "application":
+                        case "testcase":
+                        case "document":
+                            await zipDirectory(zipArchive, nextDircectory.Name + @"\", nextDircectory, githubPaths);
+                            break;
+                    }
+                }
+            }
+            Console.WriteLine(zipFile.FullName);
+        }
+        private static async Task githubFile(FileInfo file, Stream entryStream, string[] githubPaths)
+        {
+            byte[] data = await File.ReadAllBytesAsync(file.FullName);
+            switch (file.Extension)
+            {
+                case ".cs":
+                case ".ts":
+                //case ".js":
+                case ".html":
+                    if (data.Length < 3 || data[0] != 0xef || data[1] != 0xbb || data[2] != 0xbf)
+                    {
+                        Console.WriteLine("文件 " + file.FullName + " 缺少 UTF-8 BOM");
+                        string notepad = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), "notepad.exe");
+                        using (Process process = await AutoCSer.Common.FileExists(notepad) ? Process.Start(notepad, file.FullName) : Process.Start(file.FullName)) await process.WaitForExitAsync();
+                        data = await File.ReadAllBytesAsync(file.FullName);
+                    }
+                    break;
+            }
+            await entryStream.WriteAsync(data, 0, data.Length);
+            foreach (string githubPath in githubPaths)
+            {
+                FileInfo githubFile = new FileInfo(Path.Combine(githubPath, file.Name));
+                bool isChanged = !githubFile.Exists || githubFile.Length != data.Length;
+                if (!isChanged)
+                {
+                    byte[] githubData = await File.ReadAllBytesAsync(githubFile.FullName);
+                    isChanged = !data.AsSpan().SequenceEqual(githubData);
+                }
+                if (isChanged) await File.WriteAllBytesAsync(githubFile.FullName, data);
+            }
+        }
+        private static async Task<string[]> nextGithubPath(DirectoryInfo directory, string[] githubPaths)
+        {
+            int index = 0;
+            string[] nextGithubPaths = new string[githubPaths.Length];
+            foreach (string githubPath in githubPaths)
+            {
+                string path = Path.Combine(githubPath, directory.Name);
+                await AutoCSer.Common.TryCreateDirectory(path);
+                nextGithubPaths[index++] = path;
+            }
+            return nextGithubPaths;
+        }
+        private static async Task zipDirectory(ZipArchive zipArchive, string zipPath, DirectoryInfo directory, string[] githubPaths)
+        {
+            githubPaths = await nextGithubPath(directory, githubPaths);
+            foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory))
+            {
+                string fileName = file.Name;
+                bool isDelete = false, isZip = true;
+                if (fileName[0] == '%') isDelete = true;
+                else
+                {
+                    switch (file.Extension)
+                    {
+                        case ".log":
+                            if (fileName.StartsWith("AutoCSer", StringComparison.OrdinalIgnoreCase)) isDelete = true;
+                            break;
+                        case ".json":
+                            if (fileName == "launchSettings.json")
+                            {
+                                if (await File.ReadAllTextAsync(file.FullName, System.Text.Encoding.UTF8) == @"{
+  ""profiles"": {
+    ""WSL"": {
+      ""commandName"": ""WSL2"",
+      ""distributionName"": """"
+    }
+  }
+}")
+                                {
+                                    isDelete = true;
+                                }
+                            }
+                            else if (fileName.EndsWith(".runtimeconfig.dev.json", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".runtimeconfig.json", StringComparison.OrdinalIgnoreCase)) isZip = false;
+                            break;
+                    }
+                }
+                if (isDelete)
+                {
+                    file.Attributes = 0;
+                    file.Delete();
+                }
+                else if (isZip)
+                {
+                    await using (Stream entryStream = zipArchive.CreateEntry(zipPath + fileName).Open()) await githubFile(file, entryStream, githubPaths);
+                }
+            }
+            foreach (DirectoryInfo nextDircectory in await AutoCSer.Common.GetDirectories(directory))
+            {
+                switch (nextDircectory.Name.ToLower())
+                {
+                    case "bin":
+                    case "obj":
+                        break;
+                    default: await zipDirectory(zipArchive, zipPath + nextDircectory.Name + @"\", nextDircectory, githubPaths); break;
+                }
+            }
+        }
 
         private static async Task testCase()
         {
@@ -327,7 +456,7 @@ Press quit to exit.");
             try
             {
                 ProcessArguments gif = new ProcessArguments(@"TestCase\CopyScreenGif\bin\Release\net8.0-windows\publish\AutoCSer.TestCase.CopyScreenGif.AOT.exe");
-                Process gifProcess = await gif.Start();
+                bool gifProcess = await gif.Start();
                 await waitProcess(@"Document\SymmetryService\bin\Release\net8.0\AutoCSer.Document.SymmetryService.exe");
                 await waitProcess(@"Document\ServiceDataSerialize\bin\Release\net8.0\AutoCSer.Document.ServiceDataSerialize.exe");
                 await waitProcess(@"Document\ServiceThreadStrategy\bin\Release\net8.0\AutoCSer.Document.ServiceThreadStrategy.exe");
@@ -337,10 +466,7 @@ Press quit to exit.");
                 await waitProcess(@"Document\MemoryDatabaseLocalService\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseLocalService.exe", 2);
                 await waitProcess(@"Document\ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
                 await waitProcess(@"Document\ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
-                if (gifProcess != null)
-                {
-                    using (gifProcess) await wait(gif, gifProcess);
-                }
+                if (gifProcess) await gif.WaitLogFile();
 
                 await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
                 await aot();
@@ -364,6 +490,7 @@ Press quit to exit.");
                 await search();
                 await search();
 
+                await getAotPublishFile(@"TestCase\SerializePerformance\bin\Release\net8.0\publish\AutoCSer.TestCase.SerializePerformance.AOT.exe");
                 await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
                 await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\publish\AutoCSer.TestCase.CommandClientPerformance.AOT.exe");
                 await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);
@@ -398,31 +525,8 @@ Press quit to exit.");
         {
             while (--count >= 0)
             {
-                Process process = await fileName.Start();
-                if (process != null)
-                {
-                    using (process) await wait(fileName, process);
-                }
+                if (await fileName.Start()) await fileName.WaitLogFile();
                 else Console.WriteLine("Not Found File");
-            }
-        }
-        private static async Task wait(ProcessArguments fileName, Process process)
-        {
-            await process.WaitForExitAsync();
-            long memory = process.WorkingSet64;
-            if (memory >= (1 << 30)) Console.WriteLine($"{process.ProcessName}{memory >> 20}MB");
-            FileInfo file = fileName.GetLogFileInfo();
-            if (await AutoCSer.Common.FileExists(file))
-            {
-                try
-                {
-                    using (process = await new ProcessInfo(file.FullName).StartAsync()) await process.WaitForExitAsync();
-                    await AutoCSer.Common.DeleteFile(file);
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception);
-                }
             }
         }
         private static async Task waitProcess2(ProcessArguments serverFileName, ProcessArguments clientFileName, int count)
@@ -432,14 +536,10 @@ Press quit to exit.");
         }
         private static async Task waitProcess(ProcessArguments serverFileName, ProcessArguments clientFileName, int count)
         {
-            Process process = await serverFileName.Start();
-            if (process != null)
+            if (await serverFileName.Start())
             {
-                using (process)
-                {
-                    await waitProcess(clientFileName, count);
-                    await wait(serverFileName, process);
-                }
+                await waitProcess(clientFileName, count);
+                await serverFileName.WaitLogFile();
             }
             else Console.WriteLine("Not Found File");
         }
@@ -450,15 +550,10 @@ Press quit to exit.");
         private static async Task waitProcess(ProcessArguments[] fileNames, int index)
         {
             ProcessArguments fileName = fileNames[index];
-            Process process = await fileName.Start();
-            if (process != null)
+            if (await fileName.Start())
             {
-                using (process)
-                {
-                    if(++index != fileNames.Length) await waitProcess(fileNames, index);
-                    await wait(fileName, process);
-                  
-                }
+                if (++index != fileNames.Length) await waitProcess(fileNames, index);
+                await fileName.WaitLogFile();
             }
             else Console.WriteLine("Not Found File");
         }

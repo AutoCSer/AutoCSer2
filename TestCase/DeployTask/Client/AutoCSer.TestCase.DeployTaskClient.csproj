@@ -6,6 +6,7 @@
     <AssemblyName>AutoCSer.TestCase.DeployTaskClient</AssemblyName>
     <RootNamespace>AutoCSer.TestCase.DeployTaskClient</RootNamespace>
     <LangVersion>8.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

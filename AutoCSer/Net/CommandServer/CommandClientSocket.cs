@@ -404,11 +404,14 @@ namespace AutoCSer.Net
         {
             if (!isNull)
             {
-                outputWaitHandle = new AutoResetEvent(false);
+                if (!Client.IsShortLink)
+                {
+                    CommandPool.Array[CommandServer.KeepCallbackCommand.CustomDataIndex].Command = new CustomDataCallbackCommand(this);
+                    CommandPool.Array[CommandServer.KeepCallbackCommand.ControllerIndex].Command = new ControllerCallbackCommand(this);
+                }
                 CommandPool.Array[CommandServer.KeepCallbackCommand.MergeIndex].Command = new MergeCallbackCommand(this);
                 CommandPool.Array[CommandServer.KeepCallbackCommand.CancelKeepCallbackIndex].Command = new CancelKeepCallbackCommand(this);
-                CommandPool.Array[CommandServer.KeepCallbackCommand.CustomDataIndex].Command = new CustomDataCallbackCommand(this);
-                CommandPool.Array[CommandServer.KeepCallbackCommand.ControllerIndex].Command = new ControllerCallbackCommand(this);
+                outputWaitHandle = new AutoResetEvent(false);
                 receiveAsyncEventArgs.Completed += onReceive;
                 receiveAsyncEventArgs.UserToken = this;
             }
@@ -575,7 +578,7 @@ namespace AutoCSer.Net
                 }
                 if (isBuildOutput)
                 {
-                    if (Client.VerifyErrorCount >= Client.Config.VerifyErrorCount || !await Client.CreateNewSocketAsync(this))
+                    if (Client.VerifyErrorCount >= Client.Config.VerifyErrorCount || Client.IsShortLink || !await Client.CreateNewSocketAsync(this))
                     {
                         await Client.OnCreateError(this);
                     }
@@ -588,7 +591,7 @@ namespace AutoCSer.Net
                 ++createErrorCount;
                 isCreateError = true;
             }
-            while (Client.IsCreateVersion(CreateVersion));
+            while (Client.IsCreateVersion(CreateVersion) && !Client.IsShortLink);
             Close();
         }
         /// <summary>
@@ -654,27 +657,41 @@ namespace AutoCSer.Net
         {
             if (Client.ControllerCreators.Length > 1 || Client.Config.IsServerController)
             {
-                controllerCreators = DictionaryCreator<string>.Create<CommandClientInterfaceControllerCreator>();
-                foreach (CommandClientInterfaceControllerCreator creator in Client.ControllerCreators)
+                if (!Client.IsShortLink)
                 {
-                    controllerCreators.Add(creator.ControllerName, creator);
-                }
-                ++commandCount;
-                if (commands.IsPushHead(new ControllerCommand(this))) outputWaitHandle.Set();
-                await controllerLock.EnterAsync();
-                if (!Client.IsCreateVersion(CreateVersion))
-                {
-                    return false;
-                }
-                foreach (string controllerName in controllerCreators.Keys)
-                {
-                    await Client.SocketEvent.NotFoundServerControllerName(this, controllerName);
-                }
-                foreach (var controller in ControllerArray)
-                {
-                    if (controller != null && controller.GetType() == typeof(NullCommandClientController))
+                    controllerCreators = DictionaryCreator<string>.Create<CommandClientInterfaceControllerCreator>();
+                    foreach (CommandClientInterfaceControllerCreator creator in Client.ControllerCreators)
                     {
-                        await Client.SocketEvent.NotFoundControllerName(this, controller.ControllerName);
+                        controllerCreators.Add(creator.ControllerName, creator);
+                    }
+                    ++commandCount;
+                    if (commands.IsPushHead(new ControllerCommand(this))) outputWaitHandle.Set();
+                    await controllerLock.EnterAsync();
+                    if (!Client.IsCreateVersion(CreateVersion))
+                    {
+                        return false;
+                    }
+                    foreach (string controllerName in controllerCreators.Keys)
+                    {
+                        await Client.SocketEvent.NotFoundServerControllerName(this, controllerName);
+                    }
+                    foreach (var controller in ControllerArray)
+                    {
+                        if (controller != null && controller.GetType() == typeof(NullCommandClientController))
+                        {
+                            await Client.SocketEvent.NotFoundControllerName(this, controller.ControllerName);
+                        }
+                    }
+                }
+                else
+                {
+                    ControllerArray = new CommandClientController[Client.ControllerCreators.Length];
+                    ControllerArray[0] = Controller;
+                    int index = 0;
+                    foreach (CommandClientInterfaceControllerCreator creator in Client.ControllerCreators)
+                    {
+                        if (index != 0) ControllerArray[index] = creator.Create(this, index << CommandServerController.MaxCommandBits, null);
+                        ++index;
                     }
                 }
             }
@@ -685,7 +702,7 @@ namespace AutoCSer.Net
                     return false;
                 }
                 ushort checkSeconds = Client.Config.CheckSeconds;
-                if (checkSeconds > 0) checkTimer = new ClientCheckTimer(this, checkSeconds);
+                if (checkSeconds > 0 && !Client.IsShortLink) checkTimer = new ClientCheckTimer(this, checkSeconds);
                 if (exceptionCount != 0) await Client.SocketEvent.OnCreateSocketRetrySuccess(this, serverEndPoint, exceptionCount);
                 createErrorCount = -1;
                 Client.VerifyErrorCount = 0;
@@ -803,7 +820,7 @@ namespace AutoCSer.Net
                     Client.Config.Log.ExceptionIgnoreException(exception, serverEndPoint.ToString(), LogLevelEnum.AutoCSer | LogLevelEnum.Exception);
                 }
             }
-            if (!Client.IsReverse)
+            if (!Client.IsReverse && !Client.IsShortLink)
             {
                 createErrorCount = -1;
                 try

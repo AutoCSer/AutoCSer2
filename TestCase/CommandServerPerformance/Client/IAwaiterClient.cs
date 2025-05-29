@@ -145,21 +145,21 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 //await s0611163(client, false);
                 //await s0611163(client, true);
 
-                int left = Left = AutoCSer.Random.Default.Next(), batchCount = 1 << 11, testCount;
-                await new AwaiterClientPerformance(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait();
-                await new AwaiterClientPerformance(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait();
-
+                //测试顺序是应用场景优先，不是性能优先
+                int left = Left = AutoCSer.Random.Default.Next(), testCount;
+                await new AwaiterClientPerformance(commandClient, nameof(ConcurrencyReadQueue), commandClientConfig.CommandQueueCount).Wait(); //服务端可并发读队列是内存数据库默认线程模式，允许重建获取快照数据操作的同时并发执行读请求队列操作以减少重建操作对吞吐性能的影响
+                await new AwaiterClientPerformance(commandClient, nameof(ReadWriteQueue), commandClientConfig.CommandQueueCount).Wait(); //服务端读写队列是内存数据库的可选线程模式，允许多线程并发读取操作可以增加多核处理器环境下的吞吐量，由于任务分配较复杂所以会降低写操作的吞吐性能
+                await new AwaiterClientPerformance(commandClient, nameof(Queue), commandClientConfig.CommandQueueCount).Wait(); //服务端队列模式适合轻量级的纯内存数据操作
+                await new AwaiterClientPerformance(commandClient, nameof(Callback), commandClientConfig.CommandQueueCount).Wait(); //服务端回调模式适合基于事件触发的响应操作
+                await new AwaiterClientPerformance(commandClient, nameof(SynchronousCallTask), commandClientConfig.CommandQueueCount).Wait(); //服务端 IO 线程同步调用 Task 模式适合异步 IO 任务并发操作，要保证在第一次触发异步操作之前不会产生大量计算阻塞 IO 线程，正确的使用方式是在大量计算操作之前主动切换线程调度避免阻塞 IO 线程
+                await new AwaiterClientPerformance(commandClient, nameof(Task), commandClientConfig.CommandQueueCount).Wait(); //服务端自主调度 Task 模式适合异步 IO 任务并发操作，该模式会根据历史任务执行数据选择是否产生 IO 线程同步调用，非 IO 线程调度会降低系统吞吐性能
+                await new AwaiterClientPerformance(commandClient, nameof(TaskQueueKey), commandClientConfig.CommandQueueCount).Wait(); //服务端基于关键字的 Task 队列模式适合数据库并发事务与缓存操作，队列操作可避免数据库资源竞争，避免并发死锁问题
+                await new AwaiterClientPerformance(commandClient, nameof(Synchronous), commandClientConfig.CommandQueueCount).Wait(); //服务端同步模式适合轻量级的无阻塞操作，比如返回服务器当前时间
+                await new AwaiterClientPerformance(commandClient, nameof(TaskQueue), commandClientConfig.CommandQueueCount).Wait(); //服务端 Task 队列适合全局性的数据库并发事务与缓存操作
 
                 #region 服务端仅执行模式，异常会导致测试中断，属于正常现象（高性能需求场景应该使用 ICallbackClient.KeepCallback 获取 CommandKeepCallback，比如该测试中消费速度低于生产速度会导致服务端累积大量任务占用大量内存）
                 testCount = Reset(commandClient, maxTestCount);
-                EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback();
+                EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback(); //服务端保持回调模式适合服务端无限制的推送数据操作，对于较大的集合也建议分拆成小数据流处理
                 await using ((IAsyncDisposable)enumeratorCommand)
                 {
                     checkEnumeratorCommand(enumeratorCommand).NotWait();
@@ -171,7 +171,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 }
 
                 testCount = Reset(commandClient, maxTestCount);
-                enumeratorCommand = await client.InterfaceController.KeepCallbackCount();
+                enumeratorCommand = await client.InterfaceController.KeepCallbackCount(); //服务端带计数的保持回调模式适合服务端推送数据操作，计数模式可以降低内存占用并且在一定程度上避免网络资源被独占，但是会降低吞吐性能
                 await using ((IAsyncDisposable)enumeratorCommand)
                 {
                     checkEnumeratorCommand(enumeratorCommand).NotWait();

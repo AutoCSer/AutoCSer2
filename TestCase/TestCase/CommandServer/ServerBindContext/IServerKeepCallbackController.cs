@@ -37,7 +37,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         void IServerKeepCallbackController.KeepCallbackReturn(int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback);
+            AutoCSer.TestCase.ServerKeepCallbackController.AutoKeepCallback(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref), Callback);
         }
         void IServerKeepCallbackController.KeepCallback(int Value, int Ref, CommandServerKeepCallback Callback)
         {
@@ -55,7 +55,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         void IServerKeepCallbackController.KeepCallbackCountReturn(int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback).Catch();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref), Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCount(int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {
@@ -73,7 +73,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         void IServerKeepCallbackController.KeepCallbackQueueReturn(CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.AutoKeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback);
+            AutoCSer.TestCase.ServerKeepCallbackController.AutoKeepCallback(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref), Callback);
         }
         void IServerKeepCallbackController.KeepCallbackQueue(CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallback Callback)
         {
@@ -91,7 +91,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         void IServerKeepCallbackController.KeepCallbackCountQueueReturn(CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
         {
-            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref), Callback).Catch();
+            AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref), Callback).Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueue(CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
         {

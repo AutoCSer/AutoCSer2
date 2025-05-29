@@ -572,11 +572,12 @@
             </summary>
             <param name="file"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.Completed(`0)">
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.Completed(`0,System.Boolean)">
             <summary>
-            文件上传完成
+            文件同步完成
             </summary>
             <param name="file"></param>
+            <param name="isSuccess"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2.onPathError(`1)">
             <summary>

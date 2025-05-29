@@ -70,5 +70,71 @@ namespace AutoCSer.TestCase.ServerBindContext
 
             return true;
         }
+        /// <summary>
+        /// 短连接命令客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ShortLinkTestCase()
+        {
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create();
+                CommandClientReturnValue returnType = client.ServerBindContextDefinedDissymmetryClientController.SetSocket(model);
+                if (!returnType.IsSuccess)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                CommandClientReturnValue<Data.ORM.ModelGeneric> returnValue = client.ServerBindContextDefinedDissymmetryClientController.GetSocket();
+                if (!returnValue.IsSuccess || returnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create();
+                CommandClientReturnValue returnType = await client.ServerBindContextDefinedDissymmetryClientController.SetSocketTask(model);
+                if (!returnType.IsSuccess)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                CommandClientReturnValue<Data.ORM.ModelGeneric> returnValue = await client.ServerBindContextDefinedDissymmetryClientController.GetSocketTask();
+                if (!returnValue.IsSuccess || returnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            return true;
+        }
     }
 }

@@ -52,6 +52,7 @@ namespace AutoCSer.Net
             catch (Exception exception)
             {
                 runTaskException = exception;
+                Socket.CloseShortLink();
             }
             finally
             {

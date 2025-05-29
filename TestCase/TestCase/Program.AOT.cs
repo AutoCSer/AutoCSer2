@@ -20,12 +20,14 @@ namespace AutoCSer.TestCase
                 Type errorType = typeof(Program);
                 do
                 {
-                    Task<bool> commandServerTask = CommandServer.TestCase();
+                    Task<bool> shortLinkCommandServerTask = ShortLinkCommandServer.TestCase();
                     Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
                     Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
                     Task<bool> binarySerializeTask = BinarySerialize.TestCase();
                     Task<bool> jsonTask = ThreadPool.TinyBackground.RunTask(Json.TestCase);
                     Task<bool> xmlTask = ThreadPool.TinyBackground.RunTask(Xml.TestCase);
+                    if (!await shortLinkCommandServerTask) { errorType = typeof(ShortLinkCommandServer); break; }
+                    Task<bool> commandServerTask = CommandServer.TestCase();
                     if (!await binarySerializeTask) { errorType = typeof(BinarySerialize); break; }
                     if (!await jsonTask) { errorType = typeof(Json); break; }
                     if (!await xmlTask) { errorType = typeof(Xml); break; }

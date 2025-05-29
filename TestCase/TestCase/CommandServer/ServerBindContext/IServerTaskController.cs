@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         Task<string> IServerTaskController.AsynchronousTaskReturn(int Value, int Ref)
         {
-            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
+            return Task.FromResult(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref).ToString());
         }
         async Task<string> IServerTaskController.AsynchronousTaskReturn()
         {
@@ -48,7 +48,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         Task<string> IServerTaskController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
-            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref).ToString());
+            return Task.FromResult(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(queue.Key, Ref).ToString());
         }
         async Task IServerTaskController.TaskQueue(CommandServerCallTaskQueue<int> queue, int Ref)
         {
@@ -59,7 +59,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         async Task<string> IServerTaskController.TaskQueueException(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
-            throw new AutoCSer.Log.IgnoreException(((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref).ToString());
+            throw new AutoCSer.Log.IgnoreException(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(queue.Key, Ref).ToString());
         }
     }
 }

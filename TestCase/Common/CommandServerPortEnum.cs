@@ -118,6 +118,11 @@ namespace AutoCSer.TestCase.Common
         /// 搜索聚合查询服务测试端口
         /// </summary>
         SearchQueryService,
+        /// <summary>
+        /// Short link service test port
+        /// 短连接服务测试端口
+        /// </summary>
+        ShortLink,
 
         /// <summary>
         /// WEB view test port

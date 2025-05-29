@@ -23,23 +23,23 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         void IDefinedDissymmetryServerController.SetSocket(Data.ORM.BusinessModel value)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Model = value;
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Model = value;
         }
         Data.ORM.BusinessModel IDefinedDissymmetryServerController.GetSocket()
         {
             Data.ORM.BusinessModel value = AutoCSer.RandomObject.Creator<Data.ORM.BusinessModel>.Create();
-            ((CommandServerSessionObject)Socket.SessionObject).Model = value;
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Model = value;
             return value;
         }
         Task IDefinedDissymmetryServerController.SetSocketTask(Data.ORM.BusinessModel value)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Model = value;
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Model = value;
             return AutoCSer.Common.CompletedTask;
         }
         Task<Data.ORM.BusinessModel> IDefinedDissymmetryServerController.GetSocketTask()
         {
             Data.ORM.BusinessModel value = AutoCSer.RandomObject.Creator<Data.ORM.BusinessModel>.Create();
-            ((CommandServerSessionObject)Socket.SessionObject).Model = value;
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Model = value;
             return Task.FromResult(value);
         }
     }

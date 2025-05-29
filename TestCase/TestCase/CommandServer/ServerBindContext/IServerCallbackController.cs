@@ -26,7 +26,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         void IServerCallbackController.CallbackReturn(int Value, int Ref, CommandServerCallback<string> Callback)
         {
-            Callback.Callback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
+            Callback.Callback(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref).ToString());
         }
         void IServerCallbackController.Callback(int Value, int Ref, CommandServerCallback Callback)
         {
@@ -44,7 +44,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         void IServerCallbackController.CallbackQueueReturn(CommandServerCallQueue queue, int Value, int Ref, CommandServerCallback<string> Callback)
         {
-            Callback.Callback(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
+            Callback.Callback(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref).ToString());
         }
         void IServerCallbackController.CallbackQueue(CommandServerCallLowPriorityQueue queue, int Value, int Ref, CommandServerCallback Callback)
         {

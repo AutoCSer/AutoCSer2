@@ -187,7 +187,7 @@ namespace AutoCSer.Net
         /// <param name="endPoint"></param>
         void ICommandClient.ServerEndPointChanged(IPEndPoint endPoint)
         {
-            if (!IsDisposed && (endPoint.Port != serverEndPoint.Port || endPoint.Address != serverEndPoint.Address))
+            if (!IsDisposed && (endPoint.Port != serverEndPoint.Port || endPoint.Address != serverEndPoint.Address) && !config.IsShortLink)
             {
                 serverEndPoint = endPoint;
                 create(Interlocked.Increment(ref createVersion)).NotWait();

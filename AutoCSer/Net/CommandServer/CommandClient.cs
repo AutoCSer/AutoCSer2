@@ -158,6 +158,10 @@ namespace AutoCSer.Net
         /// 是否反向服务
         /// </summary>
         internal readonly bool IsReverse;
+        /// <summary>
+        /// 是否短连接
+        /// </summary>
+        internal readonly bool IsShortLink;
 #if NetStandard21
         /// <summary>
         /// 默认空命令客户端
@@ -187,6 +191,7 @@ namespace AutoCSer.Net
         {
             if (config == null) throw new ArgumentNullException();
             Config = config;
+            IsShortLink = config.IsShortLink;
             callbackQueues = EmptyArray<KeyValue<CommandClientCallQueue, CommandClientCallQueueLowPriorityLink>>.Array;
             ReceiveBufferPool = ByteArrayPool.GetPool(config.ReceiveBufferSizeBits);
             SendBufferPool = ByteArrayPool.GetPool(config.SendBufferSizeBits);
@@ -215,6 +220,7 @@ namespace AutoCSer.Net
         {
             IsReverse = true;
             Config = listener.Config;
+            IsShortLink = Config.IsShortLink;
             //CreateVersion = 1;
             callbackQueues = EmptyArray<KeyValue<CommandClientCallQueue, CommandClientCallQueueLowPriorityLink>>.Array;
             ReceiveBufferPool = ByteArrayPool.GetPool(Config.ReceiveBufferSizeBits);
@@ -393,23 +399,26 @@ namespace AutoCSer.Net
         /// <param name="endPoint"></param>
         public void ServerEndPointChanged(IPEndPoint endPoint)
         {
-            socketLock.Enter();
-            try
+            if (!IsShortLink)
             {
-                if (!IsDisposed)
+                socketLock.Enter();
+                try
                 {
-                    if (createSocket != null)
+                    if (!IsDisposed)
                     {
-                        if (!createSocket.ServerEndPointEquals(endPoint))
+                        if (createSocket != null)
                         {
-                            ++CreateVersion;
-                            createSocket = new CommandClientSocket(createSocket, endPoint);
+                            if (!createSocket.ServerEndPointEquals(endPoint))
+                            {
+                                ++CreateVersion;
+                                createSocket = new CommandClientSocket(createSocket, endPoint);
+                            }
                         }
+                        else createSocket = new CommandClientSocket(this, endPoint, CreateVersion = 1);
                     }
-                    else createSocket = new CommandClientSocket(this, endPoint, CreateVersion = 1);
                 }
+                finally { socketLock.Exit(); }
             }
-            finally { socketLock.Exit(); }
         }
         /// <summary>
         /// 获取发送数据缓存区池

@@ -1252,6 +1252,11 @@
             当前执行子任务索引位置
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.DeployTask.TaskData.IsNextStep">
+            <summary>
+            判断是否存在下一个子任务
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.DeployTask.TaskData.isStart">
             <summary>
             是否已经启动任务

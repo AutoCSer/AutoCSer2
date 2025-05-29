@@ -14,7 +14,7 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 命令数组最小二进制长度
         /// </summary>
-        private const int minArrayBits = 2;
+        private const int minArrayBits = 3;
         /// <summary>
         /// 命令数组最大二进制长度
         /// </summary>
@@ -138,19 +138,33 @@ namespace AutoCSer.Net.CommandServer
         internal CommandPool(CommandClient client, int freeIndex = KeepCallbackCommand.CommandPoolIndex)
         {
             this.client = client;
-            bitSize = client.Config.CommandPoolBits;
-            bitSize = bitSize <= maxArrayBits ? (bitSize >= minArrayBits ? bitSize : minArrayBits) : maxArrayBits;
-            commandCount = 1 << bitSize;
-            if ((uint)freeIndex >= commandCount) throw new IndexOutOfRangeException();
-            Array = new CommandPoolLink[commandCount];
-            arrays = new CommandPoolLink[4][];
+            arrayCount = 1;
+            if (!client.IsShortLink)
+            {
+                bitSize = client.Config.CommandPoolBits;
+                bitSize = bitSize <= maxArrayBits ? (bitSize >= minArrayBits ? bitSize : minArrayBits) : maxArrayBits;
+                commandCount = 1 << bitSize;
+                if ((uint)freeIndex >= commandCount) throw new IndexOutOfRangeException();
+                Array = new CommandPoolLink[commandCount];
+                arrays = new CommandPoolLink[4][];
+                this.freeIndex = freeIndex;
+                arrays[0] = Array;
+                for (int index = freeIndex; index != commandCount; ++index) Array[index].Next = index + 1;
+                freeEndIndex = arraySizeAnd = commandCount - 1;
+            }
+            else
+            {
+                bitSize = minArrayBits;
+                commandCount = 1 << bitSize;
+                Array = new CommandPoolLink[KeepCallbackCommand.CommandPoolIndex + 1];
+                arrays = new CommandPoolLink[][] { Array };
+                this.freeIndex = KeepCallbackCommand.CommandPoolIndex;
+                Array[KeepCallbackCommand.CustomDataIndex].Identity = Array[KeepCallbackCommand.ControllerIndex].Identity = uint.MaxValue;
+                Array[KeepCallbackCommand.CommandPoolIndex].Next = KeepCallbackCommand.CommandPoolIndex + 1;
+                arraySizeAnd = commandCount - 1;
+            }
             getArray = pushArray = EmptyArray<CommandPoolLink>.Array;
             keepCallbackCommand = CommandClientSocket.Null.CommandPool.keepCallbackCommand;
-            this.freeIndex = freeIndex;
-            arrays[0] = Array;
-            arrayCount = 1;
-            for (int index = freeIndex; index != commandCount; ++index) Array[index].Next = index + 1;
-            freeEndIndex = arraySizeAnd = commandCount - 1;
             ushort maxTimeoutSeconds = client.Config.CommandMaxTimeoutSeconds;
             if (maxTimeoutSeconds != 0) TimeoutCount = new CommandPoolTimeoutCount(this, maxTimeoutSeconds);
         }

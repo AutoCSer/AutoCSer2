@@ -95,5 +95,13 @@ namespace AutoCSer.Net.CommandServer
         /// 自定义命令处理错误
         /// </summary>
         CustomCommandError,
+        /// <summary>
+        /// 短连接不支持系统命令
+        /// </summary>
+        ShortLinkCommandError,
+        /// <summary>
+        /// 短连接接收数据长度超出命令范围（客户端可能是长连接模式并且发送了多个命令数据）
+        /// </summary>
+        ShortLinkDataSizeError,
     }
 }

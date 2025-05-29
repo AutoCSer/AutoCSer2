@@ -47,6 +47,11 @@ namespace AutoCSer.Net.CommandServer
         [System.Runtime.InteropServices.FieldOffset(13)]
         internal byte IsNewBuffer;
         /// <summary>
+        /// 是否异步操作
+        /// </summary>
+        [System.Runtime.InteropServices.FieldOffset(14)]
+        internal bool IsAsynchronous;
+        /// <summary>
         /// 清除数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

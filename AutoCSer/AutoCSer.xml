@@ -26004,6 +26004,12 @@
             <param name="node"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.CloseShortLink(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
+            <summary>
+            关闭短连接
+            </summary>
+            <param name="node"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.send">
             <summary>
             发送成功返回值类型
@@ -30815,14 +30821,29 @@
             获取命令服务套接字
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallQueueNodeCloseShortLink">
+            <summary>
+            关闭短连接
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallReadWriteQueueNodeGetSocket">
             <summary>
             获取命令服务套接字
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallReadWriteQueueNodeCloseShortLink">
+            <summary>
+            关闭短连接
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallConcurrencyReadQueueNodeGetSocket">
             <summary>
             获取命令服务套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.ServerCallConcurrencyReadQueueNodeCloseShortLink">
+            <summary>
+            关闭短连接
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCallTaskQueueTaskNodeGetSocketDelegate">
@@ -32095,6 +32116,11 @@
             是否创建了新的缓冲区
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerBuildInfo.IsAsynchronous">
+            <summary>
+            是否异步操作
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerBuildInfo.Clear">
             <summary>
             清除数据
@@ -32215,6 +32241,16 @@
             自定义命令处理错误
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.ShortLinkCommandError">
+            <summary>
+            短连接不支持系统命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveErrorTypeEnum.ShortLinkDataSizeError">
+            <summary>
+            短连接接收数据长度超出命令范围（客户端可能是长连接模式并且发送了多个命令数据）
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerReceiveTypeEnum">
             <summary>
             TCP 服务端接收数据回调类型
@@ -32263,6 +32299,11 @@
         <member name="F:AutoCSer.Net.CommandServer.ServerReceiveTypeEnum.CompressionBigData">
             <summary>
             获取临时压缩数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerReceiveTypeEnum.ShortLinkClose">
+            <summary>
+            等待短连接客户端关闭
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerSendErrorTypeEnum">
@@ -32622,6 +32663,12 @@
             </summary>
             <param name="node"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallReadWriteQueueNode.CloseShortLink(AutoCSer.Net.CommandServerCallReadWriteQueueNode)">
+            <summary>
+            关闭短连接
+            </summary>
+            <param name="node"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallReadWriteQueueNode.send">
             <summary>
@@ -34621,8 +34668,8 @@
         </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.CommandPoolBits">
             <summary>
-            Command pool initialization binary size, the maximum value is 16, the minimum value is 2, the default is 14 container size is 16384, open service recommended value is 3 Container size is 8
-            命令池初始化二进制大小，最大值为 16，最小值为 2，默认为 14 容器大小为 16384，开放服务建议值为 3 容器大小为 8
+            Command pool initialization binary size, the maximum value is 16, the minimum value is 3, the default is 14 container size is 16384, open service recommended value is 3 Container size is 8
+            命令池初始化二进制大小，最大值为 16，最小值为 3，默认为 14 容器大小为 16384，开放服务建议值为 3 容器大小为 8
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.IsServerController">
@@ -38134,6 +38181,11 @@
             默认为 true 表示字符串二进制序列化直接复制内存数据，设置为 false 则对 ASCII 进行编码可以降低空间占用
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerConfigBase.IsShortLink">
+            <summary>
+            默认为 false 表示长连接模式，否则只为短连接模式仅支持 1 次请求（不支持验证函数）
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerConfigBase.MaxInputSize">
             <summary>
             The maximum number of bytes of input data, the default is 0 to indicate no limit, the open service recommended value is less than 2^ ReceiveBufferSizeBis-12 and the API is not recommended to produce large object transport behavior
@@ -39204,6 +39256,11 @@
         <member name="F:AutoCSer.Net.CommandClient.IsReverse">
             <summary>
             是否反向服务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClient.IsShortLink">
+            <summary>
+            是否短连接
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.#ctor">
@@ -40582,20 +40639,6 @@
             </summary>
             <param name="methodIndex"></param>
             <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerController.DoCommandOnly(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte}@)">
-            <summary>
-            命令处理
-            </summary>
-            <param name="socket">命令服务套接字</param>
-            <param name="data">命令数据</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerController.DoCommandOfflineCount(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte}@)">
-            <summary>
-            下线通知接口命令处理
-            </summary>
-            <param name="socket"></param>
-            <param name="data"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerController.DoCommand(AutoCSer.Net.CommandServerSocket,AutoCSer.SubArray{System.Byte}@)">
             <summary>
@@ -43802,9 +43845,9 @@
             接收数据错误类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.isCloseSocket">
+        <member name="F:AutoCSer.Net.CommandServerSocket.IsShortLink">
             <summary>
-            是否触发套接字关闭操作
+            是否短连接
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.pad1">
@@ -43855,6 +43898,11 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.keepCallbacks">
             <summary>
             异步保持回调集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.shortLinkKeepCallback">
+            <summary>
+            短连接异步保持回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.OutputSerializer">
@@ -43910,6 +43958,21 @@
         <member name="F:AutoCSer.Net.CommandServerSocket.isSerializeCopyString">
             <summary>
             字符串二进制序列化直接复制内存数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.isCloseSocket">
+            <summary>
+            是否触发套接字关闭操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.isCloseShortLink">
+            <summary>
+            是否需要关闭短连接
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.IsCancelKeepCallback">
+            <summary>
+            是否取消异步保持调用
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.#ctor">
@@ -44006,6 +44069,11 @@
         <member name="M:AutoCSer.Net.CommandServerSocket.close">
             <summary>
             关闭套接字
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.CloseShortLink">
+            <summary>
+            关闭短连接
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.RemoveOnClosed(System.Action)">
@@ -44124,6 +44192,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.isReceiveShortLinkClose">
+            <summary>
+            等待短连接客户端关闭
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.isReceiveCommand">
             <summary>
             获取命令
@@ -44212,6 +44286,12 @@
             </summary>
             <param name="data"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.doCommandOfflineCount(AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            下线通知接口命令处理
+            </summary>
+            <param name="data"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.merge(AutoCSer.SubArray{System.Byte}@)">
             <summary>
             流合并命令处理
@@ -44275,6 +44355,11 @@
             </summary>
             <param name="sender"></param>
             <param name="async">异步回调参数</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.onSendShortLink">
+            <summary>
+            短连接发送数据以后检查是否需要关闭连接
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.freeBuildOutput">
             <summary>
@@ -44808,6 +44893,12 @@
             </summary>
             <param name="node"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallQueueNode.CloseShortLink(AutoCSer.Net.CommandServerCallQueueNode)">
+            <summary>
+            关闭短连接
+            </summary>
+            <param name="node"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallQueueNode.Send(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServerCallQueue)">
             <summary>

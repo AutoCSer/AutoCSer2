@@ -135,7 +135,7 @@ namespace AutoCSer.CommandService.DeployTask
                         if (state != OperationStateEnum.Unknown) node.StreamPersistenceMemoryDatabaseCallQueue.AppendWriteOnly(new TaskBuilderCallback(this, state));
                     }
                 }
-                while (!Data.IsClosed);
+                while (Data.IsNextStep);
             }
             finally { node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Close(Data.Identity, AutoCSer.Threading.SecondTimer.UtcNow); }
         }

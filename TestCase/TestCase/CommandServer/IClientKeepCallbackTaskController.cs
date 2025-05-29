@@ -138,6 +138,23 @@ namespace AutoCSer.TestCase
             }
             return true;
         }
+        internal static async Task<bool> Callback(IAsyncEnumerable<string> asyncEnumerable)
+        {
+            int index = 0;
+            await foreach (string value in asyncEnumerable)
+            {
+                if (value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                ++index;
+            }
+            if (index != ServerKeepCallbackController.KeepCallbackCount)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            return true;
+        }
 #endif
         internal static async Task<bool> Callback(EnumeratorCommand enumeratorCommand, CommandServerSessionObject clientSessionObject)
         {
@@ -184,6 +201,40 @@ namespace AutoCSer.TestCase
             while (await enumeratorCommand.MoveNext())
             {
                 if (index == 0 && !ServerSynchronousController.SessionObject.Check(clientSessionObject))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                ++index;
+            }
+            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnTypeEnum.Success)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            return true;
+        }
+        internal static async Task<bool> Callback(EnumeratorCommand<string> enumeratorCommand)
+        {
+            int index = 0;
+            while (await enumeratorCommand.MoveNext())
+            {
+                if (enumeratorCommand.Current == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                ++index;
+            }
+            if (index != ServerKeepCallbackController.KeepCallbackCount || enumeratorCommand.ReturnType != CommandClientReturnTypeEnum.Success)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            return true;
+        }
+        internal static async Task<bool> Callback(EnumeratorQueueCommand<string> enumeratorCommand)
+        {
+            int index = 0;
+            while (await enumeratorCommand.MoveNext())
+            {
+                if (enumeratorCommand.Current == null)
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
@@ -558,6 +609,161 @@ namespace AutoCSer.TestCase
             }
 #endif
 
+            return true;
+        }
+        /// <summary>
+        /// 短连接命令客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ShortLinkTestCase()
+        {
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorCommand<string> enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorCommand<string> enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorCommand<string> enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+#if NetStandard21
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                IAsyncEnumerable<string> enumeratorCommandReturn = client.ClientKeepCallbackTaskController.KeepCallbackTaskReturnAsync(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                IAsyncEnumerable<string> enumeratorCommandReturn = client.ClientKeepCallbackTaskController.KeepCallbackCountTaskReturnAsync(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                IAsyncEnumerable<string> enumeratorCommandReturn = client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturnAsync(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+#endif
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorQueueCommand<string> enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackTaskQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorQueueCommand<string> enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.KeepCallbackCountTaskQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorCommand<string> enumeratorCommandReturn = await client.ClientKeepCallbackTaskController.EnumerableKeepCallbackCountTaskQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+#if NetStandard21
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorCommand<string> enumeratorCommandReturn = client.ClientKeepCallbackTaskController.AsyncEnumerableReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientKeepCallbackTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                EnumeratorCommand<string> enumeratorCommandReturn = client.ClientKeepCallbackTaskController.AsyncEnumerableQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!await Callback(enumeratorCommandReturn))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+#endif
             return true;
         }
     }

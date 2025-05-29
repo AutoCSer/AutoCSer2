@@ -12215,7 +12215,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceConfig.QueueTimeoutSeconds">
             <summary>
-            同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
+            同步队列任务执行超时检查秒数默认为 5 ，用于检查队列任务是否存在长时间阻塞或者死锁问题
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceConfig.Create">
@@ -12808,7 +12808,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.pushPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
             <summary>
-            添加到持久化队列
+            添加到持久化队列（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
             </summary>
             <param name="methodParameter"></param>
             <returns></returns>
@@ -16338,14 +16338,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter)">
             <summary>
-            添加持久化调用方法与参数信息
+            添加持久化调用方法与参数信息（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
             </summary>
             <param name="methodParameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseServiceBase.PushPersistenceMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter,``0@)">
             <summary>
-            添加持久化调用方法与参数信息
+            添加持久化调用方法与参数信息（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
             </summary>
             <typeparam name="T"></typeparam>
             <param name="methodParameter"></param>

@@ -36,21 +36,33 @@ namespace AutoCSer.TestCase
     internal sealed class ServerSendOnlyController : IServerSendOnlyController
     {
         internal static readonly System.Threading.SemaphoreSlim SendOnlyWaitLock = new System.Threading.SemaphoreSlim(0, 1);
-        private static bool isReleaseWaitLock;
+        private static int waitCount;
+        private static int releaseCount;
         internal static Task WaitSendOnly()
+        {
+            ++waitCount;
+            return SendOnlyWaitLock.WaitAsync();
+        }
+        internal static void ReleaseWaitLock()
         {
 #if !AOT
             if (!CommandServer.IsAotClient)
             {
-                isReleaseWaitLock = true;
-                return SendOnlyWaitLock.WaitAsync();
+                ++releaseCount;
+                SendOnlyWaitLock.Release();
             }
 #endif
-            return AutoCSer.Common.CompletedTask;
         }
-        internal static void ReleaseWaitLock()
+        internal static bool CheckCount()
         {
-            if (isReleaseWaitLock) SendOnlyWaitLock.Release();
+#if !AOT
+            if (!CommandServer.IsAotClient)
+            {
+                if (waitCount == releaseCount) return true;
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+#endif
+            return true;
         }
 
         CommandServerSendOnly IServerSendOnlyController.SendOnlySocket(CommandServerSocket socket, int Value, int Ref)

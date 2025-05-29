@@ -46,6 +46,10 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsSerializeCopyString = true;
         /// <summary>
+        /// 默认为 false 表示长连接模式，否则只为短连接模式仅支持 1 次请求（不支持验证函数）
+        /// </summary>
+        public bool IsShortLink;
+        /// <summary>
         /// The maximum number of bytes of input data, the default is 0 to indicate no limit, the open service recommended value is less than 2^ ReceiveBufferSizeBis-12 and the API is not recommended to produce large object transport behavior
         /// 最大输入数据字节数，默认为 0 表示不限制，开放服务建议值小于 2^ReceiveBufferSizeBis - 12 而且不建议 API 产生大对象传输行为
         /// </summary>

@@ -103,6 +103,7 @@
     <Compile Include="Program.AOT.cs" />
     <Compile Include="ReusableDictionary.cs" />
     <Compile Include="SearchTree.cs" />
+    <Compile Include="ShortLinkCommandServer.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Xml.cs" />
     <Compile Include="{AutoCSer.TestCase}.AOT.AutoCSer.cs" />

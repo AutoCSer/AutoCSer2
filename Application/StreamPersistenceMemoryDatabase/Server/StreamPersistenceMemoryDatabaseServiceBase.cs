@@ -331,7 +331,7 @@ namespace AutoCSer.CommandService
             return CurrentMethodParameter;
         }
         /// <summary>
-        /// 添加持久化调用方法与参数信息
+        /// 添加持久化调用方法与参数信息（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
         /// </summary>
         /// <param name="methodParameter"></param>
         /// <returns></returns>
@@ -346,7 +346,7 @@ namespace AutoCSer.CommandService
             return false;
         }
         /// <summary>
-        /// 添加持久化调用方法与参数信息
+        /// 添加持久化调用方法与参数信息（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodParameter"></param>

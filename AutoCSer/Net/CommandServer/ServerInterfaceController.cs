@@ -116,13 +116,25 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerCallQueueNode, CommandServerSocket> ServerCallQueueNodeGetSocket = CommandServerCallQueueNode.GetSocket;
         /// <summary>
+        /// 关闭短连接
+        /// </summary>
+        internal static readonly Action<CommandServerCallQueueNode> ServerCallQueueNodeCloseShortLink = CommandServerCallQueueNode.CloseShortLink;
+        /// <summary>
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly Func<CommandServerCallReadWriteQueueNode, CommandServerSocket> ServerCallReadWriteQueueNodeGetSocket = CommandServerCallReadWriteQueueNode.GetSocket;
         /// <summary>
+        /// 关闭短连接
+        /// </summary>
+        internal static readonly Action<CommandServerCallReadWriteQueueNode> ServerCallReadWriteQueueNodeCloseShortLink = CommandServerCallReadWriteQueueNode.CloseShortLink;
+        /// <summary>
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly Func<CommandServerCallConcurrencyReadQueueNode, CommandServerSocket> ServerCallConcurrencyReadQueueNodeGetSocket = CommandServerCallConcurrencyReadQueueNode.GetSocket;
+        /// <summary>
+        /// 关闭短连接
+        /// </summary>
+        internal static readonly Action<CommandServerCallConcurrencyReadQueueNode> ServerCallConcurrencyReadQueueNodeCloseShortLink = CommandServerCallConcurrencyReadQueueNode.CloseShortLink;
         /// <summary>
         /// 获取命令服务套接字
         /// </summary>
@@ -1112,6 +1124,7 @@ namespace AutoCSer.Net.CommandServer
                                     MethodInfo setDeserializeMethod = ServerInterfaceController.CommandServerCallQueueNodeSetIsDeserialize.Method;
                                     MethodInfo socketIsCloseMethod = ServerInterfaceController.CommandServerCallQueueNodeSocketIsClose.Method;
                                     MethodInfo queueGetSocketMethod = ServerInterfaceController.ServerCallQueueNodeGetSocket.Method;
+                                    MethodInfo closeShortLinkMethod = ServerInterfaceController.ServerCallQueueNodeCloseShortLink.Method;
                                     MethodInfo queueNodeControllerMethod = getQueueNodeControllerMethod;
                                     FieldInfo queueField = queueFieldBuilders.notNull()[method.MethodAttribute.QueueIndex].Key;
                                     FieldInfo queueParameterField = method.IsLowPriorityQueue ? queueFieldBuilders.notNull()[method.MethodAttribute.QueueIndex].Value : queueField;
@@ -1195,6 +1208,10 @@ namespace AutoCSer.Net.CommandServer
                                         case ServerMethodTypeEnum.SendOnlyQueue:
                                         case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
                                         case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
+                                            #region AutoCSer.Net.CommandServerCallQueueNode.CloseShortLink(this);
+                                            asynchronousMethodGenerator.Emit(OpCodes.Ldarg_0);
+                                            asynchronousMethodGenerator.call(closeShortLinkMethod);
+                                            #endregion
                                             #region GetQueueNodeController(controller, this).X(ServerCallQueueNode.GetSocket(this), controller.Queue0, inputParameter.X);
                                             method.CallMethodParameter(asynchronousMethodGenerator, asynchronousControllerFieldBuilder, queueNodeControllerMethod, asynchronousControllerLocalBuilder
                                                 , queueGetSocketMethod, null, queueField, null, inputParameterFieldBuilder);
@@ -1401,6 +1418,7 @@ namespace AutoCSer.Net.CommandServer
                                     setDeserializeMethod = ServerInterfaceController.CommandServerCallConcurrencyReadQueueNodeSetIsDeserialize.Method;
                                     socketIsCloseMethod = ServerInterfaceController.CommandServerCallConcurrencyReadQueueNodeSocketIsClose.Method;
                                     queueGetSocketMethod = ServerInterfaceController.ServerCallConcurrencyReadQueueNodeGetSocket.Method;
+                                    closeShortLinkMethod = ServerInterfaceController.ServerCallConcurrencyReadQueueNodeCloseShortLink.Method;
                                     queueNodeControllerMethod = getConcurrencyReadQueueNodeControllerMethod;
                                     queueParameterField = queueField = method.MethodAttribute.IsControllerConcurrencyReadQueue ? concurrencyReadQueueField.notNull() : concurrencyReadQueueFieldBuilder.notNull();
                                     checkOfflineCountMethod = ServerInterfaceController.CommandServerCallConcurrencyReadQueueNodeCheckOfflineCount.Method;
@@ -1433,6 +1451,7 @@ namespace AutoCSer.Net.CommandServer
                                     setDeserializeMethod = ServerInterfaceController.CommandServerCallReadWriteQueueNodeSetIsDeserialize.Method;
                                     socketIsCloseMethod = ServerInterfaceController.CommandServerCallReadWriteQueueNodeSocketIsClose.Method;
                                     queueGetSocketMethod = ServerInterfaceController.ServerCallReadWriteQueueNodeGetSocket.Method;
+                                    closeShortLinkMethod = ServerInterfaceController.ServerCallReadWriteQueueNodeCloseShortLink.Method;
                                     queueNodeControllerMethod = getReadWriteQueueNodeControllerMethod;
                                     queueParameterField = queueField = method.MethodAttribute.IsControllerReadWriteQueue ? readWriteQueueField.notNull() : readWriteQueueFieldBuilder.notNull();
                                     checkOfflineCountMethod = ServerInterfaceController.CommandServerCallReadWriteQueueNodeCheckOfflineCount.Method;

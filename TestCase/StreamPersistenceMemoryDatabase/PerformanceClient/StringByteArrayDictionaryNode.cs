@@ -52,7 +52,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
             await test(synchronousNode.Value, nameof(StringByteArrayDictionaryNode.SetJsonSerialize), data, isReadWriteQueue);
             await test(synchronousNode.Value, nameof(StringByteArrayDictionaryNode.GetJsonSerialize), data, isReadWriteQueue);
             await test(synchronousNode.Value, nameof(StringByteArrayDictionaryNode.Remove), data, isReadWriteQueue);
-            await node.Value.Clear();
+            await node.Value.Renew(0);
             Console.WriteLine();
         }
         /// <summary>

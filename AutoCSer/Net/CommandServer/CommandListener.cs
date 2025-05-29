@@ -529,6 +529,10 @@ namespace AutoCSer.Net
         /// <param name="controller"></param>
         internal unsafe void Append(CommandServerController controller)
         {
+            if (Config.IsShortLink && controller.VerifyMethod != null && object.ReferenceEquals(controller, CommandListener.Null.Controller))
+            {
+                throw new Exception($"短连接服务不支持带验证方法的控制器 {controller.ControllerName}");
+            }
             bool isController = false;
             controllerLock.EnterSleepFlag();
             try

@@ -231,5 +231,65 @@ namespace AutoCSer.TestCase
             }
             return true;
         }
+        /// <summary>
+        /// 短连接命令客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ShortLinkTestCase()
+        {
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                CommandClientReturnValue<string> returnValue = await client.ClientTaskController.AsynchronousTaskReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!returnValue.IsSuccess || returnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                string returnValue = await client.ClientTaskController.AsynchronousTaskReturnAsync(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (returnValue == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                CommandClientReturnValue<string> returnValue = await client.ClientTaskController.TaskQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (!returnValue.IsSuccess || returnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ClientTaskController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                CommandClientReturnValue<string> returnValue = await client.ClientTaskController.TaskQueueException(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (returnValue.ReturnType != CommandClientReturnTypeEnum.ServerException)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            return true;
+        }
     }
 }

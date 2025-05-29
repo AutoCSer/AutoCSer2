@@ -161,6 +161,15 @@ namespace AutoCSer.Net
             return node.Socket;
         }
         /// <summary>
+        /// 关闭短连接
+        /// </summary>
+        /// <param name="node"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static void CloseShortLink(CommandServerCallQueueNode node)
+        {
+            node.Socket.CloseShortLink();
+        }
+        /// <summary>
         /// 发送成功返回值类型
         /// </summary>
         /// <param name="node"></param>

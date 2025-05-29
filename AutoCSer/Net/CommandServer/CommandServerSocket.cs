@@ -186,9 +186,9 @@ namespace AutoCSer.Net
         /// </summary>
         private ServerReceiveErrorTypeEnum receiveErrorType;
         /// <summary>
-        /// 是否触发套接字关闭操作
+        /// 是否短连接
         /// </summary>
-        private bool isCloseSocket;
+        public readonly bool IsShortLink;
 #pragma warning disable CS0169
         /// <summary>
         /// 填充隔离数据
@@ -250,6 +250,14 @@ namespace AutoCSer.Net
         private ReusableDictionary<CallbackIdentity, CommandServerKeepCallback> keepCallbacks;
 #endif
         /// <summary>
+        /// 短连接异步保持回调
+        /// </summary>
+#if NetStandard21
+        private CommandServerKeepCallback? shortLinkKeepCallback;
+#else
+        private CommandServerKeepCallback shortLinkKeepCallback;
+#endif
+        /// <summary>
         /// 输出数据二进制序列化
         /// </summary>
         internal BinarySerializer OutputSerializer;
@@ -297,6 +305,18 @@ namespace AutoCSer.Net
         /// 字符串二进制序列化直接复制内存数据
         /// </summary>
         private bool isSerializeCopyString;
+        /// <summary>
+        /// 是否触发套接字关闭操作
+        /// </summary>
+        private bool isCloseSocket;
+        /// <summary>
+        /// 是否需要关闭短连接
+        /// </summary>
+        private bool isCloseShortLink;
+        /// <summary>
+        /// 是否取消异步保持调用
+        /// </summary>
+        internal bool IsCancelKeepCallback;
 
         /// <summary>
         /// 空命令服务套接字，用于模拟服务端上下文
@@ -328,6 +348,7 @@ namespace AutoCSer.Net
         {
             this.Server = server;
             keepCallbackLock = this.socket = socket;
+            IsShortLink = server.Config.IsShortLink;
             buildOutputThreadEnum = server.Config.BuildOutputThread;
             isSerializeCopyString = server.Config.IsSerializeCopyString;
             buildOutputHandle = buildOutput;
@@ -626,7 +647,11 @@ namespace AutoCSer.Net
                             {
                                 socket.Dispose();
                             }
-                            finally { Server.SocketAsyncEventArgsPool.Push(receiveAsyncEventArgs); }
+                            finally
+                            {
+                                if (!IsShortLink) Server.SocketAsyncEventArgsPool.Push(receiveAsyncEventArgs);
+                                else receiveAsyncEventArgs.Dispose();
+                            }
                         }
                     }
                 }
@@ -669,6 +694,17 @@ namespace AutoCSer.Net
                             }
                         }
                     }
+                    if (shortLinkKeepCallback != null)
+                    {
+                        try
+                        {
+                            shortLinkKeepCallback.SetCancelKeep();
+                        }
+                        catch (Exception exception)
+                        {
+                            Server.Config.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
+                        }
+                    }
 
                     if (onClosedHashSet != null)
                     {
@@ -688,6 +724,23 @@ namespace AutoCSer.Net
                 }
             }
         }
+        /// <summary>
+        /// 关闭短连接
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void CloseShortLink()
+        {
+            if (IsShortLink) close();
+        }
+        ///// <summary>
+        ///// 关闭短连接
+        ///// </summary>
+        ///// <param name="socket"></param>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal static void CloseShortLink(CommandServerSocket socket)
+        //{
+        //    socket.CloseShortLink();
+        //}
         /// <summary>
         /// 移除关闭回调委托
         /// </summary>
@@ -844,6 +897,10 @@ namespace AutoCSer.Net
                         break;
                     case ServerReceiveTypeEnum.BigData:
                         if (isBigData()) return;
+                        break;
+                    case ServerReceiveTypeEnum.ShortLinkClose:
+                        if (receiveAsyncEventArgs.SocketError != SocketError.Success) receiveSocketError = receiveAsyncEventArgs.SocketError;
+                        else receiveErrorType = receiveAsyncEventArgs.BytesTransferred == 0 ? ServerReceiveErrorTypeEnum.ReceiceSizeLess : ServerReceiveErrorTypeEnum.ShortLinkDataSizeError;
                         break;
                 }
             }
@@ -1033,6 +1090,24 @@ namespace AutoCSer.Net
             ////return false;
         }
         /// <summary>
+        /// 等待短连接客户端关闭
+        /// </summary>
+        /// <returns></returns>
+        private bool isReceiveShortLinkClose()
+        {
+            if (!object.ReferenceEquals(outputHead, CommandServerConfig.NullServerOutput)) sendLink();
+            receiveType = ServerReceiveTypeEnum.ShortLinkClose;
+            receiveBuffer.CurrentIndex = receiveIndex = 0;
+            receiveAsyncEventArgs.SetBuffer(receiveBuffer.StartIndex, 1);
+            if (closeLock == 0)
+            {
+                if (socket.ReceiveAsync(receiveAsyncEventArgs)) return true;
+                if (receiveAsyncEventArgs.SocketError != SocketError.Success) receiveSocketError = receiveAsyncEventArgs.SocketError;
+                else receiveErrorType = receiveAsyncEventArgs.BytesTransferred == 0 ? ServerReceiveErrorTypeEnum.ReceiceSizeLess : ServerReceiveErrorTypeEnum.ShortLinkDataSizeError;
+            }
+            return false;
+        }
+        /// <summary>
         /// 获取命令
         /// </summary>
         /// <returns></returns>
@@ -1086,139 +1161,147 @@ namespace AutoCSer.Net
                 controller = Server.GetCommandController(ref commandMethodIndex);
                 if (object.ReferenceEquals(controller, CommandListener.Null.Controller))
                 {
-                    switch (CommandMethodIndex - CommandListener.MinMethodIndex)
+                    if (!IsShortLink)
                     {
-                        case CommandListener.MergeMethodIndex - CommandListener.MinMethodIndex:
-                            if (receiveSize >= sizeof(uint) + sizeof(int) * 2)
-                            {
-                                if ((transferDataSize = *(int*)(start + sizeof(uint))) > 0)
+                        switch (CommandMethodIndex - CommandListener.MinMethodIndex)
+                        {
+                            case CommandListener.MergeMethodIndex - CommandListener.MinMethodIndex:
+                                if (receiveSize >= sizeof(uint) + sizeof(int) * 2)
                                 {
-                                    if (transferDataSize <= Server.MaxMergeInputSize)
+                                    if ((transferDataSize = *(int*)(start + sizeof(uint))) > 0)
                                     {
-                                        receiveIndex += sizeof(int) + sizeof(uint);
-                                        dataSize = transferDataSize;
-                                        break;
-                                    }
-                                    receiveErrorType = ServerReceiveErrorTypeEnum.MergeDataSizeLimitError;
-                                    return false;
-                                }
-                                if ((dataSize = *(int*)(start + (sizeof(int) + sizeof(uint)))) > 0 && transferDataSize != 0)
-                                {
-                                    if (dataSize <= Server.MaxMergeInputSize)
-                                    {
-                                        transferDataSize = -transferDataSize;
-                                        receiveIndex += sizeof(int) * 2 + sizeof(uint);
-                                        break;
-                                    }
-                                    receiveErrorType = ServerReceiveErrorTypeEnum.MergeDataSizeLimitError;
-                                }
-                                else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
-                                //if ((dataSize = *(int*)(start + (sizeof(int) + sizeof(uint)))) > (transferDataSize = -transferDataSize) && transferDataSize != 0)
-                                //{
-                                //    if (dataSize <= Server.MaxMergeInputSize)
-                                //    {
-                                //        receiveIndex += sizeof(int) * 2 + sizeof(uint);
-                                //        break;
-                                //    }
-                                //    receiveErrorType = ServerReceiveErrorTypeEnum.MergeDataSizeLimitError;
-                                //}
-                                //else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
-                                return false;
-                            }
-                            goto COPY;
-                        case CommandListener.CustomDataMethodIndex - CommandListener.MinMethodIndex:
-                            if (receiveSize >= sizeof(uint) + sizeof(int) * 2)
-                            {
-                                if ((transferDataSize = *(int*)(start + sizeof(uint))) > 0)
-                                {
-                                    if (transferDataSize <= Server.MaxInputSize)
-                                    {
-                                        if ((customDataSize = *(int*)(start + (sizeof(uint) + sizeof(int)))) >= 0 && (uint)(transferDataSize - customDataSize) < 8)
+                                        if (transferDataSize <= Server.MaxMergeInputSize)
                                         {
+                                            receiveIndex += sizeof(int) + sizeof(uint);
                                             dataSize = transferDataSize;
-                                            receiveIndex += sizeof(uint) + sizeof(int) * 2;
                                             break;
                                         }
-                                        receiveErrorType = ServerReceiveErrorTypeEnum.CustomDataSizeError;
+                                        receiveErrorType = ServerReceiveErrorTypeEnum.MergeDataSizeLimitError;
+                                        return false;
                                     }
-                                    else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeLimitError;
+                                    if ((dataSize = *(int*)(start + (sizeof(int) + sizeof(uint)))) > 0 && transferDataSize != 0)
+                                    {
+                                        if (dataSize <= Server.MaxMergeInputSize)
+                                        {
+                                            transferDataSize = -transferDataSize;
+                                            receiveIndex += sizeof(int) * 2 + sizeof(uint);
+                                            break;
+                                        }
+                                        receiveErrorType = ServerReceiveErrorTypeEnum.MergeDataSizeLimitError;
+                                    }
+                                    else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
+                                    //if ((dataSize = *(int*)(start + (sizeof(int) + sizeof(uint)))) > (transferDataSize = -transferDataSize) && transferDataSize != 0)
+                                    //{
+                                    //    if (dataSize <= Server.MaxMergeInputSize)
+                                    //    {
+                                    //        receiveIndex += sizeof(int) * 2 + sizeof(uint);
+                                    //        break;
+                                    //    }
+                                    //    receiveErrorType = ServerReceiveErrorTypeEnum.MergeDataSizeLimitError;
+                                    //}
+                                    //else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
                                     return false;
                                 }
-                                if (receiveSize >= sizeof(uint) + sizeof(int) * 3)
+                                goto COPY;
+                            case CommandListener.CustomDataMethodIndex - CommandListener.MinMethodIndex:
+                                if (receiveSize >= sizeof(uint) + sizeof(int) * 2)
                                 {
-                                    if ((dataSize = *(int*)(start + (sizeof(uint) + sizeof(int)))) > 0 || transferDataSize != 0)
+                                    if ((transferDataSize = *(int*)(start + sizeof(uint))) > 0)
                                     {
-                                        if (dataSize <= Server.MaxInputSize)
+                                        if (transferDataSize <= Server.MaxInputSize)
                                         {
-                                            if ((customDataSize = *(int*)(start + (sizeof(uint) + sizeof(int) * 2))) >= 0 && (uint)(dataSize - customDataSize) < 8)
+                                            if ((customDataSize = *(int*)(start + (sizeof(uint) + sizeof(int)))) >= 0 && (uint)(transferDataSize - customDataSize) < 8)
                                             {
-                                                transferDataSize = -transferDataSize;
-                                                receiveIndex += sizeof(uint) + sizeof(int) * 3;
+                                                dataSize = transferDataSize;
+                                                receiveIndex += sizeof(uint) + sizeof(int) * 2;
                                                 break;
                                             }
                                             receiveErrorType = ServerReceiveErrorTypeEnum.CustomDataSizeError;
                                         }
                                         else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeLimitError;
+                                        return false;
                                     }
-                                    else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
-                                    //if ((dataSize = *(int*)(start + (sizeof(uint) + sizeof(int)))) > (transferDataSize = -transferDataSize) || transferDataSize != 0)
-                                    //{
-                                    //    if (dataSize <= Server.MaxInputSize)
-                                    //    {
-                                    //        if ((customDataSize = *(int*)(start + (sizeof(uint) + sizeof(int) * 2))) >= 0 && (uint)(dataSize - customDataSize) < 8)
-                                    //        {
-                                    //            receiveIndex += sizeof(uint) + sizeof(int) * 3;
-                                    //            break;
-                                    //        }
-                                    //        receiveErrorType = ServerReceiveErrorTypeEnum.CustomDataSizeError;
-                                    //    }
-                                    //    else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeLimitError;
-                                    //}
-                                    //else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
-                                    return false;
+                                    if (receiveSize >= sizeof(uint) + sizeof(int) * 3)
+                                    {
+                                        if ((dataSize = *(int*)(start + (sizeof(uint) + sizeof(int)))) > 0 || transferDataSize != 0)
+                                        {
+                                            if (dataSize <= Server.MaxInputSize)
+                                            {
+                                                if ((customDataSize = *(int*)(start + (sizeof(uint) + sizeof(int) * 2))) >= 0 && (uint)(dataSize - customDataSize) < 8)
+                                                {
+                                                    transferDataSize = -transferDataSize;
+                                                    receiveIndex += sizeof(uint) + sizeof(int) * 3;
+                                                    break;
+                                                }
+                                                receiveErrorType = ServerReceiveErrorTypeEnum.CustomDataSizeError;
+                                            }
+                                            else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeLimitError;
+                                        }
+                                        else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
+                                        //if ((dataSize = *(int*)(start + (sizeof(uint) + sizeof(int)))) > (transferDataSize = -transferDataSize) || transferDataSize != 0)
+                                        //{
+                                        //    if (dataSize <= Server.MaxInputSize)
+                                        //    {
+                                        //        if ((customDataSize = *(int*)(start + (sizeof(uint) + sizeof(int) * 2))) >= 0 && (uint)(dataSize - customDataSize) < 8)
+                                        //        {
+                                        //            receiveIndex += sizeof(uint) + sizeof(int) * 3;
+                                        //            break;
+                                        //        }
+                                        //        receiveErrorType = ServerReceiveErrorTypeEnum.CustomDataSizeError;
+                                        //    }
+                                        //    else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeLimitError;
+                                        //}
+                                        //else receiveErrorType = ServerReceiveErrorTypeEnum.DataSizeError;
+                                        return false;
+                                    }
                                 }
-                            }
-                            goto COPY;
-                        case CommandListener.ControllerMethodIndex - CommandListener.MinMethodIndex:
-                            Server.QueryController(this);
-                            receiveIndex += sizeof(uint);
-                            isCommand = false;
-                            goto START;
-                        case CommandListener.CheckMethodIndex - CommandListener.MinMethodIndex:
-                            receiveIndex += sizeof(uint);
-                            isCommand = false;
-                            goto START;
-                        case CommandListener.CancelKeepMethodIndex - CommandListener.MinMethodIndex:
-                            if (receiveSize >= sizeof(uint) + sizeof(CallbackIdentity))
+                                goto COPY;
+                            case CommandListener.ControllerMethodIndex - CommandListener.MinMethodIndex:
+                                Server.QueryController(this);
+                                receiveIndex += sizeof(uint);
+                                isCommand = false;
+                                goto START;
+                            case CommandListener.CheckMethodIndex - CommandListener.MinMethodIndex:
+                                receiveIndex += sizeof(uint);
+                                isCommand = false;
+                                goto START;
+                            case CommandListener.CancelKeepMethodIndex - CommandListener.MinMethodIndex:
+                                if (receiveSize >= sizeof(uint) + sizeof(CallbackIdentity))
+                                {
+                                    ClientCancelKeepCallback(*(CallbackIdentity*)(start + sizeof(int)));
+                                    receiveIndex += sizeof(uint) + sizeof(CallbackIdentity);
+                                    isCommand = false;
+                                    goto START;
+                                }
+                                goto COPY;
+                            default:
+                                receiveErrorType = ServerReceiveErrorTypeEnum.CommandError;
+                                return false;
+                        }
+                        if (transferDataSize <= receiveBuffer.CurrentIndex - receiveIndex)
+                        {
+                            if (doBaseCommand())
                             {
-                                ClientCancelKeepCallback(*(CallbackIdentity*)(start + sizeof(int)));
-                                receiveIndex += sizeof(uint) + sizeof(CallbackIdentity);
                                 isCommand = false;
                                 goto START;
                             }
-                            goto COPY;
-                        default:
-                            receiveErrorType = ServerReceiveErrorTypeEnum.CommandError;
                             return false;
-                    }
-                    if (transferDataSize <= receiveBuffer.CurrentIndex - receiveIndex)
-                    {
-                        if (doBaseCommand())
-                        {
-                            isCommand = false;
-                            goto START;
                         }
+                        bool isDoCommand = false;
+                        if (receiveData(ref isDoCommand))
+                        {
+                            if (isDoCommand)
+                            {
+                                isCommand = false;
+                                goto START;
+                            }
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        receiveErrorType = ServerReceiveErrorTypeEnum.ShortLinkCommandError;
                         return false;
-                    }
-                    bool isDoCommand = false;
-                    if (receiveData(ref isDoCommand))
-                    {
-                        if (isDoCommand)
-                        {
-                            isCommand = false;
-                            goto START;
-                        }
-                        return true;
                     }
                 }
                 else
@@ -1278,18 +1361,34 @@ namespace AutoCSer.Net
                             {
                                 SubArray<byte> data = new SubArray<byte>(0, 0, EmptyArray<byte>.Array);
                                 receiveIndex += headerSize;
-                                controllerDoCommand(ref data);
-                                isCommand = false;
-                                goto START;
+                                if (!IsShortLink)
+                                {
+                                    controllerDoCommand(ref data);
+                                    isCommand = false;
+                                    goto START;
+                                }
+                                if (receiveIndex == receiveBuffer.CurrentIndex)
+                                {
+                                    controllerDoCommand(ref data);
+                                    return isReceiveShortLinkClose();
+                                }
+                                receiveErrorType = ServerReceiveErrorTypeEnum.ShortLinkDataSizeError;
+                                return false;
                             }
                         CHECKDATA:
                             if (transferDataSize <= receiveBuffer.CurrentIndex - receiveIndex)
                             {
-                                if (doControllerCommand())
+                                if (!IsShortLink)
                                 {
-                                    isCommand = false;
-                                    goto START;
+                                    if (doControllerCommand())
+                                    {
+                                        isCommand = false;
+                                        goto START;
+                                    }
+                                    return false;
                                 }
+                                if (transferDataSize == receiveBuffer.CurrentIndex - receiveIndex) return doControllerCommand() && isReceiveShortLinkClose();
+                                receiveErrorType = ServerReceiveErrorTypeEnum.ShortLinkDataSizeError;
                                 return false;
                             }
                             bool isDoCommand = false;
@@ -1369,7 +1468,10 @@ namespace AutoCSer.Net
                         int receiveSize = receiveAsyncEventArgs.BytesTransferred;
                         if (transferDataSize <= (receiveBuffer.CurrentIndex += receiveSize) - receiveIndex)
                         {
-                            return isDoCommand = doCommand();
+                            if (!IsShortLink) return isDoCommand = doCommand();
+                            if (transferDataSize == receiveBuffer.CurrentIndex - receiveIndex) return doCommand() && isReceiveShortLinkClose();
+                            receiveErrorType = ServerReceiveErrorTypeEnum.ShortLinkDataSizeError;
+                            return false;
                         }
                         if (!checkReceiveSize(receiveSize)) return false;
                     }
@@ -1391,7 +1493,11 @@ namespace AutoCSer.Net
                 if (receiveAsyncEventArgs.SocketError == SocketError.Success)
                 {
                     int receiveSize = receiveAsyncEventArgs.BytesTransferred;
-                    if (transferDataSize == (receiveBigBuffer.CurrentIndex += receiveSize)) return isDoCommand = doCommandBig();
+                    if (transferDataSize == (receiveBigBuffer.CurrentIndex += receiveSize))
+                    {
+                        if (!IsShortLink) return isDoCommand = doCommandBig();
+                        return doCommandBig() && isReceiveShortLinkClose();
+                    }
                     if (!checkReceiveSize(receiveSize)) return false;
                 }
                 else
@@ -1418,7 +1524,10 @@ namespace AutoCSer.Net
                         fixed (byte* receiveDataFixed = receiveBuffer.GetFixedBuffer())
                         {
                             receiveDataStart = receiveDataFixed + receiveBuffer.StartIndex;
-                            return doCommand() && loop(false);
+                            if (!IsShortLink) return doCommand() && loop(false);
+                            if (transferDataSize == receiveBuffer.CurrentIndex - receiveIndex) return doCommand() && isReceiveShortLinkClose();
+                            receiveErrorType = ServerReceiveErrorTypeEnum.ShortLinkDataSizeError;
+                            return false;
                         }
                     }
                     if (checkReceiveSize(receiveSize))
@@ -1452,8 +1561,12 @@ namespace AutoCSer.Net
                         if (doCommandBig())
                         {
                             if (!object.ReferenceEquals(outputHead, CommandServerConfig.NullServerOutput)) sendLink();
-                            receiveType = ServerReceiveTypeEnum.Command;
-                            return socket.ReceiveAsync(receiveAsyncEventArgs) || isCommand();
+                            if (!IsShortLink)
+                            {
+                                receiveType = ServerReceiveTypeEnum.Command;
+                                return socket.ReceiveAsync(receiveAsyncEventArgs) || isCommand();
+                            }
+                            return isReceiveShortLinkClose();
                         }
                         return false;
                     }
@@ -1657,51 +1770,245 @@ namespace AutoCSer.Net
         /// <param name="data"></param>
         private void controllerDoCommand(ref SubArray<byte> data)
         {
-            if (!Method.IsOfflineCount) controller.DoCommandOnly(this, ref data);
-            else if (Server.IncrementOfflineCount())
+            if (!IsShortLink)
             {
+                if (!Method.IsOfflineCount)
+                {
+                    var exception = default(Exception);
+                    CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;
+                    try
+                    {
+                        returnType = controller.DoCommand(this, ref data);
+                    }
+                    catch (Exception catchException)
+                    {
+                        returnType = CommandClientReturnTypeEnum.ServerException;
+                        Server.Config.Log.ExceptionIgnoreException(exception = catchException, null, LogLevelEnum.AutoCSer | LogLevelEnum.Exception);
+                    }
+                    finally
+                    {
+                        if (returnType != CommandClientReturnTypeEnum.Success)
+                        {
+                            switch (Method.MethodType)
+                            {
+                                case ServerMethodTypeEnum.SendOnly:
+                                case ServerMethodTypeEnum.SendOnlyQueue:
+                                case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
+                                case ServerMethodTypeEnum.SendOnlyTask:
+                                case ServerMethodTypeEnum.SendOnlyTaskQueue:
+                                    break;
+                                case ServerMethodTypeEnum.KeepCallback:
+                                case ServerMethodTypeEnum.KeepCallbackCount:
+                                case ServerMethodTypeEnum.KeepCallbackQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                                case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                                case ServerMethodTypeEnum.KeepCallbackTask:
+                                case ServerMethodTypeEnum.KeepCallbackCountTask:
+                                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
+                                case ServerMethodTypeEnum.KeepCallbackTaskQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
+#if NetStandard21
+                                case ServerMethodTypeEnum.AsyncEnumerableTask:
+                                case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
+#endif
+                                    CancelKeepCallback(returnType, exception);
+                                    break;
+                                case ServerMethodTypeEnum.Task:
+                                    SendTask(returnType, exception);
+                                    break;
+                                default:
+                                    Send(returnType, exception);
+                                    break;
+                            }
+                        }
+                    }
+                }
+                else if (Server.IncrementOfflineCount())
+                {
+                    switch (Method.MethodType)
+                    {
+                        case ServerMethodTypeEnum.Callback:
+                        case ServerMethodTypeEnum.CallbackTask:
+                        case ServerMethodTypeEnum.Queue:
+                        case ServerMethodTypeEnum.SendOnlyQueue:
+                        case ServerMethodTypeEnum.CallbackQueue:
+                        case ServerMethodTypeEnum.KeepCallbackQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                        case ServerMethodTypeEnum.ConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.CallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.ReadWriteQueue:
+                        case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
+                        case ServerMethodTypeEnum.CallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                        case ServerMethodTypeEnum.Task:
+                        case ServerMethodTypeEnum.SendOnlyTask:
+                        case ServerMethodTypeEnum.KeepCallbackTask:
+                        case ServerMethodTypeEnum.KeepCallbackCountTask:
+                        case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
+                        case ServerMethodTypeEnum.TaskQueue:
+                        case ServerMethodTypeEnum.CallbackTaskQueue:
+                        case ServerMethodTypeEnum.SendOnlyTaskQueue:
+                        case ServerMethodTypeEnum.KeepCallbackTaskQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                        case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
+#if NetStandard21
+                        case ServerMethodTypeEnum.AsyncEnumerableTask:
+                        case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
+#endif
+                            OfflineCount = new OfflineCount();
+                            doCommandOfflineCount(ref data);
+                            OfflineCount = OfflineCount.Null;
+                            return;
+                        default: doCommandOfflineCount(ref data); return;
+                    }
+                }
+                else Send(CommandClientReturnTypeEnum.ServerOffline);
+            }
+            else
+            {
+                var exception = default(Exception);
+                CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;
                 switch (Method.MethodType)
                 {
-                    case ServerMethodTypeEnum.Callback:
-                    case ServerMethodTypeEnum.CallbackTask:
-                    case ServerMethodTypeEnum.Queue:
-                    case ServerMethodTypeEnum.SendOnlyQueue:
-                    case ServerMethodTypeEnum.CallbackQueue:
-                    case ServerMethodTypeEnum.KeepCallbackQueue:
-                    case ServerMethodTypeEnum.KeepCallbackCountQueue:
-                    case ServerMethodTypeEnum.ConcurrencyReadQueue:
-                    case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
-                    case ServerMethodTypeEnum.CallbackConcurrencyReadQueue:
-                    case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
-                    case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
-                    case ServerMethodTypeEnum.ReadWriteQueue:
-                    case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
-                    case ServerMethodTypeEnum.CallbackReadWriteQueue:
-                    case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
-                    case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
-                    case ServerMethodTypeEnum.Task:
-                    case ServerMethodTypeEnum.SendOnlyTask:
-                    case ServerMethodTypeEnum.KeepCallbackTask:
-                    case ServerMethodTypeEnum.KeepCallbackCountTask:
-                    case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
-                    case ServerMethodTypeEnum.TaskQueue:
-                    case ServerMethodTypeEnum.CallbackTaskQueue:
-                    case ServerMethodTypeEnum.SendOnlyTaskQueue:
-                    case ServerMethodTypeEnum.KeepCallbackTaskQueue:
-                    case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
-                    case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
+                    case ServerMethodTypeEnum.Unknown:
+                    case ServerMethodTypeEnum.VersionExpired:
+                    case ServerMethodTypeEnum.Synchronous:
+                    case ServerMethodTypeEnum.SendOnly:
+                        isCloseShortLink = true;
+                        break;
+                }
+                try
+                {
+                    returnType = controller.DoCommand(this, ref data);
+                }
+                catch (Exception catchException)
+                {
+                    returnType = CommandClientReturnTypeEnum.ServerException;
+                    Server.Config.Log.ExceptionIgnoreException(exception = catchException, null, LogLevelEnum.AutoCSer | LogLevelEnum.Exception);
+                }
+                finally
+                {
+                    try
+                    {
+                        if (returnType != CommandClientReturnTypeEnum.Success)
+                        {
+                            isCloseShortLink = true;
+                            switch (Method.MethodType)
+                            {
+                                case ServerMethodTypeEnum.Unknown:
+                                case ServerMethodTypeEnum.VersionExpired:
+                                case ServerMethodTypeEnum.SendOnly:
+                                case ServerMethodTypeEnum.SendOnlyQueue:
+                                case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
+                                case ServerMethodTypeEnum.SendOnlyTask:
+                                case ServerMethodTypeEnum.SendOnlyTaskQueue:
+                                    break;
+                                case ServerMethodTypeEnum.KeepCallback:
+                                case ServerMethodTypeEnum.KeepCallbackCount:
+                                case ServerMethodTypeEnum.KeepCallbackQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                                case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                                case ServerMethodTypeEnum.KeepCallbackTask:
+                                case ServerMethodTypeEnum.KeepCallbackCountTask:
+                                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
+                                case ServerMethodTypeEnum.KeepCallbackTaskQueue:
+                                case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
 #if NetStandard21
-                    case ServerMethodTypeEnum.AsyncEnumerableTask:
-                    case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
+                                case ServerMethodTypeEnum.AsyncEnumerableTask:
+                                case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
-                        OfflineCount = new OfflineCount();
-                        controller.DoCommandOfflineCount(this, ref data);
-                        OfflineCount = OfflineCount.Null;
-                        return;
-                    default: controller.DoCommandOfflineCount(this, ref data); return;
+                                    shortLinkKeepCallback?.CancelKeep(returnType, exception);
+                                    break;
+                                default: Send(CallbackIdentity, returnType, exception); break;
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if (isCloseShortLink) close();
+                    }
                 }
             }
-            else Send(CommandClientReturnTypeEnum.ServerOffline);
+        }
+        /// <summary>
+        /// 下线通知接口命令处理
+        /// </summary>
+        /// <param name="data"></param>
+        private void doCommandOfflineCount(ref SubArray<byte> data)
+        {
+            CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;
+            var exception = default(Exception);
+            try
+            {
+                returnType = controller.DoCommand(this, ref data);
+            }
+            catch (Exception catchException)
+            {
+                returnType = CommandClientReturnTypeEnum.ServerException;
+                Server.Config.Log.ExceptionIgnoreException(exception = catchException, null, LogLevelEnum.AutoCSer | LogLevelEnum.Exception);
+            }
+            finally
+            {
+                if (returnType == CommandClientReturnTypeEnum.Success)
+                {
+                    if (object.ReferenceEquals(OfflineCount, OfflineCount.Null)) Server.DecrementOfflineCount();
+                }
+                else
+                {
+                    if (object.ReferenceEquals(OfflineCount, OfflineCount.Null) || OfflineCount.Get() == 0) Server.DecrementOfflineCount();
+
+                    switch (Method.MethodType)
+                    {
+                        case ServerMethodTypeEnum.SendOnly:
+                        case ServerMethodTypeEnum.SendOnlyQueue:
+                        case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
+                        case ServerMethodTypeEnum.SendOnlyTask:
+                        case ServerMethodTypeEnum.SendOnlyTaskQueue:
+                            break;
+                        case ServerMethodTypeEnum.KeepCallback:
+                        case ServerMethodTypeEnum.KeepCallbackCount:
+                        case ServerMethodTypeEnum.KeepCallbackQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                        case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                        case ServerMethodTypeEnum.KeepCallbackTask:
+                        case ServerMethodTypeEnum.KeepCallbackCountTask:
+                        case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
+                        case ServerMethodTypeEnum.KeepCallbackTaskQueue:
+                        case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                        case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
+#if NetStandard21
+                        case ServerMethodTypeEnum.AsyncEnumerableTask:
+                        case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
+#endif
+                            CancelKeepCallback(returnType, exception);
+                            break;
+                        case ServerMethodTypeEnum.Task:
+                            SendTask(returnType, exception);
+                            break;
+                        default:
+                            Send(returnType, exception);
+                            break;
+                    }
+                }
+            }
         }
         /// <summary>
         /// 流合并命令处理
@@ -1870,7 +2177,8 @@ namespace AutoCSer.Net
                 {
                     this.sendAsyncEventArgs = CommandServerConfigBase.NullSocketAsyncEventArgs;
                     sendAsyncEventArgs.Completed -= onSendAsyncCallback;
-                    Server.SocketAsyncEventArgsPool.Push(sendAsyncEventArgs);
+                    if (!IsShortLink) Server.SocketAsyncEventArgsPool.Push(sendAsyncEventArgs);
+                    else sendAsyncEventArgs.Dispose();
                 }
             }
             catch (Exception exception)
@@ -1907,12 +2215,44 @@ namespace AutoCSer.Net
         /// </summary>
         private void output()
         {
-            switch (buildOutputThreadEnum)
+            if (!IsShortLink)
             {
-                case CommandServerSocketBuildOutputThreadEnum.Queue: queueOutput(); return;
-                case CommandServerSocketBuildOutputThreadEnum.Thread:
-                    AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(buildOutputHandle);
-                    return;
+                switch (buildOutputThreadEnum)
+                {
+                    case CommandServerSocketBuildOutputThreadEnum.Queue: queueOutput(); return;
+                    case CommandServerSocketBuildOutputThreadEnum.Thread:
+                        AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(buildOutputHandle);
+                        return;
+                    default: buildOutput(); return;
+                }
+            }
+            switch (Method.MethodType)
+            {
+                case ServerMethodTypeEnum.KeepCallback:
+                case ServerMethodTypeEnum.KeepCallbackCount:
+                case ServerMethodTypeEnum.KeepCallbackQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                case ServerMethodTypeEnum.KeepCallbackTask:
+                case ServerMethodTypeEnum.KeepCallbackCountTask:
+                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
+                case ServerMethodTypeEnum.KeepCallbackTaskQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
+#if NetStandard21
+                case ServerMethodTypeEnum.AsyncEnumerableTask:
+                case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
+#endif
+                    isCloseShortLink = false;
+                    switch (buildOutputThreadEnum)
+                    {
+                        case CommandServerSocketBuildOutputThreadEnum.Queue: queueOutput(); return;
+                        case CommandServerSocketBuildOutputThreadEnum.Thread: AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(buildOutputHandle); return;
+                        default: buildOutput(); return;
+                    }
                 default: buildOutput(); return;
             }
         }
@@ -2013,7 +2353,10 @@ namespace AutoCSer.Net
                     buildInfo.IsNewBuffer = setSendData(start, buildInfo.Count);
                     switch (send())
                     {
-                        case ServerSocketSendStateEnum.Asynchronous: return;
+                        case ServerSocketSendStateEnum.Asynchronous:
+                            isCloseShortLink = false;
+                            buildInfo.IsAsynchronous = true;
+                            return;
                         case ServerSocketSendStateEnum.Error: buildInfo.IsError = true; return;
                     }
                     if (buildOutputHead == null && outputs.IsEmpty) goto END;
@@ -2050,20 +2393,32 @@ namespace AutoCSer.Net
             }
             finally
             {
-                if (closeLock == 0)
+                if (!isCloseShortLink)
                 {
-                    if (buildInfo.IsError)
+                    if (closeLock == 0)
                     {
-                        sendError();
+                        if (!buildInfo.IsError)
+                        {
+                            if (IsShortLink && !buildInfo.IsAsynchronous) onSendShortLink();
+                        }
+                        else
+                        {
+                            sendError();
+                            ServerOutput.CancelLink(head);
+                            freeBuildOutput();
+                        }
+                    }
+                    else if (buildInfo.IsClose)
+                    {
+                        closeSend();
                         ServerOutput.CancelLink(head);
                         freeBuildOutput();
                     }
                 }
-                else if (buildInfo.IsClose)
+                else
                 {
-                    closeSend();
-                    ServerOutput.CancelLink(head);
-                    freeBuildOutput();
+                    isCloseShortLink = false;
+                    close();
                 }
             }
         }
@@ -2233,12 +2588,17 @@ namespace AutoCSer.Net
                             Interlocked.Exchange(ref isOutput, 0);
                             if (outputs.IsEmpty && buildOutputHead == null)
                             {
-                                if (closeLock != 0 && Interlocked.CompareExchange(ref isOutput, 1, 0) == 0)
+                                if (closeLock == 0)
                                 {
-                                    closeSend();
+                                    if (IsShortLink) onSendShortLink();
                                 }
+                                else
+                                {
+                                    if (Interlocked.CompareExchange(ref isOutput, 1, 0) == 0) closeSend();
+                                }
+                                return;
                             }
-                            else if (Interlocked.CompareExchange(ref isOutput, 1, 0) == 0)
+                            if (Interlocked.CompareExchange(ref isOutput, 1, 0) == 0)
                             {
                                 isFreeBuildOutput = true;
                                 buildOutput();
@@ -2260,6 +2620,36 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// 短连接发送数据以后检查是否需要关闭连接
+        /// </summary>
+        private void onSendShortLink()
+        {
+            switch (Method.MethodType)
+            {
+                case ServerMethodTypeEnum.KeepCallback:
+                case ServerMethodTypeEnum.KeepCallbackCount:
+                case ServerMethodTypeEnum.KeepCallbackQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                case ServerMethodTypeEnum.KeepCallbackTask:
+                case ServerMethodTypeEnum.KeepCallbackCountTask:
+                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
+                case ServerMethodTypeEnum.KeepCallbackTaskQueue:
+                case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
+#if NetStandard21
+                case ServerMethodTypeEnum.AsyncEnumerableTask:
+                case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
+#endif
+                    if (IsCancelKeepCallback) close();
+                    return;
+                default: close(); return;
+            }
+        }
+        /// <summary>
         /// 释放未处理套接字队列
         /// </summary>
         private void freeBuildOutput()
@@ -2277,6 +2667,7 @@ namespace AutoCSer.Net
         {
             if (!object.ReferenceEquals(outputHead, CommandServerConfig.NullServerOutput)) output.LinkNext = outputHead;
             else outputEnd = output;
+            isCloseShortLink = false;
             outputHead = output;
         }
         /// <summary>
@@ -2965,19 +3356,23 @@ namespace AutoCSer.Net
         {
             if (closeLock == 0)
             {
-                var removeKeepCallback = default(CommandServerKeepCallback);
-                Monitor.Enter(keepCallbackLock);
-                try
+                if (!IsShortLink)
                 {
-                    if (keepCallbacks == null) keepCallbacks = new ReusableDictionary<CallbackIdentity, CommandServerKeepCallback>(0, ReusableDictionaryGroupTypeEnum.Roll);
-                    keepCallbacks[keepCallback.CallbackIdentity] = keepCallback;
-                    if (Server.Config.MaxKeepCallbackCount > 0 && keepCallbacks.Count > Server.Config.MaxKeepCallbackCount) keepCallbacks.RemoveRoll(out removeKeepCallback);
+                    var removeKeepCallback = default(CommandServerKeepCallback);
+                    Monitor.Enter(keepCallbackLock);
+                    try
+                    {
+                        if (keepCallbacks == null) keepCallbacks = new ReusableDictionary<CallbackIdentity, CommandServerKeepCallback>(0, ReusableDictionaryGroupTypeEnum.Roll);
+                        keepCallbacks[keepCallback.CallbackIdentity] = keepCallback;
+                        if (Server.Config.MaxKeepCallbackCount > 0 && keepCallbacks.Count > Server.Config.MaxKeepCallbackCount) keepCallbacks.RemoveRoll(out removeKeepCallback);
+                    }
+                    finally
+                    {
+                        Monitor.Exit(keepCallbackLock);
+                        removeKeepCallback?.CancelKeep(CommandClientReturnTypeEnum.CancelKeepCallback);
+                    }
                 }
-                finally
-                {
-                    Monitor.Exit(keepCallbackLock);
-                    removeKeepCallback?.CancelKeep(CommandClientReturnTypeEnum.CancelKeepCallback);
-                }
+                else shortLinkKeepCallback = keepCallback;
             }
             else keepCallback.SetCancelKeep();
         }

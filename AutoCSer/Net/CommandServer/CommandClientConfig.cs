@@ -51,8 +51,8 @@ namespace AutoCSer.Net
         /// </summary>
         public byte VerifyErrorCount = 4;
         /// <summary>
-        /// Command pool initialization binary size, the maximum value is 16, the minimum value is 2, the default is 14 container size is 16384, open service recommended value is 3 Container size is 8
-        /// 命令池初始化二进制大小，最大值为 16，最小值为 2，默认为 14 容器大小为 16384，开放服务建议值为 3 容器大小为 8
+        /// Command pool initialization binary size, the maximum value is 16, the minimum value is 3, the default is 14 container size is 16384, open service recommended value is 3 Container size is 8
+        /// 命令池初始化二进制大小，最大值为 16，最小值为 3，默认为 14 容器大小为 16384，开放服务建议值为 3 容器大小为 8
         /// </summary>
         public byte CommandPoolBits = 14;
         /// <summary>

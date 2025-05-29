@@ -28,7 +28,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         Task<string> IServerTaskQueueController.TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue, int Value, int Ref)
         {
-            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
+            return Task.FromResult(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref).ToString());
         }
         Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue)
         {
@@ -38,7 +38,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         async Task IServerTaskQueueController.TaskQueue(CommandServerCallTaskQueue queue, int Value, int Ref)
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref);
         }
     }
 }

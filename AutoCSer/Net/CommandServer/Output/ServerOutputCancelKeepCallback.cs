@@ -55,6 +55,7 @@ namespace AutoCSer.Net.CommandServer
                     *(CallbackIdentity*)dataFixed = new CallbackIdentity((uint)KeepCallbackCommand.CancelKeepCallbackIndex | (uint)CallbackFlagsEnum.SendData);
                     *(int*)(dataFixed + sizeof(CallbackIdentity)) = dataLength;
                     ++buildInfo.Count;
+                    socket.IsCancelKeepCallback = true;
                     return LinkNext;
                 }
             }

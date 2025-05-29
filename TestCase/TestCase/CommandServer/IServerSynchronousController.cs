@@ -20,7 +20,7 @@ namespace AutoCSer.TestCase
         void SynchronousSocket(CommandServerSocket socket, int Value, ref int Ref, out long Out);
         void SynchronousSocket(CommandServerSocket socket, int Value, ref int Ref);
         void SynchronousSocket(CommandServerSocket socket, int Value, out long Out);
-        CommandServerVerifyStateEnum SynchronousSocket(CommandServerSocket socket, int Value);
+        void SynchronousSocket(CommandServerSocket socket, int Value);
         void SynchronousSocket(CommandServerSocket socket, ref int Ref, out long Out);
         void SynchronousSocket(CommandServerSocket socket, ref int Ref);
         void SynchronousSocket(CommandServerSocket socket, out long Out);
@@ -48,6 +48,10 @@ namespace AutoCSer.TestCase
     internal sealed class ServerSynchronousController : IServerSynchronousController
     {
         public static CommandServerSessionObject SessionObject { get; internal set; }
+        internal static CommandServerSessionObject GetSessionObject(CommandServerSocket socket)
+        {
+            return socket.IsShortLink ? SessionObject : (CommandServerSessionObject)socket.SessionObject;
+        }
         string IServerSynchronousController.SynchronousReturnSocket(CommandServerSocket socket, int Value, ref int Ref, out long Out)
         {
             return ((CommandServerSessionObject)socket.SessionObject).Xor(Value, ref Ref, out Out).ToString();
@@ -92,11 +96,10 @@ namespace AutoCSer.TestCase
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, out Out);
         }
-        CommandServerVerifyStateEnum IServerSynchronousController.SynchronousSocket(CommandServerSocket socket, int Value)
+        void IServerSynchronousController.SynchronousSocket(CommandServerSocket socket, int Value)
         {
             socket.SessionObject = SessionObject = new CommandServerSessionObject();
             SessionObject.Xor(Value);
-            return CommandServerVerifyStateEnum.Success;
         }
         void IServerSynchronousController.SynchronousSocket(CommandServerSocket socket, ref int Ref, out long Out)
         {
@@ -113,6 +116,7 @@ namespace AutoCSer.TestCase
         void IServerSynchronousController.SynchronousSocket(CommandServerSocket socket) { }
         string IServerSynchronousController.SynchronousReturn(int Value, ref int Ref, out long Out)
         {
+            if (SessionObject == null) SessionObject = new CommandServerSessionObject();
             return SessionObject.Xor(Value, ref Ref, out Out).ToString();
         }
         string IServerSynchronousController.SynchronousReturn(int Value, ref int Ref)

@@ -167,7 +167,9 @@ namespace AutoCSer.Net
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
-        internal CommandServerCallback(CommandServerSocket socket) : base(socket) { }
+        internal CommandServerCallback(CommandServerSocket socket) : base(socket)
+        {
+        }
         /// <summary>
         /// TCP 服务器端异步回调
         /// </summary>

@@ -195,5 +195,73 @@ namespace AutoCSer.TestCase.ServerBindContext
 
             return true;
         }
+        /// <summary>
+        /// 短连接命令客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ShortLinkTestCase()
+        {
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextClientKeepCallbackController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                using (CommandKeepCallback commandKeepCallback = await client.ServerBindContextClientKeepCallbackController.KeepCallbackReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkCallback))
+                {
+                    if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
+                    {
+                        return AutoCSer.Breakpoint.ReturnFalse();
+                    }
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextClientKeepCallbackController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                using (CommandKeepCallback commandKeepCallback = await client.ServerBindContextClientKeepCallbackController.KeepCallbackCountReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkCallback))
+                {
+                    if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
+                    {
+                        return AutoCSer.Breakpoint.ReturnFalse();
+                    }
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextClientKeepCallbackController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                using (CommandKeepCallback commandKeepCallback = await client.ServerBindContextClientKeepCallbackController.KeepCallbackQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkCallback))
+                {
+                    if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
+                    {
+                        return AutoCSer.Breakpoint.ReturnFalse();
+                    }
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextClientKeepCallbackController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                using (CommandKeepCallback commandKeepCallback = await client.ServerBindContextClientKeepCallbackController.KeepCallbackCountQueueReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next(), AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkCallback))
+                {
+                    if (!await AutoCSer.TestCase.ClientKeepCallbackController.WaitKeepCallback(commandKeepCallback))
+                    {
+                        return AutoCSer.Breakpoint.ReturnFalse();
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

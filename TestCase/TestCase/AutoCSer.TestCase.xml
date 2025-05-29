@@ -37,10 +37,11 @@
             是否 AOT 客户端测试
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.CommandServer.CreateCommandListener">
+        <member name="M:AutoCSer.TestCase.CommandServer.CreateCommandListener(System.Boolean)">
             <summary>
             创建测试服务端
             </summary>
+            <param name="isShortLink"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent">
@@ -194,13 +195,6 @@
             </summary>
             <param name="client">命令客户端</param>
         </member>
-        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.CallVerifyMethod(AutoCSer.Net.CommandClientController)">
-            <summary>
-            调用客户端验证函数
-            </summary>
-            <param name="controller"></param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.TestCase.IClientCallbackTaskController">
             <summary>
             客户端测试接口
@@ -245,6 +239,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientKeepCallbackController">
             <summary>
             客户端测试接口
@@ -263,6 +263,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientKeepCallbackTaskController">
             <summary>
             客户端测试接口
@@ -279,6 +285,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IClientConcurrencyReadQueueController">
@@ -309,6 +321,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientSendOnlyController">
             <summary>
             客户端测试接口
@@ -327,6 +345,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientSynchronousController">
             <summary>
             客户端测试接口
@@ -343,6 +367,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IClientTaskQueueContextController">
@@ -376,6 +406,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskQueueController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientTaskController">
             <summary>
             客户端测试接口
@@ -392,6 +428,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IDefinedDissymmetryClientController">
@@ -425,6 +467,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IDefinedDissymmetryServerController">
             <summary>
             服务端定义非对称测试接口
@@ -451,6 +499,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryServerController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IServerCallbackTaskController">
@@ -644,6 +698,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryServerController">
             <summary>
             服务端定义非对称测试接口（套接字上下文绑定服务端）
@@ -680,6 +740,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientKeepCallbackController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -696,6 +762,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientKeepCallbackTaskController">
@@ -716,6 +788,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientQueueController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -732,6 +810,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientSendOnlyController">
@@ -752,6 +836,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientSynchronousController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -768,6 +858,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientTaskController">
@@ -788,6 +884,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientTaskQueueController">
             <summary>
             命令客户端测试（套接字上下文绑定服务端）
@@ -799,6 +901,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskQueueController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedSymmetryController">
@@ -817,6 +925,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerCallbackTaskController">
@@ -1102,6 +1216,12 @@
             <summary>
             测试数据
             </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ShortLinkCommandServer.TestCase">
+            <summary>
+            命令服务测试
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode">
             <summary>

@@ -33,7 +33,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         string IServerQueueController.QueueReturn(CommandServerCallLowPriorityQueue queue, int Value, ref int Ref, out long Out)
         {
-            return ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, ref Ref, out Out).ToString();
+            return AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, ref Ref, out Out).ToString();
         }
         string IServerQueueController.QueueReturn(CommandServerCallLowPriorityQueue queue, int Value, ref int Ref)
         {
@@ -65,7 +65,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         void IServerQueueController.Queue(CommandServerCallQueue queue, int Value, ref int Ref, out long Out)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, ref Ref, out Out);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, ref Ref, out Out);
         }
         void IServerQueueController.Queue(CommandServerCallLowPriorityQueue queue, int Value, ref int Ref)
         {

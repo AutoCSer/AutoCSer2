@@ -62,6 +62,13 @@ namespace AutoCSer.CommandService.DeployTask
         /// </summary>
         public int CurrentIndex { get { return currentIndex; } }
         /// <summary>
+        /// 判断是否存在下一个子任务
+        /// </summary>
+        internal bool IsNextStep
+        {
+            get { return currentIndex < tasks.Length && !IsClosed; }
+        }
+        /// <summary>
         /// 是否已经启动任务
         /// </summary>
         private bool isStart;

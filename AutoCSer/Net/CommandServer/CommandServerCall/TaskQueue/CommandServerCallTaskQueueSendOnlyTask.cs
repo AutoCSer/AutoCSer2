@@ -32,6 +32,7 @@ namespace AutoCSer.Net
         private void onCompleted()
         {
             checkOfflineCount();
+            Socket.CloseShortLink();
             var exception = callTask.Exception;
             if (exception != null) Socket.Server.Config.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception);
         }

@@ -170,15 +170,6 @@ namespace AutoCSer.TestCase
         /// </summary>
         /// <param name="client">命令客户端</param>
         public CommandClientSocketEvent(ICommandClient client) : base(client) { }
-        /// <summary>
-        /// 调用客户端验证函数
-        /// </summary>
-        /// <param name="controller"></param>
-        /// <returns></returns>
-        public override Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> CallVerifyMethod(CommandClientController controller)
-        {
-            return getCompletedTask(((IClientSynchronousController)controller).SynchronousSocket(int.MinValue));
-        }
 #if AOT
         /// <summary>
         /// 没有找到服务端控制器名称通知

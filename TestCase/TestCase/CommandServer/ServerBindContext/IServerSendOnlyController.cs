@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         CommandServerSendOnly IServerSendOnlyController.SendOnly(int Value, int Ref)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref);
             return SendOnly();
         }
         public CommandServerSendOnly SendOnly()
@@ -40,7 +40,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         CommandServerSendOnly IServerSendOnlyController.SendOnlyQueue(CommandServerCallLowPriorityQueue queue, int Value, int Ref)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref);
             return SendOnly();
         }
         CommandServerSendOnly IServerSendOnlyController.SendOnlyQueue(CommandServerCallQueue queue)
@@ -50,7 +50,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTask(int Value, int Ref)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref);
             SendOnly();
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
@@ -62,7 +62,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         Task<CommandServerSendOnly> IServerSendOnlyController.SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(queue.Key, Ref);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(queue.Key, Ref);
             SendOnly();
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }

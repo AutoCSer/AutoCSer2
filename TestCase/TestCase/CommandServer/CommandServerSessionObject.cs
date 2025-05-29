@@ -77,14 +77,20 @@ namespace AutoCSer.TestCase
 #if !AOT
             if (Value != clientSessionObject.Value)
             {
+                //Console.WriteLine(Value);
+                //Console.WriteLine(clientSessionObject.Value);
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (Ref != clientSessionObject.Ref)
             {
+                //Console.WriteLine(Ref);
+                //Console.WriteLine(clientSessionObject.Ref);
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (Out != clientSessionObject.Out)
             {
+                //Console.WriteLine(Out);
+                //Console.WriteLine(clientSessionObject.Out);
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 #endif

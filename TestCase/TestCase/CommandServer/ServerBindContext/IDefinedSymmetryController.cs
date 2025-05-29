@@ -42,7 +42,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     {
         string IDefinedSymmetryController.SynchronousReturn(int Value, ref int Ref, out long Out)
         {
-            return ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, ref Ref, out Out).ToString();
+            return AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, ref Ref, out Out).ToString();
         }
         string IDefinedSymmetryController.SynchronousReturn(int Value, ref int Ref)
         {
@@ -74,7 +74,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         void IDefinedSymmetryController.Synchronous(int Value, ref int Ref, out long Out)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, ref Ref, out Out);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, ref Ref, out Out);
         }
         void IDefinedSymmetryController.Synchronous(int Value, ref int Ref)
         {
@@ -107,7 +107,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         Task<string> IDefinedSymmetryController.AsynchronousTaskReturn(int Value, int Ref)
         {
-            return Task.FromResult(((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref).ToString());
+            return Task.FromResult(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref).ToString());
         }
         Task<string> IDefinedSymmetryController.AsynchronousTaskReturn()
         {
@@ -115,7 +115,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         Task IDefinedSymmetryController.AsynchronousTask(int Value, int Ref)
         {
-            ((CommandServerSessionObject)Socket.SessionObject).Xor(Value, Ref);
+            AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, Ref);
             return AutoCSer.Common.CompletedTask;
         }
         Task IDefinedSymmetryController.AsynchronousTask()
@@ -284,6 +284,64 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
+            return true;
+        }
+        /// <summary>
+        /// 短连接命令客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ShortLinkTestCase()
+        {
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedSymmetryController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                int refValue = AutoCSer.Random.Default.Next();
+                long outValue;
+                string value = client.ServerBindContextDefinedSymmetryController.SynchronousReturn(AutoCSer.Random.Default.Next(), ref refValue, out outValue);
+                if (value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedSymmetryController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                int refValue = AutoCSer.Random.Default.Next();
+                long outValue;
+                client.ServerBindContextDefinedSymmetryController.Synchronous(AutoCSer.Random.Default.Next(), ref refValue, out outValue);
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedSymmetryController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                string value = await client.ServerBindContextDefinedSymmetryController.AsynchronousTaskReturn(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+                if (value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.ServerBindContextDefinedSymmetryController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                await client.ServerBindContextDefinedSymmetryController.AsynchronousTask(AutoCSer.Random.Default.Next(), AutoCSer.Random.Default.Next());
+            }
             return true;
         }
     }

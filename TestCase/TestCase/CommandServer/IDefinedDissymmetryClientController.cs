@@ -50,7 +50,7 @@ namespace AutoCSer.TestCase
             }
 
             CommandClientReturnValue<Data.ORM.ModelGeneric> returnValue = client.DefinedDissymmetryClientController.GetSocket();
-            if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(returnValue.Value))
+            if (!returnValue.IsSuccess || !ServerSynchronousController.SessionObject.Check(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -63,11 +63,77 @@ namespace AutoCSer.TestCase
             }
 
             returnValue = await client.DefinedDissymmetryClientController.GetSocketTask();
-            if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(returnValue.Value))
+            if (!returnValue.IsSuccess || !ServerSynchronousController.SessionObject.Check(returnValue.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
+            return true;
+        }
+        /// <summary>
+        /// 短连接命令客户端测试
+        /// </summary>
+        /// <returns></returns>
+        internal static async Task<bool> ShortLinkTestCase()
+        {
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.DefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create();
+                CommandClientReturnValue returnType = client.DefinedDissymmetryClientController.SetSocket(model);
+                if (!returnType.IsSuccess)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.DefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                CommandClientReturnValue<Data.ORM.ModelGeneric> returnValue = client.DefinedDissymmetryClientController.GetSocket();
+                if (!returnValue.IsSuccess || returnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.DefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                Data.ORM.ModelGeneric model = AutoCSer.RandomObject.Creator<Data.ORM.ModelGeneric>.Create();
+                CommandClientReturnValue returnType = await client.DefinedDissymmetryClientController.SetSocketTask(model);
+                if (!returnType.IsSuccess)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+            using (CommandClient commandClient = ShortLinkCommandServer.CreateCommandClient())
+            {
+                CommandClientSocketEvent client = await commandClient.GetSocketEvent<CommandClientSocketEvent>();
+                if (client?.DefinedDissymmetryClientController == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+
+                CommandClientReturnValue<Data.ORM.ModelGeneric> returnValue = await client.DefinedDissymmetryClientController.GetSocketTask();
+                if (!returnValue.IsSuccess || returnValue.Value == null)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
             return true;
         }
     }

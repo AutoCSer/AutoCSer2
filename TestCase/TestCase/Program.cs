@@ -60,9 +60,10 @@ namespace AutoCSer.TestCase
                 .Append<AutoCSer.CommandService.IStreamPersistenceMemoryDatabaseService>(databaseServiceConfig.Create())
                 .Append<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IReadWriteQueueService>(readWriteQueueDatabaseServiceConfig.Create())
                 .CreateCommandListener(commandServerConfig))
-            using (AutoCSer.Net.CommandListener commandListener = CommandServer.CreateCommandListener())
+            using (AutoCSer.Net.CommandListener commandListener = CommandServer.CreateCommandListener(false))
+            using (AutoCSer.Net.CommandListener shortLinkCommandListener = CommandServer.CreateCommandListener(true))
             {
-                if(!await databaseListener.Start())
+                if (!await databaseListener.Start())
                 {
                     ConsoleWriteQueue.WriteLine("内存数据库 RPC 服务启动失败。");
                     Console.ReadKey();
@@ -74,18 +75,25 @@ namespace AutoCSer.TestCase
                     Console.ReadKey();
                     return;
                 }
+                if (!await shortLinkCommandListener.Start())
+                {
+                    ConsoleWriteQueue.WriteLine("短连接测试 RPC 服务启动失败。");
+                    Console.ReadKey();
+                    return;
+                }
                 long streamPersistenceMemoryDatabaseCount = 2;
                 Type errorType = typeof(Program);
                 do
                 {
                     Task<bool> streamPersistenceMemoryDatabaseTask = streamPersistenceMemoryDatabaseCount > 0 ? StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase() : null;
-                    Task<bool> commandServerTask = CommandServer.IsAotClient ? null : CommandServer.TestCase();
+                    Task<bool> shortLinkCommandServerTask = CommandServer.IsAotClient ? null : ShortLinkCommandServer.TestCase();
                     Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
                     Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
                     Task<bool> binarySerializeTask = BinarySerialize.TestCase();
                     Task<bool> jsonTask = ThreadPool.TinyBackground.RunTask(Json.TestCase);
                     Task<bool> xmlTask = ThreadPool.TinyBackground.RunTask(Xml.TestCase);
-                    if (commandServerTask != null && !await commandServerTask) { errorType = typeof(CommandServer); break; }
+                    if (shortLinkCommandServerTask != null && !await shortLinkCommandServerTask) { errorType = typeof(ShortLinkCommandServer); break; }
+                    if (!CommandServer.IsAotClient && !await CommandServer.TestCase()) { errorType = typeof(CommandServer); break; }
                     if (!CommandServer.IsAotClient && !await CommandReverseServer.TestCase()) { errorType = typeof(CommandReverseServer); break; }
                     Task<bool> interfaceControllerTaskQueueTask = InterfaceControllerTaskQueue.TestCase();
                     if (!await binarySerializeTask) { errorType = typeof(BinarySerialize); break; }

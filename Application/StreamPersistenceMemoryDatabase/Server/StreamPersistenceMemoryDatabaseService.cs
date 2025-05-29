@@ -1358,6 +1358,7 @@ namespace AutoCSer.CommandService
                                 {
                                     persistenceStream.Write(outputData.Array, outputData.Start, outputData.Length);
                                     persistenceStream.Flush();
+                                    //持久化请求数据 Flush 到储存设备然后再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况
                                     PersistencePosition = persistenceStream.Position;
                                     if (Interlocked.Increment(ref serviceCallbackCount) == 1) serviceCallbackWait.Reset();
                                     serviceCallback.PersistencePosition = PersistencePosition;

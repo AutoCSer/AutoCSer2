@@ -173,13 +173,6 @@
             </summary>
             <param name="client">命令客户端</param>
         </member>
-        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.CallVerifyMethod(AutoCSer.Net.CommandClientController)">
-            <summary>
-            调用客户端验证函数
-            </summary>
-            <param name="controller"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.NotFoundControllerName(AutoCSer.Net.CommandClientSocket,System.String)">
             <summary>
             没有找到服务端控制器名称通知
@@ -220,6 +213,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IClientCallbackTaskController">
@@ -272,6 +271,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientKeepCallbackTaskController">
             <summary>
             客户端测试接口
@@ -293,6 +298,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientQueueController">
             <summary>
             客户端测试接口
@@ -312,6 +323,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IClientReadWriteQueueController">
@@ -343,6 +360,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientSynchronousController">
             <summary>
             客户端测试接口
@@ -364,6 +387,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IClientTaskController">
             <summary>
             客户端测试接口
@@ -383,6 +412,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IDefinedDissymmetryClientController">
@@ -420,6 +455,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.__ip0__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.TestCase.DefinedDissymmetryClientController.__ip0__)">
@@ -541,6 +582,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryServerController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IServerCallbackController">
@@ -672,6 +719,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientCallbackTaskController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -722,6 +775,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientKeepCallbackTaskController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -743,6 +802,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientQueueController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -762,6 +827,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientReadWriteQueueController">
@@ -793,6 +864,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientSynchronousController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -814,6 +891,12 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientTaskController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -833,6 +916,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryClientController">
@@ -870,6 +959,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.__ip0__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.__ip0__)">
@@ -991,6 +1086,12 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController.ShortLinkTestCase">
+            <summary>
+            短连接命令客户端测试
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerCallbackController">
@@ -6888,6 +6989,12 @@
             测试数据
             </summary>
         </member>
+        <member name="M:AutoCSer.TestCase.ShortLinkCommandServer.TestCase">
+            <summary>
+            命令服务测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.TestCase.Json.randomConfig">
             <summary>
             随机对象生成参数
@@ -9563,42 +9670,20 @@
             客户端测试接口 客户端控制器
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip24__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.TestCase.ClientSynchronousClientController.__ip24__@)">
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip23__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.TestCase.ClientSynchronousClientController.__ip23__@)">
             <summary>
             简单序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip24__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip23__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
             简单序列化
             </summary>
             <param name="__stream__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip24__.SimpleSerialize">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op24__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__op24__@,System.Byte*)">
-            <summary>
-            简单反序列化
-            </summary>
-            <param name="start"></param>
-            <param name="value"></param>
-            <param name="end"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op24__.simpleDeserialize(System.Byte*,System.Byte*)">
-            <summary>
-            简单反序列化
-            </summary>
-            <param name="__start__"></param>
-            <param name="__end__"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op24__.SimpleSerialize">
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip23__.SimpleSerialize">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
@@ -9625,24 +9710,6 @@
             代码生成调用激活 AOT 反射
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip22__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.TestCase.ClientSynchronousClientController.__ip22__@)">
-            <summary>
-            简单序列化
-            </summary>
-            <param name="stream"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip22__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
-            <summary>
-            简单序列化
-            </summary>
-            <param name="__stream__"></param>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip22__.SimpleSerialize">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op22__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__op22__@,System.Byte*)">
             <summary>
             简单反序列化
@@ -9665,28 +9732,6 @@
             代码生成调用激活 AOT 反射
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op20__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__op20__@,System.Byte*)">
-            <summary>
-            简单反序列化
-            </summary>
-            <param name="start"></param>
-            <param name="value"></param>
-            <param name="end"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op20__.simpleDeserialize(System.Byte*,System.Byte*)">
-            <summary>
-            简单反序列化
-            </summary>
-            <param name="__start__"></param>
-            <param name="__end__"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op20__.SimpleSerialize">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
         <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip21__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.TestCase.ClientSynchronousClientController.__ip21__@)">
             <summary>
             简单序列化
@@ -9700,7 +9745,12 @@
             </summary>
             <param name="__stream__"></param>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip21__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__ip21__@,System.Byte*)">
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip21__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op21__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__op21__@,System.Byte*)">
             <summary>
             简单反序列化
             </summary>
@@ -9709,7 +9759,7 @@
             <param name="end"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip21__.simpleDeserialize(System.Byte*,System.Byte*)">
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op21__.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
             简单反序列化
             </summary>
@@ -9717,7 +9767,64 @@
             <param name="__end__"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip21__.SimpleSerialize">
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op21__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op19__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__op19__@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op19__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op19__.SimpleSerialize">
+            <summary>
+            代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip20__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.TestCase.ClientSynchronousClientController.__ip20__@)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip20__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            简单序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip20__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__ip20__@,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip20__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            简单反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__ip20__.SimpleSerialize">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
@@ -9762,28 +9869,6 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op29__.SimpleSerialize">
-            <summary>
-            代码生成调用激活 AOT 反射
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op0__.SimpleDeserialize(System.Byte*,AutoCSer.TestCase.ClientSynchronousClientController.__op0__@,System.Byte*)">
-            <summary>
-            简单反序列化
-            </summary>
-            <param name="start"></param>
-            <param name="value"></param>
-            <param name="end"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op0__.simpleDeserialize(System.Byte*,System.Byte*)">
-            <summary>
-            简单反序列化
-            </summary>
-            <param name="__start__"></param>
-            <param name="__end__"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.ClientSynchronousClientController.__op0__.SimpleSerialize">
             <summary>
             代码生成调用激活 AOT 反射
             </summary>
