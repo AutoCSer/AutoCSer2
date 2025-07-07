@@ -1,4 +1,4 @@
-﻿# AutoCSer [English](https://github.com/AutoCSer/AutoCSer2/blob/master/README.Eng.md)
+﻿# AutoCSer - [English](https://github.com/AutoCSer/AutoCSer2/blob/master/README.Eng.md)
 AutoCSer 是一个 C# 实现的分布式应用基础设施框架，其核心是基于 TCP 长连接实现的**全双工 RPC 组件**，具有**高并发**、**高吞吐**等**高性能**特性，客户端提供 [.NET NativeAOT 支持](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.md)。  
 AutoCSer RPC 在轻量级 API 的高并发实战环境中，单节点可提供 **100W+/s 以上**的 QPS 吞吐性能，[测试吞吐性能](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/CommandServerPerformance)超过 [.NET gRPC](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/ThirdParty/GrpcClientPerformance) **一个数量级**。  
 基于 AutoCSer RPC 实现的**支持面向对象编程**的[内存数据库](https://github.com/AutoCSer/AutoCSer2/tree/main/Application/StreamPersistenceMemoryDatabase)，支持传统数据库级别的**可靠持久化**，持久化 API 具有天然的**事务特性**，**本地嵌入模式**[支持 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.md) 可满足高性能游戏局内服务需求。  
