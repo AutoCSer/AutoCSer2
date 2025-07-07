@@ -133,6 +133,7 @@ namespace AutoCSer
             indexData = (indexData & (uint.MaxValue ^ (RemoveMarkHashSetCapacity.MaxCapacity << 20))) | ((uint)source << 20) | 0x40000000U;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -144,6 +145,7 @@ namespace AutoCSer
             HashCode = hashCode;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -155,6 +157,7 @@ namespace AutoCSer
             HashCode = hashCode;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -166,6 +169,7 @@ namespace AutoCSer
             HashCode = hashCode;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -214,6 +218,7 @@ namespace AutoCSer
             HashIndex = new RemoveMarkHashNode(hashCode, indexData);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="value"></param>
@@ -226,6 +231,7 @@ namespace AutoCSer
             HashIndex.SetNode(source, hashCode);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="value"></param>
@@ -238,6 +244,7 @@ namespace AutoCSer
             HashIndex.SetNextNode(source, hashCode);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="value"></param>
@@ -250,6 +257,7 @@ namespace AutoCSer
             HashIndex.SetRemoveNode(source, hashCode);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="value"></param>

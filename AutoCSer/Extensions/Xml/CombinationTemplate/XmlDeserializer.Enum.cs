@@ -68,10 +68,12 @@ namespace AutoCSer
             AutoCSer.Xml.EnumULongDeserialize<T>.DeserializeFlags(deserializer, ref value);
         }
         /// <summary>
+        /// Deserialization of enumeration values
         /// 枚举值反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo EnumULongMethod;
         /// <summary>
+        /// Deserialization of enumeration values
         /// 枚举值反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo EnumFlagsULongMethod;
@@ -99,7 +101,7 @@ namespace AutoCSer.Xml
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(XmlDeserializer deserializer, ref T value)
         {
@@ -109,7 +111,7 @@ namespace AutoCSer.Xml
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         public static void DeserializeFlags(XmlDeserializer deserializer, ref T value)
         {
             if (!deserializer.TryDeserializeEnumULong(ref value))

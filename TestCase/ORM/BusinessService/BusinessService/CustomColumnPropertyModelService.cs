@@ -1,6 +1,5 @@
 ﻿using AutoCSer.Metadata;
 using AutoCSer.TestCase.Common.Data;
-using AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum;
 using AutoCSer.TestCase.CommonModel.TableModel.CustomColumn;
 using System;
 using System.Threading.Tasks;
@@ -10,8 +9,8 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 自定义属性列测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(CustomColumnPropertyModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
-    public interface ICustomColumnPropertyModelService : IPrimaryKeyService<CustomColumnPropertyModel, AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel, AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey>
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
+    public partial interface ICustomColumnPropertyModelService : IPrimaryKeyService<CustomColumnPropertyModel, AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel, AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey>
     {
         /// <summary>
         /// 自定义列查询测试
@@ -25,16 +24,17 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class CustomColumnPropertyModelService : ICustomColumnPropertyModelService
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         public async Task<CustomColumnPropertyModel> Get(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey key)
         {
             return await CustomColumnPropertyModel.Get(key);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

@@ -7,7 +7,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 超时检查定时
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     /// <typeparam name="IT">消息处理节点接口类型</typeparam>
     internal sealed class MessageNodeCheckTimer<T, IT> : AutoCSer.Threading.SecondTimerArrayNode
         where IT : class, IMessageNode<T>
@@ -15,7 +16,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 超时检查定时
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     internal sealed class MessageNodeCheckTimer<T> : AutoCSer.Threading.SecondTimerArrayNode
 #endif
          where T : Message<T>

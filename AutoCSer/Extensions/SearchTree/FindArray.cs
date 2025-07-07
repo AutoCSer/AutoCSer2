@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.SearchTree
 {
     /// <summary>
+    /// Search for data
     /// 查找数据
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -15,11 +16,12 @@ namespace AutoCSer.SearchTree
         /// </summary>
         internal Func<T, bool> IsValue;
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         internal LeftArray<T> Array;
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

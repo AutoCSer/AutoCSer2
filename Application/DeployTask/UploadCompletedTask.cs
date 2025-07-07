@@ -35,6 +35,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// </summary>
         public StepTaskData StepTaskData { get { return new StepTaskData(StepTypeEnum.UploadCompleted, this); } }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <returns></returns>

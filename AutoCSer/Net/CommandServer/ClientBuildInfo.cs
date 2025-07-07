@@ -56,6 +56,7 @@ namespace AutoCSer.Net.CommandServer
             return count;
         }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

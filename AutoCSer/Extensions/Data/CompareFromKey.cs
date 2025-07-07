@@ -5,7 +5,8 @@ namespace AutoCSer.Data
     /// <summary>
     /// 逆序排序关键字
     /// </summary>
-    /// <typeparam name="T">关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type
+    /// 关键字类型</typeparam>
     [RemoteType]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CompareFromKey<T> : IComparable<CompareFromKey<T>>
@@ -22,19 +23,19 @@ namespace AutoCSer.Data
         /// <summary>
         /// 逆序排序关键字
         /// </summary>
-        /// <param name="value">关键字</param>
+        /// <param name="value">keyword</param>
         public CompareFromKey(T value)
         {
             this.value = value;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static implicit operator CompareFromKey<T>(T value) { return new CompareFromKey<T>(value); }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

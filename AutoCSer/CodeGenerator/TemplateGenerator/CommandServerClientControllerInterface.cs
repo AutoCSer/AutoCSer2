@@ -135,7 +135,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         protected override Task nextCreate()
         {
             if (!CurrentType.Type.IsInterface || !CurrentAttribute.IsCodeGeneratorClientInterface) return AutoCSer.Common.CompletedTask;
-            ServerInterfaceMethod[] methods = new ServerInterface(CurrentType.Type, null).Methods;
+            ServerInterfaceMethod[] methods = new ServerInterface(CurrentType.Type, null, null, true).Methods;
             if (methods == null || methods.Length == 0) return AutoCSer.Common.CompletedTask;
             Methods = methods.getArray(p => new ControllerMethod(p));
 

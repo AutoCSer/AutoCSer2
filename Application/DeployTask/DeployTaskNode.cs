@@ -28,6 +28,7 @@ namespace AutoCSer.CommandService
         /// </summary>
         private long currentIdentity;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<long> IEnumerableSnapshot<long>.SnapshotEnumerable { get { return new SnapshotGetValue<long>(getCurrentIdentity); } }
@@ -41,9 +42,11 @@ namespace AutoCSer.CommandService
             tasks = DictionaryCreator.CreateLong<TaskBuilder>();
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override IDeployTaskNode? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -76,7 +79,8 @@ namespace AutoCSer.CommandService
             removeTime = AutoCSer.Threading.SecondTimer.UtcNow.AddDays(1);
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
@@ -84,20 +88,27 @@ namespace AutoCSer.CommandService
             tasks.Clear();
         }
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         public int GetSnapshotCapacity(ref object customObject)
         {
             return tasks.Count + 1;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         public SnapshotResult<TaskData> GetSnapshotResult(TaskData[] snapshotArray, object customObject)
         {
             SnapshotResult<TaskData> result = new SnapshotResult<TaskData>(snapshotArray.Length);
@@ -105,9 +116,10 @@ namespace AutoCSer.CommandService
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(TaskData value)
         {
             tasks.Add(value.Identity, new TaskBuilder(this, value));
@@ -121,17 +133,20 @@ namespace AutoCSer.CommandService
             return currentIdentity;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSetIdentity(long value)
         {
             currentIdentity = value;
         }
         /// <summary>
+        /// Create a task
         /// 创建任务
         /// </summary>
-        /// <returns>任务标识ID</returns>
+        /// <returns>Task identity
+        /// 任务标识ID</returns>
         public long Create()
         {
             long identity = ++currentIdentity;
@@ -141,10 +156,13 @@ namespace AutoCSer.CommandService
             return identity;
         }
         /// <summary>
-        /// 启动任务
+        /// Start the task (Initialize and load the persistent data)
+        /// 启动任务（初始化加载持久化数据）
         /// </summary>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="startTime">运行任务时间</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="startTime">The Utc time for running the task
+        /// 运行任务 Utc 时间</param>
         /// <returns></returns>
         public OperationStateEnum StartLoadPersistence(long identity, DateTime startTime)
         {
@@ -153,10 +171,13 @@ namespace AutoCSer.CommandService
             return OperationStateEnum.Unknown;
         }
         /// <summary>
+        /// Start the task
         /// 启动任务
         /// </summary>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="startTime">运行任务时间 Utc</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="startTime">The Utc time for running the task
+        /// 运行任务 Utc 时间</param>
         /// <returns></returns>
         public OperationStateEnum Start(long identity, DateTime startTime)
         {
@@ -165,10 +186,13 @@ namespace AutoCSer.CommandService
             return OperationStateEnum.NotFoundTask;
         }
         /// <summary>
+        /// Add a sub-task
         /// 添加子任务
         /// </summary>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="task">执行程序任务</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="task">The task of executing a program
+        /// 执行程序任务</param>
         /// <returns></returns>
         public OperationStateEnum AppendStepTask(long identity, StepTaskData task)
         {
@@ -177,10 +201,13 @@ namespace AutoCSer.CommandService
             return OperationStateEnum.NotFoundTask;
         }
         /// <summary>
+        /// Get the callback log of the status change of the published task
         /// 获取发布任务状态变更回调日志
         /// </summary>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="callback">任务状态变更回调委托</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="callback">Callback delegate for task state changes
+        /// 任务状态变更回调委托</param>
         public void GetLog(long identity, MethodKeepCallback<DeployTaskLog> callback)
         {
             bool isCallback = false;
@@ -197,10 +224,13 @@ namespace AutoCSer.CommandService
             }
         }
         /// <summary>
-        /// 移除已结束或者未开始任务
+        /// Remove completed or un-started task (Initialize and load the persistent data)
+        /// 移除已结束或者未开始任务（初始化加载持久化数据）
         /// </summary>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="closeTime">关闭任务时间</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="closeTime">The Utc time for closing the task
+        /// 关闭任务 Utc 时间</param>
         /// <returns></returns>
         public OperationStateEnum RemoveLoadPersistence(long identity, DateTime closeTime)
         {
@@ -214,10 +244,13 @@ namespace AutoCSer.CommandService
             return OperationStateEnum.NotFoundTask;
         }
         /// <summary>
+        /// Remove completed or un-started task
         /// 移除已结束或者未开始任务
         /// </summary>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="closeTime">关闭任务时间</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="closeTime">The Utc time for closing the task
+        /// 关闭任务 Utc 时间</param>
         /// <returns></returns>
         public OperationStateEnum Remove(long identity, DateTime closeTime)
         {
@@ -231,10 +264,13 @@ namespace AutoCSer.CommandService
             return OperationStateEnum.NotFoundTask;
         }
         /// <summary>
+        /// Close the task
         /// 关闭任务
         /// </summary>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="closeTime">关闭任务时间</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="closeTime">The Utc time for closing the task
+        /// 关闭任务 Utc 时间</param>
         public void Close(long identity, DateTime closeTime)
         {
             var builder = default(TaskBuilder);

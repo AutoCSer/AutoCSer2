@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 namespace AutoCSer.Extensions
 {
     /// <summary>
-    /// 栈节点（后进先出）扩展操作
+    /// Stack client node (Last in, First Out) expansion operation
+    /// 栈客户端节点（后进先出）扩展操作
     /// </summary>
     public static class ByteArrayStackNodeClientNodeExtension
     {
         /// <summary>
+        /// Add the data to the stack
         /// 将数据添加到栈
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -27,6 +29,7 @@ namespace AutoCSer.Extensions
             return node.Push(ServerByteArray.BinarySerialize(value));
         }
         /// <summary>
+        /// Add the data to the stack
         /// 将数据添加到栈
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -44,10 +47,12 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
+        /// Pop a piece of data from the stack
         /// 从栈中弹出一个数据
         /// </summary>
         /// <param name="node"></param>
-        /// <returns>没有可弹出数据则返回无数据</returns>
+        /// <returns>If there is no pop-up data, no data will be returned
+        /// 没有可弹出数据则返回无数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static StringResponseParameterAwaiter TryPopString(this IByteArrayStackNodeClientNode node)
         {
@@ -56,10 +61,12 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Pop a piece of data from the stack
         /// 从栈中弹出一个数据
         /// </summary>
         /// <param name="node"></param>
-        /// <returns>没有可弹出数据则返回无数据</returns>
+        /// <returns>If there is no pop-up data, no data will be returned
+        /// 没有可弹出数据则返回无数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static BinarySerializeResponseParameterValueResultAwaiter<T> TryPopBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {
@@ -68,10 +75,12 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Pop a piece of data from the stack
         /// 从栈中弹出一个数据
         /// </summary>
         /// <param name="node"></param>
-        /// <returns>没有可弹出数据则返回无数据</returns>
+        /// <returns>If there is no pop-up data, no data will be returned
+        /// 没有可弹出数据则返回无数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static JsonResponseParameterAwaiter<T> TryPopJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {
@@ -81,10 +90,12 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
+        /// Get the next popped data in the stack (no popped data, only view)
         /// 获取栈中下一个弹出数据（不弹出数据仅查看）
         /// </summary>
         /// <param name="node"></param>
-        /// <returns>没有可弹出数据则返回无数据</returns>
+        /// <returns>If there is no pop-up data, no data will be returned
+        /// 没有可弹出数据则返回无数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static StringResponseParameterAwaiter TryPeekString(this IByteArrayStackNodeClientNode node)
         {
@@ -93,10 +104,12 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Get the next popped data in the stack (no popped data, only view)
         /// 获取栈中下一个弹出数据（不弹出数据仅查看）
         /// </summary>
         /// <param name="node"></param>
-        /// <returns>没有可弹出数据则返回无数据</returns>
+        /// <returns>If there is no pop-up data, no data will be returned
+        /// 没有可弹出数据则返回无数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static BinarySerializeResponseParameterValueResultAwaiter<T> TryPeekBinaryDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {
@@ -105,10 +118,12 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Get the next popped data in the stack (no popped data, only view)
         /// 获取栈中下一个弹出数据（不弹出数据仅查看）
         /// </summary>
         /// <param name="node"></param>
-        /// <returns>没有可弹出数据则返回无数据</returns>
+        /// <returns>If there is no pop-up data, no data will be returned
+        /// 没有可弹出数据则返回无数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static JsonResponseParameterAwaiter<T> TryPeekJsonDeserialize<T>(this IByteArrayStackNodeClientNode node)
         {

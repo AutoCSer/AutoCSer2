@@ -6,8 +6,9 @@ namespace AutoCSer.SearchTree
     /// <summary>
     /// 设置节点数据
     /// </summary>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct SetRemoveValue<KT, VT>
          where KT : IComparable<KT>
@@ -17,10 +18,12 @@ namespace AutoCSer.SearchTree
         /// </summary>
         internal readonly KT Key;
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         internal readonly VT Value;
         /// <summary>
+        /// Binary search tree dictionary node
         /// 二叉搜索树字典节点
         /// </summary>
         internal Dictionary<KT, VT>.Node Node
@@ -38,8 +41,8 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 设置节点数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">数据</param>
+        /// <param name="key">keyword</param>
+        /// <param name="value">data</param>
         internal SetRemoveValue(KT key, VT value)
         {
             Key = key;
@@ -48,6 +51,7 @@ namespace AutoCSer.SearchTree
             IsRemove = false;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="value">被移除数据</param>

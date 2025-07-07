@@ -12,7 +12,7 @@ namespace AutoCSer
         /// 数据转换
         /// </summary>
         /// <param name="serializer"></param>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, char value)
         {
@@ -21,7 +21,7 @@ namespace AutoCSer
         /// <summary>
         /// 数据转换
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void XmlSerialize(char? value)
         {
@@ -31,7 +31,7 @@ namespace AutoCSer
         /// 数据转换
         /// </summary>
         /// <param name="serializer"></param>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(XmlSerializer serializer, char? value)
         {

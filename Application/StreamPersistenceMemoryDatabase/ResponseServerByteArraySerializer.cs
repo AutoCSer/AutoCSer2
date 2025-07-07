@@ -3,11 +3,13 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 返回服务端字节数组序列化
+    /// Server-side byte array serialization
+    /// 服务端字节数组序列化
     /// </summary>
     public sealed class ResponseServerByteArraySerializer : ResponseParameterSerializer
     {
         /// <summary>
+        /// Server-side byte array
         /// 服务端字节数组
         /// </summary>
 #if NetStandard21
@@ -16,7 +18,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly byte[] buffer;
 #endif
         /// <summary>
-        /// 返回服务端字节数组序列化
+        /// Server-side byte array serialization
+        /// 服务端字节数组序列化
         /// </summary>
         /// <param name="buffer"></param>
 #if NetStandard21
@@ -28,9 +31,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.buffer = buffer;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">服务端字节数组</param>
+        /// <param name="value">Server-side byte array
+        /// 服务端字节数组</param>
         /// <returns></returns>
 #if NetStandard21
         public static implicit operator ResponseServerByteArraySerializer(byte[]? value)
@@ -46,6 +50,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return Null;
         }
         /// <summary>
+        /// Serialization
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -54,10 +59,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             serializer.SerializeBuffer(buffer);
         }
         /// <summary>
+        /// Deserialization
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <returns>目标对象</returns>
+        /// <returns>Target object</returns>
 #if NetStandard21
         internal override object? Deserialize(AutoCSer.BinaryDeserializer deserializer)
 #else
@@ -67,11 +73,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             throw new InvalidOperationException();
         }
         /// <summary>
-        /// null 字节数组
+        /// A null byte array
+        /// null 的字节数组
         /// </summary>
         public static readonly ResponseServerByteArraySerializer Null = new ResponseServerByteArraySerializer(null);
         /// <summary>
-        /// 0 字节数组
+        /// The byte array of the 0-length array
+        /// 0 长度数组的字节数组
         /// </summary>
         public static readonly ResponseServerByteArraySerializer EmptyArray = new ResponseServerByteArraySerializer(EmptyArray<byte>.Array);
     }

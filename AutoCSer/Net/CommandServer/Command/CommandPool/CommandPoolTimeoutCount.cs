@@ -8,6 +8,7 @@ namespace AutoCSer.Net.CommandServer
     internal sealed class CommandPoolTimeoutCount : AutoCSer.Threading.TimeoutCount
     {
         /// <summary>
+        /// Client command pool
         /// 客户端命令池
         /// </summary>
         private readonly CommandPool commandPool;

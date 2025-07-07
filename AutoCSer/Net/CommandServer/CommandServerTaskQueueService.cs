@@ -4,20 +4,24 @@ using System;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 命令服务 Task 队列服务实例
+    /// Task queue controller service
+    /// Task 队列控制器服务
     /// </summary>
     public abstract class CommandServerTaskQueueService
     {
         /// <summary>
+        /// The queue for asynchronous server calls
         /// 服务端异步调用队列
         /// </summary>
         public readonly CommandServerCallTaskQueue Queue;
         /// <summary>
+        /// The socket of the currently executing task
         /// 当前执行任务套接字
         /// </summary>
         public CommandServerSocket Socket { get; internal set; }
         /// <summary>
-        /// 命令服务 Task 队列
+        /// Task queue controller service
+        /// Task 队列控制器服务
         /// </summary>
         /// <param name="task"></param>
         protected CommandServerTaskQueueService(CommandServerCallTaskQueueNode task)
@@ -26,7 +30,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 创建命令服务 Task 队列
+        /// Create the controller task queue
+        /// 创建控制器 Task 队列
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -42,7 +47,8 @@ namespace AutoCSer.Net
             return queue;
         }
         /// <summary>
-        /// 创建命令服务 Task 队列委托
+        /// Create the controller task queue
+        /// 创建控制器 Task 队列委托
         /// </summary>
         /// <param name="task"></param>
         /// <param name="key"></param>
@@ -52,18 +58,22 @@ namespace AutoCSer.Net
             where KT : IEquatable<KT>;
     }
     /// <summary>
-    /// 命令服务 Task 队列服务实例
+    /// Task queue controller service
+    /// Task 队列控制器服务
     /// </summary>
-    /// <typeparam name="T">队列关键字类型</typeparam>
+    /// <typeparam name="T">Queue keyword type
+    /// 队列关键字类型</typeparam>
     public abstract class CommandServerTaskQueueService<T> : CommandServerTaskQueueService
         where T : IEquatable<T>
     {
         /// <summary>
+        /// Queue keyword
         /// 队列关键字
         /// </summary>
         public readonly T Key;
         /// <summary>
-        /// 命令服务 Task 队列
+        /// Task queue controller service
+        /// Task 队列控制器服务
         /// </summary>
         /// <param name="task"></param>
         /// <param name="key"></param>

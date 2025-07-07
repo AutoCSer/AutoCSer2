@@ -190,6 +190,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.values">
             <summary>
+            Receive data buffer
             接收数据缓冲区
             </summary>
         </member>
@@ -474,6 +475,9 @@
             <summary>
             数据库备份服务接口
             </summary>
+            <summary>
+            数据库备份服务接口
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupService.GetDatabase(AutoCSer.Net.CommandServerCallQueue)">
             <summary>
@@ -608,6 +612,13 @@
             <param name="clientFile">客户端文件信息</param>
             <param name="serverFileName">服务端文件名称</param>
         </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient.isDirectory(System.IO.DirectoryInfo)">
+            <summary>
+            判断子目录是否需要同步处理
+            </summary>
+            <param name="directory"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2">
             <summary>
             文件同步客户端
@@ -705,6 +716,9 @@
             <summary>
             文件拉取服务接口
             </summary>
+            <summary>
+            文件拉取服务接口
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IPullFileService.GetFiles(AutoCSer.Net.CommandServerSocket,System.String,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.SynchronousFileInfo})">
             <summary>
@@ -746,14 +760,15 @@
             拉取文件客户端接口
             </summary>
             <summary>
-            文件拉取服务接口 客户端接口
+            文件拉取服务接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController.GetFileData(AutoCSer.CommandService.DeployTask.PullFileBuffer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
             <summary>
             获取指定文件数据
             </summary>
-            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="returnValue">The interface returns the initial value, which is used for custom deserialization operations of the return value. The parameter name must be ReturnValue, case-insensitive, and must be placed before the first data parameter. The type must be consistent with the type of the return value
+            接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
             <param name="fileInfo">文件信息</param>
             <returns>文件数据</returns>
         </member>
@@ -1305,7 +1320,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskData.StartLoadPersistence(System.DateTime)">
             <summary>
-            启动任务
+            Start the task (Initialize and load the persistent data)
+            启动任务（初始化加载持久化数据）
             </summary>
             <param name="startTime"></param>
             <returns></returns>
@@ -1344,6 +1360,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskData.GetDeployTaskLog(AutoCSer.CommandService.DeployTask.OperationStateEnum)">
             <summary>
+            Get the callback log of the status change of the published task
             获取发布任务状态变更回调日志
             </summary>
             <param name="state"></param>
@@ -1351,19 +1368,22 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskData.Close(System.DateTime)">
             <summary>
+            Close the task
             关闭任务
             </summary>
             <param name="closeTime"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskData.RemoveLoadPersistence(System.DateTime)">
             <summary>
-            移除已结束或者未开始任务
+            Remove completed or un-started task (Initialize and load the persistent data)
+            移除已结束或者未开始任务（初始化加载持久化数据）
             </summary>
             <param name="closeTime"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskData.Remove(System.DateTime)">
             <summary>
+            Remove completed or un-started task
             移除已结束或者未开始任务
             </summary>
             <param name="closeTime"></param>
@@ -1469,6 +1489,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.StartProcessTask.AutoCSer#CommandService#DeployTask#IStepTask#Run">
             <summary>
+            Execute the task
             执行任务
             </summary>
             <returns></returns>
@@ -1550,6 +1571,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IStepTask.Run">
             <summary>
+            Execute the tasks
             执行任务
             </summary>
             <returns></returns>
@@ -1608,6 +1630,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskBuilder.Start(System.DateTime)">
             <summary>
+            Start the task
             启动任务
             </summary>
             <param name="startTime"></param>
@@ -1615,6 +1638,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskBuilder.start">
             <summary>
+            Start the task
             启动任务
             </summary>
             <returns></returns>
@@ -1632,9 +1656,11 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.TaskBuilder.Remove(System.DateTime)">
             <summary>
+            Remove completed or un-started task
             移除已结束或者未开始任务
             </summary>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="closeTime">The Utc time for closing the task
+            关闭任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.TaskBuilderCallback">
@@ -1692,6 +1718,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadCompletedTask.AutoCSer#CommandService#DeployTask#IStepTask#Run">
             <summary>
+            Execute the task
             执行任务
             </summary>
             <returns></returns>
@@ -1786,12 +1813,13 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.FileUploader.Free">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.FileUploader.OnTimer">
             <summary>
+            Trigger the timed operation
             触发定时操作
             </summary>
             <returns></returns>
@@ -1920,6 +1948,9 @@
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileService">
+            <summary>
+            文件上传服务接口
+            </summary>
             <summary>
             文件上传服务接口
             </summary>
@@ -2211,7 +2242,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.#ctor(AutoCSer.CommandService.DeployTask.UploadFileStateEnum)">
             <summary>
-            错误信息
+            错误状态
             </summary>
             <param name="state"></param>
         </member>
@@ -2544,7 +2575,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.#ctor(AutoCSer.CommandService.DeployTask.UploadFileStateEnum)">
             <summary>
-            错误信息
+            错误状态
             </summary>
             <param name="state"></param>
         </member>
@@ -2936,7 +2967,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController">
             <summary>
-            数据库备份服务接口 客户端接口
+            数据库备份服务接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Backup(System.String)">
@@ -2969,7 +3000,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController">
             <summary>
-            文件上传服务接口 客户端接口
+            文件上传服务接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
@@ -3113,7 +3144,12 @@
             <param name="buffer"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.Backup">
+        <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum">
+            <summary>
+            数据库备份服务接口 (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.Backup">
             <summary>
             [0] 备份数据库并返回文件名称
             AutoCSer.Net.CommandServerCallQueue queue 
@@ -3122,7 +3158,7 @@
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.Download">
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.Download">
             <summary>
             [1] 下载备份文件
             string backupFullName 备份文件名称
@@ -3131,14 +3167,14 @@
             返回值 AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.GetDatabase">
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.GetDatabase">
             <summary>
             [2] 获取可备份数据库名称集合
             AutoCSer.Net.CommandServerCallQueue queue 
             返回值 string[] 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.GetTableName">
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.GetTableName">
             <summary>
             [3] 获取可备份数据库表格名称集合
             AutoCSer.Net.CommandServerCallQueue queue 
@@ -3146,7 +3182,12 @@
             返回值 string[] 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetDirectoryNames">
+        <member name="T:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum">
+            <summary>
+            文件拉取服务接口 (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetDirectoryNames">
             <summary>
             [0] 获取指定路径下的目录名称集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3155,7 +3196,7 @@
             返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetFile">
             <summary>
             [1] 获取文件信息
             AutoCSer.Net.CommandServerSocket socket 
@@ -3163,7 +3204,7 @@
             返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFileData">
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetFileData">
             <summary>
             [2] 获取指定文件数据
             AutoCSer.Net.CommandServerSocket socket 
@@ -3172,7 +3213,7 @@
             返回值 AutoCSer.CommandService.DeployTask.PullFileBuffer 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFiles">
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetFiles">
             <summary>
             [3] 获取指定路径下的文件信息集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3181,7 +3222,12 @@
             返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendCompletedFile">
+        <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum">
+            <summary>
+            文件上传服务接口 (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.AppendCompletedFile">
             <summary>
             [0] 添加上传完成文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3190,7 +3236,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendDeleteDirectory">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.AppendDeleteDirectory">
             <summary>
             [1] 添加待删除目录
             AutoCSer.Net.CommandServerSocket socket 
@@ -3199,7 +3245,7 @@
             返回值 bool 返回 false 表示没有找到文件上传操作对象
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendDeleteFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.AppendDeleteFile">
             <summary>
             [2] 添加待删除文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3208,7 +3254,7 @@
             返回值 bool 返回 false 表示没有找到文件上传操作对象
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CombinePath">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CombinePath">
             <summary>
             [3] 拼接路径
             string left 
@@ -3216,14 +3262,14 @@
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CombinePathArray">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CombinePathArray">
             <summary>
             [4] 拼接路径
             string[] pathArray 
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.Completed">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.Completed">
             <summary>
             [5] 上传完成最后移动文件操作
             AutoCSer.Net.CommandServerSocket socket 
@@ -3231,7 +3277,7 @@
             返回值 bool 返回 false 表示没有找到文件上传操作对象，或者上传未结束
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateDirectory">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CreateDirectory">
             <summary>
             [6] 创建目录
             AutoCSer.Net.CommandServerSocket socket 
@@ -3241,7 +3287,7 @@
             返回值 string 返回 null 表示失败
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CreateFile">
             <summary>
             [7] 创建上传文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3251,7 +3297,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileIndex 上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateUploader">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CreateUploader">
             <summary>
             [8] 创建文件上传操作对象
             AutoCSer.Net.CommandServerSocket socket 
@@ -3262,7 +3308,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploaderInfo 上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetCompletedFileName">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetCompletedFileName">
             <summary>
             [9] 将上传完成操作数据写入文件并返回文件名称
             AutoCSer.Net.CommandServerSocket socket 
@@ -3270,7 +3316,7 @@
             返回值 string 返回空字符串表示没有找到文件上传操作对象，或者上传未结束
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetDirectoryNames">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetDirectoryNames">
             <summary>
             [10] 获取指定路径下的目录名称集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3280,7 +3326,7 @@
             返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetFile">
             <summary>
             [11] 获取指定文件信息集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3289,7 +3335,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetFiles">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetFiles">
             <summary>
             [12] 获取指定路径下的文件信息集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3299,7 +3345,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetPath">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetPath">
             <summary>
             [13] 根据上传类型获取文件上传路径
             AutoCSer.Net.CommandServerSocket socket 
@@ -3307,7 +3353,7 @@
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetSwitchProcessPathFileInfo">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetSwitchProcessPathFileInfo">
             <summary>
             [14] 获取切换进程的上传目录与文件信息
             AutoCSer.Net.CommandServerSocket socket 
@@ -3317,7 +3363,7 @@
             返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.RemoveFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.RemoveFile">
             <summary>
             [15] 移除文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3325,14 +3371,14 @@
             AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex 上传文件索引信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.RemoveUploader">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.RemoveUploader">
             <summary>
             [16] 移除文件上传实例
             AutoCSer.Net.CommandServerSocket socket 
             AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.UploadFileData">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.UploadFileData">
             <summary>
             [17] 上传文件写入数据
             AutoCSer.Net.CommandServerSocket socket 
@@ -3367,6 +3413,7 @@
         </member>
         <member name="P:AutoCSer.CommandService.DeployTaskNode.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IEnumerableSnapshot{System#Int64}#SnapshotEnumerable">
             <summary>
+            Snapshot collection
             快照集合
             </summary>
         </member>
@@ -3378,9 +3425,11 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.StreamPersistenceMemoryDatabaseServiceLoaded">
             <summary>
+            Initialization loading is completed and processed
             初始化加载完毕处理
             </summary>
-            <returns>加载完毕替换的新节点</returns>
+            <returns>The new node that has been loaded and replaced
+            加载完毕替换的新节点</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.remove">
             <summary>
@@ -3389,29 +3438,38 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.StreamPersistenceMemoryDatabaseServiceNodeOnRemoved">
             <summary>
-            节点移除后处理
+            Processing operations after node removal
+            节点移除后的处理操作
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.GetSnapshotCapacity(System.Object@)">
             <summary>
+            Get the snapshot data collection container size for pre-applying snapshot data containers
             获取快照数据集合容器大小，用于预申请快照数据容器
             </summary>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据集合容器大小</returns>
+            <param name="customObject">Custom objects for pre-generating auxiliary data
+            自定义对象，用于预生成辅助数据</param>
+            <returns>The size of the snapshot data collection container
+            快照数据集合容器大小</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.GetSnapshotResult(AutoCSer.CommandService.DeployTask.TaskData[],System.Object)">
             <summary>
+            Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
             获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
             </summary>
-            <param name="snapshotArray">预申请的快照数据容器</param>
-            <param name="customObject">自定义对象，用于预生成辅助数据</param>
-            <returns>快照数据信息</returns>
+            <param name="snapshotArray">Pre-applied snapshot data container
+            预申请的快照数据容器</param>
+            <param name="customObject">Custom objects for pre-generating auxiliary data
+            自定义对象，用于预生成辅助数据</param>
+            <returns>Snapshot data
+            快照数据</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.SnapshotSet(AutoCSer.CommandService.DeployTask.TaskData)">
             <summary>
-            快照设置数据
+            Load snapshot data (recover memory data from snapshot data)
+            加载快照数据（从快照数据恢复内存数据）
             </summary>
-            <param name="value">数据</param>
+            <param name="value">data</param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.getCurrentIdentity">
             <summary>
@@ -3421,149 +3479,200 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.SnapshotSetIdentity(System.Int64)">
             <summary>
-            快照设置数据
+            Load snapshot data (recover memory data from snapshot data)
+            加载快照数据（从快照数据恢复内存数据）
             </summary>
-            <param name="value">数据</param>
+            <param name="value">data</param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.Create">
             <summary>
+            Create a task
             创建任务
             </summary>
-            <returns>任务标识ID</returns>
+            <returns>Task identity
+            任务标识ID</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.StartLoadPersistence(System.Int64,System.DateTime)">
             <summary>
-            启动任务
+            Start the task (Initialize and load the persistent data)
+            启动任务（初始化加载持久化数据）
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="startTime">运行任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="startTime">The Utc time for running the task
+            运行任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.Start(System.Int64,System.DateTime)">
             <summary>
+            Start the task
             启动任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="startTime">运行任务时间 Utc</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="startTime">The Utc time for running the task
+            运行任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.AppendStepTask(System.Int64,AutoCSer.CommandService.DeployTask.StepTaskData)">
             <summary>
+            Add a sub-task
             添加子任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="task">执行程序任务</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="task">The task of executing a program
+            执行程序任务</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.GetLog(System.Int64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.DeployTaskLog})">
             <summary>
+            Get the callback log of the status change of the published task
             获取发布任务状态变更回调日志
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="callback">任务状态变更回调委托</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="callback">Callback delegate for task state changes
+            任务状态变更回调委托</param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.RemoveLoadPersistence(System.Int64,System.DateTime)">
             <summary>
-            移除已结束或者未开始任务
+            Remove completed or un-started task (Initialize and load the persistent data)
+            移除已结束或者未开始任务（初始化加载持久化数据）
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="closeTime">The Utc time for closing the task
+            关闭任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.Remove(System.Int64,System.DateTime)">
             <summary>
+            Remove completed or un-started task
             移除已结束或者未开始任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="closeTime">The Utc time for closing the task
+            关闭任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTaskNode.Close(System.Int64,System.DateTime)">
             <summary>
+            Close the task
             关闭任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="closeTime">The Utc time for closing the task
+            关闭任务 Utc 时间</param>
         </member>
         <member name="T:AutoCSer.CommandService.IDeployTaskNode">
             <summary>
+            The interface of the deploy task node
             发布任务节点接口
             </summary>
             <summary>
-            发布任务节点接口
+            The interface of the deploy task node 
+                       发布任务节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.SnapshotSet(AutoCSer.CommandService.DeployTask.TaskData)">
             <summary>
-            快照设置数据
+            Load snapshot data (recover memory data from snapshot data)
+            加载快照数据（从快照数据恢复内存数据）
             </summary>
-            <param name="value">数据</param>
+            <param name="value">data</param>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.SnapshotSetIdentity(System.Int64)">
             <summary>
-            快照设置数据
+            Load snapshot data (recover memory data from snapshot data)
+            加载快照数据（从快照数据恢复内存数据）
             </summary>
-            <param name="value">数据</param>
+            <param name="value">data</param>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.Create">
             <summary>
+            Create a task
             创建任务
             </summary>
-            <returns>任务标识ID</returns>
+            <returns>Task identity
+            任务标识ID</returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.StartLoadPersistence(System.Int64,System.DateTime)">
             <summary>
-            启动任务
+            Start the task (Initialize and load the persistent data)
+            启动任务（初始化加载持久化数据）
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="startTime">运行任务时间 Utc</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="startTime">The Utc time for running the task
+            运行任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.Start(System.Int64,System.DateTime)">
             <summary>
+            Start the task
             启动任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="startTime">运行任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="startTime">The Utc time for running the task
+            运行任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.AppendStepTask(System.Int64,AutoCSer.CommandService.DeployTask.StepTaskData)">
             <summary>
+            Add a sub-task
             添加子任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="task">执行程序任务</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="task">The task of executing a program
+            执行程序任务</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.GetLog(System.Int64,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{AutoCSer.CommandService.DeployTaskLog})">
             <summary>
+            Get the callback log of the status change of the published task
             获取发布任务状态变更回调日志
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="callback">任务状态变更回调委托</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="callback">Callback delegate for task state changes
+            任务状态变更回调委托</param>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.RemoveLoadPersistence(System.Int64,System.DateTime)">
             <summary>
-            移除已结束或者未开始任务
+            Remove completed or un-started task (Initialize and load the persistent data)
+            移除已结束或者未开始任务（初始化加载持久化数据）
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="closeTime">The Utc time for closing the task
+            关闭任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.Remove(System.Int64,System.DateTime)">
             <summary>
+            Remove completed or un-started task
             移除已结束或者未开始任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="closeTime">The Utc time for closing the task
+            关闭任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNode.Close(System.Int64,System.DateTime)">
             <summary>
+            Close the task
             关闭任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="closeTime">The Utc time for closing the task
+            关闭任务 Utc 时间</param>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTaskLog">
             <summary>
@@ -3615,120 +3724,159 @@
         </member>
         <member name="T:AutoCSer.CommandService.IDeployTaskNodeClientNode">
             <summary>
-            发布任务节点接口 客户端节点接口
+            The interface of the deploy task node 
+                       发布任务节点接口 client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNodeClientNode.AppendStepTask(System.Int64,AutoCSer.CommandService.DeployTask.StepTaskData)">
             <summary>
-            添加子任务
+            Add a sub-task 
+                       添加子任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="task">执行程序任务</param>
+            <param name="identity">Task identity 
+                       任务标识ID</param>
+            <param name="task">The task of executing a program 
+                       执行程序任务</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNodeClientNode.Create">
             <summary>
-            创建任务
+            Create a task 
+                       创建任务
             </summary>
-            <returns>任务标识ID</returns>
+            <returns>Task identity 
+                       任务标识ID</returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNodeClientNode.GetLog(System.Int64)">
             <summary>
-            获取发布任务状态变更回调日志
+            Get the callback log of the status change of the published task 
+                       获取发布任务状态变更回调日志
             </summary>
-            <param name="identity">任务标识ID</param>
+            <param name="identity">Task identity 
+                       任务标识ID</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNodeClientNode.Remove(System.Int64,System.DateTime)">
             <summary>
-            移除已结束或者未开始任务
+            Remove completed or un-started task 
+                       移除已结束或者未开始任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="closeTime">关闭任务时间</param>
+            <param name="identity">Task identity 
+                       任务标识ID</param>
+            <param name="closeTime">The Utc time for closing the task 
+                       关闭任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.IDeployTaskNodeClientNode.Start(System.Int64,System.DateTime)">
             <summary>
-            启动任务
+            Start the task 
+                       启动任务
             </summary>
-            <param name="identity">任务标识ID</param>
-            <param name="startTime">运行任务时间</param>
+            <param name="identity">Task identity 
+                       任务标识ID</param>
+            <param name="startTime">The Utc time for running the task 
+                       运行任务 Utc 时间</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.IDeployTaskNodeMethodEnum">
             <summary>
-            发布任务节点接口 节点方法序号映射枚举类型
+            The interface of the deploy task node 
+                       发布任务节点接口 (Node method sequence number mapping enumeration type)
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.AppendStepTask">
             <summary>
-            [0] 添加子任务
-            long identity 任务标识ID
-            AutoCSer.CommandService.DeployTask.StepTaskData task 执行程序任务
+            [0] Add a sub-task 
+                       添加子任务
+            long identity Task identity 
+                       任务标识ID
+            AutoCSer.CommandService.DeployTask.StepTaskData task The task of executing a program 
+                       执行程序任务
             返回值 AutoCSer.CommandService.DeployTask.OperationStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.Create">
             <summary>
-            [1] 创建任务
-            返回值 long 任务标识ID
+            [1] Create a task 
+                       创建任务
+            返回值 long Task identity 
+                       任务标识ID
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.GetLog">
             <summary>
-            [2] 获取发布任务状态变更回调日志
-            long identity 任务标识ID
+            [2] Get the callback log of the status change of the published task 
+                       获取发布任务状态变更回调日志
+            long identity Task identity 
+                       任务标识ID
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.Remove">
             <summary>
-            [3] 移除已结束或者未开始任务
-            long identity 任务标识ID
-            System.DateTime closeTime 关闭任务时间
+            [3] Remove completed or un-started task 
+                       移除已结束或者未开始任务
+            long identity Task identity 
+                       任务标识ID
+            System.DateTime closeTime The Utc time for closing the task 
+                       关闭任务 Utc 时间
             返回值 AutoCSer.CommandService.DeployTask.OperationStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.RemoveLoadPersistence">
             <summary>
-            [4] 移除已结束或者未开始任务
-            long identity 任务标识ID
-            System.DateTime closeTime 关闭任务时间
+            [4] Remove completed or un-started task (Initialize and load the persistent data) 
+                       移除已结束或者未开始任务（初始化加载持久化数据）
+            long identity Task identity 
+                       任务标识ID
+            System.DateTime closeTime The Utc time for closing the task 
+                       关闭任务 Utc 时间
             返回值 AutoCSer.CommandService.DeployTask.OperationStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.SnapshotSet">
             <summary>
-            [5] 快照设置数据
-            AutoCSer.CommandService.DeployTask.TaskData value 数据
+            [5] Load snapshot data (recover memory data from snapshot data) 
+                       加载快照数据（从快照数据恢复内存数据）
+            AutoCSer.CommandService.DeployTask.TaskData value data
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.Start">
             <summary>
-            [6] 启动任务
-            long identity 任务标识ID
-            System.DateTime startTime 运行任务时间
+            [6] Start the task 
+                       启动任务
+            long identity Task identity 
+                       任务标识ID
+            System.DateTime startTime The Utc time for running the task 
+                       运行任务 Utc 时间
             返回值 AutoCSer.CommandService.DeployTask.OperationStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.StartLoadPersistence">
             <summary>
-            [7] 启动任务
-            long identity 任务标识ID
-            System.DateTime startTime 运行任务时间 Utc
+            [7] Start the task (Initialize and load the persistent data) 
+                       启动任务（初始化加载持久化数据）
+            long identity Task identity 
+                       任务标识ID
+            System.DateTime startTime The Utc time for running the task 
+                       运行任务 Utc 时间
             返回值 AutoCSer.CommandService.DeployTask.OperationStateEnum 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.Close">
             <summary>
-            [8] 关闭任务
-            long identity 任务标识ID
-            System.DateTime closeTime 关闭任务时间
+            [8] Close the task 
+                       关闭任务
+            long identity Task identity 
+                       任务标识ID
+            System.DateTime closeTime The Utc time for closing the task 
+                       关闭任务 Utc 时间
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.IDeployTaskNodeMethodEnum.SnapshotSetIdentity">
             <summary>
-            [9] 快照设置数据
-            long value 数据
+            [9] Load snapshot data (recover memory data from snapshot data) 
+                       加载快照数据（从快照数据恢复内存数据）
+            long value data
             </summary>
         </member>
         <member name="T:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension">
@@ -3738,46 +3886,57 @@
         </member>
         <member name="M:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension.AppendStepTask(AutoCSer.CommandService.IDeployTaskNodeClientNode,System.Int64,AutoCSer.CommandService.DeployTask.UploadFileClient)">
             <summary>
+            Add a sub-task
             添加子任务
             </summary>
             <param name="node"></param>
-            <param name="identity">任务标识ID</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
             <param name="uploadFileClient">文件上传客户端</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension.AppendStepTask(AutoCSer.CommandService.IDeployTaskNodeClientNode,System.Int64,AutoCSer.CommandService.DeployTask.UploadCompletedTask)">
             <summary>
+            Add a sub-task
             添加子任务
             </summary>
             <param name="node"></param>
-            <param name="identity">任务标识ID</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
             <param name="task">上传文件最后移动文件操作任务</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension.AppendStepTask(AutoCSer.CommandService.IDeployTaskNodeClientNode,System.Int64,AutoCSer.CommandService.DeployTask.StartProcessTask)">
             <summary>
+            Add a sub-task
             添加子任务
             </summary>
             <param name="node"></param>
-            <param name="identity">任务标识ID</param>
-            <param name="task">执行程序任务</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
+            <param name="task">The task of executing a program
+            执行程序任务</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension.AppendStepTask(AutoCSer.CommandService.IDeployTaskNodeClientNode,System.Int64,System.String)">
             <summary>
+            Add a sub-task
             添加子任务
             </summary>
             <param name="node"></param>
-            <param name="identity">任务标识ID</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
             <param name="serverProcessFileName">运行文件</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension.Remove(AutoCSer.CommandService.IDeployTaskNodeClientNode,System.Int64)">
             <summary>
+            Remove completed or un-started task
             移除已结束或者未开始任务
             </summary>
             <param name="node"></param>
-            <param name="identity">任务标识ID</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.DeployTaskNodeClientNodeExtension.Start(AutoCSer.CommandService.IDeployTaskNodeClientNode,System.Int64)">
@@ -3785,7 +3944,8 @@
             立即启动任务
             </summary>
             <param name="node"></param>
-            <param name="identity">任务标识ID</param>
+            <param name="identity">Task identity
+            任务标识ID</param>
             <returns></returns>
         </member>
     </members>

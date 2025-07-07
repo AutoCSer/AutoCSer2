@@ -1,6 +1,5 @@
 ﻿using AutoCSer.Metadata;
 using AutoCSer.TestCase.Common.Data;
-using AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum;
 using System;
 using System.Threading.Tasks;
 
@@ -9,8 +8,8 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 字段测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(FieldModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
-    public interface IFieldModelService : IPrimaryKeyService<FieldModel, AutoCSer.TestCase.CommonModel.TableModel.FieldModel, long>
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
+    public partial interface IFieldModelService : IPrimaryKeyService<FieldModel, AutoCSer.TestCase.CommonModel.TableModel.FieldModel, long>
     {
         /// <summary>
         /// 自定义列查询测试
@@ -24,16 +23,17 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class FieldModelService : IFieldModelService
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         public async Task<FieldModel> Get(long key)
         {
             return await FieldModel.Get(key);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

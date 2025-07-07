@@ -17,6 +17,7 @@ namespace AutoCSer.Reflection
         /// </summary>
         private readonly string fullName;
         /// <summary>
+        /// Assembly name
         /// 程序集名称
         /// </summary>
         private readonly string name;

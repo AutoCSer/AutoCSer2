@@ -10,6 +10,7 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer.Extensions
 {
     /// <summary>
+    /// Task expansion operation
     /// 任务扩展操作
     /// </summary>
     public static class TaskExtension
@@ -22,13 +23,15 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NotWait(this Task task) { }
         /// <summary>
+        /// Capture and output the exception log
         /// 捕获并输出异常日志
         /// </summary>
         /// <param name="task"></param>
-        /// <param name="isQueue">默认为 false 表示不加入未完成队列</param>
-        /// <param name="callerFilePath">调用文件路径</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerLineNumber">所在文件行数</param>
+        /// <param name="isQueue">The default is false, indicating that the unfinished queue will not be added
+        /// 默认为 false 表示不加入未完成队列</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void Catch(this Task task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -51,13 +54,15 @@ namespace AutoCSer.Extensions
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NotWait(this ValueTask task) { }
         /// <summary>
+        /// Capture and output the exception log
         /// 捕获并输出异常日志
         /// </summary>
         /// <param name="task"></param>
-        /// <param name="isQueue">默认为 false 表示不加入未完成队列</param>
-        /// <param name="callerFilePath">调用文件路径</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerLineNumber">所在文件行数</param>
+        /// <param name="isQueue">The default is false, indicating that the unfinished queue will not be added
+        /// 默认为 false 表示不加入未完成队列</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
         {

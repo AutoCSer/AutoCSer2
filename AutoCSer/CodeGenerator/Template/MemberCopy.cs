@@ -8,6 +8,7 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
+            /// Member copy
             /// 成员复制
             /// </summary>
             /// <param name="writeValue"></param>
@@ -17,6 +18,7 @@ namespace AutoCSer.CodeGenerator.Template
                 writeValue.memberCopyFrom(readValue);
             }
             /// <summary>
+            /// Member copy
             /// 成员复制
             /// </summary>
             /// <param name="__value__"></param>
@@ -27,7 +29,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP Fields
             }
             /// <summary>
-            /// 成员复制
+            /// Member copy of member bitmap is supported
+            /// 支持成员位图的成员复制
             /// </summary>
             /// <param name="writeValue"></param>
             /// <param name="readValue"></param>
@@ -37,7 +40,8 @@ namespace AutoCSer.CodeGenerator.Template
                 writeValue.memberCopyFrom(readValue, memberMap);
             }
             /// <summary>
-            /// 成员复制
+            /// Member copy of member bitmap is supported
+            /// 支持成员位图的成员复制
             /// </summary>
             /// <param name="readValue"></param>
             /// <param name="memberMap"></param>
@@ -48,7 +52,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP Fields
             }
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             internal static void @MemberCopyMethodName()
             {

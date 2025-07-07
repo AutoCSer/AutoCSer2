@@ -15,16 +15,21 @@ namespace AutoCSer.TestCase.SearchDiskBlockIndex
         /// <summary>
         /// 创建索引节点的自定义基础服务
         /// </summary>
-        /// <param name="service">日志流持久化内存数据库服务端</param>
+        /// <param name="service">Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务</param>
         public ServiceNode(StreamPersistenceMemoryDatabaseService service) : base(service) { }
         /// <summary>
         /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashKeyIndexNode{T}
         /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
         /// <param name="keyType">索引关键字类型</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         public NodeIndex CreateRemoveMarkHashKeyIndexNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType)
         {
             var type = default(Type);
@@ -40,12 +45,17 @@ namespace AutoCSer.TestCase.SearchDiskBlockIndex
         /// <summary>
         /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashKeyIndexNode{T}
         /// </summary>
-        /// <typeparam name="T">索引关键字类型</typeparam>
+        /// <typeparam name="T">Index keyword type
+        /// 索引关键字类型</typeparam>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         private static NodeIndex createRemoveMarkHashKeyIndexNode<T>(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
             where T : notnull, IEquatable<T>
         {
@@ -54,12 +64,16 @@ namespace AutoCSer.TestCase.SearchDiskBlockIndex
         /// <summary>
         /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
         /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
         /// <param name="keyType">索引关键字类型</param>
         /// <param name="valueType">数据关键字类型</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         public NodeIndex CreateRemoveMarkHashIndexNode(NodeIndex index, string key, NodeInfo nodeInfo, AutoCSer.Reflection.RemoteType keyType, AutoCSer.Reflection.RemoteType valueType)
         {
             var type = default(Type);
@@ -76,13 +90,19 @@ namespace AutoCSer.TestCase.SearchDiskBlockIndex
         /// <summary>
         /// 创建带移除标记的可重用哈希索引节点 IRemoveMarkHashIndexNode{KT,VT}
         /// </summary>
-        /// <typeparam name="KT">索引关键字类型</typeparam>
-        /// <typeparam name="VT">数据关键字类型</typeparam>
+        /// <typeparam name="KT">Index keyword type
+        /// 索引关键字类型</typeparam>
+        /// <typeparam name="VT">Data keyword type
+        /// 数据关键字类型</typeparam>
         /// <param name="node">索引关键字类型</param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         private static NodeIndex createRemoveMarkHashIndexNode<KT, VT>(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
             where KT : notnull, IEquatable<KT>
             where VT : notnull, IEquatable<VT>

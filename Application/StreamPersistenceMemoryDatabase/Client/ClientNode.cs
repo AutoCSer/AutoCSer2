@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Client node
     /// 客户端节点
     /// </summary>
     public abstract class ClientNode
@@ -21,10 +22,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal readonly Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> Creator;
         /// <summary>
+        /// Log stream persistence in-memory database client
         /// 日志流持久化内存数据库客户端
         /// </summary>
         internal readonly StreamPersistenceMemoryDatabaseClient Client;
         /// <summary>
+        /// Node index information
         /// 节点索引信息
         /// </summary>
         internal NodeIndex Index;
@@ -37,6 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private int isReindex;
         /// <summary>
+        /// Whether to synchronize the callback of the IO thread
         /// 是否 IO 线程同步回调
         /// </summary>
         internal bool IsSynchronousCallback;
@@ -45,13 +49,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private bool isPersistenceCallbackExceptionRenewNode;
         /// <summary>
+        /// Client node
         /// 客户端节点
         /// </summary>
-        /// <param name="key">节点全局关键字</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
         /// <param name="creator">创建节点操作对象委托</param>
         /// <param name="client">日志流持久化内存数据库客户端</param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">Default to false said persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the anomalies have been restored and restart the server; If set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+        /// 默认为 false 表示服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端；设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
         {
             this.Creator = creator;
@@ -98,7 +106,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 节点重建
+        /// Trigger node reconstruction
+        /// 触发节点重建
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -114,12 +123,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 节点重建
+        /// Trigger node reconstruction
+        /// 触发节点重建
         /// </summary>
         /// <returns></returns>
         protected abstract Task renew();
         /// <summary>
-        /// 索引失效重新获取
+        /// The index is invalid. Get the index again
+        /// 索引已失效，重新获取获取索引
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -135,7 +146,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 索引失效重新获取
+        /// The index is invalid. Get the index again
+        /// 索引已失效，重新获取获取索引
         /// </summary>
         /// <returns></returns>
         protected abstract Task reindex();
@@ -146,6 +158,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal static readonly ClientNodeAttribute DefaultAttribute = new ClientNodeAttribute(typeof(ClientNodeAttribute));
     }
     /// <summary>
+    /// Client node
     /// 客户端节点
     /// </summary>
     /// <typeparam name="T">客户端节点接口类型</typeparam>
@@ -161,18 +174,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private ClientNode<T> synchronousNode;
 #endif
         /// <summary>
+        /// Client node
         /// 客户端节点
         /// </summary>
-        /// <param name="key">节点全局关键字</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
         /// <param name="creator">创建节点操作对象委托</param>
         /// <param name="client">日志流持久化内存数据库客户端</param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
-        //protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, Task<ResponseResult<NodeIndex>>> creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">Default to false said persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the anomalies have been restored and restart the server; If set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+        /// 默认为 false 表示服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端；设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         protected ClientNode(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>> creator,  StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
             : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
         /// <summary>
-        /// 节点重建
+        /// Trigger node reconstruction
+        /// 触发节点重建
         /// </summary>
         /// <returns></returns>
         protected override async Task renew()
@@ -181,7 +198,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (isRemove.ReturnType == AutoCSer.Net.CommandClientReturnTypeEnum.Success) await reindex();
         }
         /// <summary>
-        /// 索引失效重新获取
+        /// The index is invalid. Get the index again
+        /// 索引已失效，重新获取获取索引
         /// </summary>
         /// <returns></returns>
         protected override async Task reindex()

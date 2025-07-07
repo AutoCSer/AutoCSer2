@@ -9,11 +9,12 @@ namespace AutoCSer.SimpleSerialize
     public unsafe partial class Serializer
     {
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="unmanagedStream">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="value">Enumeration value</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void EnumULong<T>(AutoCSer.Memory.UnmanagedStream unmanagedStream, T value) where T : struct, IConvertible
         {

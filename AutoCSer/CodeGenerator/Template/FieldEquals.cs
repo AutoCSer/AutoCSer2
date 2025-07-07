@@ -8,6 +8,7 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
+            /// Object comparison
             /// 对象对比
             /// </summary>
             /// <param name="left"></param>
@@ -18,7 +19,8 @@ namespace AutoCSer.CodeGenerator.Template
                 return left.fieldEquals(right)/*IF:BaseType*/ && AutoCSer.FieldEquals.Comparor.CallEquals<@BaseType.FullName>(left, right)/*IF:BaseType*/;
             }
             /// <summary>
-            /// 随机对象生成
+            /// Object comparison
+            /// 对象对比
             /// </summary>
             /// <param name="__value__"></param>
             private bool fieldEquals(@CurrentType.FullName __value__)
@@ -29,7 +31,8 @@ namespace AutoCSer.CodeGenerator.Template
                 return true;
             }
             /// <summary>
-            /// 对象对比
+            /// Object comparison based on member bitmaps
+            /// 基于成员位图的对象对比
             /// </summary>
             /// <param name="left"></param>
             /// <param name="right"></param>
@@ -40,7 +43,8 @@ namespace AutoCSer.CodeGenerator.Template
                 return left.fieldEquals(right, memberMap);
             }
             /// <summary>
-            /// 随机对象生成
+            /// Object comparison based on member bitmaps
+            /// 基于成员位图的对象对比
             /// </summary>
             /// <param name="__value__"></param>
             /// <param name="__memberMap__"></param>
@@ -52,7 +56,8 @@ namespace AutoCSer.CodeGenerator.Template
                 return true;
             }
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             internal static void @FieldEqualsMethodName()
             {

@@ -67,12 +67,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// UDP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Udp(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// UDP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public unsafe Udp(ref SubArray<byte> data)
         {
             if (data.Length >= HeaderSize)

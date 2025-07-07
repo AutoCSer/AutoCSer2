@@ -17,7 +17,8 @@ namespace AutoCSer.CommandService
     public class InterfaceRealTimeCallMonitorService : AutoCSer.Threading.SecondTimerTaskArrayNode, IInterfaceRealTimeCallMonitorService, ICommandServerBindController, IDisposable
     {
         /// <summary>
-        /// 会话对象操作接口
+        /// The session object operates the interface instance
+        /// 会话对象操作接口实例
         /// </summary>
         private readonly ICommandListenerSession<IInterfaceMonitorSession> socketSessionObject;
         /// <summary>
@@ -69,7 +70,7 @@ namespace AutoCSer.CommandService
             socketSessionObject = listener.GetSessionObject<ICommandListenerSession<IInterfaceMonitorSession>>() ?? CommandListenerSession.Default;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -79,6 +80,7 @@ namespace AutoCSer.CommandService
             foreach (CallInfo call in calls.Values) call.InterfaceMonitor.CancelCallback();
         }
         /// <summary>
+        /// Bind the command service controller
         /// 绑定命令服务控制器
         /// </summary>
         /// <param name="controller"></param>
@@ -88,6 +90,7 @@ namespace AutoCSer.CommandService
             AppendTaskArray();
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         /// <returns></returns>
@@ -168,8 +171,10 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="callIdentity">调用标识</param>
-        /// <param name="callType">调用接口类型</param>
-        /// <param name="callName">调用接口方法名称</param>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
+        /// <param name="callName">The name of the interface method to be called
+        /// 调用接口方法名称</param>
         /// <param name="timeoutMilliseconds">超时毫秒数</param>
         /// <param name="type">调用类型</param>
         /// <returns></returns>
@@ -285,7 +290,8 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="queue"></param>
-        /// <param name="count">获取数量</param>
+        /// <param name="count">Get the quantity of data
+        /// 获取数据数量</param>
         /// <param name="callback">超时调用回调</param>
         public void GetTimeoutCalls(CommandServerSocket socket, CommandServerCallQueue queue, int count, CommandServerKeepCallback<CallTimestamp> callback)
         {

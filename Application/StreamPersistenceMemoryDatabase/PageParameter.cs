@@ -12,7 +12,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取分页数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public PageArray<T> GetPageArray<T>()
@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取空数据
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public PageResult<T> GetPageResult<T>()
@@ -30,9 +30,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new PageResult<T>(EmptyArray<T>.Array, 0, PageIndex, PageSize);
         }
         /// <summary>
+        /// Get page data
         /// 获取分页数据
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <typeparam name="KT">分页数据关键字类型</typeparam>
         /// <param name="array">待排序数组</param>
         /// <param name="comparer">排序比较器</param>
@@ -47,6 +48,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new PageResult<KT>(keyArray, array.Length, PageIndex, PageSize);
         }
         /// <summary>
+        /// Get page data
         /// 获取分页数据
         /// </summary>
         /// <param name="array">待排序数组</param>
@@ -65,6 +67,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new PageResult<int>(keyArray, array.Length, PageIndex, PageSize);
         }
         /// <summary>
+        /// Get the reverse page data
         /// 获取逆序分页数据
         /// </summary>
         /// <param name="array">待排序数组</param>
@@ -83,6 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new PageResult<int>(keyArray, array.Length, PageIndex, PageSize);
         }
         /// <summary>
+        /// Get page data
         /// 获取分页数据
         /// </summary>
         /// <typeparam name="T">排序关键字类型</typeparam>
@@ -98,6 +102,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new PageResult<int>(keyArray, array.Length, PageIndex, PageSize);
         }
         /// <summary>
+        /// Get the reverse page data
         /// 获取逆序分页数据
         /// </summary>
         /// <typeparam name="T">排序关键字类型</typeparam>
@@ -113,6 +118,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new PageResult<int>(keyArray, array.Length, PageIndex, PageSize);
         }
         /// <summary>
+        /// Get page data
         /// 获取分页数据
         /// </summary>
         /// <typeparam name="T">排序关键字类型</typeparam>
@@ -128,6 +134,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new PageResult<long>(keyArray, array.Length, PageIndex, PageSize);
         }
         /// <summary>
+        /// Get the reverse page data
         /// 获取逆序分页数据
         /// </summary>
         /// <typeparam name="T">排序关键字类型</typeparam>
@@ -145,8 +152,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字分页数据
         /// </summary>
-        /// <typeparam name="KT">关键字类型</typeparam>
-        /// <typeparam name="VT">数据类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
+        /// <typeparam name="VT">Data type</typeparam>
         /// <param name="dictionary">二叉搜索树字典</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<KT> GetKeyPageResult<KT, VT>(AutoCSer.SearchTree.Dictionary<KT, VT> dictionary)
@@ -161,8 +169,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字逆序分页数据
         /// </summary>
-        /// <typeparam name="KT">关键字类型</typeparam>
-        /// <typeparam name="VT">数据类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
+        /// <typeparam name="VT">Data type</typeparam>
         /// <param name="dictionary">二叉搜索树字典</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<KT> GetDescKeyPageResult<KT, VT>(AutoCSer.SearchTree.Dictionary<KT, VT> dictionary)
@@ -177,7 +186,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字分页数据
         /// </summary>
-        /// <typeparam name="T">关键字类型</typeparam>
+        /// <typeparam name="T">Keyword type
+        /// 关键字类型</typeparam>
         /// <param name="tree">二叉搜索树集合</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<T> GetPageResult<T>(AutoCSer.SearchTree.Set<T> tree)
@@ -192,10 +202,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字分页数据
         /// </summary>
-        /// <typeparam name="T">关键字类型</typeparam>
+        /// <typeparam name="T">Keyword type
+        /// 关键字类型</typeparam>
         /// <typeparam name="VT">返回值数据类型</typeparam>
         /// <param name="tree">二叉搜索树集合</param>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<VT> GetPageResult<T, VT>(AutoCSer.SearchTree.Set<T> tree, Func<T, VT> getValue)
             where T : IComparable<T>
@@ -209,7 +221,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字逆序分页数据
         /// </summary>
-        /// <typeparam name="T">关键字类型</typeparam>
+        /// <typeparam name="T">Keyword type
+        /// 关键字类型</typeparam>
         /// <param name="tree">二叉搜索树集合</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<T> GetDescPageResult<T>(AutoCSer.SearchTree.Set<T> tree)
@@ -224,10 +237,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字逆序分页数据
         /// </summary>
-        /// <typeparam name="T">关键字类型</typeparam>
+        /// <typeparam name="T">Keyword type
+        /// 关键字类型</typeparam>
         /// <typeparam name="VT">返回值数据类型</typeparam>
         /// <param name="tree">二叉搜索树集合</param>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<VT> GetDescPageResult<T, VT>(AutoCSer.SearchTree.Set<T> tree, Func<T, VT> getValue)
             where T : IComparable<T>
@@ -241,8 +256,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字分页数据
         /// </summary>
-        /// <typeparam name="KT">关键字类型</typeparam>
-        /// <typeparam name="VT">数据类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
+        /// <typeparam name="VT">Data type</typeparam>
         /// <param name="dictionary">二叉搜索树字典</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<KT> GetKeyPageResult<KT, VT>(AutoCSer.SearchTree.NodeDictionary<KT, VT> dictionary)
@@ -258,8 +274,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 获取关键字逆序分页数据
         /// </summary>
-        /// <typeparam name="KT">关键字类型</typeparam>
-        /// <typeparam name="VT">数据类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
+        /// <typeparam name="VT">Data type</typeparam>
         /// <param name="dictionary">二叉搜索树字典</param>
         /// <returns>排序关键字集合</returns>
         public PageResult<KT> GetDescKeyPageResult<KT, VT>(AutoCSer.SearchTree.NodeDictionary<KT, VT> dictionary)

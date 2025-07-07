@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// TCP server-side asynchronous callback
     /// TCP 服务器端异步回调
     /// </summary>
     public class CommandServerKeepCallbackTask : CommandServerKeepCallback
@@ -16,6 +17,7 @@ namespace AutoCSer.Net
         /// </summary>
         protected Task callTask;
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
@@ -27,6 +29,7 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
@@ -78,7 +81,8 @@ namespace AutoCSer.Net
             return onCompletedAutoCancelKeep;
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
@@ -88,6 +92,7 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackTask(socket, OfflineCount.Null);
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>
@@ -104,6 +109,7 @@ namespace AutoCSer.Net
             else callTask.GetAwaiter().UnsafeOnCompleted(task.setCallTask(callTask));
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>
@@ -122,6 +128,7 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// TCP server-side asynchronous callback
     /// TCP 服务器端异步回调
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -132,6 +139,7 @@ namespace AutoCSer.Net
         /// </summary>
         protected Task callTask;
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
@@ -144,6 +152,7 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
@@ -196,7 +205,8 @@ namespace AutoCSer.Net
             return onCompletedAutoCancelKeep;
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -207,6 +217,7 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackTask<T>(socket, OfflineCount.Null, method);
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>
@@ -223,6 +234,7 @@ namespace AutoCSer.Net
             else callTask.GetAwaiter().UnsafeOnCompleted(task.setCallTask(callTask));
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>

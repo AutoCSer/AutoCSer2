@@ -86,15 +86,18 @@ namespace AutoCSer.Metadata
 #endif
 
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal abstract Delegate CommandServerCallQueueSend { get; }
 
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal abstract Delegate CommandServerCallReadWriteQueueSend { get; }
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal abstract Delegate CommandServerCallConcurrencyReadQueueSend { get; }
@@ -235,39 +238,48 @@ namespace AutoCSer.Metadata
 #endif
 
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         /// <param name="node"></param>
         /// <param name="queue"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         public delegate bool CommandServerCallQueueSendDelegate(AutoCSer.Net.CommandServerCallQueueNode node, AutoCSer.Net.CommandServerCallQueue queue, AutoCSer.Net.CommandServer.ServerInterfaceMethod method, ref T outputParameter);
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal override Delegate CommandServerCallQueueSend { get { return (CommandServerCallQueueSendDelegate)AutoCSer.Net.CommandServerCallQueueNode.Send; } }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         public delegate bool CommandServerCallReadWriteQueueSendDelegate(AutoCSer.Net.CommandServerCallReadWriteQueueNode node, AutoCSer.Net.CommandServer.ServerInterfaceMethod method, ref T outputParameter);
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal override Delegate CommandServerCallReadWriteQueueSend { get { return (CommandServerCallReadWriteQueueSendDelegate)AutoCSer.Net.CommandServerCallReadWriteQueueNode.Send; } }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         public delegate bool CommandServerCallConcurrencyReadQueueSendDelegate(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode node, AutoCSer.Net.CommandServer.ServerInterfaceMethod method, ref T outputParameter);
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal override Delegate CommandServerCallConcurrencyReadQueueSend { get { return (CommandServerCallConcurrencyReadQueueSendDelegate)AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.Send; } }

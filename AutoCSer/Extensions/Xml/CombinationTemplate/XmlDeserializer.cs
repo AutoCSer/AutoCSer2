@@ -21,7 +21,7 @@ namespace AutoCSer
         /// <summary>
         /// 逻辑值解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void XmlDeserialize(ref ulong? value)
         {
             if (IsValue() == 0) value = default(ulong);

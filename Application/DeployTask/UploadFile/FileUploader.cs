@@ -116,7 +116,7 @@ namespace AutoCSer.CommandService.DeployTask
             return UploadFileStateEnum.Success;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         internal async Task<CommandServerSendOnly> Free()
@@ -144,6 +144,7 @@ namespace AutoCSer.CommandService.DeployTask
             return CommandServerSendOnly.Null;
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         /// <returns></returns>

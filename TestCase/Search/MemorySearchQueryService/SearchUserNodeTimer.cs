@@ -21,6 +21,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             KeepSeconds = checkSeconds;
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         /// <returns></returns>

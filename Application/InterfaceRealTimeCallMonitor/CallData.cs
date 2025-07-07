@@ -66,7 +66,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 实时调用信息
         /// </summary>
-        /// <param name="callType">调用接口类型</param>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
         /// <param name="callName">调用接口方法名称</param>
         /// <param name="timeoutMilliseconds">调用超时毫秒数</param>
         /// <param name="type">调用类型</param>

@@ -15,11 +15,11 @@ namespace AutoCSer.Net
     public abstract class CommandServerInterfaceControllerCreator
     {
         /// <summary>
-        /// 控制器名称
+        /// Controller name
         /// </summary>
         internal readonly string ControllerName;
         /// <summary>
-        /// 控制器创建器
+        /// Controller creator
         /// </summary>
         /// <param name="controllerName"></param>
         internal CommandServerInterfaceControllerCreator(string controllerName)
@@ -27,7 +27,7 @@ namespace AutoCSer.Net
             ControllerName = controllerName;
         }
         /// <summary>
-        /// 创建服务控制器
+        /// Create a service controller
         /// </summary>
         /// <param name="server"></param>
         /// <returns></returns>
@@ -40,6 +40,7 @@ namespace AutoCSer.Net
         public abstract IEnumerable<string> Check();
 
         /// <summary>
+        /// Gets the service interface type
         /// 获取服务接口类型
         /// </summary>
         /// <param name="type"></param>
@@ -247,21 +248,25 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// Service Controller Creator
     /// 服务控制器创建器
     /// </summary>
-    /// <typeparam name="T">控制器接口类型</typeparam>
+    /// <typeparam name="T">Controller interface type
+    /// 控制器接口类型</typeparam>
     internal sealed class CommandServerInterfaceControllerCreator<T> : CommandServerInterfaceControllerCreator
     {
         /// <summary>
-        /// 创建控制器接口操作实例委托
+        /// Create the controller interface instance delegate
+        /// 创建控制器接口实例委托
         /// </summary>
         private readonly Func<CommandListener, T> controllerCreator;
         /// <summary>
-        /// 传参是否委托
+        /// Is delegate parameters
+        /// 是否委托参数
         /// </summary>
         private readonly bool isFunc;
         /// <summary>
-        /// 控制器创建器
+        /// Controller creator
         /// </summary>
         /// <param name="controllerName"></param>
         /// <param name="controller"></param>
@@ -275,7 +280,7 @@ namespace AutoCSer.Net
             isFunc = false;
         }
         /// <summary>
-        /// 控制器创建器
+        /// Controller creator
         /// </summary>
         /// <param name="controllerName"></param>
         /// <param name="controllerCreator"></param>
@@ -289,7 +294,7 @@ namespace AutoCSer.Net
             isFunc = true;
         }
         /// <summary>
-        /// 控制器创建器
+        /// Controller creator
         /// </summary>
         /// <param name="controllerName"></param>
         /// <param name="controllerCreator"></param>
@@ -303,6 +308,7 @@ namespace AutoCSer.Net
             isFunc = true;
         }
         /// <summary>
+        /// Create a service controller
         /// 创建服务控制器
         /// </summary>
         /// <param name="server"></param>
@@ -325,25 +331,30 @@ namespace AutoCSer.Net
             return commandServerController;
         }
         /// <summary>
+        /// Check the error messages related to the service controller
         /// 检查服务控制器相关错误信息
         /// </summary>
         /// <returns></returns>
         public override IEnumerable<string> Check() { return ServerInterfaceController<T>.Check(); }
 
         /// <summary>
+        /// Gets the controller interface instance
         /// 获取控制器接口实例
         /// </summary>
         private sealed class GetBindContextController
         {
             /// <summary>
-            /// 命令服务
+            /// Command server to listen
+            /// 命令服务端监听
             /// </summary>
             private readonly CommandListener server;
             /// <summary>
-            /// 创建控制器接口操作实例委托
+            /// Create the controller interface instance delegate
+            /// 创建控制器接口实例委托
             /// </summary>
             private readonly Func<CommandListener, T> controllerCreator;
             /// <summary>
+            /// Gets the controller interface instance
             /// 获取控制器接口实例
             /// </summary>
             /// <param name="server"></param>
@@ -354,6 +365,7 @@ namespace AutoCSer.Net
                 this.controllerCreator = controllerCreator;
             }
             /// <summary>
+            /// Gets the controller interface instance
             /// 获取控制器接口实例
             /// </summary>
             /// <param name="commandServerController"></param>
@@ -373,18 +385,23 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// Task Queue Service Controller Creator
     /// Task 队列服务控制器创建器
     /// </summary>
-    /// <typeparam name="T">控制器接口类型</typeparam>
-    /// <typeparam name="KT">异步队列关键字类型</typeparam>
+    /// <typeparam name="T">Controller interface type
+    /// 控制器接口类型</typeparam>
+    /// <typeparam name="KT">Asynchronous queue keyword type
+    /// 异步队列关键字类型</typeparam>
     internal sealed class CommandServerInterfaceControllerCreator<T, KT> : CommandServerInterfaceControllerCreator
         where KT : IEquatable<KT>
     {
         /// <summary>
+        /// Gets the queue context delegate
         /// 获取队列上下文委托
         /// </summary>
         private readonly Func<AutoCSer.Net.CommandServerCallTaskQueueNode, KT, T> getTaskQueue;
         /// <summary>
+        /// Controller creator
         /// 控制器创建器
         /// </summary>
         /// <param name="controllerName"></param>
@@ -398,6 +415,7 @@ namespace AutoCSer.Net
             this.getTaskQueue = getTaskQueue;
         }
         /// <summary>
+        /// Create a service controller
         /// 创建服务控制器
         /// </summary>
         /// <param name="server"></param>
@@ -412,6 +430,7 @@ namespace AutoCSer.Net
             throw new Exception(AutoCSer.Common.Culture.GetCommandServerTaskQueueKeyTypeRepeatedly(ControllerName, controllerCreator.ControllerName, typeof(KT)));
         }
         /// <summary>
+        /// Check the error messages related to the service controller
         /// 检查服务控制器相关错误信息
         /// </summary>
         /// <returns></returns>

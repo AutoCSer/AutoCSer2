@@ -91,7 +91,7 @@ namespace AutoCSer.Json
                                 {
                                     if (jsonDeserializer.GetNextName() != *prefix) return -1;
                                 }
-                                value = jsonDeserializer.GetNextName();
+                                value = (char)jsonDeserializer.GetNextName();
                             }
                             else break;
                         }
@@ -115,7 +115,7 @@ namespace AutoCSer.Json
                                 if ((index = *(int*)(table + index * sizeof(int))) != 0) currentState = State + index;
                                 else break;
                             }
-                            value = jsonDeserializer.GetNextName();
+                            value = (char)jsonDeserializer.GetNextName();
                         }
                         else break;
                     }

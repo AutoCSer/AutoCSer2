@@ -94,7 +94,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
             }
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <returns></returns>
         async Task<ResponseResult> IIndexCondition<T>.Load()

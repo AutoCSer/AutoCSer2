@@ -25,6 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private SnapshotDictionary<HashBytes, byte[]> dictionary;
 #endif
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
 #if NetStandard21
@@ -35,8 +36,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 字典节点
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <param name="groupType">Reusable dictionary recombination operation type
+        /// 可重用字典重组操作类型</param>
         public HashBytesDictionaryNode(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex)
         {
 #if NetStandard21
@@ -46,7 +49,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         }
         /// <summary>
-        /// 快照添加数据
+        /// Add snapshot data
+        /// 添加快照数据
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -58,14 +62,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             dictionary[value.Key] = value.Value;
         }
         /// <summary>
+        /// Clear all data and rebuild the container (to solve the problem of low performance of the clear call when the data volume is large)
         /// 清除所有数据并重建容器（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>
-        /// <param name="capacity">新容器初始化大小</param>
+        /// <param name="capacity">Initialize the size of the new container
+        /// 新容器初始化大小</param>
         public void Renew(int capacity = 0)
         {
             dictionary.Renew(capacity);
         }
         /// <summary>
+        /// Get the quantity of data
         /// 获取数据数量
         /// </summary>
         /// <returns></returns>
@@ -74,22 +81,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return dictionary.Count;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <returns>是否添加成功，否则表示关键字已经存在</returns>
+        /// <returns>Returning false indicates that the keyword already exists
+        /// 返回 false 表示关键字已经存在</returns>
         public bool TryAdd(ServerByteArray key, ServerByteArray value)
         {
             var keyBuffer = key.Buffer;
             return keyBuffer != null && dictionary.TryAdd(keyBuffer, value);
         }
         /// <summary>
+        /// Force the data to be set and overwrite if the keyword already exists
         /// 强制设置数据，如果关键字已存在则覆盖
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <returns>是否设置成功</returns>
+        /// <returns>Return false on failure</returns>
         public bool Set(ServerByteArray key, ServerByteArray value)
         {
             var keyBuffer = key.Buffer;
@@ -101,6 +110,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
@@ -124,6 +134,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
@@ -139,6 +150,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return (ResponseServerByteArray)CallStateEnum.NullResponseParameter;
         }
         /// <summary>
+        /// Clear all data
         /// 清除所有数据
         /// </summary>
         public void Clear()
@@ -146,6 +158,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             dictionary.ClearArray();
         }
         /// <summary>
+        /// Determine whether the keyword exists
         /// 判断关键字是否存在
         /// </summary>
         /// <param name="key"></param>
@@ -156,20 +169,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return keyBuffer != null && dictionary.ContainsKey(keyBuffer);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>是否删除成功</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         public bool Remove(ServerByteArray key)
         {
             var keyBuffer = key.Buffer;
             return keyBuffer != null && dictionary.Remove(keyBuffer);
         }
         /// <summary>
+        /// Delete the keywords and return the deleted data
         /// 删除关键字并返回被删除数据
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>被删除数据</returns>
+        /// <returns>Deleted data and no returned data indicate that the keyword does not exist
+        /// 被删除数据，无返回数据表示关键字不存在</returns>
 #if NetStandard21
         public ValueResult<byte[]?> GetRemove(ServerByteArray key)
 #else
@@ -189,10 +206,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         }
         /// <summary>
+        /// Delete the keywords and return the deleted data
         /// 删除关键字并返回被删除数据
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>被删除数据</returns>
+        /// <returns>Deleted data and no returned data indicate that the keyword does not exist
+        /// 被删除数据，无返回数据表示关键字不存在</returns>
         public ResponseParameter GetRemoveResponseParameter(ServerByteArray key)
         {
             var keyBuffer = key.Buffer;

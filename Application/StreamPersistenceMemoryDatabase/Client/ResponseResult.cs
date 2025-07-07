@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Return result
     /// 返回结果
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ResponseResult
     {
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         public string? ErrorMessage;
@@ -21,15 +22,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public string ErrorMessage;
 #endif
         /// <summary>
+        /// The return value type of the network client
         /// 网络客户端返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 读取数据状态
+        /// Call status
+        /// 调用状态
         /// </summary>
         public CallStateEnum CallState;
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess { get { return CallState == CallStateEnum.Success && ReturnType == CommandClientReturnTypeEnum.Success; } }
         ///// <summary>
@@ -43,7 +47,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         //    ErrorMessage = returnValue.ErrorMessage;
         //}
         /// <summary>
-        /// 返回结果
+        /// Return the calling state
+        /// 返回调用状态
         /// </summary>
         /// <param name="state"></param>
         internal ResponseResult(CallStateEnum state)
@@ -53,7 +58,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ErrorMessage = null;
         }
         /// <summary>
-        /// 返回结果
+        /// Error call return type
+        /// 错误调用返回类型
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -68,7 +74,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ErrorMessage = errorMessage;
         }
         /// <summary>
-        /// 返回结果
+        /// Set the error call status
+        /// 设置错误调用状态
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="state"></param>
@@ -85,7 +92,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ErrorMessage = errorMessage;
         }
         /// <summary>
-        /// 返回结果
+        /// Error call state
+        /// 错误调用状态
         /// </summary>
         /// <param name="state"></param>
         /// <param name="errorMessage"></param>
@@ -100,7 +108,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ErrorMessage = errorMessage;
         }
         /// <summary>
-        /// 返回结果
+        /// Implicit conversion
         /// </summary>
         /// <param name="state"></param>
         public static implicit operator ResponseResult(CallStateEnum state) { return new ResponseResult(state); }
@@ -110,6 +118,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Task<ResponseResult> SuccessTask = Task.FromResult(new ResponseResult(CallStateEnum.Success));
         /// <summary>
+        /// The service has released resources
         /// 服务已释放资源
         /// </summary>
         internal static readonly Task<ResponseResult> DisposedTask = Task.FromResult(new ResponseResult(CallStateEnum.Disposed));
@@ -123,6 +132,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal static readonly Task<ResponseResult<bool>> TrueTask = Task.FromResult((ResponseResult<bool>)true);
     }
     /// <summary>
+    /// Return result
     /// 返回结果
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -130,7 +140,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public struct ResponseResult<T>
     {
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         public T? Value;
@@ -138,7 +148,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public T Value;
 #endif
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         public string? ErrorMessage;
@@ -146,19 +156,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public string ErrorMessage;
 #endif
         /// <summary>
+        /// The return value type of the network client
         /// 网络客户端返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 读取数据状态
+        /// Call status
+        /// 调用状态
         /// </summary>
         public CallStateEnum CallState;
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess { get { return CallState == CallStateEnum.Success && ReturnType == CommandClientReturnTypeEnum.Success; } }
         /// <summary>
-        /// 返回结果
+        /// Error call return type
+        /// 错误调用返回类型
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -174,7 +188,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CallState = CallStateEnum.Unknown;
         }
         /// <summary>
-        /// 返回结果
+        /// Error call state
+        /// 错误调用状态
         /// </summary>
         /// <param name="state"></param>
         internal ResponseResult(CallStateEnum state)
@@ -185,7 +200,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CallState = state;
         }
         /// <summary>
-        /// 返回结果
+        /// Error call state
+        /// 错误调用状态
         /// </summary>
         /// <param name="state"></param>
         /// <param name="errorMessage"></param>
@@ -201,6 +217,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CallState = state;
         }
         /// <summary>
+        /// Return result
         /// 返回结果
         /// </summary>
         /// <param name="value"></param>
@@ -216,10 +233,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CallState = CallStateEnum.Success;
         }
         /// <summary>
+        /// Return the result type conversion
         /// 返回结果类型转换
         /// </summary>
-        /// <typeparam name="VT">目标类型</typeparam>
-        /// <param name="defaultValue">成功状态默认值</param>
+        /// <typeparam name="VT">Target type
+        /// 目标类型</typeparam>
+        /// <param name="defaultValue">Default value of success status
+        /// 成功状态默认值</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -233,17 +253,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new ResponseResult<VT>(ReturnType, ErrorMessage);
         }
         /// <summary>
-        /// 返回结果
+        /// Implicit conversion
         /// </summary>
         /// <param name="returnType"></param>
         public static implicit operator ResponseResult<T>(CommandClientReturnTypeEnum returnType) { return new ResponseResult<T>(returnType, null); }
         /// <summary>
-        /// 返回结果
+        /// Implicit conversion
         /// </summary>
         /// <param name="state"></param>
         public static implicit operator ResponseResult<T>(CallStateEnum state) { return new ResponseResult<T>(state); }
         /// <summary>
-        /// 返回结果
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -252,6 +272,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static implicit operator ResponseResult<T>(T value) { return new ResponseResult<T>(value); }
 #endif
         /// <summary>
+        /// Error return result
         /// 错误返回结果
         /// </summary>
         /// <param name="result"></param>
@@ -261,6 +282,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new ResponseResult<T>(result.ReturnType, result.ErrorMessage);
         }
         /// <summary>
+        /// Error return result
         /// 错误返回结果
         /// </summary>
         /// <param name="result"></param>
@@ -270,10 +292,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new ResponseResult(result.ReturnType, result.ErrorMessage);
         }
         /// <summary>
+        /// Get the error paging data
         /// 获取错误分页数据
         /// </summary>
         /// <typeparam name="PT"></typeparam>
-        /// <returns>错误分页数据</returns>
+        /// <returns>Error paging data
+        /// 错误分页数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public PageResult<PT> GetPageResult<PT>()
         {

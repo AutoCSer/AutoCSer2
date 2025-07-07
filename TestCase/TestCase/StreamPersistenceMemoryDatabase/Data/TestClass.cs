@@ -3,16 +3,16 @@
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data
 {
     /// <summary>
-    /// 测试数据
+    /// Test data
     /// </summary>
     public class TestClass
     {
         /// <summary>
-        /// 测试数据
+        /// Test data
         /// </summary>
         public int Int;
         /// <summary>
-        /// 测试数据
+        /// Test data
         /// </summary>
         public string String;
     }

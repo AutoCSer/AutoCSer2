@@ -147,12 +147,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// TCP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Tcp(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// TCP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Tcp(ref SubArray<byte> data)
         {
             if (data.Length >= DefaultHeaderSize && data.Length >= (uint)((data.Array[data.Start + 12] >> 4) << 2))

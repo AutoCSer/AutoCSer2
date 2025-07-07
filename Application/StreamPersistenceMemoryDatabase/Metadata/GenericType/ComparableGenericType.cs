@@ -13,22 +13,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
     internal abstract class ComparableGenericType : AutoCSer.Metadata.GenericTypeCache<ComparableGenericType>
     {
         /// <summary>
+        /// Create a binary search tree collection node ISearchTreeSetNode{KT}
         /// 创建二叉搜索树集合节点 ISearchTreeSetNode{KT}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal abstract NodeIndex CreateSearchTreeSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo);
         /// <summary>
+        /// Create sorted collection node ISortedSetNode{KT}
         /// 创建排序集合节点 ISortedSetNode{KT}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal abstract NodeIndex CreateSortedSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo);
 
         /// <summary>
@@ -76,25 +86,35 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// </summary>
         internal override Type CurrentType { get { return typeof(T); } }
         /// <summary>
+        /// Create a binary search tree collection node ISearchTreeSetNode{KT}
         /// 创建二叉搜索树集合节点 ISearchTreeSetNode{KT}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateSearchTreeSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
             return node.CreateSnapshotNode<ISearchTreeSetNode<T>>(index, key, nodeInfo, () => new SearchTreeSetNode<T>());
         }
         /// <summary>
+        /// Create sorted collection node ISortedSetNode{KT}
         /// 创建排序集合节点 ISortedSetNode{KT}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateSortedSetNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
             return node.CreateSnapshotNode<ISortedSetNode<T>>(index, key, nodeInfo, () => new SortedSetNode<T>());

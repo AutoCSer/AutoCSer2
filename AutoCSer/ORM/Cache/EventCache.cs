@@ -53,7 +53,7 @@ namespace AutoCSer.ORM
             tableWriter.AppendEvent(tableEvent = new CacheTableEvent<T>(this));
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public virtual void Dispose()
         {
@@ -87,6 +87,7 @@ namespace AutoCSer.ORM
         where VT : class, T
     {
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         internal readonly Action<Func<Task>> AppendQueue;
@@ -122,7 +123,7 @@ namespace AutoCSer.ORM
             events = new LeftArray<ICacheEvent<T, VT>>(0);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override void Dispose()
         {

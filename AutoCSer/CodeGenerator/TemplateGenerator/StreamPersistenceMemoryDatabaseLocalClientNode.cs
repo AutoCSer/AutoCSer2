@@ -26,6 +26,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         protected override bool isStartClass { get { return false; } }
         /// <summary>
+        /// Node method information
         /// 节点方法信息
         /// </summary>
         public sealed class NodeMethod
@@ -67,6 +68,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public ExtensionType CallbackType;
             /// <summary>
+            /// Customize the command sequence number
             /// 自定义命令序号
             /// </summary>
             public int MethodIndex { get { return ServerNodeMethod.MethodIndex; } }
@@ -234,6 +236,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType[] ParameterTypes;
         /// <summary>
+        /// Node method collection
         /// 节点方法集合
         /// </summary>
         public NodeMethod[] Methods;

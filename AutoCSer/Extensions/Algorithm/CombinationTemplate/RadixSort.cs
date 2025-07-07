@@ -9,6 +9,7 @@ namespace AutoCSer.Extensions
     public static unsafe partial class LeftArraySort
     {
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="array"></param>
@@ -25,6 +26,7 @@ namespace AutoCSer.Extensions
     public static unsafe partial class ArraySort
     {
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="array"></param>

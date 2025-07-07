@@ -13,7 +13,7 @@ namespace AutoCSer.CodeGenerator.Template
         /*NOTE*/
         public partial interface /*NOTE*/@TypeNameDefinition { }
         /// <summary>
-        /// @CurrentType.CodeGeneratorXmlDocument 节点方法序号映射枚举类型
+        /// @CurrentType.CodeGeneratorXmlDocument (node method sequence number mapping enumeration type)
         /// </summary>
         public enum @MethodIndexEnumTypeName
         {
@@ -26,7 +26,7 @@ namespace AutoCSer.CodeGenerator.Template
             /// @ParameterType.XmlFullName @ParameterName @CodeGeneratorXmlDocument
             #endregion LOOP Method.Parameters
             #region IF Method.IsReturn
-            /// 返回值 @MethodReturnType.XmlFullName @Method.CodeGeneratorReturnXmlDocument
+            /// Return value : @MethodReturnType.XmlFullName @Method.CodeGeneratorReturnXmlDocument
             #endregion IF Method.IsReturn
             /// </summary>
             #endregion IF Method
@@ -37,7 +37,7 @@ namespace AutoCSer.CodeGenerator.Template
         #region LOOP Methods
         #region IF Method
         /// <summary>
-        /// @Method.CodeGeneratorXmlDocument 服务端节点方法
+        /// @Method.CodeGeneratorXmlDocument server node method
         /// </summary>
         #region IF IsCall
         internal sealed class @CallMethodTypeName : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallMethod
@@ -193,7 +193,7 @@ namespace AutoCSer.CodeGenerator.Template
         #endregion IF Method
         #endregion LOOP Methods
         /// <summary>
-        /// @CurrentType.CodeGeneratorXmlDocument 创建调用方法与参数信息
+        /// @CurrentType.CodeGeneratorXmlDocument (Create the calling method and parameter information)
         /// </summary>
         internal sealed partial class @MethodParameterCreatorTypeName
         #region IF IsMethodParameterCreator
@@ -215,6 +215,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #endregion LOOP SnapshotMethods
             /// <summary>
+            /// Get the method information of generate server-side node
             /// 获取生成服务端节点方法信息
             /// </summary>
             /// <returns></returns>

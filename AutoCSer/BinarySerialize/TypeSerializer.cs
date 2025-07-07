@@ -70,7 +70,7 @@ namespace AutoCSer.BinarySerialize
         /// 序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void Serialize(BinarySerializer binarySerializer, ref T value)
         {
             if (SerializeDelegateReference.PushType != SerializePushTypeEnum.Primitive)
@@ -101,7 +101,7 @@ namespace AutoCSer.BinarySerialize
         /// 序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void Serialize(BinarySerializer binarySerializer, T value)
         {
             if (SerializeDelegateReference.PushType != SerializePushTypeEnum.Primitive)
@@ -132,7 +132,7 @@ namespace AutoCSer.BinarySerialize
         /// 序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void SerializeNullable(BinarySerializer binarySerializer, T value)
         {
@@ -157,10 +157,10 @@ namespace AutoCSer.BinarySerialize
             }
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Data object</param>
         private static void MemberSerialize(BinarySerializer serializer, T value)
         {
             var memberMap = isMemberMap ? serializer.SerializeMemberMap<T>() : null;
@@ -196,8 +196,8 @@ namespace AutoCSer.BinarySerialize
         /// <summary>
         /// 命令服务序列化
         /// </summary>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void SerializeCommandServer(BinarySerializer serializer, ref T value)
         {

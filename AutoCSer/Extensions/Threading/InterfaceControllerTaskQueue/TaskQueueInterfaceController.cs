@@ -30,10 +30,12 @@ namespace AutoCSer.Threading
         /// </summary>
         internal static readonly ConstructorInfo NodeConstructorInfo = typeof(InterfaceControllerTaskQueueNode).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, NodeConstructorParameterTypes, null).notNull();
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Action<InterfaceControllerTaskQueue, InterfaceControllerTaskQueueNodeBase> InterfaceControllerTaskQueueAdd = InterfaceControllerTaskQueue.Add;
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         internal static readonly Action<InterfaceControllerTaskQueueNode> InterfaceControllerTaskQueueNodeSetReturnType = InterfaceControllerTaskQueueNode.SetReturnType;
@@ -92,7 +94,7 @@ namespace AutoCSer.Threading
             {
                 var error = default(string);
                 LeftArray<TaskQueueInterfaceControllerMethod> methodArray = new LeftArray<TaskQueueInterfaceControllerMethod>(0);
-                if (InterfaceController.CheckType(type, out error))
+                if (InterfaceController.CheckType(type, false, out error))
                 {
                     Dictionary<TaskQueueInterfaceControllerMatchMethod, MethodInfo> serviceMethods = DictionaryCreator<TaskQueueInterfaceControllerMatchMethod>.Create<MethodInfo>();
                     foreach (MethodInfo method in serviceType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))

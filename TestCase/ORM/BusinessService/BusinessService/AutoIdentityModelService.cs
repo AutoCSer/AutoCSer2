@@ -1,5 +1,4 @@
 ﻿using AutoCSer.Metadata;
-using AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum;
 using AutoCSer.TestCase.CommonModel.TableModel.CustomColumn;
 using System;
 using System.Threading.Tasks;
@@ -9,8 +8,8 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 自增ID与其它混合测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(AutoIdentityModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
-    public interface IAutoIdentityModelService : IAutoIdentityService<AutoIdentityModel, AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel>
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
+    public partial interface IAutoIdentityModelService : IAutoIdentityService<AutoIdentityModel, AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel>
     {
         /// <summary>
         /// 自定义列查询测试
@@ -24,10 +23,11 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class AutoIdentityModelService : IAutoIdentityModelService
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="identity"></param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         public async Task<AutoIdentityModel> Get(long identity)
         {
             return await AutoIdentityModel.Get(identity);

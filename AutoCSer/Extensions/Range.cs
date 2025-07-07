@@ -32,7 +32,8 @@ namespace AutoCSer
         /// <summary>
         /// 索引范围
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置</param>
         internal Range(int startIndex, int endIndex)
         {
@@ -42,13 +43,15 @@ namespace AutoCSer
         /// <summary>
         /// 索引范围
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置</param>
         internal Range(long startIndex, long endIndex) : this((int)startIndex, (int)endIndex) { }
         /// <summary>
         /// 重置索引范围
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(int startIndex, int endIndex)
@@ -59,7 +62,8 @@ namespace AutoCSer
         /// <summary>
         /// 重置索引范围
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(long startIndex, long endIndex)

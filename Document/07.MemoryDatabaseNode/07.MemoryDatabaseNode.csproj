@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AutoCSer.Document.MemoryDatabaseNode</AssemblyName>
+    <RootNamespace>AutoCSer.Document.MemoryDatabaseNode</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Client\ManyHashBitMapFilterNode.cs" />
+    <Compile Include="Client\ManyHashBitMapClientFilterNode.cs" />
+    <Compile Include="Client\BitmapNode.cs" />
+    <Compile Include="Client\SortedListNode.cs" />
+    <Compile Include="Client\LeftArrayNode.cs" />
+    <Compile Include="Client\ByteArrayFragmentDictionaryNode.cs" />
+    <Compile Include="Client\ByteArrayStackNode.cs" />
+    <Compile Include="Client\CommandClientSocketEvent.cs" />
+    <Compile Include="Client\ByteArrayDictionaryNode.cs" />
+    <Compile Include="Client\FragmentHashSetNode.cs" />
+    <Compile Include="Client\ByteArrayQueueNode.cs" />
+    <Compile Include="Client\ArrayNode.cs" />
+    <Compile Include="Client\StackNode.cs" />
+    <Compile Include="Client\QueueNode.cs" />
+    <Compile Include="Client\IdentityGeneratorNode.cs" />
+    <Compile Include="Client\SearchTreeSetNode.cs" />
+    <Compile Include="Client\SearchTreeDictionaryNode.cs" />
+    <Compile Include="Client\HashSetNode.cs" />
+    <Compile Include="Client\SortedSetNode.cs" />
+    <Compile Include="Client\SortedDictionaryNode.cs" />
+    <Compile Include="Client\DistributedLockNode.cs" />
+    <Compile Include="Client\FragmentDictionaryNode.cs" />
+    <Compile Include="Client\DictionaryNode.cs" />
+    <Compile Include="Client\HashBytesFragmentDictionaryNode.cs" />
+    <Compile Include="Client\HashBytesDictionaryNode.cs" />
+    <Compile Include="Client\Message\ServerByteArrayMessageConsumer.cs" />
+    <Compile Include="Client\Message\ServerByteArrayBinaryMessageConsumer.cs" />
+    <Compile Include="Client\Message\ServerByteArrayMessageStringConsumer.cs" />
+    <Compile Include="Client\Message\ServerByteArrayMessageJsonConsumer.cs" />
+    <Compile Include="Client\Message\BinaryMessageConsumer.cs" />
+    <Compile Include="Data\TestClass.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Server\ServiceConfig.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="07.MemoryDatabaseNode.Eng.md" />
+    <None Include="07.MemoryDatabaseNode.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+  </ItemGroup>
+
+</Project>

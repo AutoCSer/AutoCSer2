@@ -4,14 +4,14 @@
 namespace AutoCSer
 {
     /// <summary>
-    /// 二进制反数据序列化
+    /// 二进制数据反序列化
     /// </summary>
     public sealed unsafe partial class BinaryDeserializer
     {
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref ulong[]? array)
 #else
@@ -35,7 +35,7 @@ namespace AutoCSer
         }
 #if AOT
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeULongArray(BinaryDeserializer deserializer)
@@ -45,7 +45,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeULongListArray(BinaryDeserializer deserializer)
@@ -55,7 +55,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object primitiveMemberDeserializeULongLeftArray(BinaryDeserializer deserializer)
@@ -65,7 +65,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeNullableULongArray(BinaryDeserializer deserializer)
@@ -76,10 +76,10 @@ namespace AutoCSer
         }
 #endif
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ulong[]? array)
@@ -90,9 +90,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref ListArray<ulong>? array)
 #else
@@ -115,10 +115,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ListArray<ulong>? array)
@@ -129,9 +129,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         public void BinaryDeserialize(ref LeftArray<ulong> array)
         {
             int length = *(int*)Current;
@@ -155,19 +155,19 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref LeftArray<ulong> array)
         {
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref ulong?[]? array)
 #else
@@ -200,10 +200,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ulong?[]? array)

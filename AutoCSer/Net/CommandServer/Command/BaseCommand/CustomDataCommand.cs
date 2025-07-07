@@ -17,6 +17,7 @@ namespace AutoCSer.Net
         /// </summary>
         private SubArray<byte> data;
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -25,11 +26,13 @@ namespace AutoCSer.Net
         private Action continuation;
 #endif
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
         /// <summary>
-        /// 命令添加状态
+        /// The status of the reqeust command added to the output queue
+        /// 请求命令添加到输出队列的状态
         /// </summary>
         private CommandPushStateEnum pushState;
         /// <summary>
@@ -53,10 +56,12 @@ namespace AutoCSer.Net
             Push();
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -87,7 +92,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 等待添加输出队列
+        /// Wait for the command to add the output queue
+        /// 等待命令添加输出队列
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -96,6 +102,7 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
+        /// Whether the output queue has been successfully added
         /// 是否成功添加输出队列
         /// </summary>
         /// <returns></returns>
@@ -105,6 +112,7 @@ namespace AutoCSer.Net
             return pushState == CommandPushStateEnum.Success;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -114,7 +122,7 @@ namespace AutoCSer.Net
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -124,7 +132,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 添加命令到发送队列
+        /// Add commands to the output queue
+        /// 添加命令到输出队列
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -138,9 +147,11 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 检查等待添加队列命令
+        /// The command waiting for idle output attempts to be added to the output queue again
+        /// 等待空闲输出的命令再次尝试添加到输出队列
         /// </summary>
-        /// <returns>是否需要继续等待</returns>
+        /// <returns>Is it necessary to keep waiting
+        /// 是否需要继续等待</returns>
         internal override bool CheckWaitPush()
         {
             pushState = Socket.TryPush(this);

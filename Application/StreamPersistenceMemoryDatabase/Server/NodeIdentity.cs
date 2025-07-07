@@ -36,21 +36,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return this.Identity == identity ? Node : null;
         }
-        /// <summary>
-        /// 获取服务端节点
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        internal ServerNode? CheckGet(uint identity)
-#else
-        internal ServerNode CheckGet(uint identity)
-#endif
-        {
-            var node = this.Node;
-            return node != null && !node.IsRemoved && this.Identity == identity ? node : null;
-        }
+//        /// <summary>
+//        /// 获取服务端节点
+//        /// </summary>
+//        /// <param name="identity"></param>
+//        /// <returns></returns>
+//        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+//#if NetStandard21
+//        internal ServerNode? CheckGet(uint identity)
+//#else
+//        internal ServerNode CheckGet(uint identity)
+//#endif
+//        {
+//            var node = this.Node;
+//            return node != null && !node.IsRemoved && this.Identity == identity ? node : null;
+//        }
         /// <summary>
         /// 设置节点
         /// </summary>
@@ -83,8 +83,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (this.Identity == identity)
             {
                 var node = this.Node;
-                if ((++this.Identity & NodeIndex.FreeIdentity) != 0) this.Identity = 0;
+                //if ((++this.Identity & NodeIndex.FreeIdentity) != 0) this.Identity = 0;
+                ++this.Identity;
                 this.Node = null;
+                this.Identity &= (this.Identity >> 31) - 1;
                 return node;
             }
             return null;
@@ -120,6 +122,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return this.Identity == (identity |= NodeIndex.FreeIdentity);
         }
         /// <summary>
+        /// Release free node
         /// 释放空闲节点
         /// </summary>
         /// <param name="identity"></param>
@@ -129,7 +132,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (this.Identity == (identity | NodeIndex.FreeIdentity))
             {
                 this.Identity -= (NodeIndex.FreeIdentity - 1);
-                if ((++this.Identity & NodeIndex.FreeIdentity) != 0) this.Identity = 0;
+                //if ((++this.Identity & NodeIndex.FreeIdentity) != 0) this.Identity = 0;
+                ++this.Identity;
+                this.Identity &= (this.Identity >> 31) - 1;
                 return true;
             }
             return false;

@@ -5,20 +5,24 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
 {
     /// <summary>
-    /// 红黑树哈希表客户端示例
+    /// Example of a red-black tree hash table client node
+    /// 红黑树哈希表客户端节点示例
     /// </summary>
     internal static class SortedSetNode
     {
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeClientNode<int>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateSortedSetNode<int>(nameof(SortedSetNode)));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeClientNode<int>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateSortedSetNode<int>(nameof(SortedSetNode)));
         /// <summary>
-        /// 红黑树哈希表客户端示例
+        /// Example of a red-black tree hash table client node
+        /// 红黑树哈希表客户端节点示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
@@ -28,7 +32,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             return true;
         }
         /// <summary>
-        /// 红黑树哈希表客户端示例
+        /// Example of a red-black tree hash table client node
+        /// 红黑树哈希表客户端节点示例
         /// </summary>
         /// <returns></returns>
         private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeClientNode<int>> client)

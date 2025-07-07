@@ -21,6 +21,7 @@
         </member>
         <member name="T:AutoCSer.FieldEquals.CombinationTemplateConfig">
             <summary>
+            Customize simple combination template parameters
             自定义简单组合模板参数
             </summary>
         </member>
@@ -221,7 +222,8 @@
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.ReflectionMethodName``1(System.Object[])">
             <summary>
-            代码生成模板
+            AOT code generation template
+            AOT 代码生成模板
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -229,7 +231,8 @@
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.EqualsMethodName``1(System.Object[])">
             <summary>
-            代码生成模板
+            AOT code generation template
+            AOT 代码生成模板
             </summary>
             <typeparam name="T"></typeparam>
             <param name="value"></param>
@@ -305,6 +308,7 @@
         </member>
         <member name="F:AutoCSer.FieldEquals.Comparor.IsBreakpoint">
             <summary>
+            Test breakpoint information is added to the output queue (DEBUG is valid)
             测试断点信息添加到输出队列（DEBUG 有效）
             </summary>
         </member>
@@ -313,32 +317,34 @@
             检查返回数据
             </summary>
             <param name="type">比较类型</param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="callerFilePath">调用源代码文件路径</param>
-            <param name="callerLineNumber">调用源代码行号</param>
+            <param name="callerMemberName">Caller member name</param>
+            <param name="callerFilePath">Caller the source code file path</param>
+            <param name="callerLineNumber">Caller the line number of the source code</param>
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(``0,``0,System.String,System.String,System.Int32)">
             <summary>
+            Test breakpoint information is added to the output queue
             测试断点信息添加到输出队列
             </summary>
             <typeparam name="T"></typeparam>
             <param name="left"></param>
             <param name="right"></param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="callerFilePath">调用源代码文件路径</param>
-            <param name="callerLineNumber">调用源代码行号</param>
+            <param name="callerMemberName">Caller member name</param>
+            <param name="callerFilePath">Caller the source code file path</param>
+            <param name="callerLineNumber">Caller the line number of the source code</param>
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(System.Type,``0,``0,System.String,System.String,System.Int32)">
             <summary>
+            Test breakpoint information is added to the output queue
             测试断点信息添加到输出队列
             </summary>
             <typeparam name="T"></typeparam>
             <param name="type">比较类型</param>
             <param name="left"></param>
             <param name="right"></param>
-            <param name="callerMemberName">调用成员名称</param>
-            <param name="callerFilePath">调用源代码文件路径</param>
-            <param name="callerLineNumber">调用源代码行号</param>
+            <param name="callerMemberName">Caller member name</param>
+            <param name="callerFilePath">Caller the source code file path</param>
+            <param name="callerLineNumber">Caller the line number of the source code</param>
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Equals``1(``0,``0)">
             <summary>

@@ -8,6 +8,7 @@ namespace AutoCSer.Net
     internal sealed class CommandServerControllerCallTaskQueue : CommandServerCallTaskQueue
     {
         /// <summary>
+        /// Command service controller
         /// 命令服务控制器
         /// </summary>
         private readonly CommandServerController controller;

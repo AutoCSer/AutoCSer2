@@ -469,7 +469,7 @@ namespace AutoCSer.MessagePack
             return memory.Data == null ? null : string.Empty;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="node">数据节点</param>
         /// <returns>整数</returns>
@@ -495,7 +495,7 @@ namespace AutoCSer.MessagePack
             throw new InvalidCastException();
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="node">数据节点</param>
         /// <returns>无符号整数</returns>
@@ -521,7 +521,7 @@ namespace AutoCSer.MessagePack
             throw new InvalidCastException();
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="node">数据节点</param>
         /// <returns>逻辑值</returns>
@@ -541,7 +541,7 @@ namespace AutoCSer.MessagePack
             throw new InvalidCastException();
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="node">数据节点</param>
         /// <returns>浮点数</returns>
@@ -556,7 +556,7 @@ namespace AutoCSer.MessagePack
             throw new InvalidCastException();
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="node">数据节点</param>
         /// <returns>双精度浮点数</returns>

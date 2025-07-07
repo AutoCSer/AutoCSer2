@@ -153,12 +153,13 @@ namespace AutoCSer.Threading
             }
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         protected internal virtual void OnTimer() { }
 
         /// <summary>
-        /// 默认空节点
+        /// Default empty node
         /// </summary>
         internal static readonly SecondTimerArrayNode Null = new SecondTimerArrayNode();
     }

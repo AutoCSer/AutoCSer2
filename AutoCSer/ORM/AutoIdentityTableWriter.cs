@@ -8,7 +8,8 @@ namespace AutoCSer.ORM
     /// 自增ID 数据库表格持久化写入
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     internal abstract class AutoIdentityTableWriter<T, KT> : TableWriter<T, KT>
         where T : class
         where KT : IEquatable<KT>, IConvertible

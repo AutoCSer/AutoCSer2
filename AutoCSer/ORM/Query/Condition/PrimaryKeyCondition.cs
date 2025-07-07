@@ -8,7 +8,8 @@ namespace AutoCSer.ORM
     /// 关键字条件
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     internal sealed class PrimaryKeyCondition<T, KT> : ICondition
         where T : class
         where KT : IEquatable<KT>

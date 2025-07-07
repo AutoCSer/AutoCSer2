@@ -238,14 +238,16 @@ namespace AutoCSer.FieldEquals
         /// </summary>
         internal static readonly MethodInfo KeyValuePairEqualsMethod = typeof(Comparor).GetMethod(nameof(KeyValuePairEquals), BindingFlags.Static | BindingFlags.Public).notNull();
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
         internal static bool ReflectionMethodName<T>(params object[] value) { return false; }
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -410,6 +412,7 @@ namespace AutoCSer.FieldEquals
             return false;
         }
         /// <summary>
+        /// Test breakpoint information is added to the output queue (DEBUG is valid)
         /// 测试断点信息添加到输出队列（DEBUG 有效）
         /// </summary>
         public static bool IsBreakpoint = false;
@@ -418,9 +421,9 @@ namespace AutoCSer.FieldEquals
         /// 检查返回数据
         /// </summary>
         /// <param name="type">比较类型</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         internal static void Breakpoint(Type type, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -430,14 +433,15 @@ namespace AutoCSer.FieldEquals
             if (IsBreakpoint) AutoCSer.ConsoleWriteQueue.Breakpoint(type.fullName(), callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
+        /// Test breakpoint information is added to the output queue
         /// 测试断点信息添加到输出队列
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="left"></param>
         /// <param name="right"></param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         internal static void Breakpoint<T>(T left, T right, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -447,15 +451,16 @@ namespace AutoCSer.FieldEquals
             if (IsBreakpoint) AutoCSer.ConsoleWriteQueue.Breakpoint($"{typeof(T).fullName()} {left} <> {right}", callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
+        /// Test breakpoint information is added to the output queue
         /// 测试断点信息添加到输出队列
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="type">比较类型</param>
         /// <param name="left"></param>
         /// <param name="right"></param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         internal static void Breakpoint<T>(Type type, T left, T right, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -472,6 +477,7 @@ namespace AutoCSer.FieldEquals
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Breakpoint(Type type) { }
         /// <summary>
+        /// Test breakpoint information is added to the output queue
         /// 测试断点信息添加到输出队列
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -480,6 +486,7 @@ namespace AutoCSer.FieldEquals
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Breakpoint<T>(T left, T right) { }
         /// <summary>
+        /// Test breakpoint information is added to the output queue
         /// 测试断点信息添加到输出队列
         /// </summary>
         /// <typeparam name="T"></typeparam>

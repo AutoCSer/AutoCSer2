@@ -4,13 +4,14 @@
 namespace AutoCSer
 {
     /// <summary>
+    /// Binary data serialization
     /// 二进制数据序列化
     /// </summary>
     public sealed partial class BinarySerializer
     {
 #if AOT
         /// <summary>
-        /// 成员序列化
+        /// Member serialization
         /// </summary>
         /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -19,7 +20,7 @@ namespace AutoCSer
             Stream.Write(value);
         }
         /// <summary>
-        /// 成员序列化
+        /// Member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -29,7 +30,7 @@ namespace AutoCSer
         }
 #else
         /// <summary>
-        /// 成员序列化
+        /// Member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>

@@ -5,7 +5,7 @@ using System;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
 {
     /// <summary>
-    [ServerNode(IsAutoMethodIndex = false, IsMethodParameterCreator = true, IsLocalClient = true)]
+    [ServerNode(IsMethodParameterCreator = true, IsLocalClient = true)]
     public partial interface IGameNode
     {
         void Clear();

@@ -52,12 +52,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// 以太网数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Ethernet(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// 以太网数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Ethernet(ref SubArray<byte> data)
         {
             this.data = data.Length >= HeaderSize ? data : new SubArray<byte>();

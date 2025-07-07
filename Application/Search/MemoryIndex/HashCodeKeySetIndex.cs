@@ -58,7 +58,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             }
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         internal void Free()
         {
@@ -82,6 +82,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return manyValues.Count != 0 ? manyValues.GetArray() : EmptyArray<uint>.Array;
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
@@ -92,6 +93,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return !object.ReferenceEquals(littleValues, RemoveMarkHashSet.Empty) ? littleValues.Contains(value) : manyValues.Contains(value);
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
@@ -102,7 +104,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return Contains((uint)value);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         internal void Append(uint value)
@@ -122,6 +124,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             else manyValues.Add(value);
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         /// <param name="value"></param>

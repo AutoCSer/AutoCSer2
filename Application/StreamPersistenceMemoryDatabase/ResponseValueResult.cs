@@ -11,7 +11,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public struct ResponseValueResult<T>
     {
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         public T? Value;
@@ -19,7 +19,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public T Value;
 #endif
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         public string? ErrorMessage;
@@ -27,15 +27,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public string ErrorMessage;
 #endif
         /// <summary>
+        /// The return value type of the network client
         /// 网络客户端返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 读取数据状态
+        /// Call status
+        /// 调用状态
         /// </summary>
         public CallStateEnum CallState;
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess { get { return CallState == CallStateEnum.Success && ReturnType == CommandClientReturnTypeEnum.Success; } }
         /// <summary>
@@ -43,6 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public bool IsValue;
         /// <summary>
+        /// Return result
         /// 返回结果
         /// </summary>
         /// <param name="returnType"></param>
@@ -60,6 +64,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsValue = false;
         }
         /// <summary>
+        /// Return result
         /// 返回结果
         /// </summary>
         /// <param name="state"></param>
@@ -72,6 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsValue = false;
         }
         /// <summary>
+        /// Return result
         /// 返回结果
         /// </summary>
         /// <param name="value"></param>
@@ -88,6 +94,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsValue = true;
         }
         /// <summary>
+        /// Return result
         /// 返回结果
         /// </summary>
         /// <param name="isValue"></param>

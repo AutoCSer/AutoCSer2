@@ -73,6 +73,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public readonly TextSerializeMethodInfo MethodInfo;
             /// <summary>
+            /// Name of serialization method
             /// 序列化方法名称
             /// </summary>
             public string SerializeMethodName
@@ -86,7 +87,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             }
             /// <summary>
-            /// 序列化方法名称
+            /// Name of deserialization method
+            /// 反序列化方法名称
             /// </summary>
             public string DeserializeMethodName
             {
@@ -153,10 +155,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         }
 
         /// <summary>
+        /// Name of serialization method
         /// 序列化方法名称
         /// </summary>
         public string XmlSerializeMethodName { get { return XmlSerializeAttribute.XmlSerializeMethodName; } }
         /// <summary>
+        /// Name of serialization method
         /// 序列化方法名称
         /// </summary>
         public string XmlSerializeMemberMapMethodName { get { return XmlSerializeAttribute.XmlSerializeMemberMapMethodName; } }
@@ -165,6 +169,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public string XmlSerializeMemberTypeMethodName { get { return XmlSerializeAttribute.XmlSerializeMemberTypeMethodName; } }
         /// <summary>
+        /// Name of deserialization method
         /// 反序列化方法名称
         /// </summary>
         public string XmlDeserializeMethodName { get { return XmlSerializeAttribute.XmlDeserializeMethodName; } }
@@ -185,6 +190,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public int DeserializeMemberCount { get { return DeserializeMembers.Length; } }
         /// <summary>
+        /// Collection of member types
         /// 成员类型集合
         /// </summary>
         public AotMethod.ReflectionMemberType[] MemberTypes;
@@ -276,6 +282,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             return false;
         }
         /// <summary>
+        /// Collection of member types
         /// 成员类型集合
         /// </summary>
         private static readonly HashSet<HashObject<Type>> types = HashSetCreator.CreateHashObject<Type>();
@@ -284,7 +291,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         internal static readonly HashSet<HashObject<Type>> NullableElementTypes = HashSetCreator.CreateHashObject<Type>();
         /// <summary>
-        /// 成员类型集合
+        /// 获取成员类型集合
         /// </summary>
         /// <param name="deserializeMemberTypes"></param>
         /// <returns></returns>

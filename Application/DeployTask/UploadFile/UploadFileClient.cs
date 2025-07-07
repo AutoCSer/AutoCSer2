@@ -379,7 +379,10 @@ namespace AutoCSer.CommandService.DeployTask
                         }
 
                         clientDirectorys.ClearCount();
-                        foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(clientDirectory)) clientDirectorys.Set(directory.Name, directory);
+                        foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(clientDirectory))
+                        {
+                            if (isDirectory(directory)) clientDirectorys.Set(directory.Name, directory);
+                        }
                         var directoryCommand = await Client.UploadFileClient.GetDirectoryNames(UploaderInfo.Index, serverPath);
                         if (directoryCommand != null)
                         {
@@ -397,8 +400,12 @@ namespace AutoCSer.CommandService.DeployTask
                                 }
                                 else if (IsDelete)
                                 {
-                                    CommandClientReturnValue<bool> isDelete = await Client.UploadFileClient.AppendDeleteDirectory(UploaderInfo.Index, directoryName.FullName);
-                                    if (!isDelete.IsSuccess || !isDelete.Value) onPathError(new DirectoryInfo(Path.Combine(clientPath, directoryName.Name)), directoryName.FullName, UploadFileStateEnum.CallFail);
+                                    DirectoryInfo directory = new DirectoryInfo(Path.Combine(clientPath, directoryName.Name));
+                                    if (isDirectory(directory))
+                                    {
+                                        CommandClientReturnValue<bool> isDelete = await Client.UploadFileClient.AppendDeleteDirectory(UploaderInfo.Index, directoryName.FullName);
+                                        if (!isDelete.IsSuccess || !isDelete.Value) onPathError(directory, directoryName.FullName, UploadFileStateEnum.CallFail);
+                                    }
                                 }
                             }
                             isSuccess = directoryCommand.ReturnType == CommandClientReturnTypeEnum.Success;

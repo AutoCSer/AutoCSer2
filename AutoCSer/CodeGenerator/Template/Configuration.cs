@@ -9,7 +9,8 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             internal static void @ConfigurationMethodName()
             {

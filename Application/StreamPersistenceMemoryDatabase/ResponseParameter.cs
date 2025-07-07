@@ -10,45 +10,54 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Return parameter
     /// 返回参数
     /// </summary>
     [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     public class ResponseParameter : AutoCSer.BinarySerialize.ICustomSerialize<ResponseParameter>
     {
         /// <summary>
+        /// Call status
         /// 调用状态
         /// </summary>
         internal CallStateEnum State;
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; protected set; }
         /// <summary>
-        /// 返回参数序列化
+        /// Return parameter
+        /// 返回参数
         /// </summary>
         internal ResponseParameter()
         {
             State = CallStateEnum.Success;
         }
         /// <summary>
-        /// 返回参数序列化
+        /// Return parameter
+        /// 返回参数
         /// </summary>
-        /// <param name="state">调用状态</param>
+        /// <param name="state">Call status
+        /// 调用状态</param>
         internal ResponseParameter(CallStateEnum state)
         {
             State = state;
         }
         /// <summary>
+        /// Serialization
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
         protected virtual void serialize(AutoCSer.BinarySerializer serializer) { }
         /// <summary>
+        /// Deserialization
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
         protected virtual void deserialize(AutoCSer.BinaryDeserializer deserializer) { }
         /// <summary>
+        /// Serialization
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -58,6 +67,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (State == CallStateEnum.Success) serialize(serializer);
         }
         /// <summary>
+        /// Deserialization
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -71,25 +81,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 创建持续回调返回参数
+        /// Create a keep callback return parameter
+        /// 创建保持回调返回参数
         /// </summary>
         /// <returns></returns>
         internal virtual KeepCallbackResponseParameter CreateKeepCallback() { throw new InvalidCastException(); }
         /// <summary>
+        /// Create the return parameters
         /// 创建返回参数
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="flag">服务端节点方法标记</param>
+        /// <param name="flags">Server-side node method flags
+        /// 服务端节点方法标记</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static ResponseParameter Create<T>(T value, MethodFlagsEnum flag)
+        internal static ResponseParameter Create<T>(T value, MethodFlagsEnum flags)
         {
-            if ((flag & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) return new SimpleSerializeResponseParameter<T>(value);
+            if ((flags & MethodFlagsEnum.IsSimpleSerializeParamter) != 0) return new SimpleSerializeResponseParameter<T>(value);
             return new BinarySerializeResponseParameter<T>(value); 
         }
 
         /// <summary>
+        /// A collection of call state return parameter
         /// 调用状态返回参数集合
         /// </summary>
         internal static readonly ResponseParameter[] CallStates;
@@ -100,20 +114,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
     }
     /// <summary>
+    /// Return parameter
     /// 返回参数
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class ResponseParameter<T> : ResponseParameter
     {
         /// <summary>
-        /// 数据
+        /// Return data
         /// </summary>
         internal ServerReturnValue<T> Value;
         /// <summary>
+        /// Return parameter
         /// 返回参数
         /// </summary>
         internal ResponseParameter() : base(CallStateEnum.Unknown) { }
         /// <summary>
+        /// Return parameter
         /// 返回参数
         /// </summary>
         /// <param name="value"></param>

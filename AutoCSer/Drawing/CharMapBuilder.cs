@@ -68,7 +68,7 @@ namespace AutoCSer.Drawing
             }
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {

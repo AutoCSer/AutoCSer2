@@ -11,7 +11,7 @@ namespace AutoCSer
         /// <summary>
         /// 数组转换 
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         public void JsonSerialize(ulong[] array)
         {
             if (array.Length != 0)
@@ -40,7 +40,7 @@ namespace AutoCSer
         /// 数组转换
         /// </summary>
         /// <param name="jsonSerializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(JsonSerializer jsonSerializer, ulong[] array)
         {

@@ -18,7 +18,7 @@ namespace AutoCSer.BinarySerialize
         /// </summary>
         /// <param name="memberMap">成员位图</param>
         /// <param name="deserializer">二进制数据反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         private delegate void memberMapDeserialize(MemberMap<T> memberMap, BinaryDeserializer deserializer, ref T value);
 
         /// <summary>
@@ -113,10 +113,10 @@ namespace AutoCSer.BinarySerialize
             }
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
         /// <param name="deserializer">二进制数据反序列化</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void MemberDeserialize(BinaryDeserializer deserializer, ref T value)
         {
             if (deserializer.CheckMemberCount(memberCountVerify))

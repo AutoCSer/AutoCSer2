@@ -4,14 +4,14 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 返回值
+    /// Return value
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct ServerReturnValue<T>
     {
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         public T? ReturnValue;
@@ -53,12 +53,14 @@ namespace AutoCSer.Net.CommandServer
             return returnValue.ReturnValue;
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>
         /// <param name="value"></param>
         internal delegate void SetReturnValueDelegate(ref ServerReturnValue<T> returnValue, ref T value);
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>

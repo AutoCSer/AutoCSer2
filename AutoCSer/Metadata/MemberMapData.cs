@@ -95,6 +95,7 @@ namespace AutoCSer.Metadata
             return Equals(obj.castValue<MemberMapData<T>>());
         }
         /// <summary>
+        /// Calculate the hash value
         /// 计算哈希值
         /// </summary>
         /// <returns></returns>
@@ -104,6 +105,7 @@ namespace AutoCSer.Metadata
             return (int)((uint)value ^ (uint)(value >> 32));
         }
         /// <summary>
+        /// Calculate the hash value
         /// 计算哈希值
         /// </summary>
         /// <returns></returns>
@@ -182,7 +184,7 @@ namespace AutoCSer.Metadata
         /// 设置成员索引,忽略默认成员
         /// </summary>
         /// <param name="memberName">成员名称</param>
-        /// <returns>是否成功</returns>
+        /// <returns>Return false on failure</returns>
 #if NetStandard21
         internal bool SetMember(string? memberName)
 #else

@@ -147,7 +147,7 @@ namespace AutoCSer.Culture
         /// <summary>
         /// The RPC service lacks a listening port number
         /// </summary>
-        /// <param name="serverName">Service name</param>
+        /// <param name="serverName">Server name</param>
         /// <returns></returns>
 #if NetStandard21
         public override string GetCommandServerNotFoundPort(string? serverName)
@@ -160,7 +160,7 @@ namespace AutoCSer.Culture
         /// <summary>
         /// The reverse RPC service lacks controller information
         /// </summary>
-        /// <param name="serverName">Service name</param>
+        /// <param name="serverName">Server name</param>
         /// <returns></returns>
 #if NetStandard21
         public override string GetReverseCommandServerNotFoundController(string? serverName)

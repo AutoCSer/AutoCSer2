@@ -7,24 +7,29 @@ using static System.Net.Mime.MediaTypeNames;
 namespace AutoCSer
 {
     /// <summary>
+    /// Date-related operations
     /// 日期相关操作
     /// </summary>
     public unsafe static partial class Date
     {
         /// <summary>
+        /// The default base time value is 1900/1/1
         /// 默认基础时间值 1900/1/1
         /// </summary>
         public static readonly DateTime BaseTime = new DateTime(1900, 1, 1);
         /// <summary>
-        /// 初始化时间 Utc
+        /// Initialize the Utc time
+        /// 初始化 Utc 时间
         /// </summary>
         public static readonly DateTime StartTime;
         /// <summary>
-        /// 初始化时钟周期
+        /// Initialize the starting timestamp
+        /// 初始化起始时间戳
         /// </summary>
         public static readonly long StartTimestamp;
         /// <summary>
-        /// 获取初始化时间差
+        /// Get the difference of the initialization timestamps
+        /// 获取初始化时间戳差值
         /// </summary>
         /// <returns></returns>
         public static long TimestampDifference
@@ -36,40 +41,49 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 1毫秒时间戳
+        /// 1-millisecond timestamp
+        /// 1 毫秒时间戳
         /// </summary>
         public static readonly long TimestampByMilliseconds;
         /// <summary>
+        /// Local clock cycle
         /// 本地时钟周期
         /// </summary>
         public static readonly long LocalTimeTicks;
         /// <summary>
+        /// Time zone hour string +HH:
         /// 时区小时字符串 +HH:
         /// </summary>
         internal static readonly long ZoneHourString;
         /// <summary>
+        /// Time zone f minute string mm"
         /// 时区f分钟字符串 mm"
         /// </summary>
         internal static readonly long ZoneMinuteString;
         /// <summary>
+        /// Whether the clock cycle is consistent with the timestamp
         /// 时钟周期与时间戳是否一致
         /// </summary>
         private static readonly bool isTimestampTicks;
 
         /// <summary>
-        /// 32位除以60转乘法的乘数
+        /// The multiplier of a 32-bit integer divided by 60
+        /// 32 位整数除以 60 转乘法的乘数
         /// </summary>
         public const ulong Div60_32Mul = ((1L << Div60_32Shift) + 59) / 60;
         /// <summary>
-        /// 32位除以60转乘法的位移
+        /// The number of shifts in the multiplication method of a 32-bit integer divided by 60
+        /// 32 位整数除以 60 转乘法的位移数量
         /// </summary>
         public const int Div60_32Shift = 37;
         /// <summary>
-        /// 16位除以60转乘法的乘数
+        /// The multiplier of a 16-bit integer divided by 60
+        /// 16 位整数除以 60 转乘法的乘数
         /// </summary>
         public const uint Div60_16Mul = ((1U << Div60_16Shift) + 59) / 60;
         /// <summary>
-        /// 16位除以60转乘法的位移
+        /// The number of shifts in the multiplication method of a 16-bit integer divided by 60
+        /// 16 位整数除以 60 转乘法的位移数量
         /// </summary>
         public const int Div60_16Shift = 21;
         ///// <summary>
@@ -82,16 +96,19 @@ namespace AutoCSer
         //public const int DivTicksPerSecondShift = 55;
 
         /// <summary>
-        /// 星期
+        /// Week string data
+        /// 星期字符串数据
         /// </summary>
         private static AutoCSer.Memory.Pointer weekData;
         /// <summary>
-        /// 月份
+        /// Month string data
+        /// 月份字符串数据
         /// </summary>
         private static AutoCSer.Memory.Pointer monthData;
 
         /// <summary>
-        /// 时间转换
+        /// Convert local time to Utc time
+        /// 本地时间转换为 Utc 时间
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -102,11 +119,15 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 时间转换成日期字符串(yyyy/MM/dd)
+        /// Time to date string (yyyy/MM/dd)
+        /// 时间转换成日期字符串（yyyy/MM/dd）
         /// </summary>
-        /// <param name="time">时间</param>
-        /// <param name="chars">时间字符串</param>
-        /// <param name="split">分隔符</param>
+        /// <param name="time">Time value
+        /// 时间值</param>
+        /// <param name="chars">Output the position of the time string
+        /// 输出时间字符串位置</param>
+        /// <param name="split">Separator
+        /// 分隔符</param>
         internal static void ToDateString(DateTime time, char* chars, char split = DefaultDateSplit)
         {
             int data0 = time.Year, data1 = (data0 * (int)AutoCSer.Extensions.NumberExtension.Div10_16Mul) >> AutoCSer.Extensions.NumberExtension.Div10_16Shift;
@@ -125,10 +146,13 @@ namespace AutoCSer
             *(int*)(chars + 8) = (data3 + ((data2 - data3 * 10) << 16)) + 0x300030;
         }
         /// <summary>
-        /// 时间转换成字符串(HH:mm:ss)
+        /// Time is converted to string (HH:mm:ss)
+        /// 时间转换成字符串（HH:mm:ss）
         /// </summary>
-        /// <param name="second">当天的计时秒数</param>
-        /// <param name="chars">时间字符串</param>
+        /// <param name="second">The number of seconds for the day
+        /// 当天的计时秒数</param>
+        /// <param name="chars">Output the position of the time string
+        /// 输出时间字符串位置</param>
         private static void toTimeString(int second, char* chars)
         {
             int minute = (int)(((ulong)second * Div60_32Mul) >> Div60_32Shift);
@@ -147,28 +171,35 @@ namespace AutoCSer
             *(chars + 7) = (char)((second - high * 10) + '0');
         }
         /// <summary>
-        /// 时间转换字符串最大字节长度 yyyy-MM-ddTHH:mm:ss.fffffff
+        /// Maximum byte length of time-converted string (yyyy-MM-ddTHH:mm:ss.fffffff)
+        /// 时间转换字符串最大字节长度（yyyy-MM-ddTHH:mm:ss.fffffff）
         /// </summary>
         public const int ToStringSize = 27;
         /// <summary>
+        /// The separator between the default year, month and day
         /// 默认年月日之间的分隔符
         /// </summary>
         public const char DefaultDateSplit = '-';
         /// <summary>
-        /// 时间转换成字符串 yyyy-MM-ddTHH:mm:ss.fffffff
+        /// Time is converted to string (yyyy-MM-ddTHH:mm:ss.fffffff)
+        /// 时间转换成字符串（yyyy-MM-ddTHH:mm:ss.fffffff）
         /// </summary>
         /// <param name="time"></param>
         /// <param name="timeFixed"></param>
-        /// <param name="dateTimeSplit">日期与时间之间的分隔符</param>
-        /// <param name="dateSplit">年月日之间的分隔符</param>
-        /// <returns>字符串长度，可能返回 19/23/27</returns>
+        /// <param name="dateTimeSplit">The separator between date and time
+        /// 日期与时间之间的分隔符</param>
+        /// <param name="dateSplit">The separator between years, months and days
+        /// 年月日之间的分隔符</param>
+        /// <returns>The string length may return 19/23/27
+        /// 字符串长度，可能返回 19/23/27</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static int ToString(this DateTime time, char* timeFixed, char dateTimeSplit = 'T', char dateSplit = DefaultDateSplit)
         {
             return toTicksString(timeFixed + 19, ToSecondString(time, timeFixed, dateTimeSplit, dateSplit)) + 19;
         }
         /// <summary>
-        /// 时间转换成字符串 .fffffff
+        /// The time is converted to a string (.fffffff)
+        /// 时间转换成字符串（.fffffff）
         /// </summary>
         /// <param name="timeFixed"></param>
         /// <param name="ticks"></param>
@@ -188,13 +219,17 @@ namespace AutoCSer
             return 8;
         }
         /// <summary>
-        /// 时间转换成字符串 yyyy-MM-ddTHH:mm:ss.fff
+        /// Time is converted to string (yyyy-MM-ddTHH:mm:ss.fff)
+        /// 时间转换成字符串（yyyy-MM-ddTHH:mm:ss.fff）
         /// </summary>
         /// <param name="time"></param>
         /// <param name="timeFixed"></param>
-        /// <param name="dateTimeSplit">日期与时间之间的分隔符</param>
-        /// <param name="dateSplit">年月日之间的分隔符</param>
-        /// <returns>字符串长度，可能返回 19/23</returns>
+        /// <param name="dateTimeSplit">The separator between date and time
+        /// 日期与时间之间的分隔符</param>
+        /// <param name="dateSplit">The separator between years, months and days
+        /// 年月日之间的分隔符</param>
+        /// <returns>The string length may return 19/23
+        /// 字符串长度，可能返回 19/23</returns>
         internal static int ToString3(this DateTime time, char* timeFixed, char dateTimeSplit = 'T', char dateSplit = DefaultDateSplit)
         {
             long ticks = ToSecondString(time, timeFixed, dateTimeSplit, dateSplit);
@@ -206,13 +241,17 @@ namespace AutoCSer
             return 23;
         }
         /// <summary>
-        /// 时间转换成字符串 yyyy-MM-ddTHH:mm:ss
+        /// Time is converted to string (yyyy-MM-ddTHH:mm:ss)
+        /// 时间转换成字符串（yyyy-MM-ddTHH:mm:ss）
         /// </summary>
         /// <param name="time"></param>
         /// <param name="timeFixed"></param>
-        /// <param name="dateTimeSplit">日期与时间之间的分隔符</param>
-        /// <param name="dateSplit">年月日之间的分隔符</param>
-        /// <returns>不足1秒的周期数</returns>
+        /// <param name="dateTimeSplit">The separator between date and time
+        /// 日期与时间之间的分隔符</param>
+        /// <param name="dateSplit">The separator between years, months and days
+        /// 年月日之间的分隔符</param>
+        /// <returns>The number of clock cycles of less than one second
+        /// 不足 1 秒的时钟周期数</returns>
         internal static long ToSecondString(DateTime time, char* timeFixed, char dateTimeSplit = 'T', char dateSplit = DefaultDateSplit)
         {
             ToDateString(time, timeFixed, dateSplit);
@@ -222,21 +261,27 @@ namespace AutoCSer
             return ticks - seconds * TimeSpan.TicksPerSecond;
         }
         /// <summary>
+        /// Time is converted into a string
         /// 时间转换成字符串
         /// </summary>
-        /// <param name="time">时间</param>
-        /// <param name="charStream">字符流</param>
-        /// <param name="dateSplit">年月日之间的分隔符</param>
+        /// <param name="time">Time value
+        /// 时间值</param>
+        /// <param name="charStream">Output character stream
+        /// 输出字符流</param>
+        /// <param name="dateSplit">The separator between years, months and days
+        /// 年月日之间的分隔符</param>
         internal static void toString(this DateTime time, CharStream charStream, char dateSplit = DefaultDateSplit)
         {
             char* timeFixed = (char*)charStream.GetPrepSizeCurrent(ToStringSize * sizeof(char));
             if (timeFixed != null) charStream.Data.Pointer.MoveSize(ToString(time, timeFixed, time.Kind == DateTimeKind.Utc ? 'T' : ' ', dateSplit) << 1);
         }
         /// <summary>
-        /// 时间转换成字符串 yyyy-MM-ddTHH:mm:ss.fffffff
+        /// Time is converted to string (yyyy-MM-ddTHH:mm:ss.fffffff)
+        /// 时间转换成字符串（yyyy-MM-ddTHH:mm:ss.fffffff）
         /// </summary>
         /// <param name="time"></param>
-        /// <param name="dateSplit">年月日之间的分隔符</param>
+        /// <param name="dateSplit">The separator between years, months and days
+        /// 年月日之间的分隔符</param>
         /// <returns></returns>
         public static string toString(this DateTime time, char dateSplit = DefaultDateSplit)
         {
@@ -280,11 +325,12 @@ namespace AutoCSer
         //    *(int*)(chars + 20) = (data2 + ((data1 - data2 * 10) << 16)) + 0x300030;
         //}
         /// <summary>
-        /// 时间转换成字符串 HH:mm:ss.fffffff
+        /// Time is converted to a string (HH:mm:ss.fffffff)
+        /// 时间转换成字符串（HH:mm:ss.fffffff）
         /// </summary>
         /// <param name="time"></param>
         /// <param name="timeFixed"></param>
-        /// <returns>字符串长度</returns>
+        /// <returns>String length</returns>
         internal static int ToString(this TimeSpan time, char* timeFixed)
         {
             long ticks = time.Ticks;
@@ -307,7 +353,8 @@ namespace AutoCSer
             return toTicksString(timeFixed + timeIndex, ticks - seconds * TimeSpan.TicksPerSecond) + timeIndex;
         }
         /// <summary>
-        /// 时间转换成字符串 HH:mm:ss.fffffff
+        /// Time is converted to a string (HH:mm:ss.fffffff)
+        /// 时间转换成字符串（HH:mm:ss.fffffff）
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
@@ -317,6 +364,7 @@ namespace AutoCSer
             return new string(chars, 0, ToString(time, chars));
         }
         /// <summary>
+        /// The integer value of time conversion: Year[23b] + Month[4b] + Day[5b]
         /// 时间转整数值 Year[23b] + Month[4b] + Day[5b]
         /// </summary>
         /// <param name="time"></param>
@@ -327,6 +375,7 @@ namespace AutoCSer
             return ((uint)time.Year << 9) + ((uint)time.Month << 5) + (uint)time.Day;
         }
         /// <summary>
+        /// Convert integer values to time
         /// 整数值转时间
         /// </summary>
         /// <param name="date">Year[23b] + Month[4b] + Day[5b]</param>
@@ -339,6 +388,7 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Timestamp to millisecond
         /// 时间戳转毫秒数
         /// </summary>
         /// <param name="timestamp"></param>
@@ -355,6 +405,7 @@ namespace AutoCSer
         ///// </summary>
         //private static readonly double millisecondsToTimestamp = Stopwatch.IsHighResolution ? (double)Stopwatch.Frequency / 1000 : TimeSpan.TicksPerMillisecond;
         /// <summary>
+        /// Milliseconds to timestamps
         /// 毫秒数转时间戳
         /// </summary>
         /// <param name="milliseconds"></param>
@@ -366,10 +417,12 @@ namespace AutoCSer
             return milliseconds * Stopwatch.Frequency / 1000;
         }
         /// <summary>
-        /// 每秒始终周期数量
+        /// The number of timestamps per second
+        /// 每秒时间戳数量
         /// </summary>
         public static long TimestampPerSecond { get { return Stopwatch.IsHighResolution ? Stopwatch.Frequency : TimeSpan.TicksPerSecond; } }
         /// <summary>
+        /// Convert seconds to timestamps
         /// 秒数转时间戳
         /// </summary>
         /// <param name="seconds"></param>
@@ -384,7 +437,8 @@ namespace AutoCSer
         ///// </summary>
         //private static readonly double ticksToTimestamp = Stopwatch.IsHighResolution ? (double)Stopwatch.Frequency / TimeSpan.TicksPerSecond : 1;
         /// <summary>
-        /// 时钟周期转时间戳
+        /// Clock cycle to timestamp (It may overflow)
+        /// 时钟周期转时间戳（It may overflow）
         /// </summary>
         /// <param name="ticks"></param>
         /// <returns></returns>
@@ -392,7 +446,7 @@ namespace AutoCSer
         public static long GetTimestampByTicks(long ticks)
         {
             if (isTimestampTicks) return ticks; 
-            return ticks * Stopwatch.Frequency / TimeSpan.TicksPerSecond;//可能溢出
+            return ticks * Stopwatch.Frequency / TimeSpan.TicksPerSecond;
         }
         static Date()
         {

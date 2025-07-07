@@ -16,8 +16,9 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 尝试从命令服务套接字自定义会话对象获取指定会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
-        /// <returns>失败返回 null</returns>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         private TimestampVerifySession? tryGetSessionObject(CommandServerSocket socket)
 #else
@@ -33,7 +34,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 创建会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
         /// <returns></returns>
         private TimestampVerifySession createSessionObject(CommandServerSocket socket)
         {
@@ -44,8 +46,9 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 尝试从命令服务套接字自定义会话对象获取指定会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
-        /// <returns>失败返回 null</returns>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         ITimestampVerifySession? ICommandListenerGetSession<ITimestampVerifySession>.TryGetSessionObject(CommandServerSocket socket)
 #else
@@ -57,7 +60,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 创建会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
         /// <returns></returns>
         ITimestampVerifySession ICommandListenerSession<ITimestampVerifySession>.CreateSessionObject(CommandServerSocket socket)
         {
@@ -66,8 +70,9 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 尝试从命令服务套接字自定义会话对象获取指定会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
-        /// <returns>失败返回 null</returns>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         IInterfaceMonitorSession? ICommandListenerGetSession<IInterfaceMonitorSession>.TryGetSessionObject(CommandServerSocket socket)
 #else
@@ -79,7 +84,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         /// 创建会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
         /// <returns></returns>
         IInterfaceMonitorSession ICommandListenerSession<IInterfaceMonitorSession>.CreateSessionObject(CommandServerSocket socket)
         {

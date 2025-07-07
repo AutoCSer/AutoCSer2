@@ -255,7 +255,8 @@ namespace AutoCSer.RandomObject
         /// </summary>
         internal static readonly MethodInfo CreateKeyValuePairMethod = typeof(Creator).GetMethod(nameof(CreateKeyValuePair), BindingFlags.Static | BindingFlags.Public).notNull();
         /// <summary>
-        /// 代码生成调用激活 AOT 反射
+        /// AOT code generation call activation reflection
+        /// AOT 代码生成调用激活反射
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -264,7 +265,8 @@ namespace AutoCSer.RandomObject
             return Creator.Create<T>(DefaultConfig, false);
         }
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         internal static void ReflectionMethodName<T>(object value) { }

@@ -56,10 +56,12 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         private readonly System.Threading.SemaphoreSlim queueLock;
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
         protected override int snapshotCapacity { get { return users.Count; } }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         protected override IEnumerable<BinarySerializeKeyValue<int, SearchUser>> snapshotValues
@@ -87,6 +89,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         /// <returns></returns>
@@ -97,9 +100,11 @@ namespace AutoCSer.TestCase.SearchQueryService
             AutoCSer.CommandService.Search.IndexQuery.HashSetPool<int>.FreeCache(HashSetPool);
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override ISearchUserNode? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -111,13 +116,15 @@ namespace AutoCSer.TestCase.SearchQueryService
             return base.StreamPersistenceMemoryDatabaseServiceLoaded();
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
             searchUserNodeTimer.Cancel();
         }
         /// <summary>
+        /// Database service shutdown operation
         /// 数据库服务关闭操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceDisposable()
@@ -143,18 +150,22 @@ namespace AutoCSer.TestCase.SearchQueryService
             return client.LoadCreate(value);
         }
         /// <summary>
+        /// Reorganize the snapshot data before persistence
         /// 持久化之前重组快照数据
         /// </summary>
-        /// <param name="array">预申请快照容器数组</param>
-        /// <param name="newArray">超预申请快照数据</param>
+        /// <param name="array">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="newArray">Snapshot data collection that exceed the pre-application scope
+        /// 超出预申请范围的快照数据集合</param>
         public override void SetSnapshotResult(ref LeftArray<BinarySerializeKeyValue<int, SearchUser>> array, ref LeftArray<BinarySerializeKeyValue<int, SearchUser>> newArray)
         {
             ServerNode.SetSearchTreeSnapshotResult(ref array, ref newArray);
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public override void SnapshotSet(BinarySerializeKeyValue<int, SearchUser> value)
         {
             users.Set(new SearchUserSearchTreeNode(ref value));
@@ -178,35 +189,43 @@ namespace AutoCSer.TestCase.SearchQueryService
             return users.ContainsKey(value.Key);
         }
         /// <summary>
-        /// 创建非索引条件查询数据 持久化前检查
+        /// Create non-indexed conditional query data (Check the input parameters before the persistence operation)
+        /// 创建非索引条件查询数据（持久化操作之前检查输入参数）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
-        /// <returns>是否继续持久化操作</returns>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
+        /// <returns>Returning true indicates that a persistence operation is required
+        /// 返回 true 表示需要持久化操作</returns>
         public override bool LoadCreateBeforePersistence(BinarySerializeKeyValue<int, SearchUser> value)
         {
             return !users.ContainsKey(value.Key);
         }
         /// <summary>
-        /// 创建非索引条件查询数据
+        /// Create non-indexed conditional query data (Initialize and load the persistent data)
+        /// 创建非索引条件查询数据（初始化加载持久化数据）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         public override void LoadCreateLoadPersistence(BinarySerializeKeyValue<int, SearchUser> value)
         {
             users.TryAdd(new SearchUserSearchTreeNode(ref value));
         }
         /// <summary>
+        /// Create non-indexed conditional query data
         /// 创建非索引条件查询数据
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         public override void LoadCreate(BinarySerializeKeyValue<int, SearchUser> value)
         {
             SearchUserSearchTreeNode node = new SearchUserSearchTreeNode(ref value);
             if (users.TryAdd(node)) loginTimes.Add(node.GetLoginTimeKey());
         }
         /// <summary>
+        /// Create non-indexed conditional query data
         /// 创建非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         protected override void create(int key, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
@@ -226,6 +245,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             }
         }
         /// <summary>
+        /// Create non-indexed conditional query data
         /// 创建非索引条件查询数据
         /// </summary>
         /// <param name="key"></param>
@@ -256,9 +276,10 @@ namespace AutoCSer.TestCase.SearchQueryService
             }
         }
         /// <summary>
+        /// Update non-indexed condition query data
         /// 更新非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         protected override void update(int key, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
@@ -275,9 +296,10 @@ namespace AutoCSer.TestCase.SearchQueryService
             }
         }
         /// <summary>
+        /// Update non-indexed condition query data
         /// 更新非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         /// <returns></returns>
         private async Task updateTask(int key, MethodCallback<ConditionDataUpdateStateEnum> callback)
@@ -302,17 +324,19 @@ namespace AutoCSer.TestCase.SearchQueryService
             }
         }
         /// <summary>
-        /// 删除非索引条件查询数据
+        /// Delete non-indexed condition query data (Initialize and load the persistent data)
+        /// 删除非索引条件查询数据（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         protected override void deleteLoadPersistence(int key)
         {
             users.Remove(key);
         }
         /// <summary>
+        /// Delete non-indexed condition query data
         /// 删除非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <returns></returns>
         protected override ConditionDataUpdateStateEnum delete(int key)
         {
@@ -321,9 +345,11 @@ namespace AutoCSer.TestCase.SearchQueryService
             return ConditionDataUpdateStateEnum.Success;
         }
         /// <summary>
-        /// 非索引条件查询数据完成更新操作
+        /// The non-indexed condition query data has completed the update operation (Check the input parameters before the persistence operation)
+        /// 非索引条件查询数据完成更新操作（持久化操作之前检查输入参数）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         /// <returns></returns>
         public override ValueResult<ConditionDataUpdateStateEnum> CompletedBeforePersistence(BinarySerializeKeyValue<int, SearchUser> value)
         {
@@ -332,17 +358,21 @@ namespace AutoCSer.TestCase.SearchQueryService
             return default;
         }
         /// <summary>
-        /// 非索引条件查询数据完成更新操作
+        /// The non-indexed condition query data has completed the update operation (Initialize and load the persistent data)
+        /// 非索引条件查询数据完成更新操作（初始化加载持久化数据）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         protected override void completedLoadPersistence(BinarySerializeKeyValue<int, SearchUser> value)
         {
             users.Set(new SearchUserSearchTreeNode(ref value));
         }
         /// <summary>
+        /// The non-indexed condition query data has completed the update operation
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         /// <returns></returns>
         protected override ConditionDataUpdateStateEnum completed(BinarySerializeKeyValue<int, SearchUser> value)
         {

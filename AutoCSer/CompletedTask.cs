@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 namespace AutoCSer
 {
     /// <summary>
+    /// The default value has completed the task
     /// 默认值已完成任务
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     public static class CompletedTask<T>
     {
         /// <summary>
+        /// The default value has completed the task
         /// 默认值已完成任务
         /// </summary>
 #if NetStandard21

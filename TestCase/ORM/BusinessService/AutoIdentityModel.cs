@@ -10,6 +10,7 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class AutoIdentityModel : AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="identity"></param>

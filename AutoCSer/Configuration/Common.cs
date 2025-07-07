@@ -12,6 +12,7 @@ namespace AutoCSer.Configuration
     public static class Common
     {
         /// <summary>
+        /// Root configuration
         /// 根配置
         /// </summary>
         internal static IRoot Root = AutoCSer.Configuration.Root.Null;

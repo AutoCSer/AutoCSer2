@@ -9,7 +9,8 @@ namespace AutoCSer.ORM
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
     /// <typeparam name="VT">缓存数据类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     public interface ICachePersistence<T, VT, KT>
         where T : class
         where VT : class, T

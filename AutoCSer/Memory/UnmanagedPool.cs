@@ -138,6 +138,7 @@ namespace AutoCSer.Memory
             else Unmanaged.Free(ref buffer);
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         protected internal override void OnTimer()
@@ -146,6 +147,7 @@ namespace AutoCSer.Memory
             else isGetNewBuffer = false;
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private void onTimer()

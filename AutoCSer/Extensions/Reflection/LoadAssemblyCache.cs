@@ -22,7 +22,8 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 动态加载程序集
         /// </summary>
-        /// <param name="rawAssembly">程序集文件数据</param>
+        /// <param name="rawAssembly">Assembly file data
+        /// 程序集文件数据</param>
         /// <returns></returns>
         public static Assembly Load(ref byte[] rawAssembly)
         {

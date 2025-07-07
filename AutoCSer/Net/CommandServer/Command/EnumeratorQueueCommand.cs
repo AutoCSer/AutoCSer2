@@ -12,26 +12,31 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 队列枚举命令，MoveNext 操作不支持多任务并发 await 
+    /// The collection enumeration queue command does not support multi-threaded concurrent calls to await MoveNext (await EnumeratorCommand{T}, returning null indicates failure to add to the output queue).
+    /// 集合枚举队列命令，不支持多线程并发调用 await MoveNext（await EnumeratorQueueCommand，返回 null 表示添加到输出队列失败）
     /// </summary>
     public class EnumeratorQueueCommand : KeepCommand, IDisposable
     {
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         private readonly EnumeratorCommandMoveNext moveNext = new EnumeratorCommandMoveNext();
         /// <summary>
+        /// Return value queue access lock
         /// 返回值队列访问锁
         /// </summary>
         private AutoCSer.Threading.SpinLock queueLock;
         /// <summary>
-        /// 队列枚举命令
+        /// The collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal EnumeratorQueueCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType)
@@ -39,9 +44,11 @@ namespace AutoCSer.Net
             Close(returnType);
         }
         /// <summary>
-        /// 委托命令回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
@@ -60,7 +67,8 @@ namespace AutoCSer.Net
             return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
-        /// 取消保持回调
+        /// Cancel the hold callback (Note that since it is a synchronous call by the IO thread receiving data, if there is a blockage, please open a new thread task to handle it)
+        /// 取消保持回调（注意，由于是接收数据 IO 线程同步调用，如果存在阻塞请新开线程任务处理）
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -83,7 +91,7 @@ namespace AutoCSer.Net
             else Close(returnType);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         void IDisposable.Dispose()
         {
@@ -96,7 +104,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 等待添加输出队列
+        /// Wait for the command to add the output queue
+        /// 等待命令添加输出队列
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -109,9 +118,11 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// 是否成功添加输出队列
+        /// Get the collection enumeration queue command
+        /// 获取集合枚举队列命令
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The operation of adding to the output queue failed and returned null
+        /// 添加到输出队列操作失败返回 null</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public EnumeratorQueueCommand? GetResult()
@@ -122,7 +133,7 @@ namespace AutoCSer.Net
             return PushState == CommandPushStateEnum.Success ? this : null;
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -132,7 +143,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         public EnumeratorCommandMoveNext MoveNext()
@@ -152,7 +164,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 关闭回调
+        /// Close keep callback
+        /// 关闭保持回调
         /// </summary>
         internal void Close(CommandClientReturnTypeEnum returnType)
         {
@@ -167,7 +180,8 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
-    /// 队列枚举命令，MoveNext 操作不支持多任务并发 await 
+    /// The collection enumeration queue command does not support multi-threaded concurrent calls to await MoveNext (await EnumeratorCommand{T}, returning null indicates failure to add to the output queue).
+    /// 集合枚举队列命令，不支持多线程并发调用 await MoveNext（await EnumeratorQueueCommand{T}，返回 null 表示添加到输出队列失败）
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class EnumeratorQueueCommand<T> : KeepCommand, IDisposable
@@ -179,7 +193,8 @@ namespace AutoCSer.Net
     {
 #if !AOT
         /// <summary>
-        /// 返回初始值
+        /// The initial return value
+        /// 初始返回值
         /// </summary>
 #if NetStandard21
         [AllowNull]
@@ -187,10 +202,12 @@ namespace AutoCSer.Net
         private T returnValue;
 #endif
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         protected readonly EnumeratorCommandMoveNext moveNext = new EnumeratorCommandMoveNext();
         /// <summary>
+        /// Return value queue
         /// 返回值队列
         /// </summary>
 #if NetStandard21
@@ -199,10 +216,12 @@ namespace AutoCSer.Net
         private readonly Queue<T> returnValueQueue = new Queue<T>();
 #endif
         /// <summary>
+        /// Return value queue access lock
         /// 返回值队列访问锁
         /// </summary>
         protected AutoCSer.Threading.SpinLock queueLock;
         /// <summary>
+        /// Current returned data
         /// 当前返回数据
         /// </summary>
 #if NetStandard21
@@ -210,14 +229,16 @@ namespace AutoCSer.Net
 #endif
         public T Current { get; protected set; }
         /// <summary>
-        /// 队列枚举命令
+        /// The collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal EnumeratorQueueCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
 #if !AOT
         /// <summary>
-        /// 队列枚举命令
+        /// The collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -227,9 +248,11 @@ namespace AutoCSer.Net
             this.returnValue = returnValue;
         }
         /// <summary>
-        /// 委托命令回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
@@ -279,7 +302,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType)
@@ -287,7 +311,8 @@ namespace AutoCSer.Net
             Close(returnType);
         }
         /// <summary>
-        /// 取消保持回调
+        /// Cancel the hold callback (Note that since it is a synchronous call by the IO thread receiving data, if there is a blockage, please open a new thread task to handle it)
+        /// 取消保持回调（注意，由于是接收数据 IO 线程同步调用，如果存在阻塞请新开线程任务处理）
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -318,7 +343,7 @@ namespace AutoCSer.Net
             else Close(returnType);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         void IDisposable.Dispose()
         {
@@ -330,7 +355,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         async ValueTask IAsyncDisposable.DisposeAsync()
@@ -344,7 +369,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 等待添加输出队列
+        /// Wait for the command to add the output queue
+        /// 等待命令添加输出队列
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -357,9 +383,11 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// 是否成功添加输出队列
+        /// Get the collection enumeration queue command
+        /// 获取集合枚举队列命令
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The operation of adding to the output queue failed and returned null
+        /// 添加到输出队列操作失败返回 null</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public EnumeratorQueueCommand<T>? GetResult()
@@ -370,7 +398,7 @@ namespace AutoCSer.Net
             return PushState == CommandPushStateEnum.Success ? this : null;
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -379,7 +407,8 @@ namespace AutoCSer.Net
             return this;
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         public EnumeratorCommandMoveNext MoveNext()
@@ -400,7 +429,8 @@ namespace AutoCSer.Net
             return EnumeratorCommandMoveNext.NextValueFalse;
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
@@ -412,7 +442,8 @@ namespace AutoCSer.Net
             return await MoveNext();
         }
         /// <summary>
-        /// 取消回调
+        /// Close keep callback
+        /// 关闭保持回调
         /// </summary>
         internal void Close(CommandClientReturnTypeEnum returnType)
         {
@@ -429,7 +460,8 @@ namespace AutoCSer.Net
     }
 #if AOT
     /// <summary>
-    /// 队列枚举命令，MoveNext 操作不支持多任务并发 await 
+    /// The collection enumeration queue command does not support multi-threaded concurrent calls to await MoveNext (await EnumeratorCommand{T}, returning null indicates failure to add to the output queue).
+    /// 集合枚举队列命令，不支持多线程并发调用 await MoveNext（await EnumeratorQueueCommand{T}，返回 null 表示添加到输出队列失败）
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="OT"></typeparam>
@@ -437,15 +469,18 @@ namespace AutoCSer.Net
         where OT : struct
     {
         /// <summary>
-        /// 返回初始值
+        /// The initial return value
+        /// 初始返回值
         /// </summary>
         private OT outputParameter;
         /// <summary>
+        /// The delegate that gets the return value
         /// 获取返回值委托
         /// </summary>
         private readonly Func<OT, T> getReturnValue;
         /// <summary>
-        /// 队列枚举命令
+        /// The collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -455,7 +490,8 @@ namespace AutoCSer.Net
             this.getReturnValue = getReturnValue;
         }
         /// <summary>
-        /// 队列枚举命令
+        /// The collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -467,9 +503,11 @@ namespace AutoCSer.Net
             this.getReturnValue = getReturnValue;
         }
         /// <summary>
-        /// 委托命令回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {

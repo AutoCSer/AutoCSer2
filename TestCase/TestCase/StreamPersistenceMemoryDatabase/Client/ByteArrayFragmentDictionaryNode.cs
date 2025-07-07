@@ -5,20 +5,24 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
 {
     /// <summary>
-    /// 字典客户端示例
+    /// Dictionary node client example
+    /// 字典节点客户端示例
     /// </summary>
     internal static class ByteArrayFragmentDictionaryNode
     {
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayFragmentDictionaryNodeClientNode<string>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateByteArrayFragmentDictionaryNode<string>(nameof(ByteArrayFragmentDictionaryNode)));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayFragmentDictionaryNodeClientNode<string>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateByteArrayFragmentDictionaryNode<string>(nameof(ByteArrayFragmentDictionaryNode)));
         /// <summary>
-        /// 字典客户端示例
+        /// Dictionary node client example
+        /// 字典节点客户端示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
@@ -28,7 +32,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             return true;
         }
         /// <summary>
-        /// 字典客户端示例
+        /// Dictionary node client example
+        /// 字典节点客户端示例
         /// </summary>
         /// <returns></returns>
         private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayFragmentDictionaryNodeClientNode<string>> client)
@@ -45,54 +50,66 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            #region byte[] 数据
+            #region byte[]
             byte[] data = new byte[] { 1, 2, 3, 4 };
-            var boolResult = await node.Set("ByteArray", data);//byte[] 支持隐式转换为 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray
+            //byte[] supports implicit conversion to AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray
+            //byte[] 支持隐式转换为 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray
+            var boolResult = await node.Set("ByteArray", data);
             if (!boolResult.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            var dataResult = await node.TryGetValue("ByteArray"); //获取 byte[] 使用 TryGetValue 方法
+            //Get byte[] using the TryGetValue method
+            //获取 byte[] 使用 TryGetValue 方法
+            var dataResult = await node.TryGetValue("ByteArray");
             if (!dataResult.IsSuccess || !AutoCSer.Common.SequenceEqual(data, dataResult.Value.Value))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
-            #region string 数据
-            boolResult = await node.Set("String", "AAA");//string 支持隐式转换为 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray 本质是二进制序列化为 byte[]
+            #region string
+            //string supports implicit conversion to AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray, which is essentially binary serialization to byte[]
+            //string 支持隐式转换为 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray 本质是二进制序列化为 byte[]
+            boolResult = await node.Set("String", "AAA");
             if (!boolResult.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            var stringResult = await node.TryGetString("String"); //获取 string 使用 TryGetString 扩展方法
+            //Get the string using the TryGetString extension method
+            //获取 string 使用 TryGetString 扩展方法
+            var stringResult = await node.TryGetString("String");
             if (!stringResult.IsSuccess || stringResult.Value != "AAA")
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
-            #region JSON 序列化
+            #region JSON mixed binary serialization
             Data.TestClass testData = new Data.TestClass { Int = 1, String = "AAA" };
             boolResult = await node.Set("JsonSerialize", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray.JsonSerialize(testData));
             if (!boolResult.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            var classResult = await node.TryGetJsonDeserialize<string, Data.TestClass>("JsonSerialize"); //获取 JSON 反序列化对象使用 TryGetJsonDeserialize 扩展方法
+            //Get the JSON mixed binary deserialized object using the TryGetJsonDeserialize extension method
+            //获取 JSON 混杂二进制反序列化对象使用 TryGetJsonDeserialize 扩展方法
+            var classResult = await node.TryGetJsonDeserialize<string, Data.TestClass>("JsonSerialize");
             if (!classResult.IsSuccess || classResult.Value?.String != "AAA")
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             #endregion
 
-            #region 二进制序列化
+            #region Binary serialization
             boolResult = await node.Set("BinarySerialize", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray.BinarySerialize(testData));
             if (!boolResult.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            classResult = await node.TryGetBinaryDeserialize<string, Data.TestClass>("BinarySerialize"); //获取二进制反序列化对象使用 TryGetBinaryDeserialize 扩展方法
+            //Get the binary deserialized object using the TryGetBinaryDeserialize extension method
+            //获取二进制反序列化对象使用 TryGetBinaryDeserialize 扩展方法
+            classResult = await node.TryGetBinaryDeserialize<string, Data.TestClass>("BinarySerialize");
             if (!classResult.IsSuccess || classResult.Value?.String != "AAA")
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

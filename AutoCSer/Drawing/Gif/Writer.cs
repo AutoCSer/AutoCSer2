@@ -69,6 +69,7 @@ namespace AutoCSer.Drawing.Gif
         /// </summary>
         private int bufferIndex;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         protected int isDisposed;
@@ -132,14 +133,14 @@ namespace AutoCSer.Drawing.Gif
             colorIndexs = new ReusableHashCodeKeyDictionary<int>();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
             if (Interlocked.CompareExchange(ref isDisposed, 1, 0) == 0) dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         protected virtual void dispose()
         {
@@ -151,7 +152,7 @@ namespace AutoCSer.Drawing.Gif
             else stream.Write(fileBuffer, 0, bufferIndex);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public async ValueTask DisposeAsync()
@@ -159,7 +160,7 @@ namespace AutoCSer.Drawing.Gif
             if (Interlocked.CompareExchange(ref isDisposed, 1, 0) == 0) await disposeAsync();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         protected virtual async Task disposeAsync()

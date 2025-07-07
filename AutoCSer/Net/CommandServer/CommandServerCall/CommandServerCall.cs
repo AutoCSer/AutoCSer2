@@ -8,24 +8,28 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// Server-side call
     /// 服务端调用
     /// </summary>
     public abstract class CommandServerCall
     {
         /// <summary>
+        /// Command server socket
         /// 命令服务套接字
         /// </summary>
         internal readonly CommandServerSocket Socket;
         /// <summary>
+        /// The server side goes offline to count the object
         /// 服务端下线计数对象
         /// </summary>
         internal OfflineCount OfflineCount;
         /// <summary>
-        /// 当前处理会话标识
+        /// The session callback identifier is currently being processed
+        /// 当前处理会话回调标识
         /// </summary>
         internal readonly CallbackIdentity CallbackIdentity;
         /// <summary>
-        /// 空回调
+        /// Empty callback
         /// </summary>
         protected CommandServerCall()
         {
@@ -33,7 +37,8 @@ namespace AutoCSer.Net
             OfflineCount = OfflineCount.Null; 
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// Server-side call
+        /// 服务端调用
         /// </summary>
         /// <param name="socket"></param>
         protected CommandServerCall(CommandServerSocket socket)
@@ -43,7 +48,8 @@ namespace AutoCSer.Net
             CallbackIdentity = socket.CallbackIdentity;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// Server-side call
+        /// 服务端调用
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
@@ -54,7 +60,8 @@ namespace AutoCSer.Net
             CallbackIdentity = socket.CallbackIdentity;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// Server-side call
+        /// 服务端调用
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="callbackIdentity"></param>
@@ -65,7 +72,8 @@ namespace AutoCSer.Net
             CallbackIdentity = callbackIdentity;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// Server-side call
+        /// 服务端调用
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="callbackIdentity"></param>
@@ -77,7 +85,8 @@ namespace AutoCSer.Net
             CallbackIdentity = callbackIdentity;
         }
         /// <summary>
-        /// 下线计数对象检查
+        /// Offline counting processing
+        /// 下线计数处理
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkOfflineCount()
@@ -85,7 +94,8 @@ namespace AutoCSer.Net
             if (OfflineCount.Get() == 0) Socket.Server.DecrementOfflineCount();
         }
         /// <summary>
-        /// 发送成功
+        /// Send the successful status
+        /// 发送成功状态
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -95,7 +105,8 @@ namespace AutoCSer.Net
             return Socket.Send(CallbackIdentity, CommandClientReturnTypeEnum.Success);
         }
         /// <summary>
-        /// 发送成功
+        /// Send the successful status
+        /// 发送成功状态
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
@@ -105,12 +116,14 @@ namespace AutoCSer.Net
             return task.send();
         }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
-        /// <typeparam name="T">输出数据类型</typeparam>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <typeparam name="T">Output data type</typeparam>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private bool send<T>(ServerInterfaceMethod method, T outputParameter)
         {
@@ -118,24 +131,29 @@ namespace AutoCSer.Net
             return Socket.Send(CallbackIdentity, method, new ServerReturnValue<T>(outputParameter));
         }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
-        /// <typeparam name="T">输出数据类型</typeparam>
+        /// <typeparam name="T">Output data type</typeparam>
         /// <param name="task"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static bool Send<T>(CommandServerCall task, ServerInterfaceMethod method, T outputParameter)
         {
             return task.send(method, outputParameter);
         }
         /// <summary>
-        /// 验证函数发送数据
+        /// The verification method sends data
+        /// 验证方法发送数据
         /// </summary>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private bool send(ServerInterfaceMethod method, CommandServerVerifyStateEnum outputParameter)
         {
@@ -143,19 +161,23 @@ namespace AutoCSer.Net
             return Socket.Send(CallbackIdentity, method, outputParameter);
         }
         /// <summary>
-        /// 验证函数发送数据
+        /// The verification method sends data
+        /// 验证方法发送数据
         /// </summary>
         /// <param name="task"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static bool Send(CommandServerCall task, ServerInterfaceMethod method, CommandServerVerifyStateEnum outputParameter)
         {
             return task.send(method, outputParameter);
         }
         /// <summary>
-        /// 移除 TCP 服务器端异步保持调用
+        /// Remove the asynchronous keep callback
+        /// 移除异步保持回调
         /// </summary>
         /// <param name="exception"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -164,7 +186,8 @@ namespace AutoCSer.Net
             Socket.RemoveKeepCallback(CallbackIdentity, exception);
         }
         /// <summary>
-        /// Task.Run 获取任务异常
+        /// Get the exception of the Task.Run
+        /// 获取 Task.Run 任务异常
         /// </summary>
         /// <param name="methodType"></param>
         /// <param name="exception"></param>
@@ -192,6 +215,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="serverCall"></param>
@@ -203,10 +227,13 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the custom return value type
         /// 获取自定义返回值类型
         /// </summary>
-        /// <param name="customReturnType">0-0x7f 之间</param>
-        /// <returns>自定义返回值类型</returns>
+        /// <param name="customReturnType">Between 0 and 0x7f
+        /// 0-0x7f 之间</param>
+        /// <returns>The custom return value type
+        /// 自定义返回值类型</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static CommandClientReturnTypeEnum GetCustom(byte customReturnType)
         {

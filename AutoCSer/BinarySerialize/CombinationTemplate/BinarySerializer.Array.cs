@@ -4,12 +4,13 @@
 namespace AutoCSer
 {
     /// <summary>
+    /// Binary data serialization
     /// 二进制数据序列化
     /// </summary>
     public sealed partial class BinarySerializer
     {
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="array"></param>
 #if NetStandard21
@@ -35,7 +36,7 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="array"></param>
@@ -49,7 +50,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize(array);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="array"></param>
 #if NetStandard21
@@ -75,7 +76,7 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="array"></param>
@@ -90,7 +91,7 @@ namespace AutoCSer
         }
 #if AOT
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="array"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -99,7 +100,7 @@ namespace AutoCSer
             primitiveSerializeOnly(array.Array, array.Length);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="array"></param>
@@ -108,7 +109,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize((ulong[]?)array);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="array"></param>
@@ -117,7 +118,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize((ulong?[]?)array);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -127,7 +128,7 @@ namespace AutoCSer
             binarySerializer.primitiveSerializeOnly(array.Array, array.Length);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="array"></param>
@@ -137,7 +138,7 @@ namespace AutoCSer
         }
 #endif
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="array"></param>
@@ -147,7 +148,7 @@ namespace AutoCSer
             binarySerializer.primitiveSerializeOnly(array.Array, array.Length);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="array"></param>
 #if NetStandard21
@@ -173,7 +174,7 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="array"></param>
@@ -188,6 +189,7 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Serialize into a data buffer (write directly without checking the object reference)
         /// 序列化为数据缓冲区（不检查对象引用直接写入）
         /// </summary>
         /// <param name="array"></param>
@@ -202,6 +204,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
+        /// Serialize into a data buffer (write directly without checking the object reference)
         /// 序列化为数据缓冲区（不检查对象引用直接写入）
         /// </summary>
         /// <param name="array"></param>

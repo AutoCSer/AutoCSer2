@@ -36,6 +36,9 @@
     <ProjectReference Include="..\..\..\Application\DeployTask\AutoCSer.CommandService.DeployTask.AOT.NET8.csproj" />
     <ProjectReference Include="..\..\..\Application\TimestampVerify\AutoCSer.CommandService.TimestampVerify.AOT.NET8.csproj" />
     <ProjectReference Include="..\..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
+    <!--
+    <PackageReference Include="Microsoft.NETCore.App.Runtime.win-x64" Version="8.0.17" />
+    -->
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

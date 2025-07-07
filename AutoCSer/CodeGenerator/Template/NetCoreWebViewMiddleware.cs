@@ -8,10 +8,12 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
-            /// 用于代码生成
+            /// The default constructor is used for code generation
+            /// 默认构造方法，用于代码生成
             /// </summary>
             private @TypeName() { }
             /// <summary>
+            /// Data view middleware
             /// 数据视图中间件
             /// </summary>
             /// <param name="nextRequest"></param>

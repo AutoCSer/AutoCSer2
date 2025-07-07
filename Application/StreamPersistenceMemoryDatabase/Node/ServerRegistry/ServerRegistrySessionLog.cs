@@ -9,6 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class ServerRegistrySessionLog
     {
         /// <summary>
+        /// Server Registration Log
         /// 服务注册日志
         /// </summary>
         internal readonly ServerRegistryLog Log;
@@ -27,6 +28,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.Session = session;
         }
         /// <summary>
+        /// Determine whether it is the server restart log
         /// 判断是否服务重启日志
         /// </summary>
         /// <param name="log"></param>

@@ -26,6 +26,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private bool isNextValue;
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -41,7 +42,8 @@ namespace AutoCSer.Threading
             get { return isThreadPool ? ThreadPoolNextValueTrue : NextValueTrue; }
         }
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         /// <param name="isThreadPool">回调处理是否启动线程，回调无阻塞的情况应该设置为 false 直接同步回调</param>
         internal CallbackEnumeratorMoveNext(bool isThreadPool = true)
@@ -49,7 +51,8 @@ namespace AutoCSer.Threading
             this.isThreadPool = isThreadPool;
         }
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         /// <param name="isThreadPool">回调处理是否启动线程，回调无阻塞的情况应该设置为 false 直接同步回调</param>
         /// <param name="isNextValue"></param>
@@ -68,6 +71,7 @@ namespace AutoCSer.Threading
             return await this;
         }
         /// <summary>
+        /// Whether the output queue has been successfully added
         /// 是否成功添加输出队列
         /// </summary>
         /// <returns></returns>
@@ -77,6 +81,7 @@ namespace AutoCSer.Threading
             return isNextValue;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -90,7 +95,7 @@ namespace AutoCSer.Threading
             }
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

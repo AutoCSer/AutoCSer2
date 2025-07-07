@@ -25,10 +25,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal abstract void Close();
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         internal abstract void GetArray();
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         internal abstract void GetResult();
@@ -75,7 +77,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照接口节点
     /// </summary>
-    /// <typeparam name="T">快照数据类型</typeparam>
+    /// <typeparam name="T">Snapshot data type
+    /// 快照数据类型</typeparam>
     internal class SnapshotNode<T> : SnapshotNode
     {
         /// <summary>
@@ -87,7 +90,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         protected T[] array;
         /// <summary>
-        /// 快照数据信息
+        /// Snapshot data
+        /// 快照数据
         /// </summary>
         protected SnapshotResult<T> result;
         /// <summary>
@@ -109,7 +113,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             result.Array.SetEmpty();
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         internal override void GetArray()
         {
@@ -117,6 +122,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (capacity > array.Length) array = new T[capacity];
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         internal override void GetResult()

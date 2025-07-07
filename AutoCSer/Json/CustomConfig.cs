@@ -176,7 +176,7 @@ namespace AutoCSer.Json
             return 0;
         }
         /// <summary>
-        /// 自定义序列化不支持类型
+        /// Custom serialization不支持类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="serializer"></param>

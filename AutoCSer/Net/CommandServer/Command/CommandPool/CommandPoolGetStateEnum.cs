@@ -12,6 +12,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         Command,
         /// <summary>
+        /// Keep callback command
         /// 保持回调命令
         /// </summary>
         KeepCallback,

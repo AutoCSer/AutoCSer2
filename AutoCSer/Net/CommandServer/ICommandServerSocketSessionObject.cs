@@ -15,8 +15,9 @@ namespace AutoCSer.Net
         /// <summary>
         /// 尝试从命令服务套接字自定义会话对象获取指定会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
-        /// <returns>失败返回 null</returns>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         T? TryGetSessionObject(CommandServerSocket socket);
 #else
@@ -32,7 +33,8 @@ namespace AutoCSer.Net
         /// <summary>
         /// 创建会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
         /// <returns></returns>
         T CreateSessionObject(CommandServerSocket socket);
     }
@@ -64,7 +66,8 @@ namespace AutoCSer.Net
         /// <summary>
         /// 命令服务套接字会话对象
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
         protected CommandServerSocketSessionObject(CommandServerSocket socket)
         {
             CommandServerSocket = socket;
@@ -89,7 +92,7 @@ namespace AutoCSer.Net
 //        /// 尝试从命令服务套接字自定义会话对象获取指定会话对象
 //        /// </summary>
 //        /// <param name="socket"></param>
-//        /// <returns>失败返回 null</returns>
+//        /// <returns>Return null on failure</returns>
 //#if NetStandard21
 //        T? TryGetSessionObject(CommandServerSocket socket);
 //#else
@@ -113,7 +116,7 @@ namespace AutoCSer.Net
 //        /// 尝试从命令服务套接字自定义会话对象获取指定会话对象
 //        /// </summary>
 //        /// <param name="socket"></param>
-//        /// <returns>失败返回 null</returns>
+//        /// <returns>Return null on failure</returns>
 //#if NetStandard21
 //        T? TryGetSessionObject(CommandServerSocket socket);
 //#else

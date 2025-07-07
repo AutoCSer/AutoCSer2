@@ -65,14 +65,14 @@ namespace AutoCSer.CommandService.DiskBlock
             this.writeBufferSize = writeBufferSize;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override void Dispose()
         {
             writeStream?.Dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public override async ValueTask DisposeAsync()

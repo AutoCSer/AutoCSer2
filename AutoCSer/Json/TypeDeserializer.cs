@@ -46,6 +46,7 @@ namespace AutoCSer.Json
             /// </summary>
             private int memberMapIndex;
             /// <summary>
+            /// Set the data
             /// 设置数据
             /// </summary>
             /// <param name="method"></param>
@@ -60,7 +61,7 @@ namespace AutoCSer.Json
             /// 成员解析器
             /// </summary>
             /// <param name="jsonDeserializer">JSON 反序列化</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public void Call(JsonDeserializer jsonDeserializer, ref T value)
             {
@@ -71,7 +72,7 @@ namespace AutoCSer.Json
             /// </summary>
             /// <param name="jsonDeserializer">JSON 反序列化</param>
             /// <param name="memberMap">成员位图</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public void Call(JsonDeserializer jsonDeserializer, MemberMap<T> memberMap, ref T value)
             {
@@ -128,7 +129,7 @@ namespace AutoCSer.Json
         /// 值类型对象解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void deserializeValue(JsonDeserializer jsonDeserializer, ref T? value)
@@ -145,7 +146,7 @@ namespace AutoCSer.Json
         /// 引用类型对象解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
 #if NetStandard21
         private static void deserializeClass(JsonDeserializer jsonDeserializer, ref T? value)
 #else
@@ -176,7 +177,7 @@ namespace AutoCSer.Json
         /// 数据成员解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         internal static unsafe void DeserializeMembers(JsonDeserializer jsonDeserializer, ref T value)
         {
             JsonDeserializeConfig config = jsonDeserializer.Config;
@@ -278,7 +279,7 @@ namespace AutoCSer.Json
         /// 无成员对象解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void noMemberValue(JsonDeserializer jsonDeserializer, ref T? value)
@@ -293,7 +294,7 @@ namespace AutoCSer.Json
         /// 无成员对象解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void noMember(JsonDeserializer jsonDeserializer, ref T? value)

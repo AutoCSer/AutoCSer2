@@ -32,6 +32,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly bool isSimpleSerializeParamter;
 #endif
         /// <summary>
+        /// Method Number
         /// 方法编号
         /// </summary>
         private readonly int methodIndex;

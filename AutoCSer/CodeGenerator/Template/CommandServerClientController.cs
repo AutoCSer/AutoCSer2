@@ -12,7 +12,7 @@ namespace AutoCSer.CodeGenerator.Template
         [AutoCSer.Net.CommandClientControllerType(typeof(@TypeName))]
         public partial interface @InterfaceTypeName { }
         /// <summary>
-        /// @CurrentType.CodeGeneratorXmlDocument 客户端控制器
+        /// @CurrentType.CodeGeneratorXmlDocument client controller
         /// </summary>
         internal unsafe partial class @TypeName : AutoCSer.Net.CommandClientController<@CurrentType.FullName/*IF:IsServerType*/, @ServerType.FullName/*IF:IsServerType*/>, @InterfaceTypeName/*NOTE*/, MethodInterfaceTypeName/*NOTE*/
         {
@@ -149,7 +149,8 @@ namespace AutoCSer.CodeGenerator.Template
                 return methods;
             }
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             internal static void @CommandClientControllerConstructorMethodName()
             {

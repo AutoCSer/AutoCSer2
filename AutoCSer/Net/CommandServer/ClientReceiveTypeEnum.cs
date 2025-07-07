@@ -8,6 +8,7 @@ namespace AutoCSer.Net.CommandServer
     internal enum ClientReceiveTypeEnum : byte
     {
         /// <summary>
+        /// Get the command callback number
         /// 获取命令回调序号
         /// </summary>
         CallbackIdentity,

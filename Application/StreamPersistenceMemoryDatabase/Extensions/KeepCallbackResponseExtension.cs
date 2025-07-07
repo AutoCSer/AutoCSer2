@@ -13,7 +13,8 @@ namespace AutoCSer.Extensions
         /// 获取数组
         /// </summary>
         /// <param name="response"></param>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         /// <returns></returns>
         public static async Task<ResponseResult<LeftArray<T>>> GetLeftArray<T>(this KeepCallbackResponse<ValueResult<T>> response, int capacity = 0)
         {
@@ -40,7 +41,8 @@ namespace AutoCSer.Extensions
         /// 获取数组
         /// </summary>
         /// <param name="response"></param>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         /// <returns></returns>
 #if NetStandard21
         public static async Task<ResponseResult<LeftArray<T?>>> GetLeftArray<T>(this KeepCallbackResponse<T> response, int capacity = 0)
@@ -70,8 +72,10 @@ namespace AutoCSer.Extensions
         /// 获取数组
         /// </summary>
         /// <param name="response"></param>
-        /// <param name="getValue">数据转换委托</param>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         /// <returns></returns>
         public static async Task<ResponseResult<LeftArray<VT>>> GetLeftArray<T, VT>(this KeepCallbackResponse<ValueResult<T>> response, Func<T, VT> getValue, int capacity = 0)
         {
@@ -98,8 +102,10 @@ namespace AutoCSer.Extensions
         /// 获取数组
         /// </summary>
         /// <param name="response"></param>
-        /// <param name="getValue">数据转换委托</param>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         /// <returns></returns>
 #if NetStandard21
         public static async Task<ResponseResult<LeftArray<VT?>>> GetLeftArray<T, VT>(this KeepCallbackResponse<T> response, Func<T?, VT> getValue, int capacity = 0)

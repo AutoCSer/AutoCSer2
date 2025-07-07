@@ -20,7 +20,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// </summary>
         Loaded,
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         Insert,
         /// <summary>
@@ -28,6 +28,7 @@ namespace AutoCSer.ORM.Cache.Synchronous
         /// </summary>
         Update,
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         Delete,

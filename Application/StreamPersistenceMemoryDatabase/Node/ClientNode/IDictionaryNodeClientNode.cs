@@ -3,7 +3,8 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 字典节点接口 客户端节点接口
+    /// Dictionary node client interface 
+    /// 字典节点客户端接口
     /// </summary>
     public partial interface IDictionaryNodeClientNode<KT, VT> where KT : IEquatable<KT>
     {

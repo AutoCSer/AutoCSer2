@@ -14,7 +14,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 单个数据转换为可枚举集合
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="value">枚举数据</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -26,10 +26,11 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 根据集合内容返回数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="values">数据集合</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="values">Data collection
+        /// 数据集合</param>
         /// <param name="capacity">初始空间大小</param>
-        /// <returns>数组</returns>
+        /// <returns>Array</returns>
         public static LeftArray<T> getLeftArray<T>(this IEnumerable<T> values, int capacity = 0)
         {
             LeftArray<T> array = new LeftArray<T>(0);
@@ -39,10 +40,11 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 根据集合内容返回数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="values">数据集合</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="values">Data collection
+        /// 数据集合</param>
         /// <param name="capacity">初始空间大小</param>
-        /// <returns>数组</returns>
+        /// <returns>Array</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ListArray<T> getListArray<T>(this IEnumerable<T> values, int capacity = 0)
         {

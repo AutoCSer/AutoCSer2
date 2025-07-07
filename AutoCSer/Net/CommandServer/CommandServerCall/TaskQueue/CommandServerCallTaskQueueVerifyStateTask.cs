@@ -14,6 +14,7 @@ namespace AutoCSer.Net
     public abstract class CommandServerCallTaskQueueVerifyStateTask : CommandServerCallTaskQueueNode
     {
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         private readonly ServerInterfaceMethod method;
@@ -25,7 +26,7 @@ namespace AutoCSer.Net
 #endif
         private Task<CommandServerVerifyStateEnum> callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// 服务端异步调用队列任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>

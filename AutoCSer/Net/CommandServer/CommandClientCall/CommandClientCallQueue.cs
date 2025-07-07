@@ -7,25 +7,30 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// The client executes the queue
     /// 客户端执行队列
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Execute the type of task node
+    /// 执行任务节点类型</typeparam>
     public abstract class CommandClientCallQueue<T> : SecondTimerTaskArrayNode
         where T : AutoCSer.Threading.Link<T>
     {
         /// <summary>
-        /// 命令客户端
+        /// Command client
         /// </summary>
         protected readonly CommandClient client;
         /// <summary>
-        /// 队列
+        /// Execution queue
+        /// 执行队列
         /// </summary>
         internal LinkStack<T> Queue;
         /// <summary>
+        /// The time of the last task run
         /// 最后一次运行任务时间
         /// </summary>
         protected long runSeconds;
         /// <summary>
+        /// The client executes the queue
         /// 客户端执行队列
         /// </summary>
         /// <param name="client"></param>
@@ -41,19 +46,23 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// The client executes the queue
     /// 客户端执行队列
     /// </summary>
     public sealed class CommandClientCallQueue : CommandClientCallQueue<CommandClientCallQueueNode>
     {
         /// <summary>
-        /// 等待事件
+        /// Queue waiting event
+        /// 队列等待事件
         /// </summary>
         internal System.Threading.AutoResetEvent WaitHandle;
         /// <summary>
+        /// Thread handle
         /// 线程句柄
         /// </summary>
         private readonly System.Threading.Thread threadHandle;
         /// <summary>
+        /// The client executes the queue
         /// 客户端执行队列
         /// </summary>
         /// <param name="client"></param>
@@ -65,6 +74,7 @@ namespace AutoCSer.Net
             threadHandle.Start();
         }
         /// <summary>
+        /// Close the execution queue
         /// 关闭执行队列
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -73,7 +83,8 @@ namespace AutoCSer.Net
             WaitHandle.setDispose();
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -82,7 +93,8 @@ namespace AutoCSer.Net
             if(Queue.IsPushHead(node)) WaitHandle.Set();
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="queue"></param>
         /// <param name="node"></param>
@@ -92,7 +104,8 @@ namespace AutoCSer.Net
             queue.Add(node);
         }
         /// <summary>
-        /// 任务线程处理
+        /// Task processing thread
+        /// 任务处理线程
         /// </summary>
         private void run()
         {
@@ -126,6 +139,7 @@ namespace AutoCSer.Net
             while (!client.IsDisposed);
         }
         /// <summary>
+        /// Create a linked list of low-priority task queues
         /// 创建低优先级任务队列链表
         /// </summary>
         /// <returns></returns>
@@ -135,6 +149,7 @@ namespace AutoCSer.Net
             return new CommandClientCallQueueLowPriorityLink(this);
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         /// <returns></returns>

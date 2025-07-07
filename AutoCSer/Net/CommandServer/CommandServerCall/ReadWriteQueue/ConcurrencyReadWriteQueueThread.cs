@@ -15,6 +15,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         protected readonly T queue;
         /// <summary>
+        /// Thread handle
         /// 线程句柄
         /// </summary>
         private readonly System.Threading.Thread threadHandle;

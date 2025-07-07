@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 日志流持久化内存数据库服务端从节点配置
+    /// 日志流持久化内存数据库服务从节点配置
     /// </summary>
     public sealed class SlaveServiceConfig : StreamPersistenceMemoryDatabaseServiceConfig
     {
@@ -32,9 +32,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return backuper;
         }
         /// <summary>
-        /// 日志流持久化内存数据库服务端（从服务节点）
+        /// 日志流持久化内存数据库服务（从服务节点）
         /// </summary>
-        /// <typeparam name="T">节点服务接口类型</typeparam>
+        /// <typeparam name="T">Node service interface type
+        /// 节点服务接口类型</typeparam>
         /// <param name="createServiceNode"></param>
         /// <param name="masterClient"></param>
         /// <returns></returns>

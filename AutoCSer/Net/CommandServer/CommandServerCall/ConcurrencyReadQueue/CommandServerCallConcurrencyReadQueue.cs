@@ -8,15 +8,17 @@ using System.Threading;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// A synchronous queue on the server side that supports parallel reading (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data)
     /// 服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
     /// </summary>
     public sealed class CommandServerCallConcurrencyReadQueue : CommandServerCallConcurrencyReadWriteQueue
     {
         /// <summary>
-        /// 空队列
+        /// Empty queue
         /// </summary>
         private CommandServerCallConcurrencyReadQueue() { }
         /// <summary>
+        /// A synchronous queue on the server side that supports parallel reading (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data)
         /// 服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
         /// </summary>
         /// <param name="server"></param>
@@ -30,7 +32,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 空队列
+        /// Empty queue
         /// </summary>
         internal static new readonly CommandServerCallConcurrencyReadQueue Null = new CommandServerCallConcurrencyReadQueue();
     }

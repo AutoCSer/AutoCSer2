@@ -12,7 +12,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         /// </summary>
         private static readonly int lockKey = AutoCSer.Random.Default.Next();
         /// <summary>
-        /// 分布式锁并发错误检查
+        /// Distributed lock concurrent error check data
+        /// 分布式锁并发错误检查数据
         /// </summary>
         private static int checkLock;
         /// <summary>

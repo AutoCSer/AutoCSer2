@@ -14,10 +14,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
     internal sealed class IntDictionaryNode : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionaryNodeClientNode<int, int>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IDictionaryNodeClientNode<int, int>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateDictionaryNode<int, int>(typeof(IDictionaryNodeClientNode<int, int>).FullName));

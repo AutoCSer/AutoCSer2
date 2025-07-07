@@ -7,23 +7,19 @@ namespace AutoCSer.Net
 {
     /// <summary>
     /// Command controller interface configuration
-    /// 命令控制器接口配置
+    /// 命令服务控制器接口配置
     /// </summary>
     [AttributeUsage(AttributeTargets.Interface)]
     public class CommandServerControllerInterfaceAttribute : InterfaceMethodIndexAttribute
     {
         /// <summary>
-        /// Method No. Mapping Enumeration type. The value must be enum and the field definition must be consistent with the API method name. (Because API routes are numbered numerically, if the service interface definition is changed, the same API routes cannot be guaranteed, so enumeration mapping is recommended.)
-        /// 方法序号映射枚举类型，必须为 enum 且字段定义必须与 API 方法名称一致（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+        /// The default is true, indicating the generation method sequence number mapping enumeration type
+        /// 默认为 true 表示生成方法序号映射枚举类型
         /// </summary>
-#if NetStandard21
-        public Type? MethodIndexEnumType;
-#else
-        public Type MethodIndexEnumType;
-#endif
+        public bool IsCodeGeneratorMethodEnum = true;
         /// <summary>
-        /// Generate method ordinal mapping enumeration type code relative path, you need to set MethodIndexEnumType at the same time. A default value of null means no code is generated, and an empty string "" means code is generated into the default {xxx}.AutoCSer.cs
-        /// 生成方法序号映射枚举类型代码相对路径，需要同时设置 MethodIndexEnumType。默认为 null 表示不生成代码，设置为空字符串 "" 表示代码生成到默认文件 {xxx}.AutoCSer.cs 中 
+        /// Generate method sequence number mapping enumeration type code relative path. The default is null, indicating that the code is generated in the default file {xxx}.AutoCSer.cs
+        /// 生成方法序号映射枚举类型代码相对路径，默认为 null 表示代码生成到默认文件 {xxx}.AutoCSer.cs 中
         /// </summary>
 #if NetStandard21
         public string? MethodIndexEnumTypeCodeGeneratorPath;
@@ -47,6 +43,7 @@ namespace AutoCSer.Net
         public bool IsSimpleSerializeOutputParameter = true;
 
         /// <summary>
+        /// The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
         /// 默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
         /// </summary>
         public int MaxReadWriteQueueConcurrency = AutoCSer.Common.ProcessorCount - 1;
@@ -62,6 +59,7 @@ namespace AutoCSer.Net
         public int TaskQueueWaitCount = 16;
 
         /// <summary>
+        /// Copy the command controller configuration
         /// 复制命令控制器配置
         /// </summary>
         /// <returns></returns>
@@ -71,13 +69,14 @@ namespace AutoCSer.Net
            return (CommandServerControllerInterfaceAttribute)MemberwiseClone();
         }
         /// <summary>
+        /// Gets the method number mapping enumeration type
         /// 获取方法序号映射枚举类型
         /// </summary>
         /// <param name="interfaceType"></param>
         /// <returns></returns>
         internal static string GetControllerName(Type interfaceType)
         {
-            var methodIndexEnumType = interfaceType.GetCustomAttribute<CommandServerControllerInterfaceAttribute>()?.MethodIndexEnumType;
+            var methodIndexEnumType = interfaceType.GetCustomAttribute<ServerControllerInterfaceAttribute>()?.MethodIndexEnumType;
             if (methodIndexEnumType == null) throw new ArgumentNullException(AutoCSer.Common.Culture.CommandServerControllerEmptyName);
             return methodIndexEnumType.Name;
         }

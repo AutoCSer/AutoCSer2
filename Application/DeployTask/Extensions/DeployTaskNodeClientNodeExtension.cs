@@ -12,10 +12,12 @@ namespace AutoCSer.Extensions
     public static class DeployTaskNodeClientNodeExtension
     {
         /// <summary>
+        /// Add a sub-task
         /// 添加子任务
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="identity">任务标识ID</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
         /// <param name="uploadFileClient">文件上传客户端</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -24,10 +26,12 @@ namespace AutoCSer.Extensions
             return node.AppendStepTask(identity, uploadFileClient.UploadCompletedTask.StepTaskData);
         }
         /// <summary>
+        /// Add a sub-task
         /// 添加子任务
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="identity">任务标识ID</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
         /// <param name="task">上传文件最后移动文件操作任务</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -36,11 +40,14 @@ namespace AutoCSer.Extensions
             return node.AppendStepTask(identity, task.StepTaskData);
         }
         /// <summary>
+        /// Add a sub-task
         /// 添加子任务
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="identity">任务标识ID</param>
-        /// <param name="task">执行程序任务</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
+        /// <param name="task">The task of executing a program
+        /// 执行程序任务</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ResponseParameterAwaiter<AutoCSer.CommandService.DeployTask.OperationStateEnum> AppendStepTask(this IDeployTaskNodeClientNode node, long identity, StartProcessTask task)
@@ -48,10 +55,12 @@ namespace AutoCSer.Extensions
             return node.AppendStepTask(identity, task.StepTaskData);
         }
         /// <summary>
+        /// Add a sub-task
         /// 添加子任务
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="identity">任务标识ID</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
         /// <param name="serverProcessFileName">运行文件</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -60,10 +69,12 @@ namespace AutoCSer.Extensions
             return node.AppendStepTask(identity, new StartProcessTask(serverProcessFileName).StepTaskData);
         }
         /// <summary>
+        /// Remove completed or un-started task
         /// 移除已结束或者未开始任务
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="identity">任务标识ID</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ResponseParameterAwaiter<AutoCSer.CommandService.DeployTask.OperationStateEnum> Remove(this IDeployTaskNodeClientNode node, long identity)
@@ -74,7 +85,8 @@ namespace AutoCSer.Extensions
         /// 立即启动任务
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="identity">任务标识ID</param>
+        /// <param name="identity">Task identity
+        /// 任务标识ID</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ResponseParameterAwaiter<AutoCSer.CommandService.DeployTask.OperationStateEnum> Start(this IDeployTaskNodeClientNode node, long identity)

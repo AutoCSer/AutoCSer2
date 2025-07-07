@@ -20,6 +20,7 @@ namespace AutoCSer.Threading
             this.action = action;
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         public override void RunTask()

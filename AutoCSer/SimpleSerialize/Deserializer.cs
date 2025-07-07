@@ -17,7 +17,7 @@ namespace AutoCSer.SimpleSerialize
         /// 逻辑值反序列化
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         /// <returns></returns>
         public static byte* Deserialize(byte* data, ref bool? value)
         {
@@ -130,10 +130,10 @@ namespace AutoCSer.SimpleSerialize
             return null;
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="start"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <param name="end"></param>
         /// <returns></returns>
 #if NetStandard21
@@ -160,7 +160,7 @@ namespace AutoCSer.SimpleSerialize
             return null;
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="start"></param>
         /// <param name="value"></param>
@@ -188,7 +188,7 @@ namespace AutoCSer.SimpleSerialize
             }
             else if ((length >>= 1) > 0)
             {
-                int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
+                int lengthSize = AutoCSer.Memory.UnmanagedStreamBase.GetSerializeStringLengthSize(length);
                 if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= (int)(end - start))
                 {
                     value = AutoCSer.Common.AllocateString(length);
@@ -201,7 +201,7 @@ namespace AutoCSer.SimpleSerialize
         /// 字节数组反序列化
         /// </summary>
         /// <param name="start"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <param name="end"></param>
         /// <returns></returns>
 #if NetStandard21
@@ -245,13 +245,13 @@ namespace AutoCSer.SimpleSerialize
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         internal delegate byte* DeserializeDelegate<T>(byte* data, ref T value);
         /// <summary>
         /// 反序列化委托
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <param name="end"></param>
         internal delegate byte* DeserializeDefaultDelegate<T>(byte* data, ref T value, byte* end);
         /// <summary>

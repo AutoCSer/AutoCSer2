@@ -36,7 +36,7 @@ namespace AutoCSer.CommandService.DeployTask
         internal string BackupPath;
 #endif
         /// <summary>
-        /// 错误信息
+        /// 错误状态
         /// </summary>
         /// <param name="state"></param>
         internal UploaderInfo(UploadFileStateEnum state)

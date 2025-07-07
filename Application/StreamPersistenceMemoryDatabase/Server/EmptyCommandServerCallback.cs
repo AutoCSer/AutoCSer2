@@ -4,13 +4,13 @@ using System;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 空回调
+    /// Empty callback
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal sealed class EmptyCommandServerCallback<T> : CommandServerCallback<T>
     {
         /// <summary>
-        /// 空回调
+        /// Empty callback
         /// </summary>
         /// <param name="returnValue"></param>
         /// <returns></returns>
@@ -29,7 +29,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
-        /// 空回调
+        /// Empty callback
         /// </summary>
         internal static readonly EmptyCommandServerCallback<T> Default = new EmptyCommandServerCallback<T>();
     }

@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Delete the historical persistence file
     /// 删除历史持久化文件
     /// </summary>
     public class RemoveHistoryFile
     {
         /// <summary>
-        /// 日志流持久化内存数据库服务端
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
 #if NetStandard21
         private volatile StreamPersistenceMemoryDatabaseServiceBase? service;
@@ -20,15 +22,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private volatile StreamPersistenceMemoryDatabaseServiceBase service;
 #endif
         /// <summary>
+        /// The name of the persistent file
         /// 持久化文件名称
         /// </summary>
         private readonly string persistenceFileName;
         /// <summary>
+        /// The directory of the persistent file
         /// 持久化文件目录
         /// </summary>
         private readonly DirectoryInfo directory;
         /// <summary>
-        /// 重建持久化文件切换目录
+        /// Switch the directory of the files that have been persistently rebuild
+        /// 持久化重建文件切换目录
         /// </summary>
 #if NetStandard21
         private readonly DirectoryInfo? switchDirectory;
@@ -36,9 +41,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly DirectoryInfo switchDirectory;
 #endif
         /// <summary>
+        /// Delete the historical persistence file
         /// 删除历史持久化文件
         /// </summary>
-        /// <param name="service">日志流持久化内存数据库服务端</param>
+        /// <param name="service">Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务</param>
         public RemoveHistoryFile(StreamPersistenceMemoryDatabaseServiceBase service)
         {
             this.service = service;
@@ -51,6 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Delete the file
         /// 删除文件
         /// </summary>
         /// <param name="service"></param>
@@ -62,6 +70,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (switchDirectory != null) await remove(switchDirectory, removeTime);
         }
         /// <summary>
+        /// Delete the file
         /// 删除文件
         /// </summary>
         /// <param name="directory"></param>
@@ -85,6 +94,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Delete files regularly
         /// 定时删除文件
         /// </summary>
         /// <param name="runTimer"></param>
@@ -106,6 +116,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Cancel the task
         /// 取消任务
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

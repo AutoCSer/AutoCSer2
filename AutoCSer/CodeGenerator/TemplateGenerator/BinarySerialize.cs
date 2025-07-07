@@ -48,6 +48,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public readonly AutoCSer.CodeGenerator.BinarySerializeMethodInfo MethodInfo;
             /// <summary>
+            /// Name of serialization method
             /// 序列化方法名称
             /// </summary>
             public string SerializeMethodName
@@ -83,6 +84,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             }
             /// <summary>
+            /// Name of deserialization method
             /// 反序列化方法名称
             /// </summary>
             public string DeserializeMethodName
@@ -138,23 +140,28 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         }
 
         /// <summary>
-        /// 序列化方法名称
+        /// Name of binary serialization method
+        /// 二进制序列化方法名称
         /// </summary>
         public string BinarySerializeMethodName { get { return BinarySerializeAttribute.BinarySerializeMethodName; } }
         /// <summary>
-        /// 序列化方法名称
+        /// Name of binary serialization method
+        /// 二进制序列化方法名称
         /// </summary>
         public string BinarySerializeMemberMapMethodName { get { return BinarySerializeAttribute.BinarySerializeMemberMapMethodName; } }
         /// <summary>
-        /// 获取二进制序列化成员类型方法名称
+        /// The method name of get binary serialized member type collection
+        /// 获取二进制序列化成员类型集合方法名称
         /// </summary>
         public string BinarySerializeMemberTypeMethodName { get { return BinarySerializeAttribute.BinarySerializeMemberTypeMethodName; } }
         /// <summary>
-        /// 反序列化方法名称
+        /// Name of binary anti-data serialization method
+        /// 二进制反数据序列化方法名称
         /// </summary>
         public string BinaryDeserializeMethodName { get { return BinarySerializeAttribute.BinaryDeserializeMethodName; } }
         /// <summary>
-        /// 反序列化方法名称
+        /// Name of binary anti-data serialization method
+        /// 二进制反数据序列化方法名称
         /// </summary>
         public string BinaryDeserializeMemberMapMethodName { get { return BinarySerializeAttribute.BinaryDeserializeMemberMapMethodName; } }
         /// <summary>
@@ -170,6 +177,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public SerializeMember[] FieldArray;
         /// <summary>
+        /// Collection of member types
         /// 成员类型集合
         /// </summary>
         public AotMethod.ReflectionMemberType[] MemberTypes;
@@ -420,7 +428,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             baseType = AutoCSer.BinarySerialize.Common.GetBaseAttribute(type, ref attribute);
             if (baseType != null) return binarySerializeMethodInfo.IsGenericReflection = true;
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize) return binarySerializeMethodInfo.IsJson = true;
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix) return binarySerializeMethodInfo.IsJson = true;
             binarySerializeMethodInfo.IsGenericReflection = true;
             return false;
         }
@@ -654,7 +662,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (appendGenericType(baseType)) getGenericMemberType(baseType, ref memberTypes);
                 return;
             }
-            if (attribute.IsMixJsonSerialize)
+            if (attribute.IsJsonMix)
             {
                 if (type.IsValueType) memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.StructJson) + "Reflection", type.fullName()));
                 else memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Json) + "Reflection", type.fullName()));
@@ -680,11 +688,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             return;
         }
         /// <summary>
+        /// Collection of member types
         /// 成员类型集合
         /// </summary>
         private static readonly HashSet<HashObject<Type>> memberTypes = HashSetCreator.CreateHashObject<Type>();
         /// <summary>
-        /// 成员类型集合
+        /// 获取成员类型集合
         /// </summary>
         /// <returns></returns>
         internal static LeftArray<AotMethod.ReflectionMemberType> GetReflectionMemberTypes()
@@ -890,7 +899,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (BinarySerialize.memberTypes.Add(baseType)) getMemberType(baseType, ref memberTypes);
                 return;
             }
-            if (attribute.IsMixJsonSerialize)
+            if (attribute.IsJsonMix)
             {
                 if (type.IsValueType) memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.StructJson), type.fullName()));
                 else memberTypes.Add(new AotMethod.ReflectionMemberType(type, nameof(BinarySerializer.Json), type.fullName()));
@@ -915,7 +924,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         private static readonly GeneratorAttribute defaultGeneratorAttribute = typeof(BinarySerialize).GetCustomAttribute(typeof(GeneratorAttribute)).castType<GeneratorAttribute>();
         /// <summary>
-        /// 二进制序列化代码生成配置
+        /// AOT binary serialization code generation configuration
+        /// AOT 二进制序列化代码生成配置
         /// </summary>
         private static readonly AutoCSer.CodeGenerator.BinarySerializeAttribute defaultBinarySerializeAttribute = new AutoCSer.CodeGenerator.BinarySerializeAttribute();
     }

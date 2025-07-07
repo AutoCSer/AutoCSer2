@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Algorithm;
+using AutoCSer.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -9,7 +10,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照哈希表
     /// </summary>
-    /// <typeparam name="T">关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type
+    /// 关键字类型</typeparam>
     public sealed class SnapshotHashSet<T> : SnapshotDictionary<T>
 #if NetStandard21
         where T : notnull, IEquatable<T>
@@ -22,10 +24,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal SnapshotHashSetNodeArray<T> Nodes;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         public ISnapshotEnumerable<T> ValueSnapshot { get { return Nodes; } }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<T> Values
@@ -46,8 +50,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 快照哈希表
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <param name="groupType">Reusable dictionary recombination operation type
+        /// 可重用字典重组操作类型</param>
         public SnapshotHashSet(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex) : base(capacity, groupType)
         {
             Nodes = new SnapshotHashSetNodeArray<T>(this, (int)CapacityDivision.Divisor);
@@ -98,9 +104,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 判断是否存在关键字
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public bool Contains(T key, bool isRoll = false)
@@ -113,10 +120,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 判断是否存在关键字
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="hashCode"></param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
 #if NetStandard21
         internal bool Contains(T key, uint hashCode, bool isRoll = false)
 #else
@@ -162,9 +170,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否添加数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -173,9 +181,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return Add(key, (uint)key.GetHashCode(), isRoll);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="hashCode"></param>
         /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否新增数据</returns>
@@ -260,21 +269,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(T key)
         {
             return Remove(key, (uint)key.GetHashCode());
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashCode"></param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         internal bool Remove(T key, uint hashCode)
         {
             if (Count != 0)
@@ -325,6 +338,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Delete the node
         /// 删除节点
         /// </summary>
         /// <param name="nodeIndex"></param>
@@ -366,7 +380,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         if (rollIndex != removeCount())
                         {
                             remove(rollIndex, nodeArray[rollIndex].HashIndex);
-                            if (++rollIndex == Count) rollIndex = 0;
+                            //if (++rollIndex == Count) rollIndex = 0;
+                            ++rollIndex;
+                            rollIndex &= (rollIndex ^ Count).logicalInversion() - 1;
                         }
                         else rollIndex = 0;
                         return true;
@@ -380,7 +396,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (rollIndex != removeCount())
                 {
                     remove(rollIndex, node.HashIndex);
-                    if (++rollIndex == Count) rollIndex = 0;
+                    //if (++rollIndex == Count) rollIndex = 0;
+                    ++rollIndex;
+                    rollIndex &= (rollIndex ^ Count).logicalInversion() - 1;
                 }
                 else rollIndex = 0;
                 return true;
@@ -391,7 +409,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 根据关键字集合删除匹配数据
         /// </summary>
         /// <param name="keys"></param>
-        /// <returns>删除关键字数量</returns>
+        /// <returns>The number of deleted keywords
+        /// 删除关键字数量</returns>
         public int RemoveKeys(T[] keys)
         {
             int count = 0;

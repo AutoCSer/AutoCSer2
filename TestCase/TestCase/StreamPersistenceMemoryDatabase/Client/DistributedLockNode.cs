@@ -5,20 +5,24 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
 {
     /// <summary>
-    /// 分布式锁客户端示例
+    /// Example of distributed lock client node
+    /// 分布式锁客户端节点示例
     /// </summary>
     internal static class DistributedLockNode
     {
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode<string>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateDistributedLockNode<string>(nameof(DistributedLockNode)));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode<string>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateDistributedLockNode<string>(nameof(DistributedLockNode)));
         /// <summary>
-        /// 分布式锁客户端示例
+        /// Example of distributed lock client node
+        /// 分布式锁客户端节点示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
@@ -28,7 +32,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             return true;
         }
         /// <summary>
-        /// 分布式锁客户端示例
+        /// Example of distributed lock client node
+        /// 分布式锁客户端节点示例
         /// </summary>
         /// <returns></returns>
         private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode<string>> client)
@@ -52,11 +57,13 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             return true;
         }
         /// <summary>
-        /// 分布式锁并发错误检查
+        /// Distributed lock concurrent error check data
+        /// 分布式锁并发错误检查数据
         /// </summary>
         private static int checkLock;
         /// <summary>
-        /// 分布式锁客户端示例
+        /// Example of distributed lock client node
+        /// 分布式锁客户端节点示例
         /// </summary>
         /// <param name="node"></param>
         /// <param name="lockKey"></param>
@@ -67,7 +74,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             await AutoCSer.Threading.SwitchAwaiter.Default;
             for (int count = loopCount; count != 0; --count)
             {
-                var identity = await node.Enter(lockKey, 5);//申请分布式锁 5 秒超时
+                var identity = await node.Enter(lockKey, 5);
                 if (!identity.IsSuccess)
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
@@ -80,7 +87,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
-                node.Release(lockKey, identity.Value).Discard();//释放分布式锁
+                node.Release(lockKey, identity.Value).Discard();
             }
             return true;
         }

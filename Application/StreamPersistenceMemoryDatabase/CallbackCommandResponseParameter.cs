@@ -11,10 +11,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class CallbackCommandResponseParameter : ResponseParameter
     {
         /// <summary>
+        /// Client node
         /// 客户端节点
         /// </summary>
         private readonly ClientNode node;
         /// <summary>
+        /// Request the index information of the node for passing parameters
         /// 请求传参的节点索引信息
         /// </summary>
         private readonly NodeIndex nodeIndex;
@@ -25,7 +27,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 返回参数
         /// </summary>
-        /// <param name="node">客户端节点</param>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
         /// <param name="callback">回调委托</param>
         internal CallbackCommandResponseParameter(ClientNode node, Action<ResponseResult> callback)
         {
@@ -71,10 +74,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public class CallbackCommandResponseParameter<T> : ResponseParameter
     {
         /// <summary>
+        /// Client node
         /// 客户端节点
         /// </summary>
         private readonly ClientNode node;
         /// <summary>
+        /// Request the index information of the node for passing parameters
         /// 请求传参的节点索引信息
         /// </summary>
         private readonly NodeIndex nodeIndex;
@@ -83,13 +88,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly Action<ResponseResult<T>> callback;
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
         internal ServerReturnValue<T> Value;
         /// <summary>
         /// 返回参数
         /// </summary>
-        /// <param name="node">客户端节点</param>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
         /// <param name="callback">回调委托</param>
         protected CallbackCommandResponseParameter(ClientNode node, Action<ResponseResult<T>> callback)
         {
@@ -100,7 +106,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 返回参数
         /// </summary>
-        /// <param name="node">客户端节点</param>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
         /// <param name="value">返回值</param>
         /// <param name="callback">回调委托</param>
         internal CallbackCommandResponseParameter(ClientNode node, T value, Action<ResponseResult<T>> callback)

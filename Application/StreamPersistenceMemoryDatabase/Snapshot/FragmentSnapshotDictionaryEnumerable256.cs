@@ -30,6 +30,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshotArray.SetEmpty();
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<BinarySerializeKeyValue<KT, VT>> ISnapshotEnumerable<BinarySerializeKeyValue<KT, VT>>.SnapshotValues
@@ -48,6 +49,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<KeyValue<KT, VT>> ISnapshotEnumerable<KeyValue<KT, VT>>.SnapshotValues
@@ -66,6 +68,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<VT> ISnapshotEnumerable<VT>.SnapshotValues
@@ -84,7 +87,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         public void GetSnapshotValueArray()
         {
@@ -100,6 +104,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshotArray.PrepLength(count);
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         public void GetSnapshotResult()
@@ -118,6 +123,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Close the snapshot operation
         /// 关闭快照操作
         /// </summary>
         public void CloseSnapshot()
@@ -158,6 +164,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshotArray.SetEmpty();
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<BinarySerializeKeyValue<byte[], VT>> ISnapshotEnumerable<BinarySerializeKeyValue<byte[], VT>>.SnapshotValues
@@ -176,7 +183,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         public void GetSnapshotValueArray()
         {
@@ -192,6 +200,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshotArray.PrepLength(count);
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         public void GetSnapshotResult()
@@ -211,6 +220,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Close the snapshot operation
         /// 关闭快照操作
         /// </summary>
         public void CloseSnapshot()

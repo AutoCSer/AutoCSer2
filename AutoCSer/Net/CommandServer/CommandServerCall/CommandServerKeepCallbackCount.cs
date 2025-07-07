@@ -9,16 +9,19 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// TCP server-side asynchronously keep callback count
     /// TCP 服务器端异步保持回调计数
     /// </summary>
     public class CommandServerKeepCallbackCount : CommandServerKeepCallback
     {
         /// <summary>
+        /// Output data access lock
         /// 输出数据访问锁
         /// </summary>
         internal readonly AutoCSer.Threading.SemaphoreSlimLock OutputLock;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
@@ -29,7 +32,8 @@ namespace AutoCSer.Net
             OutputLock = new Threading.SemaphoreSlimLock(0, 1);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="outputCount"></param>
@@ -39,7 +43,8 @@ namespace AutoCSer.Net
             OutputLock = new Threading.SemaphoreSlimLock(0, 1);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -49,7 +54,8 @@ namespace AutoCSer.Net
             OutputLock = new Threading.SemaphoreSlimLock(0, 1);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -59,7 +65,8 @@ namespace AutoCSer.Net
             OutputLock = new Threading.SemaphoreSlimLock(0, 1);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -69,7 +76,8 @@ namespace AutoCSer.Net
             OutputLock = new Threading.SemaphoreSlimLock(0, 1);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -79,6 +87,7 @@ namespace AutoCSer.Net
             OutputLock = new Threading.SemaphoreSlimLock(0, 1);
         }
         /// <summary>
+        /// Release the output data count
         /// 释放输出数据计数
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -87,10 +96,13 @@ namespace AutoCSer.Net
             if (Interlocked.Increment(ref outputCount) <= 0) OutputLock.Exit();
         }
         /// <summary>
+        /// Reset the count when the output data count is valid
         /// 当输出数据计数有效时重新设置计数
         /// </summary>
-        /// <param name="outputCount">有效为大于 0</param>
-        /// <returns>是否设置成功，失败表示当前输出数据计数无效</returns>
+        /// <param name="outputCount">The validity is greater than 0
+        /// 有效为大于 0</param>
+        /// <returns>Whether the setting is successful or not, failure indicates that the current output data count is invalid
+        /// 是否设置成功，失败表示当前输出数据计数无效</returns>
         public bool TrySetOutputCount(int outputCount)
         {
             if (outputCount > 0)
@@ -132,6 +144,7 @@ namespace AutoCSer.Net
         //    return false;
         //}
         /// <summary>
+        /// Return value callback, keep callback count and wait
         /// 返回值回调，保持回调计数等待
         /// </summary>
         public virtual TaskCastAwaiter<bool> CallbackAsync()
@@ -153,6 +166,7 @@ namespace AutoCSer.Net
             return CompletedTaskCastAwaiter<bool>.Default;
         }
         /// <summary>
+        /// Cancel the keep callback command
         /// 取消保持回调命令
         /// </summary>
         internal override void SetCancelKeep()
@@ -160,6 +174,7 @@ namespace AutoCSer.Net
             if (Interlocked.CompareExchange(ref IsCancelKeep, 1, 0) == 0) OutputLock.Exit();
         }
         /// <summary>
+        /// Try to cancel the keep callback command
         /// 尝试取消保持回调命令
         /// </summary>
         /// <returns></returns>
@@ -175,7 +190,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="outputCount"></param>
@@ -186,7 +202,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount(socket, OfflineCount.Null, outputCount);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -197,7 +214,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount(node, outputCount);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -208,7 +226,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount(node, outputCount);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -219,7 +238,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount(node, outputCount);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="outputCount"></param>
@@ -229,18 +249,27 @@ namespace AutoCSer.Net
         {
             return new CommandServerKeepCallbackCount(node, outputCount);
         }
+        /// <summary>
+        /// Add output
+        /// 添加输出
+        /// </summary>
+        /// <param name="output"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool Push(ServerOutput output)
         {
             return IsCancelKeep == 0 && Socket.TryPush(output);
         }
     }
     /// <summary>
-    /// TCP 服务器端异步保持回调（输出计数限制）
+    /// TCP server-side asynchronously keep callback count
+    /// TCP 服务器端异步保持回调计数
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class CommandServerKeepCallbackCount<T> : CommandServerKeepCallbackCount
     {
         /// <summary>
+        /// The next node of the linked list
         /// 链表下一个节点
         /// </summary>
 #if NetStandard21
@@ -249,11 +278,13 @@ namespace AutoCSer.Net
         internal CommandServerKeepCallbackCount<T> LinkNext;
 #endif
         /// <summary>
-        /// 服务端输出信息
+        /// Server interface method information
+        /// 服务端接口方法信息
         /// </summary>
         internal readonly ServerInterfaceMethod Method;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
@@ -263,7 +294,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -272,7 +304,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -281,7 +314,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -290,7 +324,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -299,7 +334,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -308,6 +344,7 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
+        /// No output callback is supported
         /// 不支持无输出回调
         /// </summary>
         /// <returns></returns>
@@ -316,6 +353,7 @@ namespace AutoCSer.Net
             throw new InvalidOperationException();
         }
         /// <summary>
+        /// No output callback is supported
         /// 不支持无输出回调
         /// </summary>
         /// <returns></returns>
@@ -324,10 +362,11 @@ namespace AutoCSer.Net
             throw new InvalidOperationException();
         }
         /// <summary>
+        /// Get the output information
         /// 获取输出信息
         /// </summary>
         /// <param name="returnValue"></param>
-        /// <returns>输出信息</returns>
+        /// <returns>Output information</returns>
         private ServerOutputKeepCallbackCount<ServerReturnValue<T>> getOutput(T returnValue)
         {
             if (Method.IsOutputPool)
@@ -342,6 +381,7 @@ namespace AutoCSer.Net
             return new ServerOutputKeepCallbackCount<ServerReturnValue<T>>(CallbackIdentity, Method, new ServerReturnValue<T>(returnValue), this);
         }
         /// <summary>
+        /// Return value callback, and wait keep callback
         /// 返回值回调，保持回调计数等待
         /// </summary>
         /// <param name="returnValue"></param>
@@ -409,10 +449,12 @@ namespace AutoCSer.Net
         //    return false;
         //}
         /// <summary>
+        /// Return value callback, and wait keep callback
         /// 返回值回调，保持回调计数等待
         /// </summary>
         /// <param name="returnValue"></param>
-        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
         public TaskCastAwaiter<bool> CallbackAsync(T returnValue)
         {
             if (IsCancelKeep == 0)
@@ -457,11 +499,13 @@ namespace AutoCSer.Net
         //    return false;
         //}
         /// <summary>
+        /// Return value callback, and wait keep callback
         /// 返回值回调，保持回调计数等待
         /// </summary>
         /// <param name="returnValue"></param>
         /// <param name="onFree"></param>
-        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
         public TaskCastAwaiter<bool> CallbackAsync(T returnValue, Action onFree)
         {
             if (IsCancelKeep == 0)
@@ -481,7 +525,8 @@ namespace AutoCSer.Net
             return CompletedTaskCastAwaiter<bool>.Default;
         }
         /// <summary>
-        /// 返回数据集合以后关闭保持回调，保持回调计数等待
+        /// Close the keep callback after returning the data collection
+        /// 返回数据集合以后关闭保持回调
         /// </summary>
         /// <param name="values"></param>
         public async Task CallbackAsync(IEnumerable<T> values)
@@ -515,7 +560,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 返回数据集合以后关闭保持回调，保持回调计数等待
+        /// Close the keep callback after returning the data collection
+        /// 返回数据集合以后关闭保持回调
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
@@ -577,7 +623,8 @@ namespace AutoCSer.Net
         //}
 #if NetStandard21
         /// <summary>
-        /// 返回数据集合以后关闭保持回调，保持回调计数等待
+        /// Close the keep callback after returning the data collection
+        /// 返回数据集合以后关闭保持回调
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
@@ -614,7 +661,8 @@ namespace AutoCSer.Net
 #endif
 
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -625,7 +673,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount<T>(socket, OfflineCount.Null, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -636,7 +685,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount<T>(node, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -647,7 +697,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount<T>(node, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -658,7 +709,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCount<T>(node, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -670,12 +722,13 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// The TCP server side asynchronously maintains the callback linked list
         /// TCP 服务器端异步保持回调链表
         /// </summary>
         public sealed class Link
         {
             /// <summary>
-            /// 头节点
+            /// Head node
             /// </summary>
 #if NetStandard21
             private CommandServerKeepCallbackCount<T>? head;
@@ -683,7 +736,7 @@ namespace AutoCSer.Net
             private CommandServerKeepCallbackCount<T> head;
 #endif
             /// <summary>
-            /// 添加头节点
+            /// Add the head node
             /// </summary>
             /// <param name="head"></param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -693,6 +746,7 @@ namespace AutoCSer.Net
                 this.head = head;
             }
             /// <summary>
+            /// Return value callback, clean up the callback failed object
             /// 返回值回调，清理回调失败对象
             /// </summary>
             /// <param name="value"></param>
@@ -714,6 +768,7 @@ namespace AutoCSer.Net
                 }
             }
             /// <summary>
+            /// Cancel all callbacks
             /// 取消所有回调
             /// </summary>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

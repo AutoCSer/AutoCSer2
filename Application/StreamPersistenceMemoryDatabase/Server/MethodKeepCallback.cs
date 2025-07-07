@@ -22,6 +22,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal CommandServerKeepCallback<KeepCallbackResponseParameter> callback;
 #endif
         /// <summary>
+        /// Server-side node method flags
         /// 服务端节点方法标记
         /// </summary>
         internal readonly MethodFlagsEnum flag;
@@ -34,6 +35,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal int Reserve;
         /// <summary>
+        /// Has the keep callback been cancelled
         /// 是否已经取消保持回调
         /// </summary>
         public bool IsCancelKeepCallback { get { return callback == null || callback.IsCancelKeepCallback; } }
@@ -157,6 +159,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return true;
         }
         /// <summary>
+        /// Failure callback
         /// 失败回调
         /// </summary>
         /// <param name="state">失败状态</param>

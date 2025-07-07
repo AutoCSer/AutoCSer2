@@ -123,7 +123,7 @@ namespace AutoCSer.TestCase
         }
 
         /// <summary>
-        /// 测试数据
+        /// Test data
         /// </summary>
         private static readonly int[] data;
         static SearchTree()

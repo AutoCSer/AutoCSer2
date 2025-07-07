@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace AutoCSer
 {
     /// <summary>
-    /// 自定义序列化成员位图
+    /// Custom serialization成员位图
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct BinarySerializeMemberMap
@@ -36,7 +36,7 @@ namespace AutoCSer
 #endif
 
         /// <summary>
-        /// 自定义序列化成员位图
+        /// Custom serialization成员位图
         /// </summary>
         /// <param name="memberMap"></param>
         /// <param name="currentMemberMap"></param>

@@ -23,6 +23,7 @@ namespace AutoCSer
             get { return Nodes.Length; }
         }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<uint> Values
@@ -41,6 +42,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<int> IntValues
@@ -69,7 +71,8 @@ namespace AutoCSer
         /// <summary>
         /// 可重用字典
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         public ReusableHashCodeKeyHashSet(int capacity = 0) : base(capacity, ReusableDictionaryGroupTypeEnum.HashIndex)
         {
             Nodes = new ReusableHashNode[(int)CapacityDivision.Divisor];
@@ -281,20 +284,24 @@ namespace AutoCSer
             return true;
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(int value)
         {
             return Contains((uint)value);
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         public bool Contains(uint value)
         {
             if (Count != 0)
@@ -330,20 +337,24 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(int value)
         {
             return Remove((uint)value);
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         public bool Remove(uint value)
         {
             if (Count != 0)
@@ -393,6 +404,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Delete the node
         /// 删除节点
         /// </summary>
         /// <param name="nodeIndex"></param>
@@ -407,6 +419,7 @@ namespace AutoCSer
             if (node.Next != int.MaxValue) Nodes[node.Next].SetNextSource(nodeIndex);
         }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         internal void ClearArray()

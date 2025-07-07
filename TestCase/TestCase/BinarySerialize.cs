@@ -99,7 +99,7 @@ namespace AutoCSer.TestCase
             }
             #endregion
 
-            #region 二进制混杂 JSON 序列化
+            #region  JSON 混杂二进制序列化
             Data.JsonField jsonFieldData = AutoCSer.RandomObject.Creator<Data.JsonField>.Create(randomConfig);
             data = AutoCSer.BinarySerializer.Serialize(jsonFieldData);
             Data.JsonField newJsonFieldData = AutoCSer.BinaryDeserializer.Deserialize<Data.JsonField>(data);

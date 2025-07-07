@@ -3,6 +3,7 @@
 namespace AutoCSer.TestCase
 {
     /// <summary>
+    /// Custom session object
     /// 自定义会话对象
     /// </summary>
     internal sealed class CommandServerSessionObject

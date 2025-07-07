@@ -9,7 +9,8 @@ namespace AutoCSer.CodeGenerator.Template
             #region PART CLASS
             #region IF IsSerialize
             /// <summary>
-            /// 简单序列化
+            /// Simple binary serialization
+            /// 简单二进制序列化
             /// </summary>
             /// <param name="stream"></param>
             /// <param name="value"></param>
@@ -18,7 +19,8 @@ namespace AutoCSer.CodeGenerator.Template
                 value.simpleSerialize(stream);
             }
             /// <summary>
-            /// 简单序列化
+            /// Simple binary serialization
+            /// 简单二进制序列化
             /// </summary>
             /// <param name="__stream__"></param>
             private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
@@ -44,7 +46,8 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF IsSerialize
             #region IF IsDeserialize
             /// <summary>
-            /// 简单反序列化
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
             /// </summary>
             /// <param name="start"></param>
             /// <param name="value"></param>
@@ -55,7 +58,8 @@ namespace AutoCSer.CodeGenerator.Template
                 return value.simpleDeserialize(start, end);
             }
             /// <summary>
-            /// 简单反序列化
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
             /// </summary>
             /// <param name="__start__"></param>
             /// <param name="__end__"></param>
@@ -91,7 +95,8 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #endregion IF IsDeserialize
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             internal unsafe static void @SimpleSerializeMethodName()
             {

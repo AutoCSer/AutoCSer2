@@ -28,6 +28,7 @@ namespace AutoCSer.Net
         protected Exception exception;
 #endif
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -36,6 +37,7 @@ namespace AutoCSer.Net
         protected Action continuation;
 #endif
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
@@ -71,6 +73,7 @@ namespace AutoCSer.Net
 
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <returns></returns>
@@ -165,6 +168,7 @@ namespace AutoCSer.Net
         protected Exception exception;
 #endif
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -173,6 +177,7 @@ namespace AutoCSer.Net
         protected Action continuation;
 #endif
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
@@ -201,6 +206,7 @@ namespace AutoCSer.Net
             this.isSynchronous = isSynchronous;
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <returns></returns>

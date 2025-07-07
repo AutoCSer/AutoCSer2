@@ -15,9 +15,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">普通日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         /// <returns>是否写入日志</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -34,9 +34,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">普通日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void InfoIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Info, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -55,9 +55,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">调试日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void DebugIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Debug, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -77,9 +77,9 @@ namespace AutoCSer.Extensions
         /// <param name="exception">异常信息</param>
         /// <param name="message">附加信息</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void ExceptionIgnoreException(this ILog log, Exception exception, string? message = null, LogLevelEnum level = LogLevelEnum.Exception, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -98,9 +98,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         /// <returns>是否写入日志</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -117,9 +117,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void ErrorIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Error, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -138,9 +138,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         /// <returns>是否写入日志</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -157,9 +157,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void WarnIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Warn, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -178,9 +178,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         /// <returns>是否写入日志</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -197,9 +197,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void FatalIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Fatal, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -218,9 +218,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         /// <returns>是否写入日志</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -237,9 +237,9 @@ namespace AutoCSer.Extensions
         /// <param name="log">日志处理接口</param>
         /// <param name="message">错误日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void BreakpointIgnoreException(this ILog log, string message, LogLevelEnum level = LogLevelEnum.Breakpoint, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else

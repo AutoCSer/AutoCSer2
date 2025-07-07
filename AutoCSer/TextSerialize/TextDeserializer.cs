@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer
@@ -79,6 +80,51 @@ namespace AutoCSer
         {
             customError = text = string.Empty;
             MemberMap = null;
+        }
+        /// <summary>
+        /// 查找字符
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected bool isFindChar(ulong value)
+        {
+        START:
+            ulong code = *(ulong*)Current ^ value;
+            if (((code + 0xfffefffefffeffffUL) & ~code & 0x8000800080008000UL) == 0)
+            {
+                if ((Current += 4) < end) goto START;
+                Current = end;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 查找字符
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>是否存在下一个字符</returns>
+        protected bool isFindChar(char value)
+        {
+            if (*Current == value) return true;
+            if (*(Current + 1) == value) return ++Current != end;
+            //if ((Current += (*(Current + 2) == value ? 2 : 3)) < end) return true;
+            if ((Current += (3 - (*(Current + 2) ^ value).logicalInversion())) < end) return true;
+            Current = end;
+            return false;
+        }
+        /// <summary>
+        /// 查找字符
+        /// </summary>
+        /// <param name="value"></param>
+        protected void findChar(ulong value)
+        {
+            do
+            {
+                ulong code = *(ulong*)Current ^ value;
+                if (((code + 0xfffefffefffeffffUL) & ~code & 0x8000800080008000UL) == 0) Current += 4;
+                else return;
+            }
+            while (true);
         }
         ///// <summary>
         ///// 临时字符串填充空格

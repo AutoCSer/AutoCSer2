@@ -41,6 +41,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         private readonly SingleDiskBlockUIntKeyIntValueLocalCache userRemarkIndexCache;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已释放资源
         /// </summary>
         internal bool IsDispose;
@@ -59,7 +60,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             DiskBlockCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -69,6 +70,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             userRemarkIndexCache.Dispose();
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         /// <returns></returns>

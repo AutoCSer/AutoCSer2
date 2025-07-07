@@ -70,6 +70,7 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsError { get; private set; }
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         private bool isDisposed;
@@ -106,7 +107,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 关闭套接字
+        /// Close the socket
         /// </summary>
         public void Dispose()
         {
@@ -114,7 +115,7 @@ namespace AutoCSer.Net
             closeSocket();
         }
         /// <summary>
-        /// 关闭套接字
+        /// Close the socket
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void closeSocket()
@@ -195,10 +196,11 @@ namespace AutoCSer.Net
             while (true);
         }
         /// <summary>
+        /// The callback delegate after the data is received
         /// 数据接收完成后的回调委托
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="async">异步回调参数</param>
+        /// <param name="async">Asynchronous callback parameters</param>
 #if NetStandard21
         private void onReceive(object? sender, SocketAsyncEventArgs async)
 #else
@@ -220,6 +222,7 @@ namespace AutoCSer.Net
             start();
         }
         /// <summary>
+        /// The callback delegate after the data is received
         /// 数据接收完成后的回调委托
         /// </summary>
         /// <param name="count">接收数据数量</param>

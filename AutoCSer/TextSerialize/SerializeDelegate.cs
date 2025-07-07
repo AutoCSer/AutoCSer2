@@ -8,13 +8,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.TextSerialize
 {
     /// <summary>
-    /// 自定义序列化委托
+    /// Custom serialization委托
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SerializeDelegate
     {
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
 #if NetStandard21
         public Delegate? Delegate;
@@ -30,7 +30,7 @@ namespace AutoCSer.TextSerialize
         public Type[] ReferenceTypes;
 #endif
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
         /// <param name="delegateValue">序列化委托，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlSerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
         /// <param name="referenceTypes">需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知</param>
@@ -44,7 +44,7 @@ namespace AutoCSer.TextSerialize
             ReferenceTypes = referenceTypes;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value">自定义序列化委托，必须是静态方法，第一个参数类型为 AutoCSer.JsonSerializer / AutoCSer.XmlSerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
         /// <returns>自定义序列化委托</returns>

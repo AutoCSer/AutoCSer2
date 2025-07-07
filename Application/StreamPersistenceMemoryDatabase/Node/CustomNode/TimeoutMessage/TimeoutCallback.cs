@@ -7,7 +7,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode.Tim
     /// <summary>
     /// 超时检查队列回调
     /// </summary>
-    /// <typeparam name="T">任务消息数据类型</typeparam>
+    /// <typeparam name="T">Task message data type
+    /// 任务消息数据类型</typeparam>
     internal sealed class TimeoutCallback<T> : ReadWriteQueueNode
     {
         /// <summary>

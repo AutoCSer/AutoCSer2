@@ -4,14 +4,16 @@ using System.Collections.Generic;
 namespace AutoCSer
 {
     /// <summary>
+    /// Create the HashSet
     /// 创建 HashSet
     /// </summary>
     public static class HashSetCreator
     {
         /// <summary>
-        /// 创建HASH表
+        /// Create a HashSet
+        /// 创建 HashSet
         /// </summary>
-        /// <returns>HASH表</returns>
+        /// <returns>HashSet</returns>
         public static HashSet<int> CreateInt()
         {
 #if AOT
@@ -21,9 +23,10 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
-        /// 创建HASH表
+        /// Create a HashSet
+        /// 创建 HashSet
         /// </summary>
-        /// <returns>HASH表</returns>
+        /// <returns>HashSet</returns>
         public static HashSet<long> CreateLong()
         {
 #if AOT
@@ -33,10 +36,11 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
-        /// 创建HASH表
+        /// Create a HashSet
+        /// 创建 HashSet
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <returns>HASH表</returns>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <returns>HashSet</returns>
         internal static HashSet<HashObject<T>> CreateHashObject<T>()
             where T : class
         {
@@ -48,21 +52,24 @@ namespace AutoCSer
         }
     }
     /// <summary>
-    /// 创建 HashSet表
+    /// Create the HashSet
+    /// 创建 HashSet
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     public static class HashSetCreator<T> where T : IEquatable<T>
     {
 #if AOT
         /// <summary>
+        /// Whether it is a value type
         /// 是否值类型
         /// </summary>
         private static readonly bool isValueType = typeof(T).IsValueType;
 #endif
         /// <summary>
-        /// 创建 HashSet 表
+        /// Create a HashSet
+        /// 创建 HashSet
         /// </summary>
-        /// <returns>HashSet 表</returns>
+        /// <returns>HashSet</returns>
         public static HashSet<T> Create()
         {
 #if AOT

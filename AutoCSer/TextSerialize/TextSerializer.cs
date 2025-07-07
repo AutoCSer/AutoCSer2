@@ -45,7 +45,7 @@ namespace AutoCSer
         /// <summary>
         /// 文本序列化
         /// </summary>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         /// <param name="isThreadStatic">是否单线程模式</param>
         protected TextSerializer(CT config, bool isThreadStatic = false)
         {
@@ -54,7 +54,7 @@ namespace AutoCSer
             forefather.SetEmpty();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         void IDisposable.Dispose()
         {
@@ -62,7 +62,7 @@ namespace AutoCSer
             CharStream.Dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void free()
@@ -169,10 +169,13 @@ namespace AutoCSer
             forefather.PopOnly();
         }
         /// <summary>
+        /// Get and set the custom serialization member bitmap
         /// 获取并设置自定义序列化成员位图
         /// </summary>
-        /// <param name="memberMap">序列化成员位图</param>
-        /// <returns>序列化成员位图</returns>
+        /// <param name="memberMap">Serialization member bitmap
+        /// 序列化成员位图</param>
+        /// <returns>Original serialization member bitmap
+        /// 原序列化成员位图</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public AutoCSer.Metadata.MemberMap? SetCustomMemberMap(AutoCSer.Metadata.MemberMap? memberMap)

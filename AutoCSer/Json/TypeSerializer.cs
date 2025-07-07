@@ -10,7 +10,7 @@ using AutoCSer.Reflection;
 namespace AutoCSer.Json
 {
     /// <summary>
-    /// 类型序列化
+    /// Type serialization
     /// </summary>
     /// <typeparam name="T">目标类型</typeparam>
 #if AOT
@@ -55,7 +55,7 @@ namespace AutoCSer.Json
         /// 对象转换JSON字符串
         /// </summary>
         /// <param name="jsonSerializer">对象转换JSON字符串</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void Serialize(JsonSerializer jsonSerializer, ref T value)
         {
             switch (jsonSerializer.Check(SerializeDelegateReference.PushType))
@@ -105,7 +105,7 @@ namespace AutoCSer.Json
         /// 对象转换JSON字符串
         /// </summary>
         /// <param name="jsonSerializer">对象转换JSON字符串</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void Serialize(JsonSerializer jsonSerializer, T value)
         {
             switch (jsonSerializer.Check(SerializeDelegateReference.PushType))
@@ -140,7 +140,7 @@ namespace AutoCSer.Json
         /// 对象成员序列化
         /// </summary>
         /// <param name="jsonSerializer">对象转换JSON字符串</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void MemberSerialize(JsonSerializer jsonSerializer, T value)
         {
             CharStream jsonStream = jsonSerializer.CharStream;
@@ -172,7 +172,7 @@ namespace AutoCSer.Json
         /// 命令服务对象成员序列化
         /// </summary>
         /// <param name="jsonSerializer">对象转换JSON字符串</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void SerializeCommandServer(JsonSerializer jsonSerializer, ref T value)
         {
             if (DefaultSerializer == null)
@@ -189,7 +189,7 @@ namespace AutoCSer.Json
 //        /// 数组序列化
 //        /// </summary>
 //        /// <param name="jsonSerializer"></param>
-//        /// <param name="array">数组对象</param>
+//        /// <param name="array">Array object</param>
 //        /// <param name="count"></param>
 //#if NetStandard21
 //        internal static void Array(JsonSerializer jsonSerializer, T?[] array, int count)

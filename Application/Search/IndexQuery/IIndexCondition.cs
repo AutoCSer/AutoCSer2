@@ -36,7 +36,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <returns></returns>
         Task<ArrayBuffer<T>> GetFilter(QueryCondition<T> condition);
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <returns></returns>
         Task<ResponseResult> Load();

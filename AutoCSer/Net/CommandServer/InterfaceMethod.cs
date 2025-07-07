@@ -17,6 +17,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         protected readonly CommandServerControllerInterfaceAttribute controllerAttribute;
         /// <summary>
+        /// Match the method name
         /// 匹配方法名称
         /// </summary>
         internal virtual string MatchMethodName { get { return Method.Name; } }
@@ -55,6 +56,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal FieldInfo[] OutputParameterFields;
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         internal InterfaceMethod()
@@ -63,6 +65,7 @@ namespace AutoCSer.Net.CommandServer
             OutputParameterFields = EmptyArray<FieldInfo>.Array;
         }
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         /// <param name="type"></param>

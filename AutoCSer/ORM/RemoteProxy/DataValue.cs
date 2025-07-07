@@ -33,6 +33,7 @@ namespace AutoCSer.ORM.RemoteProxy
         private bool isNull;
 
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="reader"></param>

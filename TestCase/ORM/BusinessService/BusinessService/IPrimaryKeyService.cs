@@ -8,14 +8,15 @@ namespace AutoCSer.TestCase.BusinessService
     /// </summary>
     /// <typeparam name="MT">持久化表格模型类型</typeparam>
     /// <typeparam name="BT">表格业务模型类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     public interface IPrimaryKeyService<BT, MT, KT> : IBaseService<BT, MT, KT>
         where MT : class
         where BT : class, MT
         where KT : IEquatable<KT>
     {
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <returns></returns>
         Task<bool> Insert(BT value);

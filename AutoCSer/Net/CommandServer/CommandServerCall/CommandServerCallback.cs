@@ -10,46 +10,54 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// TCP server-side asynchronous callback
     /// TCP 服务器端异步回调
     /// </summary>
     public class CommandServerCallback : CommandServerCall//, IDisposable
     {
         /// <summary>
-        /// 空回调
+        /// Empty callback
         /// </summary>
         protected CommandServerCallback() { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
         protected CommandServerCallback(CommandServerSocket socket) : base(socket) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
         protected CommandServerCallback(CommandServerSocket socket, OfflineCount offlineCount) : base(socket, offlineCount) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerCallback(CommandServerCallQueueNode node) : base(node.Socket, node.CallbackIdentity, node.OfflineCount) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerCallback(CommandServerCallReadWriteQueueNode node) : base(node.Socket, node.CallbackIdentity, node.OfflineCount) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerCallback(CommandServerCallConcurrencyReadQueueNode node) : base(node.Socket, node.CallbackIdentity, node.OfflineCount) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerCallback(CommandServerCallTaskQueueNode node) : base(node.Socket, node.CallbackIdentity, node.OfflineCount) { }
         /// <summary>
+        /// Failure callback
         /// 失败回调
         /// </summary>
         /// <param name="returnType"></param>
@@ -65,7 +73,8 @@ namespace AutoCSer.Net
             return Socket.Send(CallbackIdentity, returnType, exception);
         }
         /// <summary>
-        /// 无输出成功回调
+        /// Success status callback
+        /// 成功状态回调
         /// </summary>
         /// <returns></returns>
         public virtual bool Callback()
@@ -73,7 +82,8 @@ namespace AutoCSer.Net
             return Callback(CommandClientReturnTypeEnum.Success, null);
         }
         /// <summary>
-        /// 无输出成功队列同步回调
+        /// Successful status queue synchronization callback
+        /// 成功状态队列同步回调
         /// </summary>
         /// <returns></returns>
         internal virtual bool SynchronousCallback()
@@ -81,6 +91,7 @@ namespace AutoCSer.Net
             return Callback();
         }
         /// <summary>
+        /// Cancel the keep callback command
         /// 取消保持回调命令
         /// </summary>
         /// <param name="returnType"></param>
@@ -95,7 +106,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 创建 TCP 服务器端异步回调
+        /// Create asynchronous callbacks
+        /// 创建异步回调
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
@@ -105,7 +117,8 @@ namespace AutoCSer.Net
             return new CommandServerCallback(socket);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -115,7 +128,8 @@ namespace AutoCSer.Net
             return new CommandServerCallback(node);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -125,7 +139,8 @@ namespace AutoCSer.Net
             return new CommandServerCallback(node);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -135,7 +150,8 @@ namespace AutoCSer.Net
             return new CommandServerCallback(node);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -146,13 +162,15 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// TCP server-side asynchronous callback
     /// TCP 服务器端异步回调
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class CommandServerCallback<T> : CommandServerCallback
     {
         /// <summary>
-        /// 链表下一个节点
+        /// The next node of the linked list
+        /// 链表的下一个节点
         /// </summary>
 #if NetStandard21
         internal CommandServerCallback<T>? LinkNext;
@@ -160,10 +178,11 @@ namespace AutoCSer.Net
         internal CommandServerCallback<T> LinkNext;
 #endif
         /// <summary>
-        /// 空回调
+        /// Empty callback
         /// </summary>
         protected CommandServerCallback() { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
@@ -171,26 +190,31 @@ namespace AutoCSer.Net
         {
         }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         internal CommandServerCallback(CommandServerCallQueueNode node) : base(node) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         internal CommandServerCallback(CommandServerCallReadWriteQueueNode node) : base(node) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         internal CommandServerCallback(CommandServerCallConcurrencyReadQueueNode node) : base(node) { }
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
         internal CommandServerCallback(CommandServerCallTaskQueueNode node) : base(node) { }
         /// <summary>
+        /// No output callback is supported
         /// 不支持无输出回调
         /// </summary>
         /// <returns></returns>
@@ -200,11 +224,13 @@ namespace AutoCSer.Net
             throw new InvalidOperationException();
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
         public abstract bool Callback(T returnValue);
         /// <summary>
+        /// Queue synchronization callback
         /// 队列同步回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -214,7 +240,8 @@ namespace AutoCSer.Net
             return Callback(returnValue);
         }
         /// <summary>
-        /// 成功回调
+        /// Return value callback
+        /// 返回值回调
         /// </summary>
         /// <param name="method"></param>
         /// <param name="returnValue"></param>
@@ -225,7 +252,8 @@ namespace AutoCSer.Net
             return Socket.Send(CallbackIdentity, method, new ServerReturnValue<T>(returnValue));
         }
         /// <summary>
-        /// 成功回调
+        /// Return value callback
+        /// 返回值回调
         /// </summary>
         /// <param name="serverCallback"></param>
         /// <param name="method"></param>
@@ -237,7 +265,8 @@ namespace AutoCSer.Net
             return serverCallback.callback(method, returnValue);
         }
         /// <summary>
-        /// 成功回调
+        /// Return value callback
+        /// 返回值回调
         /// </summary>
         /// <param name="queue"></param>
         /// <param name="method"></param>
@@ -250,7 +279,8 @@ namespace AutoCSer.Net
             queue.Send(Socket, output);
         }
         /// <summary>
-        /// 成功回调
+        /// Return value callback
+        /// 返回值回调
         /// </summary>
         /// <param name="queue"></param>
         /// <param name="serverCallback"></param>
@@ -265,12 +295,13 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// TCP server-side asynchronous callback linked list
         /// TCP 服务器端异步回调链表
         /// </summary>
         public struct Link
         {
             /// <summary>
-            /// 头节点
+            /// Head node
             /// </summary>
 #if NetStandard21
             private CommandServerCallback<T>? head;
@@ -278,7 +309,7 @@ namespace AutoCSer.Net
             private CommandServerCallback<T> head;
 #endif
             /// <summary>
-            /// 添加头节点
+            /// Add the head node
             /// </summary>
             /// <param name="head"></param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -288,6 +319,7 @@ namespace AutoCSer.Net
                 this.head = head;
             }
             /// <summary>
+            /// Return value callback, clean up the callback failed object
             /// 返回值回调，清理回调失败对象
             /// </summary>
             /// <param name="value"></param>
@@ -300,6 +332,7 @@ namespace AutoCSer.Net
                 }
             }
             /// <summary>
+            /// Cancel all callbacks
             /// 取消所有回调
             /// </summary>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

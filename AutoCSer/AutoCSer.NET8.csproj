@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.59</Version>
+    <Version>2.0.60</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -19,7 +19,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <RepositoryUrl>https://github.com/AutoCSer/AutoCSer2</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Nullable>enable</Nullable>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>README.Eng.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
@@ -96,6 +96,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="BinarySerialize\DeSerializeArrayMap.cs" />
     <Compile Include="CombinationTemplate\DictionaryCreator.cs" />
     <Compile Include="CompletedTask.cs" />
+    <Compile Include="ConsoleWriteMessage.cs" />
     <Compile Include="ConsoleWriteQueue.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
@@ -153,8 +154,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="NET8\SerializeQuaternion.cs" />
     <Compile Include="NET8\SerializeVector4.cs" />
     <Compile Include="NET8\SupportedOSPlatform.cs" />
-    <Compile Include="NetStandard\IAsyncDisposable.cs" />
-    <Compile Include="NetStandard\MethodImpl.cs" />
     <Compile Include="Net\CommandServer\CommandClientCompressConfig.cs" />
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\CommandClientSocketEventCache.cs" />
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\CommandClientSocketEventTask.cs" />
@@ -184,6 +183,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CommandServerCall\KeepCallbackCountCallbackAwaiter.cs" />
     <Compile Include="Net\CommandServer\CommandServerCompressConfig.cs" />
     <Compile Include="Net\CommandServer\CommandServerSocketBuildOutputThreadEnum.cs" />
+    <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
     <Compile Include="Net\CommandServer\Command\CompletedReturnCommand.cs" />
     <Compile Include="Net\CommandServer\Command\IEnumeratorCommand.cs" />
     <Compile Include="Net\CommandServer\HostEndPoint.cs" />
@@ -327,6 +327,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Output\ServerOutputReturnTypeKeepCallbackCount.cs" />
     <Compile Include="Net\CommandServer\CommandServerInterfaceControllerCreator.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListenerConfig.cs" />
+    <Compile Include="Net\CommandServer\ServerControllerInterfaceAttribute.cs" />
     <Compile Include="Net\CommandServer\ServerReturnValue.cs" />
     <Compile Include="Net\CommandServer\CommandServerMethodAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientReturnValue.cs" />
@@ -561,7 +562,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
+    <None Include="..\README.Eng.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -574,7 +575,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
   </Target>
 
 </Project>

@@ -9,7 +9,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
     /// <summary>
     /// 索引数据磁盘块索引缓存节点
     /// </summary>
-    /// <typeparam name="KT">索引关键字类型</typeparam>
+    /// <typeparam name="KT">Index keyword type
+    /// 索引关键字类型</typeparam>
     /// <typeparam name="VT">索引数据类型</typeparam>
     public sealed class GenericIndex<KT, VT> : BlockIndexDataCacheNode<KT, VT>
 #if NetStandard21
@@ -48,7 +49,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// 索引数据磁盘块索引缓存节点
         /// </summary>
         /// <param name="cache">索引数据磁盘块索引缓存</param>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         internal GenericIndex(BlockIndexDataCache<KT, VT> cache, KT key) : base(cache, key)
         {
             littleValues = EmptyRemoveMarkHashSet;
@@ -89,7 +90,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             return count;
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="capacity"></param>
@@ -102,7 +103,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
 #endif
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="capacity"></param>
@@ -143,7 +144,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             if (count != 0) cache.AddValueCount(this, count);
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="manyIndex"></param>

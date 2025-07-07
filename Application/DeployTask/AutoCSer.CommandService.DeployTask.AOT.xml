@@ -190,6 +190,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupClientTable`1.values">
             <summary>
+            Receive data buffer
             接收数据缓冲区
             </summary>
         </member>
@@ -253,6 +254,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -260,6 +262,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -271,7 +274,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -280,7 +284,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -288,7 +293,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupClientSocketEvent">
@@ -302,6 +308,9 @@
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupService">
+            <summary>
+            数据库备份服务接口
+            </summary>
             <summary>
             数据库备份服务接口
             </summary>
@@ -346,7 +355,7 @@
             数据库备份服务接口 客户端接口
             </summary>
             <summary>
-            数据库备份服务接口 客户端接口
+            数据库备份服务接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Backup(System.String)">
@@ -413,6 +422,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DirectoryName@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -420,6 +430,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -431,7 +442,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.DirectoryName@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -440,7 +452,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -448,7 +461,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DirectoryName.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.FileSynchronousClient">
@@ -523,6 +537,13 @@
             </summary>
             <param name="clientFile">客户端文件信息</param>
             <param name="serverFileName">服务端文件名称</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.FileSynchronousClient.isDirectory(System.IO.DirectoryInfo)">
+            <summary>
+            判断子目录是否需要同步处理
+            </summary>
+            <param name="directory"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.FileSynchronousClient`2">
             <summary>
@@ -621,6 +642,9 @@
             <summary>
             文件拉取服务接口
             </summary>
+            <summary>
+            文件拉取服务接口
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IPullFileService.GetFiles(AutoCSer.Net.CommandServerSocket,System.String,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.DeployTask.SynchronousFileInfo})">
             <summary>
@@ -665,14 +689,15 @@
             拉取文件客户端接口
             </summary>
             <summary>
-            文件拉取服务接口 客户端接口
+            文件拉取服务接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IPullFileServiceClientController.GetFileData(AutoCSer.CommandService.DeployTask.PullFileBuffer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
             <summary>
             获取指定文件数据
             </summary>
-            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="returnValue">The interface returns the initial value, which is used for custom deserialization operations of the return value. The parameter name must be ReturnValue, case-insensitive, and must be placed before the first data parameter. The type must be consistent with the type of the return value
+            接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
             <param name="fileInfo">文件信息</param>
             <returns>文件数据</returns>
         </member>
@@ -1079,6 +1104,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -1086,6 +1112,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -1093,6 +1120,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -1104,20 +1132,23 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.SynchronousFileInfo@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -1126,7 +1157,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -1134,7 +1166,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.SynchronousFileInfo.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileClientSocketEvent">
@@ -1148,6 +1181,9 @@
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileService">
+            <summary>
+            文件上传服务接口
+            </summary>
             <summary>
             文件上传服务接口
             </summary>
@@ -1321,7 +1357,7 @@
             文件上传服务接口 客户端接口
             </summary>
             <summary>
-            文件上传服务接口 客户端接口
+            文件上传服务接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
@@ -1490,7 +1526,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.#ctor(AutoCSer.CommandService.DeployTask.UploadFileStateEnum)">
             <summary>
-            错误信息
+            错误状态
             </summary>
             <param name="state"></param>
         </member>
@@ -1503,6 +1539,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploaderInfo@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -1510,18 +1547,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploaderInfo.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -1780,12 +1820,13 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.#ctor(AutoCSer.CommandService.DeployTask.UploadFileStateEnum)">
             <summary>
-            错误信息
+            错误状态
             </summary>
             <param name="state"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -1793,6 +1834,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileIndex@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -1800,6 +1842,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -1811,20 +1854,23 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileIndex@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileIndex@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -1833,7 +1879,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -1841,7 +1888,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileIndex.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.UploadFileInfo">
@@ -1883,6 +1931,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileInfo@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -1890,18 +1939,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileInfo.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -1993,30 +2045,34 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController">
             <summary>
-            数据库备份服务接口 客户端接口 客户端控制器
+            数据库备份服务接口 客户端接口 client controller
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -2025,7 +2081,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -2033,29 +2090,34 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op0__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip1__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2063,18 +2125,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op1__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2086,6 +2151,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2093,18 +2159,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__op2__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2149,16 +2218,18 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__CommandClientControllerConstructor__">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.PullFileServiceClientController">
             <summary>
-            拉取文件客户端接口 客户端控制器
+            拉取文件客户端接口 client controller
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2166,12 +2237,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip2__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2183,6 +2256,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2190,18 +2264,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op2__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2213,24 +2290,28 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip0__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2238,18 +2319,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op0__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2261,24 +2345,28 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__ip1__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2286,18 +2374,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__op1__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2311,7 +2402,8 @@
             <summary>
             获取指定文件数据
             </summary>
-            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="returnValue">The interface returns the initial value, which is used for custom deserialization operations of the return value. The parameter name must be ReturnValue, case-insensitive, and must be placed before the first data parameter. The type must be consistent with the type of the return value 
+                       接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
             <param name="fileInfo">文件信息</param>
             <returns>文件数据</returns>
         </member>
@@ -2350,16 +2442,18 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileServiceClientController.__CommandClientControllerConstructor__">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController">
             <summary>
-            文件上传服务接口 客户端接口 客户端控制器
+            文件上传服务接口 客户端接口 client controller
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2367,12 +2461,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2384,6 +2480,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2391,18 +2488,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op0__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2414,6 +2514,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2421,12 +2522,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip1__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2438,7 +2541,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -2447,7 +2551,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -2455,11 +2560,13 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op1__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2467,12 +2574,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip2__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2484,25 +2593,29 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip3__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -2511,7 +2624,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -2519,11 +2633,13 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op3__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2531,12 +2647,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip4__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2548,6 +2666,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2555,12 +2674,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip5__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2572,6 +2693,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2579,12 +2701,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip6__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2596,6 +2720,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2603,12 +2728,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip7__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2620,6 +2747,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2627,18 +2755,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op7__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2650,6 +2781,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2657,12 +2789,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip8__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2674,6 +2808,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2681,18 +2816,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op8__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2704,6 +2842,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2711,18 +2850,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op10__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2734,42 +2876,49 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip13__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__@)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="stream"></param>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
-            简单序列化
+            Simple binary serialization
+            简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip14__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -2777,18 +2926,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op14__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2800,6 +2952,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2807,12 +2960,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip15__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2824,6 +2979,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="serializer"></param>
@@ -2831,12 +2987,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
+            Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip17__.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -2848,7 +3006,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__@,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="start"></param>
             <param name="value"></param>
@@ -2857,7 +3016,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
-            简单反序列化
+            Simple binary deserialization
+            简单二进制反序列化
             </summary>
             <param name="__start__"></param>
             <param name="__end__"></param>
@@ -2865,7 +3025,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__op17__.SimpleSerialize">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.AutoCSer#CommandService#DeployTask#IUploadFileServiceClientController#AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
@@ -3018,15 +3179,16 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__CommandClientControllerConstructor__">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum">
+        <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum">
             <summary>
-            数据库备份服务接口方法序号映射枚举类型
+            数据库备份服务接口 (The method sequence number maps the enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.Backup">
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.Backup">
             <summary>
             [0] 备份数据库并返回文件名称
             AutoCSer.Net.CommandServerCallQueue queue 
@@ -3035,7 +3197,7 @@
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.Download">
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.Download">
             <summary>
             [1] 下载备份文件
             string backupFullName 备份文件名称
@@ -3044,14 +3206,14 @@
             返回值 AutoCSer.CommandService.DeployTask.DatabaseBackupDownloadBuffer 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.GetDatabase">
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.GetDatabase">
             <summary>
             [2] 获取可备份数据库名称集合
             AutoCSer.Net.CommandServerCallQueue queue 
             返回值 string[] 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceMethodEnum.GetTableName">
+        <member name="F:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceMethodEnum.GetTableName">
             <summary>
             [3] 获取可备份数据库表格名称集合
             AutoCSer.Net.CommandServerCallQueue queue 
@@ -3059,12 +3221,12 @@
             返回值 string[] 
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum">
+        <member name="T:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum">
             <summary>
-            文件拉取服务接口方法序号映射枚举类型
+            文件拉取服务接口 (The method sequence number maps the enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetDirectoryNames">
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetDirectoryNames">
             <summary>
             [0] 获取指定路径下的目录名称集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3073,7 +3235,7 @@
             返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetFile">
             <summary>
             [1] 获取文件信息
             AutoCSer.Net.CommandServerSocket socket 
@@ -3081,7 +3243,7 @@
             返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFileData">
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetFileData">
             <summary>
             [2] 获取指定文件数据
             AutoCSer.Net.CommandServerSocket socket 
@@ -3090,7 +3252,7 @@
             返回值 AutoCSer.CommandService.DeployTask.PullFileBuffer 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.PullFileServiceMethodEnum.GetFiles">
+        <member name="F:AutoCSer.CommandService.DeployTask.IPullFileServiceMethodEnum.GetFiles">
             <summary>
             [3] 获取指定路径下的文件信息集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3099,12 +3261,12 @@
             返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum">
+        <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum">
             <summary>
-            文件上传服务接口方法序号映射枚举类型
+            文件上传服务接口 (The method sequence number maps the enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendCompletedFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.AppendCompletedFile">
             <summary>
             [0] 添加上传完成文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3113,7 +3275,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendDeleteDirectory">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.AppendDeleteDirectory">
             <summary>
             [1] 添加待删除目录
             AutoCSer.Net.CommandServerSocket socket 
@@ -3122,7 +3284,7 @@
             返回值 bool 返回 false 表示没有找到文件上传操作对象
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.AppendDeleteFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.AppendDeleteFile">
             <summary>
             [2] 添加待删除文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3131,7 +3293,7 @@
             返回值 bool 返回 false 表示没有找到文件上传操作对象
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CombinePath">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CombinePath">
             <summary>
             [3] 拼接路径
             string left 
@@ -3139,14 +3301,14 @@
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CombinePathArray">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CombinePathArray">
             <summary>
             [4] 拼接路径
             string[] pathArray 
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.Completed">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.Completed">
             <summary>
             [5] 上传完成最后移动文件操作
             AutoCSer.Net.CommandServerSocket socket 
@@ -3154,7 +3316,7 @@
             返回值 bool 返回 false 表示没有找到文件上传操作对象，或者上传未结束
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateDirectory">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CreateDirectory">
             <summary>
             [6] 创建目录
             AutoCSer.Net.CommandServerSocket socket 
@@ -3164,7 +3326,7 @@
             返回值 string 返回 null 表示失败
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CreateFile">
             <summary>
             [7] 创建上传文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3174,7 +3336,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileIndex 上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.CreateUploader">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.CreateUploader">
             <summary>
             [8] 创建文件上传操作对象
             AutoCSer.Net.CommandServerSocket socket 
@@ -3185,7 +3347,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploaderInfo 上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetCompletedFileName">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetCompletedFileName">
             <summary>
             [9] 将上传完成操作数据写入文件并返回文件名称
             AutoCSer.Net.CommandServerSocket socket 
@@ -3193,7 +3355,7 @@
             返回值 string 返回空字符串表示没有找到文件上传操作对象，或者上传未结束
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetDirectoryNames">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetDirectoryNames">
             <summary>
             [10] 获取指定路径下的目录名称集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3203,7 +3365,7 @@
             返回值 AutoCSer.CommandService.DeployTask.DirectoryName 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetFile">
             <summary>
             [11] 获取指定文件信息集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3212,7 +3374,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetFiles">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetFiles">
             <summary>
             [12] 获取指定路径下的文件信息集合
             AutoCSer.Net.CommandServerSocket socket 
@@ -3222,7 +3384,7 @@
             返回值 AutoCSer.CommandService.DeployTask.UploadFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetPath">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetPath">
             <summary>
             [13] 根据上传类型获取文件上传路径
             AutoCSer.Net.CommandServerSocket socket 
@@ -3230,7 +3392,7 @@
             返回值 string 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.GetSwitchProcessPathFileInfo">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.GetSwitchProcessPathFileInfo">
             <summary>
             [14] 获取切换进程的上传目录与文件信息
             AutoCSer.Net.CommandServerSocket socket 
@@ -3240,7 +3402,7 @@
             返回值 AutoCSer.CommandService.DeployTask.SynchronousFileInfo 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.RemoveFile">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.RemoveFile">
             <summary>
             [15] 移除文件
             AutoCSer.Net.CommandServerSocket socket 
@@ -3248,14 +3410,14 @@
             AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex 上传文件索引信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.RemoveUploader">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.RemoveUploader">
             <summary>
             [16] 移除文件上传实例
             AutoCSer.Net.CommandServerSocket socket 
             AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex 上传文件索引信息
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.DeployTask.UploadFileServiceMethodEnum.UploadFileData">
+        <member name="F:AutoCSer.CommandService.DeployTask.IUploadFileServiceMethodEnum.UploadFileData">
             <summary>
             [17] 上传文件写入数据
             AutoCSer.Net.CommandServerSocket socket 
@@ -3270,13 +3432,15 @@
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.AotMethod.Call">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.AotMethod.binaryDeserializeMemberTypes">
             <summary>
-            二进制反序列化成员类型代码生成调用激活 AOT 反射
+            Binary deserialization member type activation reflection
+            二进制反序列化成员类型激活反射
             </summary>
         </member>
     </members>

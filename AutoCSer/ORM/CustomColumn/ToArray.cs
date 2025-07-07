@@ -15,7 +15,7 @@ namespace AutoCSer.ORM.CustomColumn
         /// <summary>
         /// 自定义数据列值转数组
         /// </summary>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <param name="array">数据列储存数组</param>
         /// <param name="index">当前读取位置</param>
         internal delegate void Writer(T value, object[] array,  ref int index);

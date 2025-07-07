@@ -32,7 +32,7 @@ namespace AutoCSer.ObjectRoot
         /// <summary>
         /// 数组类型
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         internal ReflectionArrayType(Type type) : base(type)
         {
             IsScan = 1;

@@ -112,7 +112,8 @@ namespace AutoCSer.Culture
         /// <summary>
         /// RPC 服务缺少监听端口号
         /// </summary>
-        /// <param name="serverName">服务名称</param>
+        /// <param name="serverName">Server name
+        /// 服务名称</param>
         /// <returns></returns>
 #if NetStandard21
         public abstract string GetCommandServerNotFoundPort(string? serverName);
@@ -122,7 +123,8 @@ namespace AutoCSer.Culture
         /// <summary>
         /// 反向 RPC 服务缺少控制器信息
         /// </summary>
-        /// <param name="serverName">服务名称</param>
+        /// <param name="serverName">Server name
+        /// 服务名称</param>
         /// <returns></returns>
 #if NetStandard21
         public abstract string GetReverseCommandServerNotFoundController(string? serverName);

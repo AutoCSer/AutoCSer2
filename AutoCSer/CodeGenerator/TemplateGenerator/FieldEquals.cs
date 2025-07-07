@@ -193,11 +193,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         protected override Task onCreated() { return AutoCSer.Common.CompletedTask; }
 
         /// <summary>
+        /// Collection of member types
         /// 成员类型集合
         /// </summary>
         private static readonly HashSet<HashObject<Type>> types = HashSetCreator.CreateHashObject<Type>();
         /// <summary>
-        /// 成员类型集合
+        /// 获取成员类型集合
         /// </summary>
         /// <returns></returns>
         internal static LeftArray<AotMethod.ReflectionMemberType> GetReflectionMemberTypes()

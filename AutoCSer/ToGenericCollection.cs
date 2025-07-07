@@ -8,7 +8,7 @@ namespace AutoCSer
     /// <summary>
     /// ICollection 泛型转换
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct ToGenericCollection<T> : ICollection<T>
     {
@@ -36,9 +36,11 @@ namespace AutoCSer
         /// </summary>
         public bool IsReadOnly { get { return true; } }
         /// <summary>
-        /// 枚举器
+        /// Get the enumerator
+        /// 获取枚举器
         /// </summary>
-        /// <returns>枚举器</returns>
+        /// <returns>Enumerator
+        /// 枚举器</returns>
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             if (collection != null)
@@ -47,15 +49,18 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 枚举器
+        /// Get the enumerator
+        /// 获取枚举器
         /// </summary>
-        /// <returns>枚举器</returns>
+        /// <returns>Enumerator
+        /// 枚举器</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable<T>)this).GetEnumerator();
         }
         /// <summary>
+        /// Clear all data
         /// 清除所有数据
         /// </summary>
         public void Clear()
@@ -63,9 +68,9 @@ namespace AutoCSer
             throw new InvalidOperationException();
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void Add(T value)
         {
             throw new InvalidOperationException();
@@ -73,27 +78,33 @@ namespace AutoCSer
         /// <summary>
         /// 移除数据(不可用)
         /// </summary>
-        /// <param name="value">数据</param>
-        /// <returns>是否存在移除数据</returns>
+        /// <param name="value">data</param>
+        /// <returns>Returning false indicates that there is no data match
+        /// 返回 false 表示不存在数据匹配</returns>
         public bool Remove(T value)
         {
             return false;
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="values">目标数据</param>
-        /// <param name="index">目标位置</param>
+        /// <param name="values">Target array
+        /// 目标数组</param>
+        /// <param name="index">Target starting position
+        /// 目标起始位置</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void CopyTo(T[] values, int index)
         {
             if (collection != null) collection.CopyTo(values, index);
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
-        /// <param name="value">匹配数据</param>
-        /// <returns>是否存在数据</returns>
+        /// <param name="value">Data to be matched
+        /// 待匹配数据</param>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         public bool Contains(T value)
         {
             if (collection != null)

@@ -10,7 +10,7 @@ namespace AutoCSer.ObjectRoot
         /// <summary>
         /// 反射模式对象类型
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         internal ReflectionType(Type type) : base(type) { }
         /// <summary>
         /// 添加扫描对象

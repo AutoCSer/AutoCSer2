@@ -17,7 +17,7 @@ namespace AutoCSer.Xml
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         protected static void deserialize(XmlDeserializer deserializer, ref T value)
         {
             int index = enumSearcher.SearchEnum(deserializer);
@@ -28,7 +28,7 @@ namespace AutoCSer.Xml
         /// 枚举值解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <param name="index">第一个枚举索引</param>
         /// <param name="nextIndex">第二个枚举索引</param>
         protected static void getIndex(XmlDeserializer deserializer, ref T value, out int index, ref int nextIndex)

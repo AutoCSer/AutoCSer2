@@ -23,7 +23,8 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         /// 反向收集日志集群客户端
         /// </summary>
         /// <param name="serverRegistryClusterClient">集群服务客户端</param>
-        /// <param name="log">服务注册日志</param>
+        /// <param name="log">Server Registration Log
+        /// 服务注册日志</param>
         internal ReverseLogCollectionClusterClient(ServerRegistryClusterClient serverRegistryClusterClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog log) : base(serverRegistryClusterClient, log)
         {
             client = new AutoCSer.Net.CommandClient(new AutoCSer.Net.CommandClientConfig
@@ -34,6 +35,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
             check().NotWait();
         }
         /// <summary>
+        /// Get the client connection
         /// 获取客户端连接
         /// </summary>
         /// <returns></returns>
@@ -48,6 +50,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
             return false;
         }
         /// <summary>
+        /// Close the client
         /// 关闭客户端
         /// </summary>
         protected override void close()

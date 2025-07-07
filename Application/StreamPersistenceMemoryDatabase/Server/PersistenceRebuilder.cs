@@ -12,19 +12,23 @@ using System.Threading;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 日志流持久化文件重建
+    /// Rebuild the log stream persistence file
+    /// 重建日志流持久化文件
     /// </summary>
     internal sealed class PersistenceRebuilder
     {
         /// <summary>
-        /// 日志流持久化内存数据库服务端
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
         internal StreamPersistenceMemoryDatabaseService Service;
         /// <summary>
+        /// Persistent file information
         /// 持久化文件信息
         /// </summary>
         private FileInfo persistenceFileInfo;
         /// <summary>
+        /// Persistent callback exception location file information
         /// 持久化回调异常位置文件信息
         /// </summary>
         private FileInfo persistenceCallbackExceptionPositionFileInfo;
@@ -65,6 +69,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private ulong rebuildPosition;
         /// <summary>
+        /// The written location of the persistent stream
         /// 持久化流已写入位置
         /// </summary>
         private long persistencePosition;
@@ -73,6 +78,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private long persistenceCallbackExceptionFilePosition;
         /// <summary>
+        /// Rebuild the end position of the snapshot
         /// 重建快照结束位置
         /// </summary>
         private long rebuildSnapshotPosition;
@@ -97,9 +103,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private bool isClosedOrServiceDisposed { get { return isClosed | Service.IsDisposed; } }
         /// <summary>
-        /// 日志流持久化文件重建
+        /// Rebuild the log stream persistence file
+        /// 重建日志流持久化文件
         /// </summary>
-        /// <param name="service">日志流持久化内存数据库服务端</param>
+        /// <param name="service">Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务</param>
         internal PersistenceRebuilder(StreamPersistenceMemoryDatabaseService service)
         {
             Service = service;
@@ -303,7 +311,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CheckQueue();
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         private void getSnapshotArray()
         {

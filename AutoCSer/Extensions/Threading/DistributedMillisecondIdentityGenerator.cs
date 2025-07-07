@@ -77,7 +77,8 @@ namespace AutoCSer.Threading
             else
             {
                 long identity = AutoCSer.Extensions.Date.GetMillisecondsByTimestamp(timestamp), lastIdentity = currentIdentity >> bits;
-                while (identity <= lastIdentity) ++identity;
+                //while (identity <= lastIdentity) ++identity;
+                if (identity <= lastIdentity) identity = lastIdentity + 1;
                 timestampCount = 1000;
                 maxTimestamp = Date.GetTimestampByMilliseconds(identity + 1);
                 currentIdentity = (identity = (identity << bits) | distributed);

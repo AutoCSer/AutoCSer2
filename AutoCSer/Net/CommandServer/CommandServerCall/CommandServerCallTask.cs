@@ -43,6 +43,7 @@ namespace AutoCSer.Net
     public class CommandServerCallTask<T> : CommandServerCall
     {
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         internal readonly ServerInterfaceMethod Method;

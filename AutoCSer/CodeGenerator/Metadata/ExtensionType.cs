@@ -26,11 +26,11 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// </summary>
         public readonly Type Type;
         /// <summary>
-        /// 类型名称
+        /// Type name
         /// </summary>
         private string typeName;
         /// <summary>
-        /// 类型名称
+        /// Type name
         /// </summary>
         public string TypeName
         {
@@ -56,11 +56,11 @@ namespace AutoCSer.CodeGenerator.Metadata
             }
         }
         /// <summary>
-        /// 类型名称
+        /// Type name
         /// </summary>
         private string typeOnlyName;
         /// <summary>
-        /// 类型名称
+        /// Type name
         /// </summary>
         public string TypeOnlyName
         {
@@ -99,7 +99,7 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// <summary>
         /// 成员类型
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         private ExtensionType(Type type)
         {
             Type = type;
@@ -284,13 +284,13 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// </summary>
         private static Dictionary<HashObject<System.Type>, ExtensionType> types = DictionaryCreator.CreateHashObject<System.Type, ExtensionType>();
         /// <summary>
-        /// 隐式转换集合转换锁
+        /// Implicit conversion集合转换锁
         /// </summary>
         private static readonly object typeLock = new object();
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <returns>成员类型</returns>
         public static implicit operator ExtensionType(Type type)
         {

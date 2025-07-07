@@ -13,6 +13,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class LocalServiceCallbackOutputNode<T> : ReadWriteQueueNode
     {
         /// <summary>
+        /// Local service client node
         /// 本地服务客户端节点
         /// </summary>
         private readonly LocalClientNode clientNode;
@@ -21,6 +22,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly int methodIndex;
         /// <summary>
+        /// Node index information
         /// 节点索引信息
         /// </summary>
         private readonly NodeIndex nodeIndex;
@@ -29,15 +31,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly LocalServiceCallbackOutputNodeCallback<T> serverCallback;
         /// <summary>
+        /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
         private readonly Action<LocalResult<T>> callback;
         /// <summary>
         /// 本地服务调用节点方法队列节点
         /// </summary>
-        /// <param name="clientNode">本地服务客户端节点</param>
-        /// <param name="methodIndex">调用方法编号</param>
-        /// <param name="callback">客户端回调委托</param>
+        /// <param name="clientNode">Local service client node
+        /// 本地服务客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The client callback delegate
+        /// 客户端回调委托</param>
         private LocalServiceCallbackOutputNode(LocalClientNode clientNode, int methodIndex, Action<LocalResult<T>> callback)
         {
             this.clientNode = clientNode;
@@ -47,6 +53,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             serverCallback = new LocalServiceCallbackOutputNodeCallback<T>(this);
         }
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         public override void RunTask()
@@ -80,9 +87,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 创建本地服务调用节点方法队列节点
         /// </summary>
-        /// <param name="clientNode">本地服务客户端节点</param>
-        /// <param name="methodIndex">调用方法编号</param>
-        /// <param name="callback">客户端回调委托</param>
+        /// <param name="clientNode">Local service client node
+        /// 本地服务客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The client callback delegate
+        /// 客户端回调委托</param>
         /// <param name="isWriteQueue"></param>
         public static void Create(LocalClientNode clientNode, int methodIndex, Action<LocalResult<T>> callback, bool isWriteQueue)
         {

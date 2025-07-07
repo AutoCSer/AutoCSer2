@@ -25,7 +25,7 @@ namespace AutoCSer.TestCase.Common
         DeployTask,
 
         /// <summary>
-        /// Service registration test port
+        /// Server registration test port
         /// 服务注册测试端口
         /// </summary>
         ServiceRegistry,

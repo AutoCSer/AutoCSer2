@@ -57,7 +57,7 @@ namespace AutoCSer.Drawing
             Red = color.R;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
@@ -74,7 +74,8 @@ namespace AutoCSer.Drawing
         /// 判断是否相等
         /// </summary>
         /// <param name="other"></param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
         public bool Equals(LockBitmapColor other)
         {
             return Value == other.Value;
@@ -83,7 +84,8 @@ namespace AutoCSer.Drawing
         /// 判断是否相等
         /// </summary>
         /// <param name="obj"></param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
 #if NetStandard21
         public override bool Equals(object? obj)
 #else

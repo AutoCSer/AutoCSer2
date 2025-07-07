@@ -44,11 +44,13 @@
         </member>
         <member name="T:AutoCSer.NetCoreWeb.CombinationTemplateConfig">
             <summary>
+            Customize simple combination template parameters
             自定义简单组合模板参数
             </summary>
         </member>
         <member name="P:AutoCSer.NetCoreWeb.CombinationTemplateConfig.TemplatePath">
             <summary>
+            Custom template relative to project path
             自定义模板相对项目路径
             </summary>
         </member>
@@ -1467,7 +1469,7 @@
         </member>
         <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.Name">
             <summary>
-            类型名称
+            Type name
             </summary>
         </member>
         <member name="P:AutoCSer.NetCoreWeb.TypeHelpView.IsEnum">
@@ -1550,7 +1552,7 @@
             帮助文档类型信息
             </summary>
             <param name="viewMiddleware">数据视图中间件</param>
-            <param name="type">类型</param>
+            <param name="type"></param>
         </member>
         <member name="M:AutoCSer.NetCoreWeb.TypeHelpView.LoadTypeView">
             <summary>
@@ -1564,7 +1566,7 @@
         </member>
         <member name="M:AutoCSer.NetCoreWeb.TypeHelpView.GetAwaitResultType(System.Type)">
             <summary>
-            获取 await 结果类型
+            Get the awaiter object 结果类型
             </summary>
             <param name="type"></param>
             <returns></returns>
@@ -1581,6 +1583,7 @@
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ViewClientTypeAttribute.PrimaryKeyMemberName">
             <summary>
+            Bind the keyword member name
             绑定关键字成员名称
             </summary>
         </member>
@@ -2116,6 +2119,7 @@
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ResponseResult`1.Result">
             <summary>
+            Return result
             返回结果
             </summary>
         </member>
@@ -2306,27 +2310,32 @@
         </member>
         <member name="T:AutoCSer.NetCoreWeb.ViewAttribute">
             <summary>
-            数据视图自定义属性
+            Custom configuration of the data view
+            数据视图自定义配置
             </summary>
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.IsHelp">
             <summary>
+            A default value of true indicates the generation of help document view data information
             默认为 true 表示生成帮助文档视图数据信息
             </summary>
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.IsSingleton">
             <summary>
+            By default, false indicates that each request uses a different instance. If set to true, all requests use the same singleton instance (singleton instances are only suitable for static data views without parameters).
             默认为 false 表示每一个请求使用不同实例，设置为 true 则所有请求使用同一个单例实例（单例实例仅适合无参静态数据视图）
             </summary>
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.IsStaticVersion">
             <summary>
+            By default, false indicates that the returned data is not cached. If set to true, the returned data will be cached based on the static version information check results
             默认为 false 表示不缓存返回数据，设置为 true 则根据静态版本信息检查结果缓存返回数据
             </summary>
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ViewAttribute.Default">
             <summary>
-            默认数据视图自定义属性
+            Default data view custom configuration
+            默认数据视图自定义配置
             </summary>
         </member>
         <member name="T:AutoCSer.NetCoreWeb.ViewRequest">
@@ -2351,7 +2360,8 @@
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ViewRequest.Attribute">
             <summary>
-            数据视图自定义属性
+            Custom configuration of the data view
+            数据视图自定义配置
             </summary>
         </member>
         <member name="F:AutoCSer.NetCoreWeb.ViewRequest.view">
@@ -2970,6 +2980,7 @@
         </member>
         <member name="F:AutoCSer.NetCoreWeb.View.SuccessResponseResultTask">
             <summary>
+            The successful return value status task
             成功返回值状态任务
             </summary>
         </member>

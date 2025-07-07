@@ -46,12 +46,12 @@ namespace AutoCSer
             return Value.GetHashCode();
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator HashObject<T>(T value) { return new HashObject<T> { Value = value }; }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator T(HashObject<T> value) { return value.Value; }

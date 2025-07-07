@@ -286,7 +286,8 @@ namespace AutoCSer.ORM
         /// 创建数据库表格持久化
         /// </summary>
         /// <typeparam name="T">持久化表格模型类型</typeparam>
-        /// <typeparam name="KT">关键字类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
         /// <param name="tableEvent">表格操作事件处理</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>
@@ -340,7 +341,8 @@ namespace AutoCSer.ORM
         /// 创建数据库表格持久化
         /// </summary>
         /// <typeparam name="T">持久化表格模型类型</typeparam>
-        /// <typeparam name="KT">关键字类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
         /// <param name="tableEvent">表格操作事件处理</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>
@@ -359,7 +361,8 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="BT">业务表格模型类型</typeparam>
         /// <typeparam name="T">持久化表格模型类型</typeparam>
-        /// <typeparam name="KT">关键字类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
         /// <param name="tableEvent">表格操作事件处理</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>

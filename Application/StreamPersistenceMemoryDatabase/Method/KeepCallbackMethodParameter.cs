@@ -10,7 +10,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public class KeepCallbackMethodParameter : MethodParameter
     {
         /// <summary>
-        /// 服务端节点方法
+        /// Server node method information
+        /// 服务端节点方法信息
         /// </summary>
         private readonly KeepCallbackMethod method;
         /// <summary>

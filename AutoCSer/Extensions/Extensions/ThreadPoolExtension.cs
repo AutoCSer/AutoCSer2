@@ -13,7 +13,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 线程池运行任务并等待返回结果
         /// </summary>
-        /// <typeparam name="T">返回值类型</typeparam>
+        /// <typeparam name="T">Return value type</typeparam>
         /// <param name="threadPool">线程池</param>
         /// <param name="task">任务</param>
         /// <returns>返回结果</returns>

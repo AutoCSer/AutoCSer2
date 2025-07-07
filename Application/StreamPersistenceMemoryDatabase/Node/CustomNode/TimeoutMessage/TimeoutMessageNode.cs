@@ -11,7 +11,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
     /// <summary>
     /// 超时任务消息节点（用于分布式事务数据一致性检查）
     /// </summary>
-    /// <typeparam name="T">任务消息数据类型</typeparam>
+    /// <typeparam name="T">Task message data type
+    /// 任务消息数据类型</typeparam>
     public abstract class TimeoutMessageNode<T> : MethodParameterCreatorNode<ITimeoutMessageNode<T>, TimeoutMessageData<T>>, ITimeoutMessageNode<T>, ISnapshot<TimeoutMessageData<T>>
     {
         /// <summary>
@@ -70,9 +71,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             checkTimer = new CheckTimer<T>();
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override ITimeoutMessageNode<T>? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -88,13 +91,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return null;
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
             checkTimer.Cancel();
         }
         /// <summary>
+        /// Database service shutdown operation
         /// 数据库服务关闭操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceDisposable()
@@ -102,20 +107,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             checkTimer.Cancel();
         }
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         public int GetSnapshotCapacity(ref object customObject)
         {
             return tasks.Count + 1;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         public SnapshotResult<TimeoutMessageData<T>> GetSnapshotResult(TimeoutMessageData<T>[] snapshotArray, object customObject)
         {
             SnapshotResult<TimeoutMessageData<T>> result = new SnapshotResult<TimeoutMessageData<T>>(0);
@@ -134,9 +146,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotAdd(TimeoutMessageData<T> value)
         {
             if (value.Timeout != DateTime.MaxValue)
@@ -159,6 +172,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             taskEnd = task;
         }
         /// <summary>
+        /// Get the total number of tasks
         /// 获取任务总数量
         /// </summary>
         /// <returns></returns>
@@ -167,6 +181,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return tasks.Count;
         }
         /// <summary>
+        /// Get the number of failed tasks executed
         /// 获取执行失败任务数量
         /// </summary>
         /// <returns></returns>
@@ -175,7 +190,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return failedCount;
         }
         /// <summary>
-        /// 添加任务 持久化前检查
+        /// Add the task node (Check the input parameters before the persistence operation)
+        /// 添加任务节点（持久化操作之前检查输入参数）
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
@@ -189,10 +205,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return 0;
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="task"></param>
-        /// <returns>任务标识，失败返回 0</returns>
+        /// <returns>Task identifier. Return 0 upon failure
+        /// 任务标识，失败返回 0</returns>
         public long Append(TimeoutMessage<T> task)
         {
             tasks.Add(currentIdentity, task);
@@ -201,10 +219,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return currentIdentity++;
         }
         /// <summary>
-        /// 添加立即执行任务 持久化前检查
+        /// Add immediate execution tasks (Check the input parameters before the persistence operation)
+        /// 添加立即执行任务（持久化操作之前检查输入参数）
         /// </summary>
         /// <param name="task"></param>
-        /// <returns>是否继续持久化操作</returns>
+        /// <returns>Returning true indicates that a persistence operation is required
+        /// 返回 true 表示需要持久化操作</returns>
         public bool AppendRunBeforePersistence(TimeoutMessage<T> task)
         {
             if (task != null)
@@ -215,7 +235,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return false;
         }
         /// <summary>
-        /// 添加立即执行任务
+        /// Add immediate execution tasks (Initialize and load the persistent data)
+        /// 添加立即执行任务（初始化加载持久化数据）
         /// </summary>
         /// <param name="task"></param>
         public void AppendRunLoadPersistence(TimeoutMessage<T> task)
@@ -224,6 +245,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             task.Data.AppendRun(currentIdentity++);
         }
         /// <summary>
+        /// Add immediate execution tasks
         /// 添加立即执行任务
         /// </summary>
         /// <param name="task"></param>
@@ -234,24 +256,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).NotWait();
         }
         /// <summary>
-        /// 触发任务执行
+        /// Trigger task execution (Initialize and load the persistent data)
+        /// 触发任务执行（初始化加载持久化数据）
         /// </summary>
-        /// <param name="identity">任务标识</param>
+        /// <param name="identity">Task identity
+        /// 任务标识</param>
         public void RunTaskLoadPersistence(long identity)
         {
             var task = default(TimeoutMessage<T>);
             if (tasks.TryGetValue(identity, out task)) task.Data.IsRunTask = true;
         }
         /// <summary>
+        /// Trigger task execution
         /// 触发任务执行
         /// </summary>
-        /// <param name="identity">任务标识</param>
+        /// <param name="identity">Task identity
+        /// 任务标识</param>
         public void RunTask(long identity)
         {
             var task = default(TimeoutMessage<T>);
             if (tasks.TryGetValue(identity, out task) && task.Data.CheckRunTask()) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).NotWait();
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="task"></param>
@@ -266,6 +293,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         /// <returns></returns>
         public virtual Task OnTaskException(TimeoutMessage<T> task, Exception exception) { return AutoCSer.Common.CompletedTask; }
         /// <summary>
+        /// Complete the completed task
         /// 完成任务
         /// </summary>
         /// <param name="identity"></param>
@@ -283,15 +311,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             }
         }
         /// <summary>
+        /// Cancel the task
         /// 取消任务
         /// </summary>
-        /// <param name="identity">任务标识</param>
+        /// <param name="identity">Task identity
+        /// 任务标识</param>
         public void Cancel(long identity)
         {
             var task = default(TimeoutMessage<T>);
             if (tasks.Remove(identity, out task)) failedCount -= task.Data.Cancel();
         }
         /// <summary>
+        /// Failed task retry
         /// 失败任务重试
         /// </summary>
         public void RetryFailed()
@@ -302,9 +333,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             }
         }
         /// <summary>
+        /// Get the execution task message data
         /// 获取执行任务消息数据
         /// </summary>
-        /// <param name="callback">获取执行任务消息数据回调</param>
+        /// <param name="callback"></param>
         public void GetRunTask(MethodKeepCallback<T> callback)
         {
             callbacks.Add(callback);
@@ -347,6 +379,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             }
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         internal void CheckTimeoutCallback()

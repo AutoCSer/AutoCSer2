@@ -3,7 +3,8 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 二叉搜索树节点 客户端节点接口
+    /// Binary search tree node client interface
+    /// 二叉搜索树节点 客户端接口
     /// </summary>
     public partial interface ISearchTreeDictionaryNodeClientNode<KT, VT> where KT : IComparable<KT>
     {

@@ -24,6 +24,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.timeout = timeout;
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         public override void RunTask()

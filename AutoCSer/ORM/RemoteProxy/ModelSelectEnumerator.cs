@@ -51,7 +51,8 @@ namespace AutoCSer.ORM.RemoteProxy
             this.enumeratorCommand = enumeratorCommand;
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
@@ -73,7 +74,7 @@ namespace AutoCSer.ORM.RemoteProxy
             return false;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public ValueTask DisposeAsync()

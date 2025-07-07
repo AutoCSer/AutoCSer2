@@ -41,7 +41,7 @@ namespace AutoCSer.Net
         /// </summary>
         public ushort QueueTimeoutSeconds = 0;
         /// <summary>
-        /// The default value of the release hold callback sending command is 2. The recommended value of open service is 5
+        /// The default value of the release keep callback sending command is 2. The recommended value of open service is 5
         /// 释放保持回调发送命令定时秒数默认为 2，开放服务建议值为 5
         /// </summary>
         public ushort CancelKeepCallbackSeconds = 2;
@@ -77,7 +77,7 @@ namespace AutoCSer.Net
         public BindingFlags ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly;
 
         /// <summary>
-        /// Used to override the connection logic after service registration is enabled
+        /// Used to override the connection logic after server registration is enabled
         /// 用于启用服务注册以后重写自动启动连接逻辑
         /// </summary>
         /// <param name="client"></param>
@@ -97,7 +97,7 @@ namespace AutoCSer.Net
             return client.GetSocketAsync();
         }
         /// <summary>
-        /// Access the service registry client listening component, the default for new AutoCSer.Net.CommandClientServiceRegistrar(commandClient), one-time upon initial client calls
+        /// Get the service registration client listener component, which is defaulted to new AutoCSer.Net.CommandClientServiceRegistrar(commandClient) and is called all at once during client initialization
         /// 获取服务注册客户端监听组件，默认为 new AutoCSer.Net.CommandClientServiceRegistrar(commandClient)，客户端初始化时一次性调用
         /// </summary>
         /// <param name="commandClient"></param>
@@ -142,7 +142,7 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="socket">Command client socket
         /// 命令客户端套接字</param>
-        /// <param name="data">Raw data
+        /// <param name="data">Original data
         /// 原始数据</param>
         /// <param name="buffer">Output data buffer
         /// 输出数据缓冲区</param>
@@ -157,17 +157,27 @@ namespace AutoCSer.Net
         public virtual bool TransferEncode(CommandClientSocket socket, ReadOnlySpan<byte> data, ref ByteArrayBuffer buffer, ref SubArray<byte> outputData, int outputSeek, int outputHeadSize)
 #else
         /// <summary>
+        /// Send data coding
         /// 发送数据编码
         /// </summary>
-        /// <param name="socket">命令客户端套接字</param>
-        /// <param name="data">原始数据</param>
-        /// <param name="dataIndex">原始数据开始位置</param>
-        /// <param name="dataSize">原始数据字节数量</param>
-        /// <param name="buffer">输出数据缓冲区</param>
-        /// <param name="outputData">输出数据</param>
-        /// <param name="outputSeek">输出数据起始位置</param>
-        /// <param name="outputHeadSize">输出数据多余头部大小</param>
-        /// <returns>发送数据是否编码</returns>
+        /// <param name="socket">Command client socket
+        /// 命令客户端套接字</param>
+        /// <param name="data">Original data
+        /// 原始数据</param>
+        /// <param name="dataIndex">Original data start location
+        /// 原始数据开始位置</param>
+        /// <param name="dataSize">Number of original data bytes
+        /// 原始数据字节数量</param>
+        /// <param name="buffer">Output data buffer
+        /// 输出数据缓冲区</param>
+        /// <param name="outputData">Output data
+        /// 输出数据</param>
+        /// <param name="outputSeek">Start position of output data
+        /// 输出数据起始位置</param>
+        /// <param name="outputHeadSize">The output data exceeds the header size
+        /// 输出数据多余头部大小</param>
+        /// <returns>Whether the sent data is encoded
+        /// 发送数据是否编码</returns>
         public virtual bool TransferEncode(CommandClientSocket socket, byte[] data, int dataIndex, int dataSize, ref ByteArrayBuffer buffer, ref SubArray<byte> outputData, int outputSeek, int outputHeadSize)
 #endif
         {
@@ -182,7 +192,7 @@ namespace AutoCSer.Net
         /// 命令客户端套接字</param>
         /// <param name="transferData">The encoded data
         /// 编码后的数据</param>
-        /// <param name="outputData">Raw data buffer waiting to be written
+        /// <param name="outputData">Original data buffer waiting to be written
         /// 等待写入的原始数据缓冲区</param>
         /// <returns>Whether the decoding is successful
         /// 是否解码成功</returns>
@@ -216,6 +226,7 @@ namespace AutoCSer.Net
         public virtual Task OnQueueTimeout(CommandClientCallQueue queue, long seconds) { return AutoCSer.Common.CompletedTask; }
 
         /// <summary>
+        /// Default empty command client configuration
         /// 默认空命令客户端配置
         /// </summary>
         internal static readonly CommandClientConfig Null = new CommandClientConfig();

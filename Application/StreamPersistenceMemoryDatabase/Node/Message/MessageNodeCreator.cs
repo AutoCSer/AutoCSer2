@@ -5,15 +5,18 @@ using System.Reflection;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Create a message processing node
     /// 创建消息处理节点
     /// </summary>
     internal sealed class MessageNodeCreator
     {
         /// <summary>
-        /// 服务基础操作
+        /// Service basic operation node
+        /// 服务基础操作节点
         /// </summary>
         private readonly ServiceNode node;
         /// <summary>
+        /// Node index information
         /// 节点索引信息
         /// </summary>
         private NodeIndex index;
@@ -38,6 +41,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly int checkTimeoutSeconds;
         /// <summary>
+        /// Create a message processing node
         /// 创建消息处理节点
         /// </summary>
         /// <param name="node"></param>
@@ -58,6 +62,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.checkTimeoutSeconds = checkTimeoutSeconds;
         }
         /// <summary>
+        /// Create a message processing node MessageNode{T}
         /// 创建消息处理节点 MessageNode{T}
         /// </summary>
         /// <param name="messageType"></param>
@@ -68,6 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return index;
         }
         /// <summary>
+        /// Create a message processing node MessageNode{T}
         /// 创建消息处理节点 MessageNode{T}
         /// </summary>
         private void create<T>() where T : Message<T>

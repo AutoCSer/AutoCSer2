@@ -10,7 +10,7 @@ namespace AutoCSer
     public sealed unsafe partial class JsonDeserializer
     {
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="array"></param>
 #if NetStandard21
@@ -64,7 +64,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="jsonDeserializer"></param>
         /// <param name="value"></param>

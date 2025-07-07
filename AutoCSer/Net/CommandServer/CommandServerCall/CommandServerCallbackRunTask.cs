@@ -13,10 +13,12 @@ namespace AutoCSer.Net
     public abstract class CommandServerCallbackRunTask : CommandServerCallbackTask
     {
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         private readonly ServerInterfaceMethod method;
         /// <summary>
+        /// Whether the parameters have been deserialized successfully
         /// 参数是否反序列化成功
         /// </summary>
         internal bool IsDeserialize;
@@ -31,7 +33,8 @@ namespace AutoCSer.Net
             IsDeserialize = method.InputParameterType == null;
         }
         /// <summary>
-        /// 获取 Task
+        /// Get the Task object that executes the command
+        /// 获取执行命令的 Task 对象
         /// </summary>
         /// <returns></returns>
         public abstract Task GetTask();
@@ -63,7 +66,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         /// <param name="task"></param>
         /// <param name="isDeserialize"></param>
@@ -96,10 +100,12 @@ namespace AutoCSer.Net
     public abstract class CommandServerCallbackRunTask<T> : CommandServerCallbackTask<T>
     {
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         private readonly ServerInterfaceMethod method;
         /// <summary>
+        /// Whether the parameters have been deserialized successfully
         /// 参数是否反序列化成功
         /// </summary>
         internal bool IsDeserialize;
@@ -114,7 +120,8 @@ namespace AutoCSer.Net
             IsDeserialize = method.InputParameterType == null;
         }
         /// <summary>
-        /// 获取 Task
+        /// Get the Task object that executes the command
+        /// 获取执行命令的 Task 对象
         /// </summary>
         /// <returns></returns>
         public abstract Task GetTask();
@@ -146,7 +153,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         /// <param name="task"></param>
         /// <param name="isDeserialize"></param>

@@ -51,7 +51,8 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             if (isLastNode) LinkType |= 0x80;
         }
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="node"></param>
@@ -86,7 +87,8 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             }
         }
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
         /// <param name="builder"></param>
         internal void BuildGraph(GraphBuilder builder)
@@ -98,7 +100,8 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             }
         }
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="parent"></param>
@@ -111,7 +114,8 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             return (LinkType & 0x80) == 0;
         }
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="parent"></param>

@@ -7,21 +7,26 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
 {
     /// <summary>
+    /// Client JSON message client consumer example
     /// 客户端 JSON 消息客户端消费者示例
     /// </summary>
     internal sealed class ServerByteArrayMessageJsonConsumer : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessageJsonConsumer<Data.TestClass>
     {
         /// <summary>
+        /// Client JSON message client consumer example
         /// 客户端 JSON 消息客户端消费者示例
         /// </summary>
-        /// <param name="commandClient">客户端</param>
-        /// <param name="node">服务端字节数组消息客户端节点</param>
+        /// <param name="commandClient">Command client</param>
+        /// <param name="node">Server-side byte array messages client nodes
+        /// 服务端字节数组消息客户端节点</param>
         internal ServerByteArrayMessageJsonConsumer(AutoCSer.Net.ICommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage> node) : base(commandClient, node, 1 << 10) { }
         /// <summary>
-        /// 消息处理，异常则表示消息执行失败
+        /// Message processing. An exception also indicates that the message execution failed
+        /// 消息处理，异常也表示消息执行失败
         /// </summary>
         /// <param name="message"></param>
-        /// <returns>消息是否执行成功</returns>
+        /// <returns>Whether the message was executed successfully
+        /// 消息是否执行成功</returns>
         protected override Task<bool> onMessage(Data.TestClass message)
         {
             lock (messageLock) messages.Remove(message.notNull().Int);
@@ -29,22 +34,27 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
         }
 
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateServerByteArrayMessageNode(nameof(ServerByteArrayMessageJsonConsumer)));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateServerByteArrayMessageNode(nameof(ServerByteArrayMessageJsonConsumer)));
         /// <summary>
+        /// Message collection not completed
         /// 未完成消息集合
         /// </summary>
         private static Dictionary<int, Data.TestClass> messages = new Dictionary<int, Data.TestClass>();
         /// <summary>
+        /// Access lock for consumption message testing
         /// 消费消息测试访问锁
         /// </summary>
         private static readonly object messageLock = new object();
         /// <summary>
+        /// Client JSON message client consumer example
         /// 客户端 JSON 消息客户端消费者示例
         /// </summary>
         /// <returns></returns>
@@ -55,6 +65,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
             return true;
         }
         /// <summary>
+        /// Client JSON message client consumer example
         /// 客户端 JSON 消息客户端消费者示例
         /// </summary>
         /// <returns></returns>
@@ -78,7 +89,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
                 Data.TestClass messageData = new Data.TestClass { Int = message, String = message.ToString() };
                 messages.Add(message, messageData);
 
-                result = await node.AppendMessage(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage.JsonSerialize(messageData));//生产消息测试
+                result = await node.AppendMessage(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage.JsonSerialize(messageData));
                 if (!result.IsSuccess)
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
@@ -87,7 +98,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
 
             using (ServerByteArrayMessageJsonConsumer consumer = new ServerByteArrayMessageJsonConsumer(commandClient, node))
             {
-                #region 等待测试消息完成
+                #region Wait for the test message to complete
                 long timeout = Stopwatch.GetTimestamp() + AutoCSer.Date.GetTimestampBySeconds(10);
                 while (messages.Count != 0)
                 {

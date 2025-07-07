@@ -11,7 +11,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写数据
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <returns>是否写入成功</returns>
         public bool Write(ulong value)
         {

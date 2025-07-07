@@ -14,6 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public struct RequestParameter : AutoCSer.BinarySerialize.ICustomSerialize<RequestParameter>
     {
         /// <summary>
+        /// Node index information
         /// 节点索引信息
         /// </summary>
         internal NodeIndex Index;
@@ -22,6 +23,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private int methodIndex;
         /// <summary>
+        /// Call status
         /// 调用状态
         /// </summary>
         internal CallStateEnum CallState;
@@ -40,8 +42,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 请求参数序列化
         /// </summary>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="methodIndex">调用方法编号</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
         /// <param name="serializer">序列化委托</param>
         internal RequestParameter(NodeIndex index, int methodIndex, RequestParameterSerializer serializer)
         {
@@ -89,11 +93,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             byte* data = deserializer.GetBeforeMove(sizeof(int) * 2 + sizeof(uint));
             if (data != null)
             {
-                CommandServerSocket socket = deserializer.Context.castType<CommandServerSocket>().notNull();
-                if (!object.ReferenceEquals(socket, CommandServerSocket.CommandServerSocketContext))
+                var service = deserializer.StreamPersistenceMemoryDatabaseServiceRequestParameterContext.castType<RequestParameterContext>()?.GetService(deserializer.Context) ?? RequestParameterContext.GetService(deserializer);
+                if (service != null)
                 {
-                    MethodParameter = ((StreamPersistenceMemoryDatabaseService)socket.CurrentController.GetControllerObject())
-                        .CreateInputMethodParameter(new NodeIndex(*(int*)data, *(uint*)(data + sizeof(int))), *(int*)(data + (sizeof(int) + sizeof(uint))), out CallState);
+                    MethodParameter = service.CreateInputMethodParameter(new NodeIndex(*(int*)data, *(uint*)(data + sizeof(int))), *(int*)(data + (sizeof(int) + sizeof(uint))), out CallState);
                     if (MethodParameter != null)
                     {
                         MethodParameter.Deserialize(deserializer);

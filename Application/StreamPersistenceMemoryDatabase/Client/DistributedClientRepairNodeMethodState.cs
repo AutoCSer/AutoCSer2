@@ -13,11 +13,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public readonly CommandClientReturnTypeEnum ReturnType;
         /// <summary>
+        /// Call status
         /// 调用状态
         /// </summary>
         public readonly CallStateEnum State;
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess
         {

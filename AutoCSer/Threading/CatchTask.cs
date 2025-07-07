@@ -38,7 +38,7 @@ namespace AutoCSer.Threading
         /// <param name="task">任务</param>
         /// <param name="isQueue">是否加入未完成队列</param>
         /// <param name="callerFilePath">调用文件路径</param>
-        /// <param name="callerMemberName">调用成员名称</param>
+        /// <param name="callerMemberName">Caller member name</param>
         /// <param name="callerLineNumber">所在文件行数</param>
         internal CatchTask(Task task, bool isQueue, string callerFilePath, string callerMemberName, int callerLineNumber)
         {

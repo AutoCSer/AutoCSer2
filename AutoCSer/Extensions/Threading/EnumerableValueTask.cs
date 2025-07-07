@@ -68,6 +68,7 @@ namespace AutoCSer.Extensions.Threading
             this.getTask = getTask;
         }
         /// <summary>
+        /// Cancel the task
         /// 取消任务
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -76,6 +77,7 @@ namespace AutoCSer.Extensions.Threading
             isCancel = true;
         }
         /// <summary>
+        /// Start the task
         /// 启动任务
         /// </summary>
         /// <returns></returns>

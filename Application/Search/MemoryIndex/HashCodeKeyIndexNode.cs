@@ -8,7 +8,8 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
     /// <summary>
     /// 哈希索引节点
     /// </summary>
-    /// <typeparam name="T">索引关键字类型</typeparam>
+    /// <typeparam name="T">Index keyword type
+    /// 索引关键字类型</typeparam>
     public sealed class HashCodeKeyIndexNode<T> : ContextNode<IHashCodeKeyIndexNode<T>, BinarySerializeKeyValue<T, uint[]>>, IHashCodeKeyIndexNode<T>, ISnapshot<BinarySerializeKeyValue<T, uint[]>>
 #if NetStandard21
         where T : notnull, IEquatable<T>
@@ -36,13 +37,15 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             indexs.Clear();
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
             free();
         }
         /// <summary>
+        /// Database service shutdown operation
         /// 数据库服务关闭操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceDisposable()
@@ -50,20 +53,27 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             free();
         }
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         int ISnapshot<BinarySerializeKeyValue<T, uint[]>>.GetSnapshotCapacity(ref object customObject)
         {
             return indexs.Count;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         SnapshotResult<BinarySerializeKeyValue<T, uint[]>> ISnapshot<BinarySerializeKeyValue<T, uint[]>>.GetSnapshotResult(BinarySerializeKeyValue<T, uint[]>[] snapshotArray, object customObject)
         {
             SnapshotResult<BinarySerializeKeyValue<T, uint[]>> result = new SnapshotResult<BinarySerializeKeyValue<T, uint[]>>(indexs.Count, snapshotArray.Length);
@@ -71,9 +81,10 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(BinarySerializeKeyValue<T, uint[]> value)
         {
             bool isAdd = false;
@@ -89,10 +100,13 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             }
         }
         /// <summary>
-        /// 添加匹配数据关键字 持久化前检查
+        /// Add matching data keyword (Check the input parameters before the persistence operation)
+        /// 添加匹配数据关键字（持久化操作之前检查输入参数）
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         /// <returns></returns>
         public ValueResult<bool> AppendBeforePersistence(T key, uint value)
         {
@@ -108,11 +122,15 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return false;
         }
         /// <summary>
+        /// Add matching data keyword
         /// 添加匹配数据关键字
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
-        /// <returns>返回 false 表示关键字数据为 null</returns>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
+        /// <returns>Returning false indicates that the keyword data is null
+        /// 返回 false 表示关键字数据为 null</returns>
         public bool Append(T key, uint value)
         {
             var index = default(HashCodeKeySetIndex);
@@ -134,10 +152,13 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return true;
         }
         /// <summary>
+        /// Add matching data keyword
         /// 添加匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void AppendArray(T[] keys, uint value)
         {
             if (keys != null)
@@ -149,10 +170,13 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             }
         }
         /// <summary>
+        /// Add matching data keyword
         /// 添加匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void AppendLeftArray(LeftArray<T> keys, uint value)
         {
             int count = keys.Length;
@@ -166,10 +190,13 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             }
         }
         /// <summary>
-        /// 删除匹配数据关键字
+        /// Delete the matching data keyword (Check the input parameters before the persistence operation)
+        /// 删除匹配数据关键字（持久化操作之前检查输入参数）
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         /// <returns></returns>
         public ValueResult<bool> RemoveBeforePersistence(T key, uint value)
         {
@@ -181,11 +208,15 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return false;
         }
         /// <summary>
+        /// Delete the matching data keyword
         /// 删除匹配数据关键字
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
-        /// <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
+        /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found
+        /// 返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
         public bool Remove(T key, uint value)
         {
             var index = default(HashCodeKeySetIndex);
@@ -197,10 +228,13 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return false;
         }
         /// <summary>
+        /// Delete the matching data keyword
         /// 删除匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void RemoveArray(T[] keys, uint value)
         {
             if (keys != null)
@@ -212,10 +246,13 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             }
         }
         /// <summary>
+        /// Delete the matching data keyword
         /// 删除匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void RemoveLeftArray(LeftArray<T> keys, uint value)
         {
             int count = keys.Length;
@@ -232,9 +269,10 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
         /// <summary>
         /// 获取索引条件
         /// </summary>
-        /// <param name="keys">索引关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
         /// <param name="type">索引合并操作类型</param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         public IIndexCondition<uint>? GetIndexCondition(T[] keys, IndexMergeTypeEnum type = IndexMergeTypeEnum.Intersection)
 #else
@@ -265,9 +303,10 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
         /// <summary>
         /// 获取索引条件
         /// </summary>
-        /// <param name="keys">索引关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
         /// <param name="type">索引合并操作类型</param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         public IIndexCondition<int>? GetIntIndexCondition(T[] keys, IndexMergeTypeEnum type = IndexMergeTypeEnum.Intersection)
 #else

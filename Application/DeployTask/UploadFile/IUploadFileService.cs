@@ -7,8 +7,8 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 文件上传服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(UploadFileServiceMethodEnum), MethodIndexEnumTypeCodeGeneratorPath = "", IsAutoMethodIndex = false)]
-    public interface IUploadFileService
+    [AutoCSer.Net.CommandServerControllerInterface]
+    public partial interface IUploadFileService
     {
         /// <summary>
         /// 根据上传类型获取文件上传路径

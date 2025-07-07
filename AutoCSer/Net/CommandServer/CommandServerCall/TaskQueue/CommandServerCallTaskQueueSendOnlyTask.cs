@@ -21,7 +21,7 @@ namespace AutoCSer.Net
 #endif
         private Task<CommandServerSendOnly> callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// 服务端异步调用队列任务
         /// </summary>
         /// <param name="socket"></param>
         internal CommandServerCallTaskQueueSendOnlyTask(CommandServerSocket socket) : base(socket, ServerMethodTypeEnum.SendOnlyTaskQueue) { }

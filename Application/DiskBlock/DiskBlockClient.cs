@@ -34,7 +34,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 写入数据
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task Write(SubArray<byte> data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -60,7 +60,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 写入数据
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public CommandClientReturnValue<BlockIndex> Write(SubArray<byte> data)
         {
@@ -72,7 +72,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 写入数据
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public ReturnCommand<BlockIndex> WriteAsync(SubArray<byte> data)
         {
@@ -84,7 +84,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 写入字符串
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
 #if NetStandard21
@@ -114,7 +114,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 写入字符串
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
 #if NetStandard21
         public CommandClientReturnValue<BlockIndex> WriteString(string? data)
@@ -130,7 +130,7 @@ namespace AutoCSer.CommandService
         /// <summary>
         /// 写入字符串
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
 #if NetStandard21
         public ReturnCommand<BlockIndex> WriteStringAsync(string? data)
@@ -147,7 +147,7 @@ namespace AutoCSer.CommandService
         /// 写入 JSON
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteJson<T>(T data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -172,7 +172,7 @@ namespace AutoCSer.CommandService
         /// 写入 JSON
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public CommandClientReturnValue<BlockIndex> WriteJson<T>(T data)
         {
@@ -183,7 +183,7 @@ namespace AutoCSer.CommandService
         /// 写入 JSON
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ReturnCommand<BlockIndex> WriteJsonAsync<T>(T data)
@@ -194,7 +194,7 @@ namespace AutoCSer.CommandService
         /// 写入 JSON
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteJsonMemberMap<T>(AutoCSer.Metadata.MemberMapValue<T> data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -219,7 +219,7 @@ namespace AutoCSer.CommandService
         /// 写入 JSON
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public CommandClientReturnValue<BlockIndex> WriteJsonMemberMap<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
@@ -230,7 +230,7 @@ namespace AutoCSer.CommandService
         /// 写入 JSON
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ReturnCommand<BlockIndex> WriteJsonMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)
@@ -242,7 +242,7 @@ namespace AutoCSer.CommandService
         /// 写入二进制序列化数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
 #if NetStandard21
@@ -271,7 +271,7 @@ namespace AutoCSer.CommandService
         /// 写入二进制序列化数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
 #if NetStandard21
         public CommandClientReturnValue<BlockIndex> WriteBinary<T>(T? data)
@@ -286,7 +286,7 @@ namespace AutoCSer.CommandService
         /// 写入二进制序列化数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -302,7 +302,7 @@ namespace AutoCSer.CommandService
         /// 写入二进制序列化数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteBinaryMemberMap<T>(AutoCSer.Metadata.MemberMapValue<T> data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -327,7 +327,7 @@ namespace AutoCSer.CommandService
         /// 写入二进制序列化数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public CommandClientReturnValue<BlockIndex> WriteBinaryMemberMap<T>(AutoCSer.Metadata.MemberMapValue<T> data)
         {
@@ -338,7 +338,7 @@ namespace AutoCSer.CommandService
         /// 写入二进制序列化数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public ReturnCommand<BlockIndex> WriteBinaryMemberMapAsync<T>(AutoCSer.Metadata.MemberMapValue<T> data)

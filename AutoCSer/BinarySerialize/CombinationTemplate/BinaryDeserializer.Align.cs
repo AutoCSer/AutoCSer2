@@ -4,14 +4,15 @@
 namespace AutoCSer
 {
     /// <summary>
-    /// 二进制反数据序列化
+    /// 二进制数据反序列化
     /// </summary>
     public sealed unsafe partial class BinaryDeserializer
     {
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref ulong value)
         {
@@ -19,19 +20,21 @@ namespace AutoCSer
             Current += sizeof(ulong);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ulong value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         public void BinaryDeserialize(ref ulong? value)
         {
             if (*(int*)Current == 0)

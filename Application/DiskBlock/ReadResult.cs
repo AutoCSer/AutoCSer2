@@ -13,14 +13,14 @@ namespace AutoCSer.CommandService.DiskBlock
     public struct ReadResult<T>
     {
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
         public T Value;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         public string? ErrorMessage;
@@ -28,6 +28,7 @@ namespace AutoCSer.CommandService.DiskBlock
         public string ErrorMessage;
 #endif
         /// <summary>
+        /// The return value type of the network client
         /// 网络客户端返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
@@ -36,7 +37,8 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         public ReadBufferStateEnum BufferState;
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess { get { return BufferState == ReadBufferStateEnum.Success && ReturnType == CommandClientReturnTypeEnum.Success; } }
         /// <summary>
@@ -78,6 +80,7 @@ namespace AutoCSer.CommandService.DiskBlock
             BufferState = ReadBufferStateEnum.Success;
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="value"></param>

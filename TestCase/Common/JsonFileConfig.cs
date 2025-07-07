@@ -6,6 +6,7 @@ using System.Text;
 namespace AutoCSer.TestCase.Common
 {
     /// <summary>
+    /// JSON file configuration
     /// JSON 文件配置
     /// </summary>
 #if AOT
@@ -15,38 +16,47 @@ namespace AutoCSer.TestCase.Common
     public sealed partial class JsonFileConfig
     {
         /// <summary>
+        /// Is it remote mode
         /// 是否远程模式
         /// </summary>
         public bool IsRemote;
         /// <summary>
+        /// Whether RPC uses a compressed configuration
         /// RPC 是否使用压缩配置
         /// </summary>
         public bool IsCompressConfig { get { return IsRemote; } }
         /// <summary>
+        /// Is the server environment Linux
         /// 服务器环境是否 Linux
         /// </summary>
         public bool IsLinuxServer;
         /// <summary>
+        /// Test the IP address of the server
         /// 测试服务端 IP 地址
         /// </summary>
         public string ServerHost;
         /// <summary>
+        /// RPC service authentication verification string
         /// RPC 服务认证验证字符串
         /// </summary>
         public string TimestampVerifyString;
         /// <summary>
+        /// Program file upload directory
         /// 程序文件上传目录
         /// </summary>
         public string UploadPath;
         /// <summary>
+        /// The HTTPS certificate file name (.pfx)
         /// HTTPS 证书文件名称 .pfx
         /// </summary>
         public string HttpsCertificateFileName;
         /// <summary>
+        /// HTTPS certificate password
         /// HTTPS 证书密码
         /// </summary>
         public string HttpsCertificatePassword;
         /// <summary>
+        /// Get the information of the test client configuration server
         /// 获取测试客户端配置服务端信息
         /// </summary>
         /// <param name="port"></param>
@@ -57,6 +67,7 @@ namespace AutoCSer.TestCase.Common
         }
 
         /// <summary>
+        /// Default JSON file configuration
         /// 默认 JSON 文件配置
         /// </summary>
         public static readonly JsonFileConfig Default;

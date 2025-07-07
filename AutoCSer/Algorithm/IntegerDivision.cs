@@ -47,11 +47,14 @@ namespace AutoCSer.Algorithm
             {
                 HighBitQuotient = (uint)(((Multiplier << 31) - Multiplier) >> ShiftBit);
                 HighBitMod = (1U << 31) - HighBitQuotient * Divisor;
-                if (Divisor == HighBitMod)
-                {
-                    ++HighBitQuotient;
-                    HighBitMod = 0;
-                }
+                //if (Divisor == HighBitMod)
+                //{
+                //    ++HighBitQuotient;
+                //    HighBitMod = 0;
+                //}
+                uint value = (uint)((int)(Divisor ^ HighBitMod)).logicalInversion();
+                HighBitQuotient += value;
+                HighBitMod &= value - 1;
             }
         }
         /// <summary>
@@ -70,11 +73,14 @@ namespace AutoCSer.Algorithm
             {
                 HighBitQuotient = (uint)(((Multiplier << 31) - Multiplier) >> ShiftBit);
                 HighBitMod = (1U << 31) - HighBitQuotient * Divisor;
-                if (Divisor == HighBitMod)
-                {
-                    ++HighBitQuotient;
-                    HighBitMod = 0;
-                }
+                //if (Divisor == HighBitMod)
+                //{
+                //    ++HighBitQuotient;
+                //    HighBitMod = 0;
+                //}
+                uint value = (uint)((int)(Divisor ^ HighBitMod)).logicalInversion();
+                HighBitQuotient += value;
+                HighBitMod &= value - 1;
             }
         }
         /// <summary>

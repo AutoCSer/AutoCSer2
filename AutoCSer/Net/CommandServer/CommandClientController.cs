@@ -11,28 +11,34 @@ using ClientInterfaceMethod = AutoCSer.Net.CommandServer.ClientMethod;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// The command client controller
     /// 命令客户端控制器
     /// </summary>
     public abstract class CommandClientController
     {
         /// <summary>
+        /// Command client socket
         /// 命令客户端套接字
         /// </summary>
         public readonly CommandClientSocket Socket;
         /// <summary>
+        /// Command controller name
         /// 命令控制器名称
         /// </summary>
         public readonly string ControllerName;
         /// <summary>
+        /// Client interface method information collection
         /// 客户端接口方法信息集合
         /// </summary>
         internal readonly ClientInterfaceMethod[] Methods;
         /// <summary>
+        /// A collection of server-side method numbers
         /// 服务端方法编号集合
         /// </summary>
         private readonly int[] serverMethodIndexs;
 #if !AOT
         /// <summary>
+        /// Gets the collection of error methods
         /// 获取错误方法集合
         /// </summary>
         public IEnumerable<KeyValue<MethodInfo, string>> ErrorMethods
@@ -47,15 +53,18 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
+        /// Method starting sequence number
         /// 方法起始序号
         /// </summary>
         internal readonly int StartMethodIndex;
         /// <summary>
+        /// Verification method serial number
         /// 验证方法序号
         /// </summary>
         internal readonly int VerifyMethodIndex;
         /// <summary>
-        /// 默认空命令客户端控制器
+        /// Default empty controller
+        /// 默认空控制器
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="controllerName"></param>
@@ -69,6 +78,7 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
+        /// The command client controller
         /// 命令客户端控制器
         /// </summary>
         /// <param name="socket"></param>
@@ -87,16 +97,19 @@ namespace AutoCSer.Net
             VerifyMethodIndex = verifyMethodIndex;
         }
         /// <summary>
+        /// Get the controller command method sequence number
         /// 获取控制器命令方法序号
         /// </summary>
         /// <param name="methodIndex"></param>
-        /// <returns>超出范围返回 0</returns>
+        /// <returns>Return 0 if the range is exceeded
+        /// 超出范围返回 0</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal uint GetMethodIndex(int methodIndex)
         {
             return methodIndex < serverMethodIndexs.Length ? (uint)(StartMethodIndex + serverMethodIndexs[methodIndex]) : 0;
         }
         /// <summary>
+        /// Set the collection of server-side method numbers
         /// 设置服务端方法编号集合
         /// </summary>
         /// <param name="MethodNames"></param>
@@ -112,6 +125,7 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -123,6 +137,7 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <param name="controller"></param>
@@ -135,6 +150,7 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -148,6 +164,7 @@ namespace AutoCSer.Net
             return new SynchronousCommand<T>(this, methodIndex, ref inputParameter).Wait();
         }
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -161,6 +178,7 @@ namespace AutoCSer.Net
             return new SynchronousOutputCommand<T>(this, methodIndex).Wait(out outputParameter);
         }
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -179,7 +197,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 仅发送数据命令
+        /// Unresponsive command
+        /// 无响应命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
@@ -192,7 +211,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 仅发送数据命令
+        /// Unresponsive command
+        /// 无响应命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -206,7 +226,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 仅发送数据命令
+        /// Unresponsive command
+        /// 无响应命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -221,7 +242,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <param name="callback"></param>
@@ -234,7 +256,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -251,7 +274,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -269,7 +293,8 @@ namespace AutoCSer.Net
             return new CallbackOutputCommand<T, RT, OT>(this, methodIndex, callback, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -289,7 +314,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -303,7 +329,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -318,7 +345,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -333,7 +361,8 @@ namespace AutoCSer.Net
             return new CallbackOutputCommand<T, RT>(this, methodIndex, callback, ref inputParameter);
         }
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -350,7 +379,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 回调委托
+        /// Callback delegate command
+        /// 回调委托命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -366,7 +396,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <param name="keepCallback"></param>
@@ -379,7 +410,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -396,7 +428,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -414,7 +447,8 @@ namespace AutoCSer.Net
             return new KeepCallbackOutputCommand<T, RT, OT>(this, methodIndex, keepCallback, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -434,7 +468,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -448,7 +483,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -463,7 +499,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -478,7 +515,8 @@ namespace AutoCSer.Net
             return new KeepCallbackOutputCommand<T, RT>(this, methodIndex, keepCallback, ref inputParameter);
         }
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -495,7 +533,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 保持回调委托
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -510,6 +549,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Add to the callback queue
         /// 添加到回调队列
         /// </summary>
         /// <param name="method"></param>
@@ -525,7 +565,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <param name="callbackQueue"></param>
@@ -538,7 +579,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -555,7 +597,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -573,7 +616,8 @@ namespace AutoCSer.Net
             return new CallbackQueueOutputCommand<T, RT, OT>(this, methodIndex, callbackQueue, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -593,7 +637,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -607,7 +652,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -622,7 +668,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -637,7 +684,8 @@ namespace AutoCSer.Net
             return new CallbackQueueOutputCommand<T, RT>(this, methodIndex, callbackQueue, ref inputParameter);
         }
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -654,7 +702,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 队列回调委托
+        /// Callback delegate queue command
+        /// 回调委托队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -670,7 +719,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <param name="keepCallbackQueue"></param>
@@ -683,7 +733,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -700,7 +751,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -718,7 +770,8 @@ namespace AutoCSer.Net
             return new KeepCallbackQueueOutputCommand<T, RT, OT>(this, methodIndex, keepCallbackQueue, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -738,7 +791,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -752,7 +806,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -767,7 +822,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -782,7 +838,8 @@ namespace AutoCSer.Net
             return new KeepCallbackQueueOutputCommand<T, RT>(this, methodIndex, keepCallbackQueue, ref inputParameter);
         }
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -799,7 +856,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 队列保持回调委托
+        /// Keep callback queue command
+        /// 保持回调队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -815,7 +873,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
@@ -827,7 +886,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -843,7 +903,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -860,7 +921,8 @@ namespace AutoCSer.Net
             return new ReturnValueCommand<T, RT, OT>(this, methodIndex, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -879,7 +941,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -892,7 +955,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -906,7 +970,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -920,7 +985,8 @@ namespace AutoCSer.Net
             return new ReturnValueCommand<T, RT>(this, methodIndex, ref inputParameter);
         }
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -936,7 +1002,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 返回值
+        /// Return value command
+        /// 返回值命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -950,6 +1017,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Add to the callback queue
         /// 添加到回调队列
         /// </summary>
         /// <param name="method"></param>
@@ -965,7 +1033,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
@@ -977,7 +1046,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -993,7 +1063,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -1010,7 +1081,8 @@ namespace AutoCSer.Net
             return new ReturnValueQueueCommand<T, RT, OT>(this, methodIndex, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -1029,7 +1101,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -1042,7 +1115,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -1056,7 +1130,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -1070,7 +1145,8 @@ namespace AutoCSer.Net
             return new ReturnValueQueueCommand<T, RT>(this, methodIndex, ref inputParameter);
         }
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -1086,7 +1162,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 返回值
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -1101,7 +1178,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
@@ -1113,7 +1191,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -1129,7 +1208,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -1146,7 +1226,8 @@ namespace AutoCSer.Net
             return new EnumeratorCommand<T, RT, OT>(this, methodIndex, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -1165,7 +1246,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -1178,7 +1260,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -1192,7 +1275,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -1206,7 +1290,8 @@ namespace AutoCSer.Net
             return new EnumeratorCommand<T, OT>(this, methodIndex, ref inputParameter);
         }
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -1222,7 +1307,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 枚举返回值
+        /// Collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -1237,7 +1323,8 @@ namespace AutoCSer.Net
 
 #if AOT
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <param name="methodIndex"></param>
         /// <returns></returns>
@@ -1249,7 +1336,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -1265,7 +1353,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -1282,7 +1371,8 @@ namespace AutoCSer.Net
             return new EnumeratorQueueCommand<T, RT, OT>(this, methodIndex, getReturnValue, ref inputParameter);
         }
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="RT"></typeparam>
@@ -1301,7 +1391,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -1314,7 +1405,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="controller"></param>
@@ -1328,7 +1420,8 @@ namespace AutoCSer.Net
             return command;
         }
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -1342,7 +1435,8 @@ namespace AutoCSer.Net
             return new EnumeratorQueueCommand<T, OT>(this, methodIndex, ref inputParameter);
         }
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="OT"></typeparam>
@@ -1358,7 +1452,8 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
-        /// 队列枚举返回值
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
@@ -1373,13 +1468,15 @@ namespace AutoCSer.Net
     }
 #if AOT
     /// <summary>
+    /// Asymmetric command client controller
     /// 非对称命令客户端控制器
     /// </summary>
     /// <typeparam name="CT">客户端接口类型</typeparam>
     public abstract class CommandClientController<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicMethods | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)] CT> : CommandClientController
     {
         /// <summary>
-        /// 命令客户端控制器
+        /// Asymmetric command client controller
+        /// 非对称命令客户端控制器
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="controllerName"></param>
@@ -1391,7 +1488,8 @@ namespace AutoCSer.Net
         {
         }
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="IT"></typeparam>
@@ -1409,6 +1507,7 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// The command client controller
     /// 命令客户端控制器
     /// </summary>
     /// <typeparam name="CT">客户端接口类型</typeparam>
@@ -1416,6 +1515,7 @@ namespace AutoCSer.Net
     public abstract class CommandClientController<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicMethods | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)] CT, [System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicMethods | System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods)] ST> : CommandClientController
     {
         /// <summary>
+        /// The command client controller
         /// 命令客户端控制器
         /// </summary>
         /// <param name="socket"></param>
@@ -1428,7 +1528,8 @@ namespace AutoCSer.Net
         {
         }
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="IT"></typeparam>

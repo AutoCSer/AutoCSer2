@@ -8,7 +8,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照哈希表节点数组
     /// </summary>
-    /// <typeparam name="T">关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type
+    /// 关键字类型</typeparam>
     internal sealed class SnapshotHashSetNodeArray<T> : ISnapshotEnumerable<T>
 #if NetStandard21
         where T : notnull, IEquatable<T>
@@ -48,6 +49,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             newSnapshotNodes = snapshotNodes = EmptyArray<SnapshotArrayNode<T>>.Array;
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         public IEnumerable<T> SnapshotValues
@@ -70,7 +72,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetSnapshotValueArray()
@@ -79,6 +82,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (count != 0) snapshotNodes = new SnapshotArrayNode<T>[count];
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -89,6 +93,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshotCount = count;
         }
         /// <summary>
+        /// Close the snapshot operation
         /// 关闭快照操作
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

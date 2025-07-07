@@ -37,6 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly IEnumerableSnapshot<T> target;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
 #if NetStandard21
@@ -63,13 +64,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         internal override void GetArray()
         {
             (values = target.SnapshotEnumerable).GetSnapshotValueArray();
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         internal override void GetResult()

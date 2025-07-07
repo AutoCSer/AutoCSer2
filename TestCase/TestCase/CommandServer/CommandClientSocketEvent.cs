@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase
 {
     /// <summary>
+    /// Command client socket events
     /// 命令客户端套接字事件
     /// </summary>
     internal sealed partial class CommandClientSocketEvent : AutoCSer.Net.CommandClientSocketEvent
@@ -125,7 +126,8 @@ namespace AutoCSer.TestCase
         public ServerBindContext.IServerTaskQueueControllerClientController ServerBindContextClientTaskQueueController { get; private set; }
 #endif
         /// <summary>
-        /// 客户端控制器创建器参数集合
+        /// The set of parameters for creating the client controller is used to create the client controller object during the initialization of the client socket, and also to automatically bind the controller properties based on the interface type of the client controller after the client socket passes the service authentication API
+        /// 客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
         /// </summary>
         public override IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters
         {
@@ -159,16 +161,17 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskController), typeof(ServerBindContext.IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerKeepCallbackTaskController), typeof(ServerBindContext.IClientKeepCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IDefinedSymmetryController), typeof(ServerBindContext.IDefinedSymmetryController));
-                yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(ServerBindContext.IDefinedDissymmetryClientController));
+                yield return new CommandClientControllerCreatorParameter(nameof(IDefinedDissymmetryServerController), typeof(ServerBindContext.IDefinedDissymmetryClientController));
 #if !AOT
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IServerTaskQueueControllerClientController));
 #endif
             }
         }
         /// <summary>
+        /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
-        /// <param name="client">命令客户端</param>
+        /// <param name="client">Command client</param>
         public CommandClientSocketEvent(ICommandClient client) : base(client) { }
 #if AOT
         /// <summary>

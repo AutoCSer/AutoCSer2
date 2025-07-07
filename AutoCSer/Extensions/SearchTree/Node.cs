@@ -11,7 +11,8 @@ namespace AutoCSer.SearchTree
     /// 二叉字典树节点
     /// </summary>
     /// <typeparam name="NT">二叉树节点类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     public class Node<NT, KT>
         where NT : Node<NT, KT>
         where KT : IComparable<KT>
@@ -41,10 +42,12 @@ namespace AutoCSer.SearchTree
         /// </summary>
         public KT Key { get { return key; } }
         /// <summary>
+        /// Number of nodes
         /// 节点数量
         /// </summary>
         internal int Count;
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         internal IEnumerable<NT> Nodes
@@ -63,7 +66,7 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 获取第一组数据
+        /// 获取第一个节点
         /// </summary>
         internal NT FristNode
         {
@@ -73,7 +76,7 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 获取最后一组数据
+        /// 获取最后一个节点
         /// </summary>
         internal NT LastNode
         {
@@ -142,7 +145,7 @@ namespace AutoCSer.SearchTree
         /// <summary>
         /// 根据关键字获取二叉树节点
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <returns>匹配节点</returns>
 #if NetStandard21
         internal NT? Get(KT key)
@@ -167,6 +170,7 @@ namespace AutoCSer.SearchTree
             Count = node.Count;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="node">数据</param>
@@ -216,6 +220,7 @@ namespace AutoCSer.SearchTree
             return null;
         }
         /// <summary>
+        /// Check the number of left nodes
         /// 检测左节点数量
         /// </summary>
         /// <returns>替换节点</returns>
@@ -275,6 +280,7 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
+        /// Check the number of right nodes
         /// 检测右节点数量
         /// </summary>
         /// <returns>替换节点</returns>
@@ -472,6 +478,7 @@ namespace AutoCSer.SearchTree
             ++Count;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="node">数据</param>
@@ -512,9 +519,10 @@ namespace AutoCSer.SearchTree
             return null;
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <returns>被删除节点</returns>
 #if NetStandard21
         internal NT? Remove(KT key)
@@ -594,10 +602,12 @@ namespace AutoCSer.SearchTree
             return (NT)this;
         }
         /// <summary>
+        /// Get data based on the node position
         /// 根据节点位置获取数据
         /// </summary>
-        /// <param name="index">节点位置</param>
-        /// <returns>数据</returns>
+        /// <param name="index">Node position
+        /// 节点位置</param>
+        /// <returns>data</returns>
         internal NT At(int index)
         {
             if (Left != null)
@@ -642,10 +652,12 @@ namespace AutoCSer.SearchTree
             Count = count;
         }
         /// <summary>
-        /// 根据关键字获取一个匹配节点位置
+        /// Get the matching node location based on the keyword
+        /// 根据关键字获取匹配节点位置
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>一个匹配节点位置,失败返回-1</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Returning -1 indicates a failed match
+        /// 返回 -1 表示失败匹配</returns>
         internal int IndexOf(KT key)
         {
             int cmp = this.key.CompareTo(key);
@@ -662,10 +674,12 @@ namespace AutoCSer.SearchTree
             return Left != null ? Left.Count : 0;
         }
         /// <summary>
-        /// 根据关键字比它小的节点数量
+        /// Get the number of nodes smaller than the specified keyword
+        /// 获取比指定关键字小的节点数量
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>节点数量</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Number of nodes
+        /// 节点数量</returns>
         internal int CountLess(KT key)
         {
             int cmp = this.key.CompareTo(key);
@@ -682,10 +696,12 @@ namespace AutoCSer.SearchTree
             return 0;
         }
         /// <summary>
-        /// 根据关键字比它大的节点数量
+        /// Get the number of nodes larger than the specified keyword
+        /// 获取比指定关键字大的节点数量
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>节点数量</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Number of nodes
+        /// 节点数量</returns>
         internal int CountThan(KT key)
         {
             int cmp = this.key.CompareTo(key);

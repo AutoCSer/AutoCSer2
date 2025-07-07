@@ -5,18 +5,23 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Diagnostics;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
+using Microsoft.VisualBasic;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Versioning;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.DeployTaskClient
 {
     class Program
     {
+        [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
         static async Task Main(string[] args)
         {
             do
@@ -226,7 +231,7 @@ Press quit to exit.");
                 return;
             }
 
-            string serverPath = serverFile.Value.FullName ?? serverWebPath.Value; 
+            string serverPath = serverFile.Value.FullName ?? serverWebPath.Value;
             CommandClientReturnValue<string> serverCombinePath = await uploadClient.UploadFileClient.CombinePathArray(new string[] { serverPath, "bin", "Release", "net8.0" });
             if (!serverCombinePath.IsSuccess)
             {
@@ -323,33 +328,105 @@ Press quit to exit.");
                 if (!isStart) await node.Value.Remove(identity.Value);
             }
         }
+        [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
         private static async Task zip()
         {
-            FileInfo zipFile = new FileInfo(@"C:\Showjim\AutoCSer2.zip");
-            await using (FileStream stream = new FileStream(zipFile.FullName, FileMode.Create))
-            using (ZipArchive zipArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
+            try
             {
-                DirectoryInfo directory = new DirectoryInfo(@"C:\AutoCSer2");
-                string[] githubPaths = new string[] { @"C:\AutoCSer2\Github\", @"C:\AutoCSer2\AtomGit\" };
-                foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory))
+                await simplified();
+                FileInfo zipFile = new FileInfo(@"C:\Showjim\AutoCSer2.zip");
+                await using (FileStream stream = new FileStream(zipFile.FullName, FileMode.Create))
+                using (ZipArchive zipArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
                 {
-                    await using (Stream entryStream = zipArchive.CreateEntry(file.Name).Open()) await githubFile(file, entryStream, githubPaths);
-                }
-                foreach (DirectoryInfo nextDircectory in await AutoCSer.Common.GetDirectories(directory))
-                {
-                    switch (nextDircectory.Name.ToLower())
+                    DirectoryInfo directory = new DirectoryInfo(@"C:\AutoCSer2");
+                    string[] githubPaths = new string[] { @"C:\AutoCSer2\Github\", @"C:\AutoCSer2\AtomGit\" };
+                    foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(directory))
                     {
-                        case "autocser":
-                        case ".vs":
-                        case "application":
-                        case "testcase":
-                        case "document":
-                            await zipDirectory(zipArchive, nextDircectory.Name + @"\", nextDircectory, githubPaths);
-                            break;
+                        await using (Stream entryStream = zipArchive.CreateEntry(file.Name).Open()) await githubFile(file, entryStream, githubPaths);
+                    }
+                    foreach (DirectoryInfo nextDircectory in await AutoCSer.Common.GetDirectories(directory))
+                    {
+                        switch (nextDircectory.Name.ToLower())
+                        {
+                            case "autocser":
+                            case ".vs":
+                            case "application":
+                            case "testcase":
+                            case "document":
+                                await zipDirectory(zipArchive, nextDircectory.Name + @"\", nextDircectory, githubPaths);
+                                break;
+                        }
                     }
                 }
+                Console.WriteLine(zipFile.FullName);
             }
-            Console.WriteLine(zipFile.FullName);
+            catch(Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+        [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+        private static async Task simplified()
+        {
+            try
+            {
+                FileInfo file = new FileInfo(@"C:\AutoCSer2\Application\Search\StaticTrieGraph\Simplified.cs");
+                if (await AutoCSer.Common.FileExists(file))
+                {
+                    string code = await File.ReadAllTextAsync(file.FullName, Encoding.UTF8), regionStart = "#region simplified", regionEnd = "#endregion simplified";
+                    int startIndex = code.IndexOf(regionStart), endIndex = code.IndexOf(regionEnd);
+                    if (startIndex == -1) Console.WriteLine("文件 " + file.FullName + " 没有找到 " + regionStart);
+                    else if (endIndex == -1) Console.WriteLine("文件 " + file.FullName + " 没有找到 " + regionEnd);
+                    else
+                    {
+                        string newCode = code.Substring(0, startIndex + regionStart.Length) + @"
+        /// <summary>
+        /// 简体字符集
+        /// </summary>
+        public const string Chars = @""" + getSimplified().Replace(@"""", @"""""") + @""");
+        " + code.Substring(endIndex, code.Length - endIndex);
+                        if (code != newCode) await File.WriteAllTextAsync(file.FullName, newCode, Encoding.UTF8);
+                    }
+                }
+                else Console.WriteLine("没有找到文件 " + file.FullName);
+            }
+            catch(Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+        [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
+        private unsafe static string getSimplified()
+        {
+            string simplified = new string((char)0, 65536);
+            fixed (char* simplifiedFixed = simplified)
+            {
+                char* end = simplifiedFixed + 65536;
+                for (char code = (char)65535; end != simplifiedFixed; *--end = code--) ;
+                simplified = Strings.StrConv(simplified, VbStrConv.SimplifiedChinese, 0).ToLower();
+            }
+            fixed (char* simplifiedFixed = simplified)
+            {
+                char* end = simplifiedFixed + 65536;
+                for (char code = (char)65535; end != simplifiedFixed; --code)
+                {
+                    --end;
+                    UnicodeCategory category = CharUnicodeInfo.GetUnicodeCategory(code);
+                    if ((code >= 0x4E00 && code <= 0X9FA5)
+                        || category == UnicodeCategory.LowercaseLetter || category == UnicodeCategory.UppercaseLetter
+                        || category == UnicodeCategory.TitlecaseLetter || category == UnicodeCategory.ModifierLetter
+                        || category == UnicodeCategory.OtherLetter || category == UnicodeCategory.DecimalDigitNumber
+                        || category == UnicodeCategory.LetterNumber || category == UnicodeCategory.OtherNumber
+                        || code == '&' || code == '.' || code == '+' || code == '#' || code == '-' || code == '_')
+                    {
+                        if (code > 65280 && code < 65375) *end = (char)(code - 65248);
+                        else if (category == UnicodeCategory.DecimalDigitNumber) *end = (char)(48 + CharUnicodeInfo.GetDigitValue(code));
+                        else if (*end == '?') *end = code;
+                    }
+                    else *end = ' ';
+                }
+                return simplified;
+            }
         }
         private static async Task githubFile(FileInfo file, Stream entryStream, string[] githubPaths)
         {
@@ -360,6 +437,7 @@ Press quit to exit.");
                 case ".ts":
                 //case ".js":
                 case ".html":
+                case ".md":
                     if (data.Length < 3 || data[0] != 0xef || data[1] != 0xbb || data[2] != 0xbf)
                     {
                         Console.WriteLine("文件 " + file.FullName + " 缺少 UTF-8 BOM");
@@ -370,16 +448,36 @@ Press quit to exit.");
                     break;
             }
             await entryStream.WriteAsync(data, 0, data.Length);
+            int index = 0;
             foreach (string githubPath in githubPaths)
             {
                 FileInfo githubFile = new FileInfo(Path.Combine(githubPath, file.Name));
-                bool isChanged = !githubFile.Exists || githubFile.Length != data.Length;
-                if (!isChanged)
+                if (file.Extension != ".md" || index == 1)
                 {
-                    byte[] githubData = await File.ReadAllBytesAsync(githubFile.FullName);
-                    isChanged = !data.AsSpan().SequenceEqual(githubData);
+                    bool isChanged = !githubFile.Exists || githubFile.Length != data.Length;
+                    if (!isChanged)
+                    {
+                        byte[] githubData = await File.ReadAllBytesAsync(githubFile.FullName);
+                        isChanged = !data.AsSpan().SequenceEqual(githubData);
+                    }
+                    if (isChanged) await File.WriteAllBytesAsync(githubFile.FullName, data);
                 }
-                if (isChanged) await File.WriteAllBytesAsync(githubFile.FullName, data);
+                else
+                {
+                    string replacePath = null, masterReplacePath = null;
+                    switch (index)
+                    {
+                        case 0:
+                            replacePath = @"https://github.com/AutoCSer/AutoCSer2";
+                            masterReplacePath = @"https://github.com/AutoCSer/AutoCSer2/tree/main/";
+                            break;
+                    }
+                    string text = System.Text.Encoding.UTF8.GetString(data, 3, data.Length - 3)
+                        .Replace(@"https://atomgit.com/autocser/AutoCSer/tree/master/", masterReplacePath)
+                        .Replace(@"https://atomgit.com/autocser/AutoCSer", replacePath);
+                    await File.WriteAllTextAsync(githubFile.FullName, text, System.Text.Encoding.UTF8);
+                }
+                ++index;
             }
         }
         private static async Task<string[]> nextGithubPath(DirectoryInfo directory, string[] githubPaths)
@@ -456,16 +554,19 @@ Press quit to exit.");
             try
             {
                 ProcessArguments gif = new ProcessArguments(@"TestCase\CopyScreenGif\bin\Release\net8.0-windows\publish\AutoCSer.TestCase.CopyScreenGif.AOT.exe");
-                bool gifProcess = await gif.Start();
-                await waitProcess(@"Document\SymmetryService\bin\Release\net8.0\AutoCSer.Document.SymmetryService.exe");
-                await waitProcess(@"Document\ServiceDataSerialize\bin\Release\net8.0\AutoCSer.Document.ServiceDataSerialize.exe");
-                await waitProcess(@"Document\ServiceThreadStrategy\bin\Release\net8.0\AutoCSer.Document.ServiceThreadStrategy.exe");
-                await waitProcess(@"Document\ServiceAuthentication\bin\Release\net8.0\AutoCSer.Document.ServiceAuthentication.exe");
-                await waitProcess(@"Document\MemoryDatabaseNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseNode.exe", 2);
-                await waitProcess(@"Document\MemoryDatabaseCustomNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseCustomNode.exe", 2);
-                await waitProcess(@"Document\MemoryDatabaseLocalService\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseLocalService.exe", 2);
-                await waitProcess(@"Document\ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
-                await waitProcess(@"Document\ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
+                ProcessArguments serializePerformance = new ProcessArguments(@"TestCase\SerializePerformance\bin\Release\net8.0\publish\AutoCSer.TestCase.SerializePerformance.AOT.exe");
+                bool gifProcess = await gif.Start(), serializePerformanceProcess = await serializePerformance.Start();
+                await waitProcess(@"Document\01.SymmetryService\bin\Release\net8.0\AutoCSer.Document.SymmetryService.exe");
+                await waitProcess(@"Document\02.ServiceDataSerialize\bin\Release\net8.0\AutoCSer.Document.ServiceDataSerialize.exe");
+                await waitProcess(@"Document\03.ServiceThreadStrategy\bin\Release\net8.0\AutoCSer.Document.ServiceThreadStrategy.exe");
+                await waitProcess(@"Document\04.ServiceAuthentication\bin\Release\net8.0\AutoCSer.Document.ServiceAuthentication.exe");
+                await waitProcess(@"Document\07.MemoryDatabaseNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseNode.exe", 2);
+                await waitProcess(@"Document\08.MemoryDatabaseCustomNode\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseCustomNode.exe", 2);
+                await waitProcess(@"Document\09.MemoryDatabaseLocalService\bin\Release\net8.0\AutoCSer.Document.MemoryDatabaseLocalService.exe", 2);
+                await waitProcess(@"Document\10.ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
+                await waitProcess(@"Document\11.ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
+                await waitProcess(@"Document\12.NativeAOT\bin\Service\Release\net8.0\AutoCSer.Document.NativeAOT.Service.exe", new ProcessArguments(@"Document\12.NativeAOT\bin\Release\net8.0\publish\AutoCSer.Document.NativeAOT.exe"));
+                if (serializePerformanceProcess) await serializePerformance.WaitLogFile();
                 if (gifProcess) await gif.WaitLogFile();
 
                 await waitProcess(@"TestCase\TestCase\bin\Release\net8.0\AutoCSer.TestCase.exe");
@@ -490,7 +591,6 @@ Press quit to exit.");
                 await search();
                 await search();
 
-                await getAotPublishFile(@"TestCase\SerializePerformance\bin\Release\net8.0\publish\AutoCSer.TestCase.SerializePerformance.AOT.exe");
                 await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\AutoCSer.TestCase.CommandClientPerformance.exe");
                 await waitProcess(@"TestCase\CommandServerPerformance\bin\Release\net8.0\AutoCSer.TestCase.CommandServerPerformance.exe", @"TestCase\CommandServerPerformance\Client\bin\Release\net8.0\publish\AutoCSer.TestCase.CommandClientPerformance.AOT.exe");
                 await waitProcess2(@"TestCase\StreamPersistenceMemoryDatabase\Performance\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.exe", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\PerformanceClient\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClientPerformance.exe", 2);

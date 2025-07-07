@@ -4,23 +4,26 @@ using System;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 取消异步保持调用回调命令
+    /// 取消异步保持回调回调命令
     /// </summary>
     internal sealed class CancelKeepCallbackCommand : BaseCommand
     {
         /// <summary>
-        /// 是否保持回调命令
+        /// Keep callback command returning true
+        /// 保持回调命令返回 true
         /// </summary>
         internal override bool IsKeepCallback { get { return true; } }
         /// <summary>
-        /// 取消异步保持调用回调命令
+        /// 取消异步保持回调回调命令
         /// </summary>
         /// <param name="socket"></param>
         internal CancelKeepCallbackCommand(CommandClientSocket socket) : base(socket, KeepCallbackCommand.KeepCallbackMethod) { }
         /// <summary>
-        /// 接收数据回调处理
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data">输出数据</param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal unsafe override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {

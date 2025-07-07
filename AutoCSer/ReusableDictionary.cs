@@ -44,8 +44,10 @@ namespace AutoCSer
         /// <summary>
         /// 可重用字典
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <param name="groupType">Reusable dictionary recombination operation type
+        /// 可重用字典重组操作类型</param>
         protected ReusableDictionary(int capacity, ReusableDictionaryGroupTypeEnum groupType)
         {
             this.groupType = groupType;
@@ -101,6 +103,7 @@ namespace AutoCSer
             throw new IndexOutOfRangeException();
         }
         /// <summary>
+        /// Get the container size
         /// 获取容器大小
         /// </summary>
         /// <param name="capacity">指定容器大小</param>
@@ -179,7 +182,8 @@ namespace AutoCSer
     /// <summary>
     /// 可重用字典（主要用于非引用类型缓冲区，避免 new / Clear 开销）
     /// </summary>
-    /// <typeparam name="T">关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type
+    /// 关键字类型</typeparam>
     public abstract class ReusableDictionary<T> : ReusableDictionary
     {
         /// <summary>
@@ -189,8 +193,10 @@ namespace AutoCSer
         /// <summary>
         /// 可重用字典
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <param name="groupType">Reusable dictionary recombination operation type
+        /// 可重用字典重组操作类型</param>
         protected ReusableDictionary(int capacity, ReusableDictionaryGroupTypeEnum groupType) : base(capacity, groupType)
         {
             Nodes = capacity >= 0 ? new ReusableHashNode<T>[CapacityDivision.Divisor] : EmptyArray<ReusableHashNode<T>>.Array;
@@ -375,6 +381,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         internal void ClearArray()
@@ -387,6 +394,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Delete the node
         /// 删除节点
         /// </summary>
         /// <param name="nodeIndex"></param>
@@ -452,7 +460,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
         /// <param name="values"></param>
         internal void CopyTo(ref LeftArray<T> values)
@@ -475,7 +483,8 @@ namespace AutoCSer
     /// 可重用字典（主要用于非引用类型缓冲区，避免 new / Clear 开销）
     /// </summary>
     /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="VT">Keyword type
+    /// 数据类型</typeparam>
     [RemoteType]
     public sealed class ReusableDictionary<KT, VT> : ReusableDictionary<KeyValue<KT, VT>>
 #if NetStandard21
@@ -521,6 +530,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<VT> Values
@@ -541,7 +551,7 @@ namespace AutoCSer
         /// <summary>
         /// 获取或者设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <returns></returns>
         public VT this[KT key]
         {
@@ -556,14 +566,16 @@ namespace AutoCSer
         /// <summary>
         /// 可重用字典
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <param name="groupType">Reusable dictionary recombination operation type
+        /// 可重用字典重组操作类型</param>
         public ReusableDictionary(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex) : base(capacity, groupType) { }
         /// <summary>
         /// 尝试获取数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="key">keyword</param>
+        /// <param name="value">Target data</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否获取成功</returns>
 #if NetStandard21
@@ -614,9 +626,10 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="value"></param>
         /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否新增数据</returns>
@@ -626,9 +639,9 @@ namespace AutoCSer
             return set(key, value, isRoll, false);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="value"></param>
         /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否添加数据</returns>
@@ -638,9 +651,10 @@ namespace AutoCSer
             return set(key, value, isRoll, true);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="value"></param>
         /// <param name="isRoll">更新时是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <param name="isAdd"></param>
@@ -709,9 +723,10 @@ namespace AutoCSer
         /// <summary>
         /// 判断是否存在关键字
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool ContainsKey(KT key, bool isRoll = false)
         {
@@ -719,10 +734,12 @@ namespace AutoCSer
             return TryGetValue(key, out value, isRoll);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(KT key)
         {
@@ -730,11 +747,14 @@ namespace AutoCSer
             return Remove(key, out value);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value">被删除数据</param>
-        /// <returns>是否存在关键字</returns>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
 #if NetStandard21
         public bool Remove(KT key, [MaybeNullWhen(false)] out VT value)
 #else
@@ -803,7 +823,8 @@ namespace AutoCSer
         /// <summary>
         /// 删除滚动索引位置数据
         /// </summary>
-        /// <param name="value">被删除数据</param>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
         /// <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         public bool RemoveRoll(out KeyValue<KT, VT> value)
         {
@@ -826,7 +847,9 @@ namespace AutoCSer
                         if (rollIndex != removeCount())
                         {
                             remove(rollIndex, Nodes[rollIndex].HashIndex);
-                            if (++rollIndex == Count) rollIndex = 0;
+                            //if (++rollIndex == Count) rollIndex = 0;
+                            ++rollIndex;
+                            rollIndex &= (rollIndex ^ Count).logicalInversion() - 1;
                         }
                         else rollIndex = 0;
                         return true;
@@ -840,7 +863,9 @@ namespace AutoCSer
                 if (rollIndex != removeCount())
                 {
                     remove(rollIndex, node.HashIndex);
-                    if (++rollIndex == Count) rollIndex = 0;
+                    //if (++rollIndex == Count) rollIndex = 0;
+                    ++rollIndex;
+                    rollIndex &= (rollIndex ^ Count).logicalInversion() - 1;
                 }
                 else rollIndex = 0;
                 return true;
@@ -851,7 +876,8 @@ namespace AutoCSer
         /// <summary>
         /// 删除滚动索引位置数据
         /// </summary>
-        /// <param name="value">被删除数据</param>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
         /// <returns>是否存在数据，非 Roll 类型也返回 false</returns>
 #if NetStandard21
         public bool RemoveRoll([MaybeNullWhen(false)] out VT value)

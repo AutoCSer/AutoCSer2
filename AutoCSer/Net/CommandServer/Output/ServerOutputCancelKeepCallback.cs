@@ -4,7 +4,7 @@ using System;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 取消异步保持调用输出数据
+    /// 取消异步保持回调输出数据
     /// </summary>
     internal sealed class ServerOutputCancelKeepCallback : ServerOutput
     {
@@ -14,11 +14,11 @@ namespace AutoCSer.Net.CommandServer
         //private static readonly ServerInterfaceMethod method = new ServerInterfaceMethod();
 
         /// <summary>
-        /// 取消异步保持调用数据
+        /// 取消异步保持回调数据
         /// </summary>
         private CancelKeepCallbackData cancelKeepCallbackData;
         /// <summary>
-        /// 取消异步保持调用输出数据
+        /// 取消异步保持回调输出数据
         /// </summary>
         /// <param name="callbackIdentity">需要取消回调的会话标识</param>
         /// <param name="returnType"></param>

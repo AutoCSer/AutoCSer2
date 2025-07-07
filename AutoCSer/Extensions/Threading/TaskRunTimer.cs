@@ -4,34 +4,44 @@ using System.Threading.Tasks;
 namespace AutoCSer.Threading
 {
     /// <summary>
-    /// 定时任务运行时间
+    /// Timed task running time
+    /// 定时任务执行时间
     /// </summary>
     public sealed class TaskRunTimer
     {
         /// <summary>
-        /// 下一次运行时间
+        /// The next running time
+        /// 下一次执行时间
         /// </summary>
         private DateTime runTime;
         /// <summary>
-        /// 运行间隔秒数
+        /// The number of seconds of execution interval
+        /// 间隔执行秒数
         /// </summary>
         private double intervalSeconds;
         /// <summary>
-        /// 定时任务运行时间
+        /// Timed task running time
+        /// 定时任务执行时间
         /// </summary>
-        /// <param name="intervalSeconds">运行间隔秒数</param>
+        /// <param name="intervalSeconds">The number of seconds of execution interval
+        /// 间隔执行秒数</param>
         public TaskRunTimer(double intervalSeconds)
         {
             this.intervalSeconds = intervalSeconds;
             runTime = DateTime.Now;
         }
         /// <summary>
+        /// Daily operating time
         /// 按天运行的定时任务运行时间
         /// </summary>
-        /// <param name="hour">开始执行小时</param>
-        /// <param name="minute">开始执行分钟</param>
-        /// <param name="second">开始执行秒数</param>
-        /// <param name="intervalSeconds">间隔执行秒数</param>
+        /// <param name="hour">Start execution hours
+        /// 开始执行小时</param>
+        /// <param name="minute">Start execution minutes
+        /// 开始执行分钟数</param>
+        /// <param name="second">Start execution seconds
+        /// 开始执行秒数</param>
+        /// <param name="intervalSeconds">The number of seconds of execution interval
+        /// 间隔执行秒数</param>
         public TaskRunTimer(int hour, int minute = 0, int second = 0, double intervalSeconds = 24 * 60 * 60)
         {
             DateTime now = DateTime.Now;
@@ -43,7 +53,8 @@ namespace AutoCSer.Threading
             this.intervalSeconds = intervalSeconds;
         }
         /// <summary>
-        /// 等待运行时间
+        /// Waiting time for execution
+        /// 等待执行时间
         /// </summary>
         /// <returns></returns>
         public async Task Delay()

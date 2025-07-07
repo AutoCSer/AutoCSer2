@@ -57,7 +57,7 @@ namespace AutoCSer.Threading
             }
         }
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -67,6 +67,7 @@ namespace AutoCSer.Threading
             stack.Push(value);
         }
         /// <summary>
+        /// Pop-up node
         /// 弹出节点
         /// </summary>
         /// <returns></returns>
@@ -82,6 +83,7 @@ namespace AutoCSer.Threading
             return value;
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         protected internal override void OnTimer()
@@ -99,6 +101,7 @@ namespace AutoCSer.Threading
             else ((IDisposable)value).Dispose();
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private void onTimer()

@@ -42,6 +42,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// </summary>
         internal int GetChangeKeyVersion;
         /// <summary>
+        /// Whether to release resources
         /// 是否释放资源
         /// </summary>
         protected bool isDispose;
@@ -55,7 +56,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             CacheLock = new object();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public virtual void Dispose()
         {
@@ -63,6 +64,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             getChangeKeyKeepCallback?.Dispose();
         }
         /// <summary>
+        /// Gets the collection of updated keyword
         /// 获取更新关键字集合
         /// </summary>
         /// <returns></returns>
@@ -153,14 +155,16 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <summary>
         /// 获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <returns></returns>
         public abstract IDiskBlockClient GetDiskBlockClient(BlockIndex blockIndex);
     }
     /// <summary>
     /// 索引数据磁盘块索引缓存
     /// </summary>
-    /// <typeparam name="KT">索引关键字类型</typeparam>
+    /// <typeparam name="KT">Index keyword type
+    /// 索引关键字类型</typeparam>
     /// <typeparam name="VT">索引数据类型</typeparam>
     public abstract class BlockIndexDataCache<KT, VT> : BlockIndexDataCache<VT>
 #if NetStandard21

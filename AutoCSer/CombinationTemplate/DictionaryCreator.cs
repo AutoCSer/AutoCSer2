@@ -4,15 +4,17 @@
 namespace AutoCSer
 {
     /// <summary>
+    /// Create the dictionary
     /// 创建字典
     /// </summary>
     public static partial class DictionaryCreator
     {
         /// <summary>
+        /// Create a dictionary
         /// 创建字典
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <returns>字典</returns>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <returns>Dictionary</returns>
         public static System.Collections.Generic.Dictionary<ulong, T> CreateULong<T>()
         {
 #if AOT
@@ -22,11 +24,13 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Create a dictionary
         /// 创建字典
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="capacity">初始化容器尺寸</param>
-        /// <returns>字典</returns>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <returns>Dictionary</returns>
         public static System.Collections.Generic.Dictionary<ulong, T> CreateULong<T>(int capacity)
         {
 #if AOT
@@ -38,11 +42,13 @@ namespace AutoCSer
     }
 #if AOT
     /// <summary>
+    /// Dictionary key comparator
     /// 字典关键字比较器
     /// </summary>
     public sealed class ULongComparer : System.Collections.Generic.IEqualityComparer<ulong>
     {
         /// <summary>
+        /// Compare whether they are equal
         /// 比较是否相等
         /// </summary>
         /// <param name="left"></param>
@@ -53,6 +59,7 @@ namespace AutoCSer
             return left == right;
         }
         /// <summary>
+        /// Calculate the hash value
         /// 计算哈希值
         /// </summary>
         /// <param name="value"></param>
@@ -62,6 +69,7 @@ namespace AutoCSer
             return value.GetHashCode();
         }
         /// <summary>
+        /// Default comparator
         /// 默认比较器
         /// </summary>
         public static readonly ULongComparer Default = new ULongComparer();

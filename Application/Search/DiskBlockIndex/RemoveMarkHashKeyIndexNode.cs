@@ -9,7 +9,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
     /// <summary>
     /// 带移除标记的可重用哈希索引节点
     /// </summary>
-    /// <typeparam name="T">索引关键字类型</typeparam>
+    /// <typeparam name="T">Index keyword type
+    /// 索引关键字类型</typeparam>
     public abstract class RemoveMarkHashKeyIndexNode<T> : MethodParameterCreatorNode<IRemoveMarkHashKeyIndexNode<T>, BinarySerializeKeyValue<T, BlockIndexData<uint>>>, IRemoveMarkHashKeyIndexNode<T>, ISnapshot<BinarySerializeKeyValue<T, BlockIndexData<uint>>>
 #if NetStandard21
         where T : notnull, IEquatable<T>
@@ -34,9 +35,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             indexs = new FragmentDictionary256<T, RemoveMarkHashKeyIndex<T>>();
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override IRemoveMarkHashKeyIndexNode<T>? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -55,13 +58,15 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             indexs.Clear();
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved() 
         {
             free();
         }
         /// <summary>
+        /// Database service shutdown operation
         /// 数据库服务关闭操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceDisposable()
@@ -69,20 +74,27 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             free();
         }
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         int ISnapshot<BinarySerializeKeyValue<T, BlockIndexData<uint>>>.GetSnapshotCapacity(ref object customObject)
         {
             return indexs.Count;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         SnapshotResult<BinarySerializeKeyValue<T, BlockIndexData<uint>>> ISnapshot<BinarySerializeKeyValue<T, BlockIndexData<uint>>>.GetSnapshotResult(BinarySerializeKeyValue<T, BlockIndexData<uint>>[] snapshotArray, object customObject)
         {
             SnapshotResult<BinarySerializeKeyValue<T, BlockIndexData<uint>>> result = new SnapshotResult<BinarySerializeKeyValue<T, BlockIndexData<uint>>>(indexs.Count, snapshotArray.Length);
@@ -90,9 +102,10 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(BinarySerializeKeyValue<T, BlockIndexData<uint>> value)
         {
             indexs.Add(value.Key, new RemoveMarkHashKeyIndex<T>(this, value.Key, ref value.Value));
@@ -100,21 +113,27 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 根据索引关键字获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="key">索引关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
         /// <returns></returns>
         public abstract IDiskBlockClient GetDiskBlockClient(T key);
         /// <summary>
         /// 获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <returns></returns>
         public abstract IDiskBlockClient GetDiskBlockClient(BlockIndex blockIndex);
         /// <summary>
-        /// 添加匹配数据关键字
+        /// Add matching data keyword (Initialize and load the persistent data)
+        /// 添加匹配数据关键字（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
-        /// <returns>返回 false 表示关键字数据为 null</returns>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
+        /// <returns>Returning false indicates that the keyword data is null
+        /// 返回 false 表示关键字数据为 null</returns>
         public bool AppendLoadPersistence(T key, uint value)
         {
             if (key != null)
@@ -126,11 +145,15 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return false;
         }
         /// <summary>
+        /// Add matching data keyword
         /// 添加匹配数据关键字
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
-        /// <returns>返回 false 表示关键字数据为 null</returns>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
+        /// <returns>Returning false indicates that the keyword data is null
+        /// 返回 false 表示关键字数据为 null</returns>
         public bool Append(T key, uint value)
         {
             if (key != null)
@@ -147,10 +170,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return false;
         }
         /// <summary>
-        /// 添加匹配数据关键字
+        /// Add matching data keyword (Initialize and load the persistent data)
+        /// 添加匹配数据关键字（初始化加载持久化数据）
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void AppendArrayLoadPersistence(T[] keys, uint value)
         {
             if (keys != null)
@@ -159,10 +185,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
+        /// Add matching data keyword
         /// 添加匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void AppendArray(T[] keys, uint value)
         {
             if (keys != null)
@@ -171,10 +200,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
-        /// 添加匹配数据关键字
+        /// Add matching data keyword (Initialize and load the persistent data)
+        /// 添加匹配数据关键字（初始化加载持久化数据）
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void AppendLeftArrayLoadPersistence(LeftArray<T> keys, uint value)
         {
             int count = keys.Length;
@@ -188,10 +220,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
+        /// Add matching data keyword
         /// 添加匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void AppendLeftArray(LeftArray<T> keys, uint value)
         {
             int count = keys.Length;
@@ -205,11 +240,15 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
-        /// 删除匹配数据关键字
+        /// Delete the matching data keyword (Initialize and load the persistent data)
+        /// 删除匹配数据关键字（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
-        /// <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
+        /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found
+        /// 返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
         public bool RemoveLoadPersistence(T key, uint value)
         {
             if (key != null)
@@ -220,11 +259,15 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return false;
         }
         /// <summary>
+        /// Delete the matching data keyword
         /// 删除匹配数据关键字
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
-        /// <returns>返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
+        /// <returns>Returning false indicates that the keyword data is null or the index keyword is not found
+        /// 返回 false 表示关键字数据为 null 或者没有找到索引关键字</returns>
         public bool Remove(T key, uint value)
         {
             if (key != null)
@@ -239,10 +282,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return false;
         }
         /// <summary>
-        /// 删除匹配数据关键字
+        /// Delete the matching data keyword (Initialize and load the persistent data)
+        /// 删除匹配数据关键字（初始化加载持久化数据）
         /// </summary>
-        /// <param name="keys">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void RemoveArrayLoadPersistence(T[] keys, uint value)
         {
             if (keys != null)
@@ -251,10 +297,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
+        /// Delete the matching data keyword
         /// 删除匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void RemoveArray(T[] keys, uint value)
         {
             if (keys != null)
@@ -263,10 +312,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
-        /// 删除匹配数据关键字
+        /// Delete the matching data keyword (Initialize and load the persistent data)
+        /// 删除匹配数据关键字（初始化加载持久化数据）
         /// </summary>
-        /// <param name="keys">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void RemoveLeftArrayLoadPersistence(LeftArray<T> keys, uint value)
         {
             int count = keys.Length;
@@ -280,10 +332,13 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
+        /// Delete the matching data keyword
         /// 删除匹配数据关键字
         /// </summary>
-        /// <param name="keys">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         public void RemoveLeftArray(LeftArray<T> keys, uint value)
         {
             int count = keys.Length;
@@ -297,31 +352,41 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
-        /// 磁盘块索引信息写入完成操作
+        /// The operation of writing the disk block index information has been completed (Initialize and load the persistent data)
+        /// 磁盘块索引信息写入完成操作（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="blockIndex">磁盘块索引信息</param>
-        /// <param name="valueCount">新增数据数量</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
+        /// <param name="valueCount">The number of newly added data
+        /// 新增数据数量</param>
         public void WriteCompletedLoadPersistence(T key, BlockIndex blockIndex, int valueCount)
         {
             var index = default(RemoveMarkHashKeyIndex<T>);
             if (indexs.TryGetValue(key, out index)) index.WriteCompletedLoadPersistence(blockIndex, valueCount);
         }
         /// <summary>
+        /// The operation of writing the disk block index information has been completed
         /// 磁盘块索引信息写入完成操作
         /// </summary>
-        /// <param name="key">索引关键字</param>
-        /// <param name="blockIndex">磁盘块索引信息</param>
-        /// <param name="valueCount">新增数据数量</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
+        /// <param name="valueCount">The number of newly added data
+        /// 新增数据数量</param>
         public void WriteCompleted(T key, BlockIndex blockIndex, int valueCount)
         {
             var index = default(RemoveMarkHashKeyIndex<T>);
             if (indexs.TryGetValue(key, out index)) index.WriteCompleted(blockIndex, valueCount);
         }
         /// <summary>
+        /// Get the index information of the index data disk block
         /// 获取索引数据磁盘块索引信息
         /// </summary>
-        /// <param name="key">索引关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
         /// <returns></returns>
         public BlockIndexData<uint> GetBlockIndexData(T key)
         {
@@ -333,9 +398,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return default(BlockIndexData<uint>);
         }
         /// <summary>
+        /// Get the index information of the index data disk block
         /// 获取索引数据磁盘块索引信息
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
         /// <returns></returns>
         public BlockIndexData<uint>[] GetBlockIndexDataArray(T[] keys)
         {
@@ -357,9 +424,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return EmptyArray<BlockIndexData<uint>>.Array;
         }
         /// <summary>
+        /// Get the index information of the index data disk block
         /// 获取索引数据磁盘块索引信息
         /// </summary>
-        /// <param name="key">索引关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
         /// <returns></returns>
         public BlockIndexData<int> GetIntBlockIndexData(T key)
         {
@@ -371,9 +440,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return default(BlockIndexData<int>);
         }
         /// <summary>
+        /// Get the index information of the index data disk block
         /// 获取索引数据磁盘块索引信息
         /// </summary>
-        /// <param name="keys">索引关键字集合</param>
+        /// <param name="keys">Index keyword collection
+        /// 索引关键字集合</param>
         /// <returns></returns>
         public BlockIndexData<int>[] GetIntBlockIndexDataArray(T[] keys)
         {
@@ -395,9 +466,11 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return EmptyArray<BlockIndexData<int>>.Array;
         }
         /// <summary>
+        /// Gets the collection of updated keyword
         /// 获取更新关键字集合
         /// </summary>
-        /// <param name="callback">获取更新关键字集合回调</param>
+        /// <param name="callback">The callback delegate for gets the collection of updated keywords
+        /// 获取更新关键字集合回调委托</param>
         public void GetChangeKeys(MethodKeepCallback<T> callback)
         {
             bool isCallback = false;

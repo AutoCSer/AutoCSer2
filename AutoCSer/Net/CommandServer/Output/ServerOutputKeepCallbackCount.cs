@@ -12,6 +12,7 @@ namespace AutoCSer.Net.CommandServer
         where T : struct
     {
         /// <summary>
+        /// TCP server-side asynchronously keep callback count
         /// TCP 服务器端异步保持回调计数
         /// </summary>
         private CommandServerKeepCallbackCount keepCallbackCount;

@@ -8,26 +8,31 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// Keep callback object of the command
     /// 命令保持回调对象
     /// </summary>
     public sealed class CommandKeepCallback : SecondTimerTaskArrayNode, IDisposable
     {
         /// <summary>
-        /// 客户端命令
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         public readonly KeepCommand Command;
         /// <summary>
-        /// 取消异步保持调用回调命令
+        /// Cancel the command to keep the callback
+        /// 取消保持回调的命令
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
         private CancelKeepCommand cancelKeepCommand;
         /// <summary>
+        /// Session callback identifier
         /// 会话回调标识
         /// </summary>
         private CallbackIdentity callbackIdentity;
         /// <summary>
+        /// Keep callback object of the command
         /// 命令保持回调对象
         /// </summary>
         /// <param name="command">客户端命令</param>
@@ -36,6 +41,7 @@ namespace AutoCSer.Net
             this.Command = command;
         }
         /// <summary>
+        /// Release resources (Send cancellation commands to the server regularly)
         /// 释放资源（定时向服务器发送取消命令）
         /// </summary>
         public void Dispose()
@@ -43,6 +49,7 @@ namespace AutoCSer.Net
             Cancel(true);
         }
         /// <summary>
+        /// Forced shutdown (Send a cancellation command to the server immediately)
         /// 强制关闭（立即向服务器发送取消命令）
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -51,7 +58,8 @@ namespace AutoCSer.Net
             Cancel(false);
         }
         /// <summary>
-        /// 取消回调
+        /// Cancel the keep callback
+        /// 取消保持回调
         /// </summary>
         /// <param name="isTimerTask"></param>
         internal void Cancel(bool isTimerTask)
@@ -67,7 +75,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 添加到任务处理
+        /// Add to the scheduled task
+        /// 添加到定时任务
         /// </summary>
         /// <param name="callbackIdentity"></param>
 #if NET8
@@ -81,7 +90,8 @@ namespace AutoCSer.Net
             AppendTaskArray();
         }
         /// <summary>
-        /// 取消回调
+        /// Cancel the keep callback
+        /// 取消保持回调
         /// </summary>
         /// <param name="isTimerTask"></param>
         /// <returns></returns>
@@ -106,6 +116,7 @@ namespace AutoCSer.Net
             return SecondTimerAppendTaskStateEnum.Completed;
         }
         /// <summary>
+        /// Set the session callback identifier
         /// 设置会话回调标识
         /// </summary>
         /// <param name="index"></param>
@@ -117,6 +128,7 @@ namespace AutoCSer.Net
             else appendTask(new CallbackIdentity((uint)index, identity));
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         /// <returns></returns>

@@ -11,7 +11,8 @@ namespace AutoCSer.Algorithm
         /// <summary>
         /// 快速排序
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置 - sizeof(long)</param>
         internal unsafe static void SortLong(byte* startIndex, byte* endIndex)
         {

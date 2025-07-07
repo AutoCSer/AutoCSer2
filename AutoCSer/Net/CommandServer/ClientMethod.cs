@@ -5,51 +5,63 @@ using System.Collections.Generic;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Client interface method information
     /// 客户端接口方法信息
     /// </summary>
     public sealed class ClientMethod
     {
         /// <summary>
+        /// Client interface type
         /// 客户端接口类型
         /// </summary>
         private readonly Type type;
         /// <summary>
+        /// Customize the command sequence number
         /// 自定义命令序号
         /// </summary>
         internal readonly int MethodIndex;
         /// <summary>
-        /// 是否简单序列化输出数据
+        /// Whether the output data is simply serialized
+        /// 输出数据是否简单序列化
         /// </summary>
         internal readonly bool IsSimpleSerializeParamter;
         /// <summary>
-        /// 是否简单反序列化输入数据
+        /// Whether the input data is simply deserialized
+        /// 输入数据是否简单反序列化
         /// </summary>
         internal readonly bool IsSimpleDeserializeParamter;
         /// <summary>
+        /// The client's await awaits the return value callback thread mode
         /// 客户端 await 等待返回值回调线程模式
         /// </summary>
         internal readonly ClientCallbackTypeEnum CallbackType;
         /// <summary>
+        /// Call back the queue number
         /// 回调队列序号
         /// </summary>
         internal readonly byte QueueIndex;
         /// <summary>
+        /// Match the method name
         /// 匹配方法名称
         /// </summary>
         internal readonly string MatchMethodName;
         /// <summary>
+        /// Timeout seconds
         /// 超时秒数
         /// </summary>
         internal readonly ushort TimeoutSeconds;
         /// <summary>
+        /// Whether it is a low-priority queue
         /// 是否低优先级队列
         /// </summary>
         internal readonly bool IsLowPriorityQueue;
         /// <summary>
-        /// 是否反序列化错误
+        /// Whether deserialization failed
+        /// 是否反序列化失败
         /// </summary>
         private bool isDeserializeError;
         /// <summary>
+        /// Empty method information
         /// 空方法信息
         /// </summary>
         internal ClientMethod()
@@ -58,6 +70,7 @@ namespace AutoCSer.Net.CommandServer
             type = typeof(int);
         }
         /// <summary>
+        /// Client interface method information
         /// 客户端接口方法信息
         /// </summary>
         /// <param name="type"></param>
@@ -82,6 +95,7 @@ namespace AutoCSer.Net.CommandServer
             IsLowPriorityQueue = isLowPriorityQueue != 0;
         }
         /// <summary>
+        /// Get the collection of server-side method numbers
         /// 获取服务端方法编号集合
         /// </summary>
         /// <param name="methodStartIndex"></param>
@@ -117,6 +131,7 @@ namespace AutoCSer.Net.CommandServer
             return serverMethodIndexs;
         }
         /// <summary>
+        /// Get the collection of server-side method numbers
         /// 获取服务端方法编号集合
         /// </summary>
         /// <param name="methodStartIndex"></param>
@@ -161,6 +176,7 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
+        /// Output the deserialization error log
         /// 输出反序列化错误日志
         /// </summary>
         /// <param name="controller"></param>

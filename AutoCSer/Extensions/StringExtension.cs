@@ -141,7 +141,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 字符替换
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <param name="oldChar">原字符</param>
         /// <param name="newChar">目标字符</param>
         /// <returns>字符串</returns>

@@ -22,7 +22,7 @@ namespace AutoCSer.Expression
         /// </summary>
         internal readonly byte MemberDepth;
         /// <summary>
-        /// 下一个节点
+        /// The next node
         /// </summary>
 #if NetStandard21
         internal ValueNode? Next;

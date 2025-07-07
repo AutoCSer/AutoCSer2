@@ -9,10 +9,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class IdentityGeneratorNode : IIdentityGeneratorNode, IEnumerableSnapshot<long>
     {
         /// <summary>
+        /// Current allocation identity
         /// 当前分配 ID
         /// </summary>
         private long identity;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<long> IEnumerableSnapshot<long>.SnapshotEnumerable { get { return new SnapshotGetValue<long>(getIdentity); } }
@@ -33,7 +35,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return identity;
         }
         /// <summary>
-        /// 快照添加数据
+        /// Add snapshot data
+        /// 添加快照数据
         /// </summary>
         /// <param name="identity"></param>
         public void SnapshotSet(long identity)
@@ -41,18 +44,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.identity = identity;
         }
         /// <summary>
+        /// Get the next increment identity
         /// 获取下一个自增ID
         /// </summary>
-        /// <returns>下一个自增ID，失败返回负数</returns>
+        /// <returns>The next increment identity returns a negative number on failure
+        /// 下一个自增ID，失败返回负数</returns>
         public long Next()
         {
             return identity > 0 ? identity++ : long.MinValue;
         }
         /// <summary>
+        /// Gets the auto-increment identity segment
         /// 获取自增 ID 分段
         /// </summary>
-        /// <param name="count">获取数量</param>
-        /// <returns>自增 ID 分段</returns>
+        /// <param name="count">Get the quantity of data
+        /// 获取数据数量</param>
+        /// <returns>Auto-increment identity segment
+        /// 自增 ID 分段</returns>
         public IdentityFragment NextFragment(int count)
         {
             if (count > 0 && identity + count > 0) return new IdentityFragment(ref identity, count);

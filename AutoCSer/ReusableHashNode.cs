@@ -56,6 +56,7 @@ namespace AutoCSer
         /// </summary>
         internal T Value;
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -70,6 +71,7 @@ namespace AutoCSer
             Value = value;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -85,6 +87,7 @@ namespace AutoCSer
             Value = value;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="hashCode"></param>
@@ -96,6 +99,7 @@ namespace AutoCSer
             Value = value;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -122,6 +126,7 @@ namespace AutoCSer
             Value = value.Value;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="hashIndex"></param>

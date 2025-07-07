@@ -6,15 +6,18 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Keep callback command
     /// 保持回调命令
     /// </summary>
     public abstract class KeepCommand : Command, INotifyCompletion
     {
         /// <summary>
+        /// Keep callback object of the command
         /// 命令保持回调对象
         /// </summary>
         protected readonly CommandKeepCallback keepCallback;
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -23,27 +26,33 @@ namespace AutoCSer.Net.CommandServer
         protected Action continuation;
 #endif
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; protected set; }
         /// <summary>
-        /// 命令添加状态
+        /// The status of the reqeust command added to the output queue
+        /// 请求命令添加到输出队列的状态
         /// </summary>
         internal CommandPushStateEnum PushState;
         /// <summary>
-        /// 返回值类型
+        /// Request the return value type
+        /// 请求返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType { get; protected set; }
         /// <summary>
-        /// 是否保持回调命令
+        /// Keep callback command returning true
+        /// 保持回调命令返回 true
         /// </summary>
         internal override bool IsKeepCallback { get { return true; } }
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         internal bool IsDisposed;
         /// <summary>
-        /// 添加输出命令通知
+        /// Keep callback command
+        /// 保持回调命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -53,10 +62,12 @@ namespace AutoCSer.Net.CommandServer
             ReturnType = CommandClientReturnTypeEnum.Success;
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -98,11 +109,13 @@ namespace AutoCSer.Net.CommandServer
             return this;
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
+        /// <param name="buildInfo"></param>
         /// <param name="inputParameter"></param>
-        /// <returns>是否成功</returns>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe Command? BuildKeep<T>(ref ClientBuildInfo buildInfo, ref T inputParameter)
 #else
@@ -166,9 +179,9 @@ namespace AutoCSer.Net.CommandServer
         ///// <summary>
         ///// 创建命令输入数据
         ///// </summary>
-        ///// <param name="buildInfo">TCP 客户端创建命令参数</param>
+        ///// <param name="buildInfo"></param>
         ///// <param name="inputParameter"></param>
-        ///// <returns>是否成功</returns>
+        ///// <returns>Return false on failure</returns>
         //internal unsafe Command BuildKeep<T>(ref ClientBuildInfo buildInfo, ref T inputParameter)
         //    where T : struct
         //{
@@ -225,6 +238,7 @@ namespace AutoCSer.Net.CommandServer
         //}
 
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -235,7 +249,8 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
-        /// 添加命令到发送队列
+        /// Add commands to the output queue
+        /// 添加命令到输出队列
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -249,9 +264,11 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
-        /// 检查等待添加队列命令
+        /// The command waiting for idle output attempts to be added to the output queue again
+        /// 等待空闲输出的命令再次尝试添加到输出队列
         /// </summary>
-        /// <returns>是否需要继续等待</returns>
+        /// <returns>Is it necessary to keep waiting
+        /// 是否需要继续等待</returns>
         internal override bool CheckWaitPush()
         {
             PushState = Controller.Socket.TryPush(this);

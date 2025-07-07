@@ -7,7 +7,7 @@ namespace AutoCSer.CodeGenerator.Template
     {
         #region PART CLASS
         /// <summary>
-        /// @CurrentType.CodeGeneratorXmlDocument 客户端节点接口
+        /// @CurrentType.CodeGeneratorXmlDocument client node interface
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(@CurrentType.GenericDefinitionFullName))]
         /*NOTE*/

@@ -3,19 +3,23 @@
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 命令添加状态
+    /// The status of the reqeust command added to the output queue
+    /// 请求命令添加到输出队列的状态
     /// </summary>
     internal enum CommandPushStateEnum : byte
     {
         /// <summary>
-        /// 成功
+        /// Successfully added to the output queue
+        /// 成功添加到输出队列
         /// </summary>
         Success,
         /// <summary>
-        /// 需要等待队列数量
+        /// Wait for the number of free outputs
+        /// 等待空闲输出数量
         /// </summary>
         WaitCount,
         /// <summary>
+        /// The socket has been closed
         /// 套接字已经关闭
         /// </summary>
         Closed,

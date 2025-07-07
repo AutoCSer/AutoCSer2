@@ -38,8 +38,9 @@ namespace AutoCSer
         /// <summary>
         /// 字符子串
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="value">字符串</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="value"></param>
         /// <param name="length">长度</param>
         internal SubString(int startIndex, int length, string value)
         {
@@ -50,14 +51,15 @@ namespace AutoCSer
         /// <summary>
         /// 字符子串
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="value">字符串</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="value"></param>
         /// <param name="length">长度</param>
         internal SubString(long startIndex, long length, string value) : this((int)startIndex, (int)length, value) { }
         /// <summary>
         /// 字符串隐式转换为子串
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <returns>字符子串</returns>
         public static implicit operator SubString(string value)
         {
@@ -93,6 +95,7 @@ namespace AutoCSer
             fixed (char* valueFixed = GetFixedBuffer()) return AutoCSer.Memory.Common.GetHashCode64((byte*)(valueFixed + Start), Length << 1);
         }
         /// <summary>
+        /// Clear the data
         /// 清空数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -200,7 +203,8 @@ namespace AutoCSer
         /// <summary>
         /// 获取子串
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="length">长度</param>
         /// <returns>子串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -211,7 +215,8 @@ namespace AutoCSer
         /// <summary>
         /// 设置为子串
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="length">长度</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Sub(int startIndex, int length)
@@ -222,7 +227,8 @@ namespace AutoCSer
         /// <summary>
         /// 设置为子串
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Sub(int startIndex)
         {
@@ -232,7 +238,8 @@ namespace AutoCSer
         /// <summary>
         /// 获取子串
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <returns>子串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal SubString GetSub(int startIndex)
@@ -242,7 +249,8 @@ namespace AutoCSer
         /// <summary>
         /// 获取子串
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="length">长度</param>
         /// <returns>子串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -334,6 +342,7 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Get the fixed buffer, DEBUG mode to detect the data range
         /// 获取 fixed 缓冲区，DEBUG 模式对数据范围进行检测
         /// </summary>
         /// <returns></returns>

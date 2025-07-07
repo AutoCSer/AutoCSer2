@@ -22,6 +22,7 @@ namespace AutoCSer.CommandService.DiskBlock
             setCompleted();
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>

@@ -17,7 +17,7 @@ namespace AutoCSer.ORM.RemoteProxy
         /// 读取自定义数据列
         /// </summary>
         /// <param name="row">数据行</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <param name="columnIndexs">数据列索引集合</param>
         /// <param name="index">当前读取位置</param>
         internal delegate void ReaderDelegate(DataValue[] row, ref T value, int[] columnIndexs, ref int index);

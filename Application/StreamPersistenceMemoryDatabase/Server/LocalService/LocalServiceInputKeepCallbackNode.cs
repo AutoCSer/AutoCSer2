@@ -18,6 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         private readonly InputKeepCallbackMethodParameter parameter;
         /// <summary>
+        /// Local service client node
         /// 本地服务客户端节点
         /// </summary>
         private readonly LocalClientNode clientNode;
@@ -56,6 +57,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.result = this.callback;
         }
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         public override void RunTask()
@@ -74,10 +76,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="PT"></typeparam>
-        /// <param name="clientNode">本地服务客户端节点</param>
-        /// <param name="methodIndex">调用方法编号</param>
-        /// <param name="parameter">调用参数</param>
-        /// <param name="callback">回调委托</param>
+        /// <param name="clientNode">Local service client node
+        /// 本地服务客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="parameter">Call parameters
+        /// 调用参数</param>
+        /// <param name="callback">The client callback delegate
+        /// 客户端回调委托</param>
         /// <returns></returns>
         public static LocalServiceQueueNode<IDisposable> Create<T, PT>(LocalClientNode clientNode, int methodIndex, PT parameter, Action<LocalResult<T>> callback) where PT : struct
         {

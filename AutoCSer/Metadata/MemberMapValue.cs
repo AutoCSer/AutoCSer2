@@ -3,9 +3,11 @@
 namespace AutoCSer.Metadata
 {
     /// <summary>
+    /// Member bitmap object binding
     /// 成员位图对象绑定
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Target data object type
+    /// 目标数据对象类型</typeparam>
 #if NetStandard21
     [AutoCSer.BinarySerialize(CustomReferenceTypes = new Type?[] { null })]
 #else
@@ -15,6 +17,7 @@ namespace AutoCSer.Metadata
     public struct MemberMapValue<T> : AutoCSer.BinarySerialize.ICustomSerialize<MemberMapValue<T>>, AutoCSer.Json.ICustomSerialize<MemberMapValue<T>>
     {
         /// <summary>
+        /// Member bitmap
         /// 成员位图
         /// </summary>
 #if NetStandard21
@@ -23,7 +26,7 @@ namespace AutoCSer.Metadata
         public MemberMap<T> MemberMap;
 #endif
         /// <summary>
-        /// 目标数据
+        /// Target data
         /// </summary>
 #if NetStandard21
         public T? Value;
@@ -32,6 +35,7 @@ namespace AutoCSer.Metadata
 #endif
 
         /// <summary>
+        /// Member bitmap object binding custom binary serialization
         /// 成员位图对象绑定自定义二进制序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -49,6 +53,7 @@ namespace AutoCSer.Metadata
             }
         }
         /// <summary>
+        /// Member bitmap object binding custom binary deserialization
         /// 成员位图对象绑定自定义二进制反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -88,6 +93,7 @@ namespace AutoCSer.Metadata
             }
         }
         /// <summary>
+        /// Member bitmap object binding custom JSON serialization
         /// 成员位图对象绑定自定义 JSON 序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -105,6 +111,7 @@ namespace AutoCSer.Metadata
             }
         }
         /// <summary>
+        /// Member bitmap object binding custom JSON deserialization
         /// 成员位图对象绑定自定义 JSON 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -120,7 +127,7 @@ namespace AutoCSer.Metadata
         }
 
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator MemberMapValue<T>(T value)
@@ -129,10 +136,13 @@ namespace AutoCSer.Metadata
         }
     }
     /// <summary>
+    /// Member bitmap object binding
     /// 成员位图对象绑定
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="VT"></typeparam>
+    /// <typeparam name="T">Member bitmap data type
+    /// 成员位图数据类型</typeparam>
+    /// <typeparam name="VT">Target data object type
+    /// 目标数据对象类型</typeparam>
 #if NetStandard21
     [AutoCSer.BinarySerialize(CustomReferenceTypes = new Type?[] { null })]
 #else
@@ -143,6 +153,7 @@ namespace AutoCSer.Metadata
         where VT : class, T
     {
         /// <summary>
+        /// Member bitmap
         /// 成员位图
         /// </summary>
 #if NetStandard21
@@ -151,7 +162,7 @@ namespace AutoCSer.Metadata
         public MemberMap<T> MemberMap;
 #endif
         /// <summary>
-        /// 目标数据
+        /// Target data
         /// </summary>
 #if NetStandard21
         public VT? Value;
@@ -160,6 +171,7 @@ namespace AutoCSer.Metadata
 #endif
 
         /// <summary>
+        /// Member bitmap object binding custom binary serialization
         /// 成员位图对象绑定自定义二进制序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -178,6 +190,7 @@ namespace AutoCSer.Metadata
             }
         }
         /// <summary>
+        /// Member bitmap object binding custom binary deserialization
         /// 成员位图对象绑定自定义二进制反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -223,6 +236,7 @@ namespace AutoCSer.Metadata
             }
         }
         /// <summary>
+        /// Member bitmap object binding custom JSON serialization
         /// 成员位图对象绑定自定义 JSON 序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -240,6 +254,7 @@ namespace AutoCSer.Metadata
             }
         }
         /// <summary>
+        /// Member bitmap object binding custom JSON deserialization
         /// 成员位图对象绑定自定义 JSON 反序列化
         /// </summary>
         /// <param name="deserializer"></param>

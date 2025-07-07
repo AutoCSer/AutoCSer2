@@ -19,6 +19,7 @@ namespace AutoCSer.Threading
         private const int defaultStackSize = 1 << 20;
 
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         private volatile int isDisposed;

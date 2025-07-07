@@ -5,6 +5,7 @@ using System.Threading;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// The server side goes offline to count the object
     /// 服务端下线计数对象
     /// </summary>
     public sealed class OfflineCount

@@ -12,8 +12,9 @@ namespace AutoCSer.CommandService.Search
     /// 非索引条件查询数据节点
     /// </summary>
     /// <typeparam name="NT">节点接口类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     public abstract class ConditionDataNode<NT, KT, VT> : MethodParameterCreatorNode<NT, VT>, ISnapshot<VT>
         where NT : IConditionDataNode<KT, VT>
 #if NetStandard21
@@ -23,10 +24,12 @@ namespace AutoCSer.CommandService.Search
 #endif
     {
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
         protected abstract int snapshotCapacity { get; }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         protected abstract IEnumerable<VT> snapshotValues { get; }
@@ -39,6 +42,7 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         protected bool isLoaded;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         public ISnapshotEnumerable<bool> SnapshotEnumerable { get { return new SnapshotGetValueEmpty<bool>(getIsLoaded); } }
@@ -47,9 +51,11 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         protected ConditionDataNode() { }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override NT? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -70,20 +76,27 @@ namespace AutoCSer.CommandService.Search
         /// <returns></returns>
         protected abstract EnumeratorCommand<VT> getLoadCommand();
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         int ISnapshot<VT>.GetSnapshotCapacity(ref object customObject)
         {
             return snapshotCapacity;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         SnapshotResult<VT> ISnapshot<VT>.GetSnapshotResult(VT[] snapshotArray, object customObject)
         {
             SnapshotResult<VT> result = new SnapshotResult<VT>(snapshotCapacity, snapshotArray.Length);
@@ -91,9 +104,10 @@ namespace AutoCSer.CommandService.Search
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public abstract void SnapshotSet(VT value);
         /// <summary>
         /// 是否已经加载初始化数据
@@ -105,14 +119,16 @@ namespace AutoCSer.CommandService.Search
             return default(KeyValue<bool, bool>);
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSetLoaded(bool value)
         {
             isLoaded = value;
         }
         /// <summary>
+        /// The initialization data loading has been completed
         /// 初始化数据加载完成
         /// </summary>
         public void Loaded()
@@ -132,25 +148,33 @@ namespace AutoCSer.CommandService.Search
         /// <returns></returns>
         public abstract bool Contains(VT value);
         /// <summary>
-        /// 创建非索引条件查询数据 持久化前检查
+        /// Create non-indexed conditional query data (Check the input parameters before the persistence operation)
+        /// 创建非索引条件查询数据（持久化操作之前检查输入参数）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
-        /// <returns>是否继续持久化操作</returns>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
+        /// <returns>Returning true indicates that a persistence operation is required
+        /// 返回 true 表示需要持久化操作</returns>
         public abstract bool LoadCreateBeforePersistence(VT value);
         /// <summary>
-        /// 创建非索引条件查询数据
+        /// Create non-indexed conditional query data (Initialize and load the persistent data)
+        /// 创建非索引条件查询数据（初始化加载持久化数据）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         public abstract void LoadCreateLoadPersistence(VT value);
         /// <summary>
+        /// Create non-indexed conditional query data
         /// 创建非索引条件查询数据
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         public abstract void LoadCreate(VT value);
         /// <summary>
+        /// Create non-indexed conditional query data
         /// 创建非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         public void Create(KT key, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
@@ -158,15 +182,17 @@ namespace AutoCSer.CommandService.Search
             else callback.Callback(ConditionDataUpdateStateEnum.NullKey);
         }
         /// <summary>
+        /// Create non-indexed conditional query data
         /// 创建非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         protected abstract void create(KT key, MethodCallback<ConditionDataUpdateStateEnum> callback);
         /// <summary>
+        /// Update non-indexed condition query data
         /// 更新非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         public void Update(KT key, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
@@ -174,29 +200,33 @@ namespace AutoCSer.CommandService.Search
             else callback.Callback(ConditionDataUpdateStateEnum.NullKey);
         }
         /// <summary>
+        /// Update non-indexed condition query data
         /// 更新非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         protected abstract void update(KT key, MethodCallback<ConditionDataUpdateStateEnum> callback);
         /// <summary>
-        /// 删除非索引条件查询数据
+        /// Delete non-indexed condition query data (Initialize and load the persistent data)
+        /// 删除非索引条件查询数据（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         public void DeleteLoadPersistence(KT key, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
             if (key != null) deleteLoadPersistence(key);
         }
         /// <summary>
-        /// 删除非索引条件查询数据
+        /// Delete non-indexed condition query data (Initialize and load the persistent data)
+        /// 删除非索引条件查询数据（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         protected abstract void deleteLoadPersistence(KT key);
         /// <summary>
+        /// Delete non-indexed condition query data
         /// 删除非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <param name="callback"></param>
         public void Delete(KT key, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
@@ -209,35 +239,44 @@ namespace AutoCSer.CommandService.Search
             finally { callback.Callback(state); }
         }
         /// <summary>
+        /// Delete non-indexed condition query data
         /// 删除非索引条件查询数据
         /// </summary>
-        /// <param name="key">数据关键字</param>
+        /// <param name="key">Data keyword</param>
         /// <returns></returns>
         protected abstract ConditionDataUpdateStateEnum delete(KT key);
         /// <summary>
-        /// 非索引条件查询数据完成更新操作
+        /// The non-indexed condition query data has completed the update operation (Check the input parameters before the persistence operation)
+        /// 非索引条件查询数据完成更新操作（持久化操作之前检查输入参数）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         /// <returns></returns>
         public abstract ValueResult<ConditionDataUpdateStateEnum> CompletedBeforePersistence(VT value);
         /// <summary>
-        /// 非索引条件查询数据完成更新操作
+        /// The non-indexed condition query data has completed the update operation (Initialize and load the persistent data)
+        /// 非索引条件查询数据完成更新操作（初始化加载持久化数据）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         /// <param name="callback"></param>
         public void CompletedLoadPersistence(VT value, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
             completedLoadPersistence(value);
         }
         /// <summary>
-        /// 非索引条件查询数据完成更新操作
+        /// The non-indexed condition query data has completed the update operation (Initialize and load the persistent data)
+        /// 非索引条件查询数据完成更新操作（初始化加载持久化数据）
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         protected abstract void completedLoadPersistence(VT value);
         /// <summary>
+        /// The non-indexed condition query data has completed the update operation
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         /// <param name="callback"></param>
         public void Completed(VT value, MethodCallback<ConditionDataUpdateStateEnum> callback)
         {
@@ -249,9 +288,11 @@ namespace AutoCSer.CommandService.Search
             finally { callback.Callback(state); }
         }
         /// <summary>
+        /// The non-indexed condition query data has completed the update operation
         /// 非索引条件查询数据完成更新操作
         /// </summary>
-        /// <param name="value">非索引条件查询数据</param>
+        /// <param name="value">Non-indexed condition query data
+        /// 非索引条件查询数据</param>
         /// <returns></returns>
         protected abstract ConditionDataUpdateStateEnum completed(VT value);
     }
@@ -259,8 +300,9 @@ namespace AutoCSer.CommandService.Search
     /// 非索引条件查询数据节点
     /// </summary>
     /// <typeparam name="NT">节点接口类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     /// <typeparam name="CT">客户端节点类型</typeparam>
     public abstract class ConditionDataNode<NT, KT, VT, CT> : ConditionDataNode<NT, KT, VT>
         where NT : IConditionDataNode<KT, VT>
@@ -350,6 +392,7 @@ namespace AutoCSer.CommandService.Search
             while (!StreamPersistenceMemoryDatabaseNodeIsRemoved);
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node">客户端节点信息</param>
@@ -375,6 +418,7 @@ namespace AutoCSer.CommandService.Search
             return index;
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="client"></param>

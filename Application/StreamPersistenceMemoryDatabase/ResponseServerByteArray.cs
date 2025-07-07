@@ -3,11 +3,13 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Return the server-side byte array
     /// 返回服务端字节数组
     /// </summary>
     public sealed class ResponseServerByteArray : ResponseParameter
     {
         /// <summary>
+        /// Server-side byte array
         /// 服务端字节数组
         /// </summary>
 #if NetStandard21
@@ -16,6 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly byte[] buffer;
 #endif
         /// <summary>
+        /// Return the server-side byte array
         /// 返回服务端字节数组
         /// </summary>
         /// <param name="buffer"></param>
@@ -28,14 +31,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.buffer = buffer;
         }
         /// <summary>
+        /// Return the server-side byte array
         /// 返回服务端字节数组
         /// </summary>
-        /// <param name="state">调用状态</param>
+        /// <param name="state">Error call status
+        /// 错误调用状态</param>
         private ResponseServerByteArray(CallStateEnum state) : base(state) { }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">服务端字节数组</param>
+        /// <param name="value">Server-side byte array
+        /// 服务端字节数组</param>
         /// <returns></returns>
 #if NetStandard21
         public static implicit operator ResponseServerByteArray(byte[]? value)
@@ -51,7 +57,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return Null;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
@@ -63,6 +69,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return value;
         }
         /// <summary>
+        /// Serialization
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -72,14 +79,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
-        /// null 字节数组
+        /// A null byte array
+        /// null 的字节数组
         /// </summary>
         public static readonly ResponseServerByteArray Null = new ResponseServerByteArray(null);
         /// <summary>
-        /// 0 字节数组
+        /// The byte array of the 0-length array
+        /// 0 长度数组的字节数组
         /// </summary>
         public static readonly ResponseServerByteArray EmptyArray = new ResponseServerByteArray(EmptyArray<byte>.Array);
         /// <summary>
+        /// The array of called states
         /// 调用状态数组
         /// </summary>
         private static readonly ResponseServerByteArray[] stateArray = new ResponseServerByteArray[(byte)CallStateEnum.Callbacked];

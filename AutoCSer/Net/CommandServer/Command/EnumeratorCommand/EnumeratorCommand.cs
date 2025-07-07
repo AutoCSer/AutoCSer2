@@ -3,18 +3,20 @@
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 枚举命令
+    /// The collection enumeration command
+    /// 集合枚举命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal sealed class EnumeratorCommand<T> : EnumeratorCommand
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         private T inputParameter;
         /// <summary>
-        /// 枚举命令
+        /// The collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -25,10 +27,12 @@ namespace AutoCSer.Net.CommandServer
             Push();
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -40,7 +44,8 @@ namespace AutoCSer.Net.CommandServer
     }
 #if AOT
     /// <summary>
-    /// 枚举命令
+        /// The collection enumeration command
+        /// 集合枚举命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="RT"></typeparam>
@@ -49,7 +54,8 @@ namespace AutoCSer.Net.CommandServer
         where OT : struct
 #else
     /// <summary>
-    /// 枚举命令
+    /// The collection enumeration command
+    /// 集合枚举命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="RT"></typeparam>
@@ -58,12 +64,13 @@ namespace AutoCSer.Net.CommandServer
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         private T inputParameter;
 #if AOT
         /// <summary>
-        /// 枚举命令
+        /// The collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -75,7 +82,8 @@ namespace AutoCSer.Net.CommandServer
             Push();
         }
         /// <summary>
-        /// 枚举命令
+        /// The collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -89,7 +97,8 @@ namespace AutoCSer.Net.CommandServer
         }
 #else
         /// <summary>
-        /// 枚举命令
+        /// The collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -100,7 +109,8 @@ namespace AutoCSer.Net.CommandServer
             Push();
         }
         /// <summary>
-        /// 枚举命令
+        /// The collection enumeration command
+        /// 集合枚举命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -113,10 +123,12 @@ namespace AutoCSer.Net.CommandServer
         }
 #endif
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else

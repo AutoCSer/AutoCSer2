@@ -44,6 +44,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal RepairNodeMethodFile RepairNodeMethodFile;
         /// <summary>
+        /// Call status
         /// 调用状态
         /// </summary>
         internal CallStateEnum CallState;
@@ -57,7 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         }
         /// <summary>
-        /// 错误信息
+        /// 修复节点方法信息
         /// </summary>
         /// <param name="callState">调用状态</param>
         internal RepairNodeMethod(CallStateEnum callState)
@@ -73,7 +74,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="type">节点类型</param>
         /// <param name="typeDirectoryName">修复节点方法类型保存目录名称</param>
         /// <param name="methodDirectoryName">修复节点方法保存目录名称</param>
-        /// <param name="rawAssembly">程序集文件数据</param>
+        /// <param name="rawAssembly">Assembly file data
+        /// 程序集文件数据</param>
         /// <param name="method">修复方法信息</param>
         /// <param name="assemblyFile">程序集文件信息</param>
         /// <param name="methodNameFile">修复方法名称文件信息</param>

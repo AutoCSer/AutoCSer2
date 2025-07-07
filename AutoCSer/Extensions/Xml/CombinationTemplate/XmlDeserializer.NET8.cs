@@ -13,7 +13,7 @@ namespace AutoCSer
         /// 基础类型解析
         /// </summary>
         /// <param name="serializer"></param>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(XmlDeserializer serializer, ref Vector2 value)
         {
@@ -22,7 +22,7 @@ namespace AutoCSer
         /// <summary>
         /// 基础类型解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void XmlDeserialize(ref Vector2 value)
         {
             AutoCSer.Extensions.SerializeVector2 serializeVector2 = default(AutoCSer.Extensions.SerializeVector2);

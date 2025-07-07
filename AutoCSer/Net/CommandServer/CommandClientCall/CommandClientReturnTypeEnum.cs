@@ -3,44 +3,52 @@
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 返回值类型，0x80 或者以上空间为自定义返回值
+    /// The return type of the call. The space 0x80 or above is a custom return value
+    /// 调用返回类型，0x80 或者以上空间为自定义返回值
     /// </summary>
     public enum CommandClientReturnTypeEnum : byte
     {
         /// <summary>
-        /// 未知
+        /// Unknown status. Unexpected errors may occur
+        /// 未知状态，可能出现意外错误
         /// </summary>
         Unknown = 0,
         /// <summary>
-        /// 成功
+        /// Success
         /// </summary>
         Success,
         /// <summary>
-        /// 版本过期
+        /// The API version has expired
+        /// API 版本过期
         /// </summary>
         VersionExpired,
         /// <summary>
-        /// 服务器端反序列化错误
+        /// Server-side deserialization error
+        /// 服务端反序列化错误
         /// </summary>
         ServerDeserializeError,
         /// <summary>
-        /// 服务器端异常
+        /// Server exception
         /// </summary>
         ServerException,
         /// <summary>
+        /// The service interface has been taken offline
         /// 服务接口已下线
         /// </summary>
         ServerOffline,
         /// <summary>
+        /// The server has released resources
         /// 服务端已释放资源
         /// </summary>
         ServerDisposed,
 
         /// <summary>
-        /// 已添加批处理命令
+        /// It has been added to the batch command
+        /// 已添加到批处理命令
         /// </summary>
         PushBatch,
         /// <summary>
+        /// The socket has been closed
         /// 套接字已经关闭
         /// </summary>
         SocketClosed,
@@ -49,38 +57,45 @@ namespace AutoCSer.Net
         ///// </summary>
         //ClientDisposed,
         /// <summary>
-        /// 客户端异常
+        /// Client exception
         /// </summary>
         ClientException,
         /// <summary>
-        /// 超时
+        /// Timeout
         /// </summary>
         Timeout,
         /// <summary>
-        /// 客户端命令超出控制器范围
+        /// The client command number is beyond the range of the controller
+        /// 客户端命令编号超出控制器范围
         /// </summary>
         ControllerMethodIndexError,
         /// <summary>
-        /// 创建输出错误取消命令调用
+        /// Generate an output data error and cancel the command call
+        /// 生成输出数据错误，取消命令调用
         /// </summary>
         ClientBuildError,
         /// <summary>
+        /// Client deserialization error
         /// 客户端反序列化错误
         /// </summary>
         ClientDeserializeError,
         /// <summary>
+        /// Cancel the keep callback notification
         /// 取消保持回调通知
         /// </summary>
         CancelKeepCallback,
         /// <summary>
+        /// Unsupported queue keywords
         /// 不支持的队列关键字
         /// </summary>
         NotSupportTaskQueueKey,
         /// <summary>
+        /// The callback has been released
         /// 已释放回调
         /// </summary>
         KeepCallbackDisposed,
         /// <summary>
+        /// There is an unknown error on the client side. It might be that the server was not connected or the verification failed
         /// 客户端未知错误，可能是没有连接上服务器或者验证未通过
         /// </summary>
         ClientUnknown,

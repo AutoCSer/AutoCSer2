@@ -9,11 +9,12 @@ namespace AutoCSer.Threading
     public abstract class SecondTimerNode : DoubleLink<SecondTimerNode>
     {
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         protected internal abstract void OnTimer();
 
-        /// <summary>s
+        /// <summary>
         /// 执行定时任务
         /// </summary>
         /// <param name="node"></param>

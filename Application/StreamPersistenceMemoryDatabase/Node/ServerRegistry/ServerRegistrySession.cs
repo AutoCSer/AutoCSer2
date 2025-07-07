@@ -10,7 +10,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class ServerRegistrySession
     {
         /// <summary>
-        /// 服务注册回调委托
+        /// Server registration callback
+        /// 服务注册回调
         /// </summary>
 #if NetStandard21
         private MethodKeepCallback<ServerRegistryOperationTypeEnum>? callback;
@@ -73,7 +74,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return isOnline && Stopwatch.GetTimestamp() < node.LoadTimeoutTimestamp;
         }
         /// <summary>
-        /// 通知单例服务下线
+        /// Notify the singleton server to go offline
+        /// 通知单例服务端下线
         /// </summary>
         /// <returns></returns>
         internal bool Offline()

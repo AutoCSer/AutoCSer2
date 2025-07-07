@@ -6,6 +6,7 @@
     <members>
         <member name="T:AutoCSer.RandomObject.CombinationTemplateConfig">
             <summary>
+            Customize simple combination template parameters
             自定义简单组合模板参数
             </summary>
         </member>

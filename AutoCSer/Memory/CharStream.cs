@@ -59,7 +59,7 @@ namespace AutoCSer.Memory
         /// 预增数据流字符长度
         /// </summary>
         /// <param name="size">增加字符长度</param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal char* GetPrepCharSizeCurrent(int size)
         {
@@ -81,7 +81,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写字符串，适合零碎短小数据(不足8字节按8字节算)
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void SimpleWrite(string value)
         {
@@ -90,7 +90,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写字符串
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(string value)
         {
@@ -99,7 +99,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写字符串
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         internal void WriteNotNull(string value)
         {
             int length = value.Length;
@@ -108,7 +108,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写字符串
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void WriteNotEmpty(string value)
         {
@@ -117,7 +117,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写字符串
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <param name="index">起始位置</param>
         /// <param name="size">长度必须大于0</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -128,7 +128,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写字符串
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(SubString value)
         {
@@ -138,7 +138,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写字符串
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(ref SubString value)
         {
@@ -730,7 +730,8 @@ namespace AutoCSer.Memory
             int length = 0;
             do
             {
-                if (((bits[*(byte*)start] & AutoCSer.JsonDeserializer.EscapeBit) | *(((byte*)start) + 1)) == 0) ++length;
+                //if (((bits[*(byte*)start] & AutoCSer.JsonDeserializer.EscapeBit) | *(((byte*)start) + 1)) == 0) ++length;
+                length += ((bits[*(byte*)start] & AutoCSer.JsonDeserializer.EscapeBit) | *(((byte*)start) + 1)).logicalInversion();
             }
             while (++start != end);
             if (length == 0)
@@ -877,7 +878,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写入 JSON 名称
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         internal void WriteJsonName(string value)
         {
             if (!string.IsNullOrEmpty(value))

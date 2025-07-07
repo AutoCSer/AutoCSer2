@@ -9,15 +9,18 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 返回参数
+    /// Return parameters that support await
+    /// 支持 await 的返回参数
     /// </summary>
     public abstract class ResponseParameterAwaiter : ResponseParameter, INotifyCompletion
     {
         /// <summary>
+        /// Client node
         /// 客户端节点
         /// </summary>
         private readonly ClientNode node;
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -26,19 +29,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private Action continuation;
 #endif
         /// <summary>
+        /// Request the index information of the node for passing parameters
         /// 请求传参的节点索引信息
         /// </summary>
         private readonly NodeIndex nodeIndex;
         /// <summary>
-        /// 返回参数
+        /// Return parameters that support await
+        /// 支持 await 的返回参数
         /// </summary>
-        /// <param name="node">客户端节点</param>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
         internal ResponseParameterAwaiter(ClientNode node)
         {
             this.node = node;
             nodeIndex = node.Index;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -48,7 +55,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
         /// <summary>
-        /// 返回值完成
+        /// The asynchronous operation has been completed
+        /// 异步操作已完成
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void onCompleted()
@@ -57,6 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null) continuation();
         }
         /// <summary>
+        /// Trigger node reconstruction
         /// 触发节点重建
         /// </summary>
         protected void renew()
@@ -68,7 +77,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             finally { onCompleted(); }
         }
         /// <summary>
-        /// 索引失效重新获取
+        /// The index is invalid. Get the index again
+        /// 索引已失效，重新获取获取索引
         /// </summary>
         protected void reindex()
         {
@@ -80,12 +90,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
     }
     /// <summary>
-    /// 返回参数 await ResponseResult{T}
+    /// await ResponseResult{T}, and return the parameter
+    /// await ResponseResult{T}，返回参数
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     public class ResponseParameterAwaiter<T> : ResponseParameterAwaiter
     {
         /// <summary>
+        /// The return value command
         /// 返回值命令
         /// </summary>
 #if NetStandard21
@@ -93,25 +105,30 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         internal ReturnCommand<ResponseParameter> Command;
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
         internal ServerReturnValue<T> Value;
         /// <summary>
-        /// 返回参数
+        /// Return parameters that support await
+        /// 支持 await 的返回参数
         /// </summary>
-        /// <param name="node">客户端节点</param>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
         protected ResponseParameterAwaiter(ClientNode node) : base(node) { }
         /// <summary>
-        /// 返回参数
+        /// Return parameters that support await
+        /// 支持 await 的返回参数
         /// </summary>
-        /// <param name="node">客户端节点</param>
-        /// <param name="value">返回值</param>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
+        /// <param name="value">Return value</param>
         internal ResponseParameterAwaiter(ClientNode node, T value) : base(node)
         {
             Value.ReturnValue = value;
         }
 
         /// <summary>
+        /// Wait for the command call to return the result
         /// 等待命令调用返回结果
         /// </summary>
         /// <returns></returns>
@@ -121,6 +138,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return await this;
         }
         /// <summary>
+        /// Get the result of the command call
         /// 获取命令调用结果
         /// </summary>
         /// <returns></returns>
@@ -135,7 +153,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new ResponseResult<T>(Command.ReturnType, Command.ErrorMessage);
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -144,6 +162,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return this;
         }
         /// <summary>
+        /// Set the return value command
         /// 设置返回值命令
         /// </summary>
         /// <param name="command"></param>
@@ -154,6 +173,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             command.OnCompleted(onCommandCompleted);
         }
         /// <summary>
+        /// The return value command completes the callback
         /// 返回值命令完成回调
         /// </summary>
         private void onCommandCompleted()

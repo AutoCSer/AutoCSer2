@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 分页数据
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct PageResult<T>
@@ -47,15 +47,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// The return value type of the network client
         /// 网络客户端返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 读取数据状态
+        /// Call status
+        /// 调用状态
         /// </summary>
         public CallStateEnum CallState;
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess { get { return CallState == CallStateEnum.Success && ReturnType == CommandClientReturnTypeEnum.Success; } }
         /// <summary>
@@ -115,7 +118,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 转换分页数据类型
         /// </summary>
-        /// <typeparam name="VT">数据类型</typeparam>
+        /// <typeparam name="VT">Data type</typeparam>
         /// <param name="values">当前分页数据</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

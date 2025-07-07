@@ -17,7 +17,7 @@ namespace AutoCSer.Memory
         ///// </summary>
         //internal ByteArrayBufferObject() { }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
         /// <param name="buffer"></param>
         internal ByteArrayBufferObject(ref SubArray<byte> buffer)
@@ -40,7 +40,8 @@ namespace AutoCSer.Memory
             Buffer.Free();
         }
         /// <summary>
-        /// 获取数组字串
+        /// Get the array substring
+        /// 获取数组子串
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

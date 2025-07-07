@@ -15,6 +15,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private readonly ThreadPool threadPool;
         /// <summary>
+        /// Thread handle
         /// 线程句柄
         /// </summary>
         public readonly System.Threading.Thread Handle;
@@ -164,6 +165,7 @@ namespace AutoCSer.Threading
             while (Task != null);
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="task">任务委托</param>

@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// The server registration client listener component
     /// 服务注册客户端监听组件
     /// </summary>
     public class CommandClientServiceRegistrar : IDisposable
     {
         /// <summary>
-        /// 命令客户端
+        /// Command client
         /// </summary>
         public readonly ICommandClient Client;
         /// <summary>
+        /// The server registration client listener component
         /// 服务注册客户端监听组件
         /// </summary>
         /// <param name="client"></param>
@@ -23,11 +25,12 @@ namespace AutoCSer.Net
             this.Client = client;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public virtual void Dispose() { }
         /// <summary>
-        /// 获取服务监听地址
+        /// Get the server listening address
+        /// 获取服务端监听地址
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
@@ -49,6 +52,7 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
+        /// Server connection failed
         /// 服务连接失败
         /// </summary>
         /// <param name="endPoint"></param>

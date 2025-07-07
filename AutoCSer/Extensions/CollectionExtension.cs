@@ -22,6 +22,7 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
+        /// Get the quantity of data
         /// 获取数据数量
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -35,9 +36,10 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 根据集合内容返回数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="values">数据集合</param>
-        /// <returns>数组</returns>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="values">Data collection
+        /// 数据集合</param>
+        /// <returns>Array</returns>
         public static T[] getArray<T>(this ICollection<T> values)
         {
             if (values.Count == 0) return EmptyArray<T>.Array;
@@ -54,7 +56,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="VT">返回数组类型</typeparam>
         /// <param name="values">值集合</param>
         /// <param name="getValue">获取数组值的委托</param>
-        /// <returns>数组</returns>
+        /// <returns>Array</returns>
         public static LeftArray<VT> getLeftArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
         {
             if (values.Count == 0) return new LeftArray<VT>(0);
@@ -69,7 +71,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="VT">返回数组类型</typeparam>
         /// <param name="values">值集合</param>
         /// <param name="getValue">获取数组值的委托</param>
-        /// <returns>数组</returns>
+        /// <returns>Array</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static VT[] getArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
         {
@@ -133,7 +135,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="KT">哈希键值类型</typeparam>
         /// <param name="values">值集合</param>
         /// <param name="getKey">键值获取器</param>
-        /// <returns>字典</returns>
+        /// <returns>Dictionary</returns>
         public static Dictionary<KT, VT> getDictionary<VT, KT>(this ICollection<VT> values, Func<VT, KT> getKey)
             where KT : IEquatable<KT>
         {

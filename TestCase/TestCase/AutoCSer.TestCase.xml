@@ -46,6 +46,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent">
             <summary>
+            Command client socket events
             命令客户端套接字事件
             </summary>
         </member>
@@ -186,14 +187,16 @@
         </member>
         <member name="P:AutoCSer.TestCase.CommandClientSocketEvent.ControllerCreatorParameters">
             <summary>
-            客户端控制器创建器参数集合
+            The set of parameters for creating the client controller is used to create the client controller object during the initialization of the client socket, and also to automatically bind the controller properties based on the interface type of the client controller after the client socket passes the service authentication API
+            客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
             <summary>
+            Command client socket events
             命令客户端套接字事件
             </summary>
-            <param name="client">命令客户端</param>
+            <param name="client">Command client</param>
         </member>
         <member name="T:AutoCSer.TestCase.IClientCallbackTaskController">
             <summary>
@@ -477,6 +480,9 @@
             <summary>
             服务端定义非对称测试接口
             </summary>
+            <summary>
+            服务端定义非对称测试接口
+            </summary>
         </member>
         <member name="T:AutoCSer.TestCase.DefinedDissymmetryServerController">
             <summary>
@@ -636,6 +642,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.CommandServerSessionObject">
             <summary>
+            Custom session object
             自定义会话对象
             </summary>
         </member>
@@ -669,6 +676,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryClientController">
             <summary>
+            The client defines an asymmetric test interface (socket context binding the server)
             客户端定义非对称测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
@@ -1045,7 +1053,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerTaskQueueControllerClientController">
             <summary>
-            服务端测试接口（套接字上下文绑定服务端） 客户端接口
+            服务端测试接口（套接字上下文绑定服务端） client interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.IServerTaskQueueControllerClientController.TaskQueue">
@@ -1074,30 +1082,6 @@
             <param name="Ref"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.SetSocket">
-            <summary>
-            [0] 
-            AutoCSer.TestCase.Data.ORM.BusinessModel value 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.GetSocket">
-            <summary>
-            [1] 
-            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.SetSocketTask">
-            <summary>
-            [2] 
-            AutoCSer.TestCase.Data.ORM.BusinessModel value 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.ServerBindContext.ServerBindContextDefinedDissymmetryControllerMethodEnum.GetSocketTask">
-            <summary>
-            [3] 
-            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.Data.Field">
             <summary>
             字段数据定义(引用类型外壳)
@@ -1115,17 +1099,17 @@
         </member>
         <member name="T:AutoCSer.TestCase.Data.JsonEmpty">
             <summary>
-            二进制混杂 JSON 序列化
+             JSON 混杂二进制序列化
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.JsonField">
             <summary>
-            二进制混杂 JSON 序列化
+             JSON 混杂二进制序列化
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.JsonProperty">
             <summary>
-            二进制混杂 JSON 序列化
+             JSON 混杂二进制序列化
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.MemberClass">
@@ -1176,7 +1160,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.Data.JsonStructField">
             <summary>
-            二进制混杂 JSON 序列化
+             JSON 混杂二进制序列化
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.StructField">
@@ -1186,7 +1170,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.Data.JsonStructProperty">
             <summary>
-            二进制混杂 JSON 序列化
+             JSON 混杂二进制序列化
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.Data.StructProperty">
@@ -1214,7 +1198,7 @@
         </member>
         <member name="F:AutoCSer.TestCase.SearchTree.data">
             <summary>
-            测试数据
+            Test data
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.ShortLinkCommandServer.TestCase">
@@ -1225,255 +1209,302 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode">
             <summary>
+            Multi-hash bitmap filtering node client example
             多哈希位图过滤节点 客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.size">
             <summary>
+            Test the bitmap size (number of bits)
             测试位图大小（位数量）
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.client">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.readWriteQueueClient">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.Test">
             <summary>
+            Multi-hash bitmap filtering node client example
             多哈希位图过滤节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilter{System.String})">
             <summary>
+            Multi-hash bitmap filtering node client example
             多哈希位图过滤节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode">
             <summary>
+            An example of the multi-hash bitmap client synchronously filtering node client
             多哈希位图客户端同步过滤节点 客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.client">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.readWriteQueueClient">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.Test">
             <summary>
+            An example of the multi-hash bitmap client synchronously filtering node client
             多哈希位图客户端同步过滤节点 客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter{System.String})">
             <summary>
+            An example of the multi-hash bitmap client synchronously filtering node client
             多哈希位图客户端同步过滤节点 客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode">
             <summary>
-            数组客户端示例
+            Example of an array node client
+            数组节点客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.length">
             <summary>
+            The length of the test array
             测试数组长度
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.Test">
             <summary>
-            数组客户端示例
+            Example of an array node client
+            数组节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeClientNode{System.Int32}})">
             <summary>
-            数组客户端示例
+            Example of an array node client
+            数组节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode">
             <summary>
-            二进制位图客户端示例
+            Bitmap node client example
+            位图节点客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode.Test">
             <summary>
-            二进制位图客户端示例
+            Bitmap node client example
+            位图节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.BitmapNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IBitmapNodeClientNode})">
             <summary>
-            二进制位图客户端示例
+            Bitmap node client example
+            位图节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode.Test">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayDictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayDictionaryNodeClientNode{System.String}})">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode.Test">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayFragmentDictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayFragmentDictionaryNodeClientNode{System.String}})">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode">
             <summary>
-            byte[] 队列客户端示例
+            Example of byte[] queue client node
+            byte[] 队列客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode.Test">
             <summary>
-            byte[] 队列客户端示例
+            Example of byte[] queue client node
+            byte[] 队列客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayQueueNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayQueueNodeClientNode})">
             <summary>
-            byte[] 队列客户端示例
+            Example of byte[] queue client node
+            byte[] 队列客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode">
             <summary>
-            byte[] 栈客户端示例
+            Example of byte[] stack client node
+            byte[] 栈客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode.Test">
             <summary>
-            byte[] 栈客户端示例
+            Example of byte[] stack client node
+            byte[] 栈客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ByteArrayStackNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayStackNodeClientNode})">
             <summary>
-            byte[] 栈客户端示例
+            Example of byte[] stack client node
+            byte[] 栈客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent">
             <summary>
+            Command client socket events
             命令客户端套接字事件
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClient">
             <summary>
+            Log stream persistence in-memory database client interface
             日志流持久化内存数据库客户端接口
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClient">
             <summary>
+            Log stream persistence in-memory database client interface (Support concurrent read operations)
             日志流持久化内存数据库客户端接口（支持并发读取操作）
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.ControllerCreatorParameters">
             <summary>
-            客户端控制器创建器参数集合
+            The set of parameters for creating the client controller is used to create the client controller object during the initialization of the client socket, and also to automatically bind the controller properties based on the interface type of the client controller after the client socket passes the service authentication API
+            客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
             <summary>
+            Command client socket events
             命令客户端套接字事件
             </summary>
-            <param name="client">命令客户端</param>
+            <param name="client">Command client</param>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.CommandClient">
             <summary>
@@ -1482,82 +1513,97 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache">
             <summary>
+            Log stream persistence in-memory database client singleton
             日志流持久化内存数据库客户端单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache">
             <summary>
+            Log stream persistence in-memory database client singleton (supporting concurrent read operations)
             日志流持久化内存数据库客户端单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase">
             <summary>
+            The client test
             客户端测试
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode">
             <summary>
-            泛型字典客户端示例
+            Example of a generic dictionary client node
+            泛型字典客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode.Test">
             <summary>
-            泛型字典客户端示例
+            Example of a generic dictionary client node
+            泛型字典客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNodeClientNode{System.String,System.String}})">
             <summary>
-            泛型字典客户端示例
+            Example of a generic dictionary client node
+            泛型字典客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode">
             <summary>
-            分布式锁客户端示例
+            Example of distributed lock client node
+            分布式锁客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.Test">
             <summary>
-            分布式锁客户端示例
+            Example of distributed lock client node
+            分布式锁客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode{System.String}})">
             <summary>
-            分布式锁客户端示例
+            Example of distributed lock client node
+            分布式锁客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.checkLock">
             <summary>
-            分布式锁并发错误检查
+            Distributed lock concurrent error check data
+            分布式锁并发错误检查数据
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.DistributedLockNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode{System.String},System.String,System.Int32)">
             <summary>
-            分布式锁客户端示例
+            Example of distributed lock client node
+            分布式锁客户端节点示例
             </summary>
             <param name="node"></param>
             <param name="lockKey"></param>
@@ -1566,472 +1612,567 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode">
             <summary>
-            泛型字典客户端示例
+            Example of a generic dictionary client node
+            泛型字典客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode.Test">
             <summary>
-            泛型字典客户端示例
+            Example of a generic dictionary client node
+            泛型字典客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentDictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentDictionaryNodeClientNode{System.String,System.String}})">
             <summary>
-            泛型字典客户端示例
+            Example of a generic dictionary client node
+            泛型字典客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode">
             <summary>
-            哈希表客户端示例
+            Example of a hash table client node
+            哈希表客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode.Test">
             <summary>
-            哈希表客户端示例
+            Example of a hash table client node
+            哈希表客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.FragmentHashSetNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IFragmentHashSetNodeClientNode{System.Int32}})">
             <summary>
-            哈希表客户端示例
+            Example of a hash table client node
+            哈希表客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode.Test">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesDictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashBytesDictionaryNodeClientNode})">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode.Test">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashBytesFragmentDictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashBytesFragmentDictionaryNodeClientNode})">
             <summary>
-            字典客户端示例
+            Dictionary node client example
+            字典节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode">
             <summary>
-            哈希表客户端示例
+            Example of a hash table client node
+            哈希表客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode.Test">
             <summary>
-            哈希表客户端示例
+            Example of a hash table client node
+            哈希表客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.HashSetNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IHashSetNodeClientNode{System.Int32}})">
             <summary>
-            哈希表客户端示例
+            Example of a hash table client node
+            哈希表客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode">
             <summary>
-            64 位自增 ID 生成客户端示例
+            Example of 64-bit auto-increment identity generation client node
+            64 位自增 ID 生成客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode.Test">
             <summary>
-            64 位自增 ID 生成客户端示例
+            Example of 64-bit auto-increment identity generation client node
+            64 位自增 ID 生成客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.IdentityGeneratorNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode})">
             <summary>
-            64 位自增 ID 生成客户端示例
+            Example of 64-bit auto-increment identity generation client node
+            64 位自增 ID 生成客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode">
             <summary>
-            动态数组客户端示例
+            Example of an array node client
+            数组节点客户端示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode.Test">
             <summary>
-            动态数组客户端示例
+            Example of an array node client
+            数组节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.LeftArrayNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ILeftArrayNodeClientNode{System.Int32}})">
             <summary>
-            动态数组客户端示例
+            Example of an array node client
+            数组节点客户端示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer">
             <summary>
+            Server-side generic message client-side consumer example
             服务端泛型消息客户端消费者示例
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}})">
             <summary>
+            Server-side generic message client-side consumer example
             服务端泛型消息客户端消费者示例
             </summary>
-            <param name="commandClient">客户端</param>
-            <param name="node">二进制序列化消息消息客户端节点</param>
+            <param name="commandClient">Command client</param>
+            <param name="node">Binary serialized message client node
+            二进制序列化消息消息客户端节点</param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.onMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass)">
             <summary>
-            消息处理，异常则表示消息执行失败
+            Message processing. An exception also indicates that the message execution failed
+            消息处理，异常也表示消息执行失败
             </summary>
             <param name="message"></param>
-            <returns>消息是否执行成功</returns>
+            <returns>Whether the message was executed successfully
+            消息是否执行成功</returns>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.messages">
             <summary>
+            Message collection not completed
             未完成消息集合
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.messageLock">
             <summary>
+            Access lock for consumption message testing
             消费消息测试访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.Test">
             <summary>
+            Server-side generic message client-side consumer example
             服务端泛型消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}}},AutoCSer.Net.ICommandClient)">
             <summary>
+            Server-side generic message client-side consumer example
             服务端泛型消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer">
             <summary>
+            Client binary serialized message client consumer example
             客户端二进制序列化消息客户端消费者示例
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
+            Client binary serialized message client consumer example
             客户端二进制序列化消息客户端消费者示例
             </summary>
-            <param name="commandClient">客户端</param>
-            <param name="node">服务端字节数组消息客户端节点</param>
+            <param name="commandClient">Command client</param>
+            <param name="node">Server-side byte array messages client nodes
+            服务端字节数组消息客户端节点</param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.onMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass)">
             <summary>
-            消息处理，异常则表示消息执行失败
+            Message processing. An exception also indicates that the message execution failed
+            消息处理，异常也表示消息执行失败
             </summary>
             <param name="message"></param>
-            <returns>消息是否执行成功</returns>
+            <returns>Whether the message was executed successfully
+            消息是否执行成功</returns>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.messages">
             <summary>
+            Message collection not completed
             未完成消息集合
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.messageLock">
             <summary>
+            Access lock for consumption message testing
             消费消息测试访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.Test">
             <summary>
+            Client binary serialized message client consumer example
             客户端二进制序列化消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
             <summary>
+            Client binary serialized message client consumer example
             客户端二进制序列化消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer">
             <summary>
+            Example of the byte[] message client consumer
             byte[] 消息客户端消费者示例
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
+            Example of the byte[] message client consumer
             byte[] 消息客户端消费者示例
             </summary>
-            <param name="commandClient">客户端</param>
-            <param name="node">服务端字节数组消息客户端节点</param>
+            <param name="commandClient">Command client</param>
+            <param name="node">Server-side byte array messages client nodes
+            服务端字节数组消息客户端节点</param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.onMessage(System.Byte[])">
             <summary>
-            消息处理，异常则表示消息执行失败
+            Message processing. An exception also indicates that the message execution failed
+            消息处理，异常也表示消息执行失败
             </summary>
             <param name="message"></param>
-            <returns>消息是否执行成功</returns>
+            <returns>Whether the message was executed successfully
+            消息是否执行成功</returns>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.messages">
             <summary>
+            Message collection not completed
             未完成消息集合
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.messageLock">
             <summary>
+            Access lock for consumption message testing
             消费消息测试访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.Test">
             <summary>
+            Example of the byte[] message client consumer
             byte[] 消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
             <summary>
+            Example of the byte[] message client consumer
             byte[] 消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer">
             <summary>
+            Client JSON message client consumer example
             客户端 JSON 消息客户端消费者示例
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
+            Client JSON message client consumer example
             客户端 JSON 消息客户端消费者示例
             </summary>
-            <param name="commandClient">客户端</param>
-            <param name="node">服务端字节数组消息客户端节点</param>
+            <param name="commandClient">Command client</param>
+            <param name="node">Server-side byte array messages client nodes
+            服务端字节数组消息客户端节点</param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.onMessage(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass)">
             <summary>
-            消息处理，异常则表示消息执行失败
+            Message processing. An exception also indicates that the message execution failed
+            消息处理，异常也表示消息执行失败
             </summary>
             <param name="message"></param>
-            <returns>消息是否执行成功</returns>
+            <returns>Whether the message was executed successfully
+            消息是否执行成功</returns>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.messages">
             <summary>
+            Message collection not completed
             未完成消息集合
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.messageLock">
             <summary>
+            Access lock for consumption message testing
             消费消息测试访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.Test">
             <summary>
+            Client JSON message client consumer example
             客户端 JSON 消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
             <summary>
+            Client JSON message client consumer example
             客户端 JSON 消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer">
             <summary>
+            Client string message client consumer example
             客户端 string 二进制序列化消息客户端消费者示例
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
+            Client string message client consumer example
             客户端 string 二进制序列化消息客户端消费者示例
             </summary>
-            <param name="commandClient">客户端</param>
-            <param name="node">服务端字节数组消息客户端节点</param>
+            <param name="commandClient">Command client</param>
+            <param name="node">Server-side byte array messages client nodes
+            服务端字节数组消息客户端节点</param>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.onMessage(System.String)">
             <summary>
-            消息处理，异常则表示消息执行失败
+            Message processing. An exception also indicates that the message execution failed
+            消息处理，异常也表示消息执行失败
             </summary>
             <param name="message"></param>
-            <returns>消息是否执行成功</returns>
+            <returns>Whether the message was executed successfully
+            消息是否执行成功</returns>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.messages">
             <summary>
+            Message collection not completed
             未完成消息集合
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.messageLock">
             <summary>
+            Access lock for consumption message testing
             消费消息测试访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.Test">
             <summary>
+            Client string message client consumer example
             客户端 string 二进制序列化消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
             <summary>
+            Client string message client consumer example
             客户端 string 二进制序列化消息客户端消费者示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode">
             <summary>
-            泛型队列客户端示例
+            Example of a generic queue client node
+            泛型队列客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode.Test">
             <summary>
-            泛型队列客户端示例
+            Example of a generic queue client node
+            泛型队列客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.QueueNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IQueueNodeClientNode{System.Int32}})">
             <summary>
-            泛型队列客户端示例
+            Example of a generic queue client node
+            泛型队列客户端节点示例
             </summary>
             <returns></returns>
         </member>
@@ -2042,11 +2183,13 @@
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ReadWriteQueueClientSocketEvent.client">
             <summary>
+            Command client socket events
             命令客户端套接字事件
             </summary>
         </member>
         <member name="P:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ReadWriteQueueClientSocketEvent.StreamPersistenceMemoryDatabaseClient">
             <summary>
+            Log stream persistence in-memory database client interface
             日志流持久化内存数据库客户端接口
             </summary>
         </member>
@@ -2058,194 +2201,227 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode">
             <summary>
-            平衡树客户端示例
+            Example of balanced tree client node
+            平衡树客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode.Test">
             <summary>
-            平衡树客户端示例
+            Example of balanced tree client node
+            平衡树客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeDictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode{System.Int32,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}})">
             <summary>
-            平衡树客户端示例
+            Example of balanced tree client node
+            平衡树客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode">
             <summary>
-            平衡树客户端示例
+            Example of balanced tree client node
+            平衡树客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode.Test">
             <summary>
-            平衡树客户端示例
+            Example of balanced tree client node
+            平衡树客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SearchTreeSetNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNodeClientNode{System.Int32}})">
             <summary>
-            平衡树客户端示例
+            Example of balanced tree client node
+            平衡树客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode">
             <summary>
-            红黑树字典客户端示例
+            Red-black tree dictionary client node example
+            红黑树字典客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode.Test">
             <summary>
-            红黑树字典客户端示例
+            Red-black tree dictionary client node example
+            红黑树字典客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedDictionaryNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedDictionaryNodeClientNode{System.Int32,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}})">
             <summary>
-            红黑树字典客户端示例
+            Red-black tree dictionary client node example
+            红黑树字典客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode">
             <summary>
-            关键字排序数组客户端示例
+            Keyword sorting array client node example
+            关键字排序数组客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode.Test">
             <summary>
-            关键字排序数组客户端示例
+            Keyword sorting array client node example
+            关键字排序数组客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedListNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedListNodeClientNode{System.Int32,System.String}})">
             <summary>
-            关键字排序数组客户端示例
+            Keyword sorting array client node example
+            关键字排序数组客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode">
             <summary>
-            红黑树哈希表客户端示例
+            Example of a red-black tree hash table client node
+            红黑树哈希表客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode.Test">
             <summary>
-            红黑树哈希表客户端示例
+            Example of a red-black tree hash table client node
+            红黑树哈希表客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.SortedSetNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISortedSetNodeClientNode{System.Int32}})">
             <summary>
-            红黑树哈希表客户端示例
+            Example of a red-black tree hash table client node
+            红黑树哈希表客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode">
             <summary>
-            泛型栈客户端示例
+            Generic stack client node example
+            泛型栈客户端节点示例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode.nodeCache">
             <summary>
+            Client node singleton
             客户端节点单例
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode.readWriteQueueNodeCache">
             <summary>
+            Client node singleton (supporting concurrent read operations)
             客户端节点单例（支持并发读取操作）
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode.Test">
             <summary>
-            泛型栈客户端示例
+            Generic stack client node example
+            泛型栈客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.StackNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IStackNodeClientNode{System.Int32}})">
             <summary>
-            泛型栈客户端示例
+            Generic stack client node example
+            泛型栈客户端节点示例
             </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass">
             <summary>
-            测试数据
+            Test data
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass.Int">
             <summary>
-            测试数据
+            Test data
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass.String">
             <summary>
-            测试数据
+            Test data
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig">
             <summary>
-            日志流持久化内存数据库服务端配置
+            Log stream persistence in memory database service configuration
+            日志流持久化内存数据库服务配置
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig.GetRemoveHistoryFileTime">
             <summary>
+            The test environment deletes historical persistent files from the previous 15 minutes. The production environment processes the files based on site requirements
             测试环境删除 15 分钟以前的历史持久化文件，生产环境根据实际需求处理
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig.RemoveHistoryFile(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService)">
             <summary>
+            The test environment deletes persistent files once a minute. The production environment deletes persistent files based on site requirements
             测试环境每分钟执行一次删除历史持久化文件操作，生产环境根据实际需求处理
             </summary>
             <param name="service"></param>
@@ -2253,6 +2429,7 @@
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ServiceConfig.CheckRebuild(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService)">
             <summary>
+            Set the rebuild file size to at least 10MB
             重建文件大小设置为至少 10MB
             </summary>
             <param name="service"></param>
@@ -2307,7 +2484,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.IServerTaskQueueControllerClientController">
             <summary>
-            服务端测试接口 客户端接口
+            服务端测试接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.IServerTaskQueueControllerClientController.TaskQueue">
@@ -2362,32 +2539,37 @@
             <param name="Value"></param>
             <param name="Ref"></param>
         </member>
-        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.SetSocket">
+        <member name="T:AutoCSer.TestCase.IDefinedDissymmetryServerControllerMethodEnum">
+            <summary>
+            服务端定义非对称测试接口 (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IDefinedDissymmetryServerControllerMethodEnum.GetSocket">
             <summary>
             [0] 
             AutoCSer.Net.CommandServerSocket socket 
-            AutoCSer.TestCase.Data.ORM.BusinessModel value 
+            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.GetSocket">
+        <member name="F:AutoCSer.TestCase.IDefinedDissymmetryServerControllerMethodEnum.GetSocketTask">
             <summary>
             [1] 
             AutoCSer.Net.CommandServerSocket socket 
             返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.SetSocketTask">
+        <member name="F:AutoCSer.TestCase.IDefinedDissymmetryServerControllerMethodEnum.SetSocket">
             <summary>
             [2] 
             AutoCSer.Net.CommandServerSocket socket 
             AutoCSer.TestCase.Data.ORM.BusinessModel value 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.DefinedDissymmetryControllerMethodEnum.GetSocketTask">
+        <member name="F:AutoCSer.TestCase.IDefinedDissymmetryServerControllerMethodEnum.SetSocketTask">
             <summary>
             [3] 
             AutoCSer.Net.CommandServerSocket socket 
-            返回值 AutoCSer.TestCase.Data.ORM.BusinessModel 
+            AutoCSer.TestCase.Data.ORM.BusinessModel value 
             </summary>
         </member>
     </members>

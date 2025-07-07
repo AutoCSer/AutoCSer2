@@ -7,7 +7,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
     /// <summary>
     /// 超时任务消息序列化数据
     /// </summary>
-    /// <typeparam name="T">任务消息数据类型</typeparam>
+    /// <typeparam name="T">Task message data type
+    /// 任务消息数据类型</typeparam>
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct TimeoutMessageData<T>
@@ -54,6 +55,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             Timeout = DateTime.MaxValue;
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         /// <returns></returns>
@@ -63,6 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return !IsRunTask && !IsRemoved;
         }
         /// <summary>
+        /// Add immediate execution tasks
         /// 添加立即执行任务
         /// </summary>
         /// <param name="currentIdentity"></param>
@@ -132,6 +135,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return 0;
         }
         /// <summary>
+        /// Cancel the task
         /// 取消任务
         /// </summary>
         /// <returns></returns>

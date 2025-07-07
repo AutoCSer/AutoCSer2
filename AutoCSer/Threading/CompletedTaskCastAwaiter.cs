@@ -31,7 +31,7 @@ namespace AutoCSer.Threading
         }
 
         ///// <summary>
-        ///// 隐式转换
+        ///// Implicit conversion
         ///// </summary>
         ///// <param name="result">任务执行结果</param>
         //public static implicit operator CompletedTaskCastAwaiter<T>(T result) { return new CompletedTaskCastAwaiter<T>(result); }

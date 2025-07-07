@@ -4,234 +4,234 @@
         <name>AutoCSer.TestCase.CommonModel</name>
     </assembly>
     <members>
-        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum">
+        <member name="T:AutoCSer.TestCase.BusinessService.IAutoIdentityModelServiceMethodEnum">
             <summary>
-            自增ID与其它混合测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            自增ID与其它混合测试模型业务数据服务接口 (The method sequence number maps the enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Get">
+        <member name="F:AutoCSer.TestCase.BusinessService.IAutoIdentityModelServiceMethodEnum.CustomColumnQuery">
             <summary>
-            [0] 
-            long key 
-            返回值 AutoCSer.TestCase.BusinessService.AutoIdentityModel 
+            [0] 自定义列查询测试
+            返回值 int 查询数据数量
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Insert">
+        <member name="F:AutoCSer.TestCase.BusinessService.IAutoIdentityModelServiceMethodEnum.Insert">
             <summary>
             [1] 
             AutoCSer.TestCase.BusinessService.AutoIdentityModel value 
             返回值 long 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Update">
+        <member name="F:AutoCSer.TestCase.BusinessService.IAutoIdentityModelServiceMethodEnum.Delete">
             <summary>
             [2] 
-            AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel,AutoCSer.TestCase.BusinessService.AutoIdentityModel} value 
-            返回值 bool 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.Delete">
-            <summary>
-            [3] 
             AutoCSer.TestCase.BusinessService.AutoIdentityModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.DeleteKey">
+        <member name="F:AutoCSer.TestCase.BusinessService.IAutoIdentityModelServiceMethodEnum.DeleteKey">
             <summary>
-            [4] 
+            [3] 
             long key 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.AutoIdentityModelServiceMethodEnum.CustomColumnQuery">
+        <member name="F:AutoCSer.TestCase.BusinessService.IAutoIdentityModelServiceMethodEnum.Get">
+            <summary>
+            [4] 
+            long key 
+            返回值 AutoCSer.TestCase.BusinessService.AutoIdentityModel 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.IAutoIdentityModelServiceMethodEnum.Update">
             <summary>
             [5] 
-            返回值 int 
+            AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.AutoIdentityModel,AutoCSer.TestCase.BusinessService.AutoIdentityModel} value 
+            返回值 bool 
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum">
+        <member name="T:AutoCSer.TestCase.BusinessService.ICustomColumnFieldModelServiceMethodEnum">
             <summary>
-            自定义字段列测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
+            自定义字段列测试模型业务数据服务接口 (The method sequence number maps the enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Get">
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnFieldModelServiceMethodEnum.Delete">
             <summary>
             [0] 
+            AutoCSer.TestCase.BusinessService.CustomColumnFieldModel value 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnFieldModelServiceMethodEnum.DeleteKey">
+            <summary>
+            [1] 
+            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey key 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnFieldModelServiceMethodEnum.Get">
+            <summary>
+            [2] 
             AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey key 
             返回值 AutoCSer.TestCase.BusinessService.CustomColumnFieldModel 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Insert">
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnFieldModelServiceMethodEnum.Update">
             <summary>
-            [1] 
-            AutoCSer.TestCase.BusinessService.CustomColumnFieldModel value 
-            返回值 bool 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Update">
-            <summary>
-            [2] 
+            [3] 
             AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.CustomColumnFieldModel,AutoCSer.TestCase.BusinessService.CustomColumnFieldModel} value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.Delete">
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnFieldModelServiceMethodEnum.CustomColumnQuery">
             <summary>
-            [3] 
+            [4] 自定义列查询测试
+            返回值 int 查询数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnFieldModelServiceMethodEnum.Insert">
+            <summary>
+            [5] 
             AutoCSer.TestCase.BusinessService.CustomColumnFieldModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.DeleteKey">
+        <member name="T:AutoCSer.TestCase.BusinessService.ICustomColumnPropertyModelServiceMethodEnum">
             <summary>
-            [4] 
-            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnFieldPrimaryKey key 
+            自定义属性列测试模型业务数据服务接口 (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnPropertyModelServiceMethodEnum.Delete">
+            <summary>
+            [0] 
+            AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnFieldModelServiceMethodEnum.CustomColumnQuery">
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnPropertyModelServiceMethodEnum.DeleteKey">
             <summary>
-            [5] 
-            返回值 int 
+            [1] 
+            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey key 
+            返回值 bool 
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum">
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnPropertyModelServiceMethodEnum.Get">
             <summary>
-            自定义属性列测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Get">
-            <summary>
-            [0] 
+            [2] 
             AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey key 
             返回值 AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Insert">
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnPropertyModelServiceMethodEnum.Update">
             <summary>
-            [1] 
-            AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel value 
-            返回值 bool 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Update">
-            <summary>
-            [2] 
+            [3] 
             AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.CustomColumnPropertyModel,AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel} value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.Delete">
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnPropertyModelServiceMethodEnum.CustomColumnQuery">
             <summary>
-            [3] 
+            [4] 自定义列查询测试
+            返回值 int 查询数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.ICustomColumnPropertyModelServiceMethodEnum.Insert">
+            <summary>
+            [5] 
             AutoCSer.TestCase.BusinessService.CustomColumnPropertyModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.DeleteKey">
+        <member name="T:AutoCSer.TestCase.BusinessService.IFieldModelServiceMethodEnum">
             <summary>
-            [4] 
-            AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.CustomColumnPropertyPrimaryKey key 
+            字段测试模型业务数据服务接口 (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.IFieldModelServiceMethodEnum.Delete">
+            <summary>
+            [0] 
+            AutoCSer.TestCase.BusinessService.FieldModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.CustomColumnPropertyModelServiceMethodEnum.CustomColumnQuery">
+        <member name="F:AutoCSer.TestCase.BusinessService.IFieldModelServiceMethodEnum.DeleteKey">
             <summary>
-            [5] 
-            返回值 int 
+            [1] 
+            long key 
+            返回值 bool 
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum">
+        <member name="F:AutoCSer.TestCase.BusinessService.IFieldModelServiceMethodEnum.Get">
             <summary>
-            字段测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Get">
-            <summary>
-            [0] 
+            [2] 
             long key 
             返回值 AutoCSer.TestCase.BusinessService.FieldModel 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Insert">
+        <member name="F:AutoCSer.TestCase.BusinessService.IFieldModelServiceMethodEnum.Update">
             <summary>
-            [1] 
-            AutoCSer.TestCase.BusinessService.FieldModel value 
-            返回值 bool 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Update">
-            <summary>
-            [2] 
+            [3] 
             AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.FieldModel,AutoCSer.TestCase.BusinessService.FieldModel} value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.Delete">
+        <member name="F:AutoCSer.TestCase.BusinessService.IFieldModelServiceMethodEnum.CustomColumnQuery">
             <summary>
-            [3] 
+            [4] 自定义列查询测试
+            返回值 int 查询数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.IFieldModelServiceMethodEnum.Insert">
+            <summary>
+            [5] 
             AutoCSer.TestCase.BusinessService.FieldModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.DeleteKey">
+        <member name="T:AutoCSer.TestCase.BusinessService.IPropertyModelServiceMethodEnum">
             <summary>
-            [4] 
-            long key 
+            属性测试模型业务数据服务接口 (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.BusinessService.IPropertyModelServiceMethodEnum.Delete">
+            <summary>
+            [0] 
+            AutoCSer.TestCase.BusinessService.PropertyModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.FieldModelServiceMethodEnum.CustomColumnQuery">
+        <member name="F:AutoCSer.TestCase.BusinessService.IPropertyModelServiceMethodEnum.DeleteKey">
             <summary>
-            [5] 
-            返回值 int 
+            [1] 
+            string key 
+            返回值 bool 
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum">
+        <member name="F:AutoCSer.TestCase.BusinessService.IPropertyModelServiceMethodEnum.Get">
             <summary>
-            属性测试模型业务数据服务接口方法编号，编号只允许往后追加不允许中间插入枚举值（由于 API 路由采用数字编号，当服务接口定义变更以后不能保证同一个 API 的路由一致，所以建议采用枚举映射）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Get">
-            <summary>
-            [0] 
+            [2] 
             string key 
             返回值 AutoCSer.TestCase.BusinessService.PropertyModel 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Insert">
+        <member name="F:AutoCSer.TestCase.BusinessService.IPropertyModelServiceMethodEnum.Update">
             <summary>
-            [1] 
-            AutoCSer.TestCase.BusinessService.PropertyModel value 
-            返回值 bool 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Update">
-            <summary>
-            [2] 
+            [3] 
             AutoCSer.Metadata.MemberMapValue{AutoCSer.TestCase.CommonModel.TableModel.PropertyModel,AutoCSer.TestCase.BusinessService.PropertyModel} value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.Delete">
+        <member name="F:AutoCSer.TestCase.BusinessService.IPropertyModelServiceMethodEnum.Insert">
             <summary>
-            [3] 
+            [4] 
             AutoCSer.TestCase.BusinessService.PropertyModel value 
             返回值 bool 
             </summary>
         </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.DeleteKey">
+        <member name="F:AutoCSer.TestCase.BusinessService.IPropertyModelServiceMethodEnum.CustomColumnQuery">
             <summary>
-            [4] 
-            string key 
-            返回值 bool 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum.PropertyModelServiceMethodEnum.CustomColumnQuery">
-            <summary>
-            [5] 
-            返回值 int 
+            [5] 自定义列查询测试
+            返回值 int 查询数据数量
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.CommonModel.BusinessTableEventConsoleOutput`2">
@@ -595,14 +595,14 @@
         </member>
         <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.op_Implicit(System.String)~AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email">
             <summary>
-            隐式转换
+            Implicit conversion
             </summary>
             <param name="email"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email.op_Implicit(AutoCSer.TestCase.CommonModel.TableModel.CustomColumn.Email)~System.String">
             <summary>
-            隐式转换
+            Implicit conversion
             </summary>
             <param name="email"></param>
             <returns></returns>

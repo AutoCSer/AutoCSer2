@@ -13,7 +13,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public abstract class CallInputOutputMethodParameter : InputMethodParameter
     {
         /// <summary>
-        /// 服务端节点方法
+        /// Server node method information
+        /// 服务端节点方法信息
         /// </summary>
         internal CallInputOutputMethod Method;
         /// <summary>
@@ -288,7 +289,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         internal T Parameter;
         /// <summary>
@@ -335,27 +336,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             this.Parameter = parameter;
         }
-        /// <summary>
-        /// 复制调用方法与参数信息
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="methodIndex"></param>
-        /// <returns></returns>
-#if NetStandard21
-        internal override InputMethodParameter? Clone(NodeIndex index, int methodIndex)
-#else
-        internal override InputMethodParameter Clone(NodeIndex index, int methodIndex)
-#endif
-        {
-            if (Method.Index == methodIndex && index.Equals(Node.Index))
-            {
-                CallInputOutputMethodParameter<T> methodParameter = (CallInputOutputMethodParameter<T>)base.MemberwiseClone();
-                methodParameter.clearClone();
-                methodParameter.Parameter = default(T);
-                return methodParameter;
-            }
-            return null;
-        }
+//        /// <summary>
+//        /// 复制调用方法与参数信息
+//        /// </summary>
+//        /// <param name="index"></param>
+//        /// <param name="methodIndex"></param>
+//        /// <returns></returns>
+//#if NetStandard21
+//        internal override InputMethodParameter? Clone(NodeIndex index, int methodIndex)
+//#else
+//        internal override InputMethodParameter Clone(NodeIndex index, int methodIndex)
+//#endif
+//        {
+//            if (Method.Index == methodIndex && index.Equals(Node.Index))
+//            {
+//                CallInputOutputMethodParameter<T> methodParameter = (CallInputOutputMethodParameter<T>)base.MemberwiseClone();
+//                methodParameter.clearClone();
+//                methodParameter.Parameter = default(T);
+//                return methodParameter;
+//            }
+//            return null;
+//        }
         /// <summary>
         /// 反序列化
         /// </summary>

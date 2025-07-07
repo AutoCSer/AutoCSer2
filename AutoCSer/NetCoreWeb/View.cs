@@ -17,6 +17,7 @@ namespace AutoCSer.NetCoreWeb
     public class View
     {
         /// <summary>
+        /// The successful return value status task
         /// 成功返回值状态任务
         /// </summary>
         public static readonly Task<ResponseResult> SuccessResponseResultTask = Task.FromResult((ResponseResult)ResponseStateEnum.Success);

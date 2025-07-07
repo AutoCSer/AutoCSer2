@@ -148,7 +148,7 @@
         </member>
         <member name="M:AutoCSer.Drawing.CharMapBuilder.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="T:AutoCSer.Drawing.Gif.Application">
@@ -799,12 +799,12 @@
         </member>
         <member name="M:AutoCSer.Drawing.Gif.TimerWriter.dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.Drawing.Gif.TimerWriter.disposeAsync">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
@@ -899,6 +899,7 @@
         </member>
         <member name="F:AutoCSer.Drawing.Gif.Writer.isDisposed">
             <summary>
+            Whether resources have been released
             是否已经释放资源
             </summary>
         </member>
@@ -915,23 +916,23 @@
         </member>
         <member name="M:AutoCSer.Drawing.Gif.Writer.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.Drawing.Gif.Writer.dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.Drawing.Gif.Writer.DisposeAsync">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Drawing.Gif.Writer.disposeAsync">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
@@ -1067,6 +1068,7 @@
         </member>
         <member name="F:AutoCSer.Drawing.LockBitmap.bitmapData">
             <summary>
+            Bitmap data
             位图数据
             </summary>
         </member>
@@ -1119,7 +1121,7 @@
         </member>
         <member name="M:AutoCSer.Drawing.LockBitmap.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.Drawing.LockBitmap.checkLeftWidth(System.Int32@,System.Int32@)">
@@ -1424,7 +1426,8 @@
             根据空白颜色查找图片底部行号
             </summary>
             <param name="nullColor">空白颜色</param>
-            <returns>失败返回 0</returns>
+            <returns>Failure and return 0
+            失败返回 0</returns>
         </member>
         <member name="M:AutoCSer.Drawing.LockBitmap.FindRight(System.Int32,AutoCSer.Drawing.LockBitmapColor)">
             <summary>
@@ -1505,7 +1508,7 @@
         </member>
         <member name="M:AutoCSer.Drawing.LockBitmapColor.op_Implicit(System.Drawing.Color)~AutoCSer.Drawing.LockBitmapColor">
             <summary>
-            隐式转换
+            Implicit conversion
             </summary>
             <param name="color"></param>
             <returns></returns>
@@ -1521,14 +1524,16 @@
             判断是否相等
             </summary>
             <param name="other"></param>
-            <returns>是否相等</returns>
+            <returns>Is it equal
+            是否相等</returns>
         </member>
         <member name="M:AutoCSer.Drawing.LockBitmapColor.Equals(System.Object)">
             <summary>
             判断是否相等
             </summary>
             <param name="obj"></param>
-            <returns>是否相等</returns>
+            <returns>Is it equal
+            是否相等</returns>
         </member>
         <member name="M:AutoCSer.Drawing.LockBitmapColor.op_Equality(AutoCSer.Drawing.LockBitmapColor,AutoCSer.Drawing.LockBitmapColor)">
             <summary>

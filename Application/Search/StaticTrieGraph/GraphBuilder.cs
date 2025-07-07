@@ -43,7 +43,8 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             buildGraphIndexs.SetEmpty();
         }
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
         internal void BuildGraph()
         {

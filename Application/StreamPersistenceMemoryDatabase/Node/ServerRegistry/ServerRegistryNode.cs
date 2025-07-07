@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Server registration node
     /// 服务注册节点
     /// </summary>
     public sealed class ServerRegistryNode : MethodParameterCreatorNode<IServerRegistryNode, ServerRegistryLog>, IServerRegistryNode, ISnapshot<ServerRegistryLog>
@@ -52,9 +53,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly int loadTimeoutSeconds;
         /// <summary>
+        /// Server registration node
         /// 服务注册节点
         /// </summary>
-        /// <param name="loadTimeoutSeconds">冷启动会话超时秒数</param>
+        /// <param name="loadTimeoutSeconds">Cold start session timeout seconds
+        /// 冷启动会话超时秒数</param>
         public ServerRegistryNode(int loadTimeoutSeconds = DefaultLoadTimeoutSeconds)
         {
             logAssemblers = DictionaryCreator<string>.Create<ServerRegistryLogAssembler>();
@@ -68,9 +71,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.loadTimeoutSeconds = Math.Max(loadTimeoutSeconds, 1);
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override IServerRegistryNode? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -82,7 +87,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return null;
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
@@ -94,10 +100,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             logCallbacks.SetEmpty();
         }
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         public int GetSnapshotCapacity(ref object customObject)
         {
             int count = 1;
@@ -105,11 +114,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return count;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         public SnapshotResult<ServerRegistryLog> GetSnapshotResult(ServerRegistryLog[] snapshotArray, object customObject)
         {
             SnapshotResult<ServerRegistryLog> result = new SnapshotResult<ServerRegistryLog>(snapshotArray.Length);
@@ -121,9 +134,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(ServerRegistryLog value)
         {
             if (value.OperationType != ServerRegistryOperationTypeEnum.LoadCurrentSessionID)
@@ -138,7 +152,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else currentSessionID = value.SessionID;
         }
         /// <summary>
-        /// 获取服务会话标识ID
+        /// Get the server session identity
+        /// 获取服务会话标识
         /// </summary>
         /// <returns></returns>
         public long GetSessionID()
@@ -146,21 +161,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return ++currentSessionID;
         }
         /// <summary>
-        /// 服务注册回调委托
+        /// The server registration callback delegate is mainly used to register components to check the online state of the server
+        /// 服务注册回调委托，主要用于注册组件检查服务的在线状态
         /// </summary>
-        /// <param name="sessionID">服务会话标识ID</param>
-        /// <param name="callback">服务注册日志回调委托</param>
-        public void ServiceCallback(long sessionID, MethodKeepCallback<ServerRegistryOperationTypeEnum> callback)
+        /// <param name="sessionID">Server session identity
+        /// 服务会话标识</param>
+        /// <param name="callback">Server registration log operation type
+        /// 服务注册日志操作类型</param>
+        public void ServerCallback(long sessionID, MethodKeepCallback<ServerRegistryOperationTypeEnum> callback)
         {
             var session = default(ServerRegistrySession);
             if (sessions.TryGetValue(sessionID, out session)) session.Set(callback);
             else sessions.Add(sessionID, new ServerRegistrySession(callback));
         }
         /// <summary>
+        /// Add the server registration log
         /// 添加服务注册日志
         /// </summary>
         /// <param name="log"></param>
-        /// <returns>服务注册结果</returns>
+        /// <returns>Server registration status
+        /// 服务注册状态</returns>
         public ServerRegistryStateEnum Append(ServerRegistryLog log)
         {
             if (log == null) return ServerRegistryStateEnum.Unknown;
@@ -188,10 +208,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Gets the server registration log
         /// 获取服务注册日志
         /// </summary>
-        /// <param name="serverName">监视服务名称，空字符串表示所有服务</param>
-        /// <param name="callback">服务注册日志回调委托，null 表示在线检查</param>
+        /// <param name="serverName">Monitor the server name. An empty string represents all servers
+        /// 监视服务名称，空字符串表示所有服务</param>
+        /// <param name="callback">The server registration log returns null to indicate an online check
+        /// 服务注册日志，返回 null 表示在线检查</param>
 #if NetStandard21
         public void LogCallback(string serverName, MethodKeepCallback<ServerRegistryLog?> callback)
 #else
@@ -244,10 +267,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the main log of the server
         /// 获取服务主日志
         /// </summary>
-        /// <param name="serverName">服务名称</param>
-        /// <returns>返回 null 表示没有找到服务主日志</returns>
+        /// <param name="serverName">Server name
+        /// 服务名称</param>
+        /// <returns>Returning null indicates that the server main log was not found
+        /// 返回 null 表示没有找到服务主日志</returns>
 #if NetStandard21
         public ServerRegistryLog? GetLog(string serverName)
 #else
@@ -262,10 +288,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return null;
         }
         /// <summary>
+        /// Check the online status of the server
         /// 检查服务在线状态
         /// </summary>
-        /// <param name="sessionID">服务会话标识ID</param>
-        /// <param name="serverName">服务名称</param>
+        /// <param name="sessionID">Server session identity
+        /// 服务会话标识</param>
+        /// <param name="serverName">Server name
+        /// 服务名称</param>
         /// <param name="isPersistenceLostContact"></param>
         private void check(long sessionID, string serverName, bool isPersistenceLostContact)
         {
@@ -276,19 +305,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Check the online status of the server
         /// 检查服务在线状态
         /// </summary>
-        /// <param name="sessionID">服务会话标识ID</param>
-        /// <param name="serverName">服务名称</param>
+        /// <param name="sessionID">Server session identity
+        /// 服务会话标识</param>
+        /// <param name="serverName">Server name
+        /// 服务名称</param>
         public void Check(long sessionID, string serverName)
         {
             check(sessionID, serverName, true);
         }
         /// <summary>
-        /// 服务失联持久化
+        /// Persistent operations for server disconnection
+        /// 服务失联的持久化操作
         /// </summary>
-        /// <param name="sessionID">服务会话标识ID</param>
-        /// <param name="serverName">服务名称</param>
+        /// <param name="sessionID">Server session identity
+        /// 服务会话标识</param>
+        /// <param name="serverName">Server name
+        /// 服务名称</param>
         public void LostContact(long sessionID, string serverName)
         {
             check(sessionID, serverName, false);

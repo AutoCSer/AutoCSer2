@@ -13,7 +13,7 @@ namespace AutoCSer.CommandService.DiskBlock
     public struct WriteBuffer : AutoCSer.BinarySerialize.ICustomSerialize<WriteBuffer>
     {
         /// <summary>
-        /// 自定义序列化，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)
+        /// Custom serialization，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)
         /// </summary>
 #if NetStandard21
         private readonly WriteBufferSerializer? serializer;
@@ -43,17 +43,17 @@ namespace AutoCSer.CommandService.DiskBlock
             Buffer = default(SubArray<byte>);
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="buffer"></param>
         public static implicit operator WriteBuffer(SubArray<byte> buffer) { return new WriteBuffer(buffer); }
         ///// <summary>
-        ///// 隐式转换
+        ///// Implicit conversion
         ///// </summary>
         ///// <param name="serializer">自定义序列化，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)</param>
         //public static implicit operator WriteBuffer(WriteBufferSerializer serializer) { return new WriteBuffer(serializer); }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator WriteBuffer(string value) { return new WriteBuffer(new StringSerializer(value)); }

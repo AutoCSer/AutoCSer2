@@ -7,7 +7,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 消费者回调信息
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct MessageNodeCallbackCount<T> where T : Message<T>
     {

@@ -14,18 +14,22 @@ namespace AutoCSer.Net
     public abstract class CommandServerCallTaskQueueNode : AutoCSer.Threading.Link<CommandServerCallTaskQueueNode>
     {
         /// <summary>
+        /// Command server socket
         /// 命令服务套接字
         /// </summary>
         internal readonly CommandServerSocket Socket;
         /// <summary>
+        /// The server side goes offline to count the object
         /// 服务端下线计数对象
         /// </summary>
         internal readonly OfflineCount OfflineCount;
         /// <summary>
-        /// 当前处理会话标识
+        /// Current session callback identity
+        /// 当前会话回调标识
         /// </summary>
         internal readonly CallbackIdentity CallbackIdentity;
         /// <summary>
+        /// The queue for asynchronous server calls
         /// 服务端异步调用队列
         /// </summary>
         internal CommandServerCallTaskQueue Queue;
@@ -44,6 +48,7 @@ namespace AutoCSer.Net
         /// </summary>
         internal long RunSeconds;
         /// <summary>
+        /// Server-side method call types
         /// 服务端方法调用类型
         /// </summary>
         private readonly ServerMethodTypeEnum methodType;
@@ -56,7 +61,7 @@ namespace AutoCSer.Net
         ///// </summary>
         //internal bool IsDeserialize;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// 服务端异步调用队列任务
         /// </summary>
         protected CommandServerCallTaskQueueNode() 
         {
@@ -65,7 +70,7 @@ namespace AutoCSer.Net
             Queue = CommandServerControllerCallTaskQueue.Null;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// 服务端异步调用队列任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="methodType"></param>
@@ -78,7 +83,8 @@ namespace AutoCSer.Net
             Queue = CommandServerControllerCallTaskQueue.Null;
         }
         /// <summary>
-        /// 下线计数对象检查
+        /// Offline counting processing
+        /// 下线计数处理
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkOfflineCount()
@@ -86,11 +92,13 @@ namespace AutoCSer.Net
             if (OfflineCount.Get() == 0) Server.DecrementOfflineCount();
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <returns>是否同步完成任务</returns>
         public abstract bool RunTask();
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <returns></returns>
@@ -128,6 +136,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="next"></param>
@@ -143,6 +152,7 @@ namespace AutoCSer.Net
             return LowPriorityRunTask();
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <returns>是否同步完成任务</returns>
@@ -170,6 +180,7 @@ namespace AutoCSer.Net
             return RunSeconds;
         }
         /// <summary>
+        /// Server-side queue timeout notification
         /// 服务端队列超时通知
         /// </summary>
         /// <param name="seconds"></param>
@@ -180,6 +191,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="queue"></param>
@@ -191,6 +203,7 @@ namespace AutoCSer.Net
             return Socket;
         }
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>

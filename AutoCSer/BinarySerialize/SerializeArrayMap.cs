@@ -83,7 +83,7 @@ namespace AutoCSer.BinarySerialize
             }
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value">是否写位图</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -110,7 +110,7 @@ namespace AutoCSer.BinarySerialize
             else Bit >>= 1;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void NextTrue()
@@ -119,7 +119,7 @@ namespace AutoCSer.BinarySerialize
             NextFalse();
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value">是否写位图</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

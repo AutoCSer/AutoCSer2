@@ -8,7 +8,7 @@ namespace AutoCSer.Threading
     /// <summary>
     /// 线程池任务
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     public sealed class ThreadPoolTask<T>
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private readonly Func<T> task;
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         [AllowNull]
@@ -50,6 +50,7 @@ namespace AutoCSer.Threading
             threadPool.FastStart(run);
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         private void run()

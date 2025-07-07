@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 客户端执行队列任务
+    /// Client queue task
+    /// 客户端队列任务
     /// </summary>
     public abstract class CommandClientCallQueueNode : AutoCSer.Threading.Link<CommandClientCallQueueNode>
     {
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="queue"></param>
         public abstract void RunTask(CommandClientCallQueue queue);
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="queue"></param>

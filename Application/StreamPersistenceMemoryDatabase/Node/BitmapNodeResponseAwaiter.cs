@@ -14,6 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly ResponseParameterAwaiter<ValueResult<int>> awaiter;
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -22,6 +23,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private Action continuation;
 #endif
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
@@ -35,6 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             awaiter.OnCompleted(onCompleted);
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -43,6 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return await this;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -57,6 +61,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return result.Cast<bool>();
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -66,6 +71,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return this;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>

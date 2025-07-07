@@ -36,8 +36,8 @@ namespace AutoCSer.Net
             Port = port;
         }
         /// <summary>
-        /// Gets the service listening address
-        /// 获取服务监听地址
+        /// Get the server listening address
+        /// 获取服务端监听地址
         /// </summary>
         public IPEndPoint IPEndPoint
         {
@@ -49,6 +49,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Obtain the information of the service host and port based on the port number
         /// 根据端口号获取服务主机与端口信息
         /// </summary>
         /// <param name="port"></param>
@@ -59,7 +60,7 @@ namespace AutoCSer.Net
             return new HostEndPoint(port, Host);
         }
         /// <summary>
-        /// 判断是否相等
+        /// Judge whether they are equal
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>

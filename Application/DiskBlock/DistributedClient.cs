@@ -7,19 +7,23 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.DiskBlock
 {
     /// <summary>
+    /// Distributed client
     /// 分布式客户端
     /// </summary>
     public abstract class DistributedClient
     {
         /// <summary>
+        /// Client collection
         /// 客户端集合
         /// </summary>
         protected readonly Dictionary<uint, Task<DiskBlockClient>> clients;
         /// <summary>
+        /// The access lock of the client collection
         /// 客户端集合访问锁
         /// </summary>
         private readonly System.Threading.SemaphoreSlim clientLock;
         /// <summary>
+        /// Distributed client
         /// 分布式客户端
         /// </summary>
         private DistributedClient()
@@ -34,6 +38,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// <returns>磁盘块客户端</returns>
         protected abstract Task<DiskBlockClient> createClient(uint identity);
         /// <summary>
+        /// Get the client
         /// 获取客户端
         /// </summary>
         /// <param name="identity">磁盘块服务唯一编号</param>
@@ -67,7 +72,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 写入数据
         /// </summary>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task Write(uint identity, SubArray<byte> data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -97,7 +102,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 写入数据
         /// </summary>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteAsync(uint identity, SubArray<byte> data)
         {
@@ -109,7 +114,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 写入字符串
         /// </summary>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteString(uint identity, string data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -139,7 +144,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 写入字符串
         /// </summary>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteStringAsync(uint identity, string data)
         {
@@ -152,7 +157,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteJson<T>(uint identity, T data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -183,7 +188,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonAsync<T>(uint identity, T data)
         {
@@ -197,7 +202,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteJsonMemberMap<T>(uint identity, AutoCSer.Metadata.MemberMapValue<T> data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -228,7 +233,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteJsonMemberMapAsync<T>(uint identity, AutoCSer.Metadata.MemberMapValue<T> data)
         {
@@ -242,7 +247,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteBinary<T>(uint identity, T data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -273,7 +278,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryAsync<T>(uint identity, T data)
         {
@@ -287,7 +292,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <param name="callback">写入数据起始位置</param>
         /// <returns></returns>
         public async Task WriteBinaryMemberMap<T>(uint identity, AutoCSer.Metadata.MemberMapValue<T> data, Action<CommandClientReturnValue<BlockIndex>> callback)
@@ -318,7 +323,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="identity">磁盘块服务唯一编号</param>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         /// <returns>写入数据起始位置</returns>
         public async Task<CommandClientReturnValue<BlockIndex>> WriteBinaryMemberMapAsync<T>(uint identity, AutoCSer.Metadata.MemberMapValue<T> data)
         {

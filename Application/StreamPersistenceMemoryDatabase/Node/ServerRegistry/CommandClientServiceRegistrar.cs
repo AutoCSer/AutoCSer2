@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
 {
     /// <summary>
+    /// The server registration client listener component
     /// 服务注册客户端监听组件
     /// </summary>
     public abstract class CommandClientServiceRegistrar : AutoCSer.Net.CommandClientServiceRegistrar
     {
         /// <summary>
+        /// Current main log
         /// 当前主日志
         /// </summary>
 #if NetStandard21
@@ -21,14 +23,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         protected ServerRegistryLog log;
 #endif
         /// <summary>
+        /// The current listening IP address
         /// 当前监听 IP 地址
         /// </summary>
         protected IPEndPoint endPoint;
         /// <summary>
+        /// Has the server listening address been obtained
         /// 是否已经获取服务监听地址
         /// </summary>
         protected bool isGetServerEndPoint;
         /// <summary>
+        /// The server registration client listener component
         /// 服务注册客户端监听组件
         /// </summary>
         /// <param name="client"></param>
@@ -37,7 +42,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             endPoint = CommandServerConfigBase.NullIPEndPoint;
         }
         /// <summary>
-        /// 服务日志回调
+        /// Server registration log callback
+        /// 服务注册日志回调
         /// </summary>
         /// <param name="log"></param>
         internal void Callback(ServerRegistryLog log)
@@ -55,7 +61,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             else this.log = log;
         }
         /// <summary>
-        /// 服务端监听地址更新通知
+        /// The server listens for address update notifications
+        /// 服务监听地址更新通知
         /// </summary>
         private void logChanged()
         {
@@ -63,21 +70,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         }
     }
     /// <summary>
+    /// The server registration client listener component
     /// 服务注册客户端监听组件
     /// </summary>
-    /// <typeparam name="T">客户端套接字事件类型</typeparam>
+    /// <typeparam name="T">Command the client socket event type
+    /// 命令客户端套接字事件类型</typeparam>
     public class CommandClientServiceRegistrar<T> : CommandClientServiceRegistrar
         where T : ServerRegistryLogCommandClientSocketEvent<T>
     {
         /// <summary>
+        /// Client socket event
         /// 客户端套接字事件
         /// </summary>
         private readonly T socket;
         /// <summary>
+        /// The client of the registration server
         /// 注册服务客户端
         /// </summary>
         private readonly CommandClientServiceRegistrarLogClient logClient;
         /// <summary>
+        /// The server registration client listener component
         /// 服务注册客户端监听组件
         /// </summary>
         /// <param name="client"></param>
@@ -89,7 +101,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             logClient = new CommandClientServiceRegistrarLogClient(this, node, client.ServerName.notNull());
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override void Dispose()
         {
@@ -98,7 +110,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             base.Dispose();
         }
         /// <summary>
-        /// 获取服务监听地址
+        /// Get the server listening address
+        /// 获取服务端监听地址
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
@@ -130,6 +143,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             return null;
         }
         /// <summary>
+        /// Server connection failed
         /// 服务连接失败
         /// </summary>
         /// <param name="endPoint"></param>

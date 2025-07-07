@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 验证函数异步任务完成回调
+    /// 验证方法异步任务完成回调
     /// </summary>
     internal sealed class CommandServerCallVerifyStateTask : CommandServerCall
     {
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         private readonly ServerInterfaceMethod method;

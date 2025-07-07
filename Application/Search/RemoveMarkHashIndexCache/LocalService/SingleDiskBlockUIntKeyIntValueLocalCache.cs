@@ -19,7 +19,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <param name="diskBlockClient">数据关键字磁盘块索引信息客户端</param>
         /// <param name="node">带移除标记的可重用哈希索引节点接口</param>
         /// <param name="maxCount">最大缓存数据数量，少量数据为 8B 元素，大量数据为 16B 元素</param>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         public SingleDiskBlockUIntKeyIntValueLocalCache(IDiskBlockClientSocketEvent diskBlockClient, StreamPersistenceMemoryDatabaseLocalClientNodeCache<IRemoveMarkHashKeyIndexNodeLocalClientNode<int>> node, long maxCount, int capacity = 1 << 16) : base(node, maxCount, capacity)
         {
             this.diskBlockClient = diskBlockClient;
@@ -27,7 +28,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// <summary>
         /// 获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <returns></returns>
         public override IDiskBlockClient GetDiskBlockClient(BlockIndex blockIndex)
         {

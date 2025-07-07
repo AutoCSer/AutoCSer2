@@ -9,15 +9,18 @@ namespace AutoCSer.Net.CommandServer
     internal class ServerOutputReturnTypeKeepCallbackCount : ServerOutputReturnType
     {
         /// <summary>
+        /// TCP server-side asynchronously keep callback count
         /// TCP 服务器端异步保持回调计数
         /// </summary>
         private readonly CommandServerKeepCallbackCount keepCallbackCount;
         /// <summary>
         /// 无返回值数据输出保持回调计数
         /// </summary>
-        /// <param name="callbackIdentity">会话标识</param>
+        /// <param name="callbackIdentity">Session callback identifier
+        /// 会话回调标识</param>
         /// <param name="returnType">会话标识</param>
-        /// <param name="keepCallbackCount">TCP 服务器端异步保持回调计数</param>
+        /// <param name="keepCallbackCount">TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数</param>
         internal ServerOutputReturnTypeKeepCallbackCount(CallbackIdentity callbackIdentity, CommandClientReturnTypeEnum returnType, CommandServerKeepCallbackCount keepCallbackCount)
             : base(callbackIdentity, returnType)
         {

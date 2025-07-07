@@ -66,7 +66,7 @@ namespace AutoCSer.TestCase
                         .Append<ServerBindContext.IServerKeepCallbackTaskController>(server => new ServerBindContext.ServerKeepCallbackTaskController())
                         .Append<ServerBindContext.IServerTaskQueueController>(server => new ServerBindContext.ServerTaskQueueController())
                         .Append<ServerBindContext.IDefinedSymmetryController>(server => new ServerBindContext.DefinedSymmetryServerController())
-                        .Append<ServerBindContext.IDefinedDissymmetryServerController>(string.Empty, server => new ServerBindContext.DefinedDissymmetryServerController())
+                        .Append<ServerBindContext.IDefinedDissymmetryServerController>(nameof(IDefinedDissymmetryServerController), server => new ServerBindContext.DefinedDissymmetryServerController())
                         .CreateCommandListener(commandServerConfig))
                     {
                         CommandClientSocketEvent client = (CommandClientSocketEvent)await commandListener.GetSocketEvent();

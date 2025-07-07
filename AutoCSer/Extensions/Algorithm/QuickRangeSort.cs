@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 
 namespace AutoCSer.Algorithm
 {
@@ -105,11 +106,14 @@ namespace AutoCSer.Algorithm
                     }
                     else
                     {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
+                        //if (leftIndex == rightIndex)
+                        //{
+                        //    ++leftIndex;
+                        //    --rightIndex;
+                        //}
+                        int indexValue = (leftIndex ^ rightIndex).logicalInversion();
+                        leftIndex += indexValue;
+                        rightIndex -= indexValue;
                         break;
                     }
                 }

@@ -38,6 +38,7 @@
     <Compile Include="CallbackCommandSimpleSerializeResponseParameter.cs" />
     <Compile Include="CallStateEnum.cs" />
     <Compile Include="Client\ClientCache.cs" />
+    <Compile Include="Client\ClientTaskCache.cs" />
     <Compile Include="Client\DistributedClient.cs" />
     <Compile Include="Client\DistributedClientRepairNodeMethodState.cs" />
     <Compile Include="Client\KeepCallbackCommandResponse.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Node\OnlyPersistenceNode.cs" />
     <Compile Include="Node\IOnlyPersistenceNode.cs" />
     <Compile Include="Node\ProcessGuard\CommandListenerSwitchProcess.cs" />
+    <Compile Include="RequestParameterContext.cs" />
     <Compile Include="Server\CreatingNodeInfo.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
@@ -99,7 +101,6 @@
     <Compile Include="Method\BeforePersistenceCallOutputMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceMethodParameter.cs" />
-    <Compile Include="Method\CreateInputMethodParameter.cs" />
     <Compile Include="Method\InputKeepCallbackMethod.cs" />
     <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\KeepCallbackMethod.cs" />
@@ -288,7 +289,6 @@
     <Compile Include="Server\Backuper.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
-    <Compile Include="Server\CheckSnapshotCloneObject.cs" />
     <Compile Include="Server\IReadWriteQueueService.cs" />
     <Compile Include="Server\IStreamPersistenceMemoryDatabaseServiceBase.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNode.cs" />
@@ -308,6 +308,7 @@
     <Compile Include="Server\ServerNodeTypeAttribute.cs" />
     <Compile Include="Server\ServerSnapshotNode.cs" />
     <Compile Include="Server\ServiceCallbackTypeEnum.cs" />
+    <Compile Include="Snapshot\CheckSnapshotCloneObject.cs" />
     <Compile Include="Snapshot\EmptySnapshot.cs" />
     <Compile Include="Snapshot\FragmentSnapshotHashSetEnumerable256.cs" />
     <Compile Include="Snapshot\FragmentSnapshotHashSet256.cs" />
@@ -405,7 +406,7 @@
   </ItemGroup>
 	
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(TargetName)&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
   </Target>
 
 </Project>

@@ -12,6 +12,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
     public abstract class UIntKeyIntValueCache : UIntKeyCache<int, IntIndex<uint>>
     {
         /// <summary>
+        /// Node interface with reusable hash indexes with removal tags
         /// 带移除标记的可重用哈希索引节点接口
         /// </summary>
         private readonly StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> node;
@@ -20,13 +21,15 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// </summary>
         /// <param name="node">带移除标记的可重用哈希索引节点接口</param>
         /// <param name="maxCount">最大缓存数据数量，少量数据为 8B 元素，大量数据为 16B 元素</param>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         protected UIntKeyIntValueCache(StreamPersistenceMemoryDatabaseClientNodeCache<IRemoveMarkHashKeyIndexNodeClientNode<int>> node, long maxCount, int capacity = 1 << 16) : base(maxCount, capacity)
         {
             this.node = node;
             getChangeKeys().Catch();
         }
         /// <summary>
+        /// Gets the collection of updated keyword
         /// 获取更新关键字集合
         /// </summary>
         /// <returns></returns>
@@ -42,7 +45,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             while (!isDispose);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override void Dispose()
         {

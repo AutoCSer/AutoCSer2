@@ -18,6 +18,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
 #endif
     {
         /// <summary>
+        /// Node interface with reusable hash indexes with removal tags
         /// 带移除标记的可重用哈希索引节点接口
         /// </summary>
         private readonly StreamPersistenceMemoryDatabaseLocalClientNodeCache<IRemoveMarkHashIndexNodeLocalClientNode<uint, VT>> node;
@@ -26,13 +27,15 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// </summary>
         /// <param name="node">带移除标记的可重用哈希索引节点接口</param>
         /// <param name="maxCount">最大缓存数据数量</param>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         protected UIntKeyLocalCache(StreamPersistenceMemoryDatabaseLocalClientNodeCache<IRemoveMarkHashIndexNodeLocalClientNode<uint, VT>> node, long maxCount, int capacity = 1 << 16) : base(maxCount, capacity)
         {
             this.node = node;
             getChangeKeys().Catch();
         }
         /// <summary>
+        /// Gets the collection of updated keyword
         /// 获取更新关键字集合
         /// </summary>
         /// <returns></returns>

@@ -34,6 +34,7 @@ namespace AutoCSer.Threading
             LockObject = new System.Threading.SemaphoreSlim(initialCount, maxCount);
         }
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -54,6 +55,7 @@ namespace AutoCSer.Threading
 #endif
         }
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
         /// <returns></returns>
@@ -75,6 +77,7 @@ namespace AutoCSer.Threading
 #endif
         }
         /// <summary>
+        /// Release the lock
         /// 释放锁
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -86,6 +89,7 @@ namespace AutoCSer.Threading
             LockObject.Release();
         }
         /// <summary>
+        /// Release the lock
         /// 释放锁
         /// </summary>
         /// <param name="semaphoreSlimLock"></param>

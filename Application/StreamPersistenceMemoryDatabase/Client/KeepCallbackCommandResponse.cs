@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 持续回调委托
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     internal sealed class KeepCallbackCommandResponse<T>
     {
         /// <summary>

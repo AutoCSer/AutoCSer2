@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Server node method information
     /// 服务端节点方法信息
     /// </summary>
     internal abstract class NodeMethod : AutoCSer.Net.CommandServer.InterfaceMethodBase, IEquatable<NodeMethod>
@@ -16,14 +17,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal const string MethodIndexEnumTypePath = @"NodeMethodEnum\";
 
         /// <summary>
+        /// Method call type
         /// 方法调用类型
         /// </summary>
         internal CallTypeEnum CallType = CallTypeEnum.Unknown;
         /// <summary>
+        /// Call status
         /// 调用状态
         /// </summary>
         internal CallStateEnum CallState = CallStateEnum.Success;
         /// <summary>
+        /// Server node method information
         /// 服务端节点方法信息
         /// </summary>
         /// <param name="type"></param>

@@ -4,21 +4,25 @@ using System;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 返回值命令
+    /// Return the call type queue command
+    /// 返回调用类型队列命令
     /// </summary>
     internal class ReturnTypeQueueCommand : Net.ReturnQueueCommand
     {
         /// <summary>
-        /// 返回值命令
+        /// Return the call type queue command
+        /// 返回调用类型队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal ReturnTypeQueueCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -28,7 +32,8 @@ namespace AutoCSer.Net.CommandServer
             return BuildQueue(ref buildInfo);
         }
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType)
@@ -36,9 +41,11 @@ namespace AutoCSer.Net.CommandServer
             SetReturnQueue(returnType, null);
         }
         /// <summary>
-        /// 委托命令回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
@@ -47,17 +54,19 @@ namespace AutoCSer.Net.CommandServer
         }
     }
     /// <summary>
-    /// 返回值命令
+    /// Return the call type queue command
+    /// 返回调用类型队列命令
     /// </summary>
     internal sealed class ReturnTypeQueueCommand<T> : ReturnTypeQueueCommand
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         private T inputParameter;
         /// <summary>
-        /// 返回值命令
+        /// Return the call type queue command
+        /// 返回调用类型队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -68,10 +77,12 @@ namespace AutoCSer.Net.CommandServer
             Push();
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else

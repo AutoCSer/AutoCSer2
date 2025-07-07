@@ -5,20 +5,24 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
 {
     /// <summary>
-    /// 64 位自增 ID 生成客户端示例
+    /// Example of 64-bit auto-increment identity generation client node
+    /// 64 位自增 ID 生成客户端节点示例
     /// </summary>
     internal static class IdentityGeneratorNode
     {
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateIdentityGeneratorNode(nameof(IdentityGeneratorNode)));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateIdentityGeneratorNode(nameof(IdentityGeneratorNode)));
         /// <summary>
-        /// 64 位自增 ID 生成客户端示例
+        /// Example of 64-bit auto-increment identity generation client node
+        /// 64 位自增 ID 生成客户端节点示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
@@ -28,7 +32,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             return true;
         }
         /// <summary>
-        /// 64 位自增 ID 生成客户端示例
+        /// Example of 64-bit auto-increment identity generation client node
+        /// 64 位自增 ID 生成客户端节点示例
         /// </summary>
         /// <returns></returns>
         private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IIdentityGeneratorNodeClientNode> client)

@@ -3,7 +3,8 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 分布式锁节点 客户端节点接口
+    /// Distributed lock node local client interface
+    /// 分布式锁节点本地客户端接口
     /// </summary>
     public partial interface IDistributedLockNodeLocalClientNode<T> where T : IEquatable<T>
     {

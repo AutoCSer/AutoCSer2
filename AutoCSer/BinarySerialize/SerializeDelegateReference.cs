@@ -30,7 +30,7 @@ namespace AutoCSer.BinarySerialize
         /// </summary>
         internal bool IsCompleted;
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
         internal SerializeDelegate Delegate;
 #if AOT

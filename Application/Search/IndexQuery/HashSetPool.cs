@@ -39,7 +39,8 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <summary>
         /// 可重用哈希表缓冲区池
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         private HashSetPool(int capacity)
         {
             CapacityDivision.Set(capacity);

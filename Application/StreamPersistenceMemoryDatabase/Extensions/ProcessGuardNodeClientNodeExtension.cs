@@ -26,7 +26,8 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="node"></param>
         /// <param name="arguments">Main 函数传参</param>
-        /// <returns>是否添加成功</returns>
+        /// <returns>Add failed and return false
+        /// 添加失败返回 false</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static ResponseParameterAwaiter<bool> GuardCurrentProcess(this IProcessGuardNodeClientNode node, string[]? arguments = null)

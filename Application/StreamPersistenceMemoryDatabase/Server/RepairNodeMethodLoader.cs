@@ -24,7 +24,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 加载修复节点方法
         /// </summary>
-        /// <param name="nodeCreator">生成服务端节点</param>
+        /// <param name="nodeCreator">Generate server-side node
+        /// 生成服务端节点</param>
         /// <param name="methodDirectory">节点方法目录</param>
         /// <param name="repairNodeMethodDirectory">修复方法目录信息</param>
         protected RepairNodeMethodLoader(ServerNodeCreator nodeCreator, DirectoryInfo methodDirectory, ref RepairNodeMethodDirectory repairNodeMethodDirectory)
@@ -52,7 +53,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 加载修复节点方法
         /// </summary>
-        /// <param name="nodeCreator">生成服务端节点</param>
+        /// <param name="nodeCreator">Generate server-side node
+        /// 生成服务端节点</param>
         /// <param name="methodDirectory">节点方法目录</param>
         /// <param name="repairNodeMethodDirectory">修复方法目录信息</param>
         internal RepairNodeMethodLoader(ServerNodeCreator nodeCreator, DirectoryInfo methodDirectory, ref RepairNodeMethodDirectory repairNodeMethodDirectory) : base(nodeCreator, methodDirectory, ref repairNodeMethodDirectory) { }

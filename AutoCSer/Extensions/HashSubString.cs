@@ -34,18 +34,19 @@ namespace AutoCSer
             HashCode = value.GetHashCode64() ^ Random.Hash64;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <returns>字符串</returns>
         public static implicit operator HashSubString(string value) { return new HashSubString(value); }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <returns>字符串</returns>
         public static implicit operator HashSubString(SubString value) { return new HashSubString(ref value); }
         /// <summary>
+        /// Clear the data
         /// 清空数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

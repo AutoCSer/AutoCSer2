@@ -120,6 +120,7 @@ namespace AutoCSer.Threading
             this.callerLineNumber = callerLineNumber;
         }
         /// <summary>
+        /// Release the lock
         /// 释放锁
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

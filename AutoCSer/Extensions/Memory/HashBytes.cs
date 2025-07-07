@@ -63,7 +63,8 @@ namespace AutoCSer.Memory
         /// 比较字节数组是否相等
         /// </summary>
         /// <param name="other">用于HASH的字节数组</param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
         public unsafe bool Equals(HashBytes other)
         {
             return HashCode == other.HashCode && AutoCSer.Common.SequenceEqual(ref SubArray, ref other.SubArray);
@@ -80,7 +81,8 @@ namespace AutoCSer.Memory
         /// 比较字节数组是否相等
         /// </summary>
         /// <param name="other">字节数组HASH</param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
 #if NetStandard21
         public override bool Equals(object? other)
 #else

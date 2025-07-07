@@ -23,7 +23,8 @@ namespace AutoCSer.Net
         internal CommandServerCallTaskQueueExceptionTask(Func<Task> getTask, bool isSynchronous) : base(getTask, isSynchronous) { }
 
         /// <summary>
-        /// 等待命令调用返回结果
+        /// Wait for the return result of the task execution
+        /// 等待任务执行返回结果
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -36,7 +37,8 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// 获取命令调用结果
+        /// Gets the result of the task execution
+        /// 获取任务执行返回结果
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -49,6 +51,7 @@ namespace AutoCSer.Net
             return exception;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -58,7 +61,7 @@ namespace AutoCSer.Net
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -87,7 +90,8 @@ namespace AutoCSer.Net
         internal CommandServerCallTaskQueueExceptionTask(Func<Task<T>> getTask, bool isSynchronous) : base(getTask, isSynchronous) { }
 
         /// <summary>
-        /// 等待命令调用返回结果
+        /// Wait for the return result of the task execution
+        /// 等待任务执行返回结果
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -100,7 +104,8 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// 获取命令调用结果
+        /// Gets the result of the task execution
+        /// 获取任务执行返回结果
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -117,6 +122,7 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -126,7 +132,7 @@ namespace AutoCSer.Net
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

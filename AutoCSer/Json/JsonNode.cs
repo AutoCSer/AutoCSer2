@@ -392,7 +392,7 @@ namespace AutoCSer
         /// <summary>
         /// 获取字典数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <returns></returns>
         public JsonNode this[string key]
         {

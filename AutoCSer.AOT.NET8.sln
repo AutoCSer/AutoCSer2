@@ -53,6 +53,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.StreamPer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT", "TestCase\StreamPersistenceMemoryDatabase\LocalService\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT.csproj", "{C3A141AC-E046-933E-C5FD-798E365E1AB9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{3291D63D-8F19-4FD3-AF1D-B55C32BF4953}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12.NativeAOT", "Document\12.NativeAOT\12.NativeAOT.csproj", "{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +147,10 @@ Global
 		{C3A141AC-E046-933E-C5FD-798E365E1AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3A141AC-E046-933E-C5FD-798E365E1AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3A141AC-E046-933E-C5FD-798E365E1AB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +176,7 @@ Global
 		{C4622856-D408-7A8C-0CA9-9F902521927D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{57B86927-47F9-0F87-E12B-8E52FD090AF5} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
 		{C3A141AC-E046-933E-C5FD-798E365E1AB9} = {25400C64-2DF8-4240-90E4-3BA15E3BD4FA}
+		{5CEA6F21-BB7A-3E4C-519B-52664117ED8F} = {3291D63D-8F19-4FD3-AF1D-B55C32BF4953}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}

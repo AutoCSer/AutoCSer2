@@ -67,7 +67,7 @@ namespace AutoCSer.BinarySerialize
         }
 
         /// <summary>
-        /// 隐式转换是否成功
+        /// Implicit conversion是否成功
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

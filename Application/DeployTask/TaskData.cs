@@ -139,7 +139,8 @@ namespace AutoCSer.CommandService.DeployTask
             logs.Add(log);
         }
         /// <summary>
-        /// 启动任务
+        /// Start the task (Initialize and load the persistent data)
+        /// 启动任务（初始化加载持久化数据）
         /// </summary>
         /// <param name="startTime"></param>
         /// <returns></returns>
@@ -204,6 +205,7 @@ namespace AutoCSer.CommandService.DeployTask
             return tasks.Array[currentIndex];
         }
         /// <summary>
+        /// Get the callback log of the status change of the published task
         /// 获取发布任务状态变更回调日志
         /// </summary>
         /// <param name="state"></param>
@@ -214,6 +216,7 @@ namespace AutoCSer.CommandService.DeployTask
             return new DeployTaskLog(Identity, index, tasks.Array[index].Type, state, currentIndex == tasks.Length || state != OperationStateEnum.Success);
         }
         /// <summary>
+        /// Close the task
         /// 关闭任务
         /// </summary>
         /// <param name="closeTime"></param>
@@ -223,7 +226,8 @@ namespace AutoCSer.CommandService.DeployTask
             this.closeTime = closeTime;
         }
         /// <summary>
-        /// 移除已结束或者未开始任务
+        /// Remove completed or un-started task (Initialize and load the persistent data)
+        /// 移除已结束或者未开始任务（初始化加载持久化数据）
         /// </summary>
         /// <param name="closeTime"></param>
         /// <returns></returns>
@@ -235,6 +239,7 @@ namespace AutoCSer.CommandService.DeployTask
             return OperationStateEnum.Success;
         }
         /// <summary>
+        /// Remove completed or un-started task
         /// 移除已结束或者未开始任务
         /// </summary>
         /// <param name="closeTime"></param>

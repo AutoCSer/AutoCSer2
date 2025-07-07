@@ -19,7 +19,7 @@ namespace AutoCSer.CodeGenerator.Culture
         /// <returns></returns>
         public override string GetCommandServerMethodNameConflict(Type type, Type enumType, string enumName)
         {
-            return $"{type} 生成 {enumType.fullName()}.{enumName} 名称冲突";
+            return $"{type} 生成 {enumType?.fullName()}.{enumName} 名称冲突";
         }
         /// <summary>
         /// 内存数据库节点方法名称冲突

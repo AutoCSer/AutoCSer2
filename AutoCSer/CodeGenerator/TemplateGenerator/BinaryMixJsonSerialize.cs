@@ -22,7 +22,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (CurrentAttribute.IsCodeGenerator)
             {
                 BinarySerialize.Create(CurrentType.Type);
-                if (CurrentAttribute.IsMixJsonSerialize) JsonSerialize.Create(CurrentType.Type);
+                if (CurrentAttribute.IsJsonMix) JsonSerialize.Create(CurrentType.Type);
             }
             return AutoCSer.Common.CompletedTask;
         }

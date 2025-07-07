@@ -14,7 +14,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 类定义生成
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="isClass"></param>
         /// <param name="typeNamespace"></param>
         /// <param name="typeNameSuffix">类名称后缀</param>
@@ -26,7 +26,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 生成类定义
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="isClass">是否建立类定义</param>
         /// <param name="typeNameSuffix">类名称后缀</param>
         /// <param name="typeNamespace"></param>

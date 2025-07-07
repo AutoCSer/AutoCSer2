@@ -20,11 +20,13 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly ConstructorInfo CommandControllerConstructorInfo = typeof(CommandClientController).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(CommandClientSocket), typeof(string), typeof(int), typeof(ClientInterfaceMethod[]), typeof(int[]), typeof(int) }, null).notNull();
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         internal static readonly Func<CommandClientController, int, CommandClientReturnValue> CommandClientControllerSynchronous = CommandClientController.Synchronous;
         /// <summary>
-        /// 仅发送数据命令
+        /// Unresponsive command
+        /// 无响应命令
         /// </summary>
         internal static readonly Func<CommandClientController, int, SendOnlyCommand> CommandClientControllerSendOnly = CommandClientController.SendOnly;
         /// <summary>
@@ -48,7 +50,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandClientController, int, AutoCSer.Net.ReturnCommand> CommandClientControllerReturnType = CommandClientController.ReturnType;
         /// <summary>
-        /// 获取 Task
+        /// Convert to a Task object
+        /// 转换为 Task 对象
         /// </summary>
         internal static readonly Func<ReturnCommand, Task> ReturnCommandGetTask = AutoCSer.Net.ReturnCommand.GetTask;
         /// <summary>
@@ -64,23 +67,28 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandClientController, int, AutoCSer.Net.EnumeratorQueueCommand> CommandClientControllerEnumeratorQueue = CommandClientController.EnumeratorQueue;
         /// <summary>
+        /// Get the client callback delegate
         /// 获取客户端回调委托
         /// </summary>
         internal static readonly Func<Action<CommandClientReturnValue>, CommandClientCallback> GetCommandClientCallback = CommandClientCallback.Get;
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client keep callback delegate
+        /// 获取客户端保持回调委托
         /// </summary>
         internal static readonly Func<Action<CommandClientReturnValue, Net.KeepCallbackCommand>, CommandClientKeepCallback> GetCommandClientKeepCallback = CommandClientKeepCallback.Get;
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue callback task node
+        /// 获取客户端队列回调任务节点
         /// </summary>
         internal static readonly Func<Action<CommandClientReturnValue, CommandClientCallQueue>, CommandClientCallbackQueueNode> GetCommandClientCallbackQueue = CommandClientCallbackQueueNode.Get;
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue keep callback delegate
+        /// 获取客户端队列保持回调委托
         /// </summary>
         internal static readonly Func<Action<CommandClientReturnValue, CommandClientCallQueue, Net.KeepCallbackCommand>, CommandClientKeepCallbackQueue> GetCommandClientKeepCallbackQueue = CommandClientKeepCallbackQueue.Get;
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         internal static readonly Func<CommandClientReturnValue, bool> CommandClientReturnValueGetIsSuccess = CommandClientReturnValue.GetIsSuccess;
         /// <summary>
@@ -105,7 +113,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly MethodInfo CommandClientControllerSynchronousInputOutputMethod;
         /// <summary>
-        /// 仅发送数据命令
+        /// Unresponsive command
+        /// 无响应命令
         /// </summary>
         internal static readonly MethodInfo CommandClientControllerSendOnlyInputMethod;
         /// <summary>

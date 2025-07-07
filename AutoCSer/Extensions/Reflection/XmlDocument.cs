@@ -93,6 +93,7 @@ namespace AutoCSer.Reflection
             return value;
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private static void clearAssemblys()
@@ -101,6 +102,7 @@ namespace AutoCSer.Reflection
             lastAssembly = null;
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private static void clearAssemblysTask()

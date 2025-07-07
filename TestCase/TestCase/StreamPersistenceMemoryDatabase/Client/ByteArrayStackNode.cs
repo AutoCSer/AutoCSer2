@@ -5,20 +5,24 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
 {
     /// <summary>
-    /// byte[] 栈客户端示例
+    /// Example of byte[] stack client node
+    /// byte[] 栈客户端节点示例
     /// </summary>
     internal static class ByteArrayStackNode
     {
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayStackNodeClientNode> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateByteArrayStackNode(nameof(ByteArrayStackNode)));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayStackNodeClientNode> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateByteArrayStackNode(nameof(ByteArrayStackNode)));
         /// <summary>
-        /// byte[] 栈客户端示例
+        /// Example of byte[] stack client node
+        /// byte[] 栈客户端节点示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
@@ -28,7 +32,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             return true;
         }
         /// <summary>
-        /// byte[] 栈客户端示例
+        /// Example of byte[] stack client node
+        /// byte[] 栈客户端节点示例
         /// </summary>
         /// <returns></returns>
         private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayStackNodeClientNode> client)

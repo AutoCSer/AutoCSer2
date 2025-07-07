@@ -29,7 +29,7 @@ namespace AutoCSer.CommandService.ReverseLogCollection
             queue = new TaskQueue();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         protected override void dispose()
         {
@@ -70,7 +70,7 @@ namespace AutoCSer.CommandService.ReverseLogCollection
             return AutoCSer.Common.CompletedValueTask;
         }
         /// <summary>
-        /// 添加客户端
+        /// 客户端验证完成处理
         /// </summary>
         internal void OnVerified()
         {

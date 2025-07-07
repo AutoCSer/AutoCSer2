@@ -19,12 +19,12 @@ namespace AutoCSer.Net
         /// </summary>
         bool IsDisposed { get; }
         /// <summary>
-        /// The service listens to host and port information
+        /// The server listens to host and port information
         /// 服务监听主机与端口信息
         /// </summary>
         HostEndPoint Host { get; }
         /// <summary>
-        /// The service name is a unique identifier of the service registration. If the service registration is not required, it is only used for log output
+        /// The service name is a unique identifier of the server registration. If the server registration is not required, it is only used for log output
         /// 服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
         /// </summary>
 #if NetStandard21
@@ -43,7 +43,7 @@ namespace AutoCSer.Net
         /// </summary>
         BindingFlags ControllerCreatorBindingFlags { get; }
         /// <summary>
-        /// Wait for the service to listen to address
+        /// Wait for the server listen address
         /// 等待服务监听地址
         /// </summary>
         /// <returns>Whether to cancel a scheduled task
@@ -64,8 +64,7 @@ namespace AutoCSer.Net
         /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
-        /// <returns>Return null on failure
-        /// 失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         Task<CommandClientSocketEvent?> GetSocketEvent();
 #else
@@ -77,8 +76,7 @@ namespace AutoCSer.Net
         /// 获取命令客户端套接字事件
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns>Return null on failure
-        /// 失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         Task<T?> GetSocketEvent<T>() where T : CommandClientSocketEvent;
 #else

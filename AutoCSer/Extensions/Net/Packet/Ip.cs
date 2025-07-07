@@ -163,12 +163,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// 初始化IP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Ip(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// 初始化IP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public unsafe Ip(ref SubArray<byte> data)
         {
             if (data.Length >= DefaultHeaderSize)

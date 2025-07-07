@@ -78,11 +78,11 @@ namespace AutoCSer.Extensions.Metadata
         internal abstract Delegate InterfaceControllerTaskQueueNodeSetReturn { get; }
 
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         internal abstract Delegate MemberCopyArrayDelegate { get; }
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         internal abstract Delegate MemberMapCopyArrayDelegate { get; }
 
@@ -221,14 +221,14 @@ namespace AutoCSer.Extensions.Metadata
         internal override Delegate InterfaceControllerTaskQueueNodeSetReturn { get { return (Action<InterfaceControllerTaskQueueNode<T>, T>)InterfaceControllerTaskQueueNode<T>.SetReturn; } }
 
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         internal override Delegate MemberCopyArrayDelegate
         {
             get { return (AutoCSer.MemberCopy<T[]>.Copyer)AutoCSer.MemberCopy<T>.CopyArray; }
         }
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         internal override Delegate MemberMapCopyArrayDelegate
         {

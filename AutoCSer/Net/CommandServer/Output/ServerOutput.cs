@@ -25,7 +25,8 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 创建输出信息
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
         /// <param name="buildInfo">输出创建参数</param>
         /// <returns></returns>
 #if NetStandard21
@@ -43,6 +44,7 @@ namespace AutoCSer.Net.CommandServer
         internal virtual ServerOutput Free() { return LinkNext; }
 #endif
         /// <summary>
+        /// Cancel output
         /// 取消输出
         /// </summary>
         /// <param name="head"></param>
@@ -158,7 +160,8 @@ namespace AutoCSer.Net.CommandServer
         /// 设置输出参数
         /// </summary>
         /// <param name="callbackIdentity"></param>
-        /// <param name="method">服务端输出信息</param>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
         /// <param name="outputParameter"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(CallbackIdentity callbackIdentity, ServerInterfaceMethod method, ref T outputParameter)

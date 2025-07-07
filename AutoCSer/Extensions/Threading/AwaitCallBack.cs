@@ -23,6 +23,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private readonly bool isTaskRun;
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
@@ -35,6 +36,7 @@ namespace AutoCSer.Threading
             this.isTaskRun = isTaskRun;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -43,12 +45,14 @@ namespace AutoCSer.Threading
             await this;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetResult() { }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -58,6 +62,7 @@ namespace AutoCSer.Threading
             return this;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -94,7 +99,7 @@ namespace AutoCSer.Threading
         private Action continuation;
 #endif
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         [AllowNull]
@@ -105,6 +110,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private readonly bool isTaskRun;
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
@@ -117,6 +123,7 @@ namespace AutoCSer.Threading
             this.isTaskRun = isTaskRun;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -125,6 +132,7 @@ namespace AutoCSer.Threading
             return await this;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -134,6 +142,7 @@ namespace AutoCSer.Threading
             return returnValue;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -143,6 +152,7 @@ namespace AutoCSer.Threading
             return this;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -152,6 +162,7 @@ namespace AutoCSer.Threading
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
         /// <returns></returns>

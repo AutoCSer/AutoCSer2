@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Client command pool
     /// 客户端命令池
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -21,7 +22,7 @@ namespace AutoCSer.Net.CommandServer
         private const int maxArrayBits = 16;
 
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly AutoCSer.Threading.CpuCachePad pad0;
         /// <summary>
@@ -37,6 +38,7 @@ namespace AutoCSer.Net.CommandServer
         internal readonly CommandPoolTimeoutCount TimeoutCount;
 #endif
         /// <summary>
+        /// Client command pool
         /// 客户端命令池
         /// </summary>
         private CommandPoolLink[][] arrays;
@@ -61,7 +63,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private int commandCount;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly AutoCSer.Threading.CpuCachePad pad1;
         /// <summary>
@@ -77,7 +79,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private int pushArrayIndex = int.MinValue;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly AutoCSer.Threading.CpuCachePad pad2;
         /// <summary>
@@ -85,6 +87,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private CallbackIdentity keepCallbackIdentity = new CallbackIdentity(uint.MaxValue, uint.MaxValue);
         /// <summary>
+        /// Keep callback command
         /// 保持回调命令
         /// </summary>
         private Command keepCallbackCommand;
@@ -105,6 +108,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private int isErrorLog;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         internal int IsDisposed;
@@ -113,10 +117,11 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private AutoCSer.Threading.SleepFlagSpinLock freeEndIndexLock;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly AutoCSer.Threading.CpuCachePad pad3;
         /// <summary>
+        /// Client command pool
         /// 客户端命令池
         /// </summary>
         /// <param name="client"></param>
@@ -131,6 +136,7 @@ namespace AutoCSer.Net.CommandServer
 #endif
         }
         /// <summary>
+        /// Client command pool
         /// 客户端命令池
         /// </summary>
         /// <param name="client"></param>
@@ -301,7 +307,8 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
-        /// 取消回调
+        /// Cancel the keep callback
+        /// 取消保持回调
         /// </summary>
         /// <param name="cancelKeepCallbackData"></param>
         internal void CancelCallback(ref CancelKeepCallbackData cancelKeepCallbackData)

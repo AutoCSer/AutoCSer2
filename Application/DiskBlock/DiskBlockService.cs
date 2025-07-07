@@ -100,6 +100,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         private int isWrite;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         internal bool IsDisposed;
@@ -128,7 +129,7 @@ namespace AutoCSer.CommandService.DiskBlock
             Block = NullBlock.Null;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public virtual void Dispose()
         {
@@ -138,7 +139,7 @@ namespace AutoCSer.CommandService.DiskBlock
             dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public virtual async ValueTask DisposeAsync()
@@ -149,14 +150,14 @@ namespace AutoCSer.CommandService.DiskBlock
             dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         private void dispose()
         {
             if (!object.ReferenceEquals(Block, NullBlock.Null)) CommandServerCallQueue.AddOnly(new BlockCallback(BlockCallbackTypeEnum.Dispose, Block));
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         internal void DisposeCallback()
         {
@@ -171,6 +172,7 @@ namespace AutoCSer.CommandService.DiskBlock
             getPositions.CancelKeep();
         }
         /// <summary>
+        /// Bind the command service controller
         /// 绑定命令服务控制器
         /// </summary>
         /// <param name="controller"></param>

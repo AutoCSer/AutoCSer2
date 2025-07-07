@@ -10,7 +10,7 @@ using System.IO;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 日志流持久化内存数据库服务端数据加载
+    /// 日志流持久化内存数据库服务数据加载
     /// </summary>
     internal unsafe class ServiceLoader : StreamPersistenceLoader
     {
@@ -40,7 +40,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal const int ExceptionPositionFileHeadSize = sizeof(uint) + sizeof(ulong);
 
         /// <summary>
-        /// 日志流持久化内存数据库服务端
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
         private readonly StreamPersistenceMemoryDatabaseService service;
         /// <summary>
@@ -63,6 +64,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         private HashSet<long> persistenceCallbackExceptionPositions;
         /// <summary>
+        /// The file name for log stream persistence
         /// 日志流持久化文件名称
         /// </summary>
         protected override string persistenceFileName { get { return service.PersistenceFileInfo.FullName; } }
@@ -71,13 +73,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         protected override int readBufferSize { get { return service.Config.BufferMaxSize; } }
         /// <summary>
+        /// The persistent callback exception location file name
         /// 持久化回调异常位置文件名称
         /// </summary>
         protected virtual string persistenceCallbackExceptionPositionFileName { get { return service.PersistenceCallbackExceptionPositionFileInfo.FullName; } }
         /// <summary>
-        /// 日志流持久化内存数据库服务端数据加载
+        /// 日志流持久化内存数据库服务数据加载
         /// </summary>
-        /// <param name="service">日志流持久化内存数据库服务端</param>
+        /// <param name="service">Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务</param>
         internal ServiceLoader(StreamPersistenceMemoryDatabaseService service) : base(FileHeadSize, sizeof(NodeIndex) + sizeof(int) * 3)
         {
             this.service = service;
@@ -206,7 +210,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="data">当前加载数据缓冲区</param>
         /// <param name="position">当前数据所在持久化流中的位置</param>

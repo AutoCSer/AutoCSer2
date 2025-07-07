@@ -91,7 +91,7 @@ namespace AutoCSer.ORM
             }
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="tableWriter"></param>
         /// <param name="value"></param>
@@ -174,6 +174,7 @@ namespace AutoCSer.ORM
             return true;
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         /// <param name="tableWriter"></param>

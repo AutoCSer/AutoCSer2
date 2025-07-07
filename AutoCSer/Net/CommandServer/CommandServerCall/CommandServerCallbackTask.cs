@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// TCP server-side asynchronous callback
     /// TCP 服务器端异步回调
     /// </summary>
     public class CommandServerCallbackTask : CommandServerCallback
@@ -17,6 +18,7 @@ namespace AutoCSer.Net
         /// </summary>
         protected Task task;
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
@@ -44,7 +46,8 @@ namespace AutoCSer.Net
             if (exception != null) Socket.Server.Config.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
@@ -54,6 +57,7 @@ namespace AutoCSer.Net
             return new CommandServerCallbackTask(socket);
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="callbackTask"></param>
@@ -70,6 +74,7 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// TCP server-side asynchronous callback
     /// TCP 服务器端异步回调
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -80,6 +85,7 @@ namespace AutoCSer.Net
         /// </summary>
         protected Task task;
         /// <summary>
+        /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="socket"></param>
@@ -107,6 +113,7 @@ namespace AutoCSer.Net
             if (exception != null) Socket.Server.Config.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception);
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="callbackTask"></param>

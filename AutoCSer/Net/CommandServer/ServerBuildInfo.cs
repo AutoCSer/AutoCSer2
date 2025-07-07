@@ -52,6 +52,7 @@ namespace AutoCSer.Net.CommandServer
         [System.Runtime.InteropServices.FieldOffset(14)]
         internal bool IsAsynchronous;
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

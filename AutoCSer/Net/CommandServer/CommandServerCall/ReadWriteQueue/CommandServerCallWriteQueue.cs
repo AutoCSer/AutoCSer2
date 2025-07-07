@@ -9,15 +9,18 @@ using System.Threading;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 服务端同步读写队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景，也可用于支持多线程并发读取的场景，不适合写操作频率高的需求）
+    /// A write operation queue for synchronous read and write operations on the server side (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data, and can also be used in scenarios where multiple threads support concurrent reading. It is not suitable for scenarios with high write operation frequencies)
+    /// 服务端同步读写的写操作队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景，也可用于支持多线程并发读取的场景，不适合写操作频率高的需求）
     /// </summary>
     public abstract class CommandServerCallWriteQueue : CommandServerCallReadWriteQueue
     {
         /// <summary>
+        /// Concurrent read operation thread
         /// 并发读操作线程
         /// </summary>
         internal ConcurrencyReadWriteQueueThread ConcurrencyReadThread;
         /// <summary>
+        /// Write the first node of the operation task
         /// 写操作任务首节点
         /// </summary>
 #if NetStandard21
@@ -26,31 +29,37 @@ namespace AutoCSer.Net
         private ReadWriteQueueNode writeHead;
 #endif
         /// <summary>
+        /// Write operation waiting event
         /// 写操作等待事件
         /// </summary>
         private readonly System.Threading.AutoResetEvent writeWaitHandle;
         /// <summary>
+        /// The queue of read tasks waiting to be executed
         /// 等待执行的读取任务队列
         /// </summary>
         private LinkStack<ReadWriteQueueNode> readQueue;
         /// <summary>
+        /// Idle read operation thread collection
         /// 空闲读操作线程集合
         /// </summary>
         private LinkStack<ReadQueueThread> readThreads;
         /// <summary>
+        /// The current number of read operations
         /// 当前读取操作数量
         /// </summary>
         private int readCount;
         /// <summary>
+        /// The current status of concurrent read operations allows concurrent reads without being restricted by write operations
         /// 当前并发读操作状态，允许并发读取不受写操作限制
         /// </summary>
         protected volatile bool isConcurrencyRead;
         /// <summary>
+        /// Has the queue been closed
         /// 是否已经关闭队列
         /// </summary>
         internal volatile bool IsClose;
         /// <summary>
-        /// 空队列
+        /// Empty queue
         /// </summary>
         protected CommandServerCallWriteQueue()
         {
@@ -58,11 +67,13 @@ namespace AutoCSer.Net
             ConcurrencyReadThread = new ConcurrencyReadWriteQueueThread(this, true);
         }
         /// <summary>
-        /// 服务端同步读写队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景，也可用于支持多线程并发读取的场景，不适合写操作频率高的需求）
+        /// A write operation queue for synchronous read and write operations on the server side (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data, and can also be used in scenarios where multiple threads support concurrent reading. It is not suitable for scenarios with high write operation frequencies)
+        /// 服务端同步读写的写操作队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景，也可用于支持多线程并发读取的场景，不适合写操作频率高的需求）
         /// </summary>
         /// <param name="server"></param>
         /// <param name="controller"></param>
-        /// <param name="maxConcurrency">最大读取操作并发数量，小于等于 0 表示处理器数量减去设置值（比如处理器数量为 4，并发数量设置为 -1，则读取并发数量为 4 - 1 = 3）</param>
+        /// <param name="maxConcurrency">The maximum concurrent number of read operations, if less than or equal to 0, indicates the number of processors minus the set value (for example, if the number of processors is 4 and the concurrent number is set to -1, then the concurrent number of reads is 4 -1 = 3)
+        /// 最大读取操作并发数量，小于等于 0 表示处理器数量减去设置值（比如处理器数量为 4，并发数量设置为 -1，则读取并发数量为 4 - 1 = 3）</param>
 #if NetStandard21
         internal CommandServerCallWriteQueue(CommandListener server, CommandServerController? controller, int maxConcurrency) : base(server, controller)
 #else
@@ -92,6 +103,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Close the queue
         /// 关闭队列
         /// </summary>
         internal void Close()
@@ -103,6 +115,7 @@ namespace AutoCSer.Net
             ConcurrencyReadThread.WaitHandle.setDispose();
         }
         /// <summary>
+        /// Task allocation thread
         /// 任务分配线程
         /// </summary>
         private void run()
@@ -279,6 +292,7 @@ namespace AutoCSer.Net
             while (!IsClose);
         }
         /// <summary>
+        /// Get the next read task
         /// 获取下一个读取任务
         /// </summary>
         /// <returns></returns>
@@ -292,6 +306,7 @@ namespace AutoCSer.Net
             return writeHead == null || isConcurrencyRead ? readQueue.Pop() : null;
         }
         /// <summary>
+        /// The read operation thread is added to the idle collection
         /// 读取操作线程添加到空闲集合
         /// </summary>
         /// <param name="thread"></param>
@@ -308,6 +323,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Close the read operation thread
         /// 关闭读取操作线程
         /// </summary>
         /// <returns></returns>
@@ -316,6 +332,7 @@ namespace AutoCSer.Net
             if (System.Threading.Interlocked.Decrement(ref readCount) == 0) writeWaitHandle.Set();
         }
         /// <summary>
+        /// The concurrent read operation task processing has been completed
         /// 并发读操作任务处理结束
         /// </summary>
         /// <param name="thread"></param>
@@ -329,6 +346,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Close the read operation thread
         /// 关闭读取操作线程
         /// </summary>
         /// <returns></returns>

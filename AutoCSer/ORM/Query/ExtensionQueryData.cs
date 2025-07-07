@@ -21,6 +21,7 @@ namespace AutoCSer.ORM
         /// </summary>
         public LeftArray<string> Havings;
         /// <summary>
+        /// Empty and release the array
         /// 置空并释放数组
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

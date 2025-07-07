@@ -6,15 +6,18 @@ using System.Threading;
 namespace AutoCSer
 {
     /// <summary>
+    /// Random number
     /// 随机数
     /// </summary>
     public unsafe sealed class Random : IDisposable
     {
         /// <summary>
+        /// Number of seed bytes
         /// 种子字节数量
         /// </summary>
         internal const int SecureSeedsSize = 64 * sizeof(uint) + 5 * 11 * sizeof(uint) + sizeof(uint);
         /// <summary>
+        /// The default seed array of system random numbers
         /// 系统随机数默认种子数组
         /// </summary>
 #if NetStandard21
@@ -24,61 +27,76 @@ namespace AutoCSer
 #endif
 
         /// <summary>
+        /// Public seeds
         /// 公用种子
         /// </summary>
         private uint* seeds;
         /// <summary>
+        /// Safe seeds
         /// 安全种子
         /// </summary>
         private uint* secureSeeds;
         /// <summary>
-        /// 32位种子位置
+        /// 32-bit seed position
+        /// 32 位种子位置
         /// </summary>
         private int current;
         /// <summary>
-        /// 64位种子位置
+        /// 64-bit seed position
+        /// 64 位种子位置
         /// </summary>
         private int current64;
         /// <summary>
-        /// 64位种子位置访问锁
+        /// 64-bit seed location access lock
+        /// 64 位种子位置访问锁
         /// </summary>
         private AutoCSer.Threading.SpinLock currentLock;
         /// <summary>
+        /// Random bit cache
         /// 随机位缓存
         /// </summary>
         private uint bits;
         /// <summary>
+        /// Random bit cache quantity
         /// 随机位缓存数量
         /// </summary>
         private int bitCount;
         /// <summary>
+        /// Byte cache access lock
         /// 字节缓存访问锁
         /// </summary>
         private AutoCSer.Threading.SpinLock byteLock;
         /// <summary>
         /// 字节缓存
         /// </summary>
+        /// Byte cache
         private ulong bytes;
         /// <summary>
+        /// Byte cache quantity
         /// 字节缓存数量
         /// </summary>
         private int byteCount;
         /// <summary>
         /// 双字节缓存访问锁
         /// </summary>
+        /// Double-byte cache access lock
         private AutoCSer.Threading.SpinLock ushortLock;
         /// <summary>
         /// 双字节缓存
         /// </summary>
+        /// Double-byte cache
         private ulong ushorts;
         /// <summary>
+        /// The number of double-byte caches
         /// 双字节缓存数量
         /// </summary>
         private int ushortCount;
         /// <summary>
+        /// Random number
         /// 随机数
         /// </summary>
-        /// <param name="isAutoCSerStatic">随机种子是否采用默认静态内存</param>
+        /// <param name="isAutoCSerStatic">Whether the random seed uses the default static memory
+        /// 随机种子是否采用默认静态内存</param>
         private Random(bool isAutoCSerStatic = false)
         {
             secureSeeds = isAutoCSerStatic ? AutoCSer.Memory.Unmanaged.GetRandomSecureSeeds().UInt : (uint*)AutoCSer.Memory.Unmanaged.Get(SecureSeedsSize, false);
@@ -116,6 +134,7 @@ namespace AutoCSer
             bitCount = 32;
         }
         /// <summary>
+        /// Release the seed memory
         /// 释放种子内存
         /// </summary>
         public void Dispose()
@@ -129,6 +148,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Get the random seed position
         /// 获取随机种子位置
         /// </summary>
         /// <returns></returns>
@@ -148,6 +168,7 @@ namespace AutoCSer
             return index;
         }
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
         public int Next()
@@ -159,6 +180,7 @@ namespace AutoCSer
         }
 #if NET8
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -169,6 +191,7 @@ namespace AutoCSer
         }
 #endif
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
         public float NextFloat()
@@ -180,9 +203,11 @@ namespace AutoCSer
             return *(float*)seed;
         }
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
-        /// <param name="mod">求余取模数</param>
+        /// <param name="mod">Take the modulus of the remainder
+        /// 求余取模数</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int Next(int mod)
@@ -192,6 +217,7 @@ namespace AutoCSer
             return value >= 0 ? value : (value + mod);
         }
         /// <summary>
+        /// Get the next random bit
         /// 获取下一个随机位
         /// </summary>
         /// <returns></returns>
@@ -213,6 +239,7 @@ namespace AutoCSer
             return bits & (1U << count);
         }
         /// <summary>
+        /// Get the next random byte
         /// 获取下一个随机字节
         /// </summary>
         /// <returns></returns>
@@ -246,6 +273,7 @@ namespace AutoCSer
             while (true);
         }
         /// <summary>
+        /// Get the next random double byte
         /// 获取下一个随机双字节
         /// </summary>
         /// <returns></returns>
@@ -279,6 +307,7 @@ namespace AutoCSer
             while (true);
         }
         /// <summary>
+        /// Get the random seed position
         /// 获取随机种子位置
         /// </summary>
         /// <returns></returns>
@@ -291,6 +320,7 @@ namespace AutoCSer
             return index;
         }
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
         public ulong NextULong()
@@ -302,6 +332,7 @@ namespace AutoCSer
             return *(ulong*)seed ^= *(ulong*)(seed - (5 * 11 - 3 * 7));
         }
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
         public double NextDouble()
@@ -314,6 +345,7 @@ namespace AutoCSer
             return *(double*)seed;
         }
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
         public int SecureNext()
@@ -324,7 +356,8 @@ namespace AutoCSer
             return (int)((secureSeeds[leftIndex] ^= secureSeeds[rightIndex]) - (uint)seed);
         }
         /// <summary>
-        /// 获取下一个非0随机数
+        /// Get the next nonzero random number
+        /// 获取下一个非 0 随机数
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public uint SecureNextUIntNotZero()
@@ -334,6 +367,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
+        /// Get the next random number
         /// 获取下一个随机数
         /// </summary>
         public ulong SecureNextULong()
@@ -347,7 +381,8 @@ namespace AutoCSer
             return (*(ulong*)(secureSeeds + leftIndex) ^= *(ulong*)(secureSeeds + rightIndex)) - seed;
         }
         /// <summary>
-        /// 获取下一个非0随机数
+        /// Get the next nonzero random number
+        /// 获取下一个非 0 随机数
         /// </summary>
         public ulong SecureNextULongNotZero()
         {
@@ -356,15 +391,17 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
+        /// Default random number
         /// 默认随机数
         /// </summary>
         public static readonly Random Default;
         /// <summary>
-        /// 随机Hash值(用于防构造)
+        /// Random Hash value (for anti-construction)
+        /// 随机 Hash 值（用于防构造）
         /// </summary>
         public static readonly ulong Hash64;
         /// <summary>
-        /// 随机Hash值(用于防构造)
+        /// Random Hash value (for anti-construction)
         /// </summary>
         public static readonly int Hash;
 
@@ -376,7 +413,7 @@ namespace AutoCSer
                 Hash64 = Default.NextULong();
             }
             while (Hash64 == 0);
-            Hash = (int)((uint)Hash64 ^ (uint)(Hash64 >> 32));
+            for (Hash = (int)((uint)Hash64 ^ (uint)(Hash64 >> 32)); Hash == 0; Hash = Default.Next()) ;
         }
     }
 }

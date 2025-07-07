@@ -20,7 +20,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         CheckServiceIndexCacheNode,
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         Dispose,
     }

@@ -4,6 +4,7 @@ using AutoCSer.Net.CommandServer;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CodeGenerator.TemplateGenerator
@@ -55,47 +56,108 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         }
 
         /// <summary>
+        /// 输出类定义开始段代码是否包含当前类型
+        /// </summary>
+        protected override bool isStartClass { get { return false; } }
+        /// <summary>
+        /// 是否输出生成配置代码
+        /// </summary>
+        public bool IsGeneratorAttribute;
+        /// <summary>
+        /// 是否输出枚举代码
+        /// </summary>
+        public bool IsGeneratorEnum;
+        /// <summary>
+        /// The command service controller interface generates configuration
+        /// 命令服务控制器接口生成配置
+        /// </summary>
+        private AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute generatorControllerAttribute;
+        /// <summary>
         /// 接口方法集合
         /// </summary>
         public MethodInfo[] Methods;
         /// <summary>
-        /// 生成定义类型
+        /// 节点方法序号映射枚举类型
         /// </summary>
-        protected override ExtensionType definitionType { get { return CurrentAttribute.MethodIndexEnumType; } }
+        public string MethodIndexEnumTypeName
+        {
+            get
+            {
+                if (generatorControllerAttribute.MethodIndexEnumType != null) return generatorControllerAttribute.MethodIndexEnumType.Name;
+                return CurrentType.TypeOnlyName + "MethodEnum";
+            }
+        }
+        ///// <summary>
+        ///// 生成定义类型
+        ///// </summary>
+        //protected override ExtensionType definitionType 
+        //{
+        //    get
+        //    {
+        //        if (IsGeneratorAttribute) return base.definitionType;
+        //        return generatorControllerAttribute.MethodIndexEnumType ?? base.definitionType; 
+        //    }
+        //}
+        /// <summary>
+        /// 是否检查添加代码类型
+        /// </summary>
+        /// <returns></returns>
+        protected override bool checkAddType()
+        {
+            return IsGeneratorAttribute || !IsGeneratorEnum;
+        }
         /// <summary>
         /// 生成代码
         /// </summary>
         /// <returns></returns>
         protected Task createCode()
         {
-            LeftArray<KeyValue<int, string>> enumValues = new LeftArray<KeyValue<int, string>>(0);
             int methodIndex = -1;
-            foreach (object value in Enum.GetValues(CurrentAttribute.MethodIndexEnumType))
+            Type methodIndexEnumType = generatorControllerAttribute.MethodIndexEnumType;
+            if (methodIndexEnumType != null && methodIndexEnumType.IsEnum)
             {
-                int index = ((IConvertible)value).ToInt32(null);
-                if (index < Methods.Length) Methods[index].EnumName = value.ToString();
-                else
+                LeftArray<KeyValue<int, string>> enumValues = new LeftArray<KeyValue<int, string>>(0);
+                foreach (object value in Enum.GetValues(methodIndexEnumType))
                 {
-                    if (index > methodIndex) methodIndex = index;
-                    enumValues.Add(new KeyValue<int, string>(index, value.ToString()));
+                    int index = ((IConvertible)value).ToInt32(null);
+                    if (index < Methods.Length) Methods[index].EnumName = value.ToString();
+                    else
+                    {
+                        if (index > methodIndex) methodIndex = index;
+                        enumValues.Add(new KeyValue<int, string>(index, value.ToString()));
+                    }
                 }
-            }
-            if (methodIndex >= Methods.Length)
-            {
-                Methods = AutoCSer.Common.GetCopyArray(Methods, methodIndex + 1);
-                foreach (KeyValue<int, string> enumValue in enumValues) Methods[enumValue.Key].EnumName = enumValue.Value;
+                if (methodIndex >= Methods.Length)
+                {
+                    Methods = AutoCSer.Common.GetCopyArray(Methods, methodIndex + 1);
+                    foreach (KeyValue<int, string> enumValue in enumValues) Methods[enumValue.Key].EnumName = enumValue.Value;
+                }
             }
             methodIndex = 0;
             HashSet<string> names = HashSetCreator<string>.Create();
-            foreach (MethodInfo methodEnum in Methods)
+            foreach (MethodInfo method in Methods)
             {
-                if (methodEnum.EnumName != null && !names.Add(methodEnum.EnumName))
+                //if (method.EnumName == null) method.EnumName = method.Method?.MethodName;
+                if (method.EnumName != null && !names.Add(method.EnumName))
                 {
-                    throw new Exception(Culture.Configuration.Default.GetCommandServerMethodNameConflict(CurrentType.Type, CurrentAttribute.MethodIndexEnumType, methodEnum.EnumName));
+                    throw new Exception(Culture.Configuration.Default.GetCommandServerMethodNameConflict(CurrentType.Type, generatorControllerAttribute.MethodIndexEnumType, method.EnumName));
                 }
-                methodEnum.MethodIndex = methodIndex++;
+                method.MethodIndex = methodIndex++;
             }
-            create(true);
+            IsGeneratorAttribute = true;
+            if (string.IsNullOrEmpty(CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath))
+            {
+                IsGeneratorEnum = true;
+                create(true);
+            }
+            else
+            {
+                IsGeneratorEnum = false;
+                create(true);
+                IsGeneratorAttribute = false;
+                IsGeneratorEnum = true;
+                create(true);
+            }
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
@@ -108,16 +170,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         protected override async Task nextCreate()
         {
-            if (!CurrentType.Type.IsInterface || CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath == null || CurrentAttribute.MethodIndexEnumType == null) return;
-            ServerInterfaceMethod[] methods = new ServerInterface(CurrentType.Type, null).Methods;
+            if (!CurrentType.Type.IsInterface || !CurrentAttribute.IsCodeGeneratorMethodEnum) return;
+            generatorControllerAttribute = CurrentType.Type.GetCustomAttribute<AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute>(false) ?? AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute.Default;
+            ServerInterfaceMethod[] methods = new ServerInterface(CurrentType.Type, null, null, true).Methods;
             if (methods == null || methods.Length == 0) return;
             Methods = methods.getArray(p => new MethodInfo(p));
 
+            enumCode = string.Empty;
             await createCode();
 
-            if (CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath.Length != 0 && !string.IsNullOrEmpty(enumCode))
+            if (!string.IsNullOrEmpty(enumCode))
             {
-                string filename = Path.Combine(ProjectParameter.ProjectPath, CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath, $"{CurrentAttribute.MethodIndexEnumType.Name}.cs");
+                string filename = Path.Combine(ProjectParameter.ProjectPath, CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath, $"{MethodIndexEnumTypeName}.cs");
                 if (await Coder.WriteFile(filename, enumCode)) Messages.Message($"{filename} 已修改");
             }
         }
@@ -131,7 +195,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <param name="code"></param>
         protected override void addCode(string code)
         {
-            if (CurrentAttribute.MethodIndexEnumTypeCodeGeneratorPath.Length == 0) Coder.Add(code, generatorAttribute.Language);
+            if (IsGeneratorAttribute || !IsGeneratorEnum) Coder.Add(code, generatorAttribute.Language);
             else enumCode = Coder.WarningCode + code + Coder.FileEndCode;
         }
     }

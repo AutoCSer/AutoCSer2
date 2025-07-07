@@ -83,12 +83,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// 以太网会话点到点协议数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public EthernetSessionP2P(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// 以太网会话点到点协议数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public unsafe EthernetSessionP2P(ref SubArray<byte> data)
         {
             if (data.Length >= HeaderSize)

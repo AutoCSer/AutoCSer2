@@ -128,6 +128,7 @@ namespace AutoCSer.CommandService.DeployTask
                             if (readSize == 0) break;
                             if (!await callback.CallbackAsync(new DatabaseBackupDownloadBuffer { Buffer = buffer, Size = readSize })) return;
                             if (readSize != buffer.Length) break;
+                            //bufferIndex &= (++bufferIndex ^ buffers.Length).logicalInversion() - 1;
                             if (++bufferIndex == buffers.Length) bufferIndex = 0;
                         }
                         while (true);

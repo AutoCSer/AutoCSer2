@@ -11,7 +11,8 @@ namespace AutoCSer.TestCase
 #if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(void))]
 #endif
-    [CommandServerControllerInterface(MethodIndexEnumType = typeof(DefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false, IsCodeGeneratorClientInterface = false)]
+    [AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute(typeof(IDefinedDissymmetryServerControllerMethodEnum))]
+    [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false)]
     public partial interface IDefinedDissymmetryClientController
     {
         /// <summary>
@@ -62,8 +63,8 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            returnValue = await client.DefinedDissymmetryClientController.GetSocketTask();
-            if (!returnValue.IsSuccess || !ServerSynchronousController.SessionObject.Check(returnValue.Value))
+            Data.ORM.ModelGeneric result = await client.DefinedDissymmetryClientController.GetSocketTask().GetCommandResult();
+            if (!ServerSynchronousController.SessionObject.Check(result))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

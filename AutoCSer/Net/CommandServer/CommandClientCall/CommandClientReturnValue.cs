@@ -5,17 +5,19 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 返回值
+    /// Command client calls the return value
+    /// 命令客户端调用返回值
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CommandClientReturnValue
     {
         /// <summary>
+        /// The return type of the call
         /// 返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         public string? ErrorMessage;
@@ -23,11 +25,13 @@ namespace AutoCSer.Net
         public string ErrorMessage;
 #endif
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess { get { return ReturnType == CommandClientReturnTypeEnum.Success; } }
         /// <summary>
-        /// 返回值
+        /// Error return value
+        /// 错误返回值
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -41,16 +45,18 @@ namespace AutoCSer.Net
             ErrorMessage = errorMessage;
         }
         /// <summary>
-        /// 获取返回值
+        /// Implicit conversion
+        /// 隐式转换
         /// </summary>
         /// <param name="returnType"></param>
-        /// <returns>返回值</returns>
+        /// <returns></returns>
         public static implicit operator CommandClientReturnValue(CommandClientReturnTypeEnum returnType)
         {
             return new CommandClientReturnValue(returnType, null);
         }
 #if AOT
         /// <summary>
+        /// Get exception information
         /// 获取异常信息
         /// </summary>
         /// <returns></returns>
@@ -61,7 +67,8 @@ namespace AutoCSer.Net
         }
 #else
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         /// <param name="returnValue"></param>
         /// <returns></returns>
@@ -71,7 +78,8 @@ namespace AutoCSer.Net
             return returnValue.IsSuccess;
         }
         /// <summary>
-        /// 检查状态并抛出异常
+        /// Check the error status and throw an error exception
+        /// 检查错误状态并抛出错误异常
         /// </summary>
         /// <param name="returnValue"></param>
         internal static void CheckThrowException(CommandClientReturnValue returnValue)
@@ -83,24 +91,26 @@ namespace AutoCSer.Net
 #endif
     }
     /// <summary>
-    /// 返回值
+    /// Command client calls the return value
+    /// 命令客户端调用返回值
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CommandClientReturnValue<T>
     {
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
         public T Value;
         /// <summary>
-        /// 返回值类型
+        /// The return type of the call
+        /// 调用返回类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         public string? ErrorMessage;
@@ -108,15 +118,18 @@ namespace AutoCSer.Net
         public string ErrorMessage;
 #endif
         /// <summary>
-        /// 是否成功
+        /// Is the call successful
+        /// 是否调用成功
         /// </summary>
         public bool IsSuccess { get { return ReturnType == CommandClientReturnTypeEnum.Success; } }
         /// <summary>
-        /// 返回值
+        /// Error return value
+        /// 错误返回值
         /// </summary>
         public CommandClientReturnValue ReturnValue { get { return new CommandClientReturnValue(ReturnType, ErrorMessage); } }
         /// <summary>
-        /// 返回值
+        /// Command client calls the return value
+        /// 命令客户端调用返回值
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -130,7 +143,8 @@ namespace AutoCSer.Net
             ErrorMessage = null;
         }
         /// <summary>
-        /// 返回值
+        /// Error return value
+        /// 错误返回值
         /// </summary>
         /// <param name="returnValue"></param>
         internal CommandClientReturnValue(ref CommandClientReturnValue returnValue)
@@ -140,7 +154,8 @@ namespace AutoCSer.Net
             ErrorMessage = returnValue.ErrorMessage;
         }
         /// <summary>
-        /// 返回值
+        /// Error return value
+        /// 错误返回值
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -155,6 +170,7 @@ namespace AutoCSer.Net
             ErrorMessage = errorMessage;
         }
         /// <summary>
+        /// Return value type conversion
         /// 返回值类型转换
         /// </summary>
         /// <typeparam name="VT"></typeparam>
@@ -167,10 +183,11 @@ namespace AutoCSer.Net
             return new CommandClientReturnValue<VT>(ReturnType, ErrorMessage);
         }
         /// <summary>
-        /// 获取返回值
+        /// Implicit conversion
+        /// 隐式转换
         /// </summary>
-        /// <param name="value">异步返回值</param>
-        /// <returns>返回值</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
 #if NetStandard21
         public static implicit operator CommandClientReturnValue<T>(T? value)
 #else
@@ -180,15 +197,17 @@ namespace AutoCSer.Net
             return new CommandClientReturnValue<T>(value);
         }
         /// <summary>
-        /// 获取返回值
+        /// Implicit conversion
+        /// 隐式转换
         /// </summary>
-        /// <param name="returnValue">返回值类型</param>
-        /// <returns>返回值</returns>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientReturnValue<T>(CommandClientReturnValue returnValue)
         {
             return new CommandClientReturnValue<T>(returnValue.ReturnType, returnValue.ErrorMessage);
         }
         /// <summary>
+        /// Get return value
         /// 获取返回值
         /// </summary>
         /// <param name="value"></param>
@@ -199,6 +218,7 @@ namespace AutoCSer.Net
             return new CommandClientReturnValue<T>(value);
         }
         /// <summary>
+        /// Get the error return value
         /// 获取错误返回值
         /// </summary>
         /// <param name="returnValue"></param>

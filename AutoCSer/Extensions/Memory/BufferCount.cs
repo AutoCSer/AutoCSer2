@@ -14,6 +14,7 @@ namespace AutoCSer.Memory
         /// </summary>
         internal ByteArrayBuffer Buffer;
         /// <summary>
+        /// Current count
         /// 当前计数
         /// </summary>
         internal int Count;

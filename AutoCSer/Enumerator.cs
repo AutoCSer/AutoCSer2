@@ -97,8 +97,9 @@ namespace AutoCSer
             /// <summary>
             /// 数组枚举器
             /// </summary>
-            /// <param name="array">数组</param>
-            /// <param name="startIndex">起始位置</param>
+            /// <param name="array">Array</param>
+            /// <param name="startIndex">Starting position
+            /// 起始位置</param>
             /// <param name="endIndex">结束位置</param>
             public Array(T[] array, int startIndex, int endIndex)
             {

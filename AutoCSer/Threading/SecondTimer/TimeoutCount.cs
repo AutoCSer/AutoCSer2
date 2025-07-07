@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -39,7 +40,9 @@ namespace AutoCSer.Threading
             internal long Next(int Size)
             {
                 ++Second;
-                if (++Index == Size) Index = 0;
+                //if (++Index == Size) Index = 0;
+                ++Index;
+                Index &= (Index ^ Size).logicalInversion() - 1;
                 return Value;
             }
         }
@@ -70,7 +73,7 @@ namespace AutoCSer.Threading
             }
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -78,7 +81,7 @@ namespace AutoCSer.Threading
             AutoCSer.Memory.Unmanaged.Free(ref Counts);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         ~TimeoutCount()
         {
@@ -112,7 +115,9 @@ namespace AutoCSer.Threading
                 return timeoutSeconds;
             }
             //屏蔽 0
-            if (++index == Counts.CurrentIndex) index = 0;
+            //if (++index == Counts.CurrentIndex) index = 0;
+            ++index;
+            index &= (index ^ Counts.CurrentIndex).logicalInversion() - 1;
             System.Threading.Interlocked.Increment(ref Counts.Int[index]);
             return 1;
         }

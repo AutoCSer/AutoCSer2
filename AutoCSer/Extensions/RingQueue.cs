@@ -77,7 +77,9 @@ namespace AutoCSer
         public void MoveRead()
         {
             queue.setDefault(readIndex);
-            if (++readIndex == queue.Length) readIndex = 0;
+            //if (++readIndex == queue.Length) readIndex = 0;
+            ++readIndex;
+            readIndex &= (readIndex ^ queue.Length).logicalInversion() - 1;
         }
         /// <summary>
         /// 写入新数据
@@ -103,8 +105,10 @@ namespace AutoCSer
             }
             else if (readIndex == writeIndex)
             {
+                ++readIndex;
                 value = queue.getSetDefault(writeIndex);
-                if (++readIndex == queue.Length) readIndex = 0;
+                //if (readIndex == queue.Length) readIndex = 0;
+                readIndex &= (readIndex ^ queue.Length).logicalInversion() - 1;
                 return value;
             }
             return default(T);

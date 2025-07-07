@@ -12,7 +12,8 @@ namespace AutoCSer.ORM
     /// </summary>
     /// <typeparam name="BT">业务表格模型类型</typeparam>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     public sealed class BusinessQuery<BT, T, KT>
         where BT : class, T
         where T : class
@@ -240,7 +241,8 @@ namespace AutoCSer.ORM
         /// 查询表格数据
         /// </summary>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="condition"></param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
@@ -259,7 +261,8 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="CT">转换数据类型</typeparam>
         /// <param name="query"></param>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -276,7 +279,8 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="VT"></typeparam>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="condition"></param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="transaction"></param>
@@ -296,7 +300,8 @@ namespace AutoCSer.ORM
         /// <typeparam name="VT"></typeparam>
         /// <typeparam name="CT">转换数据类型</typeparam>
         /// <param name="query"></param>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

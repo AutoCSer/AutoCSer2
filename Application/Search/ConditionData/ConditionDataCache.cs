@@ -38,7 +38,8 @@ namespace AutoCSer.CommandService.Search
         /// 删除缓存数据
         /// </summary>
         /// <param name="key">查询数据关键字</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         public bool Remove(uint key)
         {
             Monitor.Enter(cacheLock);
@@ -52,13 +53,15 @@ namespace AutoCSer.CommandService.Search
         /// 删除缓存数据
         /// </summary>
         /// <param name="key">查询数据关键字</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Remove(int key)
         {
             return Remove((uint)key);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="key"></param>
@@ -73,6 +76,7 @@ namespace AutoCSer.CommandService.Search
             finally { Monitor.Exit(cacheLock); }
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="key"></param>
@@ -141,7 +145,8 @@ namespace AutoCSer.CommandService.Search
         /// 删除缓存数据
         /// </summary>
         /// <param name="key">查询数据关键字</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         public bool Remove(KT key)
         {
             Monitor.Enter(cacheLock);
@@ -152,6 +157,7 @@ namespace AutoCSer.CommandService.Search
             finally { Monitor.Exit(cacheLock); }
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="key"></param>

@@ -11,23 +11,28 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Multi-hash bitmap filtering node client
     /// 多哈希位图过滤节点客户端
     /// </summary>
     public abstract class ManyHashBitMapFilter
     {
         /// <summary>
+        /// Multi-hash bitmap filtering node client
         /// 多哈希位图过滤节点客户端
         /// </summary>
         public readonly StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapFilterNodeClientNode> NodeCache;
         /// <summary>
+        /// The operation of rounding off the number of bits
         /// 位数量取余操作
         /// </summary>
         internal IntegerDivision SizeDivision;
         /// <summary>
+        /// Bitmap size (number of bits)
         /// 位图大小（位数量）
         /// </summary>
         protected int size { get { return (int)SizeDivision.Divisor; } }
         /// <summary>
+        /// Multi-hash bitmap filtering node client
         /// 多哈希位图过滤节点客户端
         /// </summary>
         /// <param name="nodeCache"></param>
@@ -38,9 +43,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             SizeDivision.Set(Math.Max(size, 2));
         }
         /// <summary>
+        /// Hash value to bitmap index position
         /// 哈希值转位图索引位置
         /// </summary>
-        /// <param name="hashCodes">哈希值集合</param>
+        /// <param name="hashCodes">Hash value collection
+        /// 哈希值集合</param>
         protected void hashCodeToBits(uint[] hashCodes)
         {
             for (int index = hashCodes.Length; index != 0;)
@@ -53,10 +60,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Hash value to bitmap index position
         /// 哈希值转位图索引位置
         /// </summary>
-        /// <param name="size">位图大小（位数量）</param>
-        /// <param name="hashCodes">哈希值集合</param>
+        /// <param name="size">Bitmap size (number of bits)
+        /// 位图大小（位数量）</param>
+        /// <param name="hashCodes">Hash value collection
+        /// 哈希值集合</param>
         public static void HashCodeToBits(int size, uint[] hashCodes)
         {
             IntegerDivision sizeDivision = new IntegerDivision(size);
@@ -67,6 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Gets two hash values of 32b
         /// 获取 2 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
@@ -77,6 +88,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new HashCode128(value).GetHashCodeArray2();
         }
         /// <summary>
+        /// Gets three hash values of 32b
         /// 获取 3 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
@@ -87,6 +99,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new HashCode128(value).GetHashCodeArray3();
         }
         /// <summary>
+        /// Gets four hash values of 32b
         /// 获取 4 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
@@ -98,27 +111,33 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
     }
     /// <summary>
+    /// Multi-hash bitmap filtering node client
     /// 多哈希位图过滤节点客户端
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     public sealed class ManyHashBitMapFilter<T> : ManyHashBitMapFilter
     {
         /// <summary>
-        /// 哈希计算委托集合
+        /// Hash calculation
+        /// 哈希计算
         /// </summary>
         private readonly Func<T, uint[]> getHashCodes;
         /// <summary>
+        /// Multi-hash bitmap filtering node client
         /// 多哈希位图过滤节点客户端
         /// </summary>
         /// <param name="nodeCache"></param>
-        /// <param name="size">位图大小（位数量）</param>
-        /// <param name="getHashCodes">哈希计算委托集合，必须采用稳定哈希算法保证不同机器或者进程计算结果一致</param>
+        /// <param name="size">Bitmap size (number of bits)
+        /// 位图大小（位数量）</param>
+        /// <param name="getHashCodes">Hash calculation must adopt a stable hash algorithm to ensure that the calculation results of different machines or processes are consistent
+        /// 哈希计算委托集合，必须采用稳定哈希算法保证不同机器或者进程计算结果一致</param>
         public ManyHashBitMapFilter(StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapFilterNodeClientNode> nodeCache, int size, Func<T, uint[]> getHashCodes) : base(nodeCache, size)
         {
             if (getHashCodes == null) throw new ArgumentNullException(nameof(getHashCodes));
             this.getHashCodes = getHashCodes;
         }
         /// <summary>
+        /// Set the bitmap data
         /// 设置位图数据
         /// </summary>
         /// <param name="value"></param>
@@ -146,10 +165,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             while (true);
         }
         /// <summary>
+        /// Check the bitmap data
         /// 检查位图数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>返回 false 表示数据不存在</returns>
+        /// <returns>Returning false indicates that the data does not exist
+        /// 返回 false 表示数据不存在</returns>
         public async Task<ResponseResult<bool>> Check(T value)
         {
             ResponseResult<IManyHashBitMapFilterNodeClientNode> nodeResult = await NodeCache.GetNode();

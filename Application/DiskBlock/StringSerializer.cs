@@ -4,7 +4,7 @@ using System;
 namespace AutoCSer.CommandService.DiskBlock
 {
     /// <summary>
-    /// 字符串序列化
+    /// String serialization
     /// </summary>
     internal sealed class StringSerializer : WriteBufferSerializer
     {
@@ -13,9 +13,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         private readonly string value;
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         internal StringSerializer(string value)
         {
             this.value = value;

@@ -63,6 +63,7 @@ namespace AutoCSer.Metadata
         }
 
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private static void clearCache()
@@ -70,6 +71,7 @@ namespace AutoCSer.Metadata
             if (cache.Count != 0) TaskQueue.AddDefault(clearCacheTask);
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private static void clearCacheTask()

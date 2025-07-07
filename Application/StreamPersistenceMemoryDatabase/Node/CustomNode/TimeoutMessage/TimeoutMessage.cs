@@ -7,7 +7,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
     /// <summary>
     /// 超时任务消息
     /// </summary>
-    /// <typeparam name="T">任务消息数据类型</typeparam>
+    /// <typeparam name="T">Task message data type
+    /// 任务消息数据类型</typeparam>
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class TimeoutMessage<T> : AutoCSer.Threading.Link<TimeoutMessage<T>>
     {
@@ -43,7 +44,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             Data.Task = task;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="task"></param>
         public static implicit operator TimeoutMessage<T>(T task) { return new TimeoutMessage<T>(task); }
@@ -59,6 +60,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
             return RunTask(node, TimeoutMessageRunTaskTypeEnum.Timeout);
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="node"></param>

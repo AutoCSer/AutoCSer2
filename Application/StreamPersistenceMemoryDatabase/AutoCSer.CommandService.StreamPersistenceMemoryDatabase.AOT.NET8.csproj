@@ -105,7 +105,6 @@
     <Compile Include="Method\BeforePersistenceCallOutputMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceMethodParameter.cs" />
-    <Compile Include="Method\CreateInputMethodParameter.cs" />
     <Compile Include="Method\InputKeepCallbackMethod.cs" />
     <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\KeepCallbackMethod.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="NullResponseParameterSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestParameter.cs" />
+    <Compile Include="RequestParameterContext.cs" />
     <Compile Include="ResponseParameter.cs" />
     <Compile Include="Method\CallInputMethod.cs" />
     <Compile Include="Method\SendOnlyMethodParameter.cs" />
@@ -144,7 +144,7 @@
     <Compile Include="ResponseParameterSimpleSerializer.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
-    <Compile Include="Server\CheckSnapshotCloneObject.cs" />
+    <Compile Include="Snapshot\CheckSnapshotCloneObject.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNodeCallback.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputNode.cs" />

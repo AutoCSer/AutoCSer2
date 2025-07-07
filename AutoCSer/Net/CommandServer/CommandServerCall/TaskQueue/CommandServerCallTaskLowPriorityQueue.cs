@@ -9,20 +9,24 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 服务端异步调用队列（低优先级，主要用于写操作、事务读操作、更新队列内存缓存状态）
+    /// The server asynchronously calls the low-priority queue (mainly used for write operations, transaction read operations, and updating the queue memory cache status)
+    /// 服务端异步调用低优先级队列（主要用于写操作、事务读操作、更新队列内存缓存状态）
     /// </summary>
     public abstract class CommandServerCallTaskLowPriorityQueue
     {
         /// <summary>
+        /// Task queue
         /// 任务队列
         /// </summary>
         internal LinkStack<CommandServerCallTaskQueueNode> Queue;
         /// <summary>
+        /// Low-priority task queue
         /// 低优先级任务队列
         /// </summary>
         internal LinkStack<CommandServerCallTaskQueueNode> LowPriorityQueue;
         /// <summary>
-        /// 低优先级任务队列
+        /// Low-priority task queue node
+        /// 低优先级任务队列节点
         /// </summary>
 #if NetStandard21
         private CommandServerCallTaskQueueNode? lowPriorityQueue;
@@ -30,6 +34,7 @@ namespace AutoCSer.Net
         private CommandServerCallTaskQueueNode lowPriorityQueue;
 #endif
         /// <summary>
+        /// Whether the queue of low-priority tasks is empty
         /// 低优先级任务队列是否为空
         /// </summary>
         internal bool IsEmptyLowPriorityQueue
@@ -37,18 +42,22 @@ namespace AutoCSer.Net
             get { return lowPriorityQueue == null && LowPriorityQueue.IsEmpty; }
         }
         /// <summary>
+        /// Execute timeout to check the task list
         /// 执行超时检查任务链表
         /// </summary>
         private LinkStack<CommandServerCallTaskQueueNode> timeoutLink;
         /// <summary>
-        /// 命令服务
+        /// Command server to listen
+        /// 命令服务端监听
         /// </summary>
         public readonly CommandListener Server;
         /// <summary>
+        /// Gets the queue keyword string
         /// 获取队列关键字字符串
         /// </summary>
         public abstract string KeyString { get; }
         /// <summary>
+        /// Queue custom context object
         /// 队列自定义上下文对象
         /// </summary>
 #if NetStandard21
@@ -57,7 +66,8 @@ namespace AutoCSer.Net
         public object ContextObject;
 #endif
         /// <summary>
-        /// 命令服务 Task 队列
+        /// Task queue controller service
+        /// Task 队列控制器服务
         /// </summary>
 #if NetStandard21
         internal CommandServerTaskQueueService? TaskQueue;
@@ -65,51 +75,63 @@ namespace AutoCSer.Net
         internal CommandServerTaskQueueService TaskQueue;
 #endif
         /// <summary>
+        /// The maximum number of concurrent reading tasks
         /// 最大读并发任务数量
         /// </summary>
         public readonly int MaxConcurrent;
         /// <summary>
+        /// Write operations wait for the number of read operation tasks
         /// 写操作等待读取操作任务数量
         /// </summary>
         public readonly int LowPriorityWaitCount;
         /// <summary>
+        /// The number of concurrent tasks can be increased
         /// 可增加并发任务数量
         /// </summary>
         private int canConcurrentCount;
         /// <summary>
+        /// The current number of tasks waiting for execution in the low-priority queue is less than or equal to 0 to trigger the execution of tasks in the low-priority queue
         /// 当前低优先级队列等待任务执行数量，小于等于 0 触发低优先级队列任务执行
         /// </summary>
         private int currentLowPriorityWaitCount;
         /// <summary>
+        /// Is any task is running
         /// 是否正在运行任务
         /// </summary>
         protected int isRunTask;
         /// <summary>
+        /// Wait for the task to end and access the lock
         /// 等待任务结束访问锁
         /// </summary>
         private int waitLock = 1;
         /// <summary>
+        /// The time of the last task addition
         /// 最后添加任务时间
         /// </summary>
         protected long AppendTaskSeconds;
         /// <summary>
+        /// Queue residency application count
         /// 队列驻留申请计数
         /// </summary>
         protected int resideCount;
         /// <summary>
+        /// The queue for asynchronous server calls waiting type
         /// 服务端异步调用队列等待类型
         /// </summary>
         internal CallTaskQueueWaitTypeEnum WaitType;
         /// <summary>
-        /// 是否检查队列执行超时
+        /// Whether it is necessary to check the queue execution timeout
+        /// 是否需要检查队列执行超时
         /// </summary>
         private readonly bool checkTimeout;
         /// <summary>
+        /// Whether the queue resides in memory by default
         /// 队列是否默认驻留内存
         /// </summary>
         protected readonly bool isReside;
         /// <summary>
-        /// 当前执行任务
+        /// The current task execution node
+        /// 当前执行任务节点
         /// </summary>
 #if NetStandard21
         protected CommandServerCallTaskQueueNode? currentTask;
@@ -117,6 +139,7 @@ namespace AutoCSer.Net
         protected CommandServerCallTaskQueueNode currentTask;
 #endif
         /// <summary>
+        /// The next task ready for execution
         /// 下一个准备执行的任务
         /// </summary>
 #if NetStandard21
@@ -125,14 +148,16 @@ namespace AutoCSer.Net
         private CommandServerCallTaskQueueNode nextTask;
 #endif
         /// <summary>
-        /// 默认空服务端执行队列
+        /// Default empty queue
+        /// 默认空队列
         /// </summary>
         internal CommandServerCallTaskLowPriorityQueue()
         {
             Server = CommandListener.Null;
         }
         /// <summary>
-        /// 服务端执行队列
+        /// The queue for asynchronous server calls
+        /// 服务端异步调用队列
         /// </summary>
         /// <param name="queueSet"></param>
         /// <param name="isReside"></param>
@@ -145,7 +170,8 @@ namespace AutoCSer.Net
             this.isReside = isReside;
         }
         /// <summary>
-        /// 服务端执行队列
+        /// The queue for asynchronous server calls
+        /// 服务端异步调用队列
         /// </summary>
         /// <param name="controller"></param>
         protected CommandServerCallTaskLowPriorityQueue(CommandServerController controller)
@@ -156,6 +182,7 @@ namespace AutoCSer.Net
             isReside = true;
         }
         /// <summary>
+        /// Start executing tasks
         /// 开始执行任务
         /// </summary>
         protected void run()
@@ -239,9 +266,11 @@ namespace AutoCSer.Net
             //Console.Write('D');
         }
         /// <summary>
+        /// Run low-priority tasks
         /// 运行低优先级任务
         /// </summary>
-        /// <returns>是否需要继续执行下一个任务</returns>
+        /// <returns>Whether the next task needs to be carried out
+        /// 是否需要继续执行下一个任务</returns>
 #if NET8
         [MemberNotNull(nameof(currentTask))]
 #endif
@@ -272,6 +301,7 @@ namespace AutoCSer.Net
             return !Server.IsDisposed;
         }
         /// <summary>
+        /// Release the task ownership and attempt to obtain the task ownership
         /// 释放任务所有权并尝试获取任务所有权
         /// </summary>
         protected void wait()
@@ -300,6 +330,7 @@ namespace AutoCSer.Net
             while (checkWait());
         }
         /// <summary>
+        /// Try to obtain the ownership of the task
         /// 尝试获取任务所有权
         /// </summary>
         /// <returns></returns>
@@ -341,6 +372,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Try to obtain the ownership of the task after it is completed
         /// 任务完成以后尝试获取任务所有权
         /// </summary>
         /// <param name="task"></param>
@@ -375,10 +407,12 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Add to the deletion queue
         /// 添加到删除队列
         /// </summary>
         protected abstract void appendRemove();
         /// <summary>
+        /// Task execution timeout check
         /// 任务执行超时检查
         /// </summary>
         /// <param name="keepSeconds"></param>
@@ -417,6 +451,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Pop up low-priority task
         /// 弹出低优先级任务
         /// </summary>
         /// <returns></returns>
@@ -427,6 +462,7 @@ namespace AutoCSer.Net
             return node;
         }
         /// <summary>
+        /// Add low-priority task
         /// 添加低优先级任务
         /// </summary>
         /// <param name="value"></param>
@@ -436,6 +472,7 @@ namespace AutoCSer.Net
             else throw new Exception("value.Queue != null");
         }
         /// <summary>
+        /// Add low-priority task
         /// 添加低优先级任务
         /// </summary>
         /// <param name="value"></param>
@@ -458,13 +495,15 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
-    /// 服务端异步调用队列
+    /// The server asynchronously calls the low-priority queue
+    /// 服务端异步调用低优先级队列
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class CommandServerCallTaskLowPriorityQueue<T> : CommandServerCallTaskQueue
         where T : IEquatable<T>
     {
         /// <summary>
+        /// The collection of asynchronous call queues on the server side
         /// 服务端异步调用队列集合
         /// </summary>
 #if NetStandard21
@@ -472,6 +511,7 @@ namespace AutoCSer.Net
 #endif
         protected readonly CommandServerCallTaskQueueSet<T> queueSet;
         /// <summary>
+        /// Queue keyword
         /// 队列关键字
         /// </summary>
 #if NetStandard21
@@ -479,11 +519,13 @@ namespace AutoCSer.Net
 #endif
         public readonly T Key;
         /// <summary>
-        /// 默认空服务端异步调用队列
+        /// Default empty queue
+        /// 默认空队列
         /// </summary>
         internal CommandServerCallTaskLowPriorityQueue() { }
         /// <summary>
-        /// 服务端执行队列
+        /// The queue for asynchronous server calls
+        /// 服务端异步调用队列
         /// </summary>
         /// <param name="queueSet"></param>
         /// <param name="isReside"></param>

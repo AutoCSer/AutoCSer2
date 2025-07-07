@@ -7,7 +7,7 @@ namespace AutoCSer.Xml
     /// </summary>
     public interface ICustomSerialize { }
     /// <summary>
-    /// 自定义序列化
+    /// Custom serialization
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface ICustomSerialize<T> : ICustomSerialize

@@ -30,11 +30,13 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
                 .CreateCommandListener(commandServerConfig);
         }
         /// <summary>
+        /// Get the client connection
         /// 获取客户端连接
         /// </summary>
-        /// <returns>返回 null 表示失败</returns>
+        /// <returns></returns>
         protected override Task<bool> getSocket() { throw new InvalidOperationException(); }
         /// <summary>
+        /// Close the client
         /// 关闭客户端
         /// </summary>
         protected override void close() { CommandReverseClient.Dispose(); }

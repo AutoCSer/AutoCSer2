@@ -20,6 +20,7 @@ namespace AutoCSer.Threading
         /// </summary>
         AppendTaskArray,
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         OnTimer,

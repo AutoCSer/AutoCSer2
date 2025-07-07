@@ -18,7 +18,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private static bool isDeserializeLog = true;
 
         /// <summary>
-        /// 服务端会话绑定日志流持久化内存数据库服务
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
         private readonly StreamPersistenceMemoryDatabaseServiceBase service;
         /// <summary>
@@ -159,6 +160,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the file data of the persistent callback exception location
         /// 获取持久化回调异常位置文件数据
         /// </summary>
         /// <returns></returns>
@@ -198,6 +200,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Get the location data of the persistent callback exception
         /// 获取持久化回调异常位置数据
         /// </summary>
         /// <param name="returnValue"></param>
@@ -239,6 +242,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             service.CloseLoader(this, true);
         }
         /// <summary>
+        /// Get the file data of the persistent callback exception location
         /// 获取持久化回调异常位置文件数据
         /// </summary>
         /// <param name="returnValue"></param>
@@ -265,6 +269,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             service.CloseLoader(this, isRetry);
         }
         /// <summary>
+        /// Get the file data of the persistent callback exception location
         /// 获取持久化回调异常位置文件数据
         /// </summary>
         /// <param name="position"></param>
@@ -293,6 +298,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the persistent file data
         /// 获取持久化文件数据
         /// </summary>
         /// <returns></returns>
@@ -328,6 +334,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Get the persistent file data
         /// 获取持久化文件数据
         /// </summary>
         /// <returns></returns>
@@ -348,6 +355,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the persistent file data
         /// 获取持久化文件数据
         /// </summary>
         /// <param name="returnValue"></param>
@@ -367,6 +375,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             service.CloseLoader(this, isRetry);
         }
         /// <summary>
+        /// Get the persistent file data
         /// 获取持久化文件数据
         /// </summary>
         /// <param name="position"></param>
@@ -396,6 +405,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the repair node method information from slave node
         /// 从节点获取修复节点方法信息
         /// </summary>
         /// <returns></returns>
@@ -434,6 +444,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Get the repair node method information from slave node
         /// 从节点获取修复节点方法信息
         /// </summary>
         /// <param name="returnValue"></param>

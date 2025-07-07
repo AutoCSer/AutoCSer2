@@ -28,7 +28,7 @@ namespace AutoCSer.CommandService.DeployTask
             Identity = identity;
         }
         /// <summary>
-        /// 错误信息
+        /// 错误状态
         /// </summary>
         /// <param name="state"></param>
         internal UploadFileIndex(UploadFileStateEnum state)

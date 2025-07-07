@@ -6,7 +6,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 测试栈节点接口
     /// </summary>
-    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    [ServerNode]
     public partial interface IStringStackNode : IStackNode<string>
     {
     }

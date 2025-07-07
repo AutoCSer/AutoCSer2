@@ -16,6 +16,7 @@
         </member>
         <member name="T:AutoCSer.RandomObject.CombinationTemplateConfig">
             <summary>
+            Customize simple combination template parameters
             自定义简单组合模板参数
             </summary>
         </member>
@@ -176,14 +177,16 @@
         </member>
         <member name="M:AutoCSer.RandomObject.Creator.CallCreate``1(System.Object)">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.RandomObject.Creator.ReflectionMethodName``1(System.Object)">
             <summary>
-            代码生成模板
+            AOT code generation template
+            AOT 代码生成模板
             </summary>
             <typeparam name="T"></typeparam>
         </member>

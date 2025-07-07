@@ -123,20 +123,16 @@ namespace AutoCSer.CommandService.DeployTask
                     {
                         clientFiles.ClearCount();
                         clientDirectorys.ClearCount();
-                        if (IsDelete)
+                        if (IsDelete && await AutoCSer.Common.DirectoryExists(clientDirectory))
                         {
-                            if (await AutoCSer.Common.DirectoryExists(clientDirectory))
+                            foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(clientDirectory))
                             {
-                                foreach (FileInfo file in await AutoCSer.Common.DirectoryGetFiles(clientDirectory))
-                                {
-                                    clientFiles.Set(file.Name, file);
-                                }
-                                foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(clientDirectory))
-                                {
-                                    clientDirectorys.Set(directory.Name, directory);
-                                }
+                                clientFiles.Set(file.Name, file);
                             }
-                            else await AutoCSer.Common.TryCreateDirectory(clientDirectory);
+                            foreach (DirectoryInfo directory in await AutoCSer.Common.GetDirectories(clientDirectory))
+                            {
+                                if (isDirectory(directory)) clientDirectorys.Set(directory.Name, directory);
+                            }
                         }
                         else await AutoCSer.Common.TryCreateDirectory(clientDirectory);
 
@@ -197,7 +193,8 @@ namespace AutoCSer.CommandService.DeployTask
                                 Monitor.Enter(fileLock);
                                 try
                                 {
-                                    waitPaths.Add(new KeyValue<DirectoryInfo, string>(new DirectoryInfo(Path.Combine(clientPath, directoryName.Name)), directoryName.FullName));
+                                    DirectoryInfo directory = new DirectoryInfo(Path.Combine(clientPath, directoryName.Name));
+                                    if (isDirectory(directory)) waitPaths.Add(new KeyValue<DirectoryInfo, string>(directory, directoryName.FullName));
                                 }
                                 finally { Monitor.Exit(fileLock); }
                                 if (IsDelete) clientDirectorys.Remove(directoryName.Name);

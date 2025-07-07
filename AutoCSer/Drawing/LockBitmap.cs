@@ -19,6 +19,7 @@ namespace AutoCSer.Drawing
         /// </summary>
         internal readonly Bitmap Bitmap;
         /// <summary>
+        /// Bitmap data
         /// 位图数据
         /// </summary>
         private readonly BitmapData bitmapData;
@@ -86,7 +87,7 @@ namespace AutoCSer.Drawing
             Stride = bitmapData.Stride;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -719,7 +720,8 @@ namespace AutoCSer.Drawing
         /// 根据空白颜色查找图片底部行号
         /// </summary>
         /// <param name="nullColor">空白颜色</param>
-        /// <returns>失败返回 0</returns>
+        /// <returns>Failure and return 0
+        /// 失败返回 0</returns>
         internal int FindBottom(LockBitmapColor nullColor)
         {
             int top = Bitmap.Height;

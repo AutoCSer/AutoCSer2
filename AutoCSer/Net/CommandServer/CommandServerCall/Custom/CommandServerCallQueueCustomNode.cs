@@ -5,15 +5,18 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 服务端执行队列任务
+    /// Server-side custom queue task nodes
+    /// 服务端自定义队列任务节点
     /// </summary>
     public abstract class CommandServerCallQueueCustomNode : QueueTaskNode
     {
         /// <summary>
+        /// Has it been added to the queue
         /// 是否已经添加到队列
         /// </summary>
         private int isQueue;
         /// <summary>
+        /// Check whether it has been added to the queue
         /// 检查是否已经添加到队列
         /// </summary>
         /// <returns></returns>

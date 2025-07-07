@@ -57,6 +57,7 @@ namespace AutoCSer.Threading
             locks.Add(new ReentrantSemaphoreSlimLockCount(semaphoreSlim));
         }
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -79,6 +80,7 @@ namespace AutoCSer.Threading
         }
 #if DEBUG
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
         /// <param name="semaphoreSlimLock"></param>
@@ -88,6 +90,7 @@ namespace AutoCSer.Threading
         /// <returns></returns>
 #else
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
         /// <param name="semaphoreSlimLock"></param>

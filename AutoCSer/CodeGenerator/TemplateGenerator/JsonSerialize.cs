@@ -70,6 +70,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public readonly TextSerializeMethodInfo MethodInfo;
             /// <summary>
+            /// Name of serialization method
             /// 序列化方法名称
             /// </summary>
             public string SerializeMethodName
@@ -83,7 +84,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             }
             /// <summary>
-            /// 序列化方法名称
+            /// Name of deserialization method
+            /// 反序列化方法名称
             /// </summary>
             public string DeserializeMethodName
             {
@@ -130,27 +132,33 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         }
 
         /// <summary>
-        /// 序列化方法名称
+        /// Name of JSON serialization method
+        /// JSON 序列化方法名称
         /// </summary>
         public string JsonSerializeMethodName { get { return JsonSerializeAttribute.JsonSerializeMethodName; } }
         /// <summary>
-        /// 序列化方法名称
+        /// Name of JSON serialization method
+        /// JSON 序列化方法名称
         /// </summary>
         public string JsonSerializeMemberMapMethodName { get { return JsonSerializeAttribute.JsonSerializeMemberMapMethodName; } }
         /// <summary>
-        /// 获取 JSON 序列化成员类型方法名称
+        /// The method name of get JSON serialized member type collection
+        /// 获取 JSON 序列化成员类型集合的方法名称
         /// </summary>
         public string JsonSerializeMemberTypeMethodName { get { return JsonSerializeAttribute.JsonSerializeMemberTypeMethodName; } }
         /// <summary>
-        /// 反序列化方法名称
+        /// Name of JSON deserialization method
+        /// JSON 反序列化方法名称
         /// </summary>
         public string JsonDeserializeMethodName { get { return JsonSerializeAttribute.JsonDeserializeMethodName; } }
         /// <summary>
-        /// 反序列化方法名称
+        /// Name of JSON deserialization method
+        /// JSON 反序列化方法名称
         /// </summary>
         public string JsonDeserializeMemberMapMethodName { get { return JsonSerializeAttribute.JsonDeserializeMemberMapMethodName; } }
         /// <summary>
-        /// 获取 JSON 反序列化成员名称方法名称
+        /// The method name of get collection of JSON deserialization member names
+        /// 获取 JSON 反序列化成员名称集合的方法名称
         /// </summary>
         public string JsonDeserializeMemberNameMethodName { get { return JsonSerializeAttribute.JsonDeserializeMemberNameMethodName; } }
         /// <summary>
@@ -185,6 +193,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public int DeserializeMemberCount { get { return DeserializeMembers.Length; } }
         /// <summary>
+        /// Collection of member types
         /// 成员类型集合
         /// </summary>
         public AotMethod.ReflectionMemberType[] MemberTypes;
@@ -311,11 +320,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             return false;
         }
         /// <summary>
+        /// Collection of member types
         /// 成员类型集合
         /// </summary>
         private static readonly HashSet<HashObject<Type>> memberTypes = HashSetCreator.CreateHashObject<Type>();
         /// <summary>
-        /// 成员类型集合
+        /// 获取成员类型集合
         /// </summary>
         /// <param name="deserializeMemberTypes"></param>
         /// <returns></returns>
@@ -523,7 +533,8 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         private static readonly GeneratorAttribute defaultGeneratorAttribute = typeof(JsonSerialize).GetCustomAttribute(typeof(GeneratorAttribute)).castType<GeneratorAttribute>();
         /// <summary>
-        /// 二进制序列化代码生成配置
+        /// Configuration for generating JSON serialization code in the AOT environment
+        /// AOT 环境 JSON 序列化代码生成配置
         /// </summary>
         private static readonly AutoCSer.CodeGenerator.JsonSerializeAttribute defaultJsonSerializeAttribute = new AutoCSer.CodeGenerator.JsonSerializeAttribute();
     }

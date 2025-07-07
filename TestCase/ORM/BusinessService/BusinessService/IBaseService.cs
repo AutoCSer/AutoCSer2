@@ -9,17 +9,19 @@ namespace AutoCSer.TestCase.BusinessService
     /// </summary>
     /// <typeparam name="BT">表格业务模型类型</typeparam>
     /// <typeparam name="MT">持久化表格模型类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     public interface IBaseService<BT, MT, KT>
         where MT : class
         where BT : class, MT
         where KT : IEquatable<KT>
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         Task<BT> Get(KT key);
         /// <summary>
         /// 更新数据

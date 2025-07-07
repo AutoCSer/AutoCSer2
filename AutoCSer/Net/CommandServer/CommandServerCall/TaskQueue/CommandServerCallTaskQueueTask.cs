@@ -18,7 +18,7 @@ namespace AutoCSer.Net
         /// </summary>
         private Task callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// 服务端异步调用队列任务
         /// </summary>
         /// <param name="socket"></param>
         internal CommandServerCallTaskQueueTask(CommandServerSocket socket) : base(socket, ServerMethodTypeEnum.TaskQueue)
@@ -84,6 +84,7 @@ namespace AutoCSer.Net
     public abstract class CommandServerCallTaskQueueTask<T> : CommandServerCallTaskQueueNode
     {
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         private readonly ServerInterfaceMethod method;
@@ -95,7 +96,7 @@ namespace AutoCSer.Net
 #endif
         private Task<T> callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// 服务端异步调用队列任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>

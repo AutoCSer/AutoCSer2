@@ -15,12 +15,13 @@ namespace AutoCSer.Net.CommandServer
         /// 检查接口类型
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="isGenericTypeDefinition"></param>
         /// <param name="error"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static bool CheckType(Type type, [MaybeNullWhen(true)] out string error)
+        internal static bool CheckType(Type type, bool isGenericTypeDefinition, [MaybeNullWhen(true)] out string error)
 #else
-        internal static bool CheckType(Type type, out string error)
+        internal static bool CheckType(Type type, bool isGenericTypeDefinition, out string error)
 #endif
         {
             if (!type.IsInterface)
@@ -28,7 +29,7 @@ namespace AutoCSer.Net.CommandServer
                 error = $"不支持非接口类型 {type.fullName()}";
                 return false;
             }
-            if (type.IsGenericTypeDefinition)// && !AutoCSer.Common.IsCodeGenerator
+            if (!isGenericTypeDefinition && type.IsGenericTypeDefinition)// && !AutoCSer.Common.IsCodeGenerator
             {
                 error = $"不支持泛型接口类型 {type.fullName()}";
                 return false;
@@ -45,15 +46,16 @@ namespace AutoCSer.Net.CommandServer
         /// 获取命令控制器配置
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="isGenericTypeDefinition"></param>
         /// <param name="error"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static CommandServerControllerInterfaceAttribute GetCommandControllerAttribute(Type type, out string? error)
+        internal static CommandServerControllerInterfaceAttribute GetCommandControllerAttribute(Type type, bool isGenericTypeDefinition, out string? error)
 #else
-        internal static CommandServerControllerInterfaceAttribute GetCommandControllerAttribute(Type type, out string error)
+        internal static CommandServerControllerInterfaceAttribute GetCommandControllerAttribute(Type type, bool isGenericTypeDefinition, out string error)
 #endif
         {
-            if (CheckType(type, out error))
+            if (CheckType(type, isGenericTypeDefinition, out error))
             {
                 return type.GetCustomAttribute<CommandServerControllerInterfaceAttribute>(false) ?? CommandServerController.DefaultAttribute;
             }

@@ -17,7 +17,7 @@ namespace AutoCSer.Net
     public class CommandServerConfig : CommandServerConfigBase
     {
         /// <summary>
-        /// Command service socket User-defined session object operation interface
+        /// Command server socket User-defined session object operation interface
         /// 命令服务套接字自定义会话对象操作接口
         /// </summary>
 #if NetStandard21
@@ -93,6 +93,7 @@ namespace AutoCSer.Net
         /// </summary>
         public bool NoDelay = true;
         /// <summary>
+        /// The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
         /// 默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
         /// </summary>
         public int MaxReadWriteQueueConcurrency = AutoCSer.Common.ProcessorCount - 1;
@@ -117,6 +118,7 @@ namespace AutoCSer.Net
         /// </summary>
         public int TaskQueueTimeoutSeconds = 60;
         /// <summary>
+        /// The maximum number of keep callbacks is set to 0 by default, indicating no limit. Open services should be set according to the actual situation to avoid memory usage attacks
         /// 最大保持回调数量，默认为 0 表示不限制，开放服务应该根据实际情况设置避免内存占用攻击
         /// </summary>
         public int MaxKeepCallbackCount;
@@ -145,7 +147,7 @@ namespace AutoCSer.Net
             return ServerReceiveErrorTypeEnum.CustomCommandError;
         }
         /// <summary>
-        /// Access the service registry component, the default return new AutoCSer.Net.CommandServiceRegistrar (server), one-time calls upon initial service
+        /// Get the service registration component, which returns new AutoCSer.Net.CommandServiceRegistrar(server) by default and is called all at once during service initialization
         /// 获取服务注册组件，默认返回 new AutoCSer.Net.CommandServiceRegistrar(server)，服务初始化时一次性调用
         /// </summary>
         /// <param name="server"></param>
@@ -167,13 +169,13 @@ namespace AutoCSer.Net
         /// Send data coding
         /// 发送数据编码
         /// </summary>
-        /// <param name="socket">Command service socket
+        /// <param name="socket">Command server socket
         /// 命令服务套接字</param>
-        /// <param name="data">Raw data
+        /// <param name="data">Original data
         /// 原始数据</param>
-        /// <param name="dataIndex">Origin of raw data
+        /// <param name="dataIndex">Origin of original data
         /// 原始数据起始位置</param>
-        /// <param name="dataSize">Number of bytes of raw data
+        /// <param name="dataSize">Number of bytes of original data
         /// 原始数据字节数</param>
         /// <param name="buffer">Output data buffer
         /// 输出数据缓冲区</param>
@@ -194,11 +196,11 @@ namespace AutoCSer.Net
         /// Received data decoding
         /// 接收数据解码
         /// </summary>
-        /// <param name="socket">Command service socket
+        /// <param name="socket">Command server socket
         /// 命令服务套接字</param>
         /// <param name="transferData">The encoded data
         /// 编码后的数据</param>
-        /// <param name="outputData">Raw data buffer waiting to be written
+        /// <param name="outputData">Original data buffer waiting to be written
         /// 等待写入的原始数据缓冲区</param>
         /// <returns>Whether the decoding is successful
         /// 是否解码成功</returns>
@@ -274,16 +276,16 @@ namespace AutoCSer.Net
         //public virtual void OnSocketClosed(CommandServerSocket socket) { }
 
         /// <summary>
-        /// 默认空命令服务端配置
+        /// Default empty command server configuration
         /// </summary>
         internal static readonly CommandServerConfig Null = new CommandServerConfig { QueueTimeoutSeconds = 0 };
         /// <summary>
-        /// 默认空服务端套接字输出信息
+        /// Output information of the default empty server socket
         /// </summary>
         internal static readonly ServerOutput NullServerOutput = new ServerOutputReturnType(default(CallbackIdentity), default(CommandClientReturnTypeEnum));
 #if NetStandard21
         /// <summary>
-        /// 默认空服务端接口方法信息
+        /// Default empty server interface method information
         /// </summary>
         internal static readonly ServerInterfaceMethod NullServerInterfaceMethod = new ServerInterfaceMethod();
 #endif

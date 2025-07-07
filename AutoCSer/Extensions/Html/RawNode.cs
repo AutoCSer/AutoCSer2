@@ -1,4 +1,5 @@
-﻿using AutoCSer.Memory;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 
 namespace AutoCSer.Html
@@ -123,14 +124,14 @@ namespace AutoCSer.Html
                             if (*current == '"')
                             {
                                 char* start = ++current;
-                                while (current < end && *current != '"') ++current;
-                                return new Range(start - htmlFixed, current - htmlFixed);
+                                current = findChar(current, end, 0x22002200220022UL, '"');
+                                return new Range(start - htmlFixed, (current <= end ? current : end) - htmlFixed);
                             }
                             if (*current == '\'')
                             {
                                 char* start = ++current;
-                                while (current < end && *current != '\'') ++current;
-                                return new Range(start - htmlFixed, current - htmlFixed);
+                                current = findChar(current, end, 0x27002700270027UL, '\'');
+                                return new Range(start - htmlFixed, (current <= end ? current : end) - htmlFixed);
                             }
                             else
                             {
@@ -189,8 +190,8 @@ namespace AutoCSer.Html
                 byte* bits = Bits.Byte;
                 for (char* current = htmlFixed; current < end;)
                 {
-                    while (*current != '<' && ++current != end) ;
-                    if (current == end) break;
+                    current = findChar(current, end, 0x3c003c003c003cUL, '<');
+                    if (current >= end) break;
                     if (((bits[*(byte*)++current] & tagNameBit) | *(((byte*)current) + 1)) == 0)
                     {
                         int size = (int)(current - start);
@@ -200,7 +201,7 @@ namespace AutoCSer.Html
                         if (*current == '/')
                         {
                             nodeType = RawNodeTypeEnum.RoundTag;
-                            while (++current < end && *current != '>') ;
+                            current = findChar(current + 1, end, 0x3e003e003e003eUL, '>');
                         }
                         else if (*current != '!')
                         {
@@ -240,7 +241,7 @@ namespace AutoCSer.Html
                             else
                             {
                                 nodeType = RawNodeTypeEnum.NoteTag;
-                                while (current < end && *current != '>') ++current;
+                                current = findChar(current, end, 0x3e003e003e003eUL, '>');
                             }
                         }
                         if (current < end)
@@ -254,6 +255,34 @@ namespace AutoCSer.Html
                 if (start != end) nodes.Add(new RawNode(RawNodeTypeEnum.Html, start - htmlFixed, html.Length));
             }
             return nodes;
+        }
+        /// <summary>
+        /// 查找字符
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="end"></param>
+        /// <param name="value64"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static unsafe char* findChar(char* current, char* end,  ulong value64, char value)
+        {
+        START:
+            if (current < end)
+            {
+                ulong code = *(ulong*)current ^ value64;
+                if (((code + 0xfffefffefffeffffUL) & ~code & 0x8000800080008000UL) == 0)
+                {
+                    if ((current += 4) < end) goto START;
+                }
+                else
+                {
+                    if (*current == value) return current;
+                    if (*(current + 1) == value) return current + 1;
+                    //return current + (*(current + 2) == value ? 2 : 3);
+                    return current + (3 - (*(current + 2) ^ value).logicalInversion());
+                }
+            }
+            return end;
         }
 
         /// <summary>

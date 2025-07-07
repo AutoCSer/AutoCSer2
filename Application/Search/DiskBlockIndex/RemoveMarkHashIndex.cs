@@ -65,7 +65,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// <summary>
         /// 带移除标记的可重用哈希索引
         /// </summary>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         internal RemoveMarkHashIndex(T value)
         {
             Values = new RemoveMarkHashSet<T>(1);
@@ -73,7 +74,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             newValues.SetEmpty();
         }
         /// <summary>
-        /// 添加匹配数据关键字
+        /// Add matching data keyword (Initialize and load the persistent data)
+        /// 添加匹配数据关键字（初始化加载持久化数据）
         /// </summary>
         /// <param name="value"></param>
         internal void AppendLoadPersistence(T value)
@@ -85,7 +87,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
-        /// 删除匹配数据关键字
+        /// Delete the matching data keyword (Initialize and load the persistent data)
+        /// 删除匹配数据关键字（初始化加载持久化数据）
         /// </summary>
         /// <param name="value"></param>
         internal void RemoveLoadPersistence(T value)
@@ -101,6 +104,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
+        /// The operation of writing the disk block index information has been completed
         /// 磁盘块索引信息写入完成操作
         /// </summary>
         /// <param name="blockIndex"></param>
@@ -136,7 +140,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             return true;
         }
         /// <summary>
-        /// 磁盘块索引信息写入完成操作
+        /// The operation of writing the disk block index information has been completed (Initialize and load the persistent data)
+        /// 磁盘块索引信息写入完成操作（初始化加载持久化数据）
         /// </summary>
         /// <param name="blockIndex"></param>
         /// <param name="valueCount"></param>
@@ -168,8 +173,10 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
     /// <summary>
     /// 带移除标记的可重用哈希索引
     /// </summary>
-    /// <typeparam name="KT">索引关键字类型</typeparam>
-    /// <typeparam name="VT">数据关键字类型</typeparam>
+    /// <typeparam name="KT">Index keyword type
+    /// 索引关键字类型</typeparam>
+    /// <typeparam name="VT">Data keyword type
+    /// 数据关键字类型</typeparam>
     internal sealed class RemoveMarkHashIndex<KT, VT> : RemoveMarkHashIndex<VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
@@ -191,7 +198,8 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// 带移除标记的可重用哈希索引
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="key">索引关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
         /// <param name="data">关键字数据磁盘块索引信息节点</param>
         internal RemoveMarkHashIndex(RemoveMarkHashIndexNode<KT, VT> node, KT key, ref BlockIndexData<VT> data) : base(ref data)
         {
@@ -202,14 +210,17 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
         /// 带移除标记的可重用哈希索引
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="key">索引关键字</param>
-        /// <param name="value">匹配数据关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
+        /// <param name="value">Matching data keyword
+        /// 匹配数据关键字</param>
         internal RemoveMarkHashIndex(RemoveMarkHashIndexNode<KT, VT> node, KT key, VT value) : base(value)
         {
             this.node = node;
             this.key = key;
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -252,6 +263,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             while (true);
         }
         /// <summary>
+        /// Add matching data keyword
         /// 添加匹配数据关键字
         /// </summary>
         /// <param name="value"></param>
@@ -271,6 +283,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
+        /// Delete the matching data keyword
         /// 删除匹配数据关键字
         /// </summary>
         /// <param name="value"></param>
@@ -297,6 +310,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             }
         }
         /// <summary>
+        /// The operation of writing the disk block index information has been completed
         /// 磁盘块索引信息写入完成操作
         /// </summary>
         /// <param name="blockIndex"></param>

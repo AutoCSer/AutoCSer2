@@ -106,6 +106,7 @@ namespace AutoCSer.Memory
             Close();
         }
         /// <summary>
+        /// Clear the data
         /// 清空数据
         /// </summary>
         public virtual void Clear()
@@ -113,6 +114,7 @@ namespace AutoCSer.Memory
             Data.Pointer.CurrentIndex = 0;
         }
         /// <summary>
+        /// Clear the data
         /// 清空数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -357,7 +359,7 @@ namespace AutoCSer.Memory
         /// 移动当前位置
         /// </summary>
         /// <param name="size">必须大于 0</param>
-        /// <returns>是否成功</returns>
+        /// <returns>Return false on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool TryMoveSize(int size)
         {
@@ -374,7 +376,7 @@ namespace AutoCSer.Memory
         /// 移动当前位置
         /// </summary>
         /// <param name="size">必须大于 0</param>
-        /// <returns>是否成功</returns>
+        /// <returns>Return false on failure</returns>
         internal bool TryMoveSize(int size) { return false; }
 #endif
         /// <summary>
@@ -392,7 +394,7 @@ namespace AutoCSer.Memory
         /// 增加数据流字节长度并返回增加之前的位置
         /// </summary>
         /// <param name="size">增加字节长度</param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected internal byte* GetBeforeMove(int size)
         {
@@ -412,7 +414,7 @@ namespace AutoCSer.Memory
         /// 增加数据流字节长度并返回增加之前的位置
         /// </summary>
         /// <param name="size">增加字节长度</param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected internal byte* GetCanResizeBeforeMove(int size)
         {
@@ -424,7 +426,7 @@ namespace AutoCSer.Memory
         /// 预增数据流字符长度
         /// </summary>
         /// <param name="size">增加字符长度</param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal byte* GetPrepSizeCurrent(int size)
         {
@@ -444,7 +446,8 @@ namespace AutoCSer.Memory
         /// 移动当前位置并返回当前位置
         /// </summary>
         /// <param name="size"></param>
-        /// <returns>失败返回 0</returns>
+        /// <returns>Failure and return 0
+        /// 失败返回 0</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal int GetMoveSize(int size)
         {
@@ -454,7 +457,7 @@ namespace AutoCSer.Memory
         /// 移动当前位置
         /// </summary>
         /// <param name="size"></param>
-        /// <returns>是否成功</returns>
+        /// <returns>Return false on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool MoveSize(int size)
         {
@@ -499,7 +502,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写数据
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Write(Guid value)
         {
@@ -508,7 +511,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写数据
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Write(ref Guid value)
         {
@@ -524,7 +527,7 @@ namespace AutoCSer.Memory
             if (PrepSize(sizeof(char))) Data.Pointer.JsonSerializeFill(startIndex);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="stringFixed"></param>
         /// <param name="stringLength"></param>
@@ -539,7 +542,7 @@ namespace AutoCSer.Memory
                 if (!IsSerializeCopyString && stringLength >= (*((byte*)stringFixed + 1) == 0 ? 3 : 7))
                 {
                     byte* writeStart = writeFixed + sizeof(int), writeEnd = writeStart + (prepLength - sizeof(int) * 2), readStart = (byte*)stringFixed, readEnd = (byte*)(stringFixed + stringLength), write, read;
-                    int lengthSize = (stringLength <= byte.MaxValue ? 1 : (stringLength <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
+                    int lengthSize = GetSerializeStringLengthSize(stringLength);
                     if (*((byte*)stringFixed + 1) != 0)
                     {
                         switch (lengthSize)
@@ -650,6 +653,17 @@ namespace AutoCSer.Memory
                 }
             }
             return 0;
+        }
+        /// <summary>
+        /// 获取字符串长度字节数
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static int GetSerializeStringLengthSize(int length)
+        {
+            return 4 >> ((length & (int.MaxValue - byte.MaxValue)).logicalInversion() + (length & (int.MaxValue - ushort.MaxValue)).logicalInversion());
+            //return (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
         }
         /// <summary>
         /// 预增数据流长度并写入长度与数据(4字节对齐)

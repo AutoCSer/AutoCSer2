@@ -12,11 +12,11 @@ namespace AutoCSer
     public struct HeadLeftArray<T>
     {
         /// <summary>
-        /// 头节点
+        /// Head node
         /// </summary>
         private T head;
         /// <summary>
-        /// 头节点
+        /// Head node
         /// </summary>
         public T Head { get { return head; } }
         /// <summary>
@@ -42,7 +42,8 @@ namespace AutoCSer
         /// 带头节点的数组子串
         /// </summary>
         /// <param name="head">头节点</param>
-        /// <param name="capacity">初始化容器大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         public HeadLeftArray(T head, int capacity = 0)
         {
             this.head = head;

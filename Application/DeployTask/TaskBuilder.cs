@@ -65,6 +65,7 @@ namespace AutoCSer.CommandService.DeployTask
             MethodKeepCallback<DeployTaskLog>.Callback(ref callbacks, log);
         }
         /// <summary>
+        /// Start the task
         /// 启动任务
         /// </summary>
         /// <param name="startTime"></param>
@@ -83,6 +84,7 @@ namespace AutoCSer.CommandService.DeployTask
             return state;
         }
         /// <summary>
+        /// Start the task
         /// 启动任务
         /// </summary>
         /// <returns></returns>
@@ -140,9 +142,11 @@ namespace AutoCSer.CommandService.DeployTask
             finally { node.StreamPersistenceMemoryDatabaseMethodParameterCreator.Close(Data.Identity, AutoCSer.Threading.SecondTimer.UtcNow); }
         }
         /// <summary>
+        /// Remove completed or un-started task
         /// 移除已结束或者未开始任务
         /// </summary>
-        /// <param name="closeTime">关闭任务时间</param>
+        /// <param name="closeTime">The Utc time for closing the task
+        /// 关闭任务 Utc 时间</param>
         /// <returns></returns>
         internal OperationStateEnum Remove(DateTime closeTime)
         {

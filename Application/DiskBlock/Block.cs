@@ -71,16 +71,16 @@ namespace AutoCSer.CommandService.DiskBlock
             StartIndex = startIndex;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public abstract void Dispose();
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public abstract ValueTask DisposeAsync();
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void ServiceDisposeCallback()

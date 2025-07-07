@@ -42,7 +42,7 @@ namespace AutoCSer.ObjectRoot
         /// <summary>
         /// 对象类型
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         internal ObjectType(Type type)
         {
             Type = type;

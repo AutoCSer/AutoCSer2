@@ -9,7 +9,8 @@ namespace AutoCSer
     public sealed unsafe partial class JsonSerializer
     {
         /// <summary>
-        /// 枚举值序列化（用于代码生成，不允许开发者调用）
+        /// Enumeration value serialization (for AOT code generation, not allowed for developers to call)
+        /// 枚举值序列化（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -23,6 +24,7 @@ namespace AutoCSer
             else primitiveSerializeNotEmpty(AutoCSer.Extensions.NullableReferenceExtension.notNull(value.ToString()));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -35,7 +37,8 @@ namespace AutoCSer
         }
 #if AOT
         /// <summary>
-        /// 枚举值序列化
+        /// Enumeration value serialization method information
+        /// 枚举值序列化方法信息
         /// </summary>
         internal static readonly System.Reflection.MethodInfo EnumULongMethod;
 #endif

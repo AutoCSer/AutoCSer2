@@ -9,6 +9,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region PART CLASS
             #region IF IsSerialize
             /// <summary>
+            /// Binary serialization
             /// 二进制序列化
             /// </summary>
             /// <param name="serializer"></param>
@@ -24,6 +25,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region NOT IsSimpleSerialize
             /// <summary>
+            /// Binary serialization
             /// 二进制序列化
             /// </summary>
             /// <param name="__serializer__"></param>
@@ -46,7 +48,8 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF IsMemberMap
             /// <summary>
-            /// 二进制序列化
+            /// Binary serialization of member bitmaps is supported
+            /// 支持成员位图的二进制序列化
             /// </summary>
             /// <param name="memberMap"></param>
             /// <param name="serializer"></param>
@@ -62,7 +65,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion NOT IsMemberMapFixedFillSize
             }
             /// <summary>
-            /// 二进制序列化
+            /// Binary serialization of member bitmaps is supported
+            /// 支持成员位图的二进制序列化
             /// </summary>
             /// <param name="__memberMap__"></param>
             /// <param name="__serializer__"></param>
@@ -92,6 +96,7 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF IsSerialize
             #region IF IsDeserialize
             /// <summary>
+            /// Binary deserialization
             /// 二进制反序列化
             /// </summary>
             /// <param name="deserializer"></param>
@@ -107,6 +112,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region NOT IsSimpleSerialize
             /// <summary>
+            /// Binary deserialization
             /// 二进制反序列化
             /// </summary>
             /// <param name="__deserializer__"></param>
@@ -136,6 +142,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF FieldArray.Length
             /// <summary>
+            /// Binary deserialization
             /// 二进制反序列化
             /// </summary>
             /// <param name="__deserializer__"></param>
@@ -155,7 +162,8 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF FieldArray.Length
             #region IF IsMemberMap
             /// <summary>
-            /// 二进制反序列化
+            /// Binary deserialization of member bitmaps is supported
+            /// 支持成员位图的二进制反序列化
             /// </summary>
             /// <param name="memberMap"></param>
             /// <param name="deserializer"></param>
@@ -165,7 +173,8 @@ namespace AutoCSer.CodeGenerator.Template
                 value.binaryDeserialize(memberMap, deserializer);
             }
             /// <summary>
-            /// 二进制反序列化
+            /// Binary deserialization of member bitmaps is supported
+            /// 支持成员位图的二进制反序列化
             /// </summary>
             /// <param name="__memberMap__"></param>
             /// <param name="__deserializer__"></param>
@@ -213,6 +222,7 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion NOT IsSimpleSerialize
             #endregion IF IsDeserialize
             /// <summary>
+            /// Get the binary serialization type information
             /// 获取二进制序列化类型信息
             /// </summary>
             /// <returns></returns>

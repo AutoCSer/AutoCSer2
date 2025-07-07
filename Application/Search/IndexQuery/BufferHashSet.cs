@@ -29,7 +29,8 @@ namespace AutoCSer.CommandService.Search.IndexQuery
         /// <summary>
         /// 可重用哈希表
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         internal BufferHashSet(int capacity = 0) : base(capacity)
         {
             pools = EmptyArray<HashSetPool<T>>.Array;

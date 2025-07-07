@@ -10,16 +10,19 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
+    /// A synchronous queue for write operations supported by parallel reads on the server side (mainly used in scenarios where in-memory database nodes support parallel reads when obtaining persistent data)
+    /// 服务端支持并行读的写操作同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
     /// </summary>
     public abstract class CommandServerCallConcurrencyReadWriteQueue : CommandServerCallReadWriteQueue
     {
         /// <summary>
+        /// Concurrent read operation thread
         /// 并发读操作线程
         /// </summary>
         internal ConcurrencyReadQueueThread ConcurrencyReadThread;
         /// <summary>
-        /// 当前执行任务
+        /// The current task execution node
+        /// 当前执行任务节点
         /// </summary>
 #if NetStandard21
         private ReadWriteQueueNode? currentTask;
@@ -27,26 +30,30 @@ namespace AutoCSer.Net
         private ReadWriteQueueNode currentTask;
 #endif
         /// <summary>
+        /// The time of the last task run
         /// 最后一次运行任务时间
         /// </summary>
         private long runSeconds;
         /// <summary>
+        /// The current status of concurrent read operations allows concurrent reads without being restricted by write operations
         /// 当前并发读操作状态，允许并发读取不受写操作限制
         /// </summary>
         protected volatile bool isConcurrencyRead;
         /// <summary>
+        /// Has the queue been closed
         /// 是否已经关闭队列
         /// </summary>
         internal volatile bool IsClose;
         /// <summary>
-        /// 空队列
+        /// Empty queue
         /// </summary>
         protected CommandServerCallConcurrencyReadWriteQueue()
         {
             ConcurrencyReadThread = new ConcurrencyReadQueueThread(this, true);
         }
         /// <summary>
-        /// 服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
+        /// A synchronous queue for write operations supported by parallel reads on the server side (mainly used in scenarios where in-memory database nodes support parallel reads when obtaining persistent data)
+        /// 服务端支持并行读的写操作同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
         /// </summary>
         /// <param name="server"></param>
         /// <param name="controller"></param>
@@ -73,6 +80,7 @@ namespace AutoCSer.Net
             if (KeepSeconds > 0) AppendTaskArray();
         }
         /// <summary>
+        /// Close the queue
         /// 关闭队列
         /// </summary>
         internal void Close()
@@ -83,6 +91,7 @@ namespace AutoCSer.Net
             ConcurrencyReadThread.WaitHandle.setDispose();
         }
         /// <summary>
+        /// Task allocation thread
         /// 任务分配线程
         /// </summary>
         private void run()
@@ -242,6 +251,7 @@ namespace AutoCSer.Net
             while (!IsClose);
         }
         /// <summary>
+        /// The concurrent read operation task processing has been completed
         /// 并发读操作任务处理结束
         /// </summary>
         /// <param name="thread"></param>
@@ -255,6 +265,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Close the read operation thread
         /// 关闭读取操作线程
         /// </summary>
         /// <returns></returns>
@@ -264,6 +275,7 @@ namespace AutoCSer.Net
             if (Queue.IsEmpty && Queue.TryPushHead(new NullReadWriteQueueNode())) QueueWaitHandle.Set();
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         /// <returns></returns>

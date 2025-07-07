@@ -48,6 +48,7 @@
     <Compile Include="Client\KeepCallbackCommandResponse.cs" />
     <Compile Include="Client\KeepCallbackResponse.cs" />
     <Compile Include="Client\ClientCache.cs" />
+    <Compile Include="Client\ClientTaskCache.cs" />
     <Compile Include="Client\ClientNode.cs" />
     <Compile Include="Client\ClientNodeAttribute.cs" />
     <Compile Include="Client\ClientNodeCreator.cs" />
@@ -103,7 +104,6 @@
     <Compile Include="Method\BeforePersistenceCallOutputMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceMethodParameter.cs" />
-    <Compile Include="Method\CreateInputMethodParameter.cs" />
     <Compile Include="Method\InputKeepCallbackMethod.cs" />
     <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\KeepCallbackMethod.cs" />
@@ -266,6 +266,7 @@
     <Compile Include="RepairNodeMethodName.cs" />
     <Compile Include="RepairNodeMethodPosition.cs" />
     <Compile Include="RequestParameter.cs" />
+    <Compile Include="RequestParameterContext.cs" />
     <Compile Include="RequestParameterBinarySerializer.cs" />
     <Compile Include="RequestParameterJsonSerializer.cs" />
     <Compile Include="RequestParameterSerializer.cs" />
@@ -345,7 +346,7 @@
     <Compile Include="Server\MethodKeepCallback.cs" />
     <Compile Include="Server\MethodParameterCreator.cs" />
     <Compile Include="Server\MethodParameterCreatorNode.cs" />
-    <Compile Include="Server\CheckSnapshotCloneObject.cs" />
+    <Compile Include="Snapshot\CheckSnapshotCloneObject.cs" />
     <Compile Include="Server\ServerNodeTypeAttribute.cs" />
     <Compile Include="Server\ServerSnapshotNode.cs" />
     <Compile Include="Server\ServiceCallback.cs" />

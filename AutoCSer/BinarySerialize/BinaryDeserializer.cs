@@ -12,17 +12,19 @@ using AutoCSer.SimpleSerialize;
 namespace AutoCSer
 {
     /// <summary>
-    /// 二进制反数据序列化
+    /// Binary data deserialization
+    /// 二进制数据反序列化
     /// </summary>
     public sealed unsafe partial class BinaryDeserializer : AutoCSer.Threading.Link<BinaryDeserializer>
     {
         /// <summary>
+        /// Public default configuration parameters
         /// 公共默认配置参数
         /// </summary>
         internal static readonly DeserializeConfig DefaultConfig = AutoCSer.Configuration.Common.Get<DeserializeConfig>()?.Value ?? new DeserializeConfig();
 
         /// <summary>
-        /// 上下文
+        /// Custom context
         /// </summary>
 #if NetStandard21
         internal object? Context;
@@ -30,11 +32,12 @@ namespace AutoCSer
         internal object Context;
 #endif
         /// <summary>
+        /// Deserialization configuration parameters
         /// 反序列化配置参数
         /// </summary>
         internal DeserializeConfig Config = DefaultConfig;
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
 #if NetStandard21
         private JsonDeserializer? jsonDeserializer;
@@ -42,6 +45,7 @@ namespace AutoCSer
         private JsonDeserializer jsonDeserializer;
 #endif
         /// <summary>
+        /// Member bitmap
         /// 成员位图
         /// </summary>
 #if NetStandard21
@@ -50,6 +54,7 @@ namespace AutoCSer
         internal MemberMap MemberMap;
 #endif
         /// <summary>
+        /// Member bitmap type
         /// 成员位图类型
         /// </summary>
 #if NetStandard21
@@ -58,6 +63,7 @@ namespace AutoCSer
         internal Type MemberMapType;
 #endif
         /// <summary>
+        /// The position of the historical object pointer
         /// 历史对象指针位置
         /// </summary>
 #if NetStandard21
@@ -66,59 +72,81 @@ namespace AutoCSer
         private ReusableHashCodeKeyDictionary<object> points;
 #endif
         /// <summary>
+        /// Data byte array
         /// 数据字节数组
         /// </summary>
         internal byte[] Buffer = EmptyArray<byte>.Array;
         /// <summary>
+        /// Data byte array data starting position
         /// 数据字节数组数据起始位置
         /// </summary>
         private byte* bufferFixed;
         /// <summary>
-        /// 序列化数据起始位置
+        /// The starting position of deserialization data
+        /// 反序列化数据起始位置
         /// </summary>
         private byte* start;
         /// <summary>
-        /// 序列化数据结束位置
+        /// The end position of deserialization data
+        /// 反序列化数据结束位置
         /// </summary>
         internal byte* End;
         /// <summary>
+        /// The current position for reading data
         /// 当前读取数据位置
         /// </summary>
         internal byte* Current;
         /// <summary>
-        /// 真实类型解析未知
+        /// Real type resolution location
+        /// 真实类型解析位置
         /// </summary>
         private byte* realTypeCurrent;
         /// <summary>
+        /// The position of the next object reference
         /// 下一个对象引用位置
         /// </summary>
         private byte* objectReference;
         /// <summary>
+        /// Fix the starting position of the data
         /// 固定数据起始位置
         /// </summary>
         private byte* fixedCurrent;
+        /// <summary>
+        /// In-memory database request parameter context
+        /// 内存数据库请求参数上下文
+        /// </summary>
+#if NetStandard21
+        internal object? StreamPersistenceMemoryDatabaseServiceRequestParameterContext;
+#else
+        internal object StreamPersistenceMemoryDatabaseServiceRequestParameterContext;
+#endif
         ///// <summary>
         ///// 全局版本编号
         ///// </summary>
         //internal uint GlobalVersion;
         /// <summary>
+        /// The position of the next object reference
         /// 下一个对象引用位置
         /// </summary>
         private int objectReferencePoint;
         /// <summary>
-        /// 是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
+        /// Whether it is necessary to call AutoCSer.Common.Config.CheckRemoteType to check the validity of the remote type
+        /// 是否需要调用 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
         /// </summary>
         private bool isCheckRemoteType = true;
         /// <summary>
+        /// Deserialization status
         /// 反序列化状态
         /// </summary>
         internal DeserializeStateEnum State;
         /// <summary>
+        /// JSON deserialization status
         /// JSON 反序列化状态
         /// </summary>
         private Json.DeserializeStateEnum jsonState;
         /// <summary>
-        /// 自定义错误
+        /// Customize deserialization error messages
+        /// 自定义反序列化错误信息
         /// </summary>
 #if NetStandard21
         private string? customError;
@@ -126,7 +154,7 @@ namespace AutoCSer
         private string customError;
 #endif
         /// <summary>
-        /// 反序列化
+        /// Deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="buffer"></param>
@@ -183,6 +211,7 @@ namespace AutoCSer
             return new DeserializeResult(DeserializeStateEnum.UnknownData);
         }
         /// <summary>
+        /// Check the header data
         /// 检查头部数据
         /// </summary>
         /// <param name="headerValue"></param>
@@ -206,7 +235,8 @@ namespace AutoCSer
             return DeserializeStateEnum.Success;
         }
         /// <summary>
-        /// 设置上下文信息
+        /// Set a custom context
+        /// 设置自定义上下文
         /// </summary>
         /// <param name="context"></param>
         /// <param name="config"></param>
@@ -220,7 +250,8 @@ namespace AutoCSer
             Config = config;
         }
         /// <summary>
-        /// 设置上下文信息
+        /// Set a custom context
+        /// 设置自定义上下文
         /// </summary>
         /// <param name="context"></param>
         /// <param name="config"></param>
@@ -235,6 +266,7 @@ namespace AutoCSer
             Config = config;
         }
         /// <summary>
+        /// Release resources (Thread static instance mode)
         /// 释放资源（线程静态实例模式）
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -244,7 +276,7 @@ namespace AutoCSer
             points?.ClearArray();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Free()
@@ -253,7 +285,7 @@ namespace AutoCSer
             AutoCSer.Threading.LinkPool<BinaryDeserializer>.Default.Push(this);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void FreeContext()
@@ -262,7 +294,7 @@ namespace AutoCSer
             Free();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void FreeContextCheckRemoteType()
@@ -271,7 +303,8 @@ namespace AutoCSer
             FreeContext();
         }
         /// <summary>
-        /// 检查数据类型
+        /// Check whether the data is null
+        /// 检查数据是否为 null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -297,6 +330,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Getting a history object
         /// 获取历史对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -341,6 +375,7 @@ namespace AutoCSer
             return isRealType = false;
         }
         /// <summary>
+        /// Constructor call
         /// 构造函数调用
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -359,6 +394,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Getting a history object
         /// 获取历史对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -384,6 +420,7 @@ namespace AutoCSer
             return true;
         }
         /// <summary>
+        /// Getting a history object
         /// 获取历史对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -404,6 +441,7 @@ namespace AutoCSer
             return;
         }
         /// <summary>
+        /// Add historical objects
         /// 添加历史对象
         /// </summary>
         /// <param name="value"></param>
@@ -413,6 +451,7 @@ namespace AutoCSer
             if (objectReferencePoint == (int)(start - Current)) push(value);
         }
         /// <summary>
+        /// Add historical objects
         /// 添加历史对象
         /// </summary>
         /// <param name="value"></param>
@@ -423,6 +462,7 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Add historical objects
         /// 添加历史对象
         /// </summary>
         /// <param name="value"></param>
@@ -433,7 +473,8 @@ namespace AutoCSer
             objectReferencePoint = objectReference == End ? int.MaxValue : *(int*)(objectReference -= sizeof(int));
         }
         /// <summary>
-        /// 对象null值检测
+        /// Object null value detection
+        /// 对象 null 值检测
         /// </summary>
         /// <returns>返回 0 表示 null</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -461,7 +502,8 @@ namespace AutoCSer
         //    return true;
         //}
         /// <summary>
-        /// 检测成员数量
+        /// Match the number of members
+        /// 匹配成员数量
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
@@ -476,7 +518,8 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
-        /// 检测成员位图
+        /// Get the member bitmap
+        /// 获取成员位图
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -508,10 +551,10 @@ namespace AutoCSer
             return null;
         }
         /// <summary>
-        /// 二进制反序列化
+        /// Deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public void BinaryDeserialize<T>(ref T? value)
@@ -522,11 +565,11 @@ namespace AutoCSer
             TypeDeserializer<T>.Deserialize(this, ref value);
         }
         /// <summary>
-        /// 二进制反序列化
+        /// Deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         internal static void Deserialize<T>(BinaryDeserializer deserializer, ref T? value)
@@ -537,7 +580,7 @@ namespace AutoCSer
             TypeDeserializer<T>.Deserialize(deserializer, ref value);
         }
         /// <summary>
-        /// 自定义二进制反序列化
+        /// Custom deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -551,7 +594,7 @@ namespace AutoCSer
             if (value != null || Constructor(out value)) value.Deserialize(this);
         }
         /// <summary>
-        /// 自定义反序列化
+        /// Custom deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         /// <param name="value"></param>
@@ -565,7 +608,8 @@ namespace AutoCSer
             deserializer.ICustom(ref value);
         }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON mixed binary deserialization
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -587,7 +631,8 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON mixed binary deserialization
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -602,7 +647,8 @@ namespace AutoCSer
             deserializer.Json(ref value);
         }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON mixed binary deserialization
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -614,7 +660,8 @@ namespace AutoCSer
 #pragma warning restore CS8601
         }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON mixed binary deserialization
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -625,7 +672,8 @@ namespace AutoCSer
             deserializer.StructJson(ref value);
         }
         /// <summary>
-        /// 二进制反序列化转简单反序列化（用于代码生成，不允许开发者调用）
+        /// Binary deserialization to simple deserialization (for AOT code generation, not allowed for developers to call)
+        /// 二进制反序列化转简单反序列化（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -636,6 +684,7 @@ namespace AutoCSer
             deserializer.SimpleDeserialize(ref value);
         }
         /// <summary>
+        /// Real type deserialization
         /// 真实类型反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -659,6 +708,7 @@ namespace AutoCSer
             return null;
         }
         /// <summary>
+        /// Real type deserialization
         /// 真实类型反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -674,6 +724,7 @@ namespace AutoCSer
             return deserializer.realTypeObject<T>();
         }
         /// <summary>
+        /// Real type deserialization
         /// 真实类型反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -700,7 +751,8 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 自定义反序列化不支持类型
+        /// Custom deserialization not supported types
+        /// 自定义反序列化不支持的类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -719,7 +771,8 @@ namespace AutoCSer
             else State = DeserializeStateEnum.NotSupport;
         }
         /// <summary>
-        /// 自定义反序列化不支持类型
+        /// Custom deserialization not supported types
+        /// 自定义反序列化不支持的类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -734,7 +787,7 @@ namespace AutoCSer
             BinarySerializer.CustomConfig.NotSupport(deserializer, ref value);
         }
         /// <summary>
-        /// 基类反序列化
+        /// Base type deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="BT"></typeparam>
@@ -763,7 +816,7 @@ namespace AutoCSer
             else State = DeserializeStateEnum.ErrorDataType;
         }
         /// <summary>
-        /// 基类反序列化
+        /// Base type deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="BT"></typeparam>
@@ -780,10 +833,10 @@ namespace AutoCSer
             deserializer.baseDeserialize<T, BT>(ref value);
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         public void BinaryDeserialize<T>(ref T? value) where T : struct
         {
             if (*(int*)Current <= BinarySerializer.NotNullValue)
@@ -804,22 +857,22 @@ namespace AutoCSer
             else State = DeserializeStateEnum.ErrorDataType;
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Nullable<T>(BinaryDeserializer deserializer, ref T? value) where T : struct
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <returns>数组长度</returns>
+        /// <returns>Array length</returns>
 #if NetStandard21
         private int deserializeArray<T>(ref T[]? value)
 #else
@@ -834,7 +887,7 @@ namespace AutoCSer
             return 0;
         }
         /// <summary>
-        /// 创建数组
+        /// Create an array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -855,11 +908,11 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <returns>数组长度</returns>
+        /// <returns>Array length</returns>
 #if NetStandard21
         private int deserializeArray<T>(ref ListArray<T>? value)
 #else
@@ -874,7 +927,7 @@ namespace AutoCSer
             return 0;
         }
         /// <summary>
-        /// 创建数组
+        /// Create an array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -895,7 +948,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
-        /// 创建数组
+        /// Create an array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -912,10 +965,10 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void BinaryDeserialize<T>(ref T?[]? array) where T : class
 #else
@@ -947,11 +1000,11 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void Array<T>(BinaryDeserializer deserializer, ref T?[]? array) where T : class
@@ -962,10 +1015,10 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void BinaryDeserialize<T>(ref ListArray<T?>? array) where T : class
 #else
@@ -998,11 +1051,11 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void ListArray<T>(BinaryDeserializer deserializer, ref ListArray<T?>? array) where T : class
@@ -1013,10 +1066,10 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void BinaryDeserialize<T>(ref LeftArray<T?> array) where T : class
 #else
@@ -1054,11 +1107,11 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void LeftArray<T>(BinaryDeserializer deserializer, ref LeftArray<T?> array) where T : class
@@ -1069,10 +1122,10 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void StructArray<T>(ref T[]? array) where T : struct
 #else
@@ -1098,11 +1151,11 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void StructArray<T>(BinaryDeserializer deserializer, ref T[]? array) where T : struct
@@ -1113,10 +1166,10 @@ namespace AutoCSer
             deserializer.StructArray(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void StructArray<T>(ref ListArray<T>? array) where T : struct
 #else
@@ -1143,11 +1196,11 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void StructListArray<T>(BinaryDeserializer deserializer, ref ListArray<T>? array) where T : struct
@@ -1158,10 +1211,10 @@ namespace AutoCSer
             deserializer.StructArray(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public void StructArray<T>(ref LeftArray<T> array) where T : struct
         {
             int length = *(int*)Current;
@@ -1189,21 +1242,21 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void StructLeftArray<T>(BinaryDeserializer deserializer, ref LeftArray<T> array) where T : struct
         {
             deserializer.StructArray(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void NullableArray<T>(ref T?[]? array) where T : struct
 #else
@@ -1237,11 +1290,11 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void NullableArray<T>(BinaryDeserializer deserializer, ref T?[]? array) where T : struct
@@ -1252,10 +1305,10 @@ namespace AutoCSer
             deserializer.NullableArray(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void NullableArray<T>(ref ListArray<T?>? array) where T : struct
 #else
@@ -1290,11 +1343,11 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void NullableListArray<T>(BinaryDeserializer deserializer, ref ListArray<T?>? array) where T : struct
@@ -1305,10 +1358,10 @@ namespace AutoCSer
             deserializer.NullableArray(ref array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public void NullableArray<T>(ref LeftArray<T?> array) where T : struct
         {
             int length = *(int*)Current;
@@ -1344,22 +1397,22 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NullableLeftArray<T>(BinaryDeserializer deserializer, ref LeftArray<T?> array) where T : struct
         {
             deserializer.NullableArray(ref array);
         }
         /// <summary>
-        /// 集合转换
+        /// Collection deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
-        /// <param name="collection">对象集合</param>
+        /// <param name="collection">Collection object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public void Collection<T, VT>(ref T? collection) where T : ICollection<VT?>
@@ -1413,12 +1466,12 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 集合转换
+        /// Collection deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="collection">对象集合</param>
+        /// <param name="collection">Collection object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void Collection<T, VT>(BinaryDeserializer deserializer, ref T? collection) where T : ICollection<VT?>
@@ -1429,7 +1482,7 @@ namespace AutoCSer
             deserializer.Collection<T, VT>(ref collection);
         }
         /// <summary>
-        /// 字典反序列化
+        /// Dictionary deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -1463,7 +1516,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 字典反序列化
+        /// Dictionary deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -1481,7 +1534,7 @@ namespace AutoCSer
             deserializer.Dictionary<T, KT, VT>(ref dictionary);
         }
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -1524,6 +1577,7 @@ namespace AutoCSer
         //            return false;
         //        }
         /// <summary>
+        /// Check the deserialization status of JSON
         /// 检查 JSON 反序列化状态
         /// </summary>
         /// <param name="result"></param>
@@ -1538,11 +1592,12 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// JSON 对象反序列化
+        /// JSON deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="start"></param>
-        /// <param name="size">4 的倍数</param>
+        /// <param name="size">Multiples of 4
+        /// 4 的倍数</param>
         /// <param name="value"></param>
         /// <returns></returns>
 #if NetStandard21
@@ -1563,8 +1618,7 @@ namespace AutoCSer
             }
             else
             {
-                length >>= 1;
-                int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
+                int lengthSize = UnmanagedStreamBase.GetSerializeStringLengthSize(length >>= 1);
                 if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= size)
                 {
                     ByteArrayBuffer buffer = ByteArrayPool.GetBuffer(length << 1);
@@ -1583,6 +1637,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Get JSON deserialization
         /// 获取 JSON 反序列化
         /// </summary>
         /// <returns></returns>
@@ -1593,7 +1648,7 @@ namespace AutoCSer
             return jsonDeserializer;
         }
         /// <summary>
-        /// JSON 对象反序列化
+        /// JSON deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="start"></param>
@@ -1611,7 +1666,7 @@ namespace AutoCSer
             return JsonDeserializer.UnsafeDeserializeBinaryMix(start, length, ref value).State == AutoCSer.Json.DeserializeStateEnum.Success;
         }
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -1637,8 +1692,7 @@ namespace AutoCSer
             }
             else
             {
-                length >>= 1;
-                int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
+                int lengthSize = UnmanagedStreamBase.GetSerializeStringLengthSize(length >>= 1);
                 long size = End - Current;
                 if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= size)
                 {
@@ -1669,7 +1723,7 @@ namespace AutoCSer
             State = DeserializeStateEnum.IndexOutOfRange;
         }
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -1689,11 +1743,12 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
-        /// 枚举值序列化
+        /// Deserialization of enumeration values
+        /// 枚举值反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void EnumByte<T>(BinaryDeserializer deserializer, ref T value) where T : struct, IConvertible
         {
@@ -1705,11 +1760,12 @@ namespace AutoCSer
             deserializer.Current += sizeof(int);
         }
         /// <summary>
-        /// 枚举值序列化
+        /// Deserialization of enumeration values
+        /// 枚举值反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void EnumSByte<T>(BinaryDeserializer deserializer, ref T value) where T : struct, IConvertible
         {
@@ -1717,11 +1773,12 @@ namespace AutoCSer
             deserializer.Current += sizeof(int);
         }
         /// <summary>
-        /// 枚举值序列化
+        /// Deserialization of enumeration values
+        /// 枚举值反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void EnumShort<T>(BinaryDeserializer deserializer, ref T value) where T : struct, IConvertible
         {
@@ -1729,11 +1786,12 @@ namespace AutoCSer
             deserializer.Current += sizeof(int);
         }
         /// <summary>
-        /// 枚举值序列化
+        /// Deserialization of enumeration values
+        /// 枚举值反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void EnumUShort<T>(BinaryDeserializer deserializer, ref T value) where T : struct, IConvertible
         {
@@ -1757,9 +1815,10 @@ namespace AutoCSer
         //    return value;
         //}
         /// <summary>
+        /// Logical value deserialization
         /// 逻辑值反序列化
         /// </summary>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref bool value)
         {
@@ -1767,19 +1826,20 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Logical value deserialization
         /// 逻辑值反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref bool value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref bool[]? array)
 #else
@@ -1802,10 +1862,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref bool[]? array)
@@ -1816,9 +1876,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref ListArray<bool>? array)
 #else
@@ -1842,10 +1902,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ListArray<bool>? array)
@@ -1856,9 +1916,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         public void BinaryDeserialize(ref LeftArray<bool> array)
         {
             int length = *(int*)Current;
@@ -1883,19 +1943,20 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref LeftArray<bool> array)
         {
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
+        /// Logical value deserialization
         /// 逻辑值反序列化
         /// </summary>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         private void primitiveDeserialize(ref bool? value)
         {
             if (*(int*)Current != BinarySerializer.NullValue) value = *(bool*)Current;
@@ -1903,19 +1964,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Logical value deserialization
         /// 逻辑值反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref bool? value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
+        /// Logical value deserialization
         /// 逻辑值反序列化
         /// </summary>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinaryDeserialize(ref bool? value)
         {
@@ -1924,19 +1987,20 @@ namespace AutoCSer
             ++Current;
         }
         /// <summary>
+        /// Logical value deserialization
         /// 逻辑值反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveMemberDeserialize(BinaryDeserializer deserializer, ref bool? value)
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref bool?[]? array)
 #else
@@ -1959,10 +2023,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref bool?[]? array)
@@ -1973,9 +2037,10 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref byte value)
         {
@@ -1983,19 +2048,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref byte value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinaryDeserialize(ref byte? value)
         {
@@ -2004,19 +2071,21 @@ namespace AutoCSer
             Current += sizeof(ushort);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveMemberDeserialize(BinaryDeserializer deserializer, ref byte? value)
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref sbyte value)
         {
@@ -2024,19 +2093,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref sbyte value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinaryDeserialize(ref sbyte? value)
         {
@@ -2045,19 +2116,21 @@ namespace AutoCSer
             Current += sizeof(ushort);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveMemberDeserialize(BinaryDeserializer deserializer, ref sbyte? value)
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref short value)
         {
@@ -2065,19 +2138,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref short value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinaryDeserialize(ref short? value)
         {
@@ -2086,19 +2161,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveMemberDeserialize(BinaryDeserializer deserializer, ref short? value)
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref ushort value)
         {
@@ -2106,19 +2183,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ushort value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinaryDeserialize(ref ushort? value)
         {
@@ -2127,19 +2206,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveMemberDeserialize(BinaryDeserializer deserializer, ref ushort? value)
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref char value)
         {
@@ -2147,19 +2228,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref char value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinaryDeserialize(ref char? value)
         {
@@ -2168,19 +2251,21 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">整数</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveMemberDeserialize(BinaryDeserializer deserializer, ref char? value)
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
+        /// Floating-point number deserialization
         /// 浮点数反序列化
         /// </summary>
-        /// <param name="value">浮点数</param>
+        /// <param name="value">Floating-point number</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void primitiveDeserialize(ref Half value)
         {
@@ -2188,19 +2273,20 @@ namespace AutoCSer
             Current += sizeof(int);
         }
         /// <summary>
+        /// Floating-point number deserialization
         /// 浮点数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">浮点数</param>
+        /// <param name="value">Floating-point number</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref Half value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref Half[]? array)
 #else
@@ -2223,10 +2309,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref Half[]? array)
@@ -2237,6 +2323,7 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
+        /// Deserialization from the data buffer (reading directly without checking the object reference)
         /// 从数据缓冲区反序列化（不检查对象引用直接读取）
         /// </summary>
         /// <param name="getBuffer"></param>
@@ -2281,14 +2368,15 @@ namespace AutoCSer
             return length;
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="write">写入位置</param>
-        /// <param name="length">写入长度</param>
-        /// <param name="lengthSize">写入长度字节大小</param>
-        /// <returns>是否成功</returns>
+        /// <param name="write">Write position</param>
+        /// <param name="length">Write length</param>
+        /// <param name="lengthSize">Write the byte size of the length data
+        /// 写入长度数据的字节大小</param>
+        /// <returns>Return null upon failure</returns>
         internal static byte* Deserialize(byte* start, byte* end, char* write, int length, int lengthSize)
         {
             byte* read = start + sizeof(int);
@@ -2307,7 +2395,8 @@ namespace AutoCSer
                     default:
                         length -= (charCount = *(int*)read);
                         read += sizeof(int);
-                        if (length <= ushort.MaxValue) lengthSize = length <= byte.MaxValue ? 1 : sizeof(ushort);
+                        //if (length <= ushort.MaxValue) lengthSize = length <= byte.MaxValue ? 1 : sizeof(ushort);
+                        if (length <= ushort.MaxValue) lengthSize = 2 >> (length & (int.MaxValue - byte.MaxValue)).logicalInversion();
                         break;
                 }
                 byte* readEnd = read + charCount;
@@ -2325,7 +2414,8 @@ namespace AutoCSer
                     default:
                         length -= (charCount = *(int*)read);
                         read += sizeof(int);
-                        if (length <= ushort.MaxValue) lengthSize = length <= byte.MaxValue ? 1 : sizeof(ushort);
+                        //if (length <= ushort.MaxValue) lengthSize = length <= byte.MaxValue ? 1 : sizeof(ushort);
+                        if (length <= ushort.MaxValue) lengthSize = 2 >> (length & (int.MaxValue - byte.MaxValue)).logicalInversion();
                         break;
                 }
                 char* readCharEnd = (char*)read + charCount;
@@ -2340,7 +2430,7 @@ namespace AutoCSer
             while (true);
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -2375,7 +2465,7 @@ namespace AutoCSer
             }
             else if ((length >>= 1) > 0)
             {
-                int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
+                int lengthSize = UnmanagedStreamBase.GetSerializeStringLengthSize(length);
                 if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= (int)(End - Current))
                 {
                     tryPush(value = AutoCSer.Common.AllocateString(length));
@@ -2393,9 +2483,9 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -2407,10 +2497,10 @@ namespace AutoCSer
             if (CheckNullPoint(ref value)) Deserialize(ref value);
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref string? value)
@@ -2421,9 +2511,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinaryDeserialize(ref SubString value)
         {
@@ -2433,19 +2523,19 @@ namespace AutoCSer
             else value = default(SubString);
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref SubString value)
         {
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
-        /// 类型信息反序列化
+        /// Type deserialization
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
 #if NetStandard21
         public void BinaryDeserialize(ref Type? value)
 #else
@@ -2485,10 +2575,10 @@ namespace AutoCSer
             State = DeserializeStateEnum.ErrorType;
         }
         /// <summary>
-        /// 类型信息反序列化
+        /// Type deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref Type? value)
@@ -2499,9 +2589,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref value);
         }
         /// <summary>
-        /// object 反序列化
+        /// object deserialization
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -2529,10 +2619,10 @@ namespace AutoCSer
             else State = DeserializeStateEnum.NotObject;
         }
         /// <summary>
-        /// object 反序列化
+        /// object deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref object? value)
@@ -2563,10 +2653,13 @@ namespace AutoCSer
         //    return false;
         //}
         /// <summary>
-        /// 获取并设置自定义序列化成员位图
+        /// Get and set the custom deserialization member bitmap type
+        /// 获取并设置自定义反序列化成员位图类型
         /// </summary>
-        /// <param name="memberMapType">设置的自定义序列化成员位图</param>
-        /// <returns>序列化成员位图</returns>
+        /// <param name="memberMapType">The custom deserialization member bitmap type set
+        /// 设置的自定义反序列化成员位图类型</param>
+        /// <returns>Deserialize member bitmap type
+        /// 反序列化成员位图类型</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Type? SetCustomMemberMapType(Type memberMapType)
@@ -2579,10 +2672,13 @@ namespace AutoCSer
             return oldMemberMapType;
         }
         /// <summary>
-        /// 获取自定义序列化成员位图
+        /// Gets the custom deserialized member bitmap
+        /// 获取自定义反序列化成员位图
         /// </summary>
-        /// <param name="memberMapType">设置的自定义序列化成员位图类型</param>
-        /// <returns>序列化成员位图</returns>
+        /// <param name="memberMapType">The custom deserialization member bitmap type set
+        /// 设置的自定义反序列化成员位图类型</param>
+        /// <returns>Deserialize member bitmap
+        /// 反序列化成员位图</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public MemberMap? GetCustomMemberMap(Type? memberMapType)
@@ -2596,10 +2692,13 @@ namespace AutoCSer
             return oldMemberMap;
         }
         /// <summary>
-        /// 获取并设置自定义序列化成员位图
+        /// Get and set the custom deserialization member bitmap
+        /// 获取并设置自定义反序列化成员位图
         /// </summary>
-        /// <param name="memberMap">设置的自定义序列化成员位图</param>
-        /// <returns>序列化成员位图</returns>
+        /// <param name="memberMap">The custom deserialization member bitmap set
+        /// 设置的自定义反序列化成员位图</param>
+        /// <returns>Deserialize member bitmap
+        /// 反序列化成员位图</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public MemberMap? SetCustomMemberMap(MemberMap? memberMap)
@@ -2612,10 +2711,11 @@ namespace AutoCSer
             return oldMemberMap;
         }
         /// <summary>
+        /// Move the read data position and return to the position before the move
         /// 移动读取数据位置并返回移动之前的位置
         /// </summary>
         /// <param name="size"></param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         internal byte* GetBeforeMove(int size)
         {
             byte* value = Current;
@@ -2624,6 +2724,7 @@ namespace AutoCSer
             return null;
         }
         /// <summary>
+        /// Custom deserialization call
         /// 自定义反序列化调用
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -2641,6 +2742,7 @@ namespace AutoCSer
             return State == DeserializeStateEnum.Success;
         }
         /// <summary>
+        /// Deserialization from the data buffer (reading directly without checking the object reference)
         /// 从数据缓冲区反序列化（不检查对象引用直接读取）
         /// </summary>
         /// <param name="buffer"></param>
@@ -2670,6 +2772,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Deserialization from the data buffer (reading directly without checking the object reference)
         /// 从数据缓冲区反序列化（不检查对象引用直接读取）
         /// </summary>
         /// <param name="buffer"></param>
@@ -2707,10 +2810,11 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="start"></param>
-        /// <param name="size">4 的倍数</param>
+        /// <param name="size">Multiples of 4
+        /// 4 的倍数</param>
         /// <param name="value"></param>
         /// <returns></returns>
 #if NetStandard21
@@ -2741,7 +2845,7 @@ namespace AutoCSer
             }
             else if ((length >>= 1) > 0)
             {
-                int lengthSize = (length <= byte.MaxValue ? 1 : (length <= ushort.MaxValue ? sizeof(ushort) : sizeof(int)));
+                int lengthSize = UnmanagedStreamBase.GetSerializeStringLengthSize(length);
                 if (((lengthSize + length + (3 + sizeof(int))) & (int.MaxValue - 3)) <= size)
                 {
                     value = AutoCSer.Common.AllocateString(length);
@@ -2756,9 +2860,10 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Deserialization from the data buffer (reading directly without checking the object reference)
         /// 从数据缓冲区反序列化（不检查对象引用直接读取）
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
 #if NetStandard21
         public void DeserializeBuffer(ref string? value)
 #else
@@ -2773,9 +2878,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Deserialization from the data buffer (reading directly without checking the object reference)
         /// 从数据缓冲区反序列化（不检查对象引用直接读取）
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <returns></returns>
 #if NetStandard21
         internal bool DeserializeOnly(ref string? value)
@@ -2799,7 +2905,8 @@ namespace AutoCSer
             return State == DeserializeStateEnum.Success;
         }
         /// <summary>
-        /// 自定义序列化数据缓冲区开始处理
+        /// The custom deserialization data buffer begins processing
+        /// 自定义反序列化数据缓冲区开始处理
         /// </summary>
         /// <returns></returns>
         internal byte* DeserializeBufferStart()
@@ -2816,7 +2923,8 @@ namespace AutoCSer
             return null;
         }
         /// <summary>
-        /// 自定义序列化数据缓冲区结束处理
+        /// The custom deserialization data buffer has completed processing
+        /// 自定义反序列化数据缓冲区结束处理
         /// </summary>
         /// <param name="end"></param>
         /// <returns></returns>
@@ -2828,7 +2936,7 @@ namespace AutoCSer
             return State == DeserializeStateEnum.Success;
         }
         ///// <summary>
-        ///// 自定义序列化数据缓冲区
+        ///// Custom serialization数据缓冲区
         ///// </summary>
         ///// <param name="deserializer"></param>
         //public bool DeserializeBuffer(Action<BinaryDeserializer> deserializer)
@@ -2851,6 +2959,7 @@ namespace AutoCSer
         //    return false;
         //}
         /// <summary>
+        /// Deserialize independent objects from independent data buffers
         /// 从独立数据缓冲区反序列化独立对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -2890,6 +2999,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Deserialize independent objects from independent data buffers
         /// 从独立数据缓冲区反序列化独立对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -2928,6 +3038,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Deserialize the internal member object from the independent data buffer (with no reference check on the outer layer)
         /// 从独立数据缓冲区反序列化内部成员对象（外层无引用检查）
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -2985,11 +3096,12 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Deserialize the internal member object from the independent data buffer
         /// 从独立数据缓冲区反序列化内部成员对象
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="buffer">数据</param>
-        /// <param name="value">目标对象</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="buffer">Data buffer</param>
+        /// <param name="value">Target object</param>
         /// <returns></returns>
 #if NetStandard21
         internal bool InternalIndependentDeserializeNotReference<T>(ref SubArray<byte> buffer, ref T? value)
@@ -3032,6 +3144,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Deserialize the internal member object from the independent data buffer
         /// 从独立数据缓冲区反序列化内部成员对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -3055,10 +3168,11 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Deserialize the internal member object from the independent data buffer
         /// 从独立数据缓冲区反序列化内部成员对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="buffer">数据</param>
+        /// <param name="buffer">Data buffer</param>
         /// <param name="value"></param>
         public bool SimpleDeserialize<T>(ref SubArray<byte> buffer, ref T value) where T : struct
         {
@@ -3180,9 +3294,10 @@ namespace AutoCSer
         //    return false;
         //}
         /// <summary>
+        /// Set the custom error status for deserialization
         /// 设置反序列化自定义错误状态
         /// </summary>
-        /// <param name="customError">自定义错误</param>
+        /// <param name="customError">Customize deserialization error messages</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool SetCustomError(string customError)
@@ -3222,7 +3337,7 @@ namespace AutoCSer
         //}
 #if AOT
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeHalfArray(BinaryDeserializer deserializer)
@@ -3232,7 +3347,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 逻辑值反序列化
+        /// Logical value deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object primitiveMemberDeserializeNullableBool(BinaryDeserializer deserializer)
@@ -3242,7 +3357,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeBoolArray(BinaryDeserializer deserializer)
@@ -3252,7 +3367,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeNullableBoolArray(BinaryDeserializer deserializer)
@@ -3262,7 +3377,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object primitiveMemberDeserializeBoolLeftArray(BinaryDeserializer deserializer)
@@ -3272,7 +3387,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeBoolListArray(BinaryDeserializer deserializer)
@@ -3282,6 +3397,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3292,6 +3408,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3302,6 +3419,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3312,6 +3430,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3322,6 +3441,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3332,7 +3452,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeString(BinaryDeserializer deserializer)
@@ -3342,7 +3462,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object primitiveMemberDeserializeSubString(BinaryDeserializer deserializer)
@@ -3352,7 +3472,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 类型信息反序列化
+        /// Type deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeType(BinaryDeserializer deserializer)
@@ -3362,7 +3482,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 字符串反序列化
+        /// String deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeObject(BinaryDeserializer deserializer)
@@ -3372,7 +3492,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3383,7 +3503,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3394,7 +3514,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3405,7 +3525,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3416,7 +3536,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3427,7 +3547,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3438,7 +3558,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3449,7 +3569,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3460,7 +3580,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组转换
+        /// Array deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3471,7 +3591,8 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 自定义反序列化不支持类型
+        /// Custom deserialization not supported types
+        /// 自定义反序列化不支持的类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3482,7 +3603,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 对象序列化
+        /// Object deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3493,7 +3614,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
-        /// 字典反序列化
+        /// Dictionary deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -3507,7 +3628,7 @@ namespace AutoCSer
             return dictionary;
         }
         /// <summary>
-        /// 集合转换
+        /// Collection deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
@@ -3519,7 +3640,7 @@ namespace AutoCSer
             return collection;
         }
         /// <summary>
-        /// 基类反序列化
+        /// Base type deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="BT"></typeparam>
@@ -3532,7 +3653,8 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON mixed binary deserialization
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         public static object? StructJsonReflection<T>(BinaryDeserializer deserializer)
@@ -3542,7 +3664,8 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 二进制反序列化转简单反序列化（用于代码生成，不允许开发者调用）
+        /// Binary deserialization to simple deserialization (for AOT code generation, not allowed for developers to call)
+        /// 二进制反序列化转简单反序列化（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         public static object? SimpleReflection<T>(BinaryDeserializer deserializer) where T : struct
@@ -3552,7 +3675,8 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON mixed binary deserialization
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3563,7 +3687,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 二进制反序列化
+        /// Deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
@@ -3574,7 +3698,7 @@ namespace AutoCSer
             return value;
         }
         /// <summary>
-        /// 自定义反序列化
+        /// Custom deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         public static object ICustomReflection<T>(AutoCSer.BinaryDeserializer deserializer) where T : ICustomSerialize<T>
@@ -3584,6 +3708,7 @@ namespace AutoCSer
             return value.castObject();
         }
         /// <summary>
+        /// Enumeration deserialization
         /// 枚举反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -3595,6 +3720,7 @@ namespace AutoCSer
             EnumULongMember<T>(deserializer, ref value);
         }
         /// <summary>
+        /// Enumeration deserialization
         /// 枚举反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -3606,6 +3732,7 @@ namespace AutoCSer
             EnumLongMember<T>(deserializer, ref value);
         }
         /// <summary>
+        /// Enumeration deserialization
         /// 枚举反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -3617,6 +3744,7 @@ namespace AutoCSer
             EnumUIntMember<T>(deserializer, ref value);
         }
         /// <summary>
+        /// Enumeration deserialization
         /// 枚举反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -3628,7 +3756,8 @@ namespace AutoCSer
             EnumIntMember<T>(deserializer, ref value);
         }
         /// <summary>
-        /// 二进制反序列化转简单反序列化（用于代码生成，不允许开发者调用）
+        /// Binary deserialization to simple deserialization (for AOT code generation, not allowed for developers to call)
+        /// 二进制反序列化转简单反序列化（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -3638,181 +3767,211 @@ namespace AutoCSer
             SimpleDeserialize(ref value);
         }
         /// <summary>
-        /// 自定义反序列化
+        /// Custom deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ICustomMethod;
         /// <summary>
-        /// 基类型反序列化
+        /// Base type deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo BaseMethod;
         /// <summary>
-        /// 不支持类型反序列化
+        /// Unsupported type deserialization
+        /// 不支持的类型反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NotSupportMethod;
         /// <summary>
+        /// Deserialization of nullable arrays
         /// 可空数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableArrayMethod;
         /// <summary>
+        /// Deserialization of nullable arrays
         /// 可空数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableLeftArrayMethod;
         /// <summary>
+        /// Deserialization of nullable arrays
         /// 可空数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableListArrayMethod;
         /// <summary>
+        /// Deserialization of value type arrays
         /// 值类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructArrayMethod;
         /// <summary>
+        /// Deserialization of value type arrays
         /// 值类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructLeftArrayMethod;
         /// <summary>
+        /// Deserialization of value type arrays
         /// 值类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructListArrayMethod;
         /// <summary>
+        /// Deserialization of reference type arrays
         /// 引用类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ArrayMethod;
         /// <summary>
+        /// Deserialization of reference type arrays
         /// 引用类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo LeftArrayMethod;
         /// <summary>
+        /// Deserialization of reference type arrays
         /// 引用类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ListArrayMethod;
         /// <summary>
+        /// Nullable data deserialization
         /// 可空数据反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableMethod;
         /// <summary>
-        /// 字典反序列化
+        /// Dictionary deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo DictionaryMethod;
         /// <summary>
-        /// 集合反序列化
+        /// Collection deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo CollectionMethod;
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo JsonMethod;
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructJsonMethod;
         /// <summary>
-        /// 简单反序列化
+        /// Simple data deserialization
+        /// 简单数据反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo SimpleMethod;
         /// <summary>
-        /// 自定义反序列化
+        /// Custom deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ICustomReflectionMethod;
         /// <summary>
-        /// 基类型反序列化
+        /// Base type deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo BaseReflectionMethod;
         /// <summary>
-        /// 不支持类型反序列化
+        /// Unsupported type deserialization
+        /// 不支持的类型反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NotSupportReflectionMethod;
         /// <summary>
+        /// Deserialization of nullable arrays
         /// 可空数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of nullable arrays
         /// 可空数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableLeftArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of nullable arrays
         /// 可空数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableListArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of value type arrays
         /// 值类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of value type arrays
         /// 值类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructLeftArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of value type arrays
         /// 值类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructListArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of reference type arrays
         /// 引用类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of reference type arrays
         /// 引用类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo LeftArrayReflectionMethod;
         /// <summary>
+        /// Deserialization of reference type arrays
         /// 引用类型数组反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ListArrayReflectionMethod;
         /// <summary>
+        /// Nullable data deserialization
         /// 可空数据反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableReflectionMethod;
         /// <summary>
-        /// 字典反序列化
+        /// Dictionary deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo DictionaryReflectionMethod;
         /// <summary>
-        /// 集合反序列化
+        /// Collection deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo CollectionReflectionMethod;
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo JsonReflectionMethod;
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructJsonReflectionMethod;
         /// <summary>
-        /// 简单反序列化
+        /// Simple data deserialization
+        /// 简单数据反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo SimpleReflectionMethod;
         /// <summary>
-        /// 反序列化
+        /// Deserialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo DeserializeReflectionMethod;
         /// <summary>
+        /// object reflection deserialization
         /// object 反射反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo RealTypeObjectMethod;
         /// <summary>
-        /// 二进制反序列化模板
+        /// AOT deserialization template call
+        /// AOT 反序列化模板调用
         /// </summary>
         /// <returns></returns>
         internal object DeserializeMethodName() { return this; }
         /// <summary>
-        /// 二进制反序列化模板
+        /// AOT deserialization template call
+        /// AOT 反序列化模板
         /// </summary>
         /// <param name="value"></param>
         internal void DeserializeMethodName(ref string value) { }
         /// <summary>
-        /// 二进制反序列化模板
+        /// AOT deserialization template call
+        /// AOT 反序列化模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         internal void DeserializeMethodName<T>(ref string value) { }
         /// <summary>
-        /// 反序列化模板
+        /// AOT deserialization template call
+        /// AOT 反序列化模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>
         internal static void ReflectionMethodName<T>(JsonDeserializer deserializer) { }
         /// <summary>
-        /// 反序列化模板
+        /// AOT deserialization template call
+        /// AOT 反序列化模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
@@ -3820,13 +3979,15 @@ namespace AutoCSer
         /// <param name="value"></param>
         internal static void ReflectionMethodName<T, VT>(JsonDeserializer deserializer, ref VT value) { }
         /// <summary>
-        /// 代码生成模板
+        /// AOT deserialization template call
+        /// AOT 反序列化模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         internal void SimpleMethodName<T>(ref T value) { }
 #else
         /// <summary>
+        /// Fix the number of packet padding bytes
         /// 固定分组填充字节数
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3837,6 +3998,7 @@ namespace AutoCSer
             deserializer.Current += fixedFillSize;
         }
         /// <summary>
+        /// Set the starting position of the fixed data
         /// 设置固定数据起始位置
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3846,6 +4008,7 @@ namespace AutoCSer
             deserializer.SetFixedCurrent();
         }
         /// <summary>
+        /// Set the fixed data end position
         /// 设置固定数据结束位置
         /// </summary>
         /// <param name="deserializer"></param>
@@ -3855,7 +4018,7 @@ namespace AutoCSer
             deserializer.SetFixedCurrentEnd();
         }
         /// <summary>
-        /// JSON 反序列化
+        /// JSON deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -3868,13 +4031,15 @@ namespace AutoCSer
             else Current += sizeof(int);
         }
         /// <summary>
-        /// 代码生成调用激活 AOT 反射
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         internal static void BinaryDeserialize<T>() { }
 #endif
         /// <summary>
-        /// 固定分组填充字节数（用于代码生成，不允许开发者调用）
+        /// Fixed packet fill byte count (for AOT code generation, not allowed for developers to call)
+        /// 固定分组填充字节数（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <param name="fixedFillSize"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -3887,7 +4052,8 @@ namespace AutoCSer
             Current += fixedFillSize;
         }
         /// <summary>
-        /// 设置固定数据起始位置（用于代码生成，不允许开发者调用）
+        /// Set the fixed data starting position (for AOT code generation and not allowed for developers to call)
+        /// 设置固定数据起始位置（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if AOT
@@ -3899,8 +4065,10 @@ namespace AutoCSer
             fixedCurrent = Current;
         }
         /// <summary>
-        /// 设置固定数据结束位置（用于代码生成，不允许开发者调用）
+        /// Set the fixed data end position (for AOT code generation and not allowed for developers to call)
+        /// 设置固定数据结束位置（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if AOT
         public void SetFixedCurrentEnd()
 #else
@@ -3911,12 +4079,12 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 反序列化
+        /// Deserialization
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="buffer">数据</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标对象</returns>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="buffer">Data buffer</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target object</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? Deserialize<T>(byte[] buffer, DeserializeConfig? config = null)
@@ -3928,12 +4096,12 @@ namespace AutoCSer
             return Deserialize(buffer, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
-        /// 反序列化
+        /// Deserialization
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="buffer">数据</param>
-        /// <param name="value">目标对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="buffer">Data buffer</param>
+        /// <param name="value">Target object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns></returns>
 #if NetStandard21
         public static DeserializeResult Deserialize<T>(byte[] buffer, ref T? value, DeserializeConfig? config = null)
@@ -3953,7 +4121,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 反序列化
+        /// Deserialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="buffer"></param>
@@ -3975,6 +4143,7 @@ namespace AutoCSer
             finally { deserializer.Free(); }
         }
         /// <summary>
+        /// Deserialize independent objects from independent data buffers
         /// 从独立数据缓冲区反序列化独立对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -3992,12 +4161,13 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Deserialization (Thread static Instance pattern)
         /// 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="buffer">数据</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标对象</returns>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="buffer">Data buffer</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target object</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? ThreadStaticDeserialize<T>(byte[] buffer, DeserializeConfig? config = null)
@@ -4009,12 +4179,13 @@ namespace AutoCSer
             return ThreadStaticDeserialize(buffer, ref value, config).State == DeserializeStateEnum.Success ? value : default(T);
         }
         /// <summary>
+        /// Deserialization (Thread static Instance pattern)
         /// 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="buffer">数据</param>
-        /// <param name="value">目标对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="buffer">Data buffer</param>
+        /// <param name="value">Target object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns></returns>
 #if NetStandard21
         public static DeserializeResult ThreadStaticDeserialize<T>(byte[] buffer, ref T? value, DeserializeConfig? config = null)
@@ -4036,14 +4207,15 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 解析委托
+        /// Deserialization delegation
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="deserializer">二进制反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="deserializer">Binary data deserialization</param>
+        /// <param name="value">Target data</param>
         public delegate void DeserializeDelegate<T>(BinaryDeserializer deserializer, ref T value);
         /// <summary>
-        /// 基本类型转换函数
+        /// Basic type deserialization delegate collection
+        /// 基本类型反序列化委托集合
         /// </summary>
         internal static readonly Dictionary<HashObject<System.Type>, DeserializeDelegate> DeserializeDelegates;
 

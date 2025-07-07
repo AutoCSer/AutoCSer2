@@ -5,12 +5,14 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 客户端回调委托
+    /// The client keep the callback delegate
+    /// 客户端保持回调委托
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CommandClientKeepCallback
     {
         /// <summary>
+        /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
 #if NetStandard21
@@ -19,7 +21,8 @@ namespace AutoCSer.Net
         private Action<CommandClientReturnValue, KeepCallbackCommand> callback;
 #endif
         /// <summary>
-        /// 客户端回调委托
+        /// The client keep the callback delegate
+        /// 客户端保持回调委托
         /// </summary>
         /// <param name="callback"></param>
         private CommandClientKeepCallback(Action<CommandClientReturnValue, KeepCallbackCommand> callback)
@@ -27,13 +30,14 @@ namespace AutoCSer.Net
             this.callback = callback;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientKeepCallback(Action<CommandClientReturnValue, KeepCallbackCommand> value) { return new CommandClientKeepCallback(value); }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client keep callback delegate
+        /// 获取客户端保持回调委托
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
@@ -43,6 +47,7 @@ namespace AutoCSer.Net
             return new CommandClientKeepCallback(callback);
         }
         /// <summary>
+        /// Failure callback
         /// 失败回调
         /// </summary>
         /// <param name="returnType"></param>
@@ -62,7 +67,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 保持回调
+        /// Client callback
+        /// 客户端回调
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -82,24 +88,28 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Empty callback, such as heartbeats
         /// 空回调，比如心跳
         /// </summary>
         /// <param name="returnValue"></param>
         /// <param name="keepCallbackCommand"></param>
         private static void emptyCallback(CommandClientReturnValue returnValue, KeepCallbackCommand keepCallbackCommand) { }
         /// <summary>
+        /// Empty callback, such as heartbeats
         /// 空回调，比如心跳
         /// </summary>
         public static readonly Action<CommandClientReturnValue, KeepCallbackCommand> EmptyCallback = emptyCallback;
     }
     /// <summary>
-    /// 客户端回调委托
+    /// The client keep the callback delegate
+    /// 客户端保持回调委托
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CommandClientKeepCallback<T>
     {
         /// <summary>
+        /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
 #if NetStandard21
@@ -108,7 +118,8 @@ namespace AutoCSer.Net
         internal Action<CommandClientReturnValue<T>, KeepCallbackCommand> Callback;
 #endif
         /// <summary>
-        /// 客户端回调委托
+        /// The client keep the callback delegate
+        /// 客户端保持回调委托
         /// </summary>
         /// <param name="callback"></param>
         private CommandClientKeepCallback(Action<CommandClientReturnValue<T>, KeepCallbackCommand> callback)
@@ -116,13 +127,14 @@ namespace AutoCSer.Net
             Callback = callback;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientKeepCallback<T>(Action<CommandClientReturnValue<T>, KeepCallbackCommand> value) { return new CommandClientKeepCallback<T>(value); }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client keep callback delegate
+        /// 获取客户端保持回调委托
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
@@ -132,6 +144,7 @@ namespace AutoCSer.Net
             return new CommandClientKeepCallback<T>(callback);
         }
         /// <summary>
+        /// Failure callback
         /// 失败回调
         /// </summary>
         /// <param name="returnType"></param>

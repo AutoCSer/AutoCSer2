@@ -4,13 +4,14 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 持续回调返回值链表
+    /// The keep callback linked list of the return value
+    /// 保持回调返回值链表
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     public abstract class KeepCallbackReturnValueLink<T> where T : KeepCallbackReturnValueLink<T>
     {
         /// <summary>
-        /// 下一个节点
+        /// The next node
         /// </summary>
         [AutoCSer.BinarySerializeMember(IsIgnoreCurrent = true)]
         [AutoCSer.JsonSerializeMember(IsIgnoreCurrent = true)]
@@ -21,12 +22,17 @@ namespace AutoCSer.Net
 #endif
 
         /// <summary>
+        /// Gets the specified number of end nodes
         /// 获取指定数量的结束节点
         /// </summary>
-        /// <param name="head">开始节点</param>
-        /// <param name="getCount">获取数量</param>
-        /// <param name="endCount">实际结束数量</param>
-        /// <returns>结束节点</returns>
+        /// <param name="head">Head node
+        /// 头节点</param>
+        /// <param name="getCount">Get the quantity
+        /// 获取数量</param>
+        /// <param name="endCount">Actual end number
+        /// 实际结束数量</param>
+        /// <returns>End node
+        /// 结束节点</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? GetEndCount(T? head, int getCount, out int endCount)
@@ -39,12 +45,17 @@ namespace AutoCSer.Net
             return head;
         }
         /// <summary>
+        /// Gets the specified number of end nodes
         /// 获取指定数量的结束节点
         /// </summary>
-        /// <param name="head">开始节点</param>
-        /// <param name="getCount">获取数量</param>
-        /// <param name="endCount">实际结束数量</param>
-        /// <returns>结束节点</returns>
+        /// <param name="head">Head node
+        /// 头节点</param>
+        /// <param name="getCount">Get the quantity
+        /// 获取数量</param>
+        /// <param name="endCount">Actual end number
+        /// 实际结束数量</param>
+        /// <returns>End node
+        /// 结束节点</returns>
 #if NetStandard21
         internal static T? GetEnd(T head, int getCount, out int endCount)
 #else

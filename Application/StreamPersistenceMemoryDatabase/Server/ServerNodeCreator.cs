@@ -24,7 +24,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class ServerNodeCreator
     {
         /// <summary>
-        /// 日志流持久化内存数据库服务端
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
         internal readonly StreamPersistenceMemoryDatabaseServiceBase Service;
         /// <summary>
@@ -36,6 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly object methodLock;
         /// <summary>
+        /// Node method collection
         /// 节点方法集合
         /// </summary>
 #if NetStandard21
@@ -45,15 +47,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
 #if AOT
         /// <summary>
+        /// Node method information collection
         /// 节点方法信息集合
         /// </summary>
         internal ServerNodeMethodInfo?[] NodeMethods;
         /// <summary>
+        /// Snapshot method collection
         /// 快照方法集合
         /// </summary>
         internal SnapshotMethodInfo[] SnapshotMethods;
 #else
         /// <summary>
+        /// Node method information collection
         /// 节点方法信息集合
         /// </summary>
 #if NetStandard21
@@ -62,6 +67,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal ServerNodeMethod[] NodeMethods;
 #endif
         /// <summary>
+        /// Snapshot method collection
         /// 快照方法集合
         /// </summary>
         internal SnapshotMethod[] SnapshotMethods;
@@ -75,8 +81,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="service"></param>
         /// <param name="type">节点接口类型</param>
-        /// <param name="methods">节点方法集合</param>
-        /// <param name="nodeMethods">节点方法信息集合</param>
+        /// <param name="methods">Node method collection
+        /// 节点方法集合</param>
+        /// <param name="nodeMethods">Node method information collection
+        /// 节点方法信息集合</param>
         /// <param name="snapshotMethods">快照方法集合</param>
 #if AOT
         unsafe internal ServerNodeCreator(StreamPersistenceMemoryDatabaseServiceBase service, Type type, Method?[] methods, ServerNodeMethodInfo?[] nodeMethods, SnapshotMethodInfo[] snapshotMethods)
@@ -295,6 +303,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             throw new FileNotFoundException(assemblyFile.FullName);
         }
         /// <summary>
+        /// Fix the interface method error and force overwriting the original interface method call. Except for the first parameter being the operation node object, the method definition must be consistent
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -363,6 +372,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return repairNodeMethod;
         }
         /// <summary>
+        /// Bind a new method to dynamically add interface functionality. The initial state of the new method number must be free
         /// 绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -593,6 +603,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] CallTypeMethodConstructorParameterTypes = new Type[] { typeof(int), typeof(int), typeof(CallTypeEnum), typeof(MethodFlagsEnum) };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallMethod = typeof(CallMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallMethod.Call), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -601,6 +612,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] CallMethodParameterTypes = new Type[] { typeof(ServerNode), typeof(CommandServerCallback<CallStateEnum>).MakeByRefType() };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallOutputMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallOutput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -609,10 +621,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] CallOutputMethodParameterTypes = new Type[] { typeof(ServerNode), typeof(CommandServerCallback<ResponseParameter>).MakeByRefType() };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallOutputCallBeforePersistenceMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallOutputCallOutputBeforePersistenceMethod = typeof(CallOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.CallOutputBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -621,6 +635,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] CallOutputBeforePersistenceMethodParameterTypes = new Type[] { typeof(ServerNode) };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallInputMethod = typeof(CallInputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod.CallInput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -629,6 +644,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] CallInputMethodParameterTypes = new Type[] { typeof(CallInputMethodParameter) };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallInputOutputMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallInputOutput), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -637,14 +653,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] CallInputOutputMethodParameterTypes = new Type[] { typeof(CallInputOutputMethodParameter) };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallInputOutputCallOutputBeforePersistenceMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallOutputBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo CallInputOutputCallBeforePersistenceMethod = typeof(CallInputOutputMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod.CallBeforePersistence), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo SendOnlyMethod = typeof(SendOnlyMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod.SendOnly), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -653,6 +672,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] SendOnlyMethodParameterTypes = new Type[] { typeof(SendOnlyMethodParameter) };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo KeepCallbackMethod = typeof(KeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod.KeepCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -661,6 +681,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] KeepCallbackMethodParameterTypes = new Type[] { typeof(ServerNode), typeof(CommandServerKeepCallback<KeepCallbackResponseParameter>).MakeByRefType() };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo InputKeepCallbackMethod = typeof(InputKeepCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod.InputKeepCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
@@ -724,14 +745,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal static readonly MethodInfo InputKeepCallbackMethodParameterEnumerableCallbackMethod = typeof(InputKeepCallbackMethodParameter).GetMethod(nameof(InputKeepCallbackMethodParameter.EnumerableCallback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
 
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         internal static readonly Action<MethodParameterCreator, int> MethodParameterCreatorCreateCallMethodParameter = MethodParameterCreator.CreateCallMethodParameter;
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         internal static readonly Action<MethodParameterCreator, int> MethodParameterCreatorCreateCallOutputMethodParameter = MethodParameterCreator.CreateCallOutputMethodParameter;
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
 #if NetStandard21
@@ -740,6 +764,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal static readonly Action<MethodParameterCreator, int, CommandServerCallback<ResponseParameter>> MethodParameterCreatorCreateCallOutputCallbackMethodParameter = MethodParameterCreator.CreateCallOutputCallbackMethodParameter;
 #endif
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         internal static readonly Action<MethodParameterCreator, int> MethodParameterCreatorCreateKeepCallbackMethodParameter = MethodParameterCreator.CreateKeepCallbackMethodParameter;
@@ -748,7 +773,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 生成服务端节点
     /// </summary>
-    /// <typeparam name="T">节点接口类型</typeparam>
+    /// <typeparam name="T">Node interface type
+    /// 节点接口类型</typeparam>
     internal static class ServerNodeCreator<T>
     {
         /// <summary>
@@ -768,6 +794,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private static string[] creatorMessages;
 #endif
         /// <summary>
+        /// Node method collection
         /// 节点方法集合
         /// </summary>
 #if NetStandard21
@@ -777,15 +804,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
 #if AOT
         /// <summary>
+        /// Node method information collection
         /// 节点方法信息集合
         /// </summary>
         private static ServerNodeMethodInfo?[] nodeMethods;
         /// <summary>
+        /// Snapshot method collection
         /// 快照方法集合
         /// </summary>
         private static SnapshotMethodInfo[] snapshotMethods;
 #else
         /// <summary>
+        /// Node method information collection
         /// 节点方法信息集合
         /// </summary>
 #if NetStandard21
@@ -794,6 +824,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private static ServerNodeMethod[] nodeMethods;
 #endif
         /// <summary>
+        /// Snapshot method collection
         /// 快照方法集合
         /// </summary>
         private static SnapshotMethod[] snapshotMethods;
@@ -821,6 +852,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             throw creatorException;
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
 #if NetStandard21

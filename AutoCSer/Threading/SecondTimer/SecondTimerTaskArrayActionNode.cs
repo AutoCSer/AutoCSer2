@@ -24,6 +24,7 @@ namespace AutoCSer.Threading
             this.task = task;
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         protected internal override void OnTimer()

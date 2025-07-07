@@ -18,6 +18,7 @@ namespace AutoCSer.Threading
         /// <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
         protected InterfaceControllerTaskQueueNode(ClientCallbackTypeEnum callbackType) : base(callbackType) { }
         /// <summary>
+        /// Wait for the command call to return the result
         /// 等待命令调用返回结果
         /// </summary>
         /// <returns></returns>
@@ -27,6 +28,7 @@ namespace AutoCSer.Threading
             return await this;
         }
         /// <summary>
+        /// Get the result of the command call
         /// 获取命令调用结果
         /// </summary>
         /// <returns></returns>
@@ -36,7 +38,7 @@ namespace AutoCSer.Threading
             return new CommandClientReturnValue(returnType, null);
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -45,6 +47,7 @@ namespace AutoCSer.Threading
             return this;
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         ///// <param name="isSynchronousThread"></param>
@@ -57,11 +60,11 @@ namespace AutoCSer.Threading
     /// <summary>
     /// 接口任务队列节点 await AutoCSer.Net.CommandClientReturnValue{T}
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     public abstract class InterfaceControllerTaskQueueNode<T> : InterfaceControllerTaskQueueNodeBase
     {
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         [AllowNull]
@@ -73,6 +76,7 @@ namespace AutoCSer.Threading
         /// <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
         protected InterfaceControllerTaskQueueNode(ClientCallbackTypeEnum callbackType) : base(callbackType) { }
         /// <summary>
+        /// Wait for the command call to return the result
         /// 等待命令调用返回结果
         /// </summary>
         /// <returns></returns>
@@ -82,6 +86,7 @@ namespace AutoCSer.Threading
             return await this;
         }
         /// <summary>
+        /// Get the result of the command call
         /// 获取命令调用结果
         /// </summary>
         /// <returns></returns>
@@ -92,7 +97,7 @@ namespace AutoCSer.Threading
             return new CommandClientReturnValue<T>(returnType, null);
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -101,6 +106,7 @@ namespace AutoCSer.Threading
             return this;
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>
@@ -112,6 +118,7 @@ namespace AutoCSer.Threading
             SetReturnType(CommandClientReturnTypeEnum.Success, isSynchronousThread);
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="node"></param>

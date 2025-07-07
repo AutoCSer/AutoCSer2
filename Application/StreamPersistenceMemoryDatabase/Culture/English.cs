@@ -64,8 +64,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         /// Persistent callback exception location The file rebuild index location does not match the database file location
         /// </summary>
         /// <param name="fileName">Persistent callback exception location File name</param>
-        /// <param name="rebuildPosition">The start location of the persistent stream reconstruction</param>
-        /// <param name="databaseRebuildPosition">The start location of the in-memory database persistent stream reconstruction</param>
+        /// <param name="rebuildPosition">The start location of the persistent stream rebuild</param>
+        /// <param name="databaseRebuildPosition">The start location of the in-memory database persistent stream rebuild</param>
         /// <returns></returns>
         public override string GetServiceLoaderExceptionPositionRebuildPositionNotMatch(string fileName, ulong rebuildPosition, ulong databaseRebuildPosition)
         {

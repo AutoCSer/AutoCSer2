@@ -12,7 +12,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 范围排序
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">待排序数组</param>
         /// <param name="comparer">排序比较器</param>
         /// <param name="skipCount">获取跳过数据数量</param>
@@ -27,7 +27,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 范围排序
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">待排序数组</param>
         /// <param name="comparer">排序比较器</param>
         /// <param name="skipCount">获取跳过数据数量</param>

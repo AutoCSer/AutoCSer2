@@ -13,7 +13,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 根据类型获取代码名称
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="buildEnum">类型名称输出类型</param>
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         /// <returns>代码名称</returns>

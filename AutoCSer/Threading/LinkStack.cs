@@ -29,7 +29,7 @@ namespace AutoCSer.Threading
             get { return head == null; }
         }
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -48,7 +48,7 @@ namespace AutoCSer.Threading
         //    System.Threading.Interlocked.Exchange(ref head, value);
         //}
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -66,7 +66,7 @@ namespace AutoCSer.Threading
             return head == null && System.Threading.Interlocked.CompareExchange(ref head, value, null) == null;
         }
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

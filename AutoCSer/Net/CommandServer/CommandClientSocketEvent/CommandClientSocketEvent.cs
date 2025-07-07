@@ -19,22 +19,27 @@ namespace AutoCSer.Net
     public class CommandClientSocketEvent
     {
         /// <summary>
-        /// 验证成功 已完成任务
+        /// Verify the successfully completed tasks
+        /// 验证成功的已完成任务
         /// </summary>
         private static readonly Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> verifySuccessTask = Task.FromResult((CommandClientReturnValue<CommandServerVerifyStateEnum>)CommandServerVerifyStateEnum.Success);
         /// <summary>
-        /// 验证失败 已完成任务
+        /// Verify the completed tasks that failed
+        /// 验证失败的已完成任务
         /// </summary>
         private static readonly Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> verifyFailTask = Task.FromResult((CommandClientReturnValue<CommandServerVerifyStateEnum>)CommandServerVerifyStateEnum.Fail);
         /// <summary>
-        /// 验证失败 已完成任务
+        /// The completed tasks that failed to verify and need to be retried
+        /// 验证失败需重试的已完成任务
         /// </summary>
         private static readonly Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> verifyRetryTask = Task.FromResult((CommandClientReturnValue<CommandServerVerifyStateEnum>)CommandServerVerifyStateEnum.Retry);
         /// <summary>
-        /// 缺少验证函数逻辑 已完成任务
+        /// The completed task of verifying the function logic is lacking
+        /// 缺少验证函数逻辑的已完成任务
         /// </summary>
         private static readonly Task<CommandClientReturnValue<CommandServerVerifyStateEnum>> lessVerifyMethodTask = Task.FromResult((CommandClientReturnValue<CommandServerVerifyStateEnum>)CommandServerVerifyStateEnum.LessVerifyMethod);
         /// <summary>
+        /// Get the completed task based on the validation status
         /// 根据验证状态获取已完成任务
         /// </summary>
         /// <param name="state"></param>
@@ -60,7 +65,8 @@ namespace AutoCSer.Net
         /// </summary>
         public readonly ICommandClient Client;
         /// <summary>
-        /// 设置客户端控制器
+        /// Set the client controller delegate
+        /// 设置客户端控制器委托
         /// </summary>
 #if NetStandard21
         private readonly Action<CommandClientSocketEvent>? setController;
@@ -77,7 +83,7 @@ namespace AutoCSer.Net
         public CommandClientSocket Socket { get; private set; }
 #endif
         /// <summary>
-        /// Client controller creates a set of parameters used to command client socket initialization to create client controller objects and to command client socket events to automatically bind controller properties based on the client controller interface type after passing the authentication API
+        /// The set of parameters for creating the client controller is used to create the client controller object during the initialization of the client socket, and also to automatically bind the controller properties based on the interface type of the client controller after the client socket passes the service authentication API
         /// 客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
         /// </summary>
 #if NetStandard21
@@ -86,15 +92,17 @@ namespace AutoCSer.Net
         public virtual IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters { get { return null; } }
 #endif
         /// <summary>
+        /// Release the closed socket version of the waiting lock
         /// 释放等待锁的关闭套接字版本
         /// </summary>
         private int closeSocketVersion;
         /// <summary>
+        /// Wait for the collection of client socket locks
         /// 等待客户端套接字锁集合
         /// </summary>
         private LeftArray<System.Threading.SemaphoreSlim> socketWaitLocks;
         /// <summary>
-        /// Default command client socket event
+        /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="commandClient">Command client
@@ -162,6 +170,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Add the collection of client controller creators
         /// 添加客户端控制器创建器集合
         /// </summary>
         /// <param name="controllerCreators"></param>
@@ -191,6 +200,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Gets the command client controller
         /// 获取命令客户端控制器
         /// </summary>
         /// <param name="socketEvent"></param>
@@ -225,7 +235,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 没有找到服务端控制器名称通知
+        /// The notification of the client controller name was not found
+        /// 没有找到客户端控制器名称通知
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="controllerName"></param>
@@ -235,6 +246,7 @@ namespace AutoCSer.Net
             return Client.Log.Debug($"没有找到客户端控制器名称 {controllerName}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn);
         }
         /// <summary>
+        /// The notification of the server controller name was not found
         /// 没有找到服务端控制器名称通知
         /// </summary>
         /// <param name="socket"></param>
@@ -245,6 +257,7 @@ namespace AutoCSer.Net
             return Client.Log.Error($"没有找到服务端控制器名称 {controllerName}", LogLevelEnum.AutoCSer | LogLevelEnum.Error);
         }
         /// <summary>
+        /// Notification when the name of the main controller does not match the name of the server
         /// 主控制器名称与服务端名称不匹配通知
         /// </summary>
         /// <param name="controller"></param>
@@ -262,11 +275,13 @@ namespace AutoCSer.Net
         //    Client.Log.DebugIgnoreException($"客户端控制器方法数量 {controller.Methods.Length.toString()} 超出服务端限制 {controller.MaxMethodCount.toString()}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn);
         //}
         /// <summary>
+        /// Socket retry connection successful prompt
         /// 套接字重试连接成功提示
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="serverEndPoint"></param>
-        /// <param name="exceptionCount">异常错误次数</param>
+        /// <param name="exceptionCount">Number of abnormal errors
+        /// 异常错误次数</param>
         /// <returns></returns>
 #if NetStandard21
         public virtual Task OnCreateSocketRetrySuccess(CommandClientSocket? socket, IPEndPoint serverEndPoint, int exceptionCount)
@@ -281,12 +296,14 @@ namespace AutoCSer.Net
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Socket creation exception prompt
         /// 套接字创建异常提示
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="exception"></param>
         /// <param name="serverEndPoint"></param>
-        /// <param name="exceptionCount">异常错误次数</param>
+        /// <param name="exceptionCount">Number of abnormal errors
+        /// 异常错误次数</param>
         /// <returns></returns>
 #if NetStandard21
         public virtual Task OnCreateSocketException(CommandClientSocket? socket, Exception exception, IPEndPoint serverEndPoint, int exceptionCount)
@@ -298,7 +315,7 @@ namespace AutoCSer.Net
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
-        /// The client invokes the authentication API after creating a socket connection
+        /// The client call the authentication API after creating a socket connection
         /// 客户端创建套接字连接以后调用认证 API
         /// </summary>
         /// <param name="controller"></param>
@@ -308,6 +325,7 @@ namespace AutoCSer.Net
             return controller.VerifyMethodIndex < 0 ? verifySuccessTask : lessVerifyMethodTask;
         }
         /// <summary>
+        /// The release of the waiting client socket lock must be invoked during the client lock operation
         /// 释放等待客户端套接字锁，必须在客户端锁操作中调用
         /// </summary>
         internal void ReleaseSocketWaitLock()
@@ -316,6 +334,7 @@ namespace AutoCSer.Net
             socketWaitLocks.SetEmpty();
         }
         /// <summary>
+        /// Get the wait client socket lock, this call is in the client lock operation, should not complete the initialization operation as soon as possible, forbidden to call the internal nested lock operation to avoid deadlock
         /// 获取等待客户端套接字锁，此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
         /// </summary>
         /// <returns></returns>
@@ -326,7 +345,8 @@ namespace AutoCSer.Net
             return waitLock;
         }
         /// <summary>
-        /// 设置设置客户端控制器
+        /// Set up the client controller
+        /// 设置客户端控制器
         /// </summary>
         /// <param name="socket"></param>
 #if NET8
@@ -349,7 +369,7 @@ namespace AutoCSer.Net
             return AutoCSer.Common.GetCompletedTask(true);
         }
         /// <summary>
-        /// Command Client socket custom client initialization operations after the authentication API is passed and the client controller is automatically bound, used to manually bind the client controller Settings and connection initialization operations, such as the initial hold callback. This call is located in the client lock operation, should not complete the initialization operation as soon as possible, do not call the internal nested lock operation to avoid deadlock
+        /// Command Client socket custom client initialization operations after the authentication API is passed and the client controller is automatically bound, used to manually bind the client controller Settings and connection initialization operations, such as the initial keep callback. This call is located in the client lock operation, should not complete the initialization operation as soon as possible, do not call the internal nested lock operation to avoid deadlock
         /// 命令客户端套接字通过认证 API 并自动绑定客户端控制器以后的客户端自定义初始化操作，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
         /// </summary>
         /// <param name="socket"></param>
@@ -364,9 +384,11 @@ namespace AutoCSer.Net
             ReleaseSocketWaitLock();
         }
         /// <summary>
+        /// Release the waiting client socket lock and close the socket only once, and it must be called during the client lock operation
         /// 释放等待客户端套接字锁，关闭套接字仅执行一次，必须在客户端锁操作中调用
         /// </summary>
-        /// <param name="closeSocketVersion">释放等待锁的关闭套接字版本</param>
+        /// <param name="closeSocketVersion">Release the closed socket version of the waiting lock
+        /// 释放等待锁的关闭套接字版本</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void releaseSocketWaitLock(int closeSocketVersion)
         {
@@ -427,8 +449,8 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsSymmetryInterface;
         /// <summary>
-        /// Client controller creator parameter set
-        /// 客户端控制器创建器参数集合
+        /// The set of parameters for creating the client controller is used to create the client controller object during the initialization of the client socket, and also to automatically bind the controller properties based on the interface type of the client controller after the client socket passes the service authentication API
+        /// 客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
         /// </summary>
         public override IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters
         {
@@ -438,7 +460,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// Default command client socket event
+        /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client"></param>
@@ -449,7 +471,7 @@ namespace AutoCSer.Net
             IsSymmetryInterface = isSymmetryInterface;
         }
         /// <summary>
-        /// The current socket is used for manually binding client controller Settings and connection initialization operations, such as initialization hold callbacks, via validation methods. This call is located in the client lock operation, should not complete the initialization operation as soon as possible, do not call the internal nested lock operation to avoid deadlock
+        /// The current socket is used for manually binding client controller Settings and connection initialization operations, such as initialization keep callbacks, via validation methods. This call is located in the client lock operation, should not complete the initialization operation as soon as possible, do not call the internal nested lock operation to avoid deadlock
         /// 当前套接字通过验证方法，用于手动绑定设置客户端控制器与连接初始化操作，比如初始化保持回调。此调用位于客户端锁操作中，应尽快未完成初始化操作，禁止调用内部嵌套锁操作避免死锁
         /// </summary>
         /// <param name="socket"></param>

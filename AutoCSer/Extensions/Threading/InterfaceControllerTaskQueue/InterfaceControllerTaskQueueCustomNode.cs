@@ -25,6 +25,7 @@ namespace AutoCSer.Threading
         /// <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
         protected InterfaceControllerTaskQueueCustomNode(ClientCallbackTypeEnum callbackType) : base(callbackType) { }
         /// <summary>
+        /// Check whether it has been added to the queue
         /// 检查是否已经添加到队列
         /// </summary>
         /// <param name="queue"></param>
@@ -35,6 +36,7 @@ namespace AutoCSer.Threading
             return System.Threading.Interlocked.CompareExchange(ref this.queue, queue, null) == null;
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -46,7 +48,7 @@ namespace AutoCSer.Threading
     /// <summary>
     /// 自定义任务队列节点 await AutoCSer.Net.CommandClientReturnValue{T}
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     public abstract class InterfaceControllerTaskQueueCustomNode<T> : InterfaceControllerTaskQueueNode<T>
     {
         /// <summary>
@@ -63,6 +65,7 @@ namespace AutoCSer.Threading
         /// <param name="callbackType">客户端 await 等待返回值回调线程模式</param>
         protected InterfaceControllerTaskQueueCustomNode(ClientCallbackTypeEnum callbackType) : base(callbackType) { }
         /// <summary>
+        /// Check whether it has been added to the queue
         /// 检查是否已经添加到队列
         /// </summary>
         /// <param name="queue"></param>
@@ -73,6 +76,7 @@ namespace AutoCSer.Threading
             return System.Threading.Interlocked.CompareExchange(ref this.queue, queue, null) == null;
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>

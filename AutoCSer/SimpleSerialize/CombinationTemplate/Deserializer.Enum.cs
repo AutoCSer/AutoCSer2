@@ -9,11 +9,12 @@ namespace AutoCSer.SimpleSerialize
     public unsafe partial class Deserializer
     {
         /// <summary>
+        /// Deserialization of enumeration values
         /// 枚举值反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
-        /// <param name="value">枚举值</param>
+        /// <param name="value">Enumeration value</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static byte* EnumULong<T>(byte* data, ref T value) where T : struct, IConvertible
         {

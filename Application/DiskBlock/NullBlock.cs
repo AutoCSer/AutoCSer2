@@ -13,11 +13,11 @@ namespace AutoCSer.CommandService.DiskBlock
     internal sealed class NullBlock : Block
     {
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override void Dispose() { }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public override ValueTask DisposeAsync()

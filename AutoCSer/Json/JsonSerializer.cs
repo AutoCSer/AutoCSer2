@@ -62,9 +62,10 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换JSON字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>Json字符串</returns>
 #if NetStandard21
         private string serialize<T>(ref T value, JsonSerializeConfig? config)
@@ -84,10 +85,11 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换JSON字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="jsonStream">Json输出缓冲区</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
 #if NetStandard21
         private void serialize<T>(ref T value, CharStream jsonStream, JsonSerializeConfig? config)
 #else
@@ -108,9 +110,10 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换JSON字符串（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>Json字符串</returns>
 #if NetStandard21
         private string serializeThreadStatic<T>(ref T value, JsonSerializeConfig? config)
@@ -127,8 +130,9 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换JSON字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void serialize<T>(ref T value)
         {
@@ -156,7 +160,7 @@ namespace AutoCSer
             if (CharStream.IsResizeError) Warning |= AutoCSer.TextSerialize.WarningEnum.ResizeError;
         }
         /// <summary>
-        /// 释放资源（线程静态实例模式）
+        /// Release resources（线程静态实例模式）
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void freeThreadStatic()
@@ -165,7 +169,7 @@ namespace AutoCSer
             free();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Free()
@@ -174,7 +178,7 @@ namespace AutoCSer
             AutoCSer.Threading.LinkPool<JsonSerializer>.Default.Push(this);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void FreeBinaryMix()
@@ -195,8 +199,9 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换JSON字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="stream">二进制缓冲区</param>
         /// <param name="memberMap"></param>
 #if NetStandard21
@@ -349,7 +354,7 @@ namespace AutoCSer
         /// <summary>
         /// 转换JSON字符串
         /// </summary>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonSerializeType<T>(T value)
         {
@@ -359,14 +364,14 @@ namespace AutoCSer
         /// 转换JSON字符串
         /// </summary>
         /// <param name="jsonSerializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Serialize<T>(JsonSerializer jsonSerializer, T value)
         {
             TypeSerializer<T>.Serialize(jsonSerializer, ref value);
         }
         /// <summary>
-        /// 自定义序列化不支持类型
+        /// Custom serialization不支持类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonSerializer"></param>
@@ -390,7 +395,7 @@ namespace AutoCSer
             TypeSerializer<BT>.Serialize(jsonSerializer, value);
         }
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value"></param>
@@ -403,7 +408,7 @@ namespace AutoCSer
         /// <summary>
         /// object 对象转换JSON字符串
         /// </summary>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void Object<T>(T value)
         {
@@ -415,7 +420,7 @@ namespace AutoCSer
         /// object 对象转换JSON字符串
         /// </summary>
         /// <param name="jsonSerializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Object<T>(JsonSerializer jsonSerializer, object value)
         {
@@ -465,7 +470,7 @@ namespace AutoCSer
         /// 数组序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public void JsonSerialize<T>(T[] array)
         {
             if (array.Length != 0)
@@ -500,7 +505,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonSerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Array<T>(JsonSerializer jsonSerializer, T[] array)
         {
@@ -510,7 +515,7 @@ namespace AutoCSer
         /// 数组序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public void JsonSerialize<T>(LeftArray<T> array)
         {
             int length = array.Length;
@@ -545,7 +550,7 @@ namespace AutoCSer
         /// 数组序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public void JsonSerialize<T>(T?[] array)
             where T : struct
         {
@@ -581,7 +586,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonSerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NullableArray<T>(JsonSerializer jsonSerializer, T?[] array)
             where T : struct
@@ -604,7 +609,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonSerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void ListArray<T>(JsonSerializer jsonSerializer, ListArray<T>? array)
@@ -788,7 +793,7 @@ namespace AutoCSer
         /// <summary>
         /// 逻辑值转换
         /// </summary>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonSerialize(bool value)
         {
@@ -1299,7 +1304,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符串转换
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public void JsonSerializeNull(string? value)
@@ -1313,7 +1318,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符串转换
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         public void JsonSerialize(string value)
         {
             if (value.Length == 0) CharStream.WriteJsonEmptyString();
@@ -1356,7 +1361,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符串转换
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         public void JsonSerialize(SubString value)
         {
             if (value.Length == 0) CharStream.WriteJsonEmptyString();
@@ -1408,7 +1413,7 @@ namespace AutoCSer
         /// <summary>
         /// 类型转换
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         public void JsonSerialize(Type type)
         {
             TypeSerializer<AutoCSer.Reflection.RemoteType>.MemberSerialize(this, new AutoCSer.Reflection.RemoteType(type));
@@ -1520,7 +1525,7 @@ namespace AutoCSer
         /// <summary>
         /// 数组转换 
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         public void JsonSerialize(bool[] array)
         {
             if (array.Length != 0)
@@ -1591,7 +1596,7 @@ namespace AutoCSer
         /// 数组转换
         /// </summary>
         /// <param name="jsonSerializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(JsonSerializer jsonSerializer, bool[] array)
         {
@@ -1600,7 +1605,7 @@ namespace AutoCSer
         /// <summary>
         /// 数组转换 
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         public void JsonSerialize(DateTime[] array)
         {
             if (array.Length != 0)
@@ -1629,7 +1634,7 @@ namespace AutoCSer
         /// 数组转换
         /// </summary>
         /// <param name="jsonSerializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(JsonSerializer jsonSerializer, DateTime[] array)
         {
@@ -1638,7 +1643,7 @@ namespace AutoCSer
         /// <summary>
         /// 数组转换 
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         public void JsonSerialize(TimeSpan[] array)
         {
             if (array.Length != 0)
@@ -1667,7 +1672,7 @@ namespace AutoCSer
         /// 数组转换
         /// </summary>
         /// <param name="jsonSerializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(JsonSerializer jsonSerializer, TimeSpan[] array)
         {
@@ -1675,7 +1680,7 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 自定义序列化调用
+        /// Custom serialization调用
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -1728,7 +1733,7 @@ namespace AutoCSer
         /// </summary>
         internal static readonly MethodInfo BaseMethod;
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         internal static readonly MethodInfo ICustomMethod;
         /// <summary>
@@ -1810,8 +1815,8 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -1826,9 +1831,9 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
 #if NetStandard21
         public static string SerializeObject(object? value, out AutoCSer.TextSerialize.WarningEnum warning, JsonSerializeConfig? config = null)
@@ -1848,9 +1853,10 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="objectValue">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串 + 警告提示状态</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -1866,9 +1872,9 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         /// <param name="jsonStream">JSON 输出缓冲区</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static AutoCSer.TextSerialize.WarningEnum SerializeObject(object? value, CharStream jsonStream, JsonSerializeConfig? config = null)
@@ -1886,7 +1892,7 @@ namespace AutoCSer
         /// <typeparam name="T">目标数据类型</typeparam>
         /// <param name="objectValue">数据对象</param>
         /// <param name="jsonStream">JSON 输出缓冲区</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         internal static AutoCSer.TextSerialize.WarningEnum Serialize<T>(object objectValue, CharStream jsonStream, JsonSerializeConfig? config)
@@ -1902,9 +1908,10 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -1919,9 +1926,10 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -1936,10 +1944,11 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -1953,10 +1962,11 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
 #if NetStandard21
         public static string Serialize<T>(ref T? value, out AutoCSer.TextSerialize.WarningEnum warning, JsonSerializeConfig? config = null)
@@ -1981,10 +1991,11 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="jsonStream">JSON 输出缓冲区</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static AutoCSer.TextSerialize.WarningEnum Serialize<T>(T? value, CharStream jsonStream, JsonSerializeConfig? config = null)
@@ -1997,10 +2008,11 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="jsonStream">JSON 输出缓冲区</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
 #if NetStandard21
         public static AutoCSer.TextSerialize.WarningEnum Serialize<T>(ref T value, CharStream jsonStream, JsonSerializeConfig? config = null)
 #else
@@ -2027,9 +2039,10 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -2044,9 +2057,10 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -2061,10 +2075,11 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -2078,10 +2093,11 @@ namespace AutoCSer
         /// <summary>
         /// 对象转换 JSON 字符串（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>JSON 字符串</returns>
 #if NetStandard21
         public static string ThreadStaticSerialize<T>(ref T? value, out AutoCSer.TextSerialize.WarningEnum warning, JsonSerializeConfig? config = null)

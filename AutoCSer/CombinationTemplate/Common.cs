@@ -9,7 +9,7 @@ namespace AutoCSer
     public unsafe static partial class Common
     {
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
         /// <param name="source">原串起始地址，长度必须大于0</param>
         /// <param name="destination">目标数据</param>

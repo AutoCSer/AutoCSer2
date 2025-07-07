@@ -230,18 +230,18 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.Block.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.Block.DisposeAsync">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.Block.ServiceDisposeCallback">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.Block.Write(AutoCSer.CommandService.DiskBlock.WriteRequest)">
@@ -377,7 +377,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.BlockCallbackTypeEnum.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.BlockInfo">
@@ -469,6 +469,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.CompletedReadAwaiter`1.GetResult">
             <summary>
+            await support
             await 支持
             </summary>
             <returns></returns>
@@ -581,6 +582,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.DiskBlockService.IsDisposed">
             <summary>
+            Whether resources have been released
             是否已经释放资源
             </summary>
         </member>
@@ -599,27 +601,28 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.DisposeAsync">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.DisposeCallback">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DiskBlockService.AutoCSer#Net#ICommandServerBindController#Bind(AutoCSer.Net.CommandServerController)">
             <summary>
+            Bind the command service controller
             绑定命令服务控制器
             </summary>
             <param name="controller"></param>
@@ -739,21 +742,25 @@
         </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.DistributedClient">
             <summary>
+            Distributed client
             分布式客户端
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.DistributedClient.clients">
             <summary>
+            Client collection
             客户端集合
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.DistributedClient.clientLock">
             <summary>
+            The access lock of the client collection
             客户端集合访问锁
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.#ctor">
             <summary>
+            Distributed client
             分布式客户端
             </summary>
         </member>
@@ -766,6 +773,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.getClient(System.UInt32)">
             <summary>
+            Get the client
             获取客户端
             </summary>
             <param name="identity">磁盘块服务唯一编号</param>
@@ -783,7 +791,7 @@
             写入数据
             </summary>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -792,7 +800,7 @@
             写入数据
             </summary>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteString(System.UInt32,System.String,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -800,7 +808,7 @@
             写入字符串
             </summary>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -809,7 +817,7 @@
             写入字符串
             </summary>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteJson``1(System.UInt32,``0,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -818,7 +826,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -828,7 +836,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteJsonMemberMap``1(System.UInt32,AutoCSer.Metadata.MemberMapValue{``0},System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -837,7 +845,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -847,7 +855,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteBinary``1(System.UInt32,``0,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -856,7 +864,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -866,7 +874,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.WriteBinaryMemberMap``1(System.UInt32,AutoCSer.Metadata.MemberMapValue{``0},System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -875,7 +883,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -885,7 +893,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="identity">磁盘块服务唯一编号</param>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.DistributedClient.Read(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{System.Byte[]}})">
@@ -1050,12 +1058,12 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.FileBlock.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.FileBlock.DisposeAsync">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
@@ -1167,12 +1175,12 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.Dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.NullBlock.DisposeAsync">
             <summary>
-            释放资源
+            Release resources
             </summary>
             <returns></returns>
         </member>
@@ -1218,7 +1226,8 @@
             读取字符串
             </summary>
             <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -1239,6 +1248,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.continuation">
             <summary>
+            Asynchronous callback
             异步回调
             </summary>
         </member>
@@ -1249,6 +1259,7 @@
         </member>
         <member name="P:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.IsCompleted">
             <summary>
+            Completed status
             完成状态
             </summary>
         </member>
@@ -1262,28 +1273,33 @@
             读取数据
             </summary>
             <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.Wait">
             <summary>
+            await support
             await 支持
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetResult">
             <summary>
+            await support
             await 支持
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetAwaiter">
             <summary>
+            await support
             await 支持
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
             <summary>
+            Set asynchronous callback
             设置异步回调
             </summary>
             <param name="continuation"></param>
@@ -1309,7 +1325,8 @@
             读取二进制序列化对象
             </summary>
             <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -1352,7 +1369,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.ReadBuffer.deserializer">
             <summary>
-            自定义序列化
+            Custom serialization
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadBuffer.#ctor(AutoCSer.CommandService.DiskBlock.ReadBufferStateEnum)">
@@ -1375,12 +1392,13 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadBuffer.op_Implicit(AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer)~AutoCSer.CommandService.DiskBlock.ReadBuffer">
             <summary>
-            隐式转换
+            Implicit conversion
             </summary>
             <param name="deserializer"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadBuffer.Set(System.Byte[])">
             <summary>
+            Set the data
             设置数据
             </summary>
             <param name="buffer"></param>
@@ -1526,7 +1544,8 @@
             读取 JSON 对象
             </summary>
             <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -1629,16 +1648,17 @@
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.ReadResult`1.Value">
             <summary>
-            返回值
+            Return value
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.ReadResult`1.ErrorMessage">
             <summary>
-            错误信息
+            Error message
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.ReadResult`1.ReturnType">
             <summary>
+            The return value type of the network client
             网络客户端返回值类型
             </summary>
         </member>
@@ -1649,7 +1669,8 @@
         </member>
         <member name="P:AutoCSer.CommandService.DiskBlock.ReadResult`1.IsSuccess">
             <summary>
-            是否成功
+            Is the call successful
+            是否调用成功
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadResult`1.#ctor(AutoCSer.Net.CommandClientReturnTypeEnum,System.String)">
@@ -1673,6 +1694,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadResult`1.Set(`0)">
             <summary>
+            Set the return value
             设置返回值
             </summary>
             <param name="value"></param>
@@ -1693,7 +1715,8 @@
             读取字符串
             </summary>
             <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">磁盘块索引信息</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -1720,7 +1743,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.StringSerializer">
             <summary>
-            字符串序列化
+            String serialization
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.StringSerializer.value">
@@ -1730,9 +1753,9 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.StringSerializer.#ctor(System.String)">
             <summary>
-            字符串序列化
+            String serialization
             </summary>
-            <param name="value">字符串</param>
+            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.StringSerializer.Serialize(AutoCSer.BinarySerializer)">
             <summary>
@@ -1747,7 +1770,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.WriteBuffer.serializer">
             <summary>
-            自定义序列化，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)
+            Custom serialization，必须与 SubArray[byte] 操作结果一致，length[int] + data + fill(4)
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.WriteBuffer.Buffer">
@@ -1769,13 +1792,13 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.WriteBuffer.op_Implicit(AutoCSer.SubArray{System.Byte})~AutoCSer.CommandService.DiskBlock.WriteBuffer">
             <summary>
-            隐式转换
+            Implicit conversion
             </summary>
             <param name="buffer"></param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.WriteBuffer.op_Implicit(System.String)~AutoCSer.CommandService.DiskBlock.WriteBuffer">
             <summary>
-            隐式转换
+            Implicit conversion
             </summary>
             <param name="value"></param>
         </member>
@@ -1819,7 +1842,7 @@
             <summary>
             内部成员对象序列化为一个可独立反序列化的数据
             </summary>
-            <typeparam name="T">数据类型</typeparam>
+            <typeparam name="T">Data type</typeparam>
         </member>
         <member name="F:AutoCSer.CommandService.DiskBlock.WriteBufferSerializer`1.value">
             <summary>
@@ -1830,7 +1853,7 @@
             <summary>
             内部成员对象序列化为一个可独立反序列化的数据
             </summary>
-            <param name="value">数据</param>
+            <param name="value">data</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSerializer`1.Serialize(AutoCSer.BinarySerializer)">
             <summary>
@@ -1963,7 +1986,7 @@
             <summary>
             写入数据
             </summary>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -1971,21 +1994,21 @@
             <summary>
             写入数据
             </summary>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteAsync(AutoCSer.SubArray{System.Byte})">
             <summary>
             写入数据
             </summary>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteString(System.String,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
             <summary>
             写入字符串
             </summary>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -1993,14 +2016,14 @@
             <summary>
             写入字符串
             </summary>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteStringAsync(System.String)">
             <summary>
             写入字符串
             </summary>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteJson``1(``0,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -2008,7 +2031,7 @@
             写入 JSON
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -2017,7 +2040,7 @@
             写入 JSON
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteJsonAsync``1(``0)">
@@ -2025,7 +2048,7 @@
             写入 JSON
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteJsonMemberMap``1(AutoCSer.Metadata.MemberMapValue{``0},System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -2033,7 +2056,7 @@
             写入 JSON
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -2042,7 +2065,7 @@
             写入 JSON
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteJsonMemberMapAsync``1(AutoCSer.Metadata.MemberMapValue{``0})">
@@ -2050,7 +2073,7 @@
             写入 JSON
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteBinary``1(``0,System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -2058,7 +2081,7 @@
             写入二进制序列化数据
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -2067,7 +2090,7 @@
             写入二进制序列化数据
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteBinaryAsync``1(``0)">
@@ -2075,7 +2098,7 @@
             写入二进制序列化数据
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteBinaryMemberMap``1(AutoCSer.Metadata.MemberMapValue{``0},System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.DiskBlock.BlockIndex}})">
@@ -2083,7 +2106,7 @@
             写入二进制序列化数据
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <param name="callback">写入数据起始位置</param>
             <returns></returns>
         </member>
@@ -2092,7 +2115,7 @@
             写入二进制序列化数据
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.WriteBinaryMemberMapAsync``1(AutoCSer.Metadata.MemberMapValue{``0})">
@@ -2100,7 +2123,7 @@
             写入二进制序列化数据
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="data">数据</param>
+            <param name="data">Data</param>
             <returns>写入数据起始位置</returns>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlockClient.Read(AutoCSer.CommandService.DiskBlock.BlockIndex,System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{System.Byte[]}})">
@@ -2364,7 +2387,8 @@
             <summary>
             读取数据
             </summary>
-            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="returnValue">The interface returns the initial value, which is used for custom deserialization operations of the return value. The parameter name must be ReturnValue, case-insensitive, and must be placed before the first data parameter. The type must be consistent with the type of the return value
+            接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
             <param name="index"></param>
             <param name="callback">读取数据缓冲区</param>
             <returns></returns>
@@ -2373,7 +2397,8 @@
             <summary>
             读取数据
             </summary>
-            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="returnValue">The interface returns the initial value, which is used for custom deserialization operations of the return value. The parameter name must be ReturnValue, case-insensitive, and must be placed before the first data parameter. The type must be consistent with the type of the return value
+            接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
             <param name="index"></param>
             <returns>读取数据缓冲区</returns>
         </member>
@@ -2381,7 +2406,8 @@
             <summary>
             读取数据
             </summary>
-            <param name="returnValue">接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
+            <param name="returnValue">The interface returns the initial value, which is used for custom deserialization operations of the return value. The parameter name must be ReturnValue, case-insensitive, and must be placed before the first data parameter. The type must be consistent with the type of the return value
+            接口返回初始值，这里用于返回值的自定义反序列化操作，参数名称必须是 ReturnValue 不区分大小写，必须放在第一个数据参数之前，类型必须与返回值类型一致</param>
             <param name="index"></param>
             <returns>读取数据缓冲区</returns>
         </member>

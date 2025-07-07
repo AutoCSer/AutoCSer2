@@ -15,10 +15,10 @@ namespace AutoCSer.SimpleSerialize
     public unsafe partial class Serializer
     {
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         private static void serialize(UnmanagedStream stream, byte[] value)
         {
             if (value != null)
@@ -32,10 +32,10 @@ namespace AutoCSer.SimpleSerialize
             else stream.Write(BinarySerializer.NullValue);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         private static void serialize(UnmanagedStream stream, string value)
         {
             if (value != null)
@@ -53,7 +53,7 @@ namespace AutoCSer.SimpleSerialize
         /// 逻辑值序列化
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Serialize(UnmanagedStream stream, bool? value)
         {
@@ -125,10 +125,10 @@ namespace AutoCSer.SimpleSerialize
             stream.Write(ref value);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Serialize(UnmanagedStream stream, string value)
         {
@@ -138,7 +138,7 @@ namespace AutoCSer.SimpleSerialize
         /// 字节数组序列化
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Serialize(UnmanagedStream stream, byte[] value)
         {
@@ -213,7 +213,7 @@ namespace AutoCSer.SimpleSerialize
         /// 逻辑值序列化
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void serialize(UnmanagedStream stream, bool? value)
         {
@@ -382,7 +382,7 @@ namespace AutoCSer.SimpleSerialize
         /// 简单序列化委托
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         internal delegate void SimpleSerializer(UnmanagedStream stream, ref T value);
         /// <summary>
         /// 成员序列化

@@ -77,6 +77,12 @@ namespace AutoCSer.CommandService.DeployTask
         /// <param name="clientFile">客户端文件信息</param>
         /// <param name="serverFileName">服务端文件名称</param>
         protected virtual void onCompleted(FileInfo clientFile, string serverFileName) { }
+        /// <summary>
+        /// 判断子目录是否需要同步处理
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
+        protected virtual bool isDirectory(DirectoryInfo directory) { return true; }
     }
     /// <summary>
     /// 文件同步客户端

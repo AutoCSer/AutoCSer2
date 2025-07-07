@@ -66,12 +66,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// linuxSLL数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public LinuxSLL(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// linuxSLL数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public unsafe LinuxSLL(ref SubArray<byte> data)
         {
             if (data.Length >= HeaderSize)

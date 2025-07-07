@@ -11,7 +11,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 数组是否为空或者长度为0
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组数据</param>
         /// <returns>数组是否为空或者长度为0</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -22,7 +22,7 @@ namespace AutoCSer.Extensions
         ///// <summary>
         ///// 空值转0长度数组
         ///// </summary>
-        ///// <typeparam name="T">数据类型</typeparam>
+        ///// <typeparam name="T">Data type</typeparam>
         ///// <param name="array">数组数据</param>
         ///// <returns>非空数组</returns>
         //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -33,7 +33,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 复制数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">待复制数组</param>
         /// <returns>复制后的新数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -45,7 +45,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 连接数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组集合</param>
         /// <returns>连接后的数组</returns>
         public static T[] getArray<T>(this T[][] array)
@@ -57,7 +57,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 连接数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组集合</param>
         /// <returns>连接后的数组</returns>
         private static T[] getConcatArray<T>(T[][] array)
@@ -86,7 +86,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 连接数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组集合</param>
         /// <param name="addArray">数组集合</param>
         /// <returns>连接后的数组</returns>
@@ -101,7 +101,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 连接数组
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组集合</param>
         /// <returns>连接后的数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -112,9 +112,10 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 获取匹配集合
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组数据</param>
-        /// <param name="isValue">数据匹配器</param>
+        /// <param name="isValue">Determine whether the data match
+        /// 判断数据是否匹配</param>
         /// <returns>匹配集合</returns>
         public static LeftArray<T> getFind<T>(this T[] array, Func<T, bool> isValue)
         {
@@ -123,7 +124,7 @@ namespace AutoCSer.Extensions
                 int length = array.Length;
                 if (length != 0)
                 {
-                    T[] newValues = new T[array.Length < sizeof(int) ? sizeof(int) : length];
+                    T[] newValues = new T[length < sizeof(int) ? sizeof(int) : length];
                     length = 0;
                     foreach (T value in array)
                     {
@@ -138,9 +139,10 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 排序
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">待排序数组</param>
-        /// <param name="comparer">比较器</param>
+        /// <param name="comparer">Data sorting comparator
+        /// 数据排序比较器</param>
         /// <returns>排序后的数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static T[] sort<T>(this T[] array, Func<T, T, int> comparer)
@@ -150,11 +152,14 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
+        /// Connect string
         /// 连接字符串
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="array">数据集合</param>
-        /// <param name="toString">字符串转换器</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Data collection
+        /// 数据集合</param>
+        /// <param name="toString">The delegate that gets the string
+        /// 获取字符串的委托</param>
         /// <param name="join">连接字符</param>
         /// <returns>字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

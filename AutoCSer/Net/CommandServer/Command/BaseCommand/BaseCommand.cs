@@ -15,6 +15,7 @@ namespace AutoCSer.Net.CommandServer
     public abstract class BaseCommand : Command
     {
         /// <summary>
+        /// Command client socket
         /// 命令客户端套接字
         /// </summary>
         internal new readonly CommandClientSocket Socket;
@@ -37,9 +38,11 @@ namespace AutoCSer.Net.CommandServer
             Socket.PushNotCheckCount(this);
         }
         /// <summary>
-        /// 检查等待添加队列命令
+        /// The command waiting for idle output attempts to be added to the output queue again
+        /// 等待空闲输出的命令再次尝试添加到输出队列
         /// </summary>
-        /// <returns>是否需要继续等待</returns>
+        /// <returns>Is it necessary to keep waiting
+        /// 是否需要继续等待</returns>
         internal override bool CheckWaitPush()
         {
             AutoCSer.LogHelper.ErrorIgnoreException($"{GetType().fullName()} 不支持等待");

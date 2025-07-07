@@ -26,7 +26,7 @@ namespace AutoCSer.Threading
         /// <param name="parameter">默认链表缓存池参数</param>
         private LinkPool(LinkPoolParameter parameter) : base(parameter, typeof(LinkPool<T>), isDisponse, isAsyncDisponse) { }
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value">不可为 null</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -36,10 +36,11 @@ namespace AutoCSer.Threading
             else if (isDisponse) dispose(value);
         }
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value">不可为 null</param>
-        /// <returns>是否添加成功</returns>
+        /// <returns>Add failed and return false
+        /// 添加失败返回 0</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal int IsPush(T value)
         {
@@ -52,6 +53,7 @@ namespace AutoCSer.Threading
             return 0;
         }
         /// <summary>
+        /// Pop-up node
         /// 弹出节点
         /// </summary>
         /// <returns></returns>
@@ -154,7 +156,7 @@ namespace AutoCSer.Threading
         /// <param name="parameter">默认链表缓存池参数</param>
         private LinkPool(LinkPoolParameter parameter) : base(parameter, typeof(LinkPool<T, LT>), isDisponse, isAsyncDisponse) { }
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value">不可为 null</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -164,6 +166,7 @@ namespace AutoCSer.Threading
             else if (isDisponse) dispose(value);
         }
         /// <summary>
+        /// Pop-up node
         /// 弹出节点
         /// </summary>
         /// <returns></returns>

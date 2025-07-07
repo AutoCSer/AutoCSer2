@@ -48,6 +48,7 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         private GraphData graphData;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<GraphData> IEnumerableSnapshot<GraphData>.SnapshotEnumerable { get { return new SnapshotGetValueEmpty<GraphData>(getGraphData); } }
@@ -64,6 +65,7 @@ namespace AutoCSer.CommandService.Search
         /// </summary>
         private readonly FragmentSnapshotDictionary256<HashSubString, int> words;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<BinarySerializeKeyValue<SubString, int>> IEnumerableSnapshot<BinarySerializeKeyValue<SubString, int>>.SnapshotEnumerable
@@ -94,6 +96,7 @@ namespace AutoCSer.CommandService.Search
         private TreeBuilder builder;
 #endif
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<string> IEnumerableSnapshot<string>.SnapshotEnumerable { get { return new SnapshotGetEnumerable<string>(getWords); } }
@@ -121,9 +124,11 @@ namespace AutoCSer.CommandService.Search
             words = new FragmentSnapshotDictionary256<HashSubString, int>();
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override IStaticTrieGraphNode? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -153,9 +158,10 @@ namespace AutoCSer.CommandService.Search
             return default(KeyValue<bool, GraphData>);
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSetGraph(GraphData value)
         {
             graphData = value;
@@ -170,17 +176,19 @@ namespace AutoCSer.CommandService.Search
             return graphData.IsGraph ? (IEnumerable<string>)EmptyArray<string>.Array : builder.notNull().Words;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSetWord(string value)
         {
             getTreeBuilder().Append(value);
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSetWordIdentity(BinarySerializeKeyValue<SubString, int> value)
         {
             getWord(ref value.Key, true);
@@ -213,6 +221,7 @@ namespace AutoCSer.CommandService.Search
             }
         }
         /// <summary>
+        /// Add trie graph word
         /// 添加 Trie 图词语
         /// </summary>
         /// <param name="word"></param>
@@ -235,7 +244,8 @@ namespace AutoCSer.CommandService.Search
             return AppendWordStateEnum.WordSizeLess;
         }
         /// <summary>
-        /// 是否已经建图
+        /// Has the trie graph been created
+        /// 是否已经创建 Trie 图
         /// </summary>
         /// <returns></returns>
         public bool IsGraph()
@@ -243,17 +253,21 @@ namespace AutoCSer.CommandService.Search
             return graphData.IsGraph;
         }
         /// <summary>
+        /// Get the number of words in the trie graph
         /// 获取 Trie 图词语数量
         /// </summary>
-        /// <returns>Trie 图词语数量</returns>
+        /// <returns>The number of words in the trie graph
+        /// Trie 图词语数量</returns>
         public int GetWordCount()
         {
             return graphData.WordCount;
         }
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
-        /// <returns>Trie 图词语数量</returns>
+        /// <returns>The number of words in the trie graph
+        /// Trie 图词语数量</returns>
         public int BuildGraph()
         {
             if(!graphData.IsGraph)
@@ -264,7 +278,8 @@ namespace AutoCSer.CommandService.Search
             return graphData.WordCount;
         }
         /// <summary>
-        /// 添加文本并返回词语编号集合 持久化前检查
+        /// Adds text and returns a collection of word numbers (Check the input parameters before the persistence operation)
+        /// 添加文本并返回词语编号集合（持久化操作之前检查输入参数）
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -279,6 +294,7 @@ namespace AutoCSer.CommandService.Search
             return EmptyArray<int>.Array;
         }
         /// <summary>
+        /// Adds text and returns a collection of word numbers
         /// 添加文本并返回词语编号集合
         /// </summary>
         /// <param name="text"></param>
@@ -315,9 +331,11 @@ namespace AutoCSer.CommandService.Search
             return EmptyArray<int>.Array;
         }
         /// <summary>
+        /// Get the collection of query word numbers (ignore unmatched words)
         /// 获取查询词语编号集合（忽略未匹配词语）
         /// </summary>
-        /// <param name="text">搜索文本内容</param>
+        /// <param name="text">The text content of the search
+        /// 搜索文本内容</param>
         /// <returns></returns>
         public int[] GetWordSegmentIdentity(string text)
         {
@@ -330,9 +348,11 @@ namespace AutoCSer.CommandService.Search
             return EmptyArray<int>.Array;
         }
         /// <summary>
+        /// Get the query word segmentation result
         /// 获取查询分词结果
         /// </summary>
-        /// <param name="text">搜索文本内容</param>
+        /// <param name="text">The text content of the search
+        /// 搜索文本内容</param>
         /// <returns></returns>
         public WordSegmentResult[] GetWordSegmentResult(string text)
         {

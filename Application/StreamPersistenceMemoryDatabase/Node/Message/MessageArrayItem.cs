@@ -6,13 +6,16 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// The message information being processed
     /// 正在处理的消息信息
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct MessageArrayItem<T> where T : Message<T>
     {
         /// <summary>
+        /// The message being processed
         /// 正在处理的消息
         /// </summary>
 #if NetStandard21
@@ -21,6 +24,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal T Message;
 #endif
         /// <summary>
+        /// Message callback
         /// 消息回调
         /// </summary>
 #if NetStandard21
@@ -29,14 +33,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private MethodKeepCallback<T> callback;
 #endif
         /// <summary>
+        /// The next free location or the location of the previous message node being processed
         /// 下一个空闲位置 或者 上一个正在处理的消息节点位置
         /// </summary>
         internal int NextIndex;
         /// <summary>
+        /// Message timeout timestamp
         /// 消息超时时间戳
         /// </summary>
         private long timeoutTimestamp;
         /// <summary>
+        /// Set the message data
         /// 设置消息数据
         /// </summary>
         /// <param name="message"></param>
@@ -58,6 +65,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return nextIndex;
         }
         /// <summary>
+        /// Get the message data
         /// 获取消息数据
         /// </summary>
         /// <param name="nextIndex"></param>
@@ -73,6 +81,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return Message;
         }
         /// <summary>
+        /// Release the message processing status (message completed or failed)
         /// 释放消息处理状态（消息完成或者失败）
         /// </summary>
         /// <param name="nextIndex"></param>
@@ -91,6 +100,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return callback;
         }
         /// <summary>
+        /// Clear the message data
         /// 清除消息数据
         /// </summary>
         /// <param name="nextIndex"></param>
@@ -102,6 +112,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             callback = null;
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         /// <param name="nextIndex"></param>

@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Xml
 {
     /// <summary>
-    /// 类型序列化
+    /// Type serialization
     /// </summary>
     /// <typeparam name="T">目标类型</typeparam>
 #if AOT
@@ -44,7 +44,7 @@ namespace AutoCSer.Xml
         /// 对象转换XML字符串
         /// </summary>
         /// <param name="serializer">对象转换XML字符串</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void Serialize(XmlSerializer serializer, ref T value)
         {
             switch (serializer.Check(SerializeDelegateReference.PushType))
@@ -78,7 +78,7 @@ namespace AutoCSer.Xml
         /// 对象转换XML字符串
         /// </summary>
         /// <param name="serializer">对象转换XML字符串</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void Serialize(XmlSerializer serializer, T value)
         {
             switch (serializer.Check(SerializeDelegateReference.PushType))
@@ -112,7 +112,7 @@ namespace AutoCSer.Xml
         /// 对象成员序列化
         /// </summary>
         /// <param name="serializer">对象转换XML字符串</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         internal static void MemberSerialize(XmlSerializer serializer, T value)
         {
             CharStream charStream = serializer.CharStream;

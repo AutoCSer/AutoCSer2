@@ -14,11 +14,11 @@ namespace AutoCSer.TextSerialize
     {
 #if !AOT
         /// <summary>
-        /// 自定义序列化委托集合
+        /// Custom serialization委托集合
         /// </summary>
         protected readonly Dictionary<HashObject<System.Type>, KeyValue<AutoCSer.TextSerialize.SerializeDelegate, Delegate>> customSerializeDelegate = DictionaryCreator.CreateHashObject<System.Type, KeyValue<AutoCSer.TextSerialize.SerializeDelegate, Delegate>>();
         /// <summary>
-        /// 自定义序列化委托集合访问锁
+        /// Custom serialization委托集合访问锁
         /// </summary>
         protected readonly object customSerializeDelegateLock = new object();
         /// <summary>

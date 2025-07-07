@@ -75,7 +75,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
             return await condition.Filter(await Get(condition));
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <returns></returns>
         async Task<ResponseResult> IIndexCondition<T>.Load()

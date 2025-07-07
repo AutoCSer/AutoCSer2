@@ -4,11 +4,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Extensions
 {
     /// <summary>
-    /// 可空引用类型扩展操作
+    /// Nullable reference type extension operation (Used to eliminate IDE warnings)
+    /// 可空引用类型扩展操作（用于消除 IDE 警告）
     /// </summary>
     public static class NullableReferenceExtension
     {
         /// <summary>
+        /// The object is converted to a specified nullable reference type
         /// object 转换为指定可空引用类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -28,6 +30,7 @@ namespace AutoCSer.Extensions
 #endif
         }
         /// <summary>
+        /// The object is converted to a specified nullable type
         /// object 转换为指定可空类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -44,6 +47,7 @@ namespace AutoCSer.Extensions
             return default(T);
         }
         /// <summary>
+        /// Convert object to a value type
         /// object 转换为值类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -60,7 +64,8 @@ namespace AutoCSer.Extensions
             return default(T);
         }
         /// <summary>
-        /// 非空对象转换类型
+        /// Non-empty object conversion type
+        /// 非空 object 转换类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -84,6 +89,7 @@ namespace AutoCSer.Extensions
 #endif
         }
         /// <summary>
+        /// Non-empty object type conversion
         /// 非空对象类型转换
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -104,7 +110,8 @@ namespace AutoCSer.Extensions
 #pragma warning restore CS8603
         }
         /// <summary>
-        /// 可空引用类型转数组
+        /// Convert an array of nullable reference types to an array
+        /// 可空引用类型数组转换为数组
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -123,7 +130,8 @@ namespace AutoCSer.Extensions
 #endif
         }
         /// <summary>
-        /// 泛型转 object
+        /// Generic values are converted to object
+        /// 泛型值转换为 object
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -137,6 +145,7 @@ namespace AutoCSer.Extensions
 #pragma warning restore CS8603
         }
         /// <summary>
+        /// Set the array elements to the default values
         /// 设置数组元素为默认值
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -150,6 +159,7 @@ namespace AutoCSer.Extensions
 #pragma warning restore CS8601
         }
         /// <summary>
+        /// Set the array elements as default values and return the original values
         /// 设置数组元素为默认值并返回原始值
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// Command service controller
     /// 命令服务控制器
     /// </summary>
     public abstract class CommandServerController
@@ -23,7 +24,7 @@ namespace AutoCSer.Net
         /// <summary>
         /// 默认命令服务控制器配置
         /// </summary>
-        internal static readonly CommandServerControllerInterfaceAttribute DefaultAttribute = AutoCSer.Configuration.Common.Get<CommandServerControllerInterfaceAttribute>()?.Value ?? new CommandServerControllerInterfaceAttribute();
+        internal static readonly CommandServerControllerInterfaceAttribute DefaultAttribute = AutoCSer.Configuration.Common.Get<CommandServerControllerInterfaceAttribute>()?.Value ?? new CommandServerControllerInterfaceAttribute { IsAutoMethodIndex = true };
 
         /// <summary>
         /// 命令服务
@@ -46,6 +47,7 @@ namespace AutoCSer.Net
         internal readonly ServerInterfaceMethod[] Methods;
 #endif
         /// <summary>
+        /// Verification method
         /// 验证方法
         /// </summary>
 #if NetStandard21
@@ -82,6 +84,7 @@ namespace AutoCSer.Net
         /// </summary>
         internal readonly CommandServerCallReadQueue CallReadWriteQueue;
         /// <summary>
+        /// The queue for asynchronous server calls
         /// 服务端异步调用队列
         /// </summary>
 #if NetStandard21
@@ -117,9 +120,11 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
+        /// Command service controller
         /// 命令服务控制器
         /// </summary>
-        /// <param name="server">命令服务</param>
+        /// <param name="server">Command server to listen
+        /// 命令服务端监听</param>
         /// <param name="controllerName">控制器名称</param>
         /// <param name="attribute"></param>
         /// <param name="methods"></param>
@@ -205,7 +210,8 @@ namespace AutoCSer.Net
         /// <summary>
         /// 命令处理
         /// </summary>
-        /// <param name="socket">命令服务套接字</param>
+        /// <param name="socket">Command server socket
+        /// 命令服务套接字</param>
         /// <param name="data">命令数据</param>
         /// <returns></returns>
         public abstract CommandClientReturnTypeEnum DoCommand(CommandServerSocket socket, ref SubArray<byte> data);
@@ -240,6 +246,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="getTask"></param>
@@ -255,6 +262,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="getTask"></param>
@@ -273,6 +281,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="getTask"></param>
@@ -291,6 +300,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -310,6 +320,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -329,6 +340,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="getTask"></param>
@@ -344,6 +356,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="getTask"></param>
@@ -362,6 +375,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="getTask"></param>
@@ -380,6 +394,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -399,6 +414,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -418,7 +434,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="getTask"></param>
         /// <returns>返回 false 表示当前控制器不支持异步队列</returns>
@@ -433,7 +450,8 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="getTask"></param>
         /// <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
@@ -451,7 +469,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="getTask"></param>
         /// <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
@@ -469,7 +488,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="getTask"></param>
@@ -488,7 +508,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="getTask"></param>
@@ -507,7 +528,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="getTask"></param>
         /// <returns>返回 false 表示当前控制器不支持异步队列</returns>
@@ -522,7 +544,8 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="getTask"></param>
         /// <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
@@ -540,7 +563,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="getTask"></param>
         /// <param name="isSynchronous">是否同步执行回调，默认为 false 表示任务执行回调，设置为 true 可能阻塞队列执行</param>
@@ -558,7 +582,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="getTask"></param>
@@ -577,7 +602,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="getTask"></param>
@@ -597,6 +623,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="controller"></param>
@@ -607,7 +634,8 @@ namespace AutoCSer.Net
             controller.CallTaskQueue.notNull().AddOnly(value);
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="value"></param>
@@ -618,6 +646,7 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// Command service controller
     /// 命令服务控制器
     /// </summary>
     /// <typeparam name="T">控制器接口类型</typeparam>
@@ -632,9 +661,11 @@ namespace AutoCSer.Net
         /// </summary>
         private readonly Func<CommandServerController, CommandServerSocket, CommandServerBindContextController> getBindController;
         /// <summary>
+        /// Command service controller
         /// 命令服务控制器
         /// </summary>
-        /// <param name="server">命令服务</param>
+        /// <param name="server">Command server to listen
+        /// 命令服务端监听</param>
         /// <param name="controllerName">控制器名称</param>
         /// <param name="controller"></param>
         /// <param name="getBindController"></param>

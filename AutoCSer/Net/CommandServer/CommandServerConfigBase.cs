@@ -8,13 +8,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// Command service configuration
+    /// Command server configuration
     /// 命令服务配置
     /// </summary>
     public abstract class CommandServerConfigBase
     {
         /// <summary>
-        /// The service name is a unique identifier of the service registration. If the service registration is not required, it is only used for log output
+        /// The server name is a unique identifier of the server registration. If the server registration is not required, it is only used for log output
         /// 服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
         /// </summary>
 #if NetStandard21
@@ -27,7 +27,7 @@ namespace AutoCSer.Net
         ///// </summary>
         //public HostEndPoint RegistryHost;
         /// <summary>
-        /// The service listens to host and port information
+        /// The server listens to host and port information
         /// 服务监听主机与端口信息
         /// </summary>
         public HostEndPoint Host;
@@ -42,10 +42,12 @@ namespace AutoCSer.Net
         /// </summary>
         public BufferSizeBitsEnum SendBufferSizeBits = BufferSizeBitsEnum.Kilobyte128;
         /// <summary>
+        /// By default, true indicates that string binary serialization directly copies memory data. Setting it to false encodes ASCII, which can reduce space occupation
         /// 默认为 true 表示字符串二进制序列化直接复制内存数据，设置为 false 则对 ASCII 进行编码可以降低空间占用
         /// </summary>
         public bool IsSerializeCopyString = true;
         /// <summary>
+        /// By default, false indicates the long connection mode; otherwise, it only supports one request for the short connection mode (validation functions are not supported)
         /// 默认为 false 表示长连接模式，否则只为短连接模式仅支持 1 次请求（不支持验证函数）
         /// </summary>
         public bool IsShortLink;
@@ -90,19 +92,19 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 默认空套接字
+        /// Default empty socket
         /// </summary>
         internal static readonly Socket NullSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         /// <summary>
-        /// 默认空套接字事件
+        /// Default empty socket event
         /// </summary>
         internal static readonly SocketAsyncEventArgs NullSocketAsyncEventArgs = new SocketAsyncEventArgs();
         /// <summary>
-        /// 默认空二进制序列化
+        /// Default empty binary serialization
         /// </summary>
         internal static readonly BinarySerializer NullBinarySerializer = new BinarySerializer();
         /// <summary>
-        /// 默认空监听地址
+        /// Default empty listening address
         /// </summary>
         internal static readonly IPEndPoint NullIPEndPoint = new IPEndPoint(0, 0);
     }

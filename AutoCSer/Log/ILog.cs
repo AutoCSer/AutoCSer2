@@ -20,9 +20,9 @@ namespace AutoCSer
         /// </summary>
         /// <param name="message">调试日志内容</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         /// <returns>是否写入日志</returns>
 #if NetStandard21
         Task<bool> Debug(string message, LogLevelEnum level = LogLevelEnum.Debug, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0);
@@ -35,9 +35,9 @@ namespace AutoCSer
         /// <param name="exception">异常信息</param>
         /// <param name="message">附加信息</param>
         /// <param name="level">日志级别</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
         /// <returns>是否写入日志</returns>
 #if NetStandard21
         Task<bool> Exception(Exception exception, string? message = null, LogLevelEnum level = LogLevelEnum.Exception, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0);

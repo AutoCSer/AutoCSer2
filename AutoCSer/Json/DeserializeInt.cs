@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Json
 {
     /// <summary>
+    /// Integer deserialization
     /// 整数反序列化
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
@@ -29,6 +30,7 @@ namespace AutoCSer.Json
         //    get { return Sign == 0 ? (int)Number : -(int)Number; }
         //}
         /// <summary>
+        /// Integer deserialization
         /// 整数反序列化
         /// </summary>
         /// <param name="number"></param>

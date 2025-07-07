@@ -28,6 +28,7 @@ namespace AutoCSer.Net
         private CommandClientCallQueueNode head;
 #endif
         /// <summary>
+        /// Has it been added to the queue
         /// 是否已经添加到队列
         /// </summary>
         private int isQueue;
@@ -40,7 +41,8 @@ namespace AutoCSer.Net
             this.queue = queue;
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -49,7 +51,8 @@ namespace AutoCSer.Net
             if (node != null) add(node);
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
         private void add(CommandClientCallQueueNode node)
@@ -57,7 +60,8 @@ namespace AutoCSer.Net
             if (nodeQueue.IsPushHead(node) && System.Threading.Interlocked.CompareExchange(ref isQueue, 1, 0) == 0) queue.Add(this);
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="queue"></param>
         /// <param name="node"></param>
@@ -67,6 +71,7 @@ namespace AutoCSer.Net
             queue.add(node);
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="queue"></param>

@@ -23,6 +23,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public int Count { get; internal set; }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<T> Values
@@ -39,10 +40,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         public ISnapshotEnumerable<T> GetSnapshot() { return new FragmentSnapshotHashSetEnumerable256<T>(this); }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         public void Clear()
@@ -59,6 +62,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Count = 0;
         }
         /// <summary>
+        /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large)
         /// 清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -68,7 +72,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Count = 0;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -104,10 +108,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return hashSet != null && hashSet.Contains(value, hashCode);
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         public bool Remove(T value)
         {
             uint hashCode = (uint)value.GetHashCode();

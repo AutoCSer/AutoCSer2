@@ -58,7 +58,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// 异常调用统计信息
         /// </summary>
         /// <param name="node">异常调用统计信息节点</param>
-        /// <param name="callTime">异常调用时间</param>
+        /// <param name="callTime">Exception call time
+        /// 异常调用时间</param>
         internal ExceptionStatistics(ExceptionStatisticsNode node, DateTime callTime)
         {
             if (node.CallTimeCount > 0)
@@ -73,9 +74,11 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             }
         }
         /// <summary>
+        /// Add exception call time
         /// 添加异常调用时间
         /// </summary>
-        /// <param name="callTime">异常调用时间</param>
+        /// <param name="callTime">Exception call time
+        /// 异常调用时间</param>
         internal void Append(DateTime callTime)
         {
             ++count;

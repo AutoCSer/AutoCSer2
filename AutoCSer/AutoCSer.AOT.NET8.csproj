@@ -107,6 +107,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="CombinationTemplate\DictionaryCreator.cs" />
     <Compile Include="CompletedTask.cs" />
     <Compile Include="Configuration\CodeGenerator\ConfigurationAttribute.cs" />
+    <Compile Include="ConsoleWriteMessage.cs" />
     <Compile Include="ConsoleWriteQueue.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
@@ -326,6 +327,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\MergeCallbackCommand.cs" />
+    <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
     <Compile Include="Net\CommandServer\Command\SendOnlyCommand.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientMethodTypeEnum.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterface.cs" />
@@ -342,6 +344,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Output\ServerOutputReturnTypeKeepCallbackCount.cs" />
     <Compile Include="Net\CommandServer\CommandServerInterfaceControllerCreator.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListenerConfig.cs" />
+    <Compile Include="Net\CommandServer\ServerControllerInterfaceAttribute.cs" />
     <Compile Include="Net\CommandServer\ServerReturnValue.cs" />
     <Compile Include="Net\CommandServer\CommandServerMethodAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientReturnValue.cs" />

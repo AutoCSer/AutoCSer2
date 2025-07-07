@@ -8,8 +8,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照字典节点数组
     /// </summary>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     internal sealed class SnapshotDictionaryNodeArray<KT, VT> : ISnapshotEnumerable<KeyValue<KT, VT>>, ISnapshotEnumerable<BinarySerializeKeyValue<KT, VT>>, ISnapshotEnumerable<VT>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
@@ -49,6 +50,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             newSnapshotNodes = snapshotNodes = EmptyArray<SnapshotDictionarySnapshotNode<KT, VT>>.Array;
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<KeyValue<KT, VT>> ISnapshotEnumerable<KeyValue<KT, VT>>.SnapshotValues
@@ -71,6 +73,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<BinarySerializeKeyValue<KT, VT>> ISnapshotEnumerable<BinarySerializeKeyValue<KT, VT>>.SnapshotValues
@@ -93,6 +96,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<VT> ISnapshotEnumerable<VT>.SnapshotValues
@@ -115,7 +119,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetSnapshotValueArray()
@@ -124,6 +129,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (count != 0) snapshotNodes = new SnapshotDictionarySnapshotNode<KT, VT>[count];
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -134,6 +140,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshotCount = count;
         }
         /// <summary>
+        /// Close the snapshot operation
         /// 关闭快照操作
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -143,6 +150,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             newSnapshotNodes = snapshotNodes = EmptyArray<SnapshotDictionarySnapshotNode<KT, VT>>.Array;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="index"></param>
@@ -195,7 +203,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照字典节点数组
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     internal sealed class SnapshotDictionaryNodeArray<T> : ISnapshotEnumerable<BinarySerializeKeyValue<byte[], T>>
     {
         /// <summary>
@@ -203,6 +211,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly ISnapshotEnumerable<BinarySerializeKeyValue<HashBytes, T>> array;
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         public IEnumerable<BinarySerializeKeyValue<byte[], T>> SnapshotValues
@@ -224,7 +233,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.array = array;
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetSnapshotValueArray()
@@ -232,6 +242,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             array.GetSnapshotValueArray();
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -240,6 +251,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             array.GetSnapshotResult();
         }
         /// <summary>
+        /// Close the snapshot operation
         /// 关闭快照操作
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

@@ -18,7 +18,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class ServiceSlave : AutoCSer.Threading.Link<ServiceSlave>
     {
         /// <summary>
-        /// 日志流持久化内存数据库服务端
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
         private readonly StreamPersistenceMemoryDatabaseService service;
         /// <summary>
@@ -102,6 +103,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private bool isPersistenceCallbackExceptionPosition;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已释放资源
         /// </summary>
         private bool isClosed;
@@ -122,7 +124,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="service"></param>
         /// <param name="socket"></param>
-        /// <param name="isBackup">是否备份客户端</param>
+        /// <param name="isBackup">Is the backup client
+        /// 是否备份客户端</param>
         internal ServiceSlave(StreamPersistenceMemoryDatabaseService service, CommandServerSocket socket, bool isBackup)
         {
             this.service = service;
@@ -135,7 +138,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             service.Slave = this;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         internal void Close()
         {
@@ -292,6 +295,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return true;
         }
         /// <summary>
+        /// Get the persistent file data
         /// 获取持久化文件数据
         /// </summary>
         /// <param name="position"></param>
@@ -327,6 +331,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Get the persistent file data
         /// 获取持久化文件数据
         /// </summary>
         private void getPersistenceFile()
@@ -404,6 +409,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the file data of the persistent callback exception location
         /// 获取持久化回调异常位置文件数据
         /// </summary>
         /// <param name="position"></param>
@@ -452,6 +458,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Get the file data of the persistent callback exception location
         /// 获取持久化回调异常位置文件数据
         /// </summary>
         private void getPersistenceCallbackExceptionPositionFile()

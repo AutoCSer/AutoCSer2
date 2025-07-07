@@ -23,7 +23,8 @@ namespace AutoCSer.CodeGenerator
         /// 判断树节点标识是否相等
         /// </summary>
         /// <param name="other">树节点标识</param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
         public bool Equals(TreeBuilderTag other)
         {
             return other != null && other.TagType == TagType && other.Command == Command && other.Content.Equals(ref Content);

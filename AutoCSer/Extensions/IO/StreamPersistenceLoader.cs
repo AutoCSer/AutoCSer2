@@ -36,6 +36,7 @@ namespace AutoCSer.IO
 #endif
         private FileStream readStream;
         /// <summary>
+        /// The file name for log stream persistence
         /// 日志流持久化文件名称
         /// </summary>
         protected abstract string persistenceFileName { get; }
@@ -380,7 +381,7 @@ namespace AutoCSer.IO
             return AutoCSer.Common.Config.Decompress(ref transferData, ref outputData);
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="data">当前加载数据缓冲区</param>
         /// <param name="position">当前数据所在持久化流中的位置</param>

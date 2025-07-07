@@ -123,7 +123,8 @@ namespace AutoCSer.ORM
         /// <summary>
         /// 创建业务表格持久化
         /// </summary>
-        /// <typeparam name="KT">关键字类型</typeparam>
+        /// <typeparam name="KT">Keyword type
+        /// 关键字类型</typeparam>
         /// <param name="connectionPool">数据库连接池</param>
         /// <param name="attribute">数据表格模型配置</param>
         /// <returns></returns>

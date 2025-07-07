@@ -3,6 +3,7 @@
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Client heart rate detection timing
     /// 客户端心跳检测定时
     /// </summary>
     internal sealed class ClientCheckTimer : AutoCSer.Threading.SecondTimerArrayNode
@@ -16,6 +17,7 @@ namespace AutoCSer.Net.CommandServer
         private CommandClientSocket socket;
 #endif
         /// <summary>
+        /// Client heart rate detection timing
         /// 客户端心跳检测定时
         /// </summary>
         /// <param name="socket"></param>

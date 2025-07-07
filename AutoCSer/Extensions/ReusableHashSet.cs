@@ -6,7 +6,8 @@ namespace AutoCSer
     /// <summary>
     /// 可重用哈希表（主要用于非引用类型缓冲区，避免 new / Clear 开销）
     /// </summary>
-    /// <typeparam name="T">关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type
+    /// 关键字类型</typeparam>
     [RemoteType]
     public class ReusableHashSet<T> : ReusableDictionary<T>
 #if NetStandard21
@@ -16,6 +17,7 @@ namespace AutoCSer
 #endif
     {
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<T> Values
@@ -36,7 +38,8 @@ namespace AutoCSer
         /// <summary>
         /// 可重用哈希表
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         public ReusableHashSet(int capacity = 0) : base(capacity, ReusableDictionaryGroupTypeEnum.HashIndex) { }
         /// <summary>
         /// 新增数据
@@ -98,10 +101,12 @@ namespace AutoCSer
             return true;
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         public bool Contains(T value)
         {
             if (Count != 0)
@@ -133,10 +138,12 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         public bool Remove(T value)
         {
             if (Count != 0)

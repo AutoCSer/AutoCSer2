@@ -7,23 +7,28 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.SearchTree
 {
     /// <summary>
+    /// Binary search tree dictionary
     /// 二叉搜索树字典
     /// </summary>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     [RemoteType]
     public sealed class Dictionary<KT, VT> where KT : IComparable<KT>
     {
         /// <summary>
+        /// Binary search tree dictionary node
         /// 二叉搜索树字典节点
         /// </summary>
         internal sealed class Node : Node<Node, KT>
         {
             /// <summary>
+            /// Node data
             /// 节点数据
             /// </summary>
             internal VT Value;
             /// <summary>
+            /// Binary search tree dictionary node
             /// 二叉搜索树字典节点
             /// </summary>
             /// <param name="key"></param>
@@ -33,14 +38,16 @@ namespace AutoCSer.SearchTree
                 Value = value;
             }
             /// <summary>
-            /// 数据
+            /// Key-value pair data
+            /// 键值对数据
             /// </summary>
             internal KeyValue<KT, VT> KeyValue
             {
                 get { return new KeyValue<KT, VT>(key, Value); }
             }
             /// <summary>
-            /// 数据集合
+            /// The collection of key-value pair data
+            /// 键值对数据集合
             /// </summary>
             internal IEnumerable<KeyValue<KT, VT>> KeyValues
             {
@@ -58,6 +65,7 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
+            /// The data collection
             /// 数据集合
             /// </summary>
             internal IEnumerable<VT> Values
@@ -76,7 +84,8 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
-            /// 获取第一组数据
+            /// Get the first pair of data
+            /// 获取第一对数据
             /// </summary>
             internal KeyValue<KT, VT> FristKeyValue
             {
@@ -86,7 +95,8 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
-            /// 获取最后一组数据
+            /// Get the last pair of data
+            /// 获取最后一对数据
             /// </summary>
             internal KeyValue<KT, VT> LastKeyValue
             {
@@ -97,6 +107,7 @@ namespace AutoCSer.SearchTree
             }
 
             /// <summary>
+            /// Exchange node data
             /// 交换节点数据
             /// </summary>
             /// <param name="key"></param>
@@ -112,6 +123,7 @@ namespace AutoCSer.SearchTree
                 Value = tempValue;
             }
             /// <summary>
+            /// Check the number of left nodes
             /// 检测左节点数量
             /// </summary>
             private void checkLeft()
@@ -148,6 +160,7 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
+            /// Check the number of right nodes
             /// 检测右节点数量
             /// </summary>
             private void checkRight()
@@ -184,10 +197,11 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
-            /// 添加数据
+            /// Add data
             /// </summary>
             /// <param name="keyValue"></param>
-            /// <returns>是否添加了数据</returns>
+            /// <returns>Whether new data has been added
+            /// 是否添加了新数据</returns>
             internal bool TryAdd(ref KeyValue<KT, VT> keyValue)
             {
                 int cmp = key.CompareTo(keyValue.Key);
@@ -223,10 +237,13 @@ namespace AutoCSer.SearchTree
                 return false;
             }
             /// <summary>
+            /// Set the data
             /// 设置数据
             /// </summary>
-            /// <param name="node">数据</param>
-            /// <returns>是否添加了数据</returns>
+            /// <param name="node">Node data
+            /// 节点数据</param>
+            /// <returns>Whether new data has been added
+            /// 是否添加了新数据</returns>
             internal bool Set(ref SetRemoveValue<KT, VT> node)
             {
                 int cmp = key.CompareTo(node.Key);
@@ -266,6 +283,7 @@ namespace AutoCSer.SearchTree
 
 
             /// <summary>
+            /// Get the data collection
             /// 获取数据集合
             /// </summary>
             /// <param name="count"></param>
@@ -304,6 +322,7 @@ namespace AutoCSer.SearchTree
                 while (false);
             }
             /// <summary>
+            /// Get the data collection
             /// 获取数据集合
             /// </summary>
             /// <param name="count"></param>
@@ -327,7 +346,8 @@ namespace AutoCSer.SearchTree
             }
 
             /// <summary>
-            /// 获取数组
+            /// Get get array data
+            /// 获取数组数据
             /// </summary>
             /// <param name="array"></param>
             internal void GetArraySkip(ref PageArray<VT> array)
@@ -352,7 +372,8 @@ namespace AutoCSer.SearchTree
                 Right?.GetArraySkip(ref array);
             }
             /// <summary>
-            /// 获取数组
+            /// Get get array data
+            /// 获取数组数据
             /// </summary>
             /// <param name="array"></param>
             private void getArray(ref PageArray<VT> array)
@@ -366,7 +387,8 @@ namespace AutoCSer.SearchTree
             }
 
             /// <summary>
-            /// 获取数组
+            /// Get get array data
+            /// 获取数组数据
             /// </summary>
             /// <typeparam name="AT"></typeparam>
             /// <param name="array"></param>
@@ -392,7 +414,8 @@ namespace AutoCSer.SearchTree
                 Right?.GetArraySkip(ref array);
             }
             /// <summary>
-            /// 获取数组
+            /// Get get array data
+            /// 获取数组数据
             /// </summary>
             /// <typeparam name="arrayType"></typeparam>
             /// <param name="array"></param>
@@ -407,7 +430,8 @@ namespace AutoCSer.SearchTree
             }
 
             /// <summary>
-            /// 获取数组
+            /// Get get array data
+            /// 获取数组数据
             /// </summary>
             /// <param name="array"></param>
             internal void GetDescArraySkip(ref PageArray<VT> array)
@@ -432,7 +456,8 @@ namespace AutoCSer.SearchTree
                 Right?.GetDescArraySkip(ref array);
             }
             /// <summary>
-            /// 获取数组
+            /// Get get array data
+            /// 获取数组数据
             /// </summary>
             /// <param name="array"></param>
             private void getDescArray(ref PageArray<VT> array)
@@ -445,6 +470,7 @@ namespace AutoCSer.SearchTree
                 if (array.AddDesc(Value) != 0) Right?.getDescArray(ref array);
             }
             /// <summary>
+            /// Search for data
             /// 查找数据
             /// </summary>
             /// <param name="array"></param>
@@ -456,6 +482,7 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
+        /// Root node
         /// 根节点
         /// </summary>
 #if NetStandard21
@@ -464,13 +491,15 @@ namespace AutoCSer.SearchTree
         internal Node Boot;
 #endif
         /// <summary>
-        /// 节点数据
+        /// Number of nodes
+        /// 节点数量
         /// </summary>
         public int Count
         {
             get { return Boot != null ? Boot.Count : 0; }
         }
         /// <summary>
+        /// Get the tree height has a time complexity of O(n)
         /// 获取树高度，时间复杂度 O(n)
         /// </summary>
         public int Height
@@ -481,7 +510,8 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 数据集合
+        /// The collection of key-value pair data
+        /// 键值对数据集合
         /// </summary>
         public IEnumerable<KeyValue<KT, VT>> KeyValues
         {
@@ -491,6 +521,7 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<VT> Values
@@ -501,7 +532,8 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 获取第一组数据
+        /// Get the first pair of data
+        /// 获取第一对数据
         /// </summary>
         public KeyValue<KT, VT> FristKeyValue
         {
@@ -512,7 +544,8 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 获取最后一组数据
+        /// Get the last pair of data
+        /// 获取最后一对数据
         /// </summary>
         public KeyValue<KT, VT> LastKeyValue
         {
@@ -523,10 +556,12 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
+        /// Get or set data based on keyword
         /// 根据关键字获取或者设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>数据,获取失败KeyNotFoundException</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>The acquisition failed and a KeyNotFoundException exception was thrown
+        /// 获取失败抛出 KeyNotFoundException 异常</returns>
         public VT this[KT key]
         {
             get
@@ -541,10 +576,12 @@ namespace AutoCSer.SearchTree
             set { Set(key, value); }
         }
         /// <summary>
-        /// 二叉树字典
+        /// Binary search tree dictionary
+        /// 二叉搜索树字典
         /// </summary>
         public Dictionary() { }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -553,11 +590,13 @@ namespace AutoCSer.SearchTree
             Boot = null;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">数据</param>
-        /// <returns>是否添加了关键字</returns>
+        /// <param name="key">keyword</param>
+        /// <param name="value">data</param>
+        /// <returns>Have new keywords been added
+        /// 是否添加了新关键字</returns>
         public bool Set(KT key, VT value)
         {
             if (Boot != null)
@@ -569,12 +608,15 @@ namespace AutoCSer.SearchTree
             return true;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">数据</param>
-        /// <param name="removeValue">方法返回 false 时表示被移除数据</param>
-        /// <returns>是否添加了关键字</returns>
+        /// <param name="key">keyword</param>
+        /// <param name="value">data</param>
+        /// <param name="removeValue">When a method returns false, it indicates that data has been removed
+        /// 方法返回 false 时表示被移除数据</param>
+        /// <returns>Have new keywords been added
+        /// 是否添加了新关键字</returns>
 #if NetStandard21
         public bool Set(KT key, VT value, [MaybeNullWhen(true)] out VT removeValue)
 #else
@@ -595,11 +637,12 @@ namespace AutoCSer.SearchTree
             return true;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">数据</param>
-        /// <returns>是否添加了数据</returns>
+        /// <param name="key">keyword</param>
+        /// <param name="value">data</param>
+        /// <returns>Whether new data has been added
+        /// 是否添加了新数据</returns>
         public bool TryAdd(KT key, VT value)
         {
             if (Boot == null)
@@ -611,10 +654,12 @@ namespace AutoCSer.SearchTree
             return Boot.TryAdd(ref keyValue);
         }
         /// <summary>
+        /// Delete node based on keyword
         /// 根据关键字删除节点
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否存在关键字</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         public bool Remove(KT key)
         {
             if (Boot != null)
@@ -629,10 +674,12 @@ namespace AutoCSer.SearchTree
             return false;
         }
         /// <summary>
+        /// Delete the matching data based on the keyword collection
         /// 根据关键字集合删除匹配数据
         /// </summary>
         /// <param name="keys"></param>
-        /// <returns>删除关键字数量</returns>
+        /// <returns>The number of deleted keywords
+        /// 删除关键字数量</returns>
         public int RemoveKeys(KT[] keys)
         {
             int count = 0;
@@ -646,11 +693,14 @@ namespace AutoCSer.SearchTree
             return count;
         }
         /// <summary>
+        /// Delete node based on keyword
         /// 根据关键字删除节点
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">被删除数据</param>
-        /// <returns>是否存在关键字</returns>
+        /// <param name="key">keyword</param>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
 #if NetStandard21
         public bool Remove(KT key, [MaybeNullWhen(false)] out VT value)
 #else
@@ -671,21 +721,24 @@ namespace AutoCSer.SearchTree
             return false;
         }
         /// <summary>
-        /// 判断是否包含关键字
+        /// Determines if the keyword exists
+        /// 判断是否存在关键字
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否包含关键字</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Whether the keyword exists
+        /// 是否存在关键字</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool ContainsKey(KT key)
         {
             return Boot != null && Boot.Get(key) != null;
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">目标数据</param>
-        /// <returns>是否成功</returns>
+        /// <param name="key">keyword</param>
+        /// <param name="value">Target data</param>
+        /// <returns>Return false on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public bool TryGetValue(KT key, [MaybeNullWhen(false)] out VT value)
@@ -706,6 +759,7 @@ namespace AutoCSer.SearchTree
             return false;
         }
         /// <summary>
+        /// Get the matching data array based on the keyword collection
         /// 根据关键字集合获取匹配数据数组
         /// </summary>
         /// <param name="keys"></param>
@@ -727,36 +781,43 @@ namespace AutoCSer.SearchTree
             return EmptyArray<VT>.Array;
         }
         /// <summary>
-        /// 根据关键字获取一个匹配节点位置
+        /// Get the matching node location based on the keyword
+        /// 根据关键字获取匹配节点位置
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>一个匹配节点位置,失败返回-1</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Returning -1 indicates a failed match
+        /// 返回 -1 表示失败匹配</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(KT key)
         {
             return Boot != null ? Boot.IndexOf(key) : -1;
         }
         /// <summary>
-        /// 根据关键字比它小的节点数量
+        /// Get the number of nodes smaller than the specified keyword
+        /// 获取比指定关键字小的节点数量
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>节点数量</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Number of nodes
+        /// 节点数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountLess(KT key)
         {
             return Boot != null ? Boot.CountLess(key) : 0;
         }
         /// <summary>
-        /// 根据关键字比它大的节点数量
+        /// Get the number of nodes larger than the specified keyword
+        /// 获取比指定关键字大的节点数量
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>节点数量</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Number of nodes
+        /// 节点数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountThan(KT key)
         {
             return Boot != null ? Boot.CountThan(key) : 0;
         }
         /// <summary>
+        /// Get the data of the first node that is larger than the key
         /// 获取第一个大于关键字的节点数据
         /// </summary>
         /// <param name="key"></param>
@@ -768,10 +829,12 @@ namespace AutoCSer.SearchTree
             return node != null ? node.KeyValue : default(KeyValue<KT, VT>);
         }
         /// <summary>
+        /// Get data based on the node position
         /// 根据节点位置获取数据
         /// </summary>
-        /// <param name="index">节点位置</param>
-        /// <returns>数据</returns>
+        /// <param name="index">Node position
+        /// 节点位置</param>
+        /// <returns>data</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public KeyValue<KT, VT> At(int index)
         {
@@ -779,6 +842,7 @@ namespace AutoCSer.SearchTree
             throw new IndexOutOfRangeException();
         }
         /// <summary>
+        /// Get data based on the node position
         /// 根据节点位置获取数据
         /// </summary>
         /// <param name="index"></param>
@@ -799,11 +863,15 @@ namespace AutoCSer.SearchTree
             return false;
         }
         /// <summary>
+        /// Get page data
         /// 获取分页数据
         /// </summary>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="page">分页号,从 1 开始</param>
-        /// <returns>分页数据</returns>
+        /// <param name="pageSize">The number of paginated records
+        /// 分页记录数量</param>
+        /// <param name="page">Page number, starting from 1
+        /// 分页号，从 1 开始</param>
+        /// <returns>Page data
+        /// 分页数据</returns>
         internal VT[] GetPage(int pageSize, int page)
         {
             if (Boot != null)
@@ -819,12 +887,17 @@ namespace AutoCSer.SearchTree
             return EmptyArray<VT>.Array;
         }
         /// <summary>
+        /// Get page data
         /// 获取分页数据
         /// </summary>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="page">分页号,从 1 开始</param>
-        /// <param name="getValue">获取数据委托</param>
-        /// <returns>分页数据</returns>
+        /// <param name="pageSize">The number of paginated records
+        /// 分页记录数量</param>
+        /// <param name="page">Page number, starting from 1
+        /// 分页号，从 1 开始</param>
+        /// <param name="getValue">The delegate to get the data
+        /// 获取数据委托</param>
+        /// <returns>Page data
+        /// 分页数据</returns>
         internal arrayType[] GetPage<arrayType>(int pageSize, int page, Func<VT, arrayType> getValue)
         {
             if (Boot != null)
@@ -840,11 +913,15 @@ namespace AutoCSer.SearchTree
             return EmptyArray<arrayType>.Array;
         }
         /// <summary>
+        /// Get the reverse page data
         /// 获取逆序分页数据
         /// </summary>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="page">分页号,从 1 开始</param>
-        /// <returns>分页数据</returns>
+        /// <param name="pageSize">The number of paginated records
+        /// 分页记录数量</param>
+        /// <param name="page">Page number, starting from 1
+        /// 分页号，从 1 开始</param>
+        /// <returns>Page data
+        /// 分页数据</returns>
         internal VT[] GetPageDesc(int pageSize, int page)
         {
             if (Boot != null)
@@ -861,11 +938,15 @@ namespace AutoCSer.SearchTree
             return EmptyArray<VT>.Array;
         }
         /// <summary>
-        /// 获取范围数据集合
+        /// Get a collection of data based on the range
+        /// 根据范围获取数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         internal VT[] GetRange(int skipCount, int getCount)
         {
             if (Boot != null && skipCount < Boot.Count)
@@ -877,11 +958,15 @@ namespace AutoCSer.SearchTree
             return EmptyArray<VT>.Array;
         }
         /// <summary>
+        /// Get the data collection of the reverse range
         /// 获取逆序范围数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         internal VT[] GetRangeDesc(int skipCount, int getCount)
         {
             if (Boot != null && skipCount < Boot.Count)
@@ -894,31 +979,41 @@ namespace AutoCSer.SearchTree
             return EmptyArray<VT>.Array;
         }
         /// <summary>
-        /// 获取范围数据集合
+        /// Get a collection of data based on the range
+        /// 根据范围获取数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal KT[] GetKeyRange(int skipCount, int getCount)
         {
             return Boot != null ? Boot.GetKeyArray(skipCount, getCount) : EmptyArray<KT>.Array;
         }
         /// <summary>
+        /// Get the data collection of the reverse range
         /// 获取逆序范围数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal KT[] GetKeyRangeDesc(int skipCount, int getCount)
         {
             return Boot != null ? Boot.GetDescKeyArray(skipCount, getCount) : EmptyArray<KT>.Array;
         }
         /// <summary>
+        /// Search for data
         /// 查找数据
         /// </summary>
-        /// <param name="isValue">数据匹配委托</param>
+        /// <param name="isValue">Delegate for data matching
+        /// 数据匹配委托</param>
         /// <returns></returns>
         internal LeftArray<VT> GetFind(Func<VT, bool> isValue)
         {
@@ -931,10 +1026,13 @@ namespace AutoCSer.SearchTree
             return new LeftArray<VT>(0);
         }
         /// <summary>
-        /// 获取范围数据集合
+        /// Get a collection of data based on the range
+        /// 根据范围获取数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
         /// <returns></returns>
         internal IEnumerable<VT> GetValues(int skipCount, int getCount)
         {
@@ -952,6 +1050,7 @@ namespace AutoCSer.SearchTree
 
 #if DEBUG
         /// <summary>
+        /// Check the correctness of the data (for testing)
         /// 检查数据正确性（用于测试）
         /// </summary>
         /// <param name="count"></param>

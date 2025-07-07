@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.59</Version>
+    <Version>2.0.60</Version>
     <PackageId>AutoCSer2</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.0]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -102,6 +102,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Culture\English.cs" />
     <Compile Include="EmptyArrayCompletedTask.cs" />
     <Compile Include="EmptyLeftArrayCompletedTask.cs" />
+    <Compile Include="ConsoleWriteMessage.cs" />
     <Compile Include="ConsoleWriteQueue.cs" />
     <Compile Include="Extensions\CommandServerKeepCallbackExtension.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
@@ -303,6 +304,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\CallbackCommand\CallbackQueueOutputCommand.cs" />
     <Compile Include="Net\CommandServer\Command\Command.cs" />
     <Compile Include="Net\CommandServer\Command\CommandKeepCallback.cs" />
+    <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
     <Compile Include="Net\CommandServer\Command\CommandPool\CommandPool.cs" />
     <Compile Include="Net\CommandServer\Command\CommandPool\CommandPoolGetStateEnum.cs" />
     <Compile Include="Net\CommandServer\Command\CommandPool\CommandPoolLink.cs" />
@@ -366,6 +368,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListener.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListenerConfig.cs" />
     <Compile Include="Net\CommandServer\ServerBuildInfo.cs" />
+    <Compile Include="Net\CommandServer\ServerControllerInterfaceAttribute.cs" />
     <Compile Include="Net\CommandServer\ServerInterfaceController.cs" />
     <Compile Include="Net\CommandServer\ServerReceiveErrorTypeEnum.cs" />
     <Compile Include="Net\CommandServer\ServerReceiveTypeEnum.cs" />
@@ -523,7 +526,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Metadata\MemberIndexInfo.cs" />
     <Compile Include="Metadata\PropertyIndex.cs" />
     <Compile Include="Json\JsonSerializeConfig.cs" />
-    <Compile Include="NetStandard\MethodImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Random.cs" />
     <Compile Include="ReferenceHashKey.cs" />

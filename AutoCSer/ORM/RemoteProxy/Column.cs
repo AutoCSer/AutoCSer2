@@ -24,6 +24,7 @@ namespace AutoCSer.ORM.RemoteProxy
         internal DataType DataType;
 
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="reader"></param>

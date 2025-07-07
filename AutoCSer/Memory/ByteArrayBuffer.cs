@@ -6,12 +6,14 @@ using AutoCSer.Extensions;
 namespace AutoCSer.Memory
 {
     /// <summary>
+    /// Byte array buffer
     /// 字节数组缓冲区
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ByteArrayBuffer
     {
         /// <summary>
+        /// Byte array buffer
         /// 字节数组缓冲区
         /// </summary>
 #if NetStandard21
@@ -20,14 +22,17 @@ namespace AutoCSer.Memory
         internal ByteArray Buffer;
 #endif
         /// <summary>
+        /// The starting position of the buffer
         /// 缓冲区起始位置
         /// </summary>
         internal int StartIndex;
         /// <summary>
-        /// 当前相对位置，保留字段
+        /// Current relative position (reserved field)
+        /// 当前相对位置（保留字段）
         /// </summary>
         internal int CurrentIndex;
         /// <summary>
+        /// Current absolute position
         /// 当前绝对位置
         /// </summary>
         internal int BufferCurrentIndex { get { return StartIndex + CurrentIndex; } }
@@ -36,7 +41,8 @@ namespace AutoCSer.Memory
         ///// </summary>
         //internal int FreeSize { get { return Buffer.BufferSize - CurrentIndex; } }
         /// <summary>
-        /// 复制数据
+        /// Copy the buffer data
+        /// 复制缓冲区数据
         /// </summary>
         /// <param name="buffer"></param>
         internal unsafe ByteArrayBuffer(ref SubArray<byte> buffer)
@@ -47,6 +53,7 @@ namespace AutoCSer.Memory
             fixed (byte* dataFixed = GetFixedBuffer()) AutoCSer.Common.CopyTo(buffer.Array, buffer.Start, dataFixed, CurrentIndex);
         }
         /// <summary>
+        /// Clear the data and return the byte array buffer
         /// 清除数据并返回字节数组缓冲区
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -61,6 +68,7 @@ namespace AutoCSer.Memory
             return buffer;
         }
         /// <summary>
+        /// Set the byte array buffer
         /// 设置字节数组缓冲区
         /// </summary>
         /// <param name="buffer"></param>
@@ -71,6 +79,7 @@ namespace AutoCSer.Memory
             Buffer = buffer;
         }
         /// <summary>
+        /// Set the byte array buffer
         /// 设置字节数组缓冲区
         /// </summary>
         /// <param name="buffer"></param>
@@ -82,6 +91,7 @@ namespace AutoCSer.Memory
             StartIndex = startIndex;
         }
         /// <summary>
+        /// Try to remove the byte array buffer that needs to be cleared
         /// 尝试移除需要清除的字节数组缓冲区
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -91,6 +101,7 @@ namespace AutoCSer.Memory
             CurrentIndex = 0;
         }
         /// <summary>
+        /// Release the byte array buffer
         /// 释放字节数组缓冲区
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -99,6 +110,7 @@ namespace AutoCSer.Memory
             if (Buffer != null) Buffer.TryFree(ref this);
         }
         /// <summary>
+        /// Release the copy buffer
         /// 释放复制缓冲区
         /// </summary>
         /// <param name="buffer"></param>
@@ -109,6 +121,7 @@ namespace AutoCSer.Memory
             buffer.Free();
         }
         /// <summary>
+        /// When the byte size is not satisfied, the byte array buffer is retrieved again
         /// 当字节大小不满足时，重新获取字节数组缓冲区
         /// </summary>
         /// <param name="size"></param>
@@ -124,6 +137,7 @@ namespace AutoCSer.Memory
             }
         }
         /// <summary>
+        /// Set the socket buffer 
         /// 设置套接字缓存区
         /// </summary>
         /// <param name="receiveAsyncEventArgs"></param>
@@ -133,6 +147,7 @@ namespace AutoCSer.Memory
             receiveAsyncEventArgs.SetBuffer(Buffer.notNull().Buffer, StartIndex, Buffer.notNull().BufferSize);
         }
         /// <summary>
+        /// Set the socket buffer 
         /// 设置套接字缓存区
         /// </summary>
         /// <param name="receiveAsyncEventArgs"></param>
@@ -142,6 +157,7 @@ namespace AutoCSer.Memory
             receiveAsyncEventArgs.SetBuffer(StartIndex + CurrentIndex, Buffer.notNull().BufferSize - CurrentIndex);
         }
         /// <summary>
+        /// Release the current cache area and copy the byte array buffer
         /// 释放当前缓存区并复制字节数组缓冲区
         /// </summary>
         /// <param name="buffer"></param>
@@ -152,7 +168,7 @@ namespace AutoCSer.Memory
             Buffer = buffer.GetClearBuffer();
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
         /// <param name="data"></param>
         internal unsafe void CopyFromSetSize(ref SubArray<byte> data)
@@ -169,7 +185,8 @@ namespace AutoCSer.Memory
             }
         }
         /// <summary>
-        /// 获取数组字串
+        /// Get the array substring
+        /// 获取数组子串
         /// </summary>
         /// <param name="startIndex"></param>
         /// <param name="length"></param>
@@ -180,7 +197,8 @@ namespace AutoCSer.Memory
             return new SubArray<byte>(StartIndex + startIndex, length, Buffer.notNull().Buffer);
         }
         /// <summary>
-        /// 获取数组字串
+        /// Get the array substring
+        /// 获取数组子串
         /// </summary>
         /// <param name="seek"></param>
         /// <returns></returns>
@@ -190,7 +208,8 @@ namespace AutoCSer.Memory
             return new SubArray<byte>(StartIndex + seek, CurrentIndex - seek, Buffer.notNull().Buffer);
         }
         /// <summary>
-        /// 设置数组字串
+        /// Set the array substring
+        /// 设置数组子串
         /// </summary>
         /// <param name="data"></param>
         /// <param name="startIndex"></param>
@@ -203,7 +222,8 @@ namespace AutoCSer.Memory
 #endif
         }
         /// <summary>
-        /// 获取数组字串
+        /// Get the array substring
+        /// 获取数组子串
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
@@ -213,6 +233,7 @@ namespace AutoCSer.Memory
             return new SubArray<byte>(StartIndex, length, Buffer.notNull().Buffer);
         }
         /// <summary>
+        /// Get the fixed buffer, DEBUG mode to detect the data range
         /// 获取 fixed 缓冲区，DEBUG 模式对数据范围进行检测
         /// </summary>
         /// <returns></returns>

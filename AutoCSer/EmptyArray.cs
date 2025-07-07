@@ -5,7 +5,7 @@ namespace AutoCSer
     /// <summary>
     /// 0 长度空数组
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     public static class EmptyArray<T>
     {
         /// <summary>

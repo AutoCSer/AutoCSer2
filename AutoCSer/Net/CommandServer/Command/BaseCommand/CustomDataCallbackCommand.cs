@@ -9,7 +9,8 @@ namespace AutoCSer.Net.CommandServer
     internal sealed class CustomDataCallbackCommand : BaseCommand
     {
         /// <summary>
-        /// 是否保持回调命令
+        /// Keep callback command returning true
+        /// 保持回调命令返回 true
         /// </summary>
         internal override bool IsKeepCallback { get { return true; } }
         /// <summary>
@@ -18,9 +19,11 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="socket"></param>
         internal CustomDataCallbackCommand(CommandClientSocket socket) : base(socket, KeepCallbackCommand.KeepCallbackMethod) { }
         /// <summary>
-        /// 接收数据回调处理
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data">输出数据</param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal unsafe override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {

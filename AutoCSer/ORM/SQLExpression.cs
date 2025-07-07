@@ -102,7 +102,7 @@ namespace AutoCSer.ORM
         /// value IN (values)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否包含数据</returns>
         public static bool In<T>(T value, params T[] values)
@@ -113,7 +113,7 @@ namespace AutoCSer.ORM
         /// value IN (values)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否包含数据</returns>
         public static bool In<T>(T? value, params T[] values) where T : struct
@@ -124,7 +124,7 @@ namespace AutoCSer.ORM
         /// value IN (values)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否包含数据</returns>
         public static bool In<T>(T value, IEnumerable<T> values)
@@ -135,7 +135,7 @@ namespace AutoCSer.ORM
         /// value IN (values)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否包含数据</returns>
         public static bool In<T>(T? value, IEnumerable<T> values) where T : struct
@@ -146,7 +146,7 @@ namespace AutoCSer.ORM
         /// value IN (query
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="query">子查询</param>
         /// <returns>是否包含数据</returns>
         public static bool In<T>(T value, IQueryBuilder query)
@@ -157,7 +157,7 @@ namespace AutoCSer.ORM
         /// value NOT IN (values
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否不包含数据</returns>
         public static bool NotIn<T>(T value, params T[] values)
@@ -168,7 +168,7 @@ namespace AutoCSer.ORM
         /// value NOT IN (values
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否不包含数据</returns>
         public static bool NotIn<T>(T? value, params T[] values) where T : struct
@@ -179,7 +179,7 @@ namespace AutoCSer.ORM
         /// value NOT IN (values)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否不包含数据</returns>
         public static bool NotIn<T>(T value, IEnumerable<T> values)
@@ -190,7 +190,7 @@ namespace AutoCSer.ORM
         /// value NOT IN (values)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="values">数值集合</param>
         /// <returns>是否不包含数据</returns>
         public static bool NotIn<T>(T? value, IEnumerable<T> values) where T : struct
@@ -201,7 +201,7 @@ namespace AutoCSer.ORM
         /// value NOT IN (query)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <param name="query">子查询</param>
         /// <returns>是否不包含数据</returns>
         public static bool NotIn<T>(T value, IQueryBuilder query)

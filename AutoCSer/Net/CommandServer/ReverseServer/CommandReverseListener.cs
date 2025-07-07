@@ -88,7 +88,7 @@ namespace AutoCSer.Net
             CommandClient = new CommandClient(this, creators);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         protected override void dispose()
         {
@@ -247,9 +247,10 @@ namespace AutoCSer.Net
             return AutoCSer.Common.CompletedValueTask;
         }
         /// <summary>
+        /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<CommandClientSocketEvent?> GetSocketEvent()

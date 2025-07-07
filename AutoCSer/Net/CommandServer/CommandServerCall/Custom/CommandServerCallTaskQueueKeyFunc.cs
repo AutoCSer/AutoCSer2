@@ -22,7 +22,7 @@ namespace AutoCSer.Net.CommandServer
         /// 服务端异步调用队列委托包装
         /// </summary>
         /// <param name="getTask">队列委托</param>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         internal CommandServerCallTaskQueueKeyFunc(Func<CommandServerCallTaskQueue, KT, Task> getTask, KT key)
         {
             this.getTask = getTask;
@@ -58,7 +58,7 @@ namespace AutoCSer.Net.CommandServer
         /// 服务端异步调用队列委托包装
         /// </summary>
         /// <param name="getTask">队列委托</param>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         internal CommandServerCallTaskQueueKeyFunc(Func<CommandServerCallTaskQueue, KT, Task<T>> getTask, KT key)
         {
             this.getTask = getTask;

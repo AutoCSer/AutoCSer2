@@ -199,7 +199,7 @@ namespace AutoCSer.TestCase
                     .Append<ServerBindContext.IServerTaskController>(server => new ServerBindContext.ServerTaskController())
                     .Append<ServerBindContext.IServerKeepCallbackTaskController>(server => new ServerBindContext.ServerKeepCallbackTaskController())
                     .Append<ServerBindContext.IDefinedSymmetryController>(server => new ServerBindContext.DefinedSymmetryServerController())
-                    .Append<ServerBindContext.IDefinedDissymmetryServerController>(string.Empty, server => new ServerBindContext.DefinedDissymmetryServerController());
+                    .Append<ServerBindContext.IDefinedDissymmetryServerController>(nameof(IDefinedDissymmetryServerController), server => new ServerBindContext.DefinedDissymmetryServerController());
             if (!CommandServer.IsAotClient)
             {
                 builder = builder.Append<ServerBindContext.IServerTaskQueueController>(server => new ServerBindContext.ServerTaskQueueController());

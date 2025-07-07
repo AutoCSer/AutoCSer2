@@ -5,15 +5,18 @@ using System.Threading.Tasks;
 namespace AutoCSer.Threading
 {
     /// <summary>
+    /// Queue task node
     /// 队列任务节点
     /// </summary>
     public abstract class QueueTaskNode : AutoCSer.Threading.Link<QueueTaskNode>
     {
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         public abstract void RunTask();
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -23,6 +26,7 @@ namespace AutoCSer.Threading
             RunTask();
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="next"></param>
@@ -39,6 +43,7 @@ namespace AutoCSer.Threading
             //CheckRunTask();
         }
         /// <summary>
+        /// Queue task execution exception
         /// 队列任务执行异常
         /// </summary>
         /// <param name="exception"></param>
@@ -47,6 +52,7 @@ namespace AutoCSer.Threading
             AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception);
         }
         /// <summary>
+        /// Server-side queue timeout notification
         /// 服务端队列超时通知
         /// </summary>
         /// <param name="queue"></param>

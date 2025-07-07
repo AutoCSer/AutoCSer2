@@ -21,6 +21,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal SubArray<byte> Buffer;
         /// <summary>
+        /// The written location of the persistent stream
         /// 持久化流已写入位置
         /// </summary>
         private long position;
@@ -29,6 +30,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private bool isPersistenceCallbackExceptionPosition;
         /// <summary>
+        /// Call status
         /// 调用状态
         /// </summary>
         internal CallStateEnum CallState;

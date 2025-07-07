@@ -8,13 +8,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.BinarySerialize
 {
     /// <summary>
-    /// 自定义序列化委托
+    /// Custom serialization委托
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SerializeDelegate
     {
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
         public Delegate Delegate;
         /// <summary>
@@ -125,7 +125,7 @@ namespace AutoCSer.BinarySerialize
             IsCollection = isCollection;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value">自定义序列化委托，第一个参数类型为 AutoCSer.BinarySerializer，第二参数类型为具体数据类型，返回值类型为 void</param>
         /// <returns>自定义序列化委托</returns>

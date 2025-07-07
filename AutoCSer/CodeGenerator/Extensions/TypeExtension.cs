@@ -11,9 +11,10 @@ namespace AutoCSer.CodeGenerator.Extensions
     internal static class TypeExtension
     {
         /// <summary>
+        /// Whether it is a value type
         /// 是否值类型
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <returns>是否值类型</returns>
         internal static bool isStruct(this Type type)
         {
@@ -22,7 +23,7 @@ namespace AutoCSer.CodeGenerator.Extensions
         /// <summary>
         /// 根据类型获取可用名称
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <returns>类型名称</returns>
         internal static string getName(this Type type)
         {
@@ -53,7 +54,7 @@ namespace AutoCSer.CodeGenerator.Extensions
         /// <summary>
         /// 根据类型获取可用名称
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <returns>类型名称</returns>
         internal static string getOnlyName(this Type type)
         {

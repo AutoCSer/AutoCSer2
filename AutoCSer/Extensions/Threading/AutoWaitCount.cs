@@ -10,6 +10,7 @@ namespace AutoCSer.Threading
     internal sealed class AutoWaitCount : IDisposable
     {
         /// <summary>
+        /// Current count
         /// 当前计数
         /// </summary>
         private int count;
@@ -18,7 +19,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private readonly System.Threading.AutoResetEvent waitHandle;
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {

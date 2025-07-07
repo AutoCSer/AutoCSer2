@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Distributed lock node
     /// 分布式锁
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -12,6 +13,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         where T : IEquatable<T>
     {
         /// <summary>
+        /// Distributed lock node
         /// 分布式锁节点
         /// </summary>
         internal readonly DistributedLockNode<T> Node;
@@ -57,14 +59,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 分布式锁
         /// </summary>
         /// <param name="node">分布式锁节点</param>
-        /// <param name="key">锁关键字</param>
-        /// <param name="timeoutSeconds">超时秒数</param>
+        /// <param name="key">Keyword of lock
+        /// 锁关键字</param>
+        /// <param name="timeoutSeconds">Timeout seconds
+        /// 超时秒数</param>
         internal DistributedLock(DistributedLockNode<T> node, T key, ushort timeoutSeconds)
         {
             Node = node;
             Identity.Set(key, AutoCSer.Threading.SecondTimer.UtcNow.AddSeconds(timeoutSeconds), node.Identity++);
         }
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
         /// <param name="callback"></param>
@@ -82,6 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         private void checkTimeout()
@@ -91,6 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else if (!next()) Node.Remove(this);
         }
         /// <summary>
+        /// Release the lock
         /// 释放锁
         /// </summary>
         /// <param name="identity"></param>
@@ -124,6 +131,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Timeout check
         /// 超时检查
         /// </summary>
         /// <param name="timeout"></param>

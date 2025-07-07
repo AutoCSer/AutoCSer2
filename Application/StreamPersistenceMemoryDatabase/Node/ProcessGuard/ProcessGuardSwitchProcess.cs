@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Switch processes
     /// 切换进程
     /// </summary>
     public abstract class ProcessGuardSwitchProcess
@@ -60,6 +61,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         protected abstract StreamPersistenceMemoryDatabaseClientNodeCache<IProcessGuardNodeClientNode> getProcessGuardClient { get; }
         /// <summary>
+        /// Switch processes
         /// 切换进程
         /// </summary>
         /// <param name="arguments">Main 函数参数</param>
@@ -165,6 +167,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     ResponseResult<IProcessGuardNodeClientNode> client = await getProcessGuardClient.GetNode();
                     if (client.Value == null)
                     {
+                        client.ErrorMessage = "Get guard node failed";
                         await onError(client);
                         await initialize();
                         trySwitch().NotWait();
@@ -205,7 +208,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         protected virtual async Task onError(ResponseResult<IProcessGuardNodeClientNode> result)
         {
-            string message = $"ReturnType[{result.ReturnType}] CallState[{result.CallState}]";
+            string message = $"{result.ErrorMessage} ReturnType[{result.ReturnType}] CallState[{result.CallState}]";
             await AutoCSer.LogHelper.Error(message);
             AutoCSer.ConsoleWriteQueue.WriteLine(message, ConsoleColor.Red);
         }

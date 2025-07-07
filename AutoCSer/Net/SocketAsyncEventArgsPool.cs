@@ -39,6 +39,7 @@ namespace AutoCSer.Net
             this.maxCount = maxCount;
         }
         /// <summary>
+        /// Pop-up node
         /// 弹出节点
         /// </summary>
         /// <returns></returns>
@@ -84,7 +85,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 添加节点
+        /// Add a node
         /// </summary>
         /// <param name="value"></param>
         internal void Push(SocketAsyncEventArgs value)
@@ -123,7 +124,7 @@ namespace AutoCSer.Net
             while (true);
         }
         ///// <summary>
-        ///// 添加节点
+        ///// Add a node
         ///// </summary>
         ///// <param name="value"></param>
         //internal void PushNotNull(ref SocketAsyncEventArgs value)

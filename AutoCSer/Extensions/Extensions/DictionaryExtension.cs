@@ -9,6 +9,7 @@ namespace AutoCSer.Extensions
     public static class DictionaryExtension
     {
         /// <summary>
+        /// Get the matching data array based on the keyword collection
         /// 根据关键字集合获取匹配数据数组
         /// </summary>
         /// <param name="dictionary"></param>
@@ -34,11 +35,13 @@ namespace AutoCSer.Extensions
             return EmptyArray<VT>.Array;
         }
         /// <summary>
+        /// Delete the matching data based on the keyword collection
         /// 根据关键字集合删除匹配数据
         /// </summary>
         /// <param name="dictionary"></param>
         /// <param name="keys"></param>
-        /// <returns>删除关键字数量</returns>
+        /// <returns>The number of deleted keywords
+        /// 删除关键字数量</returns>
         public static int removeKeys<KT, VT>(this Dictionary<KT, VT> dictionary, KT[] keys)
 #if NetStandard21
              where KT : notnull

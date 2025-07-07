@@ -10,6 +10,7 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class PropertyModel : AutoCSer.TestCase.CommonModel.TableModel.PropertyModel
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
@@ -19,7 +20,7 @@ namespace AutoCSer.TestCase.BusinessService
             return await Persistence.PropertyModelQuery.GetByPrimaryKey(key);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <returns></returns>
         internal async Task<bool> Insert()

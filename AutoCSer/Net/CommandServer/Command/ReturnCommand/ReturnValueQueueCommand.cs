@@ -7,31 +7,36 @@ namespace AutoCSer.Net.CommandServer
 {
 #if AOT
     /// <summary>
-    /// 返回值命令
+    /// Return value queue command
+    /// 返回值队列命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="OT"></typeparam>
     internal class ReturnValueQueueCommand<T, OT> : Net.ReturnQueueCommand<T>
         where OT : struct
 #else
-        /// <summary>
-        /// 队列回调委托命令
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
+    /// <summary>
+    /// Return value queue command
+    /// 返回值队列命令
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal class ReturnValueQueueCommand<T> : Net.ReturnQueueCommand<T>
 #endif
     {
         /// <summary>
-        /// 返回初始值
+        /// The initial return value
+        /// 初始返回值
         /// </summary>
 #if AOT
         private OT outputParameter;
         /// <summary>
+        /// The delegate that gets the return value
         /// 获取返回值委托
         /// </summary>
         private readonly Func<OT, T> getReturnValue;
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -41,7 +46,8 @@ namespace AutoCSer.Net.CommandServer
             this.getReturnValue = getReturnValue;
         }
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -58,13 +64,15 @@ namespace AutoCSer.Net.CommandServer
 #endif
         private T returnValue;
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal ReturnValueQueueCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -75,10 +83,12 @@ namespace AutoCSer.Net.CommandServer
         }
 #endif
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -88,7 +98,8 @@ namespace AutoCSer.Net.CommandServer
             return BuildQueue(ref buildInfo);
         }
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType)
@@ -96,9 +107,11 @@ namespace AutoCSer.Net.CommandServer
             SetReturnQueue(returnType, null);
         }
         /// <summary>
-        /// 委托命令回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
@@ -146,7 +159,8 @@ namespace AutoCSer.Net.CommandServer
     }
 #if AOT
     /// <summary>
-    /// 返回值命令
+    /// Return value queue command
+    /// 返回值队列命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="RT"></typeparam>
@@ -155,7 +169,8 @@ namespace AutoCSer.Net.CommandServer
         where OT : struct
 #else
     /// <summary>
-    /// 返回值命令
+    /// Return value queue command
+    /// 返回值队列命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="RT"></typeparam>
@@ -164,12 +179,13 @@ namespace AutoCSer.Net.CommandServer
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         private T inputParameter;
 #if AOT
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -181,7 +197,8 @@ namespace AutoCSer.Net.CommandServer
             Push();
         }
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -195,7 +212,8 @@ namespace AutoCSer.Net.CommandServer
         }
 #else
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -206,7 +224,8 @@ namespace AutoCSer.Net.CommandServer
             Push();
         }
         /// <summary>
-        /// 返回值命令
+        /// Return value queue command
+        /// 返回值队列命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -219,10 +238,12 @@ namespace AutoCSer.Net.CommandServer
         }
 #endif
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else

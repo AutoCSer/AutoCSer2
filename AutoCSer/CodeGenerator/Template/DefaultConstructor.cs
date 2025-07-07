@@ -8,14 +8,16 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
-            /// 默认构造函数
+            /// Call the default constructor
+            /// 调用默认构造函数
             /// </summary>
             internal static @CurrentType.FullName @DefaultConstructorMethodName()
             {
                 return new @CurrentType.FullName();
             }
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             internal static void @DefaultConstructorReflectionMethodName()
             {

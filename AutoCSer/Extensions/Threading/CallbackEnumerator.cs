@@ -22,14 +22,17 @@ namespace AutoCSer.Threading
 #endif
     {
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         private readonly CallbackEnumeratorMoveNext moveNext;
         /// <summary>
+        /// Return value queue
         /// 返回值队列
         /// </summary>
         private readonly Queue<T> returnValueQueue = new Queue<T>();
         /// <summary>
+        /// Current returned data
         /// 当前返回数据
         /// </summary>
 #if NetStandard21
@@ -45,7 +48,7 @@ namespace AutoCSer.Threading
             moveNext = new CallbackEnumeratorMoveNext(isThreadPool);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         ValueTask IAsyncDisposable.DisposeAsync()
@@ -73,7 +76,8 @@ namespace AutoCSer.Threading
             finally { System.Threading.Monitor.Exit(returnValueQueue); }
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         public CallbackEnumeratorMoveNext MoveNext()
@@ -90,7 +94,8 @@ namespace AutoCSer.Threading
             return moveNext;
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
@@ -113,6 +118,7 @@ namespace AutoCSer.Threading
             return this;
         }
         /// <summary>
+        /// Get the IAsyncEnumerable
         /// 获取 IAsyncEnumerable
         /// </summary>
         /// <param name="enumeratorCommand"></param>

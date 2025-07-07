@@ -652,6 +652,7 @@ namespace AutoCSer.Net.CommandServer
             return CommandClientReturnTypeEnum.Unknown;
         }
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         public static readonly ServerInterfaceMethod Method0;

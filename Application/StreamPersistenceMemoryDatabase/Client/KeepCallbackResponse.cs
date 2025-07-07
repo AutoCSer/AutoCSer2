@@ -13,12 +13,14 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Keep the callback output
     /// 保持回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class KeepCallbackResponse<T> : IDisposable, IEnumeratorCommand<ResponseResult<T>>
     {
         /// <summary>
+        /// Client node
         /// 客户端节点
         /// </summary>
 #if NetStandard21
@@ -26,6 +28,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         private readonly ClientNode node;
         /// <summary>
+        /// Callback command
         /// 回调命令
         /// </summary>
 #if NetStandard21
@@ -34,6 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public readonly AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> EnumeratorCommand;
 #endif
         /// <summary>
+        /// Command client socket
         /// 命令客户端套接字
         /// </summary>
 #if NetStandard21
@@ -42,10 +46,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public CommandClientSocket Socket { get { return EnumeratorCommand?.Socket; } }
 #endif
         /// <summary>
-        /// 命令是否提交成功
+        /// Whether the command was successfully added to the output queue
+        /// 命令是否成功添加到输出队列
         /// </summary>
         public bool IsSuccess { get { return EnumeratorCommand != null; } }
         /// <summary>
+        /// The return value type of the callback command
         /// 回调命令返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType
@@ -56,14 +62,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Empty response (Command submission failed)
         /// 空响应（命令提交失败）
         /// </summary>
         private KeepCallbackResponse() { }
         /// <summary>
+        /// Keep the callback output
         /// 保持回调输出
         /// </summary>
-        /// <param name="node">客户端节点</param>
-        /// <param name="enumeratorCommand">回调命令</param>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
+        /// <param name="enumeratorCommand">Callback command
+        /// 回调命令</param>
         internal KeepCallbackResponse(ClientNode node, AutoCSer.Net.EnumeratorCommand<KeepCallbackResponseParameter> enumeratorCommand)
         {
             this.EnumeratorCommand = enumeratorCommand;
@@ -71,7 +81,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             nodeIndex = node.Index;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -79,6 +89,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 #if NetStandard21
         /// <summary>
+        /// Get the IAsyncEnumerable
         /// 获取 IAsyncEnumerable
         /// </summary>
         /// <returns></returns>
@@ -135,10 +146,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else yield return AutoCSer.Net.CommandClientReturnTypeEnum.ClientUnknown;
         }
         /// <summary>
-        /// 数据转换获取 IAsyncEnumerable
+        /// Convert the data and get the IAsyncEnumerable
+        /// 数据转换并获取 IAsyncEnumerable
         /// </summary>
-        /// <typeparam name="VT">目标数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <typeparam name="VT">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <returns></returns>
         public async IAsyncEnumerable<ResponseResult<VT>> GetAsyncEnumerable<VT>(Func<T?, VT> getValue)
         {
@@ -151,11 +165,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #else
 #endif
         /// <summary>
+        /// Node index information
         /// 节点索引信息
         /// </summary>
         private readonly NodeIndex nodeIndex;
         /// <summary>
-        /// 判断是否存在下一个数据 await bool
+        /// await bool, the collection enumeration command returns true when the next data exists
+        /// await bool，集合枚举命令存在下一个数据返回 true
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -165,7 +181,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return EnumeratorCommandMoveNext.NextValueFalse;
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         public async Task<bool> MoveNextAsync()
@@ -174,6 +191,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Get current data
         /// 获取当前数据
         /// </summary>
         public ResponseResult<T> Current
@@ -210,7 +228,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 异步释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public async ValueTask DisposeAsync()
@@ -219,6 +237,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Empty response (Command submission failed)
         /// 空响应（命令提交失败）
         /// </summary>
         internal static readonly KeepCallbackResponse<T> NullResponse = new KeepCallbackResponse<T>();

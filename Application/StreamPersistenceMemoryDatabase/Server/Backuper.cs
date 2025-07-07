@@ -38,7 +38,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化内存数据库备份
         /// </summary>
-        /// <param name="config">日志流持久化内存数据库服务端配置</param>
+        /// <param name="config">Configuration of in-memory database service for log stream persistence
+        /// 日志流持久化内存数据库服务配置</param>
         /// <param name="masterClient">主节点客户端</param>
         internal Backuper(SlaveServiceConfig config, IStreamPersistenceMemoryDatabaseClientSocketEvent masterClient) : base(config, false)
         {
@@ -46,7 +47,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             delayTimeSpan = config.DelayTimeSpan;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -109,6 +110,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the file data of the persistent callback exception location
         /// 获取持久化回调异常位置文件数据
         /// </summary>
         /// <param name="position"></param>
@@ -118,6 +120,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             loader?.GetPersistenceCallbackExceptionPositionFile(position, ref buffer);
         }
         /// <summary>
+        /// Get the persistent file data
         /// 获取持久化文件数据
         /// </summary>
         /// <param name="position"></param>

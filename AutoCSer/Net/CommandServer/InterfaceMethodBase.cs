@@ -20,6 +20,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         public readonly MethodInfo Method;
         /// <summary>
+        /// Return value type
         /// 返回值类型
         /// </summary>
         internal Type ReturnValueType;
@@ -82,6 +83,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal bool IsSimpleSerializeParamter;
         /// <summary>
+        /// Whether to simply deserialize the input data
         /// 是否简单反序列化输入数据
         /// </summary>
         internal bool IsSimpleDeserializeParamter;
@@ -94,7 +96,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         protected bool isCustomBaseMethod;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         internal string? Error;
@@ -102,6 +104,7 @@ namespace AutoCSer.Net.CommandServer
         internal string Error;
 #endif
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         internal InterfaceMethodBase()
@@ -113,6 +116,7 @@ namespace AutoCSer.Net.CommandServer
             InputParameterFields = EmptyArray<FieldInfo>.Array;
         }
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         /// <param name="type"></param>

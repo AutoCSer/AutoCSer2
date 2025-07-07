@@ -175,6 +175,7 @@ namespace AutoCSer.Memory
             return Data == other.Data;
         }
         /// <summary>
+        /// Clear the data
         /// 清空数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -288,7 +289,8 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 获取子段
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="byteSize">长度</param>
         /// <returns>子段</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -524,7 +526,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写数据
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Write(ref Guid value)
         {
@@ -803,14 +805,14 @@ namespace AutoCSer.Memory
                 Write(*start == 0 ? ' ' : (char)*start);
                 ++start;
             }
-            if (start != end) javascriptUnescape(start, end);
+            if (start != end) javaScriptUnescape(start, end);
         }
         /// <summary>
         /// 模拟javascript解码函数unescape
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        private void javascriptUnescape(byte* start, byte* end)
+        private void javaScriptUnescape(byte* start, byte* end)
         {
         NEXT:
             if (*++start == 'u')
@@ -928,7 +930,8 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 补白对齐 4 字节
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void SerializeFillWithStartIndex(int startIndex)
         {

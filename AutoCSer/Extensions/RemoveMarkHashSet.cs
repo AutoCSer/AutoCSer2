@@ -23,6 +23,7 @@ namespace AutoCSer
         /// </summary>
         internal Pointer Nodes;
         /// <summary>
+        /// Get the data collection
         /// 获取数据集合
         /// </summary>
         internal IEnumerable<uint> OnlyValues
@@ -34,6 +35,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Get the data collection
         /// 获取数据集合
         /// </summary>
         internal IEnumerable<int> OnlyIntValues
@@ -66,7 +68,8 @@ namespace AutoCSer
         /// <summary>
         /// 带移除标记的可重用哈希表（最大支持 1023 个元素）
         /// </summary>
-        /// <param name="capacity">容器大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         public RemoveMarkHashSet(int capacity = 0)
         {
             this.capacity = UnmanagedRemoveMarkHashSetCapacity.DefaultLink.Get(capacity);
@@ -113,6 +116,7 @@ namespace AutoCSer
             capacity.UnmanagedPool.Free(ref Nodes);
         }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -121,6 +125,7 @@ namespace AutoCSer
             Count = valueCount = 0;
         }
         /// <summary>
+        /// Delete the node
         /// 删除节点
         /// </summary>
         /// <param name="nodeIndex"></param>
@@ -166,20 +171,24 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(int value)
         {
             return Contains((uint)value);
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否存在数据</returns>
+        /// <returns>Returning false indicates that there is no matching data
+        /// 返回 false 表示不存在匹配数据</returns>
         public bool Contains(uint value)
         {
             RemoveMarkHashNode* nodes = (RemoveMarkHashNode*)this.Nodes.Data;
@@ -551,7 +560,8 @@ namespace AutoCSer
         /// 获取数组
         /// </summary>
         /// <param name="arrayFixed"></param>
-        /// <returns>添加数据数量</returns>
+        /// <returns>The quantity of the added data
+        /// 添加数据数量</returns>
         private int getArray(uint* arrayFixed)
         {
             int removeIndex = Count, index = 0;
@@ -724,7 +734,8 @@ namespace AutoCSer
         /// <summary>
         /// 带移除标记的可重用哈希表（最大支持 1023 个元素）
         /// </summary>
-        /// <param name="capacity">容器大小</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
         public RemoveMarkHashSet(int capacity = 0)
         {
             this.capacity = RemoveMarkHashSetCapacity.DefaultLink.Get(capacity);
@@ -747,6 +758,7 @@ namespace AutoCSer
             foreach (T value in values) Add(value);
         }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -755,6 +767,7 @@ namespace AutoCSer
             Count = valueCount = 0;
         }
         /// <summary>
+        /// Delete the node
         /// 删除节点
         /// </summary>
         /// <param name="nodeIndex"></param>
@@ -788,6 +801,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>

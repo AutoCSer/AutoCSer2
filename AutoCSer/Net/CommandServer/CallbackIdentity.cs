@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Session callback identifier
     /// 会话回调标识
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = sizeof(uint) * 2)]
@@ -34,6 +35,7 @@ namespace AutoCSer.Net.CommandServer
         [System.Runtime.InteropServices.FieldOffset(sizeof(uint))]
         internal uint Identity;
         /// <summary>
+        /// Session callback identifier
         /// 会话回调标识
         /// </summary>
         /// <param name="index">会话序号</param>
@@ -43,6 +45,7 @@ namespace AutoCSer.Net.CommandServer
             Identity = 0;
         }
         /// <summary>
+        /// Session callback identifier
         /// 会话回调标识
         /// </summary>
         /// <param name="index">会话序号</param>

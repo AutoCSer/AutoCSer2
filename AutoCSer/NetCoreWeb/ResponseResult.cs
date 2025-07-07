@@ -60,6 +60,7 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         public ResponseStateEnum State;
         /// <summary>
+        /// Return result
         /// 返回结果
         /// </summary>
 #if NetStandard21

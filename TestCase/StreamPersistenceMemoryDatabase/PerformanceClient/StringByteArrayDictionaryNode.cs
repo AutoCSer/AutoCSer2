@@ -13,10 +13,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
     internal sealed class StringByteArrayDictionaryNode : AutoCSer.TestCase.Common.ClientPerformance
     {
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayDictionaryNodeClientNode<string>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateByteArrayDictionaryNode<string>(typeof(IByteArrayDictionaryNodeClientNode<string>).FullName));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<IByteArrayDictionaryNodeClientNode<string>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateByteArrayDictionaryNode<string>(typeof(IByteArrayDictionaryNodeClientNode<string>).FullName));

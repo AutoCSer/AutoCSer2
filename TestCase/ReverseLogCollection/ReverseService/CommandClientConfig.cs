@@ -13,7 +13,8 @@ namespace AutoCSer.TestCase.LogCollectionReverseService
     internal sealed class CommandClientConfig : AutoCSer.CommandService.ReverseLogCollection.CommandReverseListenerConfig
     {
         /// <summary>
-        /// 服务端注册组件
+        /// Server registration component
+        /// 服务注册组件
         /// </summary>
         private AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar<ServerRegistryCommandClientSocketEvent> registrar;
         /// <summary>

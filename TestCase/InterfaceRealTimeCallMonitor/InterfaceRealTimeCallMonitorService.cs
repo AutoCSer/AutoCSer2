@@ -31,8 +31,10 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="callIdentity">调用标识</param>
-        /// <param name="callType">调用接口类型</param>
-        /// <param name="callName">调用接口方法名称</param>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
+        /// <param name="callName">The name of the interface method to be called
+        /// 调用接口方法名称</param>
         /// <param name="timeoutMilliseconds">超时毫秒数</param>
         /// <param name="type">调用类型</param>
         /// <returns></returns>

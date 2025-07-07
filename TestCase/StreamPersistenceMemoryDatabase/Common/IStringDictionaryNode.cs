@@ -4,9 +4,10 @@ using System;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 测试字典节点接口
+    /// Dictionary generic expansion custom node interface example
+    /// 字典泛型展开自定义节点接口示例
     /// </summary>
-    [ServerNode(IsAutoMethodIndex = false, IsLocalClient = true)]
+    [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode]
     public partial interface IStringDictionaryNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDictionaryNode<string, string>
     {
     }

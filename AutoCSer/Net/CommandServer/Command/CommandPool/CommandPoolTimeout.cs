@@ -9,6 +9,7 @@ namespace AutoCSer.Net.CommandServer
     internal sealed class CommandPoolTimeout
     {
         /// <summary>
+        /// Client command pool
         /// 客户端命令池
         /// </summary>
         private readonly CommandPool commandPool;

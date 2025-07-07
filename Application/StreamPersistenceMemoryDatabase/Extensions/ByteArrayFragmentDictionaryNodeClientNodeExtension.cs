@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 namespace AutoCSer.Extensions
 {
     /// <summary>
-    /// 256 基分片字典 节点
+    /// 256-base fragment dictionary client node expansion operation
+    /// 256 基分片字典 客户端节点扩展操作
     /// </summary>
     public static class ByteArrayFragmentDictionaryNodeClientNodeExtension
     {
         /// <summary>
+        /// If the keyword does not exist, add the data
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -18,7 +20,8 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <returns>是否添加成功，否则表示关键字已经存在</returns>
+        /// <returns>Returning false indicates that the keyword already exists
+        /// 返回 false 表示关键字已经存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static ResponseParameterAwaiter<bool> TryAddBinarySerialize<KT, T>(this IByteArrayFragmentDictionaryNodeClientNode<KT> node, KT key, T? value)
@@ -30,6 +33,7 @@ namespace AutoCSer.Extensions
             return node.TryAdd(key, ServerByteArray.BinarySerialize(value));
         }
         /// <summary>
+        /// If the keyword does not exist, add the data
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -37,7 +41,8 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <returns>是否添加成功，否则表示关键字已经存在</returns>
+        /// <returns>Returning false indicates that the keyword already exists
+        /// 返回 false 表示关键字已经存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static ResponseParameterAwaiter<bool> TryAddJsonSerialize<KT, T>(this IByteArrayFragmentDictionaryNodeClientNode<KT> node, KT key, T? value)
@@ -50,6 +55,7 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
+        /// If the keyword does not exist, add the data
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -57,7 +63,7 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <returns>是否设置成功</returns>
+        /// <returns>Return false on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static ResponseParameterAwaiter<bool> SetBinarySerialize<KT, T>(this IByteArrayFragmentDictionaryNodeClientNode<KT> node, KT key, T? value)
@@ -69,6 +75,7 @@ namespace AutoCSer.Extensions
             return node.Set(key, ServerByteArray.BinarySerialize(value));
         }
         /// <summary>
+        /// If the keyword does not exist, add the data
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -76,7 +83,7 @@ namespace AutoCSer.Extensions
         /// <param name="node"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <returns>是否设置成功</returns>
+        /// <returns>Return false on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static ResponseParameterAwaiter<bool> SetJsonSerialize<KT, T>(this IByteArrayFragmentDictionaryNodeClientNode<KT> node, KT key, T? value)
@@ -89,6 +96,7 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -104,6 +112,7 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -120,6 +129,7 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -137,6 +147,7 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -152,6 +163,7 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -168,6 +180,7 @@ namespace AutoCSer.Extensions
             return responseParameter;
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <typeparam name="KT"></typeparam>

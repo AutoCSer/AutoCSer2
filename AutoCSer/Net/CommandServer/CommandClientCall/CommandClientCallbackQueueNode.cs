@@ -4,20 +4,23 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 客户端队列回调委托
+    /// Client queue callback task node
+    /// 客户端队列回调任务节点
     /// </summary>
     public sealed class CommandClientCallbackQueueNode  : CommandClientCallQueueNode
     {
         /// <summary>
+        /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
         internal readonly Action<CommandClientReturnValue, CommandClientCallQueue> Callback;
         /// <summary>
-        /// 返回值类型
+        /// The return type of the call
+        /// 调用返回类型
         /// </summary>
         internal CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         internal string? ErrorMessage;
@@ -25,7 +28,8 @@ namespace AutoCSer.Net
         internal string ErrorMessage;
 #endif
         /// <summary>
-        /// 客户端回调委托
+        /// Client queue callback task node
+        /// 客户端队列回调任务节点
         /// </summary>
         /// <param name="callback"></param>
         /// <param name="returnType"></param>
@@ -35,7 +39,8 @@ namespace AutoCSer.Net
             ReturnType = returnType;
         }
         /// <summary>
-        /// 客户端回调委托
+        /// Client queue callback task node
+        /// 客户端队列回调任务节点
         /// </summary>
         /// <param name="callback"></param>
         private CommandClientCallbackQueueNode(Action<CommandClientReturnValue, CommandClientCallQueue> callback)
@@ -43,6 +48,7 @@ namespace AutoCSer.Net
             Callback = callback;
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="queue"></param>
@@ -51,13 +57,14 @@ namespace AutoCSer.Net
             Callback(ReturnType, queue);
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientCallbackQueueNode(Action<CommandClientReturnValue, CommandClientCallQueue> value) { return new CommandClientCallbackQueueNode(value); }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue callback task node
+        /// 获取客户端队列回调任务节点
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
@@ -67,23 +74,28 @@ namespace AutoCSer.Net
             return new CommandClientCallbackQueueNode(callback);
         }
         /// <summary>
+        /// Successful callback, ignore error return
         /// 成功回调，忽略错误返回
         /// </summary>
         internal sealed class SuccessCallback
         {
             /// <summary>
+            /// The client callback delegate
             /// 客户端回调委托
             /// </summary>
             private readonly Action callback;
             /// <summary>
+            /// Successful callback, ignore error return
             /// 成功回调，忽略错误返回
             /// </summary>
-            /// <param name="callback">客户端回调委托</param>
+            /// <param name="callback">The client callback delegate
+            /// 客户端回调委托</param>
             internal SuccessCallback(Action callback)
             {
                 this.callback = callback;
             }
             /// <summary>
+            /// Client callback
             /// 客户端回调
             /// </summary>
             /// <param name="returnValue"></param>
@@ -94,29 +106,34 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 隐式转换（成功回调，忽略错误返回）
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientCallbackQueueNode(Action value) { return new CommandClientCallbackQueueNode(new SuccessCallback(value).Callback); }
         /// <summary>
+        /// Successful callback, ignore error return
         /// 成功回调，忽略错误返回
         /// </summary>
         internal sealed class SuccessCallbackQueue
         {
             /// <summary>
+            /// The client callback delegate
             /// 客户端回调委托
             /// </summary>
             private readonly Action<CommandClientCallQueue> callback;
             /// <summary>
+            /// Successful callback, ignore error return
             /// 成功回调，忽略错误返回
             /// </summary>
-            /// <param name="callback">客户端回调委托</param>
+            /// <param name="callback">The client callback delegate
+            /// 客户端回调委托</param>
             internal SuccessCallbackQueue(Action<CommandClientCallQueue> callback)
             {
                 this.callback = callback;
             }
             /// <summary>
+            /// Client callback
             /// 客户端回调
             /// </summary>
             /// <param name="returnValue"></param>
@@ -127,29 +144,34 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 隐式转换（成功回调，忽略错误返回）
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientCallbackQueueNode(Action<CommandClientCallQueue> value) { return new CommandClientCallbackQueueNode(new SuccessCallbackQueue(value).Callback); }
         /// <summary>
-        /// 返回值类型回调
+        /// The callback of the return type of the call
+        /// 调用返回类型回调
         /// </summary>
         internal sealed class ReturnTypeCallback
         {
             /// <summary>
+            /// The client callback delegate
             /// 客户端回调委托
             /// </summary>
             private readonly Action<CommandClientReturnValue> callback;
             /// <summary>
+            /// Successful callback, ignore error return
             /// 成功回调，忽略错误返回
             /// </summary>
-            /// <param name="callback">客户端回调委托</param>
+            /// <param name="callback">The client callback delegate
+            /// 客户端回调委托</param>
             internal ReturnTypeCallback(Action<CommandClientReturnValue> callback)
             {
                 this.callback = callback;
             }
             /// <summary>
+            /// Client callback
             /// 客户端回调
             /// </summary>
             /// <param name="returnValue"></param>
@@ -160,28 +182,31 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 隐式转换（成功回调，忽略错误返回）
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientCallbackQueueNode(Action<CommandClientReturnValue> value) { return new CommandClientCallbackQueueNode(new ReturnTypeCallback(value).Callback); }
     }
     /// <summary>
-    /// 客户端队列回调委托
+    /// Client queue callback task node
+    /// 客户端队列回调任务节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class CommandClientCallbackQueueNode<T> : CommandClientCallQueueNode
     {
         /// <summary>
+        /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
         internal readonly Action<CommandClientReturnValue<T>, CommandClientCallQueue> Callback;
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
         internal CommandClientReturnValue<T> ReturnValue;
         /// <summary>
-        /// 客户端回调委托
+        /// Client queue callback task node
+        /// 客户端队列回调任务节点
         /// </summary>
         /// <param name="callback"></param>
         private CommandClientCallbackQueueNode(Action<CommandClientReturnValue<T>, CommandClientCallQueue> callback)
@@ -189,18 +214,20 @@ namespace AutoCSer.Net
             Callback = callback;
         }
         /// <summary>
-        /// 客户端回调委托
+        /// Client queue callback task node
+        /// 客户端队列回调任务节点
         /// </summary>
         /// <param name="callback"></param>
         /// <param name="returnType"></param>
-        /// <param name="errorMessage">错误信息</param>
+        /// <param name="errorMessage">Error message</param>
         internal CommandClientCallbackQueueNode(Action<CommandClientReturnValue<T>, CommandClientCallQueue> callback, CommandClientReturnTypeEnum returnType, string errorMessage)
         {
             Callback = callback;
             ReturnValue = new CommandClientReturnValue<T>(returnType, errorMessage);
         }
         /// <summary>
-        /// 客户端回调委托
+        /// Client queue callback task node
+        /// 客户端队列回调任务节点
         /// </summary>
         /// <param name="callback"></param>
         /// <param name="returnValue"></param>
@@ -210,15 +237,19 @@ namespace AutoCSer.Net
             ReturnValue = returnValue;
         }
         /// <summary>
-        /// 客户端回调委托
+        /// Client queue callback task node
+        /// 客户端队列回调任务节点
         /// </summary>
-        /// <param name="callback">成功值回调</param>
-        /// <param name="errorCallback">错误类型回调</param>
+        /// <param name="callback">Success value callback delegate
+        /// 成功值回调委托</param>
+        /// <param name="errorCallback">Error return value type callback delegate
+        /// 错误成功值类型回调委托</param>
         public CommandClientCallbackQueueNode(Action<T, CommandClientCallQueue> callback, Action<CommandClientReturnTypeEnum, CommandClientCallQueue> errorCallback)
         {
             Callback = new ErrorCallback(callback, errorCallback).Callback;
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="queue"></param>
@@ -227,29 +258,36 @@ namespace AutoCSer.Net
             Callback(ReturnValue, queue);
         }
         /// <summary>
+        /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
         internal sealed class ErrorCallback
         {
             /// <summary>
-            /// 成功值回调
+            /// Success value callback delegate
+            /// 成功值回调委托
             /// </summary>
             private readonly Action<T, CommandClientCallQueue> callback;
             /// <summary>
-            /// 错误类型回调
+            /// Error return value type callback delegate
+            /// 错误成功值类型回调委托
             /// </summary>
             private readonly Action<CommandClientReturnTypeEnum, CommandClientCallQueue> errorCallback;
             /// <summary>
-            /// 错误回调
+            /// The client callback delegate
+            /// 客户端回调委托
             /// </summary>
-            /// <param name="callback">成功值回调</param>
-            /// <param name="errorCallback">错误类型回调</param>
+            /// <param name="callback">Success value callback delegate
+            /// 成功值回调委托</param>
+            /// <param name="errorCallback">Error return value type callback delegate
+            /// 错误成功值类型回调委托</param>
             internal ErrorCallback(Action<T, CommandClientCallQueue> callback, Action<CommandClientReturnTypeEnum, CommandClientCallQueue> errorCallback)
             {
                 this.callback = callback;
                 this.errorCallback = errorCallback;
             }
             /// <summary>
+            /// Client callback
             /// 客户端回调
             /// </summary>
             /// <param name="returnValue"></param>
@@ -261,13 +299,14 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientCallbackQueueNode<T>(Action<CommandClientReturnValue<T>, CommandClientCallQueue> value) { return new CommandClientCallbackQueueNode<T>(value); }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue callback task node
+        /// 获取客户端队列回调任务节点
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
@@ -277,23 +316,28 @@ namespace AutoCSer.Net
             return new CommandClientCallbackQueueNode<T>(callback);
         }
         /// <summary>
+        /// Successful callback, ignore error return
         /// 成功回调，忽略错误返回
         /// </summary>
         internal sealed class SuccessCallback
         {
             /// <summary>
+            /// The client callback delegate
             /// 客户端回调委托
             /// </summary>
             private readonly Action<T> callback;
             /// <summary>
+            /// Successful callback, ignore error return
             /// 成功回调，忽略错误返回
             /// </summary>
-            /// <param name="callback">客户端回调委托</param>
+            /// <param name="callback">The client callback delegate
+            /// 客户端回调委托</param>
             internal SuccessCallback(Action<T> callback)
             {
                 this.callback = callback;
             }
             /// <summary>
+            /// Client callback
             /// 客户端回调
             /// </summary>
             /// <param name="returnValue"></param>
@@ -304,29 +348,34 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 隐式转换（成功回调，忽略错误返回）
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientCallbackQueueNode<T>(Action<T> value) { return new CommandClientCallbackQueueNode<T>(new SuccessCallback(value).Callback); }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         internal sealed class ReturnValueCallback
         {
             /// <summary>
+            /// The client callback delegate
             /// 客户端回调委托
             /// </summary>
             private readonly Action<CommandClientReturnValue<T>> callback;
             /// <summary>
+            /// Return value callback
             /// 返回值回调
             /// </summary>
-            /// <param name="callback">客户端回调委托</param>
+            /// <param name="callback">The client callback delegate
+            /// 客户端回调委托</param>
             internal ReturnValueCallback(Action<CommandClientReturnValue<T>> callback)
             {
                 this.callback = callback;
             }
             /// <summary>
+            /// Client callback
             /// 客户端回调
             /// </summary>
             /// <param name="returnValue"></param>
@@ -337,10 +386,10 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 隐式转换（成功回调，忽略错误返回）
+        /// Implicit conversion
         /// </summary>
-        /// <param name="value">客户端回调委托</param>
-        /// <returns>客户端回调委托</returns>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static implicit operator CommandClientCallbackQueueNode<T>(Action<CommandClientReturnValue<T>> value) { return new CommandClientCallbackQueueNode<T>(new ReturnValueCallback(value).Callback); }
     }
 }

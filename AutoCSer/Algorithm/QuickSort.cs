@@ -32,7 +32,8 @@ namespace AutoCSer.Algorithm
         /// <summary>
         /// 范围排序
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置-1</param>
         internal void Sort(int startIndex, int endIndex)
         {
@@ -93,11 +94,14 @@ namespace AutoCSer.Algorithm
                     }
                     else
                     {
-                        if (leftIndex == rightIndex)
-                        {
-                            ++leftIndex;
-                            --rightIndex;
-                        }
+                        //if (leftIndex == rightIndex)
+                        //{
+                        //    ++leftIndex;
+                        //    --rightIndex;
+                        //}
+                        int indexValue = (leftIndex ^ rightIndex).logicalInversion();
+                        leftIndex += indexValue;
+                        rightIndex -= indexValue;
                         break;
                     }
                 }
@@ -116,6 +120,7 @@ namespace AutoCSer.Algorithm
             while (startIndex < endIndex);
         }
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="array">待排序数组</param>
@@ -130,8 +135,10 @@ namespace AutoCSer.Algorithm
         /// </summary>
         /// <param name="array">待排序数组</param>
         /// <param name="comparer">排序比较器</param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">排序数据数量</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="count">The quantity of data to be sorted
+        /// 排序数据数量</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Sort(T[] array, Func<T, T, int> comparer, int startIndex, int count)
         {

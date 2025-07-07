@@ -3,7 +3,7 @@
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 取消异步保持调用数据
+    /// 取消异步保持回调数据
     /// </summary>
 #if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
@@ -25,7 +25,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         public string? ErrorMessage;
@@ -33,7 +33,7 @@ namespace AutoCSer.Net.CommandServer
         public string ErrorMessage;
 #endif
         /// <summary>
-        /// 取消异步保持调用数据
+        /// 取消异步保持回调数据
         /// </summary>
         /// <param name="callbackIdentity"></param>
         internal CancelKeepCallbackData(ref CallbackIdentity callbackIdentity)
@@ -44,7 +44,7 @@ namespace AutoCSer.Net.CommandServer
             ErrorMessage = null;
         }
         /// <summary>
-        /// 取消异步保持调用数据
+        /// 取消异步保持回调数据
         /// </summary>
         /// <param name="callbackIdentity"></param>
         /// <param name="returnType"></param>

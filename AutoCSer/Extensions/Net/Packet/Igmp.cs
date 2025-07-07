@@ -56,12 +56,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// IGMP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Igmp(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// IGMP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Igmp(ref SubArray<byte> data)
         {
             this.data = data.Length >= DefaultSize ? data : default(SubArray<byte>);

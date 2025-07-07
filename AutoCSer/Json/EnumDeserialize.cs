@@ -17,7 +17,7 @@ namespace AutoCSer.Json
         /// 枚举值解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         protected static void deserialize(JsonDeserializer jsonDeserializer, ref T value)
         {
             int index = enumSearcher.SearchString(jsonDeserializer);
@@ -28,7 +28,7 @@ namespace AutoCSer.Json
         /// 枚举值解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <param name="index">第一个枚举索引</param>
         /// <param name="nextIndex">第二个枚举索引</param>
         protected static void getIndex(JsonDeserializer jsonDeserializer, ref T value, out int index, ref int nextIndex)

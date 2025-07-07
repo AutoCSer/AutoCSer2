@@ -24,7 +24,8 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         private readonly Func<View> getView;
         /// <summary>
-        /// 数据视图自定义属性
+        /// Custom configuration of the data view
+        /// 数据视图自定义配置
         /// </summary>
         internal readonly ViewAttribute Attribute;
         /// <summary>

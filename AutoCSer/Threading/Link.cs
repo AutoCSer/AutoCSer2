@@ -11,14 +11,14 @@ using static System.Net.Mime.MediaTypeNames;
 namespace AutoCSer.Threading
 {
     /// <summary>
-    /// 链表节点
+    /// Linked list node
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract partial class Link<T>
         where T : Link<T>
     {
         /// <summary>
-        /// 下一个节点
+        /// The next node
         /// </summary>
         [AutoCSer.BinarySerializeMember(IsIgnoreCurrent = true)]
         [AutoCSer.JsonSerializeMember(IsIgnoreCurrent = true)]
@@ -28,6 +28,7 @@ namespace AutoCSer.Threading
         internal T LinkNext;
 #endif
         /// <summary>
+        /// Get and clear the next node
         /// 获取并清除下一个节点
         /// </summary>
         /// <returns></returns>
@@ -43,6 +44,7 @@ namespace AutoCSer.Threading
             return value;
         }
         /// <summary>
+        /// Gets the last node of the linked list
         /// 获取链表最后一个节点
         /// </summary>
         /// <param name="head"></param>
@@ -58,6 +60,7 @@ namespace AutoCSer.Threading
             while (true);
         }
         /// <summary>
+        /// Gets the last node of the linked list
         /// 获取链表最后一个节点
         /// </summary>
         /// <param name="head"></param>
@@ -76,6 +79,7 @@ namespace AutoCSer.Threading
             while (true);
         }
         /// <summary>
+        /// Reversed linked list
         /// 逆转链表
         /// </summary>
         /// <returns></returns>
@@ -91,6 +95,7 @@ namespace AutoCSer.Threading
             return (T)this;
         }
         /// <summary>
+        /// Reversed linked list
         /// 逆转链表
         /// </summary>
         /// <param name="head"></param>
@@ -112,6 +117,7 @@ namespace AutoCSer.Threading
             while (true);
         }
         /// <summary>
+        /// Gets the middle position node
         /// 获取中间节点
         /// </summary>
         /// <param name="head"></param>

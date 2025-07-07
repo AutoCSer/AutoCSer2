@@ -5,6 +5,7 @@ using AutoCSer.Extensions;
 namespace AutoCSer
 {
     /// <summary>
+    /// Array substring
     /// 数组子串
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -12,18 +13,22 @@ namespace AutoCSer
     public struct SubArray<T>// : IList<T>
     {
         /// <summary>
+        /// Original array
         /// 原数组
         /// </summary>
         internal T[] Array;
         /// <summary>
+        /// The starting position in the original array
         /// 原数组中的起始位置
         /// </summary>
         internal int Start;
         /// <summary>
-        /// 数据长度
+        /// Effective data length
+        /// 有效数据长度
         /// </summary>
         internal int Length;
         /// <summary>
+        /// Data end position
         /// 数据结束位置
         /// </summary>
         internal int EndIndex
@@ -34,6 +39,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Array substring
         /// 数组子串
         /// </summary>
         /// <param name="array"></param>
@@ -44,6 +50,7 @@ namespace AutoCSer
             Length = array != null ? array.Length : 0;
         }
         /// <summary>
+        /// Array substring
         /// 数组子串
         /// </summary>
         /// <param name="startIndex"></param>
@@ -56,7 +63,8 @@ namespace AutoCSer
             Length = length;
         }
         /// <summary>
-        /// 用于命令服务返回类型
+        /// Used for the command service to return the error type
+        /// 用于命令服务返回错误类型
         /// </summary>
         /// <param name="startIndex"></param>
         internal SubArray(int startIndex)
@@ -66,11 +74,15 @@ namespace AutoCSer
             Array = EmptyArray<T>.Array;
         }
         /// <summary>
+        /// Array substring
         /// 数组子串
         /// </summary>
-        /// <param name="array">原数据</param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="length">数据数量</param>
+        /// <param name="array">Original array
+        /// 原数组</param>
+        /// <param name="startIndex">The starting position in the original array
+        /// 原数组中的起始位置</param>
+        /// <param name="length">Effective data length
+        /// 有效数据长度</param>
         public SubArray(T[] array, int startIndex, int length)
         {
             if (array == null) throw new ArgumentNullException();
@@ -80,24 +92,29 @@ namespace AutoCSer
             Length = length;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="array"></param>
         public static implicit operator SubArray<T>(T[] array) { return new SubArray<T>(array); }
         /// <summary>
-        /// 获取数组子串原始数组数据
+        /// Get the original array object
+        /// 获取原始数组对象
         /// </summary>
-        /// <param name="dataIndex">原数组中的起始位置</param>
-        /// <param name="dataSize">数据长度</param>
-        /// <returns>原数组</returns>
+        /// <param name="startIndex">The starting position in the original array
+        /// 原数组中的起始位置</param>
+        /// <param name="length">Effective data length
+        /// 有效数据长度</param>
+        /// <returns>Original array
+        /// 原数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public T[] GetArray(out int dataIndex, out int dataSize)
+        public T[] GetArray(out int startIndex, out int length)
         {
-            dataIndex = Start;
-            dataSize = Length;
+            startIndex = Start;
+            length = Length;
             return Array;
         }
         /// <summary>
+        /// Empty and release the array
         /// 置空并释放数组
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -107,7 +124,8 @@ namespace AutoCSer
             Length = Start = 0;
         }
         /// <summary>
-        /// 重置数据
+        /// Reset the array data
+        /// 重置数组数据
         /// </summary>
         /// <param name="array"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -118,10 +136,13 @@ namespace AutoCSer
             Length = array.Length;
         }
         /// <summary>
-        /// 重置数据
+        /// Reset the array position data
+        /// 重置数组位置数据
         /// </summary>
-        /// <param name="startIndex">起始位置,必须合法</param>
-        /// <param name="length">长度,必须合法</param>
+        /// <param name="startIndex">The starting position in the original array
+        /// 原数组中的起始位置</param>
+        /// <param name="length">Effective data length
+        /// 有效数据长度</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(int startIndex, int length)
         {
@@ -129,11 +150,15 @@ namespace AutoCSer
             Length = length;
         }
         /// <summary>
-        /// 重置数据
+        /// Reset the array data
+        /// 重置数组数据
         /// </summary>
-        /// <param name="array">数组,不能为null</param>
-        /// <param name="startIndex">起始位置,必须合法</param>
-        /// <param name="length">长度,必须合法</param>
+        /// <param name="array">Original array
+        /// 原数组</param>
+        /// <param name="startIndex">The starting position in the original array
+        /// 原数组中的起始位置</param>
+        /// <param name="length">Effective data length
+        /// 有效数据长度</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Set(T[] array, int startIndex, int length)
         {
@@ -142,7 +167,8 @@ namespace AutoCSer
             Length = length;
         }
         /// <summary>
-        /// 修改起始位置
+        /// Move the starting position
+        /// 移动起始位置
         /// </summary>
         /// <param name="size"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -152,7 +178,8 @@ namespace AutoCSer
             Length -= size;
         }
         /// <summary>
-        /// 修改起始位置并返回数据长度
+        /// Return the length of the valid data after moving the starting position
+        /// 移动起始位置后返回有效数据长度
         /// </summary>
         /// <param name="size"></param>
         /// <returns></returns>
@@ -163,9 +190,10 @@ namespace AutoCSer
             return Length -= size;
         }
         /// <summary>
-        /// 转换数组
+        /// Create and convert to an array object
+        /// 创建转换为数组对象
         /// </summary>
-        /// <returns>数组</returns>
+        /// <returns></returns>
         public T[] GetArray()
         {
             if (Length == 0) return EmptyArray<T>.Array;
@@ -174,11 +202,14 @@ namespace AutoCSer
             return newArray;
         }
         /// <summary>
-        /// 转换数组
+        /// Create and convert to an array object
+        /// 创建转换为数组对象
         /// </summary>
-        /// <typeparam name="VT">数组类型</typeparam>
-        /// <param name="getValue">数据获取委托</param>
-        /// <returns>数组</returns>
+        /// <typeparam name="VT">Array data type
+        /// 数组数据类型</typeparam>
+        /// <param name="getValue">Delegate for converting data
+        /// 转换数据委托</param>
+        /// <returns></returns>
         public VT[] GetArray<VT>(Func<T, VT> getValue)
         {
             if (Length == 0) return EmptyArray<VT>.Array;
@@ -203,6 +234,7 @@ namespace AutoCSer
         //}
 
         /// <summary>
+        /// Get the fixed buffer, DEBUG mode to detect the data range
         /// 获取 fixed 缓冲区，DEBUG 模式对数据范围进行检测
         /// </summary>
         /// <returns></returns>
@@ -216,7 +248,8 @@ namespace AutoCSer
         }
 #if DEBUG
         /// <summary>
-        /// fixed 之前检查数据
+        /// Check the data before the fixed operation
+        /// fixed 操作之前检查数据
         /// </summary>
         internal void DebugCheckFixed()
         {

@@ -15,7 +15,8 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 读取字符串
         /// </summary>
         /// <param name="client">磁盘块客户端接口</param>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         internal ReadStringAwaiter(IDiskBlockClient client, BlockIndex blockIndex) : base(client, blockIndex) { }
         /// <summary>
         /// 反序列化

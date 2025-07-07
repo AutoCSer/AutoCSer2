@@ -58,7 +58,7 @@ namespace AutoCSer
     /// <summary>
     /// 开启线程获取 Task.Result 防止后续操作出现同步阻塞 Task 调度线程
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     internal sealed class WaitTask<T>
     {
         /// <summary>

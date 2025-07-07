@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// TCP 服务器端异步保持回调
+    /// TCP 服务器端异步保持回调计数任务
     /// </summary>
     public class CommandServerKeepCallbackCountTask : CommandServerKeepCallbackCount
     {
@@ -15,7 +15,7 @@ namespace AutoCSer.Net
         /// </summary>
         protected Task callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP 服务器端异步保持回调计数任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
@@ -27,7 +27,7 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP 服务器端异步保持回调计数任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="outputCount"></param>
@@ -79,7 +79,8 @@ namespace AutoCSer.Net
             return onCompletedAutoCancelKeep;
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="outputCount"></param>
@@ -90,6 +91,7 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCountTask(socket, OfflineCount.Null, outputCount);
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>
@@ -106,6 +108,7 @@ namespace AutoCSer.Net
             else callTask.GetAwaiter().UnsafeOnCompleted(task.setCallTask(callTask));
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>
@@ -124,7 +127,7 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
-    /// TCP 服务器端异步保持回调
+    /// TCP 服务器端异步保持回调计数任务
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class CommandServerKeepCallbackCountTask<T> : CommandServerKeepCallbackCount<T>
@@ -134,7 +137,7 @@ namespace AutoCSer.Net
         /// </summary>
         protected Task callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP 服务器端异步保持回调计数任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
@@ -146,7 +149,7 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP 服务器端异步保持回调计数任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -198,7 +201,8 @@ namespace AutoCSer.Net
             return onCompletedAutoCancelKeep;
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -209,6 +213,7 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallbackCountTask<T>(socket, OfflineCount.Null, method);
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>
@@ -225,6 +230,7 @@ namespace AutoCSer.Net
             else callTask.GetAwaiter().UnsafeOnCompleted(task.setCallTask(callTask));
         }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         /// <param name="task"></param>

@@ -8,7 +8,8 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             /// <returns></returns>
             public static bool Call()
@@ -89,7 +90,8 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF BinarySerializeMemberTypes.Length
             /// <summary>
-            /// 二进制反序列化成员类型代码生成调用激活 AOT 反射
+            /// Binary deserialization member type activation reflection
+            /// 二进制反序列化成员类型激活反射
             /// </summary>
             private static void binaryDeserializeMemberTypes()
             {
@@ -103,7 +105,8 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF BinarySerializeMemberTypes.Length
             #region IF JsonDeserializeMemberTypes.Length
             /// <summary>
-            /// JSON 反序列化成员类型代码生成调用激活 AOT 反射
+            /// JSON deserialization member type activation reflection
+            /// JSON 反序列化成员类型激活反射
             /// </summary>
             private static void jsonDeserializeMemberTypes()
             {
@@ -115,7 +118,8 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF JsonDeserializeMemberTypes.Length
             #region IF XmlDeserializeMemberTypes.Length
             /// <summary>
-            /// XML 反序列化成员类型代码生成调用激活 AOT 反射
+            /// XML deserialization member type activation reflection
+            /// XML 反序列化成员类型激活反射
             /// </summary>
             private static void xmlDeserializeMemberTypes()
             {

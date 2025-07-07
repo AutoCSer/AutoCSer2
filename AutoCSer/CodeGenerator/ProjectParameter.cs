@@ -228,7 +228,7 @@ namespace AutoCSer.CodeGenerator
             try
             {
                 await AutoCSer.LogHelper.Info(string.Join(@""", @""", args), LogLevelEnum.Info | LogLevelEnum.AutoCSer);
-                //args = new string[] { @"AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\ ", @"C:\AutoCSer2\TestCase\StreamPersistenceMemoryDatabase\Common\bin\Release\net8.0\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT.dll ", @"AutoCSer.TestCase.StreamPersistenceMemoryDatabase" };
+                //args = new string[] { @"AutoCSer.CommandService.TimestampVerify.NET8", @"C:\AutoCSer2\Application\TimestampVerify\ ", @"C:\AutoCSer2\Application\TimestampVerify\bin\Release\net8.0\AutoCSer.CommandService.TimestampVerify.dll ", @"AutoCSer.CommandService.TimestampVerify" };
                 if (args.Length >= 4)
                 {
                     ProjectParameter parameter = new ProjectParameter(args[0].TrimEnd(' '), args[1].TrimEnd(' '), args[2].TrimEnd(' '), args[3].TrimEnd(' '), args.Length > 4);

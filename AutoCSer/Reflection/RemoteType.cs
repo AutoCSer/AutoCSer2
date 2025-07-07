@@ -8,7 +8,8 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Reflection
 {
     /// <summary>
-    /// 远程类型
+    /// Remote type (for serialization operations)
+    /// 远程类型（用于序列化操作）
     /// </summary>
 #if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
@@ -18,19 +19,16 @@ namespace AutoCSer.Reflection
     public partial struct RemoteType : IEquatable<RemoteType>
     {
         /// <summary>
-        /// 数组类型索引位置
-        /// </summary>
-        private const int arrayChar = (0x7f + 0x23) >> 1;
-
-        /// <summary>
+        /// Assembly name
         /// 程序集名称
         /// </summary>
         public string AssemblyName;
         /// <summary>
-        /// 类型名称
+        /// Type name
         /// </summary>
         public string Name;
         /// <summary>
+        /// Remote type (for serialization operations)
         /// 远程类型
         /// </summary>
         /// <param name="assemblyName"></param>
@@ -41,6 +39,7 @@ namespace AutoCSer.Reflection
             Name = typeName;
         }
         /// <summary>
+        /// Set type information
         /// 设置类型信息
         /// </summary>
         /// <param name="assemblyName"></param>
@@ -52,9 +51,10 @@ namespace AutoCSer.Reflection
             Name = typeName;
         }
         /// <summary>
+        /// Remote type (for serialization operations)
         /// 远程类型
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         public RemoteType(Type type)
         {
             var name = default(string);
@@ -72,17 +72,19 @@ namespace AutoCSer.Reflection
             AssemblyName = assemblyName;
         }
         /// <summary>
-        /// 类型隐式转换
+        /// Implicit conversion
         /// </summary>
-        /// <param name="type">类型</param>
-        /// <returns>远程类型</returns>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static implicit operator RemoteType(Type type) { return new RemoteType(type); }
         /// <summary>
+        /// Try to get the type
         /// 尝试获取类型
         /// </summary>
-        /// <param name="type">类型</param>
-        /// <param name="checkType">是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性</param>
-        /// <returns>是否成功</returns>
+        /// <param name="type"></param>
+        /// <param name="checkType">The default is true, indicating that AutoCSer.Common.Config.CheckRemoteType needs to be called to check the validity of the remote type
+        /// 默认为 true 表示需要调用 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性</param>
+        /// <returns>Return false on failure</returns>
 #if NetStandard21
         public bool TryGet([MaybeNullWhen(false)] out Type type, bool checkType = true)
 #else
@@ -155,6 +157,12 @@ namespace AutoCSer.Reflection
         }
 
         /// <summary>
+        /// Fixed type maximum quantity
+        /// 固定类型最大数量 46
+        /// </summary>
+        private const int arrayChar = (0x7f + 0x23) >> 1;
+        /// <summary>
+        /// Fixed type collection
         /// 固定类型集合
         /// </summary>
         private static readonly Type[] fixedTypes = new Type[] 
@@ -168,6 +176,7 @@ namespace AutoCSer.Reflection
         };
 #if AOT
         /// <summary>
+        /// Fixed type collection
         /// 固定类型集合
         /// </summary>
         private static readonly Type[] fixedArrayTypes = new Type[]
@@ -181,7 +190,8 @@ namespace AutoCSer.Reflection
         };
 #endif
         /// <summary>
-        /// 类型代码名称集合
+        /// Fixed type name collection
+        /// 固定类型名称集合
         /// </summary>
         private static readonly Dictionary<HashObject<System.Type>, string> typeNames;
         unsafe static RemoteType()
@@ -199,7 +209,7 @@ namespace AutoCSer.Reflection
 #else
                 typeNames.Add(type.MakeArrayType(), ((char)(typeIndex + arrayChar)).ToString());
 #endif
-                if (++typeIndex == arrayChar) break;//最多支持 46 个类型
+                if (++typeIndex == arrayChar) break;
             }
         }
     }

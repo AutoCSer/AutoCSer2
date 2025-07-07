@@ -95,12 +95,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// ARP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Arp(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// ARP数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Arp(ref SubArray<byte> data)
         {
             this.data = data.Length >= PacketSize ? data : default(SubArray<byte>);

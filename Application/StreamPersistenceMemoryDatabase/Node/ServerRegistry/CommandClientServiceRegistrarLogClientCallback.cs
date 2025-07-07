@@ -5,15 +5,18 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
 {
     /// <summary>
-    /// 注册服务客户端日志回调
+    /// The client callback for the registration server log
+    /// 注册服务日志客户端回调
     /// </summary>
     internal sealed class CommandClientServiceRegistrarLogClientCallback
     {
         /// <summary>
+        /// The client of the registration server
         /// 注册服务客户端
         /// </summary>
         private readonly CommandClientServiceRegistrarLogClient client;
         /// <summary>
+        /// Keep callback of get service logs
         /// 服务日志保持回调
         /// </summary>
 #if NetStandard21
@@ -22,6 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         private AutoCSer.Net.CommandKeepCallback keepCallback;
 #endif
         /// <summary>
+        /// Current main log
         /// 当前主日志
         /// </summary>
 #if NetStandard21
@@ -30,15 +34,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         private ServerRegistryLog mainLog;
 #endif
         /// <summary>
+        /// Additional log collection
         /// 附加日志集合
         /// </summary>
         private LeftArray<ServerRegistryLog> logs;
         /// <summary>
+        /// Has the initial data been loaded completely
         /// 是否已经加载完初始数据
         /// </summary>
         private bool isLoaded;
         /// <summary>
-        /// 注册服务客户端日志回调
+        /// The client callback for the registration server log
+        /// 注册服务日志客户端回调
         /// </summary>
         /// <param name="client"></param>
         internal CommandClientServiceRegistrarLogClientCallback(CommandClientServiceRegistrarLogClient client)
@@ -47,7 +54,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             logs = new LeftArray<ServerRegistryLog>(0);
         }
         /// <summary>
-        /// 取消回调操作
+        /// Cancel the keep callback
+        /// 取消保持回调
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Cancel()
@@ -55,6 +63,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             keepCallback?.Dispose();
         }
         /// <summary>
+        /// Gets the server registration log
         /// 获取服务注册日志
         /// </summary>
         /// <param name="node"></param>
@@ -64,7 +73,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             keepCallback = await node.LogCallback(client.ServerName, logCallback);
         }
         /// <summary>
-        /// 服务日志回调
+        /// Server registration log callback
+        /// 服务注册日志回调
         /// </summary>
         /// <param name="result"></param>
         /// <param name="command"></param>

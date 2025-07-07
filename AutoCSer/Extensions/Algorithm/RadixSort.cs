@@ -18,6 +18,7 @@ namespace AutoCSer.Algorithm
         internal const int SortSize64 = 4 << 9;
 
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="arrayFixed">数组起始位置</param>
@@ -71,11 +72,14 @@ namespace AutoCSer.Algorithm
             finally { countPointer.PushOnly(); }
         }
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="array">待排序数组</param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">排序数据数量</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="count">The quantity of data to be sorted
+        /// 排序数据数量</param>
         internal static void Sort(uint[] array, int startIndex, int count)
         {
             UnmanagedPoolPointer swap = UnmanagedPool.GetPoolPointer(count * sizeof(uint));
@@ -91,6 +95,7 @@ namespace AutoCSer.Algorithm
         }
 
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="arrayFixed">数组起始位置</param>
@@ -145,11 +150,14 @@ namespace AutoCSer.Algorithm
             finally { countPointer.PushOnly(); }
         }
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="array">待排序数组</param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">排序数据数量</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="count">The quantity of data to be sorted
+        /// 排序数据数量</param>
         internal static void Sort(int[] array, int startIndex, int count)
         {
             UnmanagedPoolPointer swap = UnmanagedPool.GetPoolPointer(count * sizeof(uint));
@@ -165,6 +173,7 @@ namespace AutoCSer.Algorithm
         }
 
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="arrayFixed">数组起始位置</param>
@@ -251,11 +260,14 @@ namespace AutoCSer.Algorithm
             finally { countPointer.PushOnly(); }
         }
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="array">待排序数组</param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">排序数据数量</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="count">The quantity of data to be sorted
+        /// 排序数据数量</param>
         internal static void Sort(ulong[] array, int startIndex, int count)
         {
             UnmanagedPoolPointer swap = UnmanagedPool.GetPoolPointer(count * sizeof(ulong));
@@ -271,6 +283,7 @@ namespace AutoCSer.Algorithm
         }
 
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="arrayFixed">数组起始位置</param>
@@ -364,11 +377,14 @@ namespace AutoCSer.Algorithm
             finally { countPointer.PushOnly(); }
         }
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
         /// <param name="array">待排序数组</param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">排序数据数量</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="count">The quantity of data to be sorted
+        /// 排序数据数量</param>
         internal static void Sort(long[] array, int startIndex, int count)
         {
             UnmanagedPoolPointer swap = UnmanagedPool.GetPoolPointer(count * sizeof(ulong));

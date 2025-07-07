@@ -9,7 +9,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 支持快照接口的服务端节点
     /// </summary>
-    /// <typeparam name="T">节点接口类型</typeparam>
+    /// <typeparam name="T">Node interface type
+    /// 节点接口类型</typeparam>
     public sealed class ServerSnapshotNode<T> : ServerNode<T>
     {
         /// <summary>
@@ -20,8 +21,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 支持快照接口的服务端节点
         /// </summary>
         /// <param name="service"></param>
-        /// <param name="index"></param>
-        /// <param name="key">节点全局关键字</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
         /// <param name="target"></param>
         /// <param name="isPersistence">默认为 true 表示持久化为数据库，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         internal ServerSnapshotNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, bool isPersistence = true) : base(service, index, key, target, isPersistence)
@@ -104,7 +107,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             foreach (SnapshotNode snapshot in snapshots) snapshot.Close();
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         internal override void GetSnapshotArray()
         {
@@ -114,9 +118,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
-        /// <returns>是否成功</returns>
+        /// <returns>Return false on failure</returns>
         internal override bool GetSnapshotResult()
         {
             if (!IsLoadException)

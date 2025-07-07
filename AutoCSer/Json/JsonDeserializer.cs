@@ -68,7 +68,8 @@ namespace AutoCSer
         /// </summary>
         private bool isEndNumber;
         /// <summary>
-        /// 是否通过 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
+        /// Whether it is necessary to call AutoCSer.Common.Config.CheckRemoteType to check the validity of the remote type
+        /// 是否需要调用 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性
         /// </summary>
         private bool isCheckRemoteType = true;
         /// <summary>
@@ -83,8 +84,8 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>
         /// <param name="json">Json字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>解析状态</returns>
 #if NetStandard21
         private DeserializeResult deserialize<T>(ref SubString json, ref T? value, JsonDeserializeConfig? config)
@@ -112,8 +113,8 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>
         /// <param name="json">Json字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>解析状态</returns>
 #if NetStandard21
         private DeserializeResult deserialize<T>(string json, ref T? value, JsonDeserializeConfig? config)
@@ -142,7 +143,7 @@ namespace AutoCSer
         /// <typeparam name="T">目标类型</typeparam>
         /// <param name="json">Json字符串</param>
         /// <param name="length">Json长度</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <returns>解析状态</returns>
 #if NetStandard21
         internal DeserializeResult Deserialize<T>(char* json, int length, ref T? value)
@@ -164,7 +165,7 @@ namespace AutoCSer
         /// JSON 解析
         /// </summary>
         /// <typeparam name="T">目标类型</typeparam>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <returns>解析状态</returns>
 #if NetStandard21
         private void deserialize<T>(ref T? value)
@@ -214,10 +215,10 @@ namespace AutoCSer
 //        /// <summary>
 //        /// 命令服务反序列化
 //        /// </summary>
-//        /// <typeparam name="T">数据类型</typeparam>
-//        /// <param name="data">数据</param>
-//        /// <param name="value">目标对象</param>
-//        /// <returns>是否成功</returns>
+//        /// <typeparam name="T">Data type</typeparam>
+//        /// <param name="data">Data</param>
+//        /// <param name="value">Target object</param>
+//        /// <returns>Return false on failure</returns>
 //#if NetStandard21
 //        internal bool DeserializeCommandServer<T>(ref SubArray<byte> data, ref T? value)
 //#else
@@ -241,10 +242,10 @@ namespace AutoCSer
 //        /// <summary>
 //        /// 命令服务反序列化
 //        /// </summary>
-//        /// <typeparam name="T">数据类型</typeparam>
+//        /// <typeparam name="T">Data type</typeparam>
 //        /// <param name="deserializer"></param>
-//        /// <param name="value">目标对象</param>
-//        /// <returns>是否成功</returns>
+//        /// <param name="value">Target object</param>
+//        /// <returns>Return false on failure</returns>
 //#if NetStandard21
 //        internal bool DeserializeCommandServer<T>(BinaryDeserializer deserializer, ref T? value)
 //#else
@@ -306,48 +307,60 @@ namespace AutoCSer
         /// <summary>
         /// 扫描空格字符
         /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void space()
         {
+            if (Current != end)
+            {
+                if (((bits[*(byte*)Current] & DeserializeSpaceStartBit) | *(((byte*)Current) + 1)) != 0) return;
+                spaceNext();
+            }
+        }
+        /// <summary>
+        /// 扫描空格字符
+        /// </summary>
+        private void spaceNext()
+        {
         SPACE:
-            if (isEndSpace)
+            if (*Current != '/')
             {
-                do
+                if (++Current != end)
                 {
-                    if (Current != end)
+                    if (!isEndSpace)
                     {
-                        if (((bits[*(byte*)Current] & DeserializeSpaceBit) | *(((byte*)Current) + 1)) != 0)
+                        do
                         {
-                            if (*Current == '/') break;
-                            return;
+                            if (((bits[*(byte*)Current] & DeserializeSpaceBit) | *(((byte*)Current) + 1)) != 0)
+                            {
+                                if (*Current != '/') return;
+                                goto NOTE;
+                            }
                         }
-                        ++Current;
+                        while (++Current != end);
+                        return;
                     }
-                    else return;
+                    while (((bits[*(byte*)Current] & DeserializeSpaceBit) | *(((byte*)Current) + 1)) == 0) ++Current;
+                    if (*Current != '/') return;
                 }
-                while (true);
+                else return;
             }
-            else
-            {
-                while (((bits[*(byte*)Current] & DeserializeSpaceBit) | *(((byte*)Current) + 1)) == 0) ++Current;
-                if (*Current != '/' || Current == end) return;
-            }
+        NOTE:
             if (++Current != end)
             {
                 if (*Current == '/')
                 {
-                    if (endChar == '\n')
+                    ++Current;
+                    if (endChar != '\n')
                     {
-                        while (*++Current != '\n') ;
-                        ++Current;
+                        if (Current == end || !isFindChar(0xa000a000a000aUL) || !isFindChar('\n')) return;
                     }
                     else
                     {
-                        do
-                        {
-                            if (++Current == end) return;
-                        }
-                        while (*Current != '\n');
+                        findChar(0xa000a000a000aUL);
+                        while (*Current != '\n') ++Current;
                     }
+                    if (++Current == end) return;
+                    if (((bits[*(byte*)Current] & DeserializeSpaceStartBit) | *(((byte*)Current) + 1)) != 0) return;
                     goto SPACE;
                 }
                 if (*Current == '*')
@@ -358,48 +371,33 @@ namespace AutoCSer
                         {
                             while (++Current != end)
                             {
+                                findChar(0x2f002f002f002fUL);
                                 while (*Current != '/') ++Current;
                                 if (*(Current - 1) == '*')
                                 {
-                                    ++Current;
+                                    if (++Current == end) return;
+                                    if (((bits[*(byte*)Current] & DeserializeSpaceStartBit) | *(((byte*)Current) + 1)) != 0) return;
                                     goto SPACE;
                                 }
                                 if (++Current == end) break;
                             }
-                            State = DeserializeStateEnum.NoteNotRound;
-                            return;
                         }
-                        do
+                        else
                         {
-                            while (*Current != '*')
+                            while (++Current != end && isFindChar(0x2f002f002f002fUL) && isFindChar('/'))
                             {
-                                if (++Current == end)
+                                if (*(Current - 1) == '*')
                                 {
-                                    State = DeserializeStateEnum.NoteNotRound;
-                                    return;
+                                    if (++Current == end) return;
+                                    if (((bits[*(byte*)Current] & DeserializeSpaceStartBit) | *(((byte*)Current) + 1)) != 0) return;
+                                    goto SPACE;
                                 }
-                            }
-                            if (++Current != end)
-                            {
-                                if (*Current == '/')
-                                {
-                                    if (++Current != end) goto SPACE;
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                State = DeserializeStateEnum.NoteNotRound;
-                                return;
+                                if (++Current == end) break;
                             }
                         }
-                        while (true);
                     }
-                    else
-                    {
-                        State = DeserializeStateEnum.NoteNotRound;
-                        return;
-                    }
+                    State = DeserializeStateEnum.NoteNotRound;
+                    return;
                 }
             }
             State = DeserializeStateEnum.UnknownNote;
@@ -437,7 +435,7 @@ namespace AutoCSer
         /// JSON 反序列化
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         internal static void Deserialize<T>(JsonDeserializer jsonDeserializer, ref T? value)
@@ -501,7 +499,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="BT"></typeparam>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
 #if NetStandard21
         private void baseSerialize<T, BT>(ref T? value) where T : class, BT
 #else
@@ -535,7 +533,7 @@ namespace AutoCSer
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="BT"></typeparam>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void Base<T, BT>(JsonDeserializer jsonDeserializer, ref T? value) where T : class, BT
@@ -767,7 +765,7 @@ namespace AutoCSer
         /// 值类型对象解析
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         public void JsonDeserialize<T>(ref Nullable<T> value) where T : struct
         {
             if (tryNull()) value = null;
@@ -783,7 +781,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Nullable<T>(JsonDeserializer jsonDeserializer, ref Nullable<T> value) where T : struct
         {
@@ -891,7 +889,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="KT"></typeparam>
         /// <typeparam name="VT"></typeparam>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         public void JsonDeserialize<KT, VT>(ref KeyValuePair<KT, VT> value)
         {
             KeyValue<KT, VT> keyValue = new KeyValue<KT, VT>(value.Key, value.Value);
@@ -904,7 +902,7 @@ namespace AutoCSer
         /// <typeparam name="KT"></typeparam>
         /// <typeparam name="VT"></typeparam>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void KeyValuePair<KT, VT>(JsonDeserializer jsonDeserializer, ref KeyValuePair<KT, VT> value)
         {
@@ -1049,7 +1047,7 @@ namespace AutoCSer
         /// <summary>
         /// 逻辑值解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <returns>解析状态</returns>
         public void JsonDeserialize(ref bool value)
         {
@@ -1077,7 +1075,7 @@ namespace AutoCSer
         /// <summary>
         /// 逻辑值解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <returns>解析状态</returns>
         public void JsonDeserialize(ref bool? value)
         {
@@ -1146,7 +1144,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref byte value)
         {
@@ -1156,7 +1154,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         private void primitiveDeserialize(ref byte value)
         {
             uint value32 = primitiveDeserializeUInt();
@@ -1202,7 +1200,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref byte? value)
         {
             if (IsBinaryMix)
@@ -1231,7 +1229,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref sbyte value)
         {
@@ -1241,7 +1239,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref sbyte? value)
         {
             if (IsBinaryMix)
@@ -1287,7 +1285,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref ushort value)
         {
@@ -1297,7 +1295,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         private void primitiveDeserialize(ref ushort value)
         {
             uint value32 = primitiveDeserializeUInt();
@@ -1346,7 +1344,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref ushort? value)
         {
             if (IsBinaryMix)
@@ -1375,7 +1373,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref short value)
         {
@@ -1385,7 +1383,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref short? value)
         {
             if (IsBinaryMix)
@@ -1434,7 +1432,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref uint value)
         {
@@ -1486,7 +1484,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref uint? value)
         {
             if (IsBinaryMix)
@@ -1515,7 +1513,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref int value)
         {
@@ -1525,7 +1523,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref int? value)
         {
             if (IsBinaryMix)
@@ -1577,7 +1575,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref ulong value)
         {
@@ -1587,7 +1585,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         private void primitiveDeserialize(ref ulong value)
         {
             uint number = (uint)(*Current - '0');
@@ -1716,7 +1714,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref ulong? value)
         {
             if (IsBinaryMix)
@@ -1827,7 +1825,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref long value)
         {
@@ -1837,7 +1835,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         private void primitiveDeserialize(ref long value)
         {
             int sign = 0;
@@ -1990,7 +1988,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref long? value)
         {
             if (IsBinaryMix)
@@ -2153,7 +2151,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref Int128 value)
         {
             if (IsBinaryMix)
@@ -2217,7 +2215,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref UInt128 value)
         {
             if (IsBinaryMix)
@@ -2279,7 +2277,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref Half value)
         {
             if (IsBinaryMix)
@@ -2330,7 +2328,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref float value)
         {
             if (IsBinaryMix)
@@ -2384,7 +2382,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref float? value)
         {
             if (IsBinaryMix)
@@ -2452,7 +2450,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref double value)
         {
             if (IsBinaryMix)
@@ -2509,7 +2507,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref double? value)
         {
             if (IsBinaryMix)
@@ -2580,7 +2578,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref decimal value)
         {
             if (IsBinaryMix)
@@ -2631,7 +2629,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref decimal? value)
         {
             if (IsBinaryMix)
@@ -2696,7 +2694,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref char value)
         {
             if (IsBinaryMix)
@@ -2792,7 +2790,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref char? value)
         {
             if (IsBinaryMix)
@@ -2913,7 +2911,7 @@ namespace AutoCSer
         /// <summary>
         /// 时间解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref DateTime value)
         {
@@ -2927,7 +2925,7 @@ namespace AutoCSer
         /// <summary>
         /// 时间解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref DateTime? value)
         {
             if (IsBinaryMix)
@@ -2967,7 +2965,7 @@ namespace AutoCSer
         /// <summary>
         /// 时间解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void JsonDeserialize(ref TimeSpan value)
         {
@@ -2981,7 +2979,7 @@ namespace AutoCSer
         /// <summary>
         /// 时间解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref TimeSpan? value)
         {
             if (IsBinaryMix)
@@ -3125,7 +3123,7 @@ namespace AutoCSer
         /// <summary>
         /// Guid解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref Guid value)
         {
             if (IsBinaryMix)
@@ -3165,7 +3163,7 @@ namespace AutoCSer
         /// <summary>
         /// Guid解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref Guid? value)
         {
             if (IsBinaryMix)
@@ -3276,7 +3274,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符串解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
 #if NetStandard21
         public void JsonDeserialize(ref string? value)
 #else
@@ -3309,7 +3307,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符串解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
 #if NetStandard21
         private void primitiveDeserialize(ref string? value)
 #else
@@ -3347,7 +3345,7 @@ namespace AutoCSer
         /// <summary>
         /// 字符串解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref SubString value)
         {
             if (IsBinaryMix)
@@ -3422,7 +3420,7 @@ namespace AutoCSer
         /// <summary>
         /// 对象解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
 #if NetStandard21
         public void JsonDeserialize(ref object? value)
 #else
@@ -3440,7 +3438,7 @@ namespace AutoCSer
         /// <summary>
         /// 类型解析
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
 #if NetStandard21
         public void JsonDeserialize(ref Type? type)
 #else
@@ -3480,7 +3478,7 @@ namespace AutoCSer
         /// <summary>
         /// JSON节点解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void JsonDeserialize(ref JsonNode value)
         {
             bool isBinaryMix = IsBinaryMix;
@@ -3494,7 +3492,7 @@ namespace AutoCSer
         /// <summary>
         /// JSON节点解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         private void primitiveDeserialize(ref JsonNode value)
         {
             LeftArray<JsonNode> nodeArray = new LeftArray<JsonNode>(0), nameArray = new LeftArray<JsonNode>(0);
@@ -3731,7 +3729,7 @@ namespace AutoCSer
             else State = DeserializeStateEnum.CrashEnd;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="array"></param>
 #if NetStandard21
@@ -3803,7 +3801,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="jsonDeserializer"></param>
         /// <param name="value"></param>
@@ -4077,7 +4075,7 @@ namespace AutoCSer
         /// <summary>
         /// 查找数组起始位置
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">目标数组</param>
         /// <returns>返回 0 表示未结束，返回 1 表示已结束，返回 -1 表示 null 或者错误</returns>
 #if NetStandard21
@@ -4136,6 +4134,7 @@ namespace AutoCSer
             return -1;
         }
         /// <summary>
+        /// Get the array length
         /// 获取数组长度
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -4162,6 +4161,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Get the array length
         /// 获取数组长度
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -4181,7 +4181,8 @@ namespace AutoCSer
                 {
                     do
                     {
-                        if (*read == ',') ++count;
+                        //if (*read == ',') ++count;
+                        count += (*read ^ ',').logicalInversion();
                     }
                     while (*++read != ']');
                 }
@@ -4189,7 +4190,8 @@ namespace AutoCSer
                 {
                     do
                     {
-                        if (*read == ',') ++count;
+                        //if (*read == ',') ++count;
+                        count += (*read ^ ',').logicalInversion();
                         if (++read == end)
                         {
                             State = DeserializeStateEnum.CrashEnd;
@@ -4297,11 +4299,16 @@ namespace AutoCSer
         /// </summary>
         /// <returns>第一个字符,0表示失败</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal char GetNextName()
+        internal int GetNextName()
         {
-            if (++Current != end) return ((bits[*(byte*)Current] & DeserializeNameBit) | *(((byte*)Current) + 1)) == 0 ? *Current : (char)0;
+            if (++Current != end)
+            {
+                int code = *Current;
+                return code & (((bits[(byte)code] & DeserializeNameBit) | (code >> 8)).toLogical() - 1);
+                //return ((bits[*(byte*)Current] & DeserializeNameBit) | *(((byte*)Current) + 1)) == 0 ? *Current : (char)0;
+            }
             State = DeserializeStateEnum.CrashEnd;
-            return (char)0;
+            return 0;
         }
         /// <summary>
         /// 查找字符串引号并返回第一个字符
@@ -6661,7 +6668,7 @@ namespace AutoCSer
         /// <summary>
         /// Guid解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         private void deserialize(ref GuidCreator value)
         {
             if ((int)((byte*)end - (byte*)Current) >= 38 * sizeof(char))
@@ -6771,7 +6778,7 @@ namespace AutoCSer
         /// <summary>
         /// 获取转义后的字符串长度
         /// </summary>
-        /// <returns>字符串长度</returns>
+        /// <returns>String length</returns>
         private int deserializeEscapeSize()
         {
             char* start = Current;
@@ -7110,7 +7117,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <param name="memberIndex">成员编号</param>
         internal delegate void MemberDeserializeDelegate<T>(JsonDeserializer deserializer, ref T value, int memberIndex);
         /// <summary>
@@ -7150,15 +7157,15 @@ namespace AutoCSer
         /// </summary>
         internal static readonly MethodInfo ICustomMethod;
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         internal static readonly MethodInfo LeftArrayMethod;
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         internal static readonly MethodInfo ListArrayMethod;
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         internal static readonly MethodInfo ArrayMethod;
         /// <summary>
@@ -7217,10 +7224,12 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标数据</returns>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target data
+        /// 目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? Deserialize<T>(string json, JsonDeserializeConfig? config = null)
@@ -7234,10 +7243,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>反序列化状态</returns>
 #if NetStandard21
         public static DeserializeResult Deserialize<T>(string json, ref T? value, JsonDeserializeConfig? config = null)
@@ -7256,10 +7266,12 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标数据</returns>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target data
+        /// 目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? Deserialize<T>(SubString json, JsonDeserializeConfig? config = null)
@@ -7273,10 +7285,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>反序列化状态</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -7290,10 +7303,12 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标数据</returns>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target data
+        /// 目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? Deserialize<T>(ref SubString json, JsonDeserializeConfig? config = null)
@@ -7307,10 +7322,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>反序列化状态</returns>
 #if NetStandard21
 #pragma warning disable CS8601
@@ -7331,10 +7347,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">Json 字符串</param>
         /// <param name="length">Json 长度</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <returns>是否解析成功</returns>
 #if NetStandard21
         internal static DeserializeResult UnsafeDeserialize<T>(char* json, int length, ref T? value)
@@ -7353,10 +7370,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">Json 字符串</param>
         /// <param name="length">Json 长度</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         /// <returns>是否解析成功</returns>
 #if NetStandard21
         internal static DeserializeResult UnsafeDeserializeBinaryMix<T>(char* json, int length, ref T? value)
@@ -7376,10 +7394,12 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标数据</returns>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target data
+        /// 目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? ThreadStaticDeserialize<T>(string json, JsonDeserializeConfig? config = null)
@@ -7393,10 +7413,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>反序列化状态</returns>
 #if NetStandard21
         public static DeserializeResult ThreadStaticDeserialize<T>(string json, ref T? value, JsonDeserializeConfig? config = null)
@@ -7415,10 +7436,12 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标数据</returns>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target data
+        /// 目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? ThreadStaticDeserialize<T>(SubString json, JsonDeserializeConfig? config = null)
@@ -7432,10 +7455,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>反序列化状态</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -7449,10 +7473,12 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>目标数据</returns>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Target data
+        /// 目标数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static T? ThreadStaticDeserialize<T>(ref SubString json, JsonDeserializeConfig? config = null)
@@ -7466,10 +7492,11 @@ namespace AutoCSer
         /// <summary>
         /// JSON 反序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
         /// <param name="json">JSON 字符串</param>
-        /// <param name="value">目标数据</param>
-        /// <param name="config">配置参数</param>
+        /// <param name="value">Target data</param>
+        /// <param name="config">Configuration parameters</param>
         /// <returns>反序列化状态</returns>
 #if NetStandard21
         public static DeserializeResult ThreadStaticDeserialize<T>(ref SubString json, ref T? value, JsonDeserializeConfig? config = null)
@@ -7491,7 +7518,7 @@ namespace AutoCSer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         internal delegate void DeserializeDelegate<T>(JsonDeserializer deserializer, ref T value);
         /// <summary>
         /// 基本类型转换函数
@@ -7554,6 +7581,10 @@ namespace AutoCSer
         /// </summary>
         internal const byte EscapeBit = 4;
         /// <summary>
+        /// JSON 解析空格开始[ ,\t,\r,\n,/,160]
+        /// </summary>
+        internal const byte DeserializeSpaceStartBit = 1;
+        /// <summary>
         /// JSON 解析字符状态位
         /// </summary>
         internal static AutoCSer.Memory.Pointer DeserializeBits;
@@ -7571,11 +7602,12 @@ namespace AutoCSer
             for (char value = 'a'; value <= 'f'; ++value) bits[value] &= (DeserializeNameBit | DeserializeNameStartBit | DeserializeNumberBit) ^ 255;
             for (char value = 'G'; value <= 'Z'; ++value) bits[value] &= (DeserializeNameBit | DeserializeNameStartBit) ^ 255;
             for (char value = 'g'; value <= 'z'; ++value) bits[value] &= (DeserializeNameBit | DeserializeNameStartBit) ^ 255;
-            bits['\t'] &= (DeserializeSpaceBit | EscapeBit) ^ 255;
-            bits['\r'] &= (DeserializeSpaceBit | EscapeBit) ^ 255;
-            bits['\n'] &= (DeserializeSpaceBit | DeserializeEscapeSearchBit | EscapeBit) ^ 255;
-            bits[' '] &= DeserializeSpaceBit ^ 255;
-            bits[0xA0] &= DeserializeSpaceBit ^ 255;
+            bits['\t'] &= (DeserializeSpaceStartBit | DeserializeSpaceBit | EscapeBit) ^ 255;
+            bits['\r'] &= (DeserializeSpaceStartBit | DeserializeSpaceBit | EscapeBit) ^ 255;
+            bits['\n'] &= (DeserializeSpaceStartBit | DeserializeSpaceBit | DeserializeEscapeSearchBit | EscapeBit) ^ 255;
+            bits[' '] &= (DeserializeSpaceStartBit | DeserializeSpaceBit) ^ 255;
+            bits[0xA0] &= (DeserializeSpaceStartBit | DeserializeSpaceBit) ^ 255;
+            bits['/'] &= DeserializeSpaceStartBit ^ 255;
             bits['x'] &= DeserializeNumberBit ^ 255;
             bits['+'] &= DeserializeNumberBit ^ 255;
             bits['-'] &= DeserializeNumberBit ^ 255;

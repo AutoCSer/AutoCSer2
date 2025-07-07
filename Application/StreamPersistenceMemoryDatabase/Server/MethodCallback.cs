@@ -24,6 +24,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal int Reserve;
         /// <summary>
+        /// Server-side node method flags
         /// 服务端节点方法标记
         /// </summary>
         private readonly MethodFlagsEnum flag;
@@ -127,6 +128,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return true;
         }
         /// <summary>
+        /// Failure callback
         /// 失败回调
         /// </summary>
         /// <param name="state">失败状态</param>
@@ -142,6 +144,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
+        /// Failure callback
         /// 失败回调
         /// </summary>
         /// <param name="state">失败状态</param>

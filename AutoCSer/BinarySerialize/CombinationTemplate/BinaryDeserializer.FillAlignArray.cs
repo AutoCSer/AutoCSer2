@@ -4,14 +4,14 @@
 namespace AutoCSer
 {
     /// <summary>
-    /// 二进制反数据序列化
+    /// 二进制数据反序列化
     /// </summary>
     public sealed unsafe partial class BinaryDeserializer
     {
         /// <summary>
         /// 整数值反序列化
         /// </summary>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         private void primitiveDeserialize(ref ushort? value)
         {
             if (*(int*)Current != BinarySerializer.NullValue) value = *(ushort*)Current;
@@ -20,7 +20,7 @@ namespace AutoCSer
         }
 #if AOT
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeUShortArray(BinaryDeserializer deserializer)
@@ -30,7 +30,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeUShortListArray(BinaryDeserializer deserializer)
@@ -40,7 +40,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -51,7 +51,7 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeNullableUShortArray(BinaryDeserializer deserializer)
@@ -65,16 +65,16 @@ namespace AutoCSer
         /// 整数值反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ushort? value)
         {
             deserializer.primitiveDeserialize(ref value);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref ushort[]? array)
 #else
@@ -97,10 +97,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ushort[]? array)
@@ -111,9 +111,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref ListArray<ushort>? array)
 #else
@@ -136,10 +136,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ListArray<ushort>? array)
@@ -150,9 +150,9 @@ namespace AutoCSer
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         public void BinaryDeserialize(ref LeftArray<ushort> array)
         {
             int length = *(int*)Current;
@@ -176,19 +176,19 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref LeftArray<ushort> array)
         {
             deserializer.BinaryDeserialize(ref array);
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref ushort?[]? array)
 #else
@@ -223,10 +223,10 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref ushort?[]? array)

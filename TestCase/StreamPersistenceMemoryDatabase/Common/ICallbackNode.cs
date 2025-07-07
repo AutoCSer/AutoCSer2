@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 回调测试节点
     /// </summary>
-    [ServerNode(IsAutoMethodIndex = false, IsMethodParameterCreator = true, IsLocalClient = true)]
+    [ServerNode(IsMethodParameterCreator = true, IsLocalClient = true)]
     public partial interface ICallbackNode
     {
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]

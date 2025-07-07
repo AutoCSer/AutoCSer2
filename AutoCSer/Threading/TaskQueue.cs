@@ -45,7 +45,8 @@ namespace AutoCSer.Threading
             while (!isDisposed);
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -54,7 +55,8 @@ namespace AutoCSer.Threading
             if (queue.IsPushHead(node)) WaitHandle.Set();
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
         public void Add(CommandServerCallQueueCustomNode node)

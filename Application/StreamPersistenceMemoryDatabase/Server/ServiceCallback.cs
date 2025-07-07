@@ -10,7 +10,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class ServiceCallback : ReadWriteQueueNode
     {
         /// <summary>
-        /// 日志流持久化内存数据库服务端
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
         private readonly StreamPersistenceMemoryDatabaseService service;
         /// <summary>
@@ -18,9 +19,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly ServiceCallbackTypeEnum type;
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
-        /// <param name="service">日志流持久化内存数据库服务端</param>
+        /// <param name="service">Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务</param>
         /// <param name="type">内存数据库回调类型</param>
         internal ServiceCallback(StreamPersistenceMemoryDatabaseService service, ServiceCallbackTypeEnum type)
         {

@@ -69,10 +69,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         }
 
         /// <summary>
+        /// Name of serialization method
         /// 序列化方法名称
         /// </summary>
         public string SimpleSerializeMethodName { get { return SimpleSerializeAttribute.SimpleSerializeMethodName; } }
         /// <summary>
+        /// Name of deserialization method
         /// 反序列化方法名称
         /// </summary>
         public string SimpleDeserializeMethodName { get { return SimpleSerializeAttribute.SimpleDeserializeMethodName; } }

@@ -12,6 +12,7 @@ namespace AutoCSer.Threading
     public abstract class InterfaceControllerTaskQueueNodeBase : AutoCSer.Threading.Link<InterfaceControllerTaskQueueNodeBase>, INotifyCompletion
     {
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -20,11 +21,13 @@ namespace AutoCSer.Threading
         protected Action continuation;
 #endif
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; protected set; }
         /// <summary>
-        /// 返回类型
+        /// The return type of the call
+        /// 调用返回类型
         /// </summary>
         protected CommandClientReturnTypeEnum returnType;
         /// <summary>
@@ -40,6 +43,7 @@ namespace AutoCSer.Threading
             this.callbackType = callbackType;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -53,6 +57,7 @@ namespace AutoCSer.Threading
         /// </summary>
         public abstract void RunTask();
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <param name="next"></param>

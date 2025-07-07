@@ -5,9 +5,21 @@ namespace AutoCSer.CodeGenerator.Template
 {
     internal sealed class CommandServerMethodIndexEnumType : Pub
     {
-        public enum MethodIndexEnum
+        #region PART CLASS
+        #region IF IsGeneratorAttribute
+        /// <summary>
+        /// @CurrentType.CodeGeneratorXmlDocument
+        /// </summary>
+        [AutoCSer.Net.CommandServer.ServerControllerInterface(typeof(@MethodIndexEnumTypeName))]
+        /*NOTE*/
+        public partial interface /*NOTE*/@TypeNameDefinition { }
+        #endregion IF IsGeneratorAttribute
+        #region IF IsGeneratorEnum
+        /// <summary>
+        /// @CurrentType.CodeGeneratorXmlDocument (The method sequence number maps the enumeration type)
+        /// </summary>
+        public enum @MethodIndexEnumTypeName
         {
-            #region PART CLASS
             #region LOOP Methods
             #region IF EnumName
             #region IF Method
@@ -24,8 +36,9 @@ namespace AutoCSer.CodeGenerator.Template
             @EnumName = @MethodIndex,
             #endregion IF EnumName
             #endregion LOOP Methods
-            #endregion PART CLASS
         }
+        #endregion IF IsGeneratorEnum
+        #endregion PART CLASS
         public const int MethodIndex = 0;
     }
 }

@@ -6,89 +6,33 @@ using System.Threading;
 namespace AutoCSer
 {
     /// <summary>
+    /// Console output queue
     /// 控制台输出队列
     /// </summary>
     public static class ConsoleWriteQueue
     {
         /// <summary>
-        /// 控制台输出信息
-        /// </summary>
-        private struct Message
-        {
-            /// <summary>
-            /// 输出信息
-            /// </summary>
-            private readonly string message;
-            /// <summary>
-            /// 文字颜色
-            /// </summary>
-            private readonly byte foregroundColor;
-            /// <summary>
-            /// 背景颜色
-            /// </summary>
-            private readonly byte backgroundColor;
-            /// <summary>
-            /// 输出信息以后是否恢复文字与背景颜色
-            /// </summary>
-            private readonly bool restoreColor;
-            /// <summary>
-            /// 是否换行
-            /// </summary>
-            private readonly bool isWriteLine;
-            /// <summary>
-            /// 控制台输出信息
-            /// </summary>
-            /// <param name="message">输出信息</param>
-            /// <param name="foregroundColor">文字颜色</param>
-            /// <param name="backgroundColor">背景颜色</param>
-            /// <param name="restoreColor">输出信息以后是否恢复文字与背景颜色</param>
-            /// <param name="isWriteLine">是否换行</param>
-            internal Message(string message, ConsoleColor foregroundColor, ConsoleColor backgroundColor, bool restoreColor, bool isWriteLine)
-            {
-                this.message = message;
-                this.foregroundColor = (byte)(int)foregroundColor;
-                this.backgroundColor = (byte)(int)backgroundColor;
-                this.restoreColor = restoreColor;
-                this.isWriteLine = isWriteLine;
-            }
-            /// <summary>
-            /// 控制台输出
-            /// </summary>
-            internal void Write()
-            {
-                ConsoleColor foregroundColor = Console.ForegroundColor, backgroundColor = Console.BackgroundColor;
-                if (foregroundColor != (ConsoleColor)(int)this.foregroundColor) Console.ForegroundColor = (ConsoleColor)(int)this.foregroundColor;
-                if (backgroundColor != (ConsoleColor)(int)this.backgroundColor) Console.BackgroundColor = (ConsoleColor)(int)this.backgroundColor;
-                if (isWriteLine)
-                {
-                    if (string.IsNullOrEmpty(message)) Console.WriteLine();
-                    else Console.WriteLine(message);
-                }
-                else Console.Write(message);
-                if (restoreColor)
-                {
-                    if (foregroundColor != (ConsoleColor)(int)this.foregroundColor) Console.ForegroundColor = foregroundColor;
-                    if (backgroundColor != (ConsoleColor)(int)this.backgroundColor) Console.BackgroundColor = backgroundColor;
-                }
-            }
-        }
-        /// <summary>
+        /// Current output queue
         /// 当前输出队列
         /// </summary>
-        private static LeftArray<Message> outputQueue = new LeftArray<Message>(0);
+        private static LeftArray<ConsoleWriteMessage> outputQueue = new LeftArray<ConsoleWriteMessage>(0);
         /// <summary>
-        /// 当前添加队列
+        /// The queue for the current added output
+        /// 当前添加输出队列
         /// </summary>
-        private static LeftArray<Message> appendQueue = new LeftArray<Message>(0);
+        private static LeftArray<ConsoleWriteMessage> appendQueue = new LeftArray<ConsoleWriteMessage>(0);
         /// <summary>
+        /// Queue access lock
         /// 队列访问锁
         /// </summary>
         private static readonly object writeLock = new object();
         /// <summary>
+        /// Whether the output thread has been started
         /// 是否已经启动输出线程
         /// </summary>
         private static bool isThread;
         /// <summary>
+        /// Output thread processing
         /// 输出线程处理
         /// </summary>
         private static void write()
@@ -102,21 +46,22 @@ namespace AutoCSer
                     Monitor.Exit(writeLock);
                     return;
                 }
-                LeftArray<Message> queue = appendQueue;
+                LeftArray<ConsoleWriteMessage> queue = appendQueue;
                 appendQueue = outputQueue;
                 outputQueue = queue;
                 Monitor.Exit(writeLock);
 
-                foreach (Message message in outputQueue) message.Write();
+                foreach (ConsoleWriteMessage message in outputQueue) message.Write();
                 outputQueue.ClearLength();
             }
             while (true);
         }
         /// <summary>
+        /// Add to the output queue
         /// 添加到输出队列
         /// </summary>
         /// <param name="message"></param>
-        private static void append(Message message)
+        private static void append(ConsoleWriteMessage message)
         {
             bool isThread = false;
             Monitor.Enter(writeLock);
@@ -137,24 +82,34 @@ namespace AutoCSer
             if (isThread) AutoCSer.Threading.ThreadPool.TinyBackground.Start(write);
         }
         /// <summary>
+        /// Add to the output queue
         /// 添加到输出队列
         /// </summary>
-        /// <param name="message">输出信息</param>
-        /// <param name="foregroundColor">文字颜色</param>
-        /// <param name="backgroundColor">背景颜色</param>
-        /// <param name="restoreColor">输出信息以后是否恢复文字与背景颜色</param>
+        /// <param name="message">Output message
+        /// 输出信息</param>
+        /// <param name="foregroundColor">Text color
+        /// 文字颜色</param>
+        /// <param name="backgroundColor">Background color
+        /// 背景颜色</param>
+        /// <param name="restoreColor">Whether to restore the text and background color after outputting the message
+        /// 输出信息以后是否恢复文字与背景颜色</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Write(string message, ConsoleColor foregroundColor = ConsoleColor.Gray, ConsoleColor backgroundColor = ConsoleColor.Black, bool restoreColor = true)
         {
-            append(new Message(message, foregroundColor, backgroundColor, restoreColor, false));
+            append(new ConsoleWriteMessage(message, foregroundColor, backgroundColor, restoreColor, false));
         }
         /// <summary>
+        /// Add to the output queue (finally add line break output)
         /// 添加到输出队列（最后增加换行输出）
         /// </summary>
-        /// <param name="message">输出信息</param>
-        /// <param name="foregroundColor">文字颜色</param>
-        /// <param name="backgroundColor">背景颜色</param>
-        /// <param name="restoreColor">输出信息以后是否恢复文字与背景颜色</param>
+        /// <param name="message">Output message
+        /// 输出信息</param>
+        /// <param name="foregroundColor">Text color
+        /// 文字颜色</param>
+        /// <param name="backgroundColor">Background color
+        /// 背景颜色</param>
+        /// <param name="restoreColor">Whether to restore the text and background color after outputting the message
+        /// 输出信息以后是否恢复文字与背景颜色</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void WriteLine(string? message = null, ConsoleColor foregroundColor = ConsoleColor.Gray, ConsoleColor backgroundColor = ConsoleColor.Black, bool restoreColor = true)
@@ -162,15 +117,17 @@ namespace AutoCSer
         public static void WriteLine(string message = null, ConsoleColor foregroundColor = ConsoleColor.Gray, ConsoleColor backgroundColor = ConsoleColor.Black, bool restoreColor = true)
 #endif
         {
-            append(new Message(message ?? string.Empty, foregroundColor, backgroundColor, restoreColor, true));
+            append(new ConsoleWriteMessage(message ?? string.Empty, foregroundColor, backgroundColor, restoreColor, true));
         }
         /// <summary>
+        /// Test breakpoint information is added to the output queue
         /// 测试断点信息添加到输出队列
         /// </summary>
-        /// <param name="message">断点信息</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="message">Breakpoint message
+        /// 断点信息</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if !DEBUG
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #endif
@@ -180,15 +137,17 @@ namespace AutoCSer
         public static void Breakpoint(string message = null, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
-            append(new Message($"{callerFilePath}+{callerMemberName}[{callerLineNumber}] 测试断点信息 {message}", ConsoleColor.Red, ConsoleColor.Black, true, true));
+            append(new ConsoleWriteMessage($"{callerFilePath}+{callerMemberName}[{callerLineNumber}] 测试断点信息 {message}", ConsoleColor.Red, ConsoleColor.Black, true, true));
         }
         /// <summary>
+        /// Test breakpoint information is added to the output queue
         /// 测试断点信息添加到输出队列
         /// </summary>
-        /// <param name="message">断点信息</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
+        /// <param name="message">Breakpoint message
+        /// 断点信息</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
         public static void BreakpointLog(string message, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -199,13 +158,15 @@ namespace AutoCSer
             LogHelper.BreakpointIgnoreException(message, LogLevelEnum.Breakpoint, callerMemberName, callerFilePath, callerLineNumber);
         }
         /// <summary>
+        /// If the return value status is not successful, add the test breakpoint message
         /// 返回值状态非成功则添加测试断点信息
         /// </summary>
-        /// <param name="returnValue">返回值</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
-        /// <returns>返回值状态是否成功</returns>
+        /// <param name="returnValue">Return value</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
+        /// <returns>Return whether the value status is successful
+        /// 返回值状态是否成功</returns>
 #if NetStandard21
         public static bool Breakpoint(CommandClientReturnValue returnValue, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
@@ -217,14 +178,16 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// If the return value status is not successful, add the test breakpoint message
         /// 返回值状态非成功则添加测试断点信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="returnValue">返回值</param>
-        /// <param name="callerMemberName">调用成员名称</param>
-        /// <param name="callerFilePath">调用源代码文件路径</param>
-        /// <param name="callerLineNumber">调用源代码行号</param>
-        /// <returns>返回值状态是否成功</returns>
+        /// <param name="returnValue">Return value</param>
+        /// <param name="callerMemberName">Caller member name</param>
+        /// <param name="callerFilePath">Caller the source code file path</param>
+        /// <param name="callerLineNumber">Caller the line number of the source code</param>
+        /// <returns>Return whether the value status is successful
+        /// 返回值状态是否成功</returns>
 #if NetStandard21
         public static bool Breakpoint<T>(CommandClientReturnValue<T> returnValue, [CallerMemberName] string? callerMemberName = null, [CallerFilePath] string? callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)
 #else

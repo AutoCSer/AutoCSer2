@@ -10,6 +10,7 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class CustomColumnFieldModel : AutoCSer.TestCase.CommonModel.TableModel.CustomColumnFieldModel
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
@@ -19,7 +20,7 @@ namespace AutoCSer.TestCase.BusinessService
             return await Persistence.CustomColumnFieldModelQuery.GetByPrimaryKey(key);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <returns></returns>
         internal async Task<bool> Insert()

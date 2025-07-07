@@ -62,9 +62,8 @@ namespace AutoCSer.TestCase.SerializePerformance
                     binarThreadStatic(jsonFloatFieldData, count);
                 }
 
-                Console.WriteLine(@"Sleep 3000ms
-");
-                System.Threading.Thread.Sleep(3000);
+                Console.WriteLine("Press quit to exit.");
+                if (Console.ReadLine() == "quit") return;
 #if AOT
                 AutoCSer.TestCase.SerializePerformance.AotMethod.Call();
 #endif

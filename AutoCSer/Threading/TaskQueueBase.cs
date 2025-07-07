@@ -9,6 +9,7 @@ namespace AutoCSer.Threading
     public abstract class TaskQueueBase : IDisposable
     {
         /// <summary>
+        /// Thread handle
         /// 线程句柄
         /// </summary>
         protected readonly System.Threading.Thread threadHandle;
@@ -17,11 +18,12 @@ namespace AutoCSer.Threading
         /// </summary>
         internal readonly System.Threading.AutoResetEvent WaitHandle;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         protected volatile bool isDisposed;
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {

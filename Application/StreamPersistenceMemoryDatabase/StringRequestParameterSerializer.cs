@@ -18,7 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 字符串请求参数序列化
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
 #if NetStandard21
         private StringRequestParameterSerializer(string? value)
 #else
@@ -28,7 +28,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.value = value;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21

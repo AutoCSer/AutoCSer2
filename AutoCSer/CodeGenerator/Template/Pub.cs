@@ -4,6 +4,7 @@
 namespace AutoCSer.CodeGenerator.Template
 {
     /// <summary>
+    /// CSharp template common fuzzy type
     /// CSharp 模板公用模糊类型
     /// </summary>
     internal partial class Pub

@@ -11,6 +11,7 @@ namespace AutoCSer.Net
         where KT : IEquatable<KT>
     {
         /// <summary>
+        /// The command client controller
         /// 命令客户端控制器
         /// </summary>
         public readonly CommandClientController Controller;
@@ -30,7 +31,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 命令客户端控制器
+        /// Get the command client controller
+        /// 获取命令客户端控制器
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>

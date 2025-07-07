@@ -20,7 +20,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         internal SubArray<byte> Buffer;
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
 #if NetStandard21
         private readonly ReadBufferDeserializer? deserializer;
@@ -58,11 +58,12 @@ namespace AutoCSer.CommandService.DiskBlock
             this.deserializer = deserializer;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="deserializer"></param>
         public static implicit operator ReadBuffer(ReadBufferDeserializer deserializer) { return new ReadBuffer(deserializer); }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="buffer"></param>

@@ -416,6 +416,7 @@ namespace AutoCSer.Memory
         }
 
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private static void clearCache()
@@ -423,6 +424,7 @@ namespace AutoCSer.Memory
             TaskQueue.AddDefault(clearCacheTask);
         }
         /// <summary>
+        /// Clear cache data at regular intervals
         /// 定时清除缓存数据
         /// </summary>
         private static void clearCacheTask()

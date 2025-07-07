@@ -8,6 +8,7 @@ namespace AutoCSer.Net.CommandServer
     internal sealed class NullReadWriteQueueNode : ReadWriteQueueNode
     {
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         public override void RunTask() { }

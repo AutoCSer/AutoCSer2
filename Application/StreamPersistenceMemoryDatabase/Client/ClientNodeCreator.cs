@@ -19,82 +19,102 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type[] NodeConstructorParameterTypes = new Type[] { typeof(string), typeof(Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>), typeof(StreamPersistenceMemoryDatabaseClient), typeof(NodeIndex), typeof(bool) };
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseResultAwaiter> StreamPersistenceMemoryDatabaseClientCall = StreamPersistenceMemoryDatabaseClient.Call;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseResultAwaiter> StreamPersistenceMemoryDatabaseClientCallWrite = StreamPersistenceMemoryDatabaseClient.CallWrite;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, Action<ResponseResult>, AutoCSer.Net.CallbackCommand> StreamPersistenceMemoryDatabaseClientCallCommand = StreamPersistenceMemoryDatabaseClient.CallCommand;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, Action<ResponseResult>, AutoCSer.Net.CallbackCommand> StreamPersistenceMemoryDatabaseClientCallWriteCommand = StreamPersistenceMemoryDatabaseClient.CallWriteCommand;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutput), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputWriteMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputWrite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputWriteCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputWriteCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallback), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackWrite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackWriteCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameter, ResponseParameterAwaiter<ResponseParameter>> StreamPersistenceMemoryDatabaseClientCallOutputResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputResponseParameter;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameter, ResponseParameterAwaiter<ResponseParameter>> StreamPersistenceMemoryDatabaseClientCallOutputWriteResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputWriteResponseParameter;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameter, Action<ResponseResult<ResponseParameter>>, AutoCSer.Net.CallbackCommand> StreamPersistenceMemoryDatabaseClientCallOutputCommandResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputCommandResponseParameter;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameter, Action<ResponseResult<ResponseParameter>>, AutoCSer.Net.CallbackCommand> StreamPersistenceMemoryDatabaseClientCallOutputWriteCommandResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputWriteCommandResponseParameter;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameterSerializer, Task<KeepCallbackResponse<ResponseParameterSerializer>>> StreamPersistenceMemoryDatabaseClientKeepCallbackResponseParameter = StreamPersistenceMemoryDatabaseClient.KeepCallbackResponseParameter;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameterSerializer, Task<KeepCallbackResponse<ResponseParameterSerializer>>> StreamPersistenceMemoryDatabaseClientKeepCallbackWriteResponseParameter = StreamPersistenceMemoryDatabaseClient.KeepCallbackWriteResponseParameter;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameterSerializer, Action<ResponseResult<ResponseParameterSerializer>, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand> StreamPersistenceMemoryDatabaseClientKeepCallbackCommandResponseParameter = StreamPersistenceMemoryDatabaseClient.KeepCallbackCommandResponseParameter;
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameterSerializer, Action<ResponseResult<ResponseParameterSerializer>, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand> StreamPersistenceMemoryDatabaseClientKeepCallbackWriteCommandResponseParameter = StreamPersistenceMemoryDatabaseClient.KeepCallbackWriteCommandResponseParameter;
@@ -102,17 +122,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 生成客户端节点
     /// </summary>
-    /// <typeparam name="T">节点接口类型</typeparam>
+    /// <typeparam name="T">Client node interface type
+    /// 客户端节点接口类型</typeparam>
     internal static class ClientNodeCreator<T> where T : class
     {
         /// <summary>
         /// 创建客户端节点
         /// </summary>
-        /// <param name="key">节点全局关键字</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
         /// <param name="creator">创建节点操作对象委托</param>
         /// <param name="client">日志流持久化内存数据库客户端</param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="isPersistenceCallbackExceptionRenewNode">服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">Default to false said persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the anomalies have been restored and restart the server; If set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+        /// 默认为 false 表示服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端；设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         /// <returns></returns>
 #if NetStandard21
         internal static T Create(string key, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>? creator, StreamPersistenceMemoryDatabaseClient client, NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)

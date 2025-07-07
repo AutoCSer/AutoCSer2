@@ -14,6 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class ServerRegistryLogAssembler
     {
         /// <summary>
+        /// Server registration node
         /// 服务注册节点
         /// </summary>
         internal readonly ServerRegistryNode Node;
@@ -22,6 +23,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly ServerRegistryLog loadedLog;
         /// <summary>
+        /// Additional log collection
         /// 附加日志集合
         /// </summary>
         private LeftArray<ServerRegistrySessionLog> logs;
@@ -156,6 +158,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return int.MinValue;
         }
         /// <summary>
+        /// Add the server registration log
         /// 添加服务注册日志
         /// </summary>
         /// <param name="session"></param>
@@ -226,6 +229,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Determine whether it is the server restart log
         /// 判断是否服务重启日志
         /// </summary>
         /// <param name="session"></param>

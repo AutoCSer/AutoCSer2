@@ -5,12 +5,12 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 取消异步保持调用回调命令
+    /// 取消异步保持回调回调命令
     /// </summary>
     internal sealed class CancelKeepCommand : BaseCommand
     {
         /// <summary>
-        /// 取消保持调用的会话回调标识
+        /// 取消保持回调的会话回调标识
         /// </summary>
         private readonly CallbackIdentity callbackIdentity;
         /// <summary>
@@ -23,10 +23,12 @@ namespace AutoCSer.Net.CommandServer
             this.callbackIdentity = callbackIdentity;
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe override Command? Build(ref ClientBuildInfo buildInfo)
 #else

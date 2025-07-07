@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Distributed lock node
     /// 分布式锁节点
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -19,6 +20,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly SnapshotDictionary<T, DistributedLock<T>> locks;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<DistributedLockIdentity<T>> IEnumerableSnapshot<DistributedLockIdentity<T>>.SnapshotEnumerable { get { return locks.Nodes.Cast<DistributedLock<T>, DistributedLockIdentity<T>>(p => p.Identity); } }
@@ -27,10 +29,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal long Identity;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<long> IEnumerableSnapshot<long>.SnapshotEnumerable { get { return new SnapshotGetValue<long>(getIdentity); } }
         /// <summary>
+        /// Distributed lock node
         /// 分布式锁节点
         /// </summary>
         public DistributedLockNode()
@@ -47,17 +51,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return Identity;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(DistributedLockIdentity<T> value)
         {
             if (value.Timeout > AutoCSer.Threading.SecondTimer.UtcNow) locks.TryAdd(value.Key, new DistributedLock<T>(this, ref value));
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSetIdentity(long value)
         {
             Identity = value;
@@ -82,11 +88,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (locks.TryGetValue(key, (uint)key.GetHashCode(), out removeLock) && object.ReferenceEquals(distributedLock, removeLock)) locks.Remove(key);
         }
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="timeoutSeconds">超时秒数</param>
-        /// <param name="callback">失败返回 0</param>
+        /// <param name="key">Keyword of lock
+        /// 锁关键字</param>
+        /// <param name="timeoutSeconds">Timeout seconds
+        /// 超时秒数</param>
+        /// <param name="callback">Lock request identity. Return 0 if failed
+        /// 锁请求标识，失败返回 0</param>
         public void Enter(T key, ushort timeoutSeconds, MethodCallback<long> callback)
         {
             if (key != null && timeoutSeconds != 0)
@@ -109,11 +119,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else callback.SynchronousCallback((long)0);
         }
         /// <summary>
+        /// Try to apply for a lock
         /// 尝试申请锁
         /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="timeoutSeconds">超时秒数</param>
-        /// <returns>失败返回 0</returns>
+        /// <param name="key">Keyword of lock
+        /// 锁关键字</param>
+        /// <param name="timeoutSeconds">Timeout seconds
+        /// 超时秒数</param>
+        /// <returns>Lock request identity. Return 0 if failed
+        /// 锁请求标识，失败返回 0</returns>
         public long TryEnter(T key, ushort timeoutSeconds)
         {
             if (key != null && timeoutSeconds != 0)
@@ -129,10 +143,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return 0;
         }
         /// <summary>
+        /// Release the lock
         /// 释放锁
         /// </summary>
-        /// <param name="key">锁关键字</param>
-        /// <param name="identity">锁操作标识</param>
+        /// <param name="key">Keyword of lock
+        /// 锁关键字</param>
+        /// <param name="identity">Lock request identity
+        /// 锁请求标识</param>
         public void Release(T key, long identity)
         {
             if (key != null)

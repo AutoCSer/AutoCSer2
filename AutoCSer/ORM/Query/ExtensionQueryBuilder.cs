@@ -62,7 +62,7 @@ namespace AutoCSer.ORM
             QueryBuilder = builder;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>

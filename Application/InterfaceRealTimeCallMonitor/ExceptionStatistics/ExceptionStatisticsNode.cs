@@ -24,6 +24,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// </summary>
         private LeftArray<string> stringArray;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<LeftArray<string>> IEnumerableSnapshot<LeftArray<string>>.SnapshotEnumerable { get { return new SnapshotGetValue<LeftArray<string>>(getStringArray); } }
@@ -32,6 +33,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// </summary>
         private readonly SnapshotDictionary<long, ExceptionStatistics> statistics;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<BinarySerializeKeyValue<long, ExceptionStatistics>> IEnumerableSnapshot<BinarySerializeKeyValue<long, ExceptionStatistics>>.SnapshotEnumerable { get { return statistics.BinarySerializeKeyValueSnapshot; } }
@@ -61,9 +63,11 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             statistics = new SnapshotDictionary<long, ExceptionStatistics>();
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override IExceptionStatisticsNode? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -91,6 +95,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             return true;
         }
         /// <summary>
+        /// Remove the current node
         /// 移除当前节点
         /// </summary>
         public void RemoveNode()
@@ -109,18 +114,21 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             return stringArray;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="stringArray">数据</param>
+        /// <param name="stringArray">String cache
+        /// 字符串缓存</param>
         public void SnapshotSetStringArray(LeftArray<string> stringArray)
         {
             this.stringArray = stringArray;
             foreach(string value in stringArray) strings.Add(value, strings.Count);
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(BinarySerializeKeyValue<long, ExceptionStatistics> value)
         {
             statistics.Set(ref value);
@@ -128,7 +136,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         ///  获取字符串缓存编号
         /// </summary>
-        /// <param name="value">字符串</param>
+        /// <param name="value"></param>
         /// <returns>缓存编号</returns>
         private int getStringIndex(string value)
         {
@@ -144,8 +152,10 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
         /// <summary>
         ///  获取异常统计信息关键字
         /// </summary>
-        /// <param name="callType">调用接口类型</param>
-        /// <param name="callName">调用接口方法名称</param>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
+        /// <param name="callName">The name of the interface method to be called
+        /// 调用接口方法名称</param>
         /// <returns>异常统计信息关键字</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private long getIndex(string callType, string callName)
@@ -153,6 +163,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             return ((long)getStringIndex(callType) << 32) + getStringIndex(callName);
         }
         /// <summary>
+        /// Get the total number of exception calls
         /// 获取异常调用总次数
         /// </summary>
         /// <returns></returns>
@@ -161,6 +172,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             return count;
         }
         /// <summary>
+        /// Get the quantity of exception statistical information
         /// 获取异常统计信息数量
         /// </summary>
         /// <returns></returns>
@@ -169,11 +181,15 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             return statistics.Count;
         }
         /// <summary>
+        /// Add exception call time
         /// 添加异常调用时间
         /// </summary>
-        /// <param name="callType">调用接口类型</param>
-        /// <param name="callName">调用接口方法名称</param>
-        /// <param name="callTime">异常调用时间</param>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
+        /// <param name="callName">The name of the interface method to be called
+        /// 调用接口方法名称</param>
+        /// <param name="callTime">Exception call time
+        /// 异常调用时间</param>
         public void Append(string callType, string callName, DateTime callTime)
         {
             if (callType != null && callName != null)
@@ -186,10 +202,13 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             }
         }
         /// <summary>
+        /// Remove exception statistics
         /// 移除异常统计信息
         /// </summary>
-        /// <param name="callType">调用接口类型</param>
-        /// <param name="callName">调用接口方法名称</param>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
+        /// <param name="callName">The name of the interface method to be called
+        /// 调用接口方法名称</param>
         public void Remove(string callType, string callName)
         {
             if (callType != null && callName != null)
@@ -199,11 +218,15 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             }
         }
         /// <summary>
+        /// Get the statistical information of call exceptions
         /// 获取调用异常统计信息
         /// </summary>
-        /// <param name="callType">调用接口类型</param>
-        /// <param name="callName">调用接口方法名称</param>
-        /// <returns>异常统计信息，失败返回 null</returns>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
+        /// <param name="callName">The name of the interface method to be called
+        /// 调用接口方法名称</param>
+        /// <returns>Exception statistical information, failure returns null
+        /// 异常统计信息，失败返回 null</returns>
 #if NetStandard21
         public ExceptionStatistics? GetStatistics(string callType, string callName)
 #else
@@ -219,10 +242,13 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             return null;
         }
         /// <summary>
+        /// Get the statistics of the specified number of call exceptions
         /// 获取指定数量调用异常统计信息
         /// </summary>
-        /// <param name="count">获取调用异常统计信息数量</param>
-        /// <param name="callback">获取数量调用异常统计信息回调委托</param>
+        /// <param name="count">The number of get the statistical information of call exceptions
+        /// 获取调用异常统计信息数量</param>
+        /// <param name="callback">The callback delegation for get the statistical information of the call exception
+        /// 获取数量调用异常统计信息回调委托</param>
         public void GetManyStatistics(int count, MethodKeepCallback<CallExceptionStatistics> callback)
         {
             foreach (BinarySerializeKeyValue<long, ExceptionStatistics> exceptionStatistics in statistics.KeyValues)

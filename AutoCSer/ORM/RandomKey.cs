@@ -16,7 +16,7 @@ namespace AutoCSer
         /// </summary>
         internal T Key;
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -25,7 +25,7 @@ namespace AutoCSer
             return new RandomKey<T> { Key = value };
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

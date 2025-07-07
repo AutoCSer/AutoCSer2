@@ -17,6 +17,7 @@ namespace AutoCSer.NetCoreWeb
         public string Name;
 #endif
         /// <summary>
+        /// Bind the keyword member name
         /// 绑定关键字成员名称
         /// </summary>
 #if NetStandard21

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.CodeGenerator
 {
     /// <summary>
-    /// 错误信息
+    /// Error message
     /// </summary>
     internal static class Messages
     {

@@ -14,6 +14,7 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Server node method information
     /// 服务端节点方法信息
     /// </summary>
     internal sealed class ServerNodeMethod : NodeMethod
@@ -64,11 +65,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal readonly Type PersistenceMethodReturnType;
         /// <summary>
-        /// 持久化之前参数检查方法编号
+        /// The method number that checks the input parameter before the persistence operation
+        /// 持久化操作之前检查输入参数的方法编号
         /// </summary>
         internal int BeforePersistenceMethodIndex = int.MinValue;
         /// <summary>
-        /// 冷启动加载持久化方法编号
+        /// The method number for initialize and load the persistent data
+        /// 初始化加载持久化数据的方法编号
         /// </summary>
         internal int LoadPersistenceMethodIndex = int.MinValue;
         /// <summary>
@@ -92,6 +95,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal bool IsBeforePersistenceMethod;
         /// <summary>
+        /// Server node method information
         /// 服务端节点方法信息
         /// </summary>
         /// <param name="type"></param>
@@ -220,7 +224,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 冷启动持久化方法匹配
+        /// 冷启动持久化方法匹配（初始化加载持久化数据）
         /// </summary>
         /// <param name="loadPersistenceMethod"></param>
         /// <param name="error"></param>

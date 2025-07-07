@@ -8,6 +8,7 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
+            /// Generate random object
             /// 随机对象生成
             /// </summary>
             /// <param name="value"></param>
@@ -21,6 +22,7 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF BaseType
             }
             /// <summary>
+            /// Generate random object
             /// 随机对象生成
             /// </summary>
             /// <param name="config"></param>
@@ -31,7 +33,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP Fields
             }
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             #region IF CurrentType.Type.IsGenericType
             public static void @CreateRandomObjectMethodName(/*NOTE*/object value/*NOTE*/)/*NOTE*/ { }/*NOTE*/

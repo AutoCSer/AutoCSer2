@@ -4,12 +4,13 @@
 namespace AutoCSer
 {
     /// <summary>
+    /// Binary data serialization
     /// 二进制数据序列化
     /// </summary>
     public sealed partial class BinarySerializer
     {
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="array"></param>
         /// <param name="count"></param>
@@ -31,7 +32,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组序列化
+        /// Array serialization
         /// </summary>
         /// <param name="array"></param>
         private unsafe void primitiveSerializeOnly(ulong?[] array)

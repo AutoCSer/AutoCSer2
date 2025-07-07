@@ -16,7 +16,7 @@ namespace AutoCSer.TestCase.SearchDataSource
         /// <param name="timeoutSeconds">触发任务执行超时秒数</param>
         internal LocalSearchUserMessageNode(int timeoutSeconds = 60) : base(timeoutSeconds) { }
         /// <summary>
-        /// 执行任务
+        /// 用户搜索数据更新消息节点
         /// </summary>
         /// <param name="task"></param>
         /// <param name="type"></param>

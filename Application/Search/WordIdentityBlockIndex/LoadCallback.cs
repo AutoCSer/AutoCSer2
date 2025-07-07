@@ -11,7 +11,8 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
     /// <summary>
     /// 初始化加载数据回调
     /// </summary>
-    /// <typeparam name="T">分词数据关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type for word segmentation data
+    /// 分词数据关键字类型</typeparam>
     internal sealed class LoadCallback<T> : ReadWriteQueueNode
 #if NetStandard21
         where T : notnull, IEquatable<T>

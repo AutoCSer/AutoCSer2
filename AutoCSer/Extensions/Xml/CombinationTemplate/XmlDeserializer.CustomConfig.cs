@@ -11,7 +11,7 @@ namespace AutoCSer
         /// <summary>
         /// 数字解析
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void XmlDeserialize(ref decimal value)
         {
             getValue();

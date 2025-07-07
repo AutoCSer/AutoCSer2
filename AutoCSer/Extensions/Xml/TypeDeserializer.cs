@@ -47,7 +47,8 @@ namespace AutoCSer.Xml
             private int memberMapIndex;
 #if AOT
             /// <summary>
-            /// 设置数据
+            /// Set the data
+        /// 设置数据
             /// </summary>
             /// <param name="member"></param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -60,7 +61,7 @@ namespace AutoCSer.Xml
             /// 成员解析器
             /// </summary>
             /// <param name="deserializer">XML 反序列化</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public void Call(XmlDeserializer deserializer, ref T value)
             {
@@ -72,7 +73,7 @@ namespace AutoCSer.Xml
             /// </summary>
             /// <param name="deserializer">XML 反序列化</param>
             /// <param name="memberMap">成员位图</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public void Call(XmlDeserializer deserializer, MemberMap<T> memberMap, ref T value)
             {
@@ -85,7 +86,7 @@ namespace AutoCSer.Xml
             /// </summary>
             /// <param name="deserializer">XML 反序列化</param>
             /// <param name="memberMap">成员位图</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             /// <returns></returns>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public int TryCall(XmlDeserializer deserializer, MemberMap<T> memberMap, ref T value)
@@ -105,6 +106,7 @@ namespace AutoCSer.Xml
             /// </summary>
             private XmlDeserializer.DeserializeDelegate<T> deserialize;
             /// <summary>
+            /// Set the data
             /// 设置数据
             /// </summary>
             /// <param name="method"></param>
@@ -125,7 +127,7 @@ namespace AutoCSer.Xml
             /// 成员解析器
             /// </summary>
             /// <param name="deserializer">XML 反序列化</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public void Call(XmlDeserializer deserializer, ref T value)
             {
@@ -137,7 +139,7 @@ namespace AutoCSer.Xml
             /// </summary>
             /// <param name="deserializer">XML 反序列化</param>
             /// <param name="memberMap">成员位图</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public void Call(XmlDeserializer deserializer, MemberMap<T> memberMap, ref T value)
             {
@@ -150,7 +152,7 @@ namespace AutoCSer.Xml
             /// </summary>
             /// <param name="deserializer">XML 反序列化</param>
             /// <param name="memberMap">成员位图</param>
-            /// <param name="value">目标数据</param>
+            /// <param name="value">Target data</param>
             /// <returns></returns>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
             public int TryCall(XmlDeserializer deserializer, MemberMap<T> memberMap, ref T value)
@@ -190,7 +192,7 @@ namespace AutoCSer.Xml
         /// 值类型对象解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void deserializeValue(XmlDeserializer deserializer, ref T? value)
@@ -207,7 +209,7 @@ namespace AutoCSer.Xml
         /// 引用类型对象解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
 #if NetStandard21
         private static void deserializeClass(XmlDeserializer deserializer, ref T? value)
 #else
@@ -238,7 +240,7 @@ namespace AutoCSer.Xml
         /// 数据成员解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         internal static unsafe void DeserializeMembers(XmlDeserializer deserializer, ref T value)
         {
             byte* names = memberNames.Byte;
@@ -419,7 +421,8 @@ namespace AutoCSer.Xml
         /// </summary>
         /// <param name="deserializer">XML解析器</param>
         /// <param name="arrayItemName">集合子节点名称</param>
-        /// <returns>目标数据</returns>
+        /// <returns>Target data
+        /// 目标数据</returns>
 #if NetStandard21
         internal static IEnumerable<T?> Enumerable(XmlDeserializer deserializer, AutoCSer.Memory.Pointer arrayItemName)
 #else
@@ -456,7 +459,7 @@ namespace AutoCSer.Xml
         /// 无成员对象解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void noMemberValue(XmlDeserializer deserializer, ref T? value)
@@ -471,7 +474,7 @@ namespace AutoCSer.Xml
         /// 无成员对象解析
         /// </summary>
         /// <param name="deserializer">XML 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
 #if NetStandard21
         private static void noMember(XmlDeserializer deserializer, ref T? value)
 #else

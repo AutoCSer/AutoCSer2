@@ -10,7 +10,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 类定义生成
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         public JavaScriptTypeDefinition(Type type) { }
     }
 }

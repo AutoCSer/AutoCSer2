@@ -20,6 +20,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             start().NotWait();
         }
         /// <summary>
+        /// Start receiving and processing messages
         /// 开始接收并处理消息
         /// </summary>
         /// <returns></returns>
@@ -35,6 +36,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             }
         }
         /// <summary>
+        /// Message processing
         /// 消息处理
         /// </summary>
         /// <param name="message"></param>

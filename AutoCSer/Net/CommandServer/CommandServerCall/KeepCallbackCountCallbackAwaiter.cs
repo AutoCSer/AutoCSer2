@@ -10,6 +10,7 @@ namespace AutoCSer.Net.CommandServer
     internal sealed class KeepCallbackCountCallbackAwaiter : TaskCastAwaiter<bool>
     {
         /// <summary>
+        /// TCP server-side asynchronously keep callback count
         /// TCP 服务器端异步保持回调计数
         /// </summary>
         private readonly CommandServerKeepCallbackCount count;
@@ -24,7 +25,8 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// TCP 服务器端异步保持回调计数回调 Awaiter
         /// </summary>
-        /// <param name="count">TCP 服务器端异步保持回调计数</param>
+        /// <param name="count">TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数</param>
         /// <param name="output"></param>
         internal KeepCallbackCountCallbackAwaiter(CommandServerKeepCallbackCount count, ServerOutput output)
         {

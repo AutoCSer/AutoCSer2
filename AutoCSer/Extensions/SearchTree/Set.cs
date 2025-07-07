@@ -7,23 +7,28 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.SearchTree
 {
     /// <summary>
+    /// Binary search tree set
     /// 二叉搜索树集合
     /// </summary>
-    /// <typeparam name="T">关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type
+    /// 关键字类型</typeparam>
     [RemoteType]
     public sealed class Set<T> where T : IComparable<T>
     {
         /// <summary>
+        /// Binary search tree set node
         /// 二叉搜索树集合节点
         /// </summary>
         internal sealed class Node : Node<Node, T>
         {
             /// <summary>
-            /// 二叉搜索树集合
+            /// Binary search tree set node
+            /// 二叉搜索树集合节点
             /// </summary>
             /// <param name="key"></param>
             internal Node(T key) : base(key) { }
             /// <summary>
+            /// The data collection
             /// 数据集合
             /// </summary>
             internal IEnumerable<T> Values
@@ -42,7 +47,8 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
-            /// 获取第一组数据
+            /// Get the first data
+            /// 获取第一个数据
             /// </summary>
             internal T Frist
             {
@@ -52,7 +58,8 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
-            /// 获取最后一组数据
+            /// Get the last data
+            /// 获取最后一个数据
             /// </summary>
             internal T Last
             {
@@ -63,10 +70,11 @@ namespace AutoCSer.SearchTree
             }
 
             /// <summary>
-            /// 添加数据
+            /// Add data
             /// </summary>
             /// <param name="key"></param>
-            /// <returns>是否添加了数据</returns>
+            /// <returns>Whether new data has been added
+            /// 是否添加了新数据</returns>
             internal bool Add(T key)
             {
                 int cmp = this.key.CompareTo(key);
@@ -102,6 +110,7 @@ namespace AutoCSer.SearchTree
                 return false;
             }
             /// <summary>
+            /// Exchange node data
             /// 交换节点数据
             /// </summary>
             /// <param name="key"></param>
@@ -113,6 +122,7 @@ namespace AutoCSer.SearchTree
                 base.key = tempKey;
             }
             /// <summary>
+            /// Check the number of left nodes
             /// 检测左节点数量
             /// </summary>
             private void checkLeft()
@@ -149,6 +159,7 @@ namespace AutoCSer.SearchTree
                 }
             }
             /// <summary>
+            /// Check the number of right nodes
             /// 检测右节点数量
             /// </summary>
             private void checkRight()
@@ -186,6 +197,7 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
+        /// Root node
         /// 根节点
         /// </summary>
 #if NetStandard21
@@ -194,13 +206,15 @@ namespace AutoCSer.SearchTree
         internal Node Boot;
 #endif
         /// <summary>
-        /// 节点数据
+        /// Number of nodes
+        /// 节点数量
         /// </summary>
         public int Count
         {
             get { return Boot != null ? Boot.Count : 0; }
         }
         /// <summary>
+        /// Get the tree height has a time complexity of O(n)
         /// 获取树高度，时间复杂度 O(n)
         /// </summary>
         public int Height
@@ -211,6 +225,7 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<T> Values
@@ -221,7 +236,8 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 获取第一组数据
+        /// Get the first data
+        /// 获取第一个数据
         /// </summary>
         public T Frist
         {
@@ -232,7 +248,8 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 获取最后一组数据
+        /// Get the last data
+        /// 获取最后一个数据
         /// </summary>
         public T Last
         {
@@ -243,10 +260,12 @@ namespace AutoCSer.SearchTree
             }
         }
         /// <summary>
-        /// 二叉树集合
+        /// Binary search tree set
+        /// 二叉搜索树集合
         /// </summary>
         public Set() { }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -255,10 +274,11 @@ namespace AutoCSer.SearchTree
             Boot = null;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否添加了数据</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Whether new data has been added
+        /// 是否添加了新数据</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Add(T key)
         {
@@ -270,10 +290,12 @@ namespace AutoCSer.SearchTree
             return Boot.Add(key);
         }
         /// <summary>
+        /// Delete node based on keyword
         /// 根据关键字删除节点
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否存在关键字</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         public bool Remove(T key)
         {
             if (Boot != null)
@@ -288,50 +310,60 @@ namespace AutoCSer.SearchTree
             return false;
         }
         /// <summary>
-        /// 判断是否包含关键字
+        /// Determines if the keyword exists
+        /// 判断是否存在关键字
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>是否包含关键字</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Whether the keyword exists
+        /// 是否存在关键字</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Contains(T key)
         {
             return Boot != null && Boot.Get(key) != null;
         }
         /// <summary>
-        /// 根据关键字获取一个匹配节点位置
+        /// Get the matching node location based on the keyword
+        /// 根据关键字获取匹配节点位置
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>一个匹配节点位置,失败返回-1</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Returning -1 indicates a failed match
+        /// 返回 -1 表示失败匹配</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int IndexOf(T key)
         {
             return Boot != null ? Boot.IndexOf(key) : -1;
         }
         /// <summary>
-        /// 根据关键字比它小的节点数量
+        /// Get the number of nodes smaller than the specified keyword
+        /// 获取比指定关键字小的节点数量
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>节点数量</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Number of nodes
+        /// 节点数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountLess(T key)
         {
             return Boot != null ? Boot.CountLess(key) : 0;
         }
         /// <summary>
-        /// 根据关键字比它大的节点数量
+        /// Get the number of nodes larger than the specified keyword
+        /// 获取比指定关键字大的节点数量
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <returns>节点数量</returns>
+        /// <param name="key">keyword</param>
+        /// <returns>Number of nodes
+        /// 节点数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public int CountThan(T key)
         {
             return Boot != null ? Boot.CountThan(key) : 0;
         }
         /// <summary>
+        /// Get data based on the node position
         /// 根据节点位置获取数据
         /// </summary>
-        /// <param name="index">节点位置</param>
-        /// <returns>数据</returns>
+        /// <param name="index">Node position
+        /// 节点位置</param>
+        /// <returns>data</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public T At(int index)
         {
@@ -340,23 +372,32 @@ namespace AutoCSer.SearchTree
         }
 
         /// <summary>
-        /// 获取范围数据集合
+        /// Get a collection of data based on the range
+        /// 根据范围获取数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal T[] GetRange(int skipCount, int getCount)
         {
             return Boot != null ? Boot.GetKeyArray(skipCount, getCount) : EmptyArray<T>.Array;
         }
         /// <summary>
-        /// 获取范围数据集合
+        /// Get a collection of data based on the range
+        /// 根据范围获取数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <param name="getValue">数据转换委托</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         internal AT[] GetRange<AT>(int skipCount, int getCount, Func<T, AT> getValue)
         {
             if (Boot != null && skipCount < Boot.Count)
@@ -368,23 +409,32 @@ namespace AutoCSer.SearchTree
             return EmptyArray<AT>.Array;
         }
         /// <summary>
+        /// Get the data collection of the reverse range
         /// 获取逆序范围数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal T[] GetRangeDesc(int skipCount, int getCount)
         {
             return Boot != null ? Boot.GetDescKeyArray(skipCount, getCount) : EmptyArray<T>.Array;
         }
         /// <summary>
+        /// Get the data collection of the reverse range
         /// 获取逆序范围数据集合
         /// </summary>
-        /// <param name="skipCount">跳过记录数</param>
-        /// <param name="getCount">获取记录数</param>
-        /// <param name="getValue">数据转换委托</param>
-        /// <returns>数据集合</returns>
+        /// <param name="skipCount">The number of skipped records
+        /// 跳过记录数</param>
+        /// <param name="getCount">The number of records to be obtained
+        /// 获取记录数</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
+        /// <returns>The data collection
+        /// 数据集合</returns>
         internal AT[] GetRangeDesc<AT>(int skipCount, int getCount, Func<T, AT> getValue)
         {
             if (Boot != null && skipCount < Boot.Count)
@@ -399,6 +449,7 @@ namespace AutoCSer.SearchTree
 
 #if DEBUG
         /// <summary>
+        /// Check the correctness of the data (for testing)
         /// 检查数据正确性（用于测试）
         /// </summary>
         /// <param name="count"></param>

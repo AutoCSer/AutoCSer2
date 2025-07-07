@@ -117,7 +117,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (isOutDefinition)
             {
                 _code_.Array.Length = 0;
-                if (Coder.Add(GetType(), CurrentType.Type))
+                if (!checkAddType() || Coder.Add(GetType(), CurrentType.Type))
                 {
                     switch (generatorAttribute.Language)
                     {
@@ -132,6 +132,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
                 return false;
             }
+            return true;
+        }
+        /// <summary>
+        /// 是否检查添加代码类型
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool checkAddType()
+        {
             return true;
         }
         /// <summary>
@@ -159,6 +167,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             Coder.Add(code, generatorAttribute.Language);
         }
         /// <summary>
+        /// Get the quantity of data
         /// 获取数据数量
         /// </summary>
         /// <param name="value">数据集合</param>

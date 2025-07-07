@@ -22,6 +22,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         protected override bool isStartClass { get { return false; } }
         /// <summary>
+        /// Node method information
         /// 节点方法信息
         /// </summary>
         public sealed class NodeMethod
@@ -71,15 +72,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public int MethodIndex;
             /// <summary>
+            /// Method array index position
             /// 方法数组索引位置
             /// </summary>
             public int MethodArrayIndex;
             /// <summary>
-            /// 持久化之前参数检查方法编号
+            /// The method number that checks the input parameter before the persistence operation
+            /// 持久化操作之前检查输入参数的方法编号
             /// </summary>
             public int PersistenceMethodIndex { get { return ServerNodeMethod.BeforePersistenceMethodIndex; } }
             /// <summary>
-            /// 冷启动加载持久化方法编号
+            /// The method number for initialize and load the persistent data
+            /// 初始化加载持久化数据的方法编号
             /// </summary>
             public int LoadPersistenceMethodIndex { get { return ServerNodeMethod.LoadPersistenceMethodIndex; } }
             /// <summary>
@@ -87,6 +91,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public readonly bool IsCallTypeParameter;
             /// <summary>
+            /// Method call type
             /// 方法调用类型
             /// </summary>
             public byte CallTypeValue { get { return (byte)ServerNodeMethod.CallType; } }
@@ -107,6 +112,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public string ParameterTypeFullName { get { return InputParameterType.ParameterTypeFullName; } }
             /// <summary>
+            /// Server-side node method flags
             /// 服务端节点方法标记
             /// </summary>
             public readonly byte MethodFlags;
@@ -183,6 +189,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public bool IsGetBeforePersistenceResponseParameter { get { return ServerNodeMethod.PersistenceMethodReturnType != typeof(void) && ServerNodeMethod.ReturnValueType != typeof(ResponseParameter); } }
             /// <summary>
+            /// Snapshot data type
             /// 快照数据类型
             /// </summary>
             public ExtensionType SnapshotType;
@@ -328,10 +335,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         ///// </summary>
         //public AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType[] ParameterTypes;
         /// <summary>
+        /// Node method collection
         /// 节点方法集合
         /// </summary>
         public NodeMethod[] Methods;
         /// <summary>
+        /// Snapshot method collection
         /// 快照方法集合
         /// </summary>
         public NodeMethod[] SnapshotMethods;

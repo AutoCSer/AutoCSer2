@@ -7,9 +7,10 @@ using System;
 namespace AutoCSer.TestCase.SearchCommon
 {
     /// <summary>
+    /// Non-index condition query data node interface
     /// 非索引条件查询数据节点接口
     /// </summary>
-    [ServerNode(IsAutoMethodIndex = false, IsMethodParameterCreator = true)]
+    [ServerNode(IsMethodParameterCreator = true)]
     public partial interface ISearchUserNode : IConditionDataNode<int, SearchUser>
     {
         /// <summary>

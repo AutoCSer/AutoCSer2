@@ -110,11 +110,11 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Delegate BinaryDeserializeNotSupportDelegate { get; }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON 混杂二进制 反序列化
         /// </summary>
-        internal abstract Delegate BinaryDeserializeStructJsonDelegate { get; } 
+        internal abstract Delegate BinaryDeserializeStructJsonDelegate { get; }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         internal abstract Delegate BinaryDeserializeJsonDelegate { get; }
         /// <summary>
@@ -144,19 +144,19 @@ namespace AutoCSer.Metadata
         /// <param name="serializeDelegateReference"></param>
         internal abstract void GetBinarySerializeStructArrayDelegate(ref AutoCSer.BinarySerialize.SerializeDelegateReference serializeDelegateReference);
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal abstract Delegate BinarySerializeJsonDelegate { get; }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal abstract Delegate BinarySerializeMemberJsonDelegate { get; }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal abstract Delegate BinarySerializeStructJsonDelegate { get; }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal abstract Delegate BinarySerializeMemberStructJsonDelegate { get; }
         /// <summary>
@@ -218,19 +218,23 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Delegate CommandClientControllerEnumeratorQueueDelegate { get; }
         /// <summary>
+        /// Get the client callback delegate
         /// 获取客户端回调委托
         /// </summary>
         internal abstract Delegate GetCommandClientCallbackDelegate { get; }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client keep callback delegate
+        /// 获取客户端保持回调委托
         /// </summary>
         internal abstract Delegate GetCommandClientKeepCallbackDelegate { get; }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue callback task node
+        /// 获取客户端队列回调任务节点
         /// </summary>
         internal abstract Delegate GetCommandClientCallbackQueueDelegate { get; }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue keep callback delegate
+        /// 获取客户端队列保持回调委托
         /// </summary>
         internal abstract Delegate GetCommandClientKeepCallbackQueueDelegate { get; }
 #endif
@@ -270,52 +274,64 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Delegate CommandServerSynchronousCallbackDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackCountDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackQueueNodeDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackReadWriteQueueNodeDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackConcurrencyReadQueueNodeDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackCountQueueNodeDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackCountReadWriteQueueNodeDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackCountConcurrencyReadQueueNodeDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateServerKeepCallbackTaskDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateServerKeepCallbackCountTaskDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateServerEnumerableKeepCallbackCountTaskDelegate { get; }
 #if NetStandard21
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateServerAsyncEnumerableTaskDelegate { get; }
         /// <summary>
@@ -323,6 +339,7 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Delegate CommandServerAsyncEnumerableQueueTaskCheckCallTaskDelegate { get; }
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal abstract Delegate CommandServerAsyncEnumerableQueueTaskGetSocketDelegate { get; }
@@ -331,6 +348,7 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Type CommandServerAsyncEnumerableQueueTaskType { get; }
         /// <summary>
+        /// Get the IAsyncEnumerable
         /// 获取 IAsyncEnumerable
         /// </summary>
         internal abstract Delegate CommandClientEnumeratorCommandGetAsyncEnumerableDelegate { get; }
@@ -340,27 +358,32 @@ namespace AutoCSer.Metadata
         internal abstract Delegate AsyncEnumerableQueueTaskGetTaskQueueDelegate { get; }
 #endif
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackTaskQueueDelegate { get; }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackCountTaskQueueDelegate { get; }
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal abstract Delegate CommandServerCallQueueSendReturnValueDelegate { get; }
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal abstract Delegate CommandServerCallReadWriteQueueSendReturnValueDelegate { get; }
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal abstract Delegate CommandServerCallConcurrencyReadQueueSendReturnValueDelegate { get; }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         internal abstract Delegate CommandServerCallSendDelegate { get; }
 
@@ -381,30 +404,37 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Delegate CommandServerCallTaskQueueTaskCheckCallTaskDelegate { get; }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal abstract Delegate CommandServerSocketCheckTaskDelegate { get; }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal abstract Delegate CommandServerCallbackTaskCheckTaskDelegate { get; }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal abstract Delegate CommandServerKeepCallbackTaskCheckTaskDelegate { get; }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal abstract Delegate CommandServerKeepCallbackTaskCheckTaskAutoCancelKeepDelegate { get; }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal abstract Delegate CommandServerKeepCallbackTaskCheckCountTaskDelegate { get; }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal abstract Delegate CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate { get; }
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal abstract Delegate CommandServerKeepCallbackQueueTaskGetSocketDelegate { get; }
@@ -417,7 +447,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Type CommandServerRunTaskType { get; }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal abstract Delegate CommandServerRunTaskSetIsDeserializeDelegate { get; }
         /// <summary>
@@ -429,7 +460,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Type CommandServerCallbackRunTaskType { get; }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal abstract Delegate CommandServerCallbackRunTaskSetIsDeserializeDelegate { get; }
         /// <summary>
@@ -441,7 +473,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Type CommandServerKeepCallbackRunTaskType { get; }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal abstract Delegate CommandServerKeepCallbackRunTaskSetIsDeserializeDelegate { get; }
         /// <summary>
@@ -457,7 +490,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Type CommandServerKeepCallbackCountRunTaskType { get; }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal abstract Delegate CommandServerKeepCallbackCountRunTaskSetIsDeserializeDelegate { get; }
         /// <summary>
@@ -473,7 +507,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal abstract Type CommandServerEnumerableKeepCallbackCountRunTaskType { get; }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal abstract Delegate CommandServerEnumerableKeepCallbackCountRunTaskSetIsDeserializeDelegate { get; }
         /// <summary>
@@ -690,11 +725,11 @@ namespace AutoCSer.Metadata
         internal override Delegate BinaryDeserializeNotSupportDelegate { get { return (AutoCSer.BinaryDeserializer.DeserializeDelegate<T>)BinaryDeserializer.NotSupport<T>; } }
 #endif
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON 混杂二进制 反序列化
         /// </summary>
         internal override Delegate BinaryDeserializeStructJsonDelegate { get { return (BinaryDeserializer.DeserializeDelegate<T>)AutoCSer.BinaryDeserializer.StructJson<T>; } }
         /// <summary>
-        /// 二进制混杂 JSON 反序列化
+        /// JSON 混杂二进制 反序列化
         /// </summary>
 #if NetStandard21
         internal override Delegate BinaryDeserializeJsonDelegate { get { return (BinaryDeserializer.DeserializeDelegate<T?>)AutoCSer.BinaryDeserializer.Json<T>; } }
@@ -735,11 +770,11 @@ namespace AutoCSer.Metadata
             serializeDelegateReference.SetMember((Action<AutoCSer.BinarySerializer, T[]>)AutoCSer.BinarySerializer.StructArray<T>, ReferenceTypes, BinarySerialize.SerializePushTypeEnum.Primitive, true);
         }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal override Delegate BinarySerializeJsonDelegate { get { return (Action<AutoCSer.BinarySerializer, T>)AutoCSer.BinarySerializer.Json<T>; } }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal override Delegate BinarySerializeMemberJsonDelegate
         {
@@ -749,11 +784,11 @@ namespace AutoCSer.Metadata
             }
         }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal override Delegate BinarySerializeStructJsonDelegate { get { return (Action<AutoCSer.BinarySerializer, T>)AutoCSer.BinarySerializer.StructJson<T>; } }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        ///  JSON 混杂二进制序列化
         /// </summary>
         internal override Delegate BinarySerializeMemberStructJsonDelegate
         {
@@ -821,19 +856,23 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Delegate CommandClientControllerEnumeratorQueueDelegate { get { return (Func<AutoCSer.Net.CommandClientController, int, AutoCSer.Net.EnumeratorQueueCommand<T>>)AutoCSer.Net.CommandClientController.EnumeratorQueue<T>; } }
         /// <summary>
+        /// Get the client callback delegate
         /// 获取客户端回调委托
         /// </summary>
         internal override Delegate GetCommandClientCallbackDelegate { get { return (Func<Action<AutoCSer.Net.CommandClientReturnValue<T>>, AutoCSer.Net.CommandClientCallback<T>>)AutoCSer.Net.CommandClientCallback<T>.Get; } }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client keep callback delegate
+        /// 获取客户端保持回调委托
         /// </summary>
         internal override Delegate GetCommandClientKeepCallbackDelegate { get { return (Func<Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.CommandClientKeepCallback<T>>)AutoCSer.Net.CommandClientKeepCallback<T>.Get; } }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue callback task node
+        /// 获取客户端队列回调任务节点
         /// </summary>
         internal override Delegate GetCommandClientCallbackQueueDelegate { get { return (Func<Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.CommandClientCallQueue>, AutoCSer.Net.CommandClientCallbackQueueNode<T>>)AutoCSer.Net.CommandClientCallbackQueueNode<T>.Get; } }
         /// <summary>
-        /// 获取客户端回调委托
+        /// Get the client queue keep callback delegate
+        /// 获取客户端队列保持回调委托
         /// </summary>
         internal override Delegate GetCommandClientKeepCallbackQueueDelegate { get { return (Func<Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.CommandClientKeepCallbackQueue<T>>)AutoCSer.Net.CommandClientKeepCallbackQueue<T>.Get; } }
 #endif
@@ -883,52 +922,64 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Delegate CommandServerSynchronousCallbackDelegate { get { return (Func<AutoCSer.Net.CommandServerCallQueue, AutoCSer.Net.CommandServerCallback<T>, AutoCSer.Net.CommandServer.ServerInterfaceMethod, T, bool>)AutoCSer.Net.CommandServerCallback<T>.SynchronousCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackDelegate { get { return (Func<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallback<T>>)AutoCSer.Net.CommandServerKeepCallback<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackCountDelegate { get { return (Func<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackCount<T>>)AutoCSer.Net.CommandServerKeepCallbackCount<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallback<T>>)AutoCSer.Net.CommandServerKeepCallback<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackReadWriteQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallReadWriteQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallback<T>>)AutoCSer.Net.CommandServerKeepCallback<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackConcurrencyReadQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallback<T>>)AutoCSer.Net.CommandServerKeepCallback<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackCountQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackCount<T>>)AutoCSer.Net.CommandServerKeepCallbackCount<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackCountReadWriteQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallReadWriteQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackCount<T>>)AutoCSer.Net.CommandServerKeepCallbackCount<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackCountConcurrencyReadQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackCount<T>>)AutoCSer.Net.CommandServerKeepCallbackCount<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateServerKeepCallbackTaskDelegate { get { return (Func<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackTask<T>>)AutoCSer.Net.CommandServerKeepCallbackTask<T>.CreateServerKeepCallbackTask; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateServerKeepCallbackCountTaskDelegate { get { return (Func<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackCountTask<T>>)AutoCSer.Net.CommandServerKeepCallbackCountTask<T>.CreateServerKeepCallbackTask; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateServerEnumerableKeepCallbackCountTaskDelegate { get { return (Action<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, Task<IEnumerable<T>>>)AutoCSer.Net.CommandServerEnumerableKeepCallbackCountTask<T>.CreateServerKeepCallbackTask; } }
 #if NetStandard21
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateServerAsyncEnumerableTaskDelegate { get { return (Action<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, IAsyncEnumerable<T>>)AutoCSer.Net.CommandServerAsyncEnumerableTask<T>.CreateServerKeepCallbackTask; } }
         /// <summary>
@@ -936,6 +987,7 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Delegate CommandServerAsyncEnumerableQueueTaskCheckCallTaskDelegate { get { return (Func<AutoCSer.Net.AsyncEnumerableQueueTask<T>, IAsyncEnumerable<T>, bool>)AutoCSer.Net.AsyncEnumerableQueueTask<T>.CheckCallTask; } }
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal override Delegate CommandServerAsyncEnumerableQueueTaskGetSocketDelegate { get { return (AutoCSer.Net.AsyncEnumerableQueueTask<T>.GetSocketDelegate)AutoCSer.Net.AsyncEnumerableQueueTask<T>.GetSocket; } }
@@ -944,6 +996,7 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Type CommandServerAsyncEnumerableQueueTaskType { get { return typeof(AutoCSer.Net.AsyncEnumerableQueueTask<T>); } }
         /// <summary>
+        /// Get the IAsyncEnumerable
         /// 获取 IAsyncEnumerable
         /// </summary>
         internal override Delegate CommandClientEnumeratorCommandGetAsyncEnumerableDelegate { get { return (Func<AutoCSer.Net.EnumeratorCommand<T>, IAsyncEnumerable<T>>)AutoCSer.Net.EnumeratorCommand<T>.GetAsyncEnumerable; } }
@@ -953,27 +1006,32 @@ namespace AutoCSer.Metadata
         internal override Delegate AsyncEnumerableQueueTaskGetTaskQueueDelegate { get { return (Func<AutoCSer.Net.AsyncEnumerableQueueTask<T>, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerTaskQueueService?>)AutoCSer.Net.AsyncEnumerableQueueTask<T>.GetTaskQueue; } }
 #endif
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackTaskQueueDelegate { get { return (Func<AutoCSer.Net.CommandServerCallTaskQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallback<T>>)AutoCSer.Net.CommandServerKeepCallback<T>.CreateServerKeepCallback; } }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackCountTaskQueueDelegate { get { return (Func<AutoCSer.Net.CommandServerCallTaskQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackCount<T>>)AutoCSer.Net.CommandServerKeepCallbackCount<T>.CreateServerKeepCallback; } }
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal override Delegate CommandServerCallQueueSendReturnValueDelegate { get { return (Func<AutoCSer.Net.CommandServerCallQueueNode, AutoCSer.Net.CommandServerCallQueue, AutoCSer.Net.CommandServer.ServerInterfaceMethod, T, bool>)AutoCSer.Net.CommandServerCallQueueNode.SendReturnValue; } }
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal override Delegate CommandServerCallReadWriteQueueSendReturnValueDelegate { get { return (Func<AutoCSer.Net.CommandServerCallReadWriteQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, T, bool>)AutoCSer.Net.CommandServerCallReadWriteQueueNode.SendReturnValue; } }
         /// <summary>
+        /// The server queue task sends data
         /// 服务端执行队列任务发送数据
         /// </summary>
         internal override Delegate CommandServerCallConcurrencyReadQueueSendReturnValueDelegate { get { return (Func<AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, T, bool>)AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SendReturnValue; } }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         internal override Delegate CommandServerCallSendDelegate { get { return (Func<AutoCSer.Net.CommandServerCall, AutoCSer.Net.CommandServer.ServerInterfaceMethod, T, bool>)AutoCSer.Net.CommandServerCall.Send<T>; } }
 
@@ -994,30 +1052,37 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Delegate CommandServerCallTaskQueueTaskCheckCallTaskDelegate { get { return (Func<AutoCSer.Net.CommandServerCallTaskQueueTask<T>, Task<T>, bool>)AutoCSer.Net.CommandServerCallTaskQueueTask<T>.CheckCallTask; } }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal override Delegate CommandServerSocketCheckTaskDelegate { get { return (Action<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, Task<T>>)AutoCSer.Net.CommandServerSocket.CheckTask<T>; } }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal override Delegate CommandServerCallbackTaskCheckTaskDelegate { get { return (Action<AutoCSer.Net.CommandServerCallbackTask<T>, Task>)AutoCSer.Net.CommandServerCallbackTask<T>.CheckTask; } }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal override Delegate CommandServerKeepCallbackTaskCheckTaskDelegate { get { return (Action<AutoCSer.Net.CommandServerKeepCallbackTask<T>, Task>)AutoCSer.Net.CommandServerKeepCallbackTask<T>.CheckTask; } }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal override Delegate CommandServerKeepCallbackTaskCheckTaskAutoCancelKeepDelegate { get { return (Action<AutoCSer.Net.CommandServerKeepCallbackTask<T>, Task>)AutoCSer.Net.CommandServerKeepCallbackTask<T>.CheckTaskAutoCancelKeep; } }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal override Delegate CommandServerKeepCallbackTaskCheckCountTaskDelegate { get { return (Action<AutoCSer.Net.CommandServerKeepCallbackCountTask<T>, Task>)AutoCSer.Net.CommandServerKeepCallbackCountTask<T>.CheckTask; } }
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal override Delegate CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate { get { return (Action<AutoCSer.Net.CommandServerKeepCallbackCountTask<T>, Task>)AutoCSer.Net.CommandServerKeepCallbackCountTask<T>.CheckTaskAutoCancelKeep; } }
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal override Delegate CommandServerKeepCallbackQueueTaskGetSocketDelegate { get { return (AutoCSer.Net.CommandServerKeepCallbackQueueTask<T>.GetSocketDelegate)AutoCSer.Net.CommandServerKeepCallbackQueueTask<T>.GetSocket; } }
@@ -1030,7 +1095,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Type CommandServerRunTaskType { get { return typeof(AutoCSer.Net.CommandServerRunTask<T>); } }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal override Delegate CommandServerRunTaskSetIsDeserializeDelegate { get { return (Action<AutoCSer.Net.CommandServerRunTask<T>, bool>)AutoCSer.Net.CommandServerRunTask<T>.SetIsDeserialize; } }
         /// <summary>
@@ -1042,7 +1108,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Type CommandServerCallbackRunTaskType { get { return typeof(AutoCSer.Net.CommandServerCallbackRunTask<T>); } }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal override Delegate CommandServerCallbackRunTaskSetIsDeserializeDelegate { get { return (Action<AutoCSer.Net.CommandServerCallbackRunTask<T>, bool>)AutoCSer.Net.CommandServerCallbackRunTask<T>.SetIsDeserialize; } }
         /// <summary>
@@ -1054,7 +1121,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Type CommandServerKeepCallbackRunTaskType { get { return typeof(AutoCSer.Net.CommandServerKeepCallbackRunTask<T>); } }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal override Delegate CommandServerKeepCallbackRunTaskSetIsDeserializeDelegate { get { return (Action<AutoCSer.Net.CommandServerKeepCallbackRunTask<T>, bool>)AutoCSer.Net.CommandServerKeepCallbackRunTask<T>.SetIsDeserialize; } }
         /// <summary>
@@ -1070,7 +1138,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Type CommandServerKeepCallbackCountRunTaskType { get { return typeof(AutoCSer.Net.CommandServerKeepCallbackCountRunTask<T>); } }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal override Delegate CommandServerKeepCallbackCountRunTaskSetIsDeserializeDelegate { get { return (Action<AutoCSer.Net.CommandServerKeepCallbackCountRunTask<T>, bool>)AutoCSer.Net.CommandServerKeepCallbackCountRunTask<T>.SetIsDeserialize; } }
         /// <summary>
@@ -1086,7 +1155,8 @@ namespace AutoCSer.Metadata
         /// </summary>
         internal override Type CommandServerEnumerableKeepCallbackCountRunTaskType { get { return typeof(AutoCSer.Net.CommandServerEnumerableKeepCallbackCountRunTask<T>); } }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal override Delegate CommandServerEnumerableKeepCallbackCountRunTaskSetIsDeserializeDelegate { get { return (Action<AutoCSer.Net.CommandServerEnumerableKeepCallbackCountRunTask<T>, bool>)AutoCSer.Net.CommandServerEnumerableKeepCallbackCountRunTask<T>.SetIsDeserialize; } }
         /// <summary>

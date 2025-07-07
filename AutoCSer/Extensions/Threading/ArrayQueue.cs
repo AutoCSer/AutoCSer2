@@ -7,12 +7,12 @@ namespace AutoCSer.Threading
     /// <summary>
     /// 数组链表，用于替代固定数组环 RingPool{T}（数组环并发性能远不如 Link，所以该结构仅支持一读一写）
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public sealed class ArrayQueue<T> : IDisposable
     {
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly CpuCachePad pad0;
         /// <summary>
@@ -20,10 +20,12 @@ namespace AutoCSer.Threading
         /// </summary>
         public readonly int ArraySize;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         private int isDisposed;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         public bool IsDisposed
@@ -31,7 +33,7 @@ namespace AutoCSer.Threading
             get { return isDisposed != 0; }
         }
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly CpuCachePad pad1;
         /// <summary>
@@ -55,7 +57,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private int readReserve;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly CpuCachePad pad2;
         /// <summary>
@@ -71,7 +73,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private int writeReserve;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly CpuCachePad pad3;
         /// <summary>
@@ -85,7 +87,7 @@ namespace AutoCSer.Threading
             readLock.Set(new object());
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {

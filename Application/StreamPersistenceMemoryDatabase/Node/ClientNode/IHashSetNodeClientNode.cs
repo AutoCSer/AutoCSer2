@@ -3,7 +3,8 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 哈希表节点接口 客户端节点接口
+    /// Hash table node client interface
+    /// 哈希表节点 客户端接口
     /// </summary>
     public partial interface IHashSetNodeClientNode<T> where T : IEquatable<T>
     {

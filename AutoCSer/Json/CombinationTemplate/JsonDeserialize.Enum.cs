@@ -66,10 +66,12 @@ namespace AutoCSer
             AutoCSer.Json.EnumULongDeserialize<T>.DeserializeFlags(jsonDeserializer, ref value);
         }
         /// <summary>
+        /// Deserialization of enumeration values
         /// 枚举值反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo EnumULongMethod;
         /// <summary>
+        /// Deserialization of enumeration values
         /// 枚举值反序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo EnumFlagsULongMethod;
@@ -96,7 +98,7 @@ namespace AutoCSer.Json
         /// 枚举值解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Deserialize(JsonDeserializer jsonDeserializer, ref T value)
         {
@@ -106,7 +108,7 @@ namespace AutoCSer.Json
         /// 枚举值解析
         /// </summary>
         /// <param name="jsonDeserializer">JSON 反序列化</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="value">Target data</param>
         public static void DeserializeFlags(JsonDeserializer jsonDeserializer, ref T value)
         {
             if (!jsonDeserializer.TryDeserializeEnumULong(ref value))

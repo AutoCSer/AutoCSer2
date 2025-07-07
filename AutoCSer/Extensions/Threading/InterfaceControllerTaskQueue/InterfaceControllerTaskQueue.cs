@@ -15,6 +15,7 @@ namespace AutoCSer.Threading
         /// </summary>
         private LinkStack<InterfaceControllerTaskQueueNodeBase> queue;
         /// <summary>
+        /// Queue thread ID
         /// 队列线程ID
         /// </summary>
         internal int ThreadId;
@@ -61,7 +62,8 @@ namespace AutoCSer.Threading
             while (!isDisposed);
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -70,7 +72,8 @@ namespace AutoCSer.Threading
             if (queue.IsPushHead(node)) WaitHandle.Set();
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="queue"></param>
         /// <param name="node"></param>
@@ -80,7 +83,8 @@ namespace AutoCSer.Threading
             queue.AddOnly(node);
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
         public void Add(InterfaceControllerTaskQueueCustomNode node)
@@ -89,10 +93,11 @@ namespace AutoCSer.Threading
             else throw new Exception("node.isQueue is true");
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="node"></param>
-        /// <typeparam name="T">返回值类型</typeparam>
+        /// <typeparam name="T">Return value type</typeparam>
         public void Add<T>(InterfaceControllerTaskQueueCustomNode<T> node)
         {
             if (node.CheckQueue(this)) AddOnly(node);

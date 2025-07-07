@@ -88,9 +88,11 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             return await nodeResult.Value.notNull().AppendWord(word);
         }
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
-        /// <returns>Trie 图词语数量</returns>
+        /// <returns>The number of words in the trie graph
+        /// Trie 图词语数量</returns>
         public async Task<ResponseResult<int>> BuildGraph()
         {
             ResponseResult<IStaticTrieGraphNodeClientNode> nodeResult = await NodeCache.GetNode();
@@ -98,6 +100,7 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             return await nodeResult.Value.notNull().BuildGraph();
         }
         /// <summary>
+        /// Adds text and returns a collection of word numbers
         /// 添加文本并返回词语编号集合
         /// </summary>
         /// <param name="text"></param>
@@ -109,9 +112,11 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             return await nodeResult.Value.notNull().GetAddTextIdentity(text);
         }
         /// <summary>
+        /// Get the collection of query word numbers (ignore unmatched words)
         /// 获取查询词语编号集合（忽略未匹配词语）
         /// </summary>
-        /// <param name="text">搜索文本内容</param>
+        /// <param name="text">The text content of the search
+        /// 搜索文本内容</param>
         /// <returns></returns>
         public async Task<ResponseResult<int[]>> GetWordSegmentIdentity(string text)
         {
@@ -120,9 +125,11 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
             return await nodeResult.Value.notNull().GetWordSegmentIdentity(text);
         }
         /// <summary>
+        /// Get the query word segmentation result
         /// 获取查询分词结果
         /// </summary>
-        /// <param name="text">搜索文本内容</param>
+        /// <param name="text">The text content of the search
+        /// 搜索文本内容</param>
         /// <returns></returns>
         public async Task<ResponseResult<WordSegmentResult[]>> GetWordSegmentResult(string text)
         {

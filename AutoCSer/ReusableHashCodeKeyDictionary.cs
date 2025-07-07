@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -8,7 +9,7 @@ namespace AutoCSer
     /// <summary>
     /// 可重用字典（主要用于非引用类型缓冲区，避免 new / Clear 开销）
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     [RemoteType]
     public sealed class ReusableHashCodeKeyDictionary<T> : ReusableDictionary<T>
     {
@@ -49,6 +50,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<T> Values
@@ -69,7 +71,7 @@ namespace AutoCSer
         /// <summary>
         /// 获取或者设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <returns></returns>
         public T this[int key]
         {
@@ -79,7 +81,7 @@ namespace AutoCSer
         /// <summary>
         /// 获取或者设置数据
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <returns></returns>
         public T this[uint key]
         {
@@ -94,14 +96,16 @@ namespace AutoCSer
         /// <summary>
         /// 可重用字典
         /// </summary>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <param name="groupType">可重用字典重组操作类型</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <param name="groupType">Reusable dictionary recombination operation type
+        /// 可重用字典重组操作类型</param>
         public ReusableHashCodeKeyDictionary(int capacity = 0, ReusableDictionaryGroupTypeEnum groupType = ReusableDictionaryGroupTypeEnum.HashIndex) : base(capacity, groupType) { }
         /// <summary>
         /// 尝试获取数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="key">keyword</param>
+        /// <param name="value">Target data</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否获取成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -116,8 +120,8 @@ namespace AutoCSer
         /// <summary>
         /// 尝试获取数据
         /// </summary>
-        /// <param name="key">关键字</param>
-        /// <param name="value">目标数据</param>
+        /// <param name="key">keyword</param>
+        /// <param name="value">Target data</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
         /// <returns>是否获取成功</returns>
 #if NetStandard21
@@ -167,6 +171,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="key"></param>
@@ -179,6 +184,7 @@ namespace AutoCSer
             return set((uint)key, value, isRoll, false);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="key"></param>
@@ -191,7 +197,7 @@ namespace AutoCSer
             return set(key, value, isRoll, false);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -203,7 +209,7 @@ namespace AutoCSer
             return set((uint)key, value, isRoll, true);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -215,6 +221,7 @@ namespace AutoCSer
             return set(key, value, isRoll, true);
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="key"></param>
@@ -285,9 +292,10 @@ namespace AutoCSer
         /// <summary>
         /// 判断是否存在关键字
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool ContainsKey(int key, bool isRoll = false)
         {
@@ -297,9 +305,10 @@ namespace AutoCSer
         /// <summary>
         /// 判断是否存在关键字
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="isRoll">是否尝试修改索引位置（用于优先级淘汰策略）</param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool ContainsKey(uint key, bool isRoll = false)
         {
@@ -307,10 +316,12 @@ namespace AutoCSer
             return TryGetValue(key, out value, isRoll);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(int key)
         {
@@ -318,10 +329,12 @@ namespace AutoCSer
             return Remove((uint)key, out value);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Remove(uint key)
         {
@@ -329,11 +342,14 @@ namespace AutoCSer
             return Remove(key, out value);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value">被删除数据</param>
-        /// <returns>是否存在关键字</returns>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public bool Remove(int key, [MaybeNullWhen(false)] out T value)
@@ -344,11 +360,14 @@ namespace AutoCSer
             return Remove((uint)key, out value);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value">被删除数据</param>
-        /// <returns>是否存在关键字</returns>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
 #if NetStandard21
         public bool Remove(uint key, [MaybeNullWhen(false)] out T value)
 #else
@@ -416,7 +435,8 @@ namespace AutoCSer
         /// <summary>
         /// 删除滚动索引位置数据
         /// </summary>
-        /// <param name="value">被删除数据</param>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
         /// <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool RemoveRoll(out KeyValue<int, T> value)
@@ -433,7 +453,8 @@ namespace AutoCSer
         /// <summary>
         /// 删除滚动索引位置数据
         /// </summary>
-        /// <param name="value">被删除数据</param>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
         /// <returns>是否存在数据，非 Roll 类型也返回 false</returns>
         public bool RemoveRoll(out KeyValue<uint, T> value)
         {
@@ -456,7 +477,10 @@ namespace AutoCSer
                         if (rollIndex != removeCount())
                         {
                             remove(rollIndex, Nodes[rollIndex].HashIndex);
-                            if (++rollIndex == Count) rollIndex = 0;
+
+                            //if (++rollIndex == Count) rollIndex = 0;
+                            ++rollIndex;
+                            rollIndex &= (rollIndex ^ Count).logicalInversion() - 1;
                         }
                         else rollIndex = 0;
                         return true;
@@ -470,7 +494,9 @@ namespace AutoCSer
                 if (rollIndex != removeCount())
                 {
                     remove(rollIndex, node.HashIndex);
-                    if (++rollIndex == Count) rollIndex = 0;
+                    //if (++rollIndex == Count) rollIndex = 0;
+                    ++rollIndex;
+                    rollIndex &= (rollIndex ^ Count).logicalInversion() - 1;
                 }
                 else rollIndex = 0;
                 return true;
@@ -481,7 +507,8 @@ namespace AutoCSer
         /// <summary>
         /// 删除滚动索引位置数据
         /// </summary>
-        /// <param name="value">被删除数据</param>
+        /// <param name="value">Deleted data
+        /// 被删除数据</param>
         /// <returns>是否存在数据，非 Roll 类型也返回 false</returns>
 #if NetStandard21
         public bool RemoveRoll([MaybeNullWhen(false)] out T value)

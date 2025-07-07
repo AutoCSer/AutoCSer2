@@ -10,7 +10,7 @@ namespace AutoCSer.TestCase.SearchDataSource
     /// 用户信息服务接口
     /// </summary>
     [AutoCSer.Net.CommandServerControllerInterface]
-    public interface IUserService
+    public partial interface IUserService
     {
         /// <summary>
         /// 获取所有用户名称

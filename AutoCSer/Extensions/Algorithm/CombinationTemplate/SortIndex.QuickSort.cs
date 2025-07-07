@@ -12,7 +12,8 @@ namespace AutoCSer.Algorithm
         /// <summary>
         /// 索引快速排序子过程
         /// </summary>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置-1</param>
         internal unsafe static void SortDesc(ULongSortIndex* startIndex, ULongSortIndex* endIndex)
         {
@@ -109,10 +110,11 @@ namespace AutoCSer.Extensions
     public static unsafe partial class ArraySort
     {
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="array">数组</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
         /// <param name="count">排序数据数量，大于 1</param>
         /// <param name="getKey">排序键值获取器</param>
         internal static void QuickSortDesc<T>(this T[] array, int count, Func<T, ulong> getKey)
@@ -132,9 +134,10 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 索引排序以后调整数组数据
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="array">数组</param>
-        /// <param name="count">排序数据数量</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
+        /// <param name="count">The quantity of data to be sorted
+        /// 排序数据数量</param>
         /// <param name="sortIndex">排序索引</param>
         internal static void QuickSortDesc<T>(this T[] array, int count, AutoCSer.Algorithm.ULongSortIndex* sortIndex)
         {
@@ -161,9 +164,10 @@ namespace AutoCSer.Extensions
             while (++index != count);
         }
         /// <summary>
+        /// Array sorting
         /// 数组排序
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组，数量大于 1</param>
         /// <param name="startIndex">排序起始位置</param>
         /// <param name="endIndex">排序结束位置，数量大于 1</param>
@@ -185,8 +189,8 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 索引排序以后调整数组数据
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="array">数组</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="array">Array</param>
         /// <param name="startIndex">排序起始位置</param>
         /// <param name="endIndex">排序结束位置</param>
         /// <param name="sortIndex">排序索引</param>

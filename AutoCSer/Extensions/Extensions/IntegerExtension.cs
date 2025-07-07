@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Extensions
 {
     /// <summary>
+    /// Integer correlation extension operations
     /// 数值相关扩展操作
     /// </summary>
     public unsafe static class IntegerExtension
@@ -11,7 +12,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 获取二进制1位的个数
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <returns>二进制1位的个数</returns>
         public static int bitCount(this ulong value)
         {
@@ -27,7 +28,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 获取有效位长度
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <returns>有效位长度</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static int bits(this ulong value)
@@ -49,7 +50,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 获取最后二进制0位的长度
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <returns>最后二进制0位的长度</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static int endBits(this uint value)
@@ -59,7 +60,7 @@ namespace AutoCSer.Extensions
         /// <summary>
         /// 获取最后二进制0位的长度
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         /// <returns>最后二进制0位的长度</returns>
         public static int endBits(this ulong value)
         {
@@ -67,6 +68,26 @@ namespace AutoCSer.Extensions
                 ? (value != 0 ? endBits((uint)(value >> 32)) + 32 : 0)
                 : endBits((uint)value);
             //return value != 0 ? DeBruijn64[((value & (0UL - value)) * DeBruijn64Number) >> 58] : 0;
+        }
+        /// <summary>
+        /// 逻辑取反，0 转 1，非 0 转 0
+        /// </summary>
+        /// <param name="value">不允许负数</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static long logicalInversion(this long value)
+        {
+            return (long)(((ulong)value - 1) >> 63);
+        }
+        /// <summary>
+        /// 转逻辑值，非 0 转 1
+        /// </summary>
+        /// <param name="value">不允许负数</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static long toLogical(this long value)
+        {
+            return logicalInversion(value) ^ 1;
         }
 
         /// <summary>

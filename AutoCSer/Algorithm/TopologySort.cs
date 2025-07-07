@@ -12,7 +12,7 @@ namespace AutoCSer.Algorithm
         /// <summary>
         /// 拓扑排序器
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
         private struct Sorter<T>
 #if NetStandard21
@@ -130,7 +130,7 @@ namespace AutoCSer.Algorithm
         /// <summary>
         /// 拓扑排序
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
+        /// <typeparam name="T">Data type</typeparam>
         /// <param name="edges">边集合</param>
         /// <param name="points">无边点集合</param>
         /// <param name="isDesc">是否反向排序</param>

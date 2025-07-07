@@ -1,6 +1,5 @@
 ﻿using AutoCSer.Metadata;
 using AutoCSer.TestCase.Common.Data;
-using AutoCSer.TestCase.CommonModel.BusinessServiceMethodEnum;
 using System;
 using System.Threading.Tasks;
 
@@ -9,8 +8,8 @@ namespace AutoCSer.TestCase.BusinessService
     /// <summary>
     /// 属性测试模型业务数据服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(PropertyModelServiceMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
-    public interface IPropertyModelService : IPrimaryKeyService<PropertyModel, AutoCSer.TestCase.CommonModel.TableModel.PropertyModel, string>
+    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumTypeCodeGeneratorPath = Persistence.CommandServerMethodIndexEnumTypePath, IsCodeGeneratorClientInterface = false)]
+    public partial interface IPropertyModelService : IPrimaryKeyService<PropertyModel, AutoCSer.TestCase.CommonModel.TableModel.PropertyModel, string>
     {
         /// <summary>
         /// 自定义列查询测试
@@ -24,16 +23,17 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class PropertyModelService : IPropertyModelService
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         public async Task<PropertyModel> Get(string key)
         {
             return await PropertyModel.Get(key);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

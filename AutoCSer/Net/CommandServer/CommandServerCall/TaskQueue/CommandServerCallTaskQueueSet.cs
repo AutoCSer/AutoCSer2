@@ -171,6 +171,7 @@ namespace AutoCSer.Net
             return queue;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -203,6 +204,7 @@ namespace AutoCSer.Net
             return CommandClientReturnTypeEnum.NotSupportTaskQueueKey;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -213,6 +215,7 @@ namespace AutoCSer.Net
             Add(key, new CommandServerCallTaskQueueCustomTask(getTask, true));
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -223,6 +226,7 @@ namespace AutoCSer.Net
             Add(key, new CommandServerCallTaskQueueCustomTask(new CommandServer.CommandServerCallTaskQueueKeyFunc<T>(getTask, key).GetTask, true));
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -237,6 +241,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -251,6 +256,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -265,6 +271,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -279,6 +286,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
@@ -294,6 +302,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
@@ -309,6 +318,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
@@ -324,6 +334,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
@@ -339,6 +350,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -349,6 +361,7 @@ namespace AutoCSer.Net
             Add(key, new CommandServerCallTaskQueueCustomTask(getTask, true));
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -363,6 +376,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <param name="key"></param>
@@ -377,6 +391,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
@@ -392,6 +407,7 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
@@ -407,7 +423,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="task"></param>
@@ -439,7 +456,8 @@ namespace AutoCSer.Net
             return CommandClientReturnTypeEnum.NotSupportTaskQueueKey;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -449,7 +467,8 @@ namespace AutoCSer.Net
             AddLowPriority(key, new CommandServerCallTaskQueueCustomTask(getTask, true));
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -459,7 +478,8 @@ namespace AutoCSer.Net
             AddLowPriority(key, new CommandServerCallTaskQueueCustomTask(new CommandServer.CommandServerCallTaskQueueKeyFunc<T>(getTask, key).GetTask, true));
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -473,7 +493,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -487,7 +508,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -501,7 +523,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -515,7 +538,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
         /// <param name="key"></param>
@@ -530,7 +554,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
         /// <param name="key"></param>
@@ -545,7 +570,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
         /// <param name="key"></param>
@@ -560,7 +586,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
         /// <param name="key"></param>
@@ -575,7 +602,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -585,7 +613,8 @@ namespace AutoCSer.Net
             AddLowPriority(key, new CommandServerCallTaskQueueCustomTask(getTask, true));
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -599,7 +628,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <param name="key"></param>
         /// <param name="getTask"></param>
@@ -613,7 +643,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
         /// <param name="key"></param>
@@ -628,7 +659,8 @@ namespace AutoCSer.Net
             return task;
         }
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         /// <typeparam name="TT"></typeparam>
         /// <param name="key"></param>

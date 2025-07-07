@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 返回字符串参数 await ResponseValueResult{string}
+    /// await ResponseValueResult{string}, which returns string data
+    /// await ResponseValueResult{string}，返回字符串数据
     /// </summary>
     public sealed class StringResponseParameterAwaiter : ResponseParameter, INotifyCompletion
     {
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -21,6 +23,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private Action continuation;
 #endif
         /// <summary>
+        /// The return value command
         /// 返回值命令
         /// </summary>
 #if NetStandard21
@@ -28,7 +31,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         private ReturnCommand<ResponseParameter> command;
         /// <summary>
-        /// 字符串
+        /// Return string
         /// </summary>
 #if NetStandard21
         private string? value;
@@ -36,10 +39,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private string value;
 #endif
         /// <summary>
-        /// 返回字符串参数
+        /// Return string data
+        /// 返回字符串数据
         /// </summary>
         internal StringResponseParameterAwaiter() : base(CallStateEnum.Unknown) { }
         /// <summary>
+        /// Deserialization
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -49,6 +54,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -58,6 +64,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
         /// <summary>
+        /// Set the return parameters
         /// 设置返回参数
         /// </summary>
         /// <param name="responseParameter"></param>
@@ -68,7 +75,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             responseParameter.OnCompleted(onCompleted);
         }
         /// <summary>
-        /// 返回值完成
+        /// The asynchronous operation has been completed
+        /// 异步操作已完成
         /// </summary>
         private void onCompleted()
         {
@@ -76,6 +84,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (continuation != null || System.Threading.Interlocked.CompareExchange(ref continuation, Common.EmptyAction, null) != null) continuation();
         }
         /// <summary>
+        /// Wait for the command call to return the result
         /// 等待命令调用返回结果
         /// </summary>
         /// <returns></returns>
@@ -89,6 +98,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return await this;
         }
         /// <summary>
+        /// Get the result of the command call
         /// 获取命令调用结果
         /// </summary>
         /// <returns></returns>
@@ -124,7 +134,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 #endif
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

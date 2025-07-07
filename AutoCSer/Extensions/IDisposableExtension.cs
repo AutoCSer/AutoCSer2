@@ -10,7 +10,7 @@ namespace AutoCSer.Extensions
     {
 #if !NetStandard21
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

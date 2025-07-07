@@ -25,6 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             AppendTaskArray();
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         protected internal override void OnTimer()

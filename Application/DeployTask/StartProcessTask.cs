@@ -45,6 +45,7 @@ namespace AutoCSer.CommandService.DeployTask
             IsWaitForExit = isWaitForExit;
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         /// <returns></returns>

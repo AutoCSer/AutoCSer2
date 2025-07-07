@@ -4,12 +4,13 @@
 namespace AutoCSer
 {
     /// <summary>
+    /// Binary data serialization
     /// 二进制数据序列化
     /// </summary>
     public sealed partial class BinarySerializer
     {
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>

@@ -4,12 +4,13 @@
 namespace AutoCSer
 {
     /// <summary>
+    /// Binary data serialization
     /// 二进制数据序列化
     /// </summary>
     public sealed partial class BinarySerializer
     {
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -20,6 +21,7 @@ namespace AutoCSer
         }
 #if AOT
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="value"></param>
@@ -33,6 +35,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -45,6 +48,7 @@ namespace AutoCSer
         }
 #else
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>

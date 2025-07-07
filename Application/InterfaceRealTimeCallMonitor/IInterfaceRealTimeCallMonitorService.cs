@@ -7,8 +7,8 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 接口实时调用监视服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(InterfaceRealTimeCallMonitorServiceMethodEnum), MethodIndexEnumTypeCodeGeneratorPath = "", IsAutoMethodIndex = false)]
-    public interface IInterfaceRealTimeCallMonitorService
+    [AutoCSer.Net.CommandServerControllerInterface]
+    public partial interface IInterfaceRealTimeCallMonitorService
     {
         /// <summary>
         /// 获取未完成调用数量
@@ -43,8 +43,10 @@ namespace AutoCSer.CommandService
         /// <param name="socket"></param>
         /// <param name="queue"></param>
         /// <param name="callIdentity">调用标识</param>
-        /// <param name="callType">调用接口类型</param>
-        /// <param name="callName">调用接口方法名称</param>
+        /// <param name="callType">Call interface type
+        /// 调用接口类型</param>
+        /// <param name="callName">The name of the interface method to be called
+        /// 调用接口方法名称</param>
         /// <param name="timeoutMilliseconds">超时毫秒数</param>
         /// <param name="type">调用类型</param>
         /// <returns></returns>
@@ -79,7 +81,8 @@ namespace AutoCSer.CommandService
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="queue"></param>
-        /// <param name="count">获取数量</param>
+        /// <param name="count">Get the quantity of data
+        /// 获取数据数量</param>
         /// <param name="callback">超时调用回调</param>
         void GetTimeoutCalls(CommandServerSocket socket, CommandServerCallQueue queue, int count, CommandServerKeepCallback<CallTimestamp> callback);
     }

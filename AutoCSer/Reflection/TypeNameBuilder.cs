@@ -53,7 +53,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 获取类型名称
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="genericArguments">泛型类型参数集合</param>
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         /// <returns>类型名称</returns>
@@ -92,7 +92,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 数组处理
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="genericArguments">泛型类型参数集合</param>
         /// <param name="isFullName">是否全称</param>
         internal unsafe void Array(Type type, Type[] genericArguments, bool isFullName)
@@ -122,7 +122,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 任意类型处理
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="genericArguments">泛型类型参数集合</param>
         private void getFullName(Type type, Type[] genericArguments)
         {
@@ -149,7 +149,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 任意类型处理
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         private void getNameNoArray(Type type)
         {
             var value = default(string);
@@ -161,7 +161,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 泛型处理
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="nameSuffix">类名称后缀</param>
 #if NetStandard21
         internal void GenericName(Type type, string? nameSuffix = null)
@@ -207,7 +207,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 泛型处理
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         /// <param name="genericArguments">泛型类型参数集合</param>
         internal void GenericFullName(Type type, Type[] genericArguments, bool isGenericParameterTypeName = true)
@@ -299,7 +299,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 泛型参数处理
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="genericArguments">泛型类型参数集合</param>
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         private void genericParameter(Type type, Type[] genericArguments, bool isGenericParameterTypeName = true)
@@ -319,7 +319,8 @@ namespace AutoCSer.Reflection
         /// 泛型参数处理
         /// </summary>
         /// <param name="parameterTypes">参数类型集合</param>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <param name="endIndex">结束位置</param>
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         private void genericParameter(Type[] parameterTypes, int startIndex, int endIndex, bool isGenericParameterTypeName = true)
@@ -337,7 +338,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 嵌套类型处理
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="reflectedType">上层类型</param>
 #if NetStandard21
         internal void ReflectedType(Type type, [MaybeNull] Type reflectedType)
@@ -374,7 +375,7 @@ namespace AutoCSer.Reflection
         /// <summary>
         /// 根据类型获取代码名称
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="buildEnum">类型名称输出类型</param>
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         /// <returns>代码名称</returns>
@@ -390,6 +391,7 @@ namespace AutoCSer.Reflection
             return new TypeNameBuilder(buildEnum).GetTypeFullName(type, EmptyArray<Type>.Array, isGenericParameterTypeName);
         }
         /// <summary>
+        /// Collection of type code names
         /// 类型代码名称集合
         /// </summary>
         internal static readonly Dictionary<HashObject<System.Type>, string> TypeNames;

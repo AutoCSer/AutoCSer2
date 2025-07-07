@@ -9,6 +9,7 @@ namespace AutoCSer.CommandService.DeployTask
     public interface IStepTask
     {
         /// <summary>
+        /// Execute the tasks
         /// 执行任务
         /// </summary>
         /// <returns></returns>

@@ -6,15 +6,18 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Keep callback command
     /// 保持回调命令
     /// </summary>
     internal class KeepCallbackQueueCommand : Net.KeepCallbackCommand
     {
         /// <summary>
-        /// 客户端回调委托
+        /// The client queue keep the callback delegate
+        /// 客户端队列保持回调委托
         /// </summary>
         private CommandClientKeepCallbackQueue callback;
         /// <summary>
+        /// Keep callback command
         /// 保持回调命令
         /// </summary>
         /// <param name="controller"></param>
@@ -25,7 +28,8 @@ namespace AutoCSer.Net.CommandServer
             this.callback = callback;
         }
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType)
@@ -33,9 +37,11 @@ namespace AutoCSer.Net.CommandServer
             appendQueue(returnType, null);
         }
         /// <summary>
-        /// 委托命令回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
@@ -43,6 +49,7 @@ namespace AutoCSer.Net.CommandServer
             return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
+        /// Cancel the hold callback (Note that since it is a synchronous call by the IO thread receiving data, if there is a blockage, please open a new thread task to handle it)
         /// 取消保持回调（注意，由于是接收数据 IO 线程同步调用，如果存在阻塞请新开线程任务处理）
         /// </summary>
         /// <param name="returnType"></param>
@@ -56,6 +63,7 @@ namespace AutoCSer.Net.CommandServer
             appendQueue(returnType == CommandClientReturnTypeEnum.Success ? CommandClientReturnTypeEnum.CancelKeepCallback : returnType, errorMessage);
         }
         /// <summary>
+        /// Add to the callback queue
         /// 添加到回调队列
         /// </summary>
         /// <param name="returnType"></param>
@@ -71,6 +79,7 @@ namespace AutoCSer.Net.CommandServer
         }
     }
     /// <summary>
+    /// Keep callback command
     /// 保持回调命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -78,10 +87,11 @@ namespace AutoCSer.Net.CommandServer
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         private T inputParameter;
         /// <summary>
+        /// Keep callback command
         /// 保持回调命令
         /// </summary>
         /// <param name="controller"></param>
@@ -94,10 +104,12 @@ namespace AutoCSer.Net.CommandServer
             Push();
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else

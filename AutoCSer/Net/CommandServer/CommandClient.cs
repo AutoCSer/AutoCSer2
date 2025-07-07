@@ -20,16 +20,17 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 命令客户端
+    /// Command client
     /// </summary>
     public class CommandClient : ICommandClient, IDisposable
     {
         /// <summary>
+        /// Command server configuration
         /// 命令服务配置
         /// </summary>
         internal readonly CommandClientConfig Config;
         /// <summary>
-        /// The service name is a unique identifier of the service registration. If the service registration is not required, it is only used for log output
+        /// The service name is a unique identifier of the server registration. If the server registration is not required, it is only used for log output
         /// 服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
         /// </summary>
 #if NetStandard21
@@ -43,27 +44,32 @@ namespace AutoCSer.Net
         /// </summary>
         public ILog Log { get { return Config.Log; } }
         /// <summary>
-        /// The service listens to host and port information
+        /// The server listens to host and port information
         /// 服务监听主机与端口信息
         /// </summary>
         public HostEndPoint Host { get { return Config.Host; } }
         /// <summary>
+        /// Command client socket event controller attribute binding flags
         /// 命令客户端套接字事件控制器属性绑定标识
         /// </summary>
         BindingFlags ICommandClient.ControllerCreatorBindingFlags { get { return Config.ControllerCreatorBindingFlags; } }
         /// <summary>
+        /// Binary deserialization configuration parameters
         /// 二进制反序列化配置参数
         /// </summary>
         internal readonly AutoCSer.BinarySerialize.DeserializeConfig BinaryDeserializeConfig;
         /// <summary>
+        /// Receive data buffer pool
         /// 接受数据缓存区池
         /// </summary>
         internal readonly ByteArrayPool ReceiveBufferPool;
         /// <summary>
+        /// Send data buffer pool
         /// 发送数据缓存区池
         /// </summary>
         internal readonly ByteArrayPool SendBufferPool;
         /// <summary>
+        /// Client socket operation lock
         /// 客户端套接字操作锁
         /// </summary>
 #if DEBUG && NetStandard21
@@ -76,6 +82,7 @@ namespace AutoCSer.Net
         /// </summary>
         public CommandClientSocketEvent SocketEvent { get; private set; }
         /// <summary>
+        /// The server registration client listener component
         /// 服务注册客户端监听组件
         /// </summary>
 #if NetStandard21
@@ -84,14 +91,17 @@ namespace AutoCSer.Net
         private CommandClientServiceRegistrar serviceRegistrar;
 #endif
         /// <summary>
+        /// Collection of client controller creators
         /// 客户端控制器创建器集合
         /// </summary>
         internal LeftArray<CommandClientInterfaceControllerCreator> ControllerCreators;
         /// <summary>
+        /// The client callback queue array
         /// 客户端回调队列数组
         /// </summary>
         private KeyValue<CommandClientCallQueue, CommandClientCallQueueLowPriorityLink>[] callbackQueues;
         /// <summary>
+        /// The client callback queue array accesses the lock
         /// 客户端回调队列数组访问锁
         /// </summary>
         private AutoCSer.Threading.SleepFlagSpinLock callbackQueueLock;
@@ -102,6 +112,7 @@ namespace AutoCSer.Net
         /// </summary>
         public int CreateVersion { get; internal set; }
         /// <summary>
+        /// Verify the number of consecutive failures
         /// 验证连续失败次数
         /// </summary>
         internal int VerifyErrorCount;
@@ -126,6 +137,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// The current client socket
         /// 当前客户端套接字
         /// </summary>
 #if NetStandard21
@@ -134,6 +146,7 @@ namespace AutoCSer.Net
         private Task<CommandClientSocket> socketTask;
 #endif
         /// <summary>
+        /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
 #if NetStandard21
@@ -142,6 +155,7 @@ namespace AutoCSer.Net
         private Task<CommandClientSocketEvent> socketEventTask;
 #endif
         /// <summary>
+        /// The client socket being created
         /// 正在创建的客户端套接字
         /// </summary>
 #if NetStandard21
@@ -155,15 +169,17 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsDisposed { get; private set; }
         /// <summary>
-        /// 是否反向服务
+        /// Is the reverse service
         /// </summary>
         internal readonly bool IsReverse;
         /// <summary>
+        /// Is the connection short
         /// 是否短连接
         /// </summary>
         internal readonly bool IsShortLink;
 #if NetStandard21
         /// <summary>
+        /// Default empty command client
         /// 默认空命令客户端
         /// </summary>
         private CommandClient()
@@ -175,15 +191,15 @@ namespace AutoCSer.Net
             SocketEvent = new CommandClientSocketEvent(this);
         }
         /// <summary>
+        /// Default empty command client
         /// 默认空命令客户端
         /// </summary>
         internal static readonly CommandClient Null = new CommandClient();
 #endif
         /// <summary>
         /// Command client
-        /// 命令客户端
         /// </summary>
-        /// <param name="config">Command service configuration
+        /// <param name="config">Command server configuration
         /// 命令服务配置</param>
         /// <param name="creators">Client controller creator collection
         /// 客户端控制器创建器集合</param>
@@ -212,6 +228,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Reverse command client
         /// 反向命令客户端
         /// </summary>
         /// <param name="listener"></param>
@@ -264,6 +281,7 @@ namespace AutoCSer.Net
         //    if (ControllerCreators.Length != 0) createSocket = new CommandClientSocket(this, socket);
         //}
         /// <summary>
+        /// Add the collection of client controller creators
         /// 添加客户端控制器创建器集合
         /// </summary>
         /// <param name="creators"></param>
@@ -287,7 +305,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -335,6 +353,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Automatically start the connection
         /// 自动启动连接
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -343,6 +362,7 @@ namespace AutoCSer.Net
             createSocket = new CommandClientSocket(this, Config.Host.IPEndPoint, CreateVersion = 1);
         }
         /// <summary>
+        /// Verify the updated version number of the service
         /// 验证服务更新版本号
         /// </summary>
         /// <param name="version"></param>
@@ -362,7 +382,7 @@ namespace AutoCSer.Net
         //    return createSocket.notNull().Start();
         //}
         /// <summary>
-        /// 服务连接失败
+        /// Service connection failed
         /// </summary>
         /// <param name="endPoint"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -372,7 +392,7 @@ namespace AutoCSer.Net
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
-        /// Wait for the service to listen to address
+        /// Wait for the server listen address
         /// 等待服务监听地址
         /// </summary>
         /// <returns>Whether to cancel a scheduled task
@@ -421,16 +441,17 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Get the send data buffer pool
         /// 获取发送数据缓存区池
         /// </summary>
-        /// <returns>发送数据缓存区池</returns>
+        /// <returns>Send data buffer pool
+        /// 发送数据缓存区池</returns>
         ByteArrayPool ICommandClient.GetSendBufferPool() { return SendBufferPool; }
         /// <summary>
         /// Try to wait for a client socket
         /// 尝试等待客户端套接字
         /// </summary>
-        /// <returns>Return null on failure
-        /// 失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<CommandClientSocket?> GetSocketAsync()
@@ -441,9 +462,10 @@ namespace AutoCSer.Net
             return socketTask ?? getSocketAsync();
         }
         /// <summary>
-        /// 尝试客户端套接字，获取失败返回 null
+        /// Try the client socket
+        /// 尝试客户端套接字
         /// </summary>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         private async Task<CommandClientSocket?> getSocketAsync()
 #else
@@ -476,8 +498,7 @@ namespace AutoCSer.Net
         /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
-        /// <returns>Return null on failure
-        /// 失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal Task<CommandClientSocketEvent?> GetSocketEvent()
         {
@@ -488,8 +509,7 @@ namespace AutoCSer.Net
         /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
-        /// <returns>Return null on failure
-        /// 失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<CommandClientSocketEvent?> GetSocketEvent()
@@ -501,9 +521,10 @@ namespace AutoCSer.Net
         }
 #endif
         /// <summary>
+        /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         private async Task<CommandClientSocketEvent?> getSocketEvent()
 #else
@@ -518,8 +539,7 @@ namespace AutoCSer.Net
         /// 获取命令客户端套接字事件
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns>Return null on failure
-        /// 失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         public async Task<T?> GetSocketEvent<
 #if AOT
@@ -535,6 +555,7 @@ namespace AutoCSer.Net
             return null;
         }
         /// <summary>
+        /// The initialization of the command client socket failed
         /// 命令客户端套接字初始化失败
         /// </summary>
         /// <param name="socket"></param>
@@ -548,6 +569,7 @@ namespace AutoCSer.Net
             finally { socketLock.Exit(); }
         }
         /// <summary>
+        /// Close the command client socket
         /// 关闭命令客户端套接字
         /// </summary>
         /// <param name="socket"></param>
@@ -580,9 +602,10 @@ namespace AutoCSer.Net
             finally { socketLock.Exit(); }
         }
         /// <summary>
+        /// Command timeout triggers an event
         /// 命令超时触发事件
         /// </summary>
-        /// <param name="head">超时首节点</param>
+        /// <param name="head">Timeout first node</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         internal void OnTimeout(Command? head)
@@ -593,6 +616,7 @@ namespace AutoCSer.Net
             if (head != null) Command.CancelLink(head, CommandClientReturnTypeEnum.Timeout);
         }
         /// <summary>
+        /// The processing after the socket verification is passed
         /// 套接字验证通过以后的处理
         /// </summary>
         /// <param name="socket"></param>
@@ -634,6 +658,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// A socket operation failed to create version detection
         /// 套接字操作失败重新创建版本检测
         /// </summary>
         /// <returns></returns>
@@ -656,6 +681,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// A socket operation failed to create version detection
         /// 套接字操作失败重新创建版本检测
         /// </summary>
         /// <returns></returns>
@@ -678,6 +704,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Gets the extension controller creator
         /// 获取扩展控制器创建器
         /// </summary>
         /// <param name="controllerName"></param>
@@ -695,6 +722,7 @@ namespace AutoCSer.Net
             return null;
         }
         /// <summary>
+        /// Get the client execution queue
         /// 获取客户端执行队列
         /// </summary>
         /// <param name="index"></param>
@@ -725,6 +753,7 @@ namespace AutoCSer.Net
             return callbackQueues[index];
         }
         /// <summary>
+        /// Get the client execution queue
         /// 获取客户端执行队列
         /// </summary>
         /// <param name="index"></param>
@@ -735,6 +764,7 @@ namespace AutoCSer.Net
             return index < callbackQueues.Length ? callbackQueues[index].Key : getClientCallQueue(index).Key;
         }
         /// <summary>
+        /// Get the client execution queue (low priority)
         /// 获取客户端执行队列（低优先级）
         /// </summary>
         /// <param name="index"></param>
@@ -757,15 +787,14 @@ namespace AutoCSer.Net
         /// Interface symmetry command client
         /// 接口对称命令客户端
         /// </summary>
-        /// <param name="config">Command service configuration
+        /// <param name="config">Command server configuration
         /// 命令服务配置</param>
         public CommandClient(CommandClientConfig<T> config) : base(config) { }
         /// <summary>
         /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
-        /// <returns>Return null on failure
-        /// 失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         public new async Task<CommandClientSocketEvent<T>?> GetSocketEvent()
 #else

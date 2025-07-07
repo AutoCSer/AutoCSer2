@@ -10,24 +10,29 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Multi-hash bitmap filtering node client
     /// 多哈希位图过滤节点客户端
     /// </summary>
     public abstract class ManyHashBitMapClientFilter : IDisposable
     {
         /// <summary>
+        /// Multi-hash bitmap filtering node client
         /// 多哈希位图过滤节点客户端
         /// </summary>
         public readonly StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapClientFilterNodeClientNode> NodeCache;
         /// <summary>
+        /// Multi-hash bitmap data
         /// 多哈希位图数据
         /// </summary>
         protected ManyHashBitMap map;
         /// <summary>
+        /// Multi-hash bitmap data access lock
         /// 多哈希位图数据访问锁
         /// </summary>
         protected readonly object mapLock;
         /// <summary>
-        /// 获取设置新位操作保存回调
+        /// Keep callback for get the operation of setting a new bit 
+        /// 获取设置新位操作保持回调
         /// </summary>
 #if NetStandard21
         private CommandKeepCallback? keepCallback;
@@ -35,14 +40,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private CommandKeepCallback keepCallback;
 #endif
         /// <summary>
+        /// A collection of unprocessed new locations
         /// 未处理新位置集合
         /// </summary>
         private LeftArray<int> getBits;
         /// <summary>
+        /// Whether to release resources
         /// 是否释放资源
         /// </summary>
         protected bool isDispose;
         /// <summary>
+        /// Multi-hash bitmap filtering node client
         /// 多哈希位图过滤节点客户端
         /// </summary>
         /// <param name="nodeCache"></param>
@@ -53,7 +61,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             mapLock = new object();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -61,6 +69,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             keepCallback?.Dispose();
         }
         /// <summary>
+        /// Initialize to get the multi-Hash bitmap data
         /// 初始化获取多哈希位图数据
         /// </summary>
         /// <returns></returns>
@@ -85,6 +94,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             while (!isDispose);
         }
         /// <summary>
+        /// Initialize to get the multi-Hash bitmap data
         /// 初始化获取多哈希位图数据
         /// </summary>
         /// <param name="node"></param>
@@ -105,6 +115,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             while (!isDispose);
         }
         /// <summary>
+        /// Set the multi-Hash bitmap data
         /// 设置多哈希位图数据
         /// </summary>
         /// <param name="map"></param>
@@ -138,6 +149,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return;
         }
         /// <summary>
+        /// Get the operation of setting a new bit
         /// 获取设置新位操作
         /// </summary>
         /// <param name="result"></param>
@@ -158,6 +170,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Gets two hash values of 32b
         /// 获取 2 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
@@ -168,6 +181,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new HashCode128(value).GetHashCode2();
         }
         /// <summary>
+        /// Gets three hash values of 32b
         /// 获取 3 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
@@ -178,6 +192,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new HashCode128(value).GetHashCode3();
         }
         /// <summary>
+        /// Gets four hash values of 32b
         /// 获取 4 个 32b 的哈希值
         /// </summary>
         /// <param name="value"></param>
@@ -189,20 +204,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
     }
     /// <summary>
+    /// Multi-hash bitmap filtering node client
     /// 多哈希位图过滤节点客户端
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     public sealed class ManyHashBitMapClientFilter<T> : ManyHashBitMapClientFilter
     {
         /// <summary>
-        /// 哈希计算委托集合
+        /// Hash calculation
+        /// 哈希计算
         /// </summary>
         private readonly Func<T, IEnumerable<uint>> getHashCodes;
         /// <summary>
+        /// Multi-hash bitmap filtering node client
         /// 多哈希位图过滤节点客户端
         /// </summary>
         /// <param name="nodeCache"></param>
-        /// <param name="getHashCodes">哈希计算委托集合，必须采用稳定哈希算法保证不同机器或者进程计算结果一致</param>
+        /// <param name="getHashCodes">Hash calculation must adopt a stable hash algorithm to ensure that the calculation results of different machines or processes are consistent
+        /// 哈希计算委托集合，必须采用稳定哈希算法保证不同机器或者进程计算结果一致</param>
         public ManyHashBitMapClientFilter(StreamPersistenceMemoryDatabaseClientNodeCache<IManyHashBitMapClientFilterNodeClientNode> nodeCache, Func<T, IEnumerable<uint>> getHashCodes) : base(nodeCache)
         {
             if (getHashCodes == null) throw new ArgumentNullException(nameof(getHashCodes));
@@ -210,6 +229,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             getMap().NotWait();
         }
         /// <summary>
+        /// Set the bitmap data
         /// 设置位图数据
         /// </summary>
         /// <param name="value"></param>
@@ -232,6 +252,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return setMap(value);
         }
         /// <summary>
+        /// Set the bitmap data
         /// 设置位图数据
         /// </summary>
         /// <param name="value"></param>
@@ -243,6 +264,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return await set(value, nodeResult.Value.notNull());
         }
         /// <summary>
+        /// Set the bitmap data
         /// 设置位图数据
         /// </summary>
         /// <param name="value"></param>
@@ -267,6 +289,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return CallStateEnum.Success;
         }
         /// <summary>
+        /// Set the bitmap data
         /// 设置位图数据
         /// </summary>
         /// <param name="value"></param>
@@ -285,10 +308,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return await set(value, node);
         }
         /// <summary>
+        /// Check the bitmap data
         /// 检查位图数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>返回 false 表示数据不存在</returns>
+        /// <returns>Returning false indicates that the data does not exist
+        /// 返回 false 表示数据不存在</returns>
         public Task<ResponseResult<bool>> Check(T value)
         {
             if (isDispose) return Task.FromResult(new ResponseResult<bool>(CallStateEnum.Disposed));
@@ -303,6 +328,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return check(value);
         }
         /// <summary>
+        /// Check the bitmap data
         /// 检查位图数据
         /// </summary>
         /// <param name="value"></param>

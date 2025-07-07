@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Node index information
     /// 节点索引信息
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
@@ -24,6 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal uint Identity;
         /// <summary>
+        /// Node index information
         /// 节点索引信息
         /// </summary>
         /// <param name="index"></param>
@@ -34,7 +36,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Identity = identity;
         }
         /// <summary>
-        /// 错误信息
+        /// Error call state
+        /// 错误调用状态
         /// </summary>
         /// <param name="state"></param>
         public NodeIndex(CallStateEnum state)

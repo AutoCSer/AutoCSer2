@@ -19,49 +19,59 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
 namespace AutoCSer.CommandService
 {
     /// <summary>
-    /// 日志流持久化内存数据库服务端
+    /// Log stream persistence memory database service
+    /// 日志流持久化内存数据库服务
     /// </summary>
     public abstract class StreamPersistenceMemoryDatabaseServiceBase
     {
 #if !AOT
         /// <summary>
+        /// The default empty collection of nodes for the repair methods to be loaded
         /// 默认空待加载修复方法节点集合
         /// </summary>
         internal static readonly Dictionary<ulong, RepairNodeMethodLoader> NullRepairNodeMethodLoaders = AutoCSer.DictionaryCreator.CreateULong<RepairNodeMethodLoader>();
 #endif
 
         /// <summary>
-        /// 日志流持久化内存数据库服务端配置
+        /// Log stream persistence in memory database service configuration
+        /// 日志流持久化内存数据库服务配置
         /// </summary>
         internal readonly StreamPersistenceMemoryDatabaseServiceConfig Config;
         /// <summary>
-        /// 服务端执行队列
+        /// The server synchronizes the read and write queues
+        /// 服务端同步读写队列
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
         internal CommandServerCallReadWriteQueue CommandServerCallQueue;
         /// <summary>
+        /// The main directory of the persistent file
         /// 持久化文件主目录
         /// </summary>
         internal readonly DirectoryInfo PersistenceDirectory;
         /// <summary>
+        /// Persistent file information
         /// 持久化文件信息
         /// </summary>
         internal FileInfo PersistenceFileInfo;
         /// <summary>
+        /// Persistent callback exception location file information
         /// 持久化回调异常位置文件信息
         /// </summary>
         internal FileInfo PersistenceCallbackExceptionPositionFileInfo;
         /// <summary>
-        /// 重建持久化文件信息
+        /// Persistent rebuild file information
+        /// 持久化重建文件信息
         /// </summary>
         internal FileInfo PersistenceSwitchFileInfo;
         /// <summary>
-        /// 重建持久化回调异常位置文件信息
+        /// Persistent callback exception location rebuild file information
+        /// 持久化回调异常位置重建文件信息
         /// </summary>
         internal FileInfo PersistenceCallbackExceptionPositionSwitchFileInfo;
         /// <summary>
+        /// Delete the historical persistence file
         /// 删除历史持久化文件
         /// </summary>
 #if NetStandard21
@@ -70,37 +80,45 @@ namespace AutoCSer.CommandService
         protected RemoveHistoryFile removeHistoryFile;
 #endif
         /// <summary>
+        /// The collection of generate server-side nodes
         /// 生成服务端节点集合
         /// </summary>
         private readonly Dictionary<HashObject<Type>, ServerNodeCreator> nodeCreators;
         /// <summary>
+        /// The access lock of the generate server node collection
         /// 生成服务端节点集合访问锁
         /// </summary>
         protected readonly object nodeCreatorLock;
         /// <summary>
+        /// Write buffer for the persistent callback exception location
         /// 持久化回调异常位置写入缓冲区
         /// </summary>
         internal readonly byte[] PersistenceDataPositionBuffer;
         /// <summary>
+        /// Root node collection
         /// 根节点集合
         /// </summary>
         protected readonly Dictionary<string, ServerNode> nodeDictionary;
         /// <summary>
-        /// 正在创建节点的关键字
+        /// The keyword collection for the node being created
+        /// 正在创建节点的关键字集合
         /// </summary>
         internal readonly Dictionary<string, CreatingNodeInfo> CreateNodes;
         /// <summary>
-        /// 持久化回调完成等待
+        /// The waiting event for the completion of the persistent callback
+        /// 持久化回调完成的等待事件
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
         protected ManualResetEvent serviceCallbackWait;
         /// <summary>
+        /// Node collection
         /// 节点集合
         /// </summary>
         internal NodeIdentity[] Nodes;
         /// <summary>
+        /// The currently executed calling method and parameter information
         /// 当前执行的调用方法与参数信息
         /// </summary>
 #if NetStandard21
@@ -109,15 +127,18 @@ namespace AutoCSer.CommandService
         internal MethodParameter CurrentMethodParameter;
 #endif
         /// <summary>
-        /// 调用持久化链表
+        /// A linked list of persistent calls
+        /// 持久化调用链表
         /// </summary>
         internal LinkStack<MethodParameter> PersistenceQueue;
         /// <summary>
-        /// 等待事件
+        /// Persistent waiting events
+        /// 持久化等待事件
         /// </summary>
         internal AutoCSer.Threading.OnceAutoWaitHandle PersistenceWaitHandle;
         /// <summary>
-        /// 日志流持久化文件重建
+        /// Rebuild the log stream persistence file
+        /// 重建日志流持久化文件
         /// </summary>
 #if NetStandard21
         internal PersistenceRebuilder? Rebuilder;
@@ -126,10 +147,12 @@ namespace AutoCSer.CommandService
 #endif
 #if !AOT
         /// <summary>
+        /// The collection of nodes of the repair methods to be loaded
         /// 待加载修复方法节点集合
         /// </summary>
         internal Dictionary<ulong, RepairNodeMethodLoader> RepairNodeMethodLoaders;
         /// <summary>
+        /// The loading repair node method has been loaded
         /// 已加载加载修复节点方法
         /// </summary>
 #if NetStandard21
@@ -138,6 +161,7 @@ namespace AutoCSer.CommandService
         internal RepairNodeMethod LoadedRepairNodeMethod;
 #endif
         /// <summary>
+        /// Information from the node client
         /// 从节点客户端信息
         /// </summary>
 #if NetStandard21
@@ -146,71 +170,89 @@ namespace AutoCSer.CommandService
         internal ServiceSlave Slave;
 #endif
         /// <summary>
+        /// Whether to allow the creation of slave nodes
         /// 是否允许创建从节点
         /// </summary>
         internal readonly bool CanCreateSlave;
 #endif
         /// <summary>
+        /// The starting position of persistent flow rebuild
         /// 持久化流重建起始位置
         /// </summary>
         internal ulong RebuildPosition;
         /// <summary>
+        /// The written location of the persistent stream
         /// 持久化流已写入位置
         /// </summary>
         internal long PersistencePosition;
         /// <summary>
-        /// 持久化流重建绝对结束位置 RebuildPosition + PersistencePosition
+        /// The absolute end position of persistent flow rebuild (RebuildPosition + PersistencePosition)
+        /// 持久化流重建绝对结束位置（RebuildPosition + PersistencePosition）
         /// </summary>
         internal ulong RebuildPersistenceEndPosition { get { return RebuildPosition + (ulong)PersistencePosition; } }
         /// <summary>
+        /// The persistent callback exception location is the written location of the file
         /// 持久化回调异常位置文件已写入位置
         /// </summary>
         internal long PersistenceCallbackExceptionFilePosition;
         /// <summary>
+        /// Rebuild the end position of the snapshot
         /// 重建快照结束位置
         /// </summary>
         public long RebuildSnapshotPosition { get; internal set; }
         /// <summary>
+        /// The current allocated node index
         /// 当前分配节点索引
         /// </summary>
         internal int NodeIndex;
         /// <summary>
+        /// The number of unfinished persistence callbacks
         /// 未完成持久化回调次数
         /// </summary>
         protected int serviceCallbackCount;
         /// <summary>
+        /// Snapshot transaction relationship node version
         /// 快照事务关系节点版本
         /// </summary>
         internal int SnapshotTransactionNodeVersion;
         /// <summary>
+        /// Is master node
         /// 是否主节点
         /// </summary>
         internal readonly bool IsMaster;
         /// <summary>
+        /// Is Backup client
         /// 是否备份客户端
         /// </summary>
         internal virtual bool IsBackup { get { return false; } }
         /// <summary>
+        /// Whether the current call is persistent
         /// 当前调用是否持久化
         /// </summary>
         internal bool CurrentCallIsPersistence;
         /// <summary>
+        /// Has the data been loaded completely
         /// 是否已经加载完数据
         /// </summary>
         public bool IsLoaded { get; protected set; }
         /// <summary>
+        /// Whether resources have been released
         /// 是否已经释放资源
         /// </summary>
         public bool IsDisposed { get; protected set; }
         /// <summary>
+        /// Persistent type
         /// 持久化类型
         /// </summary>
         internal readonly PersistenceTypeEnum PersistenceType;
         /// <summary>
-        /// 服务端会话绑定日志流持久化内存数据库服务
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
-        /// <param name="config">日志流持久化内存数据库服务端配置</param>
-        /// <param name="isMaster">是否主节点</param>
+        /// <param name="config">Configuration of in-memory database service for log stream persistence
+        /// 日志流持久化内存数据库服务配置</param>
+        /// <param name="isMaster">Is master node
+        /// 是否主节点</param>
         protected StreamPersistenceMemoryDatabaseServiceBase(StreamPersistenceMemoryDatabaseServiceConfig config, bool isMaster)
         {
             PersistenceFileInfo = config.GetPersistenceFileInfo();
@@ -256,6 +298,7 @@ namespace AutoCSer.CommandService
             Nodes = new NodeIdentity[sizeof(int)];
         }
         /// <summary>
+        /// Release node resources
         /// 释放节点资源
         /// </summary>
         internal void NodeDispose()
@@ -263,6 +306,7 @@ namespace AutoCSer.CommandService
             foreach(ServerNode node in nodeDictionary.Values) node.NodeDispose();
         }
         /// <summary>
+        /// Get node information based on keywords
         /// 根据关键字获取节点信息
         /// </summary>
         /// <param name="key"></param>
@@ -278,6 +322,7 @@ namespace AutoCSer.CommandService
             return nodeDictionary.TryGetValue(key, out node) ? node : null;
         }
         /// <summary>
+        /// Set to delete historical persistent files
         /// 设置删除历史持久化文件
         /// </summary>
         /// <param name="removeHistoryFile"></param>
@@ -290,6 +335,7 @@ namespace AutoCSer.CommandService
             return true;
         }
         /// <summary>
+        /// Switch the persistent file information
         /// 切换持久化文件信息
         /// </summary>
         internal void SwitchPersistenceFileInfo()
@@ -302,23 +348,29 @@ namespace AutoCSer.CommandService
             PersistenceCallbackExceptionPositionFileInfo = switchFileInfo;
         }
         /// <summary>
+        /// Get the location where the persistent stream has been written
         /// 获取持久化流已写入位置
         /// </summary>
-        /// <returns>持久化流已写入位置</returns>
+        /// <returns>The written location of the persistent stream
+        /// 持久化流已写入位置</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public long GetPersistencePosition() { return PersistencePosition; }
         /// <summary>
+        /// Gets the end location of the rebuild snapshot
         /// 获取重建快照结束位置
         /// </summary>
-        /// <returns>重建快照结束位置</returns>
+        /// <returns>Rebuild the end position of the snapshot
+        /// 重建快照结束位置</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public long GetRebuildSnapshotPosition() { return RebuildSnapshotPosition; }
         /// <summary>
+        /// Add a new node
         /// 添加新节点
         /// </summary>
         /// <param name="node"></param>
         /// <param name="key"></param>
-        /// <returns>当前执行的持久化回调</returns>
+        /// <returns>The currently executed persistent call
+        /// 当前执行的持久化调用</returns>
 #if NetStandard21
         internal MethodParameter? AppendNode(ServerNode node, string key)
 #else
@@ -331,6 +383,7 @@ namespace AutoCSer.CommandService
             return CurrentMethodParameter;
         }
         /// <summary>
+        /// Add the persistence call method and parameter information (The persistence API persists the request data first and then executes the request to ensure the reliability of persistence and avoid the situation where persistence fails and data is lost after the client is successfully fed back)
         /// 添加持久化调用方法与参数信息（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
         /// </summary>
         /// <param name="methodParameter"></param>
@@ -346,6 +399,7 @@ namespace AutoCSer.CommandService
             return false;
         }
         /// <summary>
+        /// Add the persistence call method and parameter information (The persistence API persists the request data first and then executes the request to ensure the reliability of persistence and avoid the situation where persistence fails and data is lost after the client is successfully fed back)
         /// 添加持久化调用方法与参数信息（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -370,6 +424,7 @@ namespace AutoCSer.CommandService
             }
         }
         /// <summary>
+        /// Set the currently executed calling method and parameter information
         /// 设置当前执行的调用方法与参数信息
         /// </summary>
         /// <param name="methodParameter"></param>
@@ -380,6 +435,7 @@ namespace AutoCSer.CommandService
             CurrentCallIsPersistence = false;
         }
         /// <summary>
+        /// Persistent callback
         /// 持久化回调
         /// </summary>
         /// <param name="head"></param>
@@ -452,12 +508,14 @@ namespace AutoCSer.CommandService
             }
         }
         /// <summary>
+        /// Rebuild the persistent file
         /// 重建持久化文件
         /// </summary>
         /// <returns></returns>
         internal virtual bool CheckRebuild() { return false; }
         /// <summary>
-        /// 持久化结束释放队列
+        /// Persistence exception, Release the call queue
+        /// 持久化异常释放调用队列
         /// </summary>
         /// <param name="head"></param>
         /// <param name="end"></param>
@@ -485,6 +543,7 @@ namespace AutoCSer.CommandService
             while (head != end);
         }
         /// <summary>
+        /// Write the location of the persistent callback exception data
         /// 写入持久化回调异常数据位置
         /// </summary>
         /// <param name="persistenceCallbackExceptionPosition">持久化异常位置信息</param>
@@ -529,6 +588,7 @@ namespace AutoCSer.CommandService
 #endif
         }
         /// <summary>
+        /// Get the generate server-side node
         /// 获取生成服务端节点
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -557,6 +617,7 @@ namespace AutoCSer.CommandService
         //private static readonly MethodInfo appendRepairNodeMethodLoaderMethod = typeof(StreamPersistenceMemoryDatabaseServiceBase).GetMethod(nameof(AppendRepairNodeMethodLoader), BindingFlags.Static | BindingFlags.NonPublic).notNull();
 #else
         /// <summary>
+        /// Add the repair interface method file
         /// 添加修复接口方法文件
         /// </summary>
         /// <param name="repairNodeMethod"></param>
@@ -596,6 +657,7 @@ namespace AutoCSer.CommandService
             }
         }
         /// <summary>
+        /// Add the node of the repair method to be loaded
         /// 添加待加载修复方法节点
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -608,6 +670,7 @@ namespace AutoCSer.CommandService
             service.appendRepairNodeMethodLoader<T>(methodDirectory, ref repairNodeMethodDirectory);
         }
         /// <summary>
+        /// Add the node of the repair method to be loaded
         /// 添加待加载修复方法节点
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -619,6 +682,7 @@ namespace AutoCSer.CommandService
             AppendRepairNodeMethodLoader(ServerNodeCreator.GetMethodDirectoryPosition(methodDirectory), new RepairNodeMethodLoader<T>(GetNodeCreator<T>(), methodDirectory, ref repairNodeMethodDirectory));
         }
         /// <summary>
+        /// Add the node of the repair method to be loaded
         /// 添加待加载修复方法节点
         /// </summary>
         /// <param name="position"></param>
@@ -634,7 +698,8 @@ namespace AutoCSer.CommandService
             finally { Monitor.Exit(nodeCreatorLock); }
         }
         /// <summary>
-        /// 添加已加载加载修复节点方法
+        /// Add the loaded repair node method
+        /// 添加已加载修复节点方法
         /// </summary>
         /// <param name="repairNodeMethod"></param>
         internal void AppendLoadedRepairNodeMethod(RepairNodeMethod repairNodeMethod)
@@ -671,6 +736,7 @@ namespace AutoCSer.CommandService
             }
         }
         /// <summary>
+        /// Close the data load
         /// 关闭数据加载
         /// </summary>
         /// <param name="loader"></param>

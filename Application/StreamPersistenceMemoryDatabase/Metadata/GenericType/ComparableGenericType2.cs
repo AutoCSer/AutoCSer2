@@ -16,29 +16,43 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 创建二叉搜索树字典 ISearchTreeDictionaryNode{KT,T}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal abstract NodeIndex CreateSearchTreeDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo);
         /// <summary>
+        /// Create a sorting dictionary node ISortedDictionaryNode{KT,T}
         /// 创建排序字典节点 ISortedDictionaryNode{KT,T}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal abstract NodeIndex CreateSortedDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo);
         /// <summary>
-        /// 创建排序列表节点 ISortedListNode{KT,T}
+        /// Create a sorting list node ISortedListNode{KT,T}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal abstract NodeIndex CreateSortedListNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity);
 
         /// <summary>
@@ -97,35 +111,50 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 创建二叉搜索树字典 ISearchTreeDictionaryNode{KT,T}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateSearchTreeDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
             return node.CreateSnapshotNode<ISearchTreeDictionaryNode<T1, T2>>(index, key, nodeInfo, () => new SearchTreeDictionaryNode<T1, T2>());
         }
         /// <summary>
+        /// Create a sorting dictionary node ISortedDictionaryNode{KT,T}
         /// 创建排序字典节点 ISortedDictionaryNode{KT,T}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateSortedDictionaryNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo)
         {
             return node.CreateSnapshotNode<ISortedDictionaryNode<T1, T2>>(index, key, nodeInfo, () => new SortedDictionaryNode<T1, T2>());
         }
         /// <summary>
+        /// Create a sorting list node ISortedListNode{KT,T}
         /// 创建排序列表节点 ISortedListNode{KT,T}
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">节点索引信息</param>
-        /// <param name="key">节点全局关键字</param>
-        /// <param name="nodeInfo">节点信息</param>
-        /// <param name="capacity">容器初始化大小</param>
-        /// <returns>节点标识，已经存在节点则直接返回</returns>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <param name="capacity">Container initialization size
+        /// 容器初始化大小</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
         internal override NodeIndex CreateSortedListNode(ServiceNode node, NodeIndex index, string key, NodeInfo nodeInfo, int capacity)
         {
             return node.CreateSnapshotNode<ISortedListNode<T1, T2>>(index, key, nodeInfo, () => new SortedListNode<T1, T2>(capacity));

@@ -7,8 +7,8 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 文件拉取服务接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(MethodIndexEnumType = typeof(PullFileServiceMethodEnum), MethodIndexEnumTypeCodeGeneratorPath = "", IsAutoMethodIndex = false)]
-    public interface IPullFileService
+    [AutoCSer.Net.CommandServerControllerInterface]
+    public partial interface IPullFileService
     {
         /// <summary>
         /// 获取指定路径下的文件信息集合

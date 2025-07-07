@@ -5,15 +5,15 @@ namespace AutoCSer
     /// <summary>
     /// 操作系统名称
     /// </summary>
-    internal static class SupportedOSPlatformName
+    public static class SupportedOSPlatformName
     {
         /// <summary>
         /// Windows
         /// </summary>
-        internal const string Windows = "windows";
+        public const string Windows = "windows";
         /// <summary>
         /// Linux
         /// </summary>
-        internal const string Linux = "linux";
+        public const string Linux = "linux";
     }
 }

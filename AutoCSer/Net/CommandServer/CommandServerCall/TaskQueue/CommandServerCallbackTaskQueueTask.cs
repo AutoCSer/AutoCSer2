@@ -16,7 +16,7 @@ namespace AutoCSer.Net
         /// </summary>
         private Task callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// 服务端异步调用队列任务
         /// </summary>
         /// <param name="socket"></param>
         internal CommandServerCallbackTaskQueueTask(CommandServerSocket socket) : base(socket, ServerMethodTypeEnum.CallbackTaskQueue)

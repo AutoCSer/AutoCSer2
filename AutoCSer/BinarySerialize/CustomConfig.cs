@@ -109,11 +109,11 @@ namespace AutoCSer.BinarySerialize
             return default(SerializeDelegate);
         }
         /// <summary>
-        /// 自定义序列化委托集合
+        /// Custom serialization委托集合
         /// </summary>
         protected readonly Dictionary<HashObject<System.Type>, KeyValue<SerializeDelegate, DeserializeDelegate>> customSerializeDelegate = DictionaryCreator.CreateHashObject<System.Type, KeyValue<SerializeDelegate, DeserializeDelegate>>();
         /// <summary>
-        /// 自定义序列化委托集合访问锁
+        /// Custom serialization委托集合访问锁
         /// </summary>
         protected readonly object customSerializeDelegateLock = new object();
         /// <summary>
@@ -218,7 +218,7 @@ namespace AutoCSer.BinarySerialize
         }
 #endif
         /// <summary>
-        /// 自定义序列化不支持类型
+        /// Custom serialization不支持类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -243,7 +243,7 @@ namespace AutoCSer.BinarySerialize
             return 0;
         }
         /// <summary>
-        /// 自定义序列化不支持类型
+        /// Custom serialization不支持类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="deserializer"></param>

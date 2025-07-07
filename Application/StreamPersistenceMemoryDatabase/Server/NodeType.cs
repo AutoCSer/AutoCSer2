@@ -13,7 +13,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal struct NodeType
     {
         /// <summary>
-        /// 节点接口配置
+        /// Server node interface configuration
+        /// 服务端节点接口配置
         /// </summary>
         internal ServerNodeAttribute NodeAttribute;
         /// <summary>
@@ -33,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal LeftArray<string> Messages;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         internal string? Error;

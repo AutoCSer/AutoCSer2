@@ -13,10 +13,12 @@ namespace AutoCSer.Extensions
     public static class BitmapNodeClientNodeExtension
     {
         /// <summary>
+        /// Read bit status
         /// 读取位状态
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">位索引</param>
+        /// <param name="index">Bit index position
+        /// 位索引位置</param>
         /// <returns>索引超出返回也返回 false</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static BitmapNodeResponseAwaiter GetBool(this IBitmapNodeClientNode node, uint index)
@@ -24,10 +26,12 @@ namespace AutoCSer.Extensions
             return node.GetBit(index);
         }
         /// <summary>
+        /// Clear the bit state and return to the state before setting
         /// 清除位状态并返回设置之前的状态
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">位索引</param>
+        /// <param name="index">Bit index position
+        /// 位索引位置</param>
         /// <returns>清除操作之前的状态，索引超出返回也返回 false</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static BitmapNodeResponseAwaiter GetBoolClearBit(this IBitmapNodeClientNode node, uint index)
@@ -35,10 +39,12 @@ namespace AutoCSer.Extensions
             return node.GetBitClearBit(index);
         }
         /// <summary>
+        /// Reverse the bit state and return the state before the operation
         /// 状态取反并返回操作之前的状态
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">位索引</param>
+        /// <param name="index">Bit index position
+        /// 位索引位置</param>
         /// <returns>取反操作之前的状态，索引超出返回也返回 false</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static BitmapNodeResponseAwaiter GetBoolInvertBit(this IBitmapNodeClientNode node, uint index)
@@ -46,10 +52,12 @@ namespace AutoCSer.Extensions
             return node.GetBitInvertBit(index);
         }
         /// <summary>
+        /// Set the bit state and return the state before setting
         /// 设置位状态并返回设置之前的状态
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="index">位索引</param>
+        /// <param name="index">Bit index position
+        /// 位索引位置</param>
         /// <returns>设置之前的状态，索引超出返回也返回 false</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static BitmapNodeResponseAwaiter GetBoolSetBit(this IBitmapNodeClientNode node, uint index)

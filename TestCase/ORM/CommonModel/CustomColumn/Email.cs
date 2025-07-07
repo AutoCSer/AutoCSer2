@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.CommonModel.TableModel.CustomColumn
         [AutoCSer.RandomObject.Member(IsNullable = false)]
         private string email;
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -27,7 +27,7 @@ namespace AutoCSer.TestCase.CommonModel.TableModel.CustomColumn
             return new Email { email = email };
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>

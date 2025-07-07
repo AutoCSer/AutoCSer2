@@ -274,7 +274,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             return null;
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <returns></returns>
         internal async Task<ResponseResult<IIndex<T>>> Load()
@@ -357,13 +357,13 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             finally { Release(semaphoreSlim); }
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="capacity"></param>
         internal abstract void Load(LeftArray<PersistenceNode<T>> nodes, int capacity);
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="manyIndex"></param>
@@ -390,7 +390,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
     /// <summary>
     /// 索引数据磁盘块索引缓存节点
     /// </summary>
-    /// <typeparam name="KT">索引关键字类型</typeparam>
+    /// <typeparam name="KT">Index keyword type
+    /// 索引关键字类型</typeparam>
     /// <typeparam name="VT">索引数据类型</typeparam>
     public abstract class BlockIndexDataCacheNode<KT, VT> : BlockIndexDataCacheNode<VT>
 #if NetStandard21
@@ -409,7 +410,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// 索引数据磁盘块索引缓存节点
         /// </summary>
         /// <param name="cache">索引数据磁盘块索引缓存</param>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         protected BlockIndexDataCacheNode(BlockIndexDataCache<KT, VT> cache, KT key) : base(cache)
         {
             this.Key = key;

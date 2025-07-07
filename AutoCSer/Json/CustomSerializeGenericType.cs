@@ -11,7 +11,7 @@ namespace AutoCSer.Json
     internal abstract class CustomSerializeGenericType
     {
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
         internal abstract Delegate SerializeDelegate { get; }
         /// <summary>
@@ -52,7 +52,7 @@ namespace AutoCSer.Json
         where T : ICustomSerialize<T>
     {
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
         internal override Delegate SerializeDelegate { get { return (Action<JsonSerializer, T>)JsonSerializer.ICustom<T>; } }
         /// <summary>

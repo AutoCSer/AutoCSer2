@@ -30,7 +30,7 @@ namespace AutoCSer.SearchTree
             get { return Index == Array.Length; }
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组写入是否完成</returns>
@@ -41,7 +41,7 @@ namespace AutoCSer.SearchTree
             return IsArray;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组位置</returns>
@@ -84,7 +84,7 @@ namespace AutoCSer.SearchTree
             get { return Index == Array.Length; }
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组写入是否完成</returns>
@@ -95,7 +95,7 @@ namespace AutoCSer.SearchTree
             return IsArray;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         /// <returns>数组位置</returns>

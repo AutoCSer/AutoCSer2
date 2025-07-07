@@ -51,7 +51,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             ValueCount = valueCount;
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="hashSet"></param>
         internal void Load(HashSet<T> hashSet)

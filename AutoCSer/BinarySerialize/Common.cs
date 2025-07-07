@@ -258,7 +258,7 @@ namespace AutoCSer.BinarySerialize
                 serializeDelegateReference.SetMember(BinarySerializer.BaseMethod.MakeGenericMethod(type, baseType).CreateDelegate(typeof(Action<BinarySerializer, T>)), new Type[] { baseType }, SerializePushTypeEnum.Primitive);
                 return true;
             }
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 if (type.IsValueType) serializeDelegateReference = new SerializeDelegateReference(BinarySerializer.StructJsonMethod.MakeGenericMethod(type).CreateDelegate(typeof(Action<BinarySerializer, T>)));
                 else serializeDelegateReference = new SerializeDelegateReference(BinarySerializer.JsonMethod.MakeGenericMethod(type).CreateDelegate(typeof(Action<BinarySerializer, T>)), type);
@@ -439,7 +439,7 @@ namespace AutoCSer.BinarySerialize
             BinarySerializeAttribute attribute = BinarySerializer.DefaultAttribute;
             var baseType = GetBaseAttribute(type, ref attribute);
             if (baseType != null) return BinarySerializer.BaseReflectionMethod.MakeGenericMethod(type, baseType).CreateDelegate(typeof(Action<BinarySerializer, object?>));
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 GenericType genericType = GenericType.Get(type);
                 if (type.IsValueType) return BinarySerializer.StructJsonReflectionMethod.MakeGenericMethod(type).CreateDelegate(typeof(Action<BinarySerializer, object>));
@@ -623,7 +623,7 @@ namespace AutoCSer.BinarySerialize
                 deserializeDelegate.Set(BinaryDeserializer.BaseMethod.MakeGenericMethod(type, baseType).CreateDelegate(typeof(BinaryDeserializer.DeserializeDelegate<T?>)), null, true);
                 return true;
             }
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 if (type.IsValueType) deserializeDelegate.Set(BinaryDeserializer.StructJsonMethod.MakeGenericMethod(type).CreateDelegate(typeof(BinaryDeserializer.DeserializeDelegate<T>)), null, true);
                 else deserializeDelegate.Set(BinaryDeserializer.JsonMethod.MakeGenericMethod(type).CreateDelegate(typeof(BinaryDeserializer.DeserializeDelegate<T?>)), null, true);
@@ -812,7 +812,7 @@ namespace AutoCSer.BinarySerialize
             BinarySerializeAttribute attribute = BinarySerializer.DefaultAttribute;
             var baseType = GetBaseAttribute(type, ref attribute);
             if (baseType != null) return BinaryDeserializer.BaseReflectionMethod.MakeGenericMethod(type, baseType).CreateDelegate(typeof(Func<BinaryDeserializer, object?>));
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 if (type.IsValueType) return BinaryDeserializer.StructJsonReflectionMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<BinaryDeserializer, object>));
                 return BinaryDeserializer.JsonReflectionMethod.MakeGenericMethod(type).CreateDelegate(typeof(Func<BinaryDeserializer, object?>));
@@ -937,7 +937,7 @@ namespace AutoCSer.BinarySerialize
                 BaseGenericType.Get(type, baseType).GetBinarySerializeBaseDelegate(ref serializeDelegateReference);
                 return true;
             }
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 if (type.IsValueType) serializeDelegateReference = new SerializeDelegateReference(genericType.BinarySerializeStructJsonDelegate);
                 else serializeDelegateReference = new SerializeDelegateReference(genericType.BinarySerializeJsonDelegate, genericType);
@@ -990,7 +990,7 @@ namespace AutoCSer.BinarySerialize
             BinarySerializeAttribute attribute = BinarySerializer.DefaultAttribute;
             baseType = GetBaseAttribute(type, ref attribute);
             if (baseType != null) return BaseGenericType.Get(type, baseType).BinarySerializeBaseDelegate;
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 if (genericType == null) genericType = GenericType.Get(type);
                 if (type.IsValueType) return genericType.BinarySerializeMemberStructJsonDelegate;
@@ -1124,7 +1124,7 @@ namespace AutoCSer.BinarySerialize
                 deserializeDelegate = new DeserializeDelegate(BaseGenericType.Get(type, baseType).BinaryDeserializeBaseDelegate, true);
                 return true;
             }
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 if (type.IsValueType) deserializeDelegate = new DeserializeDelegate(genericType.notNull().BinaryDeserializeStructJsonDelegate, true);
                 else deserializeDelegate = new DeserializeDelegate(genericType.notNull().BinaryDeserializeJsonDelegate, true);
@@ -1170,7 +1170,7 @@ namespace AutoCSer.BinarySerialize
             var baseType = GetBaseAttribute(type, ref attribute);
             if (baseType != null) return BaseGenericType.Get(type, baseType).BinaryDeserializeBaseDelegate;
             if (genericType == null) genericType = GenericType.Get(type);
-            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsMixJsonSerialize)
+            if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
                 if (type.IsValueType) return genericType.BinaryDeserializeStructJsonDelegate;
                 return genericType.BinaryDeserializeJsonDelegate;

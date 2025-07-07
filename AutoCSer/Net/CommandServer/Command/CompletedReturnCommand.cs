@@ -3,12 +3,14 @@
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 已完成返回值命令
+    /// The completed return value command
+    /// 已完成的返回值命令
     /// </summary>
     public sealed class CompletedReturnCommand : ReturnCommand
     {
         /// <summary>
-        /// 返回值命令
+        /// The completed return value command
+        /// 已完成的返回值命令
         /// </summary>
         /// <param name="returnType">返回值</param>
         private CompletedReturnCommand(CommandClientReturnTypeEnum returnType) : base(returnType) { }
@@ -19,25 +21,28 @@ namespace AutoCSer.Net
         public static readonly CompletedReturnCommand Unknown = new CompletedReturnCommand(CommandClientReturnTypeEnum.Unknown);
     }
     /// <summary>
-    /// 已完成返回值命令
+    /// The completed return value command
+    /// 已完成的返回值命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class CompletedReturnCommand<T> : ReturnCommand<T>
     {
         /// <summary>
-        /// 默认空命令
+        /// Default empty command
         /// </summary>
         /// <param name="controller"></param>
         internal CompletedReturnCommand(CommandClientController controller) : base(controller) { }
         /// <summary>
-        /// 返回值命令
+        /// The completed return value command
+        /// 已完成的返回值命令
         /// </summary>
-        /// <param name="returnValue">返回值</param>
+        /// <param name="returnValue">Return value</param>
         public CompletedReturnCommand(T returnValue) : base(ref returnValue) { }
         /// <summary>
-        /// 返回值命令
+        /// The completed return value command
+        /// 已完成的返回值命令
         /// </summary>
-        /// <param name="returnValue">返回值</param>
+        /// <param name="returnValue">Return value</param>
         public CompletedReturnCommand(ref T returnValue) : base(ref returnValue) { }
 
         /// <summary>

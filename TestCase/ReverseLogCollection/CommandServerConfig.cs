@@ -4,15 +4,18 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.ReverseLogCollection
 {
     /// <summary>
+    /// Message cluster service configuration
     /// 消息集群服务配置
     /// </summary>
     internal sealed class CommandServerConfig : AutoCSer.Net.CommandServerConfig
     {
         /// <summary>
-        /// 服务端注册组件
+        /// Server registration component
+        /// 服务注册组件
         /// </summary>
         private AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry.CommandServiceRegistrar<ServerRegistryCommandClientSocketEvent> registrar;
         /// <summary>
+        /// Get the service registration component
         /// 获取服务注册组件
         /// </summary>
         /// <param name="server"></param>

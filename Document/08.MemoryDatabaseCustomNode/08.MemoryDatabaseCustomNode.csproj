@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AutoCSer.Document.MemoryDatabaseCustomNode</AssemblyName>
+    <RootNamespace>AutoCSer.Document.MemoryDatabaseCustomNode</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**" />
+    <EmbeddedResource Remove="**" />
+    <None Remove="**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BeforePersistenceNode\BeforePersistenceNode.cs" />
+    <Compile Include="BeforePersistenceNode\IBeforePersistenceNode.cs" />
+    <Compile Include="BeforePersistenceNode\IdentityEntity.cs" />
+    <Compile Include="Client\BeforePersistenceNode.cs" />
+    <Compile Include="Client\DictionarySnapshotCloneCounterNode.cs" />
+    <Compile Include="Client\DictionaryCounterNode.cs" />
+    <Compile Include="Client\CounterNode.cs" />
+    <Compile Include="Client\CommandClientSocketEvent.cs" />
+    <Compile Include="Client\LoadPersistenceNode.cs" />
+    <Compile Include="DictionarySnapshotCloneCounterNode\DictionarySnapshotCloneCounterNode.cs" />
+    <Compile Include="DictionarySnapshotCloneCounterNode\IDictionarySnapshotCloneCounterNode.cs" />
+    <Compile Include="DictionarySnapshotCloneCounterNode\SnapshotCloneCounter.cs" />
+    <Compile Include="CounterNode\CounterNode.cs" />
+    <Compile Include="CustomServiceNode.cs" />
+    <Compile Include="DictionaryCounterNode\DictionaryCounterNode.cs" />
+    <Compile Include="CounterNode\ICounterNode.cs" />
+    <Compile Include="ICustomServiceNode.cs" />
+    <Compile Include="DictionaryCounterNode\IDictionaryCounterNode.cs" />
+    <Compile Include="LoadPersistenceNode\ILoadPersistenceNode.cs" />
+    <Compile Include="LoadPersistenceNode\LoadPersistenceNode.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ServiceConfig.cs" />
+    <Compile Include="{AutoCSer.Document.MemoryDatabaseCustomNode}.AutoCSer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="08.MemoryDatabaseCustomNode.Eng.md" />
+    <None Include="08.MemoryDatabaseCustomNode.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
+  </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+  </Target>
+
+</Project>

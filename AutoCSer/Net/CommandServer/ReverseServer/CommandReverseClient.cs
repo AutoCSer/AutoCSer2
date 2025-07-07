@@ -11,35 +11,43 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// Reverse command service client (initiating connection end)
     /// 反向命令服务客户端（发起连接端）
     /// </summary>
     public class CommandReverseClient : CommandListener, ICommandClient
     {
         /// <summary>
+        /// Reverse command service client configuration
         /// 反向命令服务客户端配置
         /// </summary>
         private readonly CommandReverseClientConfig config;
         /// <summary>
+        /// Command client socket event controller attribute binding flags
         /// 命令客户端套接字事件控制器属性绑定标识
         /// </summary>
         BindingFlags ICommandClient.ControllerCreatorBindingFlags { get { return config.ControllerCreatorBindingFlags; } }
         /// <summary>
+        /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
         public CommandClientSocketEvent SocketEvent { get; private set; }
         /// <summary>
+        /// Command client socket event task caching
         /// 命令客户端套接字事件任务缓存
         /// </summary>
         private readonly Task<CommandClientSocketEvent> socketEventTask;
         /// <summary>
+        /// Server listening address
         /// 服务监听地址
         /// </summary>
         private IPEndPoint serverEndPoint;
         /// <summary>
+        /// Current command server socket
         /// 当前命令服务套接字
         /// </summary>
         private CommandServerSocket currentSocket;
         /// <summary>
+        /// Determines whether the current client socket is closed
         /// 判断当前客户端套接字是否已经关闭
         /// </summary>
         public bool IsSocketClosed
@@ -50,6 +58,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// The server registration client listener component
         /// 服务注册客户端监听组件
         /// </summary>
 #if NetStandard21
@@ -58,14 +67,18 @@ namespace AutoCSer.Net
         private CommandClientServiceRegistrar clientRegistrar;
 #endif
         /// <summary>
-        /// 服务更新版本号
+        /// The current version number of the client being created
+        /// 当前创建客户端的版本号
         /// </summary>
         private int createVersion;
         /// <summary>
+        /// Reverse command service client (initiating connection end)
         /// 反向命令服务客户端（发起连接端）
         /// </summary>
-        /// <param name="config">命令服务配置</param>
-        /// <param name="creators">服务控制器创建器集合</param>
+        /// <param name="config">Command server configuration
+        /// 命令服务配置</param>
+        /// <param name="creators">Service controller creator collection
+        /// 服务控制器创建器集合</param>
         public CommandReverseClient(CommandReverseClientConfig config, params CommandServerInterfaceControllerCreator[] creators) : base(config, creators)
         {
             if (Controllers.Length == 0) throw new ArgumentException(AutoCSer.Common.Culture.GetReverseCommandServerNotFoundController(config.ServerName));
@@ -78,10 +91,13 @@ namespace AutoCSer.Net
             config.CreateSocket(this);
         }
         /// <summary>
-        /// 反向命令服务客户端
+        /// Reverse command service client (initiating connection end)
+        /// 反向命令服务客户端（发起连接端）
         /// </summary>
-        /// <param name="config">命令服务配置</param>
-        /// <param name="creators">服务控制器创建器集合</param>
+        /// <param name="config">Command server configuration
+        /// 命令服务配置</param>
+        /// <param name="creators">Service controller creator collection
+        /// 服务控制器创建器集合</param>
         internal CommandReverseClient(CommandReverseClientConfig config, ref LeftArray<CommandServerInterfaceControllerCreator> creators) : base(config, ref creators)
         {
             if (Controllers.Length == 0) throw new ArgumentException(AutoCSer.Common.Culture.GetReverseCommandServerNotFoundController(config.ServerName));
@@ -94,7 +110,7 @@ namespace AutoCSer.Net
             config.CreateSocket(this);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         protected override void dispose()
         {
@@ -103,6 +119,7 @@ namespace AutoCSer.Net
             currentSocket.DisposeSocket();
         }
         /// <summary>
+        /// Automatically start the connection
         /// 自动启动连接
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -112,6 +129,7 @@ namespace AutoCSer.Net
             create(Interlocked.Increment(ref createVersion)).NotWait();
         }
         /// <summary>
+        /// Automatically start the connection
         /// 自动启动连接
         /// </summary>
         /// <returns></returns>
@@ -120,6 +138,7 @@ namespace AutoCSer.Net
             if (clientRegistrar == null) clientRegistrar = await config.GetRegistrar(this);
         }
         /// <summary>
+        /// Start the connection
         /// 启动连接
         /// </summary>
         /// <param name="createVersion"></param>
@@ -162,9 +181,11 @@ namespace AutoCSer.Net
             while (!IsDisposed && createVersion == this.createVersion);
         }
         /// <summary>
+        /// Wait for the server listen address
         /// 等待服务监听地址
         /// </summary>
-        /// <returns>是否需要取消定时任务</returns>
+        /// <returns>Whether to cancel a scheduled task
+        /// 是否需要取消定时任务</returns>
 #if NetStandard21
         ValueTask<bool> ICommandClient.WaitServerEndPoint()
 #else
@@ -182,7 +203,8 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
-        /// 服务端监听地址更新通知
+        /// The server listens for address update notifications
+        /// 服务监听地址更新通知
         /// </summary>
         /// <param name="endPoint"></param>
         void ICommandClient.ServerEndPointChanged(IPEndPoint endPoint)
@@ -194,7 +216,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 关闭套接字
+        /// Close the socket
         /// </summary>
         /// <param name="socket"></param>
         internal override void OnClose(CommandServerSocket socket) 
@@ -205,14 +227,17 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Get the send data buffer pool
         /// 获取发送数据缓存区池
         /// </summary>
-        /// <returns>发送数据缓存区池</returns>
+        /// <returns>Send data buffer pool
+        /// 发送数据缓存区池</returns>
         ByteArrayPool ICommandClient.GetSendBufferPool() { return SendBufferPool; }
         /// <summary>
+        /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         public Task<CommandClientSocketEvent?> GetSocketEvent()
 #else
@@ -224,10 +249,11 @@ namespace AutoCSer.Net
 #pragma warning restore CS8619
         }
         /// <summary>
+        /// Gets the command client socket event
         /// 获取命令客户端套接字事件
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns>失败返回 null</returns>
+        /// <returns>Return null on failure</returns>
 #if NetStandard21
         public async Task<T?> GetSocketEvent<T>()
 #else

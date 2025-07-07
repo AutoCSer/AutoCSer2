@@ -38,7 +38,7 @@ namespace AutoCSer.ORM.CustomColumn
             get { return (int)(Value & 31); }
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.SearchQueryService
     /// 搜索聚合查询服务接口
     /// </summary>
     [AutoCSer.Net.CommandServerControllerInterface]
-    public interface IQueryService
+    public partial interface IQueryService
     {
         /// <summary>
         /// 获取用户标识分页记录

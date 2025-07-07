@@ -173,7 +173,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener.dispose">
             <summary>
-            释放资源
+            Release resources
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1">
@@ -206,7 +206,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.OnVerified">
             <summary>
-            添加客户端
+            客户端验证完成处理
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener`1.send(`0)">
@@ -260,6 +260,9 @@
             日志收集反向服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个监听客户端，家庭带宽电脑上启动服务端）
             </summary>
             <typeparam name="T">日志数据类型</typeparam>
+            <summary>
+            日志收集反向服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个监听客户端，家庭带宽电脑上启动服务端）
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.ILogCollectionReverseService`1.Append(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallQueue,`0)">
             <summary>
@@ -280,7 +283,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.ILogCollectionReverseServiceClientController`1">
             <summary>
-            日志收集反向服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个监听客户端，家庭带宽电脑上启动服务端） 客户端接口
+            日志收集反向服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个监听客户端，家庭带宽电脑上启动服务端） client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.ILogCollectionReverseServiceClientController`1.Append(`0)">
@@ -295,7 +298,12 @@
             </summary>
             <param name="log">日志数据</param>
         </member>
-        <member name="F:AutoCSer.CommandService.LogCollectionReverseServiceMethodEnum.Append">
+        <member name="T:AutoCSer.CommandService.ILogCollectionReverseServiceMethodEnum">
+            <summary>
+            日志收集反向服务（用于利用家庭宽带收集日志，需要每个写日志的进程启动一个监听客户端，家庭带宽电脑上启动服务端） (The method sequence number maps the enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.ILogCollectionReverseServiceMethodEnum.Append">
             <summary>
             [0] 添加日志
             AutoCSer.Net.CommandServerSocket socket 
@@ -303,7 +311,7 @@
             T log 日志数据
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.LogCollectionReverseServiceMethodEnum.AppendSendOnly">
+        <member name="F:AutoCSer.CommandService.ILogCollectionReverseServiceMethodEnum.AppendSendOnly">
             <summary>
             [1] 添加日志
             AutoCSer.Net.CommandServerSocket socket 

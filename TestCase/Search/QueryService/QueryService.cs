@@ -45,6 +45,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         private readonly SingleDiskBlockUIntKeyIntValueCache userRemarkIndexCache;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已释放资源
         /// </summary>
         internal bool IsDispose;
@@ -65,7 +66,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             TryAppendTaskArrayAsync(60 * 60).NotWait();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -76,6 +77,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             userCache.Close();
         }
         /// <summary>
+        /// Trigger the timed operation
         /// 触发定时操作
         /// </summary>
         /// <returns></returns>

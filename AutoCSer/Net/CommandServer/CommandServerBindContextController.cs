@@ -5,27 +5,32 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 套接字上下文绑定服务端实例（每个连接一个实例）
+    /// Socket context binding service instance (one instance for each connection)
+    /// 套接字上下文绑定服务实例（每个连接一个实例）
     /// </summary>
     public abstract class CommandServerBindContextController
     {
         /// <summary>
+        /// The socket of the currently executing task
         /// 当前执行任务套接字
         /// </summary>
         public CommandServerSocket Socket { get; private set; }
         /// <summary>
+        /// Command service controller
         /// 命令服务控制器
         /// </summary>
         public CommandServerController Controller { get; private set; }
         /// <summary>
-        /// 是否已经设置设置当前执行任务套接字
+        /// Has the socket for the current execution task been set
+        /// 是否已经设置当前执行任务套接字
         /// </summary>
         public bool IsContext
         {
             get { return !object.ReferenceEquals(Controller, CommandListener.Null.Controller); }
         }
         /// <summary>
-        /// 套接字上下文绑定服务端实例（每个连接一个实例）
+        /// Socket context binding service instance (one instance for each connection)
+        /// 套接字上下文绑定服务实例（每个连接一个实例）
         /// </summary>
         public CommandServerBindContextController()
         {
@@ -33,6 +38,7 @@ namespace AutoCSer.Net
             Controller = CommandListener.Null.Controller;
         }
         /// <summary>
+        /// Set the socket of the currently executing task
         /// 设置当前执行任务套接字
         /// </summary>
         /// <param name="socket"></param>

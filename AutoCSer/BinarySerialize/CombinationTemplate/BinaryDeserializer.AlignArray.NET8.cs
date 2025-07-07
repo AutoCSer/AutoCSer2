@@ -4,14 +4,14 @@
 namespace AutoCSer
 {
     /// <summary>
-    /// 二进制反数据序列化
+    /// 二进制数据反序列化
     /// </summary>
     public sealed unsafe partial class BinaryDeserializer
     {
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
 #if NetStandard21
         public void BinaryDeserialize(ref UInt128[]? array)
 #else
@@ -35,7 +35,7 @@ namespace AutoCSer
         }
 #if AOT
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
         private static object? primitiveMemberDeserializeUInt128Array(BinaryDeserializer deserializer)
@@ -46,10 +46,10 @@ namespace AutoCSer
         }
 #endif
         /// <summary>
-        /// 数组反序列化
+        /// Array deserialization
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <param name="array">数组</param>
+        /// <param name="array">Array</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private static void primitiveDeserialize(BinaryDeserializer deserializer, ref UInt128[]? array)

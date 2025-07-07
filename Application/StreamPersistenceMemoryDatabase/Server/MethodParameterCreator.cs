@@ -5,11 +5,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Create the calling method and parameter information
     /// 创建调用方法与参数信息
     /// </summary>
     public abstract class MethodParameterCreator
     {
         /// <summary>
+        /// Server node
         /// 服务端节点
         /// </summary>
         private readonly ServerNode node;
@@ -18,6 +20,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         ///// </summary>
         //internal MethodParameter MethodParameter;
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="node"></param>
@@ -41,6 +44,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         //    return false;
         //}
         /// <summary>
+        /// Add to the persistence queue (The persistence API persists the request data first and then executes the request to ensure the reliability of persistence and avoid the situation where persistence fails and data is lost after the client is successfully fed back)
         /// 添加到持久化队列（持久化 API 先持久化请求数据再执行请求保证持久化的可靠性，避免出现反馈客户端成功以后出现持久化失败丢失数据的情况）
         /// </summary>
         /// <param name="methodParameter"></param>
@@ -53,6 +57,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -62,6 +67,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             pushPersistence(new CallMethodParameter(node, methodIndex));
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="creator"></param>
@@ -71,6 +77,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createCallMethodParameter(methodIndex);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -80,6 +87,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             pushPersistence(new CallOutputMethodParameter(node, methodIndex));
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="creator"></param>
@@ -89,6 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createCallOutputMethodParameter(methodIndex);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -102,6 +111,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!pushPersistence(new CallOutputMethodParameter(node, methodIndex, callback))) callback?.Callback(ResponseParameter.CallStates[(byte)CallStateEnum.NotSupportPersistence]);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="creator"></param>
@@ -116,6 +126,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createCallOutputMethodParameter(methodIndex, callback);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -127,6 +138,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             pushPersistence(new CallInputMethodParameter<T>(node, methodIndex, ref parameter));
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -138,6 +150,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createCallInputMethodParameter(methodIndex, ref parameter);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -149,6 +162,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             pushPersistence(new CallInputOutputMethodParameter<T>(node, methodIndex, ref parameter));
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -160,6 +174,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createCallInputOutputMethodParameter(methodIndex, ref parameter);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -175,6 +190,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!pushPersistence(new CallInputOutputMethodParameter<T>(node, methodIndex, ref parameter, callback))) callback?.Callback(ResponseParameter.CallStates[(byte)CallStateEnum.NotSupportPersistence]);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -191,6 +207,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createCallInputOutputMethodParameter(methodIndex, ref parameter, callback);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -202,6 +219,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             pushPersistence(new SendOnlyMethodParameter<T>(node, methodIndex, ref parameter));
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -213,6 +231,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createSendOnlyMethodParameter(methodIndex, ref parameter);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -222,6 +241,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             pushPersistence(new KeepCallbackMethodParameter(node, methodIndex));
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="creator"></param>
@@ -231,6 +251,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createKeepCallbackMethodParameter(methodIndex);
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -242,6 +263,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             pushPersistence(new InputKeepCallbackMethodParameter<T>(node, methodIndex, ref parameter));
         }
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -253,23 +275,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             creator.createInputKeepCallbackMethodParameter(methodIndex, ref parameter);
         }
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
         internal static object MethodParameterCreatorCallMethodName(params object[] values) { return AutoCSer.Common.EmptyObject; }
     }
     /// <summary>
+    /// Create the calling method and parameter information for custom persistent calls on the server side. The calling interface method will be added to the persistence queue
     /// 创建调用方法与参数信息，用于服务端自定义持久化调用，调用接口方法会添加到持久化队列
     /// </summary>
-    /// <typeparam name="T">节点接口类型</typeparam>
+    /// <typeparam name="T">Node interface type
+    /// 节点接口类型</typeparam>
     public abstract class MethodParameterCreator<T> : MethodParameterCreator
     {
         /// <summary>
+        /// Create the calling method and parameter information for custom persistent calls on the server side. The calling interface method will be added to the persistence queue
         /// 创建调用方法与参数信息，用于服务端自定义持久化调用，调用接口方法会添加到持久化队列
         /// </summary>
         public readonly T Creator;
         /// <summary>
+        /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="node"></param>

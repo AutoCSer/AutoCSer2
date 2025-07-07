@@ -52,11 +52,13 @@ namespace AutoCSer.CommandService.Search.StaticTrieGraph
         /// </summary>
         internal char AnyTrieHeadChar;
         /// <summary>
-        /// 是否已经建图
+        /// Has the trie graph been created
+        /// 是否已经创建 Trie 图
         /// </summary>
         internal bool IsGraph;
         /// <summary>
-        /// 建图
+        /// Create the trie graph
+        /// 创建 Trie 图
         /// </summary>
         /// <param name="treeBuilder"></param>
         internal void Build(TreeBuilder treeBuilder)

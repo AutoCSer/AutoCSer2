@@ -74,7 +74,8 @@
             <summary>
             实时调用信息
             </summary>
-            <param name="callType">调用接口类型</param>
+            <param name="callType">Call interface type
+            调用接口类型</param>
             <param name="callName">调用接口方法名称</param>
             <param name="timeoutMilliseconds">调用超时毫秒数</param>
             <param name="type">调用类型</param>
@@ -115,6 +116,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -122,18 +124,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -145,12 +150,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.DefaultConstructor">
             <summary>
-            默认构造函数
+            Call the default constructor
+            调用默认构造函数
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData.DefaultConstructorReflection">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp">
@@ -173,6 +180,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp@)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="deserializer"></param>
@@ -180,18 +188,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
+            Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp.BinarySerializeMemberTypes">
             <summary>
+            Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
@@ -218,16 +229,21 @@
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.AotMethod.Call">
             <summary>
-            代码生成调用激活 AOT 反射
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
             </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitor.AotMethod.binaryDeserializeMemberTypes">
             <summary>
-            二进制反序列化成员类型代码生成调用激活 AOT 反射
+            Binary deserialization member type activation reflection
+            二进制反序列化成员类型激活反射
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService">
+            <summary>
+            接口实时调用监视服务接口
+            </summary>
             <summary>
             接口实时调用监视服务接口
             </summary>
@@ -269,8 +285,10 @@
             <param name="socket"></param>
             <param name="queue"></param>
             <param name="callIdentity">调用标识</param>
-            <param name="callType">调用接口类型</param>
-            <param name="callName">调用接口方法名称</param>
+            <param name="callType">Call interface type
+            调用接口类型</param>
+            <param name="callName">The name of the interface method to be called
+            调用接口方法名称</param>
             <param name="timeoutMilliseconds">超时毫秒数</param>
             <param name="type">调用类型</param>
             <returns></returns>
@@ -309,7 +327,8 @@
             </summary>
             <param name="socket"></param>
             <param name="queue"></param>
-            <param name="count">获取数量</param>
+            <param name="count">Get the quantity of data
+            获取数据数量</param>
             <param name="callback">超时调用回调</param>
         </member>
         <member name="T:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController">
@@ -317,7 +336,7 @@
             接口实时调用监视服务接口 客户端接口
             </summary>
             <summary>
-            接口实时调用监视服务接口 客户端接口
+            接口实时调用监视服务接口 client interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.Check(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
@@ -375,7 +394,8 @@
             <summary>
             获取指定数量的超时调用
             </summary>
-            <param name="count">获取数量</param>
+            <param name="count">Get the quantity of data 
+                       获取数据数量</param>
             <returns>超时调用回调</returns>
         </member>
         <member name="M:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController.GetTimeoutCount">
@@ -396,17 +416,19 @@
             新增一个实时调用信息
             </summary>
             <param name="callIdentity">调用标识</param>
-            <param name="callType">调用接口类型</param>
-            <param name="callName">调用接口方法名称</param>
+            <param name="callType">Call interface type 
+                       调用接口类型</param>
+            <param name="callName">The name of the interface method to be called 
+                       调用接口方法名称</param>
             <param name="timeoutMilliseconds">超时毫秒数</param>
             <param name="type">调用类型</param>
         </member>
-        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum">
+        <member name="T:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum">
             <summary>
-            接口实时调用监视服务接口方法序号映射枚举类型
+            接口实时调用监视服务接口 (The method sequence number maps the enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.Check">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.Check">
             <summary>
             [0] 接口监视服务在线检查
             AutoCSer.Net.CommandServerSocket socket 
@@ -414,7 +436,7 @@
             AutoCSer.Net.CommandServerKeepCallback callback 在线检查回调
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.Completed">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.Completed">
             <summary>
             [1] 调用完成
             AutoCSer.Net.CommandServerSocket socket 
@@ -423,13 +445,13 @@
             bool isException 接口是否执行异常
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.GetCount">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.GetCount">
             <summary>
             [2] 获取未完成调用数量
             返回值 int 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.GetException">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.GetException">
             <summary>
             [3] 获取异常调用数据
             AutoCSer.Net.CommandServerSocket socket 
@@ -438,7 +460,7 @@
             返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.GetTimeout">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.GetTimeout">
             <summary>
             [4] 获取超时调用数据
             AutoCSer.Net.CommandServerSocket socket 
@@ -447,17 +469,18 @@
             返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.GetTimeoutCalls">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.GetTimeoutCalls">
             <summary>
             [5] 获取指定数量的超时调用
             AutoCSer.Net.CommandServerSocket socket 
             AutoCSer.Net.CommandServerCallQueue queue 
-            int count 获取数量
+            int count Get the quantity of data 
+                       获取数据数量
             AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp} callback 超时调用回调
             返回值 AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp 
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.GetTimeoutCount">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.GetTimeoutCount">
             <summary>
             [6] 获取超时调用数量
             AutoCSer.Net.CommandServerSocket socket 
@@ -465,7 +488,7 @@
             返回值 int 超时调用数量
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.SetStep">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.SetStep">
             <summary>
             [7] 设置自定义调用步骤
             AutoCSer.Net.CommandServerSocket socket 
@@ -474,14 +497,16 @@
             int step 自定义调用步骤
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceMethodEnum.Start">
+        <member name="F:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum.Start">
             <summary>
             [8] 新增一个实时调用信息
             AutoCSer.Net.CommandServerSocket socket 
             AutoCSer.Net.CommandServerCallQueue queue 
             long callIdentity 调用标识
-            string callType 调用接口类型
-            string callName 调用接口方法名称
+            string callType Call interface type 
+                       调用接口类型
+            string callName The name of the interface method to be called 
+                       调用接口方法名称
             int timeoutMilliseconds 超时毫秒数
             ushort type 调用类型
             </summary>

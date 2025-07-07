@@ -13,11 +13,12 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal CallbackIdentity CallbackIdentity;
         /// <summary>
-        /// 返回值类型
+        /// The return type of the call
+        /// 调用返回类型
         /// </summary>
         protected readonly CommandClientReturnTypeEnum returnType;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         protected readonly string? ErrorMessage;
@@ -27,7 +28,8 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 无返回值数据输出
         /// </summary>
-        /// <param name="callbackIdentity">会话标识</param>
+        /// <param name="callbackIdentity">Session callback identifier
+        /// 会话回调标识</param>
         /// <param name="returnType">会话标识</param>
         /// <param name="exception"></param>
 #if NetStandard21
@@ -43,7 +45,8 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 无返回值数据输出
         /// </summary>
-        /// <param name="callbackIdentity">会话标识</param>
+        /// <param name="callbackIdentity">Session callback identifier
+        /// 会话回调标识</param>
         /// <param name="returnType">会话标识</param>
         internal ServerOutputReturnType(CallbackIdentity callbackIdentity, CommandClientReturnTypeEnum returnType)
         {

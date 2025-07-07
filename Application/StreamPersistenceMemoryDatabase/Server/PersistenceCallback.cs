@@ -11,6 +11,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class PersistenceCallback : ReadWriteQueueNode
     {
         /// <summary>
+        /// The written location of the persistent stream
         /// 持久化流已写入位置
         /// </summary>
         internal long PersistencePosition;

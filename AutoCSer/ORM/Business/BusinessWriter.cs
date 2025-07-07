@@ -13,7 +13,8 @@ namespace AutoCSer.ORM
     /// </summary>
     /// <typeparam name="BT">业务表格模型类型</typeparam>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     public sealed class BusinessWriter<BT, T, KT>
         where BT : class, T
         where T : class
@@ -89,7 +90,8 @@ namespace AutoCSer.ORM
         /// <typeparam name="VT"></typeparam>
         /// <param name="values"></param>
         /// <param name="transaction"></param>
-        /// <returns>删除数据数量</returns>
+        /// <returns>The quantity of deleted data
+        /// 删除数据数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<int> Insert<VT>(IEnumerable<VT> values, Transaction? transaction = null) where VT : class, BT
@@ -375,7 +377,8 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
-        /// <returns>删除数据数量</returns>
+        /// <returns>The quantity of deleted data
+        /// 删除数据数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<int> Delete(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
@@ -392,7 +395,8 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
-        /// <returns>删除数据数量</returns>
+        /// <returns>The quantity of deleted data
+        /// 删除数据数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<int> Delete<VT>(Expression<Func<T, bool>> condition, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, BT
@@ -409,7 +413,8 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
-        /// <returns>删除数据数量</returns>
+        /// <returns>The quantity of deleted data
+        /// 删除数据数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<int> Delete(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null)
@@ -426,7 +431,8 @@ namespace AutoCSer.ORM
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="ignoreFail">默认表示忽略失败继续执行，否则任意数据删除失败则回滚事务处理</param>
         /// <param name="transaction"></param>
-        /// <returns>删除数据数量</returns>
+        /// <returns>The quantity of deleted data
+        /// 删除数据数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public Task<int> Delete<VT>(QueryBuilder<T> query, int timeoutSeconds = 0, bool ignoreFail = false, Transaction? transaction = null) where VT : class, BT

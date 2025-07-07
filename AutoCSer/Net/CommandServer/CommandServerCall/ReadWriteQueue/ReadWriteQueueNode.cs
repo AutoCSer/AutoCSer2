@@ -7,23 +7,28 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// The server synchronously reads and writes the queue nodes
     /// 服务端同步读写队列节点
     /// </summary>
     public abstract class ReadWriteQueueNode : AutoCSer.Threading.Link<ReadWriteQueueNode>
     {
         /// <summary>
+        /// Synchronous read and write queue node types
         /// 同步读写队列节点类型
         /// </summary>
         public ReadWriteNodeTypeEnum Type { get; internal set; }
         /// <summary>
+        /// Server-side method call types
         /// 服务端方法调用类型
         /// </summary>
         internal readonly ServerMethodTypeEnum MethodType;
         /// <summary>
+        /// Whether the parameters have been deserialized successfully
         /// 参数是否反序列化成功
         /// </summary>
         internal bool IsDeserialize;
         /// <summary>
+        /// Has it been added to the queue
         /// 是否已经添加到队列
         /// </summary>
         private int isQueue;
@@ -52,10 +57,12 @@ namespace AutoCSer.Net.CommandServer
             return false;
         }
         /// <summary>
+        /// Execute the task
         /// 执行任务
         /// </summary>
         public abstract void RunTask();
         /// <summary>
+        /// Queue task execution exception
         /// 队列任务执行异常
         /// </summary>
         /// <param name="queue"></param>
@@ -65,6 +72,7 @@ namespace AutoCSer.Net.CommandServer
             queue.Server.Config.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception);
         }
         /// <summary>
+        /// Queue task execution exception
         /// 队列任务执行异常
         /// </summary>
         /// <param name="queue"></param>
@@ -74,6 +82,7 @@ namespace AutoCSer.Net.CommandServer
             queue.Server.Config.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception);
         }
         /// <summary>
+        /// Server-side queue timeout notification
         /// 服务端队列超时通知
         /// </summary>
         /// <param name="queue"></param>

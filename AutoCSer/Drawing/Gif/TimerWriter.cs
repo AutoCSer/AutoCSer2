@@ -87,7 +87,7 @@ namespace AutoCSer.Drawing.Gif
             if (isStart) start();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         protected override void dispose()
         {
@@ -97,7 +97,7 @@ namespace AutoCSer.Drawing.Gif
             base.dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         protected override async Task disposeAsync()

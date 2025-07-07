@@ -190,12 +190,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// ICMP V6数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Icmp6(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// ICMP V6数据包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Icmp6(ref SubArray<byte> data)
         {
             if (data.Length >= 8)

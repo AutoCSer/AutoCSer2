@@ -7,7 +7,7 @@ namespace AutoCSer.CodeGenerator.Template
     {
         #region PART CLASS
         /// <summary>
-        /// @CurrentType.CodeGeneratorXmlDocument 客户端接口
+        /// @CurrentType.CodeGeneratorXmlDocument client interface
         /// </summary>
         /*NOTE*/
         public partial interface /*NOTE*/@TypeNameDefinition

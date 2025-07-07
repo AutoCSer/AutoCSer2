@@ -6,6 +6,7 @@
     <members>
         <member name="T:AutoCSer.FieldEquals.CombinationTemplateConfig">
             <summary>
+            Customize simple combination template parameters
             自定义简单组合模板参数
             </summary>
         </member>
@@ -229,6 +230,7 @@
         </member>
         <member name="F:AutoCSer.FieldEquals.Comparor.IsBreakpoint">
             <summary>
+            Test breakpoint information is added to the output queue (DEBUG is valid)
             测试断点信息添加到输出队列（DEBUG 有效）
             </summary>
         </member>
@@ -240,6 +242,7 @@
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(``0,``0)">
             <summary>
+            Test breakpoint information is added to the output queue
             测试断点信息添加到输出队列
             </summary>
             <typeparam name="T"></typeparam>
@@ -248,6 +251,7 @@
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(System.Type,``0,``0)">
             <summary>
+            Test breakpoint information is added to the output queue
             测试断点信息添加到输出队列
             </summary>
             <typeparam name="T"></typeparam>

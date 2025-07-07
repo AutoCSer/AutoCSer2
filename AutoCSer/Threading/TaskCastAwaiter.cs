@@ -13,6 +13,7 @@ namespace AutoCSer.Threading
     public abstract class TaskCastAwaiter<T> : INotifyCompletion
     {
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -32,6 +33,7 @@ namespace AutoCSer.Threading
         /// </summary>
         public bool IsResult { get; protected set; }
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
@@ -40,6 +42,7 @@ namespace AutoCSer.Threading
         /// </summary>
         public abstract Exception Exception { get; }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -48,6 +51,7 @@ namespace AutoCSer.Threading
             return await this;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -58,6 +62,7 @@ namespace AutoCSer.Threading
             throw Exception;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -67,6 +72,7 @@ namespace AutoCSer.Threading
             return this;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>

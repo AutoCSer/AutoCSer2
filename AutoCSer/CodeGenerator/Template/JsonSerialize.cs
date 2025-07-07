@@ -9,6 +9,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region PART CLASS
             #region IF IsSerialize
             /// <summary>
+            /// JSON serialization
             /// JSON 序列化
             /// </summary>
             /// <param name="serializer"></param>
@@ -20,7 +21,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF Members.Length
             }
             /// <summary>
-            /// JSON 序列化
+            /// JSON serialization of member bitmaps is supported
+            /// 支持成员位图的 JSON 序列化
             /// </summary>
             /// <param name="memberMap"></param>
             /// <param name="serializer"></param>
@@ -34,6 +36,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF Members.Length
             /// <summary>
+            /// JSON serialization
             /// JSON 序列化
             /// </summary>
             /// <param name="__serializer__"></param>
@@ -60,7 +63,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP Members
             }
             /// <summary>
-            /// JSON 序列化
+            /// JSON serialization of member bitmaps is supported
+            /// 支持成员位图的 JSON 序列化
             /// </summary>
             /// <param name="__memberMap__"></param>
             /// <param name="__serializer__"></param>
@@ -92,7 +96,8 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF Members.Length
             #region IF MemberTypeCount
             /// <summary>
-            /// 获取 JSON 序列化成员类型
+            /// Get the collection of JSON serialized member types
+            /// 获取 JSON 序列化成员类型集合
             /// </summary>
             /// <returns></returns>
             internal static AutoCSer.LeftArray<Type> @JsonSerializeMemberTypeMethodName()
@@ -107,6 +112,7 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF IsSerialize
             #region IF IsDeserialize
             /// <summary>
+            /// JSON deserialization
             /// JSON 反序列化
             /// </summary>
             /// <param name="deserializer"></param>
@@ -119,7 +125,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF DeserializeMemberCount
             }
             /// <summary>
-            /// JSON 反序列化
+            /// JSON deserialization of member bitmaps is supported
+            /// 支持成员位图的 JSON 反序列化
             /// </summary>
             /// <param name="deserializer"></param>
             /// <param name="value"></param>
@@ -133,6 +140,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF DeserializeMemberCount
             /// <summary>
+            /// JSON deserialization
             /// JSON 反序列化
             /// </summary>
             /// <param name="__deserializer__"></param>
@@ -166,7 +174,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP DeserializeMembers
             }
             /// <summary>
-            /// JSON 反序列化
+            /// JSON deserialization of member bitmaps is supported
+            /// 支持成员位图的 JSON 反序列化
             /// </summary>
             /// <param name="__deserializer__"></param>
             /// <param name="__names__"></param>
@@ -202,6 +211,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #endregion IF DeserializeMemberCount
             /// <summary>
+            /// Member JSON deserialization
             /// 成员 JSON 反序列化
             /// </summary>
             /// <param name="__deserializer__"></param>
@@ -238,7 +248,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF DeserializeMemberCount
             }
             /// <summary>
-            /// 获取 JSON 反序列化成员名称
+            /// Gets the JSON deserialization member name collection and member index collection
+            /// 获取 JSON 反序列化成员名称集合与成员索引集合
             /// </summary>
             /// <returns></returns>
             internal static AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>> @JsonDeserializeMemberNameMethodName()
@@ -252,7 +263,8 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF DeserializeMemberCount
             /// <summary>
-            /// 获取 JSON 反序列化成员名称
+            /// Gets the JSON deserialization member name collection and member index collection
+            /// 获取 JSON 反序列化成员名称集合与成员索引集合
             /// </summary>
             /// <returns></returns>
             private static AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<int>> jsonDeserializeMemberName()
@@ -268,7 +280,8 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF DeserializeMemberCount
             #endregion IF IsDeserialize
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             #region IF CurrentType.Type.IsGenericType
             public static void @JsonSerializeMethodName(/*NOTE*/object value/*NOTE*/)/*NOTE*/ { }/*NOTE*/

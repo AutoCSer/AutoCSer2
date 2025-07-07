@@ -10,32 +10,38 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Message node consumer
     /// 消息节点消费者
     /// </summary>
     public abstract class MessageConsumer
     {
         /// <summary>
+        /// The default retry interval is in milliseconds
         /// 默认重试间隔毫秒数
         /// </summary>
         public const int DefaultDelayMilliseconds = 1000;
 
         /// <summary>
-        /// 客户端
+        /// Command client
         /// </summary>
         protected readonly ICommandClient commandClient;
         /// <summary>
+        /// Retry interval in milliseconds
         /// 重试间隔毫秒数
         /// </summary>
         protected readonly int delayMilliseconds;
         /// <summary>
+        /// Whether resources have been released
         /// 是否已释放资源
         /// </summary>
         protected bool isDisposed;
         /// <summary>
+        /// Message node consumer
         /// 消息节点消费者
         /// </summary>
-        /// <param name="commandClient">客户端</param>
-        /// <param name="delayMilliseconds">重试间隔毫秒数</param>
+        /// <param name="commandClient">Command client</param>
+        /// <param name="delayMilliseconds">Retry interval in milliseconds
+        /// 重试间隔毫秒数</param>
         protected MessageConsumer(ICommandClient commandClient, int delayMilliseconds)
         {
             this.commandClient = commandClient;
@@ -43,30 +49,37 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
     }
     /// <summary>
+    /// Message node consumer
     /// 消息节点消费者
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     public abstract class MessageConsumer<T> : MessageConsumer, IDisposable
         where T : Message<T>
     {
         /// <summary>
+        /// Message client node
         /// 消息客户端节点
         /// </summary>
         protected readonly IMessageNodeClientNode<T> node;
         /// <summary>
+        /// Message processing delegate
         /// 消息处理委托
         /// </summary>
         private readonly Action<ResponseResult<T>, AutoCSer.Net.KeepCallbackCommand> onMessageHandle;
         /// <summary>
+        /// The maximum number of single callback messages on the server side
         /// 服务端单次最大回调消息数量
         /// </summary>
         private readonly int maxMessageCount;
         /// <summary>
-        /// 接收消息的最后一次错误信息
+        /// Receive the last error status information of the message
+        /// 接收消息的最后一次错误状态信息
         /// </summary>
         protected ResponseResult lastError;
         /// <summary>
-        /// 保持回调输出
+        /// Keep callback object of the command
+        /// 命令保持回调对象
         /// </summary>
 #if NetStandard21
         private CommandKeepCallback? keepCallback;
@@ -74,12 +87,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private CommandKeepCallback keepCallback;
 #endif
         /// <summary>
-        /// 字符串消息消费者
+        /// Message node consumer
+        /// 消息节点消费者
         /// </summary>
-        /// <param name="commandClient">客户端</param>
-        /// <param name="node">消息客户端节点</param>
-        /// <param name="maxMessageCount">服务端单次最大回调消息数量</param>
-        /// <param name="delayMilliseconds">重试间隔毫秒数</param>
+        /// <param name="commandClient">Command client</param>
+        /// <param name="node">Message client node
+        /// 消息客户端节点</param>
+        /// <param name="maxMessageCount">The maximum number of single callback messages on the server side
+        /// 服务端单次最大回调消息数量</param>
+        /// <param name="delayMilliseconds">Retry interval in milliseconds
+        /// 重试间隔毫秒数</param>
         protected MessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<T> node, int maxMessageCount, int delayMilliseconds) : base(commandClient, delayMilliseconds)
         {
             this.node = node;
@@ -89,7 +106,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             start().NotWait();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -100,6 +117,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Start receiving and processing messages
         /// 开始接收并处理消息
         /// </summary>
         /// <returns></returns>
@@ -121,6 +139,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Message processing
         /// 消息处理
         /// </summary>
         /// <param name="message"></param>
@@ -135,7 +154,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             onError(message, command).NotWait();
         }
         /// <summary>
-        /// 错误消息处理
+        /// Handle error messages
+        /// 处理错误消息
         /// </summary>
         /// <param name="message"></param>
         /// <param name="command"></param>
@@ -159,6 +179,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Error handling of received messages
         /// 接收消息错误处理
         /// </summary>
         /// <param name="error"></param>
@@ -176,6 +197,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Message processing
         /// 消息处理
         /// </summary>
         /// <param name="message"></param>
@@ -198,10 +220,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 消息处理，异常则表示消息执行失败
+        /// Message processing. An exception also indicates that the message execution failed
+        /// 消息处理，异常也表示消息执行失败
         /// </summary>
         /// <param name="message"></param>
-        /// <returns>消息是否执行成功</returns>
+        /// <returns>Whether the message was executed successfully
+        /// 消息是否执行成功</returns>
         protected abstract Task<bool> onMessage(T message);
     }
 }

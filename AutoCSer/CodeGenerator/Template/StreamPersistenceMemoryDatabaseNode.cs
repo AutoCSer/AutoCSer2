@@ -13,7 +13,7 @@ namespace AutoCSer.CodeGenerator.Template
         /*NOTE*/
         public partial interface /*NOTE*/@TypeNameDefinition { }
         /// <summary>
-        /// @CurrentType.CodeGeneratorXmlDocument 节点方法序号映射枚举类型
+        /// @CurrentType.CodeGeneratorXmlDocument (Node method sequence number mapping enumeration type)
         /// </summary>
         public enum @MethodIndexEnumTypeName
         {

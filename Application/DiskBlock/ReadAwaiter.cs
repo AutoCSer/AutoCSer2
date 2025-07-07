@@ -19,7 +19,8 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 读取字符串
         /// </summary>
         /// <param name="client">磁盘块客户端接口</param>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         internal ReadAwaiter(IDiskBlockClient client, BlockIndex blockIndex) : base(client, blockIndex) { }
         /// <summary>
         /// 反序列化
@@ -41,6 +42,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         private ReturnCommand<ReadBuffer> command = CompletedReturnCommand<ReadBuffer>.Default;
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -56,6 +58,7 @@ namespace AutoCSer.CommandService.DiskBlock
 #endif
         protected T result;
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; private set; }
@@ -67,13 +70,15 @@ namespace AutoCSer.CommandService.DiskBlock
         /// 读取数据
         /// </summary>
         /// <param name="client">磁盘块客户端接口</param>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         internal ReadAwaiter(IDiskBlockClient client, BlockIndex blockIndex)
         {
             command = client.Read(this, blockIndex);
             command.OnCompleted(onCompleted);
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -82,6 +87,7 @@ namespace AutoCSer.CommandService.DiskBlock
             return await this;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -96,6 +102,7 @@ namespace AutoCSer.CommandService.DiskBlock
             return new ReadResult<T>(buffer.ReturnType, buffer.ErrorMessage);
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -105,6 +112,7 @@ namespace AutoCSer.CommandService.DiskBlock
             return this;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>

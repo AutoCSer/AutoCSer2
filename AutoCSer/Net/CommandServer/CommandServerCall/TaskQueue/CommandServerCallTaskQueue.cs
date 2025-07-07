@@ -9,11 +9,13 @@ using AutoCSer.Threading;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// The queue for asynchronous server calls (mainly used for reading the queue's memory cache status, except for the initialization of the queue context, try to avoid IO blocking operations as much as possible; Dirty read database operations should be handled using ordinary concurrent tasks instead of read-write queue operations.
     /// 服务端异步调用队列（主要用于读取队列内存缓存状态，除了队列上下文初始化尽量不要有 IO 阻塞操作；脏读数据库操作应该使用普通并发任务处理，不应该使用读写队列操作）
     /// </summary>
     public abstract class CommandServerCallTaskQueue : CommandServerCallTaskLowPriorityQueue
     {
         /// <summary>
+        /// Queue context asynchronous lock
         /// 队列上下文异步锁
         /// </summary>
 #if DEBUG && NetStandard21
@@ -21,11 +23,13 @@ namespace AutoCSer.Net
 #endif
         private SemaphoreSlimLock contextLock;
         /// <summary>
-        /// 默认空服务端异步调用队列
+        /// Default empty queue
+        /// 默认空队列
         /// </summary>
         internal CommandServerCallTaskQueue() { }
         /// <summary>
-        /// 服务端执行队列
+        /// The queue for asynchronous server calls (mainly used for reading the queue's memory cache status, except for the initialization of the queue context, try to avoid IO blocking operations as much as possible; Dirty read database operations should be handled using ordinary concurrent tasks instead of read-write queue operations.
+        /// 服务端异步调用队列（主要用于读取队列内存缓存状态，除了队列上下文初始化尽量不要有 IO 阻塞操作；脏读数据库操作应该使用普通并发任务处理，不应该使用读写队列操作）
         /// </summary>
         /// <param name="queueSet"></param>
         /// <param name="isReside"></param>
@@ -34,7 +38,8 @@ namespace AutoCSer.Net
             if (MaxConcurrent > 1) contextLock = new SemaphoreSlimLock(1);
         }
         /// <summary>
-        /// 服务端执行队列
+        /// The queue for asynchronous server calls (mainly used for reading the queue's memory cache status, except for the initialization of the queue context, try to avoid IO blocking operations as much as possible; Dirty read database operations should be handled using ordinary concurrent tasks instead of read-write queue operations.
+        /// 服务端异步调用队列（主要用于读取队列内存缓存状态，除了队列上下文初始化尽量不要有 IO 阻塞操作；脏读数据库操作应该使用普通并发任务处理，不应该使用读写队列操作）
         /// </summary>
         /// <param name="controller"></param>
         protected CommandServerCallTaskQueue(CommandServerController controller) : base(controller)
@@ -42,6 +47,7 @@ namespace AutoCSer.Net
             if (MaxConcurrent > 1) contextLock = new SemaphoreSlimLock(1);
         }
         /// <summary>
+        /// Enter the queue context asynchronous lock (used in the case where multiple read tasks concurrently operate ContextObject)
         /// 进入队列上下文异步锁（用于多个读取任务并发操作 ContextObject 的情况）
         /// </summary>
         /// <returns></returns>
@@ -67,6 +73,7 @@ namespace AutoCSer.Net
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Release the asynchronous lock of the queue context (used in the case where multiple read tasks concurrently operate the context object)
         /// 释放队列上下文异步锁（用于多个读取任务并发操作 ContextObject 的情况）
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -75,7 +82,8 @@ namespace AutoCSer.Net
             if (MaxConcurrent > 1) contextLock.Exit();
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="value"></param>
         public void Add(CommandServerCallTaskQueueNode value)
@@ -88,7 +96,8 @@ namespace AutoCSer.Net
             throw new Exception("value.Queue != null");
         }
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="value"></param>
         internal void AddOnly(CommandServerCallTaskQueueNode value)
@@ -113,6 +122,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Try to obtain the ownership of the task
         /// 尝试获取任务所有权
         /// </summary>
         private void checkQueueWait()
@@ -121,6 +131,7 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
+    /// The queue for asynchronous server calls
     /// 服务端异步调用队列
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -128,6 +139,7 @@ namespace AutoCSer.Net
         where T : IEquatable<T>
     {
         /// <summary>
+        /// The next queue waiting to be deleted
         /// 下一个等待删除队列
         /// </summary>
 #if NetStandard21
@@ -136,19 +148,23 @@ namespace AutoCSer.Net
         internal CommandServerCallTaskQueue<T> RemoveNext;
 #endif
         /// <summary>
+        /// Waiting time for deletion
         /// 等待删除时间
         /// </summary>
         internal long RemoveSeconds;
         /// <summary>
+        /// Gets the queue keyword string
         /// 获取队列关键字字符串
         /// </summary>
         public override string KeyString { get { return Key.ToString().notNull(); } }
         /// <summary>
-        /// 默认空服务端异步调用队列
+        /// Default empty queue
+        /// 默认空队列
         /// </summary>
         private CommandServerCallTaskQueue() { }
         /// <summary>
-        /// 服务端执行队列
+        /// The queue for asynchronous server calls
+        /// 服务端异步调用队列
         /// </summary>
         /// <param name="queueSet"></param>
         /// <param name="isReside"></param>
@@ -166,7 +182,8 @@ namespace AutoCSer.Net
         //    if (System.Threading.Interlocked.Decrement(ref resideCount) == 0 && isRunTask == 0) queueSet.AppendRemove(this);
         //}
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         /// <param name="value"></param>
         internal void AddOnlyReside(CommandServerCallTaskQueueNode value)
@@ -182,6 +199,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Add low-priority task
         /// 添加低优先级任务
         /// </summary>
         /// <param name="value"></param>
@@ -198,6 +216,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Add to the deletion queue
         /// 添加到删除队列
         /// </summary>
         protected override void appendRemove()
@@ -205,6 +224,7 @@ namespace AutoCSer.Net
             queueSet.AppendRemove(this);
         }
         /// <summary>
+        /// Set the waiting time for deletion
         /// 设置等待删除时间
         /// </summary>
         /// <param name="timeoutSeconds"></param>
@@ -228,6 +248,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Determine whether the queue can be deleted
         /// 判断队列是否可以删除
         /// </summary>
         /// <param name="next"></param>
@@ -250,6 +271,7 @@ namespace AutoCSer.Net
             return 2;
         }
         /// <summary>
+        /// Determine whether the queue can be deleted
         /// 判断队列是否可以删除
         /// </summary>
         /// <returns></returns>
@@ -260,7 +282,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 默认空服务端异步调用队列
+        /// Default empty queue
+        /// 默认空队列
         /// </summary>
         internal static readonly CommandServerCallTaskQueue<T> Null = new CommandServerCallTaskQueue<T>();
     }

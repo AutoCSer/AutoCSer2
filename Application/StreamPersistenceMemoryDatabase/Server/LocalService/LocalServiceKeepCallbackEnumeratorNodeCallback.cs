@@ -14,13 +14,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class LocalServiceKeepCallbackEnumeratorNodeCallback<T> : CommandServerKeepCallback<KeepCallbackResponseParameter>
     {
         /// <summary>
-        /// 本地服务调用节点方法队列节点回调输出
+        /// The local service invocation keep callback output
+        /// 本地服务调用保持回调输出
         /// </summary>
         internal readonly LocalKeepCallback<T> Response;
         /// <summary>
         /// 本地服务调用节点方法队列节点回调对象
         /// </summary>
-        /// <param name="isSynchronousCallback">是否 IO 线程同步回调</param>
+        /// <param name="isSynchronousCallback">Whether to synchronize the callback of the IO thread
+        /// 是否 IO 线程同步回调</param>
         internal LocalServiceKeepCallbackEnumeratorNodeCallback(bool isSynchronousCallback)
         {
             IsCancelKeep = 0;
@@ -44,6 +46,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -66,6 +69,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback(ref returnValue)) CancelKeep();
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -74,10 +78,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return callback(ref returnValue);
         }
         /// <summary>
+        /// Return a collection of data
         /// 返回数据集合
         /// </summary>
         /// <param name="values"></param>
-        /// <param name="isCancel">回调完成之后是否关闭</param>
+        /// <param name="isCancel">Whether to close the callback after the callback is completed
+        /// 回调完成之后是否关闭回调</param>
         /// <returns></returns>
         public override bool Callback(IEnumerable<KeepCallbackResponseParameter> values, bool isCancel = true)
         {

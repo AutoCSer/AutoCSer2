@@ -11,8 +11,9 @@ namespace AutoCSer.CommandService.Search
     /// 非索引条件查询数据节点
     /// </summary>
     /// <typeparam name="NT">节点接口类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     /// <typeparam name="CT">客户端节点类型</typeparam>
     public abstract class ConditionDataLocalNode<NT, KT, VT, CT> : ConditionDataNode<NT, KT, VT>
         where NT : IConditionDataNode<KT, VT>
@@ -102,6 +103,7 @@ namespace AutoCSer.CommandService.Search
             while (!StreamPersistenceMemoryDatabaseNodeIsRemoved);
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node">客户端节点信息</param>
@@ -127,6 +129,7 @@ namespace AutoCSer.CommandService.Search
             return index;
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="client"></param>

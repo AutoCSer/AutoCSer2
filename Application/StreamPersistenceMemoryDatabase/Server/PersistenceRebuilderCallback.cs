@@ -11,7 +11,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal sealed class PersistenceRebuilderCallback : ReadWriteQueueNode
     {
         /// <summary>
-        /// 日志流持久化文件重建
+        /// Rebuild the log stream persistence file
+        /// 重建日志流持久化文件
         /// </summary>
         private readonly PersistenceRebuilder rebuilder;
         /// <summary>

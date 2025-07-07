@@ -7,7 +7,7 @@ namespace AutoCSer.Threading
     /// <summary>
     /// 数组链表节点
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     public sealed class ArrayQueueNode<T> : Link<ArrayQueueNode<T>>
     {
         /// <summary>
@@ -81,10 +81,11 @@ namespace AutoCSer.Threading
             throw new InvalidOperationException();
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>是否添加成功</returns>
+        /// <returns>Add failed and return false
+        /// 添加失败返回 false</returns>
         internal bool Push(T value)
         {
             int index = Interlocked.Increment(ref Index);

@@ -12,21 +12,25 @@ using ClientMethodType = AutoCSer.Net.CommandServer.ClientInterfaceMethod;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 客户端命令
+    /// The request command of the client
+    /// 客户端请求命令
     /// </summary>
     public abstract class Command : AutoCSer.Threading.Link<Command>
     {
         /// <summary>
+        /// The starting position of the output stream
         /// 输出流起始位置
         /// </summary>
         internal const int StreamStartIndex = sizeof(uint) + sizeof(int);
 
         /// <summary>
-        /// 命令函数序号有效位
+        /// The number of valid binary bits of the command method number
+        /// 命令方法编号有效二进制位数量
         /// </summary>
         internal const int MethodIndexBits = 29;
         /// <summary>
-        /// 命令函数序号最大值
+        /// The maximum number of the command method
+        /// 命令方法编号最大值
         /// </summary>
         internal const uint MethodIndexAnd = ((1U << MethodIndexBits) - 1);
 
@@ -39,27 +43,33 @@ namespace AutoCSer.Net.CommandServer
         //[+n]  Data...								                        #参数数据4字节对齐
 
         /// <summary>
+        /// Command the client controller
         /// 命令客户端控制器
         /// </summary>
         internal readonly CommandClientController Controller;
         /// <summary>
+        /// Command client socket
         /// 命令客户端套接字
         /// </summary>
         public CommandClientSocket Socket { get { return Controller.Socket; } }
         /// <summary>
+        /// Client interface method information
         /// 客户端接口方法信息
         /// </summary>
         internal readonly ClientMethodType Method;
         /// <summary>
+        /// Timeout second count
         /// 超时秒计数
         /// </summary>
         internal uint TimeoutSeconds;
         /// <summary>
+        /// Is keep callback command
         /// 是否保持回调命令
         /// </summary>
         internal virtual bool IsKeepCallback { get { return false; } }
         /// <summary>
-        /// 客户端命令
+        /// The request command of the client
+        /// 客户端请求命令
         /// </summary>
         internal Command()
         {
@@ -69,7 +79,8 @@ namespace AutoCSer.Net.CommandServer
 #endif
         }
         /// <summary>
-        /// 客户端命令
+        /// The request command of the client
+        /// 客户端请求命令
         /// </summary>
         /// <param name="method"></param>
         internal Command(ClientMethodType method)
@@ -80,7 +91,8 @@ namespace AutoCSer.Net.CommandServer
             Method = method;
         }
         /// <summary>
-        /// 客户端命令
+        /// The request command of the client
+        /// 客户端请求命令
         /// </summary>
         /// <param name="controller"></param>
         internal Command(CommandClientController controller)
@@ -91,7 +103,8 @@ namespace AutoCSer.Net.CommandServer
 #endif
         }
         /// <summary>
-        /// 客户端命令
+        /// The request command of the client
+        /// 客户端请求命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -101,6 +114,7 @@ namespace AutoCSer.Net.CommandServer
             Method = Controller.Methods[methodIndex];
         }
         /// <summary>
+        /// Set the timeout second count
         /// 设置超时秒计数
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -110,10 +124,12 @@ namespace AutoCSer.Net.CommandServer
             if (timeoutCount != null) TimeoutSeconds = timeoutCount.TryIncrement(Method.TimeoutSeconds);
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>下一个命令</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal virtual Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -123,11 +139,13 @@ namespace AutoCSer.Net.CommandServer
             throw new InvalidOperationException();
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
+        /// <param name="buildInfo"></param>
         /// <param name="inputParameter"></param>
-        /// <returns>是否成功</returns>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe Command? Build<T>(ref ClientBuildInfo buildInfo, ref T inputParameter)
 #else
@@ -188,7 +206,8 @@ namespace AutoCSer.Net.CommandServer
             return nextCommand;
         }
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected virtual void OnBuildError(CommandClientReturnTypeEnum returnType)
@@ -196,15 +215,18 @@ namespace AutoCSer.Net.CommandServer
             throw new InvalidOperationException();
         }
         /// <summary>
-        /// 接收数据回调处理
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data">输出数据</param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal virtual ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
             return ClientReceiveErrorTypeEnum.OnReceiveInvalidOperation;
         }
         /// <summary>
+        /// Cancel the hold callback (Note that since it is a synchronous call by the IO thread receiving data, if there is a blockage, please open a new thread task to handle it)
         /// 取消保持回调（注意，由于是接收数据 IO 线程同步调用，如果存在阻塞请新开线程任务处理）
         /// </summary>
         /// <param name="returnType"></param>
@@ -218,10 +240,12 @@ namespace AutoCSer.Net.CommandServer
             throw new InvalidOperationException();
         }
         /// <summary>
-        /// 关闭套接字等待添加队列命令处理
+        /// The command waiting for idle output attempts to be added to the output queue again
+        /// 等待空闲输出的命令再次尝试添加到输出队列
         /// </summary>
         /// <param name="next"></param>
-        /// <returns>是否需要继续等待</returns>
+        /// <returns>Is it necessary to keep waiting
+        /// 是否需要继续等待</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         internal bool CheckWaitPush(ref Command? next)
@@ -234,11 +258,14 @@ namespace AutoCSer.Net.CommandServer
             return CheckWaitPush();
         }
         /// <summary>
-        /// 检查等待添加队列命令
+        /// The command waiting for idle output attempts to be added to the output queue again
+        /// 等待空闲输出的命令再次尝试添加到输出队列
         /// </summary>
-        /// <returns>是否需要继续等待</returns>
+        /// <returns>Is it necessary to keep waiting
+        /// 是否需要继续等待</returns>
         internal abstract bool CheckWaitPush();
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
         /// <param name="callback"></param>
@@ -264,6 +291,7 @@ namespace AutoCSer.Net.CommandServer
         }
 #if DEBUG
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
         /// <param name="callback"></param>
@@ -274,6 +302,7 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="methodIndex"></param>
 #else
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
         /// <param name="callback"></param>
@@ -333,6 +362,7 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
+        /// Add to the callback queue
         /// 添加到回调队列
         /// </summary>
         /// <param name="callback"></param>
@@ -343,6 +373,7 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
+        /// Cancel the command call
         /// 取消命令调用
         /// </summary>
         /// <param name="head"></param>

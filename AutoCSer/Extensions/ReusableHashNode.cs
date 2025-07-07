@@ -50,6 +50,7 @@ namespace AutoCSer
         /// </summary>
         internal int Next;
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -62,6 +63,7 @@ namespace AutoCSer
             Next = int.MaxValue;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="source"></param>
@@ -87,6 +89,7 @@ namespace AutoCSer
             Next = int.MaxValue;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="hashIndex"></param>

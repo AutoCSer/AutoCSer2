@@ -8,8 +8,8 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端定义非对称测试接口
     /// </summary>
-    [CommandServerControllerInterface(MethodIndexEnumType = typeof(DefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = "", IsCodeGeneratorClientInterface = false)]
-    public interface IDefinedDissymmetryServerController
+    [CommandServerControllerInterface(IsCodeGeneratorClientInterface = false)]
+    public partial interface IDefinedDissymmetryServerController
     {
         void SetSocket(CommandServerSocket socket, Data.ORM.BusinessModel value);
         Data.ORM.BusinessModel GetSocket(CommandServerSocket socket);

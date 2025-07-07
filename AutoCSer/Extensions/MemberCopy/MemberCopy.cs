@@ -63,6 +63,7 @@ namespace AutoCSer
         /// <param name="memberMap">成员位图</param>
         internal delegate void MemberMapCopyer(ref T writeValue, T readValue, MemberMap<T> memberMap);
         /// <summary>
+        /// Whether it is a value type
         /// 是否值类型
         /// </summary>
         private static readonly bool isValueType;
@@ -79,7 +80,7 @@ namespace AutoCSer
         /// </summary>
         private static readonly MemberMapCopyer defaultMemberCopyer;
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         /// <param name="writeArray"></param>
         /// <param name="readArray"></param>
@@ -97,7 +98,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         /// <param name="writeArray"></param>
         /// <param name="readArray"></param>

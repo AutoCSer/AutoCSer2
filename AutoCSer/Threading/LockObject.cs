@@ -52,6 +52,7 @@ namespace AutoCSer.Threading
 #endif
         }
         /// <summary>
+        /// Release the lock
         /// 释放锁
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

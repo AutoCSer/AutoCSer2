@@ -9,7 +9,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 消息处理节点初始化加载节点
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     /// <typeparam name="IT">消息处理节点接口类型</typeparam>
     internal sealed class MessageNodeLoader<T, IT>
         where IT : class, IMessageNode<T>
@@ -17,12 +18,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 消息处理节点初始化加载节点
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     internal sealed class MessageNodeLoader<T>
 #endif
         where T : Message<T>
     {
         /// <summary>
+        /// Message collection not completed
         /// 未完成消息集合
         /// </summary>
         internal Dictionary<long, T> Messages;
@@ -51,7 +54,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             FailedMessages = AutoCSer.DictionaryCreator.CreateLong<T>();
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
         /// <param name="value"></param>
         /// <returns>是否快照结束数据</returns>
@@ -65,6 +69,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return true;
         }
         /// <summary>
+        /// Clear all messages
         /// 清除所有消息
         /// </summary>
         internal void Clear()
@@ -81,6 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (FailedMessages.Count != 0) FailedMessages.Clear();
         }
         /// <summary>
+        /// Producers add new message
         /// 生产者添加新消息
         /// </summary>
         /// <param name="message"></param>
@@ -89,6 +95,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Messages.Add(message.MessageIdeneity.Identity, message);
         }
         /// <summary>
+        /// The message has been processed
         /// 消息完成处理
         /// </summary>
         /// <param name="identity"></param>
@@ -97,6 +104,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!Messages.Remove(identity.Identity)) FailedMessages.Remove(identity.Identity);
         }
         /// <summary>
+        /// Message failed processing
         /// 消息失败处理
         /// </summary>
         /// <param name="identity"></param>

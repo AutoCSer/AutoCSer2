@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 保持回调命令 await CommandKeepCallback
+    /// The keep callback command (await AutoCSer.Net.CommandKeepCallback, return the keep callback object of the command)
+    /// 保持回调命令（await AutoCSer.Net.CommandKeepCallback，返回命令保持回调对象）
     /// </summary>
     public abstract class KeepCallbackCommand : KeepCommand, IDisposable
     {
         /// <summary>
-        /// 添加输出命令通知
+        /// The keep callback command (await AutoCSer.Net.CommandKeepCallback, return the keep callback object of the command)
+        /// 保持回调命令（await AutoCSer.Net.CommandKeepCallback，返回命令保持回调对象）
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal KeepCallbackCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -29,7 +31,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 等待添加输出队列
+        /// Wait for the command to add the output queue
+        /// 等待命令添加输出队列
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -42,9 +45,11 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// 是否成功添加输出队列
+        /// Get the command to keep callback object
+        /// 获取命令保持回调对象
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The operation of adding to the output queue failed and returned null
+        /// 添加到输出队列操作失败返回 null</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public CommandKeepCallback? GetResult()
@@ -55,7 +60,7 @@ namespace AutoCSer.Net
             return PushState == CommandPushStateEnum.Success ? keepCallback : null;
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -65,13 +70,13 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 默认空回调
+        /// Default empty callback
         /// </summary>
         /// <param name="returnValue"></param>
         /// <param name="command"></param>
         private static void nullCallback(CommandClientReturnValue returnValue, KeepCallbackCommand command) { }
         /// <summary>
-        /// 默认空回调
+        /// Default empty callback
         /// </summary>
         public static readonly Action<CommandClientReturnValue, KeepCallbackCommand> NullCallback = nullCallback;
     }

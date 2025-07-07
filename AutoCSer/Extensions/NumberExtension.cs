@@ -5,40 +5,50 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Extensions
 {
     /// <summary>
+    /// Integer correlation extension operations
     /// 数值相关扩展操作
     /// </summary>
     public unsafe static class NumberExtension
     {
         /// <summary>
-        /// 16位除以10转乘法的乘数
+        /// The multiplier of a 16-bit integer divided by 10
+        /// 16 位整数除以 10 转乘法的乘数
         /// </summary>
         public const uint Div10_16Mul = ((1 << Div10_16Shift) + 9) / 10;
         /// <summary>
-        /// 16位除以10转乘法的位移
+        /// The number of shifts in the multiplication method of a 16-bit integer divided by 10
+        /// 16 位整数除以 10 转乘法的位移
         /// </summary>
         public const int Div10_16Shift = 19;
         /// <summary>
-        /// 32位除以10000转乘法的乘数
+        /// The multiplier of a 32-bit integer divided by 10,000
+        /// 32 位整数除以 10000 转乘法的乘数
         /// </summary>
         public const ulong Div10000Mul = ((1L << 45) + 9999) / 10000;
         /// <summary>
-        /// 32位除以10000转乘法的位移
+        /// The number of shifts in the multiplication method of a 32-bit integer divided by 10,000
+        /// 32 位整数除以 10000 转乘法的位移
         /// </summary>
         public const int Div10000Shift = 45;
         /// <summary>
-        /// 32位除以100000000转乘法的乘数
+        /// The multiplier of a 32-bit integer divided by 100,000,000
+        /// 32 位整数除以 100000000 转乘法的乘数
         /// </summary>
         public const ulong Div100000000Mul = ((1L << 58) + 99999999) / 100000000;
         /// <summary>
-        /// 32位除以100000000转乘法的位移
+        /// The number of shifts in the multiplication method of a 32-bit integer divided by 100,000,000
+        /// 32 位整数除以 100000000 转乘法的位移
         /// </summary>
         public const int Div100000000Shift = 58;
 
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this byte value)
         {
@@ -46,11 +56,14 @@ namespace AutoCSer.Extensions
             return new string((char*)&chars, 0, ToString(value, (char*)&chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         internal unsafe static int ToString(byte value, char* chars)
         {
             if (value < 10)
@@ -74,10 +87,13 @@ namespace AutoCSer.Extensions
             }
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this sbyte value)
         {
@@ -85,11 +101,14 @@ namespace AutoCSer.Extensions
             return new string((char*)&chars, 0, ToString(value, (char*)&chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         internal unsafe static int ToString(sbyte value, char* chars)
         {
             if (value >= 0)
@@ -137,10 +156,13 @@ namespace AutoCSer.Extensions
             }
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this ushort value)
         {
@@ -148,11 +170,14 @@ namespace AutoCSer.Extensions
             return new string(chars, 0, ToString(value, chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         internal unsafe static int ToString(ushort value, char* chars)
         {
             if (value < 10)
@@ -198,10 +223,13 @@ namespace AutoCSer.Extensions
             }
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this short value)
         {
@@ -209,11 +237,14 @@ namespace AutoCSer.Extensions
             return new string(chars, 0, ToString(value, chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         internal unsafe static int ToString(short value, char* chars)
         {
             if (value >= 0) return ToString((ushort)value, chars);
@@ -264,10 +295,13 @@ namespace AutoCSer.Extensions
             }
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this uint value)
         {
@@ -275,11 +309,14 @@ namespace AutoCSer.Extensions
             return new string(chars, 0, ToString(value, chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         internal unsafe static int ToString(uint value, char* chars)
         {
             if (value >= 100000000)
@@ -299,11 +336,14 @@ namespace AutoCSer.Extensions
             return toString99999999U(value, chars);
         }
         /// <summary>
-        /// 小于100000000的正整数转字符串
+        /// Convert positive integers less than 100,000,000 to strings
+        /// 小于 100000000 的正整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         private unsafe static int toString99999999U(uint value, char* chars)
         {
             if (value < 10)
@@ -373,10 +413,13 @@ namespace AutoCSer.Extensions
             }
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this int value)
         {
@@ -384,11 +427,14 @@ namespace AutoCSer.Extensions
             return new string(chars, 0, ToString(value, chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         internal unsafe static int ToString(int value, char* chars)
         {
             if (value >= 0) return ToString((uint)value, chars);
@@ -411,11 +457,14 @@ namespace AutoCSer.Extensions
             return toString99999999S(value32, chars);
         }
         /// <summary>
-        /// 绝对值小于100000000的负整数转字符串
+        /// Convert a negative integer with an absolute value less than 100,000,000 to a string
+        /// 绝对值小于 100000000 的负整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         private unsafe static int toString99999999S(uint value, char* chars)
         {
             if (value < 10)
@@ -490,10 +539,13 @@ namespace AutoCSer.Extensions
             }
         }
         /// <summary>
-        /// 4位十进制数值转字符串
+        /// Convert 4-digit decimal values to strings
+        /// 4 位十进制数值转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
         private unsafe static void toString4(uint value, char* chars)
         {
             uint value10 = (value * Div10_16Mul) >> Div10_16Shift, value100 = (value10 * Div10_16Mul) >> Div10_16Shift;
@@ -502,10 +554,13 @@ namespace AutoCSer.Extensions
             *(uint*)chars = ((value100 - value10 * 10) << 16) | value10 | 0x300030U;
         }
         /// <summary>
-        /// 8位十进制数值转字符串
+        /// 8-digit decimal value to string
+        /// 8 位十进制数值转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private unsafe static void toString8(uint value, char* chars)
         {
@@ -514,10 +569,13 @@ namespace AutoCSer.Extensions
             toString4(value - value10000 * 10000U, chars + 4);
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this ulong value)
         {
@@ -525,11 +583,14 @@ namespace AutoCSer.Extensions
             return new string(chars, 0, ToString(value, chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>起始位置+字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         internal unsafe static int ToString(ulong value, char* chars)
         {
             if (value >= 10000000000000000L)
@@ -642,10 +703,13 @@ namespace AutoCSer.Extensions
             return toString99999999U((uint)value, chars);
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <returns>字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static string toString(this long value)
         {
@@ -653,11 +717,14 @@ namespace AutoCSer.Extensions
             return new string(chars, 0, ToString(value, chars));
         }
         /// <summary>
-        /// 数值转字符串
+        /// Integer to string conversion
+        /// 整数转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
-        /// <returns>起始位置+字符串长度</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
+        /// <returns>String length</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static int ToString(long value, char* chars)
         {
@@ -666,10 +733,13 @@ namespace AutoCSer.Extensions
             return ToString((ulong)-value, chars + 1) + 1;
         }
         /// <summary>
-        /// 16位十进制数值转字符串
+        /// Convert 16-digit decimal values to strings
+        /// 16 位十进制数值转字符串
         /// </summary>
-        /// <param name="value">数值</param>
-        /// <param name="chars">字符串</param>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="chars">String output buffer
+        /// 字符串输出缓冲区</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private unsafe static void toString16(ulong value, char* chars)
         {
@@ -679,10 +749,13 @@ namespace AutoCSer.Extensions
         }
 
         /// <summary>
-        /// 转换16位十六进制字符串（大写字母）
+        /// Convert to a string of 16 hexadecimal characters (capital letters)
+        /// 转换为 16 个十六进制字符的字符串（大写字母）
         /// </summary>
-        /// <param name="value">数字值</param>
-        /// <returns>16位十六进制字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>A string of 16 hexadecimal characters
+        /// 16 个十六进制字符的字符串</returns>
         public static string toHex(this ulong value)
         {
             string hexs = AutoCSer.Common.AllocateString(16);
@@ -690,10 +763,13 @@ namespace AutoCSer.Extensions
             return hexs;
         }
         /// <summary>
-        /// 转换16位十六进制字符串（大写字母）
+        /// Convert to a string of 16 hexadecimal characters (capital letters)
+        /// 转换为 16 个十六进制字符的字符串（大写字母）
         /// </summary>
-        /// <param name="value">数字值</param>
-        /// <param name="hexs">16位十六进制字符串</param>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="hexs">A string of 16 hexadecimal characters
+        /// 16 个十六进制字符的字符串</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void toHex(this ulong value, char* hexs)
         {
@@ -701,10 +777,13 @@ namespace AutoCSer.Extensions
             toHex((uint)(value >> 32), hexs);
         }
         /// <summary>
-        /// 转换8位十六进制字符串（大写字母）
+        /// Convert to a string of 8 hexadecimal characters (capital letters)
+        /// 转换为 8 个十六进制字符的字符串（大写字母）
         /// </summary>
-        /// <param name="value">数字值</param>
-        /// <returns>8位十六进制字符串</returns>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <returns>A string of 8 hexadecimal characters
+        /// 8 个十六进制字符的字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static string toHex(this uint value)
         {
@@ -713,10 +792,13 @@ namespace AutoCSer.Extensions
             return hexs;
         }
         /// <summary>
-        /// 数字值转换为十六进制字符串（大写字母）
+        /// Convert to a string of 8 hexadecimal characters (capital letters)
+        /// 转换为 8 个十六进制字符的字符串（大写字母）
         /// </summary>
-        /// <param name="value">数字值</param>
-        /// <param name="hexs">十六进制字符串</param>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="hexs">A string of 8 hexadecimal characters
+        /// 8 个十六进制字符的字符串</param>
         private static void toHex(uint value, char* hexs)
         {
             *hexs = (char)ToHex(value >> 28);
@@ -729,7 +811,8 @@ namespace AutoCSer.Extensions
             *(hexs + 7) = (char)ToHex(value & 15);
         }
         /// <summary>
-        /// 半字节转十六进制字符（大写字母）
+        /// 4-bit to hexadecimal characters (capital letters)
+        /// 4 位转十六进制字符（大写字母）
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -738,18 +821,9 @@ namespace AutoCSer.Extensions
         {
             return data < 10 ? data + '0' : (data + ('0' + 'A' - '9' - 1));
         }
-        ///// <summary>
-        ///// 半字节转十六进制字符（大写字母）
-        ///// </summary>
-        ///// <param name="data">大于等于 10</param>
-        ///// <returns></returns>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //internal static uint ToHexLetter(uint data)
-        //{
-        //    return data + ('0' + 'A' - '9' - 1);
-        //}
         /// <summary>
-        /// 16b 数字转换成4个16进制字符串（大写字母）
+        /// Convert 16 bits to 4 hexadecimal strings (capital letters)
+        /// 16 位转换成 4 个 16进制字符串（大写字母）
         /// </summary>
         /// <param name="value"></param>
         /// <param name="chars"></param>
@@ -761,7 +835,8 @@ namespace AutoCSer.Extensions
             *(chars + 3) = (char)ToHex(value & 15);
         }
         /// <summary>
-        /// 数字转换成16进制字符串（大写字母）
+        /// Convert to a hexadecimal string (capital letters)
+        /// 转换成 16 进制字符串（大写字母）
         /// </summary>
         /// <param name="value"></param>
         /// <param name="chars"></param>
@@ -790,10 +865,12 @@ namespace AutoCSer.Extensions
             return chars + 1;
         }
         /// <summary>
-        /// 十六进制字符串转数字
+        /// Hexadecimal string to integer conversion
+        /// 十六进制字符串转整数
         /// </summary>
         /// <param name="hex"></param>
-        /// <returns>是否返回 uint.MaxValue</returns>
+        /// <returns>Return uint.MaxValue in case of failure
+        /// 失败返回 uint.MaxValue</returns>
         private static uint fromHex(char hex)
         {
             uint value = (uint)(hex - '0');
@@ -803,16 +880,19 @@ namespace AutoCSer.Extensions
             return uint.MaxValue;
         }
         /// <summary>
-        /// 十六进制字符串转数字
+        /// Hexadecimal string to integer conversion
+        /// 十六进制字符串转整数
         /// </summary>
         /// <param name="chars"></param>
-        /// <returns>失败则高16b不为0</returns>
+        /// <returns>If the high 16 bits are not 0, it indicates failure
+        /// 高 16 位 不为 0 表示失败</returns>
         private static uint fromHex4(char* chars)
         {
             return (fromHex(chars[0]) << 12) | (fromHex(chars[1]) << 8) | (fromHex(chars[2]) << 4) | fromHex(chars[3]);
         }
         /// <summary>
-        /// 十六进制字符串转数字
+        /// Hexadecimal string to integer conversion
+        /// 十六进制字符串转整数
         /// </summary>
         /// <param name="chars"></param>
         /// <param name="value"></param>
@@ -829,16 +909,19 @@ namespace AutoCSer.Extensions
             return false;
         }
         /// <summary>
-        /// 十六进制字符串转数字
+        /// Hexadecimal string to integer conversion
+        /// 十六进制字符串转整数
         /// </summary>
         /// <param name="chars"></param>
-        /// <returns>失败则高8b不为0</returns>
+        /// <returns>If the high 8 bits are not 0, it indicates failure
+        /// 高 8 位 不为 0 表示失败</returns>
         private static uint fromHex6(char* chars)
         {
             return (fromHex(chars[0]) << 20) | (fromHex(chars[1]) << 16) | (fromHex(chars[2]) << 12) | (fromHex(chars[3]) << 8) | (fromHex(chars[4]) << 4) | fromHex(chars[5]);
         }
         /// <summary>
-        /// 十六进制字符串转数字
+        /// Hexadecimal string to integer conversion
+        /// 十六进制字符串转整数
         /// </summary>
         /// <param name="chars"></param>
         /// <param name="value"></param>
@@ -854,8 +937,53 @@ namespace AutoCSer.Extensions
             value = 0;
             return false;
         }
+        /// <summary>
+        /// Logical inversion: 0 to 1, non-0 to 0
+        /// 逻辑取反，0 转 1，非 0 转 0
+        /// </summary>
+        /// <param name="value">Negative numbers are not allowed
+        /// 不允许负数</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static int logicalInversion(this int value)
+        {
+            return (int)(((uint)value - 1) >> 31);
+        }
+        /// <summary>
+        /// Convert logical values, converting non-0 to 1
+        /// 转逻辑值，非 0 转 1
+        /// </summary>
+        /// <param name="value">Negative numbers are not allowed
+        /// 不允许负数</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static int toLogical(this int value)
+        {
+            return logicalInversion(value) ^ 1;
+        }
+        ///// <summary>
+        ///// 逻辑取反，0 转 1，非 0 转 0
+        ///// </summary>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public static uint logicalInversion(this uint value)
+        //{
+        //    return ((value - 1) & ~value) >> 31;
+        //}
+        ///// <summary>
+        ///// 转逻辑值，非 0 转 1
+        ///// </summary>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //public static uint toLogical(this uint value)
+        //{
+        //    return logicalInversion(value) ^ 1;
+        //}
 
         /// <summary>
+        /// Fill the empty space after the first valid binary bit
         /// 填充第一个有效二进制位后面的空位
         /// </summary>
         /// <param name="value"></param>
@@ -869,7 +997,8 @@ namespace AutoCSer.Extensions
             return value | (value >> 1);
         }
         /// <summary>
-        /// 向上去 2 的幂次方
+        /// Take the power of 2 upwards
+        /// 向上取 2 的幂次方
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -879,10 +1008,12 @@ namespace AutoCSer.Extensions
             return (value & (value - 1)) != 0 ? value.fullBit() + 1 : value;
         }
         /// <summary>
-        /// 获取有效位长度
+        /// Get the number of valid bits
+        /// 获取有效位数量
         /// </summary>
-        /// <param name="value">数据</param>
-        /// <returns>有效位长度</returns>
+        /// <param name="value">data</param>
+        /// <returns>Number of valid bits
+        /// 有效位数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static int bits(this uint value)
         {
@@ -891,7 +1022,7 @@ namespace AutoCSer.Extensions
         ///// <summary>
         ///// 获取二进制1位的个数
         ///// </summary>
-        ///// <param name="value">数据</param>
+        ///// <param name="value">data</param>
         ///// <returns>二进制1位的个数</returns>
         //public static int bitCount(this uint value)
         //{
@@ -918,14 +1049,17 @@ namespace AutoCSer.Extensions
         //    return (byte)(value + (value >> 16));
         //}
         /// <summary>
-        /// 2^n相关32位deBruijn序列集合
+        /// A collection of 2^n related 32-bit deBruijn sequences
+        /// 2^n 相关 32 位 deBruijn 序列集合
         /// </summary>
         internal static AutoCSer.Memory.Pointer DeBruijn32;
         /// <summary>
-        /// 2^n相关32位deBruijn序列
+        /// 2^n related 32-bit deBruijn sequence
+        /// 2^n 相关 32位 deBruijn 序列
         /// </summary>
         public const uint DeBruijn32Number = 0x04653adfU;
         /// <summary>
+        /// Find 2 to the power of x
         /// 求 2 的 x 次方
         /// </summary>
         /// <param name="value"></param>

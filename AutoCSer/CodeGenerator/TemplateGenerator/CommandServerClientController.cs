@@ -308,6 +308,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         public sealed class ControllerMethod
         {
             /// <summary>
+            /// Client interface method information
             /// 客户端接口方法信息
             /// </summary>
             internal readonly ClientInterfaceMethod ClientInterfaceMethod;
@@ -364,14 +365,17 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public readonly string GenericTypeName;
             /// <summary>
+            /// Method array index position
             /// 方法数组索引位置
             /// </summary>
             public readonly int MethodArrayIndex;
             /// <summary>
+            /// Customize the command sequence number
             /// 自定义命令序号
             /// </summary>
             public int MethodIndex { get { return ClientInterfaceMethod.MethodIndex; } }
             /// <summary>
+            /// Match the method name
             /// 匹配方法名称
             /// </summary>
             public string MatchMethodName { get { return ClientInterfaceMethod.MatchMethodName; } }
@@ -380,22 +384,27 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public int IsSimpleSerializeParamter { get { return ClientInterfaceMethod.IsSimpleSerializeParamter ? 1 : 0; } }
             /// <summary>
+            /// Whether to simply deserialize the input data
             /// 是否简单反序列化输入数据
             /// </summary>
             public int IsSimpleDeserializeParamter { get { return ClientInterfaceMethod.IsSimpleDeserializeParamter ? 1 : 0; } }
             /// <summary>
+            /// The client's await awaits the return value callback thread mode
             /// 客户端 await 等待返回值回调线程模式
             /// </summary>
             public string CallbackTypeString { get { return $"{typeof(ClientCallbackTypeEnum).fullName()}.{ClientInterfaceMethod.CallbackType.ToString()}"; } }
             /// <summary>
+            /// Call back the queue number
             /// 回调队列序号
             /// </summary>
             public int QueueIndex { get { return ClientInterfaceMethod.QueueIndex; } }
             /// <summary>
+            /// Whether it is a low-priority queue
             /// 是否低优先级队列
             /// </summary>
             public int IsLowPriorityQueue { get { return ClientInterfaceMethod.IsLowPriorityQueue ? 1: 0; } }
             /// <summary>
+            /// Timeout seconds
             /// 超时秒数
             /// </summary>
             public int TimeoutSeconds { get { return ClientInterfaceMethod.TimeoutSeconds; } }
@@ -694,7 +703,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     Messages.Error(AutoCSer.Common.Culture.GetNotInterfaceType(serverType));
                     return AutoCSer.Common.CompletedTask;
                 }
-                Type enumType = ((CommandServerControllerInterfaceAttribute)serverType.GetCustomAttribute(typeof(CommandServerControllerInterfaceAttribute), false))?.MethodIndexEnumType;
+                Type enumType = ((ServerControllerInterfaceAttribute)serverType.GetCustomAttribute(typeof(ServerControllerInterfaceAttribute), false))?.MethodIndexEnumType;
                 if (enumType != null) EnumType = enumType;
             }
             ServerInterface serverInterface = new ServerInterface(serverType, null, type);
@@ -710,7 +719,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             if (EnumType == null)
             {
-                Type enumType = ((CommandServerControllerInterfaceAttribute)type.GetCustomAttribute(typeof(CommandServerControllerInterfaceAttribute), false))?.MethodIndexEnumType;
+                Type enumType = ((ServerControllerInterfaceAttribute)type.GetCustomAttribute(typeof(ServerControllerInterfaceAttribute), false))?.MethodIndexEnumType;
                 if (enumType != null) EnumType = enumType;
             }
             VerifyMethodIndex = serverInterface.VerifyMethodIndex;

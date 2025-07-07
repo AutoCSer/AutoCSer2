@@ -21,6 +21,7 @@ namespace AutoCSer.TestCase.ServerRegistryServiceClient
             ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
         }
         /// <summary>
+        /// Automatically start the connection
         /// 自动启动连接
         /// </summary>
         /// <param name="client"></param>

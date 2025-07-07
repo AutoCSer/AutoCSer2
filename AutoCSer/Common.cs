@@ -18,44 +18,54 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer
 {
     /// <summary>
-    /// 公共配置参数
+    /// Public parameters and pre-encapsulated apis
+    /// 公共参数与预封装 API
     /// </summary>
     public static partial class Common
     {
         /// <summary>
-        /// 名称前缀
+        /// AutoCSer name prefix
+        /// AutoCSer 名称前缀
         /// </summary>
         public const string NamePrefix = "AutoCSer";
         /// <summary>
+        /// Public configuration parameters
         /// 公共配置参数
         /// </summary>
         public static readonly AutoCSer.Config Config;
         /// <summary>
+        /// Default constructor
         /// 默认构造函数
         /// </summary>
         internal static readonly AutoCSer.Metadata.DefaultConstructor DefaultConstructor;
         /// <summary>
+        /// Default system language and culture configuration
         /// 默认系统语言文化配置
         /// </summary>
         internal static readonly AutoCSer.Culture.Configuration Culture;
         /// <summary>
+        /// Whether it is little-endian storage mode (serialization operations only support little-endian mode)
         /// 是否小端储存模式（序列化操作仅支持小端模式）
         /// </summary>
         internal static readonly bool IsLittleEndian;
 
         /// <summary>
+        /// Current process information
         /// 当前进程信息
         /// </summary>
         public static readonly Process CurrentProcess = Process.GetCurrentProcess();
         /// <summary>
+        /// Number of CPU logical processors (number of threads)
         /// CPU 逻辑处理器数量（线程数量）
         /// </summary>
         public static readonly int ProcessorCount = Math.Max(Environment.ProcessorCount, 1);
         /// <summary>
+        /// Set the CPU affinity of the current process
         /// 设置当前进程的 CPU 亲缘性
         /// </summary>
-        /// <param name="processorIndex">逻辑处理器编号，从 0 开始</param>
-        /// <returns>是否设置成功</returns>
+        /// <param name="processorIndex">The logical processor number starts from 0
+        /// 逻辑处理器编号，从 0 开始</param>
+        /// <returns>Return false on failure</returns>
 #if NET8
         [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
         [SupportedOSPlatform(SupportedOSPlatformName.Linux)]
@@ -70,10 +80,12 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Set the CPU affinity of the current process
         /// 设置当前进程的 CPU 亲缘性
         /// </summary>
-        /// <param name="processorIndexs">逻辑处理器编号集合，从 0 开始</param>
-        /// <returns>是否设置成功</returns>
+        /// <param name="processorIndexs">A collection of logical processor numbers, starting from 0
+        /// 逻辑处理器编号集合，从 0 开始</param>
+        /// <returns>Return false on failure</returns>
 #if NET8
         [SupportedOSPlatform(SupportedOSPlatformName.Windows)]
         [SupportedOSPlatform(SupportedOSPlatformName.Linux)]
@@ -93,14 +105,16 @@ namespace AutoCSer
             }
             return false;
         }
-        /// <summary>
-        /// CPU 高速缓存块字节大小，影响 AutoCSer.Threading.BlockPool 硬编码填充大小
-        /// </summary>
-        public const int CpuCacheBlockSize = 64;
-        /// <summary>
-        /// 每个 CPU 高速缓存块容纳对象引用数量
-        /// </summary>
-        public static readonly unsafe int CpuCacheBlockObjectCount = CpuCacheBlockSize / sizeof(IntPtr);
+        ///// <summary>
+        ///// CPU cache block byte size, influence AutoCSer.Threading.BlockPool hard-coded fill the size
+        ///// CPU 高速缓存块字节大小，影响 AutoCSer.Threading.BlockPool 硬编码填充大小
+        ///// </summary>
+        //public const int CpuCacheBlockSize = 64;
+        ///// <summary>
+        ///// Each CPU cache block holds the number of object references
+        ///// 每个 CPU 高速缓存块容纳对象引用数量
+        ///// </summary>
+        //public static readonly unsafe int CpuCacheBlockObjectCount = CpuCacheBlockSize / sizeof(IntPtr);
 
         /// <summary>
         /// Encoding.Unicode.CodePage
@@ -108,15 +122,18 @@ namespace AutoCSer
         public static int UnicodeCodePage = Encoding.Unicode.CodePage;
 
         /// <summary>
+        /// The program executes the main directory
         /// 程序执行主目录
         /// </summary>
         public static readonly DirectoryInfo ApplicationDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory ?? Environment.CurrentDirectory);
         /// <summary>
+        /// Whether it is a code generation environment
         /// 是否代码生成环境
         /// </summary>
         internal static bool IsCodeGenerator;
 
         /// <summary>
+        /// Get the custom deserialization delegate data type
         /// 获取自定义反序列化委托数据类型
         /// </summary>
         /// <param name="deserializerType"></param>
@@ -149,6 +166,7 @@ namespace AutoCSer
         }
 #if NetStandard21
         /// <summary>
+        /// Wait for the task to be completed
         /// 等待任务完成
         /// </summary>
         /// <param name="task"></param>
@@ -158,7 +176,7 @@ namespace AutoCSer
             task.AsTask().wait();
         }
         /// <summary>
-        /// 获取 IAsyncEnumerable
+        /// Get IAsyncEnumerable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="enumeratorTask"></param>
@@ -172,6 +190,7 @@ namespace AutoCSer
         }
 #else
         /// <summary>
+        /// Wait for the task to be completed
         /// 等待任务完成
         /// </summary>
         /// <param name="task"></param>
@@ -183,7 +202,8 @@ namespace AutoCSer
 #endif
 
         /// <summary>
-        /// 获取默认值，消除警告
+        /// Get the default value (used to eliminate IDE warnings)
+        /// 获取默认值（用于消除 IDE 警告）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -197,28 +217,34 @@ namespace AutoCSer
             return default(T);
         }
         /// <summary>
-        /// 空对象
+        /// Default empty object
+        /// 默认空对象
         /// </summary>
         internal static readonly object EmptyObject = new object();
         /// <summary>
-        /// 空函数，用于消除空语句警告
+        /// The default empty function is used to eliminate the empty statement warning in the IDE
+        /// 默认空函数，用于消除 IDE 空语句警告
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void EmptyFunction() { }
         /// <summary>
-        /// 空委托
+        /// Default empty delegate
+        /// 默认空委托
         /// </summary>
         public static readonly Action EmptyAction = EmptyFunction;
         /// <summary>
-        /// 空方法信息
+        /// Default empty method information
+        /// 默认空方法信息
         /// </summary>
         internal static readonly MethodInfo NullMethodInfo = EmptyAction.Method;
         /// <summary>
-        /// 空事件
+        /// Default empty event
+        /// 默认空事件
         /// </summary>
         internal static readonly System.Threading.AutoResetEvent NullAutoResetEvent = new System.Threading.AutoResetEvent(true);
         /// <summary>
-        /// 空事件
+        /// Default empty event
+        /// 默认空事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -228,15 +254,18 @@ namespace AutoCSer
         private static void emptyEventHandler(object sender, EventArgs e) { }
 #endif
         /// <summary>
-        /// 空事件
+        /// Default empty event
+        /// 默认空事件
         /// </summary>
         public static readonly EventHandler EmptyEventHandler = emptyEventHandler;
 
         /// <summary>
-        /// 已完成任务返回 true
+        /// The completed task that returns true
+        /// 返回 true 的已完成任务
         /// </summary>
         public static readonly Task<bool> TrueCompletedTask = Task.FromResult(true);
         /// <summary>
+        /// Get completed tasks based on logical value
         /// 根据逻辑值获取已完成任务
         /// </summary>
         /// <param name="value"></param>
@@ -247,10 +276,12 @@ namespace AutoCSer
             return value ? TrueCompletedTask : CompletedTask<bool>.Default;
         }
         /// <summary>
+        /// Get the completed task
         /// 获取已完成任务
         /// </summary>
-        /// <typeparam name="T">返回值类型</typeparam>
-        /// <param name="value">任务返回值</param>
+        /// <typeparam name="T">Return value type</typeparam>
+        /// <param name="value">Task return value
+        /// 任务返回值</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static Task<T[]> GetCompletedTask<T>(T[] value) where T : class
@@ -258,10 +289,12 @@ namespace AutoCSer
             return value.Length != 0 ? Task.FromResult(value) : EmptyArrayCompletedTask<T>.EmptyArray;
         }
         /// <summary>
+        /// Get the completed task
         /// 获取已完成任务
         /// </summary>
-        /// <typeparam name="T">返回值类型</typeparam>
-        /// <param name="value">任务返回值</param>
+        /// <typeparam name="T">Return value type</typeparam>
+        /// <param name="value">Task return value
+        /// 任务返回值</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
@@ -277,7 +310,8 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
-        /// 已完成任务
+        /// The task is completed by default
+        /// 默认已完成任务
         /// </summary>
 #if DotNet45
         public static Task CompletedTask { get { return TrueCompletedTask; } }
@@ -285,7 +319,8 @@ namespace AutoCSer
         public static Task CompletedTask { get { return Task.CompletedTask; } }
 #endif
         /// <summary>
-        /// 已完成任务
+        /// The task is completed by default
+        /// 默认已完成任务
         /// </summary>
 #if NetStandard21
 #if NET8
@@ -298,10 +333,12 @@ namespace AutoCSer
 #endif
 #if NetStandard21
         /// <summary>
+        /// Get the completed task
         /// 获取已完成任务
         /// </summary>
-        /// <typeparam name="T">返回值类型</typeparam>
-        /// <param name="value">任务返回值</param>
+        /// <typeparam name="T">Return value type</typeparam>
+        /// <param name="value">Task return value
+        /// 任务返回值</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ValueTask<T> GetCompletedValueTask<T>(T value)
@@ -313,10 +350,12 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Get the completed task
         /// 获取已完成任务
         /// </summary>
-        /// <typeparam name="T">返回值类型</typeparam>
-        /// <param name="value">任务返回值</param>
+        /// <typeparam name="T">Return value type</typeparam>
+        /// <param name="value">Task return value
+        /// 任务返回值</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ValueTask<T> GetCompletedValueTask<T>(Task<T> value)
@@ -326,11 +365,13 @@ namespace AutoCSer
 #endif
 
         /// <summary>
-        /// 已完成 Awaiter 返回 true
+        /// Return true for the completed awaiter
+        /// 返回 true 的已完成 awaiter
         /// </summary>
         public static readonly CompletedTaskCastAwaiter<bool> TrueCompletedAwaiter = new CompletedTaskCastAwaiter<bool>(true);
         /// <summary>
-        /// 根据逻辑值获取已完成 Awaiter
+        /// Get the completed awaiter based on the logical value
+        /// 根据逻辑值获取已完成 awaiter
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -341,7 +382,8 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 获取数组，允许存在未初始化数组项
+        /// Get an array, allowing uninitialized entries(Reference type members are not allowed in data types)
+        /// 获取数组，允许存在未初始化数组项（数据类型不允许存在引用类型成员）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="capacity"></param>
@@ -356,7 +398,8 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
-        /// 复制数组，允许存在未初始化数组项
+        /// Copy the array and allow the existence of uninitialized array items(Reference type members are not allowed in data types)
+        /// 复制数组，允许存在未初始化数组项（数据类型不允许存在引用类型成员）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sourceArray"></param>
@@ -376,7 +419,8 @@ namespace AutoCSer
             return sourceArray;
         }
         /// <summary>
-        /// 复制数组，允许存在未初始化数组项
+        /// Copy the array and allow the existence of uninitialized array items(Reference type members are not allowed in data types)
+        /// 复制数组，允许存在未初始化数组项（数据类型不允许存在引用类型成员）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sourceArray"></param>
@@ -390,7 +434,8 @@ namespace AutoCSer
             return newArray;
         }
         /// <summary>
-        /// 复制数组，允许存在未初始化数组项
+        /// Copy the array and allow the existence of uninitialized array items(Reference type members are not allowed in data types)
+        /// 复制数组，允许存在未初始化数组项（数据类型不允许存在引用类型成员）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sourceArray"></param>
@@ -405,7 +450,7 @@ namespace AutoCSer
             return newArray;
         }
         /// <summary>
-        /// 复制数组
+        /// Copy the array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sourceArray"></param>
@@ -419,7 +464,7 @@ namespace AutoCSer
             return newArray;
         }
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sourceArray"></param>
@@ -430,7 +475,7 @@ namespace AutoCSer
             sourceArray.CopyTo(destinationArray, 0);
         }
         /// <summary>
-        /// 数组复制
+        /// Copy the array
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sourceArray"></param>
@@ -444,63 +489,82 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Fill in integers
         /// 填充整数
         /// </summary>
-        /// <param name="src">串起始地址,不能为null</param>
-        /// <param name="count">ulong 整数数量</param>
+        /// <param name="src">The starting address cannot be null
+        /// 起始地址，不能为null</param>
+        /// <param name="count">ulong integer quantity
+        /// ulong 整数数量</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void Clear(ulong* src, int count)
         {
             if (count > 0) AutoCSer.Memory.Common.Clear(src, count);
         }
         /// <summary>
+        /// All the data are set to 0
         /// 数据全部设置为 0
         /// </summary>
-        /// <param name="src">串起始地址，不能为 null</param>
-        /// <param name="size">字节数量</param>
+        /// <param name="src">The starting address cannot be null
+        /// 起始地址，不能为null</param>
+        /// <param name="size">Number of bytes
+        /// 字节数量</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void Clear(void* src, int size)
         {
             if (size > 0) AutoCSer.Memory.Common.Clear((byte*)src, size);
         }
         /// <summary>
+        /// Fill in the data
         /// 填充数据
         /// </summary>
-        /// <param name="src">串起始地址,不能为null</param>
-        /// <param name="count">ulong 整数数量</param>
-        /// <param name="value">填充整数</param>
+        /// <param name="src">The starting address cannot be null
+        /// 起始地址，不能为null</param>
+        /// <param name="count">ulong integer quantity
+        /// ulong 整数数量</param>
+        /// <param name="value">Filled integer values
+        /// 填充的整数值</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void Fill(void* src, int count, ulong value)
         {
             if (count > 0) AutoCSer.Memory.Common.Fill((ulong*)src, count, value);
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="source">原串起始地址,不能为null</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
-        /// <param name="size">字节长度</param>
+        /// <param name="source">The starting address of the original data cannot be null
+        /// 原数据起始地址，不能为null</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
+        /// <param name="size">Byte length
+        /// 字节长度</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void CopyTo(void* source, void* destination, int size)
         {
             if (size > 0) AutoCSer.Memory.Common.Copy(source, destination, size);
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="source">原串起始地址,不能为null</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
-        /// <param name="size">字节长度</param>
+        /// <param name="source">The starting address of the original data cannot be null
+        /// 原数据起始地址，不能为null</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
+        /// <param name="size">Byte length
+        /// 字节长度</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void CopyTo(void* source, void* destination, long size)
         {
             if (size > 0) AutoCSer.Memory.Common.Copy(source, destination, size);
         }
         /// <summary>
+        /// Memory data is converted into a byte array
         /// 内存数据转换成字节数组
         /// </summary>
-        /// <param name="source">串起始地址，不能为 null</param>
-        /// <param name="size">字节长度,必须大于0</param>
+        /// <param name="source">The starting address cannot be null
+        /// 起始地址，不能为 null</param>
+        /// <param name="size">The byte length must be greater than 0
+        /// 字节长度，必须大于 0</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static unsafe byte[] GetArray(void* source, int size)
@@ -510,12 +574,16 @@ namespace AutoCSer
             return array;
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="source">原串起始地址</param>
-        /// <param name="destination">目标数据</param>
-        /// <param name="destinationIndex">目标数据起始位置</param>
-        /// <param name="size">字节长度</param>
+        /// <param name="source">The starting address of the original data
+        /// 原数据起始地址</param>
+        /// <param name="destination">Target data
+        /// 目标数据</param>
+        /// <param name="destinationIndex">The starting position of the target data
+        /// 目标数据起始位置</param>
+        /// <param name="size">Byte length
+        /// 字节长度</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static unsafe void CopyTo(void* source, byte[] destination, int destinationIndex, int size)
         {
@@ -526,12 +594,16 @@ namespace AutoCSer
             fixed (byte* destinationFixed = destination) CopyTo(source, destinationFixed + destinationIndex, size);
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="source">原数据</param>
-        /// <param name="sourceIndex">原数据起始位置</param>
-        /// <param name="destination">目标串起始地址</param>
-        /// <param name="size">字节长度</param>
+        /// <param name="source">Original data
+        /// 原数据</param>
+        /// <param name="sourceIndex">The starting position of the original data
+        /// 原数据起始位置</param>
+        /// <param name="destination">The starting address of the target data
+        /// 目标数据起始地址</param>
+        /// <param name="size">Byte length
+        /// 字节长度</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void CopyTo(byte[] source, int sourceIndex, void* destination, int size)
         {
@@ -542,10 +614,12 @@ namespace AutoCSer
             fixed (byte* sourceFixed = source) CopyTo(sourceFixed + sourceIndex, destination, size);
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="source">字符串，长度必须大于0</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
+        /// <param name="source">The length must be greater than 0
+        /// 长度必须大于 0</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void CopyTo(string source, void* destination)
         {
@@ -555,10 +629,12 @@ namespace AutoCSer
             fixed (char* sourceFixed = source) CopyTo(sourceFixed, destination, source.Length << 1);
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="source">字符串，长度必须大于0</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
+        /// <param name="source">The length must be greater than 0
+        /// 长度必须大于 0</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void CopyTo(ref SubString source, void* destination)
         {
@@ -568,12 +644,16 @@ namespace AutoCSer
             fixed (char* sourceFixed = source.GetFixedBuffer()) CopyTo(sourceFixed + source.Start, destination, source.Length << 1);
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
-        /// <param name="source">字符串，长度必须大于0</param>
-        /// <param name="index">字符串起始位置</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
-        /// <param name="size">字符长度</param>
+        /// <param name="source">The length must be greater than 0
+        /// 长度必须大于 0</param>
+        /// <param name="index">The starting position of the string
+        /// 字符串起始位置</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
+        /// <param name="size">The number of copied characters
+        /// 复制字符数量</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static unsafe void CopyTo(string source, int index, void* destination, int size)
         {
@@ -584,11 +664,13 @@ namespace AutoCSer
             fixed (char* sourceFixed = source) CopyTo(sourceFixed + index, destination, size << 1);
         }
         /// <summary>
+        /// Fill the entire array with data
         /// 用数据填充整个数组
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
-        /// <param name="value">填充数据</param>
+        /// <param name="value">Data to be filled
+        /// 待填充数据</param>
 #if NetStandard21
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #endif
@@ -601,13 +683,17 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Fill the array with data to specify the position
         /// 用数据填充数组指定位置
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
-        /// <param name="value">填充数据</param>
-        /// <param name="startIndex">起始位置</param>
-        /// <param name="count">填充数据数量</param>
+        /// <param name="value">Data to be filled
+        /// 待填充数据</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
+        /// <param name="count">The number of filled data
+        /// 填充数据数量</param>
 #if NetStandard21
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #endif
@@ -624,18 +710,24 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Comparison of byte arrays
         /// 字节数组比较
         /// </summary>
-        /// <param name="left">不能为null</param>
-        /// <param name="right">不能为null</param>
-        /// <param name="size">比较字节数</param>
-        /// <returns>是否相等</returns>
+        /// <param name="left">null is not allowed
+        /// 不允许为 null</param>
+        /// <param name="right">null is not allowed
+        /// 不允许为 null</param>
+        /// <param name="size">The number of bytes for comparison
+        /// 比较字节数</param>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static unsafe bool SequenceEqual(void* left, void* right, int size)
         {
             return size <= 0 || AutoCSer.Memory.Common.SequenceEqual(left, right, size);
         }
         /// <summary>
+        /// Comparison of byte arrays
         /// 字节数组比较
         /// </summary>
         /// <param name="left"></param>
@@ -662,6 +754,7 @@ namespace AutoCSer
             return right == null;
         }
         /// <summary>
+        /// Comparison of byte arrays
         /// 字节数组比较
         /// </summary>
         /// <param name="left"></param>
@@ -682,6 +775,7 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Determine whether the file exists
         /// 判断文件是否存在
         /// </summary>
         /// <param name="path"></param>
@@ -692,10 +786,12 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(File.Exists(path));
         }
         /// <summary>
+        /// Determine whether the file exists
         /// 判断文件是否存在
         /// </summary>
         /// <param name="file"></param>
-        /// <param name="isRefresh">是否刷新文件信息</param>
+        /// <param name="isRefresh">Is refresh file information
+        /// 是否刷新文件信息</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static Task<bool> FileExists(FileInfo file, bool isRefresh = false)
@@ -704,6 +800,7 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(file.Exists);
         }
         /// <summary>
+        /// Delete the file
         /// 删除文件
         /// </summary>
         /// <param name="file"></param>
@@ -715,6 +812,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Delete the file if it exists
         /// 如果文件存在则删除文件
         /// </summary>
         /// <param name="file"></param>
@@ -729,6 +827,7 @@ namespace AutoCSer
             return CompletedTask<bool>.Default;
         }
         /// <summary>
+        /// Refresh the file status data
         /// 刷新文件状态数据
         /// </summary>
         /// <param name="file"></param>
@@ -740,6 +839,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Move the file
         /// 移动文件
         /// </summary>
         /// <param name="sourceFileName"></param>
@@ -752,6 +852,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Move the file
         /// 移动文件
         /// </summary>
         /// <param name="sourceFile"></param>
@@ -764,6 +865,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Create a file stream
         /// 创建文件流
         /// </summary>
         /// <param name="path"></param>
@@ -785,6 +887,7 @@ namespace AutoCSer
             finally { fileStream?.Dispose(); }
         }
         /// <summary>
+        /// Move the file stream location
         /// 移动文件流位置
         /// </summary>
         /// <param name="fileStream"></param>
@@ -798,6 +901,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Set the file stream length
         /// 设置文件流长度
         /// </summary>
         /// <param name="fileStream"></param>
@@ -810,6 +914,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Delete the file if it exists
         /// 如果文件存在则删除文件
         /// </summary>
         /// <param name="path"></param>
@@ -821,7 +926,8 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
-        /// 获取备份文件名称（不允许返回重复文件名称，否则相关调用可能陷入死循环）
+        /// Get the name of the backup file
+        /// 获取备份文件名称
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
@@ -832,6 +938,7 @@ namespace AutoCSer
             return index != 0 ? fileName.Insert(index, bakName) : (bakName + fileName);
         }
         /// <summary>
+        /// Read all bytes of the file and return the file data
         /// 读取文件所有字节并返回文件数据
         /// </summary>
         /// <param name="fileName"></param>
@@ -846,6 +953,7 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Read the file and return the text content of the file
         /// 读取文件并返回文件文本内容
         /// </summary>
         /// <param name="fileName"></param>
@@ -861,6 +969,7 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Write the text to the file. If the file does not exist, create it
         /// 将文本写入文件，文件不存在则创建文件
         /// </summary>
         /// <param name="fileName"></param>
@@ -878,6 +987,7 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Write data to a file. If the file does not exist, create a file
         /// 将数据写入文件，文件不存在则创建文件
         /// </summary>
         /// <param name="fileName"></param>
@@ -894,6 +1004,7 @@ namespace AutoCSer
 #endif
         }
         /// <summary>
+        /// Copy the file
         /// 复制文件
         /// </summary>
         /// <param name="file"></param>
@@ -907,6 +1018,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Copy the file
         /// 复制文件
         /// </summary>
         /// <param name="sourceFileName"></param>
@@ -920,6 +1032,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Set file attributes
         /// 设置文件属性
         /// </summary>
         /// <param name="file"></param>
@@ -932,6 +1045,7 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Determine whether the directory exists
         /// 判断目录是否存在
         /// </summary>
         /// <param name="path"></param>
@@ -942,6 +1056,7 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(Directory.Exists(path));
         }
         /// <summary>
+        /// Determine whether the directory exists
         /// 判断目录是否存在
         /// </summary>
         /// <param name="directory"></param>
@@ -952,7 +1067,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(directory.Exists);
         }
         /// <summary>
-        ///  移动目录
+        /// Move the directory
+        /// 移动目录
         /// </summary>
         /// <param name="sourceDirectory"></param>
         /// <param name="destDirectoryName"></param>
@@ -963,7 +1079,8 @@ namespace AutoCSer
             return DirectoryMove(sourceDirectory.FullName, destDirectoryName);
         }
         /// <summary>
-        ///  移动目录
+        /// Move the directory
+        /// 移动目录
         /// </summary>
         /// <param name="sourceDirectoryName"></param>
         /// <param name="destDirectoryName"></param>
@@ -975,7 +1092,8 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
-        /// 搜索文件
+        /// Get file collection
+        /// 获取文件集合
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
@@ -985,7 +1103,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(directory.GetFiles());
         }
         /// <summary>
-        /// 搜索文件
+        /// Get file collection
+        /// 获取文件集合
         /// </summary>
         /// <param name="directory"></param>
         /// <param name="searchPattern"></param>
@@ -996,7 +1115,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(directory.GetFiles(searchPattern));
         }
         /// <summary>
-        /// 搜索文件
+        /// Get file collection
+        /// 获取文件集合
         /// </summary>
         /// <param name="directory"></param>
         /// <param name="searchPattern"></param>
@@ -1008,7 +1128,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(directory.GetFiles(searchPattern, searchOption));
         }
         /// <summary>
-        /// 搜索文件名称
+        /// Get file name collection
+        /// 获取文件名称集合
         /// </summary>
         /// <param name="path"></param>
         /// <param name="searchPattern"></param>
@@ -1020,7 +1141,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(Directory.GetFiles(path, searchPattern, searchOption));
         }
         /// <summary>
-        /// 搜索文件名称
+        /// Get file name collection
+        /// 获取文件名称集合
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -1030,7 +1152,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(Directory.GetFiles(path));
         }
         /// <summary>
-        /// 搜索目录
+        /// Get directory collection
+        /// 获取目录集合
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
@@ -1040,7 +1163,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(directory.GetDirectories());
         }
         /// <summary>
-        /// 搜索目录
+        /// Get directory collection
+        /// 获取目录集合
         /// </summary>
         /// <param name="directory"></param>
         /// <param name="searchPattern"></param>
@@ -1051,7 +1175,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(directory.GetDirectories(searchPattern));
         }
         /// <summary>
-        /// 搜索目录
+        /// Get directory collection
+        /// 获取目录集合
         /// </summary>
         /// <param name="directory"></param>
         /// <param name="searchPattern"></param>
@@ -1063,7 +1188,8 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(directory.GetDirectories(searchPattern, searchOption));
         }
         /// <summary>
-        /// 搜索目录
+        /// Get directory name collection
+        /// 获取目录名称集合
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -1073,6 +1199,7 @@ namespace AutoCSer
             return AutoCSer.Common.GetCompletedTask(Directory.GetDirectories(path));
         }
         /// <summary>
+        /// Create a directory
         /// 创建目录
         /// </summary>
         /// <param name="path"></param>
@@ -1087,6 +1214,7 @@ namespace AutoCSer
             return CompletedTask<bool>.Default;
         }
         /// <summary>
+        /// Create a directory
         /// 创建目录
         /// </summary>
         /// <param name="directory"></param>
@@ -1101,10 +1229,12 @@ namespace AutoCSer
             return CompletedTask<bool>.Default;
         }
         /// <summary>
+        /// Delete the directory
         /// 删除目录
         /// </summary>
         /// <param name="path"></param>
-        /// <param name="recursive">是否删除子目录与文件夹中的文件</param>
+        /// <param name="recursive">Whether to delete the files in subdirectories and folders
+        /// 是否删除子目录与文件夹中的文件</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static Task TryDeleteDirectory(string path, bool recursive = true)
@@ -1113,10 +1243,12 @@ namespace AutoCSer
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Delete the directory
         /// 删除目录
         /// </summary>
         /// <param name="directory"></param>
-        /// <param name="recursive">是否删除子目录与文件夹中的文件</param>
+        /// <param name="recursive">Whether to delete the files in subdirectories and folders
+        /// 是否删除子目录与文件夹中的文件</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static Task TryDeleteDirectory(DirectoryInfo directory, bool recursive = true)
@@ -1126,6 +1258,7 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Apply for string space
         /// 申请字符串空间
         /// </summary>
         /// <param name="size"></param>
@@ -1135,6 +1268,7 @@ namespace AutoCSer
             return new string((char)0, size);
         }
         /// <summary>
+        /// Apply for string space
         /// 申请字符串空间
         /// </summary>
         public static readonly Func<int, string> AllocateString;

@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
 {
     /// <summary>
-    /// 吞吐性能测试消息
+    /// Message throughput performance test
+    /// 消息吞吐性能测试
     /// </summary>
     internal class PerformanceMessageNode : PerformanceClient
     {

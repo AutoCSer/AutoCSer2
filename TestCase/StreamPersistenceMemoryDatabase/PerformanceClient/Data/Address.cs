@@ -3,7 +3,7 @@
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance.Data
 {
     /// <summary>
-    /// 测试数据 https://redis.io/docs/latest/integrate/redisom-for-net/
+    /// Test data https://redis.io/docs/latest/integrate/redisom-for-net/
     /// </summary>
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public sealed class Address

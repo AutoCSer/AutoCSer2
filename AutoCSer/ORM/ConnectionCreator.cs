@@ -80,7 +80,7 @@ namespace AutoCSer.ORM
             constantConvertToString = convertToString;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {

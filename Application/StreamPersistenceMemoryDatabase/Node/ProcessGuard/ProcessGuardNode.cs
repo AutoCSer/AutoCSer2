@@ -18,6 +18,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly SnapshotDictionary<int, GuardProcess> guards;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<ProcessGuardInfo> IEnumerableSnapshot<ProcessGuardInfo>.SnapshotEnumerable { get { return guards.Nodes.Cast<GuardProcess, ProcessGuardInfo>(p => p.ProcessInfo); } }
@@ -34,9 +35,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             switchCallbacks = DictionaryCreator<string>.Create<MethodCallback<bool>>();
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(ProcessGuardInfo value)
         {
             Process process = GetProcessById(value.ProcessID);
@@ -44,9 +46,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else guards.TryAdd(value.ProcessID, new GuardProcess(this, value));
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override IProcessGuardNode? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -57,7 +61,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return null;
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
@@ -65,6 +70,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             guards.ClearArray();
         }
         /// <summary>
+        /// Database service shutdown operation
         /// 数据库服务关闭操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceDisposable()
@@ -93,10 +99,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return AutoCSer.Common.CurrentProcess;
         }
         /// <summary>
-        /// 初始化添加待守护进程
+        /// Initialize and add the daemon process to be added (Initialize and load the persistent data)
+        /// 初始化添加待守护进程（初始化加载持久化数据）
         /// </summary>
-        /// <param name="processInfo">进程信息</param>
-        /// <returns>是否添加成功</returns>
+        /// <param name="processInfo">Process information
+        /// 进程信息</param>
+        /// <returns>Add failed and return false
+        /// 添加失败返回 false</returns>
         public bool GuardLoadPersistence(ProcessGuardInfo processInfo)
         {
             if(!guards.ContainsKey(processInfo.ProcessID)) SnapshotSet(processInfo);
@@ -112,10 +121,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return true;
         }
         /// <summary>
+        /// Add the process to be daemon
         /// 添加待守护进程
         /// </summary>
-        /// <param name="processInfo">进程信息</param>
-        /// <returns>是否添加成功</returns>
+        /// <param name="processInfo">Process information
+        /// 进程信息</param>
+        /// <returns>Add failed and return false
+        /// 添加失败返回 false</returns>
         public bool Guard(ProcessGuardInfo processInfo)
         {
             Process process = GetProcessById(processInfo.ProcessID);
@@ -155,11 +167,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Delete the daemon process
         /// 删除被守护进程
         /// </summary>
-        /// <param name="processId">进程标识</param>
-        /// <param name="startTime">进程启动时间</param>
-        /// <param name="processName">进程名称</param>
+        /// <param name="processId">Process identity
+        /// 进程标识</param>
+        /// <param name="startTime">Process startup time
+        /// 进程启动时间</param>
+        /// <param name="processName">Process name
+        /// 进程名称</param>
         public void Remove(int processId, DateTime startTime, string processName)
         {
             var guardProcess = default(GuardProcess);
@@ -197,10 +213,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Switch processes
         /// 切换进程
         /// </summary>
-        /// <param name="key">切换进程关键字</param>
-        /// <param name="callback">切换进程回调</param>
+        /// <param name="key">The key words of the switched process
+        /// 切换进程关键字</param>
+        /// <param name="callback">Switch process callback
+        /// 切换进程回调</param>
         public void Switch(string key, MethodCallback<bool> callback)
         {
             var lastCallback = default(MethodCallback<bool>);

@@ -39,7 +39,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 根据分词数据关键字获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <returns></returns>
         public override IDiskBlockClient GetDiskBlockClient(int key)
         {
@@ -48,7 +49,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <returns></returns>
         public override IDiskBlockClient GetDiskBlockClient(BlockIndex blockIndex)
         {

@@ -36,6 +36,7 @@ namespace AutoCSer.TestCase
         {
             AutoCSer.FieldEquals.Comparor.IsBreakpoint = true;
 
+            //The server sets the allowed generic parameter types
             //服务端设置允许的泛型参数类型
             await AutoCSer.Common.Config.AppendRemoteTypeAsync(typeof(StreamPersistenceMemoryDatabase.Data.TestClass));
 

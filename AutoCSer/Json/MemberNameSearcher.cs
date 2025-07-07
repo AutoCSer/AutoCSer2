@@ -11,7 +11,7 @@ namespace AutoCSer.Json
     internal sealed unsafe class MemberNameSearcher
     {
         /// <summary>
-        /// 类型名称
+        /// Type name
         /// </summary>
         private readonly Type type;
         /// <summary>
@@ -96,7 +96,7 @@ namespace AutoCSer.Json
         /// <summary>
         /// 获取成员名称查找数据
         /// </summary>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         /// <param name="names"></param>
         /// <returns>成员名称查找数据</returns>
 #if AOT

@@ -37,6 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly MethodInfo methodInfo;
         /// <summary>
+        /// Custom attributes of server-side node methods
         /// 服务端节点方法自定义属性
         /// </summary>
         private readonly ServerMethodAttribute methodAttribute;
@@ -51,7 +52,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 修复节点方法队列回调
         /// </summary>
-        /// <param name="nodeCreator">生成服务端节点</param>
+        /// <param name="nodeCreator">Generate server-side node
+        /// 生成服务端节点</param>
         /// <param name="repairNodeMethod">修复节点方法信息</param>
         /// <param name="nodeMethod">修复节点方法信息</param>
         /// <param name="method">修复节点方法</param>

@@ -17,13 +17,13 @@ namespace AutoCSer
         /// <summary>
         /// 哈希关键字
         /// </summary>
-        /// <param name="value">关键字</param>
+        /// <param name="value">keyword</param>
         private ReferenceHashKey(T value)
         {
             Value = value;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value">哈希关键字</param>
         /// <returns>引用哈希关键字</returns>

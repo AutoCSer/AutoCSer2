@@ -9,28 +9,33 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// TCP server-side asynchronous keep callback
     /// TCP 服务器端异步保持回调
     /// </summary>
     public class CommandServerKeepCallback : CommandServerCallback
     {
         /// <summary>
+        /// Has the keep callback been cancelled
         /// 是否已经取消保持回调
         /// </summary>
         internal volatile int IsCancelKeep;
         /// <summary>
+        /// Has the keep callback been cancelled
         /// 是否已经取消保持回调
         /// </summary>
         public bool IsCancelKeepCallback { get { return IsCancelKeep != 0; } }
         /// <summary>
+        /// Output data count
         /// 输出数据计数
         /// </summary>
         protected int outputCount;
         /// <summary>
-        /// 空回调
+        /// Empty callback
         /// </summary>
         protected CommandServerKeepCallback() { IsCancelKeep = 1; }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
@@ -39,7 +44,8 @@ namespace AutoCSer.Net
             socket.Add(this);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="socket"></param>
         protected CommandServerKeepCallback(CommandServerSocket socket) : base(socket)
@@ -47,7 +53,8 @@ namespace AutoCSer.Net
             socket.Add(this);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerKeepCallback(CommandServerCallQueueNode node) : base(node)
@@ -55,7 +62,8 @@ namespace AutoCSer.Net
             Socket.Add(this);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerKeepCallback(CommandServerCallReadWriteQueueNode node) : base(node)
@@ -63,7 +71,8 @@ namespace AutoCSer.Net
             Socket.Add(this);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerKeepCallback(CommandServerCallConcurrencyReadQueueNode node) : base(node)
@@ -71,7 +80,8 @@ namespace AutoCSer.Net
             Socket.Add(this);
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         protected CommandServerKeepCallback(CommandServerCallTaskQueueNode node) : base(node)
@@ -79,7 +89,8 @@ namespace AutoCSer.Net
             Socket.Add(this);
         }
         /// <summary>
-        /// 返回值回调
+        /// Success status callback
+        /// 成功状态回调
         /// </summary>
         public override bool Callback()
         {
@@ -122,6 +133,7 @@ namespace AutoCSer.Net
         //    else if (values != null) await values.DisposeAsync();
         //}
         /// <summary>
+        /// Cancel the keep callback command
         /// 取消保持回调命令
         /// </summary>
         /// <param name="returnType"></param>
@@ -139,6 +151,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Cancel the keep callback command
         /// 取消保持回调命令
         /// </summary>
         internal virtual void SetCancelKeep()
@@ -147,7 +160,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
@@ -157,7 +171,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback(socket, OfflineCount.Null);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -167,7 +182,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback(node);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -177,7 +193,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback(node);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -187,7 +204,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback(node);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -197,6 +215,7 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback(node);
         }
         /// <summary>
+        /// Cancel the keep callback command
         /// 取消保持回调命令
         /// </summary>
         /// <param name="keepCallback"></param>
@@ -207,17 +226,20 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// The default empty TCP server-side asynchronous keep callback
         /// 默认空 TCP 服务器端异步保持回调
         /// </summary>
         internal static readonly CommandServerKeepCallback Null = new CommandServerKeepCallback();
     }
     /// <summary>
+    /// TCP server-side asynchronous keep callback
     /// TCP 服务器端异步保持回调
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class CommandServerKeepCallback<T> : CommandServerKeepCallback
     {
         /// <summary>
+        /// The next node of the linked list
         /// 链表下一个节点
         /// </summary>
 #if NetStandard21
@@ -226,11 +248,12 @@ namespace AutoCSer.Net
         internal CommandServerKeepCallback<T> LinkNext;
 #endif
         /// <summary>
-        /// 服务端输出信息
+        /// Server interface method information
+        /// 服务端接口方法信息
         /// </summary>
         internal readonly ServerInterfaceMethod Method;
         /// <summary>
-        /// 空回调
+        /// Empty callback
         /// </summary>
         internal CommandServerKeepCallback()
         {
@@ -239,7 +262,8 @@ namespace AutoCSer.Net
 #endif
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="offlineCount"></param>
@@ -249,7 +273,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -258,7 +283,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -267,7 +293,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -276,7 +303,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -285,7 +313,8 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP server-side asynchronous keep callback
+        /// TCP 服务器端异步保持回调
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -294,6 +323,7 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
+        /// No output callback is supported
         /// 不支持无输出回调
         /// </summary>
         /// <returns></returns>
@@ -302,10 +332,12 @@ namespace AutoCSer.Net
             throw new InvalidOperationException();
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
-        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public bool Callback(T returnValue)
         {
@@ -322,15 +354,18 @@ namespace AutoCSer.Net
         //    return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(ref returnValue));
         //}
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
-        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
         public virtual bool VirtualCallback(T returnValue)
         {
             return Callback(returnValue);
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="queue"></param>
@@ -347,6 +382,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -357,6 +393,7 @@ namespace AutoCSer.Net
             return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(returnValue), onFree);
         }
         /// <summary>
+        /// Return the value callback and end the callback
         /// 返回值回调并结束回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -366,6 +403,7 @@ namespace AutoCSer.Net
             if (Callback(returnValue)) CancelKeep();
         }
         /// <summary>
+        /// Return the value callback and end the callback
         /// 返回值回调并结束回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -374,11 +412,14 @@ namespace AutoCSer.Net
             CallbackCancelKeep(returnValue);
         }
         /// <summary>
+        /// Return a collection of data
         /// 返回数据集合
         /// </summary>
         /// <param name="values"></param>
-        /// <param name="isCancel">回调完成之后是否关闭</param>
-        /// <returns>是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        /// <param name="isCancel">Whether to close the callback after the callback is completed
+        /// 回调完成之后是否关闭回调</param>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
         public virtual bool Callback(IEnumerable<T> values, bool isCancel = true)
         {
             if (IsCancelKeep == 0)
@@ -442,7 +483,8 @@ namespace AutoCSer.Net
         //}
 #if NetStandard21
         /// <summary>
-        /// 返回数据集合以后关闭保持回调
+        /// Close the callback when the data collection is returned
+        /// 返回数据集合以后关闭回调
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
@@ -479,7 +521,8 @@ namespace AutoCSer.Net
 #endif
 
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -490,7 +533,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback<T>(socket, OfflineCount.Null, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -501,7 +545,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback<T>(node, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -512,7 +557,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback<T>(node, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -523,7 +569,8 @@ namespace AutoCSer.Net
             return new CommandServerKeepCallback<T>(node, method);
         }
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="node"></param>
         /// <param name="method"></param>
@@ -535,12 +582,13 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// The TCP server side asynchronously maintains the callback linked list
         /// TCP 服务器端异步保持回调链表
         /// </summary>
         public struct Link
         {
             /// <summary>
-            /// 头节点
+            /// Head node
             /// </summary>
 #if NetStandard21
             private CommandServerKeepCallback<T>? head;
@@ -548,11 +596,12 @@ namespace AutoCSer.Net
             private CommandServerKeepCallback<T> head;
 #endif
             /// <summary>
-            /// 判断是否存在头节点
+            /// Whether a head node exists
+            /// 是否存在头节点
             /// </summary>
             public bool IsHead { get { return head != null; } }
             /// <summary>
-            /// 添加头节点
+            /// Add the head node
             /// </summary>
             /// <param name="head"></param>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -562,10 +611,12 @@ namespace AutoCSer.Net
                 this.head = head;
             }
             /// <summary>
-            ///  返回值回调，清理回调失败对象
+            /// Return value callback, clean up the callback failed object
+            /// 返回值回调，清理回调失败对象
             /// </summary>
             /// <param name="value"></param>
-            /// <returns>回调输出次数（不保证回调成功）</returns>
+            /// <returns>Number of callback outputs (callback success not guaranteed)
+            /// 回调输出次数（不保证回调成功）</returns>
             public int Callback(T value)
             {
                 int count = 0;
@@ -595,6 +646,7 @@ namespace AutoCSer.Net
                 return count;
             }
             /// <summary>
+            /// Cancel all callbacks
             /// 取消所有回调
             /// </summary>
             [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

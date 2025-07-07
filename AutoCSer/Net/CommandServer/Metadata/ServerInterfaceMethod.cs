@@ -13,6 +13,7 @@ using System.Diagnostics;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Server interface method information
     /// 服务端接口方法信息
     /// </summary>
     internal sealed class ServerInterfaceMethod : InterfaceMethod
@@ -50,6 +51,7 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
+        /// Command service method configuration
         /// 命令服务方法配置
         /// </summary>
         internal readonly CommandServerMethodAttribute MethodAttribute;
@@ -92,6 +94,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private bool isSynchronousCallTaskTimestamp;
         /// <summary>
+        /// Server-side method call types
         /// 服务端方法调用类型
         /// </summary>
         internal readonly ServerMethodTypeEnum MethodType;
@@ -129,16 +132,18 @@ namespace AutoCSer.Net.CommandServer
             IsSimpleSerializeParamter = true;
         }
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         /// <param name="type"></param>
         /// <param name="method"></param>
         /// <param name="controllerAttribute"></param>
         /// <param name="taskQueueControllerKeyType"></param>
+        /// <param name="isGetServerMethodParameter"></param>
 #if NetStandard21
-        internal unsafe ServerInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType) : base(type, method, controllerAttribute)
+        internal unsafe ServerInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isGetServerMethodParameter = true) : base(type, method, controllerAttribute)
 #else
-        internal unsafe ServerInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType) : base(type, method, controllerAttribute)
+        internal unsafe ServerInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isGetServerMethodParameter = true) : base(type, method, controllerAttribute)
 #endif
         {
             MethodAttribute = method.GetCustomAttribute<CommandServerMethodAttribute>(false) ?? CommandServerMethodAttribute.Default;
@@ -459,9 +464,12 @@ namespace AutoCSer.Net.CommandServer
             setParameterCount();
             if (InputParameterCount != 0 || taskQueueControllerKeyType != null)
             {
-                InputParameterType = ServerMethodParameter.GetOrCreate(InputParameterCount, InputParameters, taskQueueControllerKeyType ?? typeof(void));
-                InputParameterFields = InputParameterType.GetFields(InputParameters);
-                IsSimpleDeserializeParamter = controllerAttribute.IsSimpleSerializeInputParameter && InputParameterType.IsSimpleSerialize;
+                if (isGetServerMethodParameter)
+                {
+                    InputParameterType = ServerMethodParameter.GetOrCreate(InputParameterCount, InputParameters, taskQueueControllerKeyType ?? typeof(void));
+                    InputParameterFields = InputParameterType.GetFields(InputParameters);
+                    IsSimpleDeserializeParamter = controllerAttribute.IsSimpleSerializeInputParameter && InputParameterType.IsSimpleSerialize;
+                }
             }
             if (OutputParameterCount == 0)
             {
@@ -473,9 +481,12 @@ namespace AutoCSer.Net.CommandServer
             }
             else
             {
-                OutputParameterType = ServerMethodParameter.GetOrCreate(OutputParameterCount, OutputParameters, ReturnValueType);
-                OutputParameterFields = OutputParameterType.GetFields(OutputParameters);
-                IsSimpleSerializeParamter = controllerAttribute.IsSimpleSerializeOutputParameter && OutputParameterType.IsSimpleSerialize;
+                if (isGetServerMethodParameter)
+                {
+                    OutputParameterType = ServerMethodParameter.GetOrCreate(OutputParameterCount, OutputParameters, ReturnValueType);
+                    OutputParameterFields = OutputParameterType.GetFields(OutputParameters);
+                    IsSimpleSerializeParamter = controllerAttribute.IsSimpleSerializeOutputParameter && OutputParameterType.IsSimpleSerialize;
+                }
                 IsOutputInfo = true;
             }
             if (IsOutputInfo) IsOutputPool = MethodAttribute.IsOutputPool;
@@ -863,19 +874,20 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="type"></param>
         /// <param name="controllerAttribute"></param>
         /// <param name="taskQueueControllerKeyType"></param>
+        /// <param name="isGetServerMethodParameter"></param>
         /// <param name="methods"></param>
         /// <returns>错误信息</returns>
 #if NetStandard21
-        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, ref LeftArray<ServerInterfaceMethod> methods)
+        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isGetServerMethodParameter, ref LeftArray<ServerInterfaceMethod> methods)
 #else
-        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, ref LeftArray<ServerInterfaceMethod> methods)
+        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isGetServerMethodParameter, ref LeftArray<ServerInterfaceMethod> methods)
 #endif
         {
             foreach (MethodInfo method in type.GetMethods())
             {
                 var error = InterfaceController.CheckMethod(type, method);
                 if (error != null) return error;
-                ServerInterfaceMethod serverMethod = new ServerInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType);
+                ServerInterfaceMethod serverMethod = new ServerInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType, isGetServerMethodParameter);
                 if (serverMethod.MethodType == ServerMethodTypeEnum.Unknown) return serverMethod.Error ?? $"{type.fullName()}.{method.Name} 未知服务端方法调用类型";
                 methods.Add(serverMethod);
             }

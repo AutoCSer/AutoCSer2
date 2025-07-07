@@ -11,7 +11,7 @@ namespace AutoCSer.Xml
     internal abstract class CustomSerializeGenericType
     {
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
         internal abstract Delegate SerializeDelegate { get; }
         /// <summary>
@@ -52,7 +52,7 @@ namespace AutoCSer.Xml
         where T : ICustomSerialize<T>
     {
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         /// <param name="serializer"></param>
         /// <param name="value"></param>
@@ -62,7 +62,7 @@ namespace AutoCSer.Xml
             value.Serialize(serializer);
         }
         /// <summary>
-        /// 自定义序列化委托
+        /// Custom serialization委托
         /// </summary>
         internal override Delegate SerializeDelegate { get { return (Action<AutoCSer.XmlSerializer, T>)Serialize; } }
         /// <summary>

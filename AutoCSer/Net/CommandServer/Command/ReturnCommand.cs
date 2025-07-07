@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 返回值命令 await CommandClientReturnValue
+    /// The return value command (await AutoCSer.Net.CommandClientReturnValue)
+    /// 返回值命令（await AutoCSer.Net.CommandClientReturnValue）
     /// </summary>
     public abstract class ReturnCommand : BaseReturnCommand
     {
         /// <summary>
+        /// The return value command
         /// 返回值命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal ReturnCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
+        /// The return value command has been completed
         /// 已完成返回值命令
         /// </summary>
         /// <param name="returnType"></param>
@@ -28,6 +31,7 @@ namespace AutoCSer.Net
             continuation = Common.EmptyAction;
         }
         /// <summary>
+        /// Wait for the command call to return the result
         /// 等待命令调用返回结果
         /// </summary>
         /// <returns></returns>
@@ -37,6 +41,7 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
+        /// Get the result of the command call
         /// 获取命令调用结果
         /// </summary>
         /// <returns></returns>
@@ -46,7 +51,7 @@ namespace AutoCSer.Net
             return new CommandClientReturnValue(ReturnType, ErrorMessage);
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -56,7 +61,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 获取 Task
+        /// Convert to a Task object
+        /// 转换为 Task 对象
         /// </summary>
         /// <param name="returnCommand"></param>
         /// <returns></returns>
@@ -69,24 +75,26 @@ namespace AutoCSer.Net
         }
     }
     /// <summary>
-    /// 返回值命令 await CommandClientReturnValue{T}
+    /// The return value command (await AutoCSer.Net.CommandClientReturnValue{T})
+    /// 返回值命令（await AutoCSer.Net.CommandClientReturnValue{T}）
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class ReturnCommand<T> : BaseReturnCommand
     {
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
         internal T ReturnValue;
         /// <summary>
-        /// 默认空命令
+        /// Default empty command
         /// </summary>
         /// <param name="controller"></param>
         internal ReturnCommand(CommandClientController controller) : base(controller) { }
         /// <summary>
+        /// The return value command has been completed
         /// 已完成返回值命令
         /// </summary>
         /// <param name="returnValue"></param>
@@ -98,12 +106,14 @@ namespace AutoCSer.Net
             continuation = Common.EmptyAction;
         }
         /// <summary>
+        /// The return value command
         /// 返回值命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal ReturnCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
+        /// Wait for the command call to return the result
         /// 等待命令调用返回结果
         /// </summary>
         /// <returns></returns>
@@ -113,6 +123,7 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
+        /// Get the result of the command call
         /// 获取命令调用结果
         /// </summary>
         /// <returns></returns>
@@ -123,7 +134,7 @@ namespace AutoCSer.Net
             return new CommandClientReturnValue<T>(ReturnType, ErrorMessage);
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -131,8 +142,19 @@ namespace AutoCSer.Net
         {
             return this;
         }
+        /// <summary>
+        /// Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
+        /// 获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public CommandResult<T> GetCommandResult()
+        {
+            return new CommandResult<T>(this);
+        }
 
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>
@@ -151,6 +173,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Set the return value
         /// 设置返回值
         /// </summary>
         /// <param name="returnValue"></param>
@@ -170,7 +193,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 获取 Task
+        /// Convert to a Task object
+        /// 转换为 Task 对象
         /// </summary>
         /// <param name="returnCommand"></param>
         /// <returns></returns>
@@ -183,7 +207,8 @@ namespace AutoCSer.Net
         }
 #if AOT
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <param name="returnValue"></param>
         /// <returns></returns>

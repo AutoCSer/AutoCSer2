@@ -6,11 +6,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// The return value command
     /// 返回值命令
     /// </summary>
     public abstract class BaseReturnCommand : Command, INotifyCompletion
     {
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -19,15 +21,17 @@ namespace AutoCSer.Net.CommandServer
         protected Action continuation;
 #endif
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get; protected set; }
         /// <summary>
-        /// 返回类型
+        /// The return type of the call
+        /// 调用返回类型
         /// </summary>
         internal CommandClientReturnTypeEnum ReturnType;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         internal string? ErrorMessage;
@@ -35,25 +39,30 @@ namespace AutoCSer.Net.CommandServer
         internal string ErrorMessage;
 #endif
         /// <summary>
+        /// The return value command
         /// 返回值命令
         /// </summary>
         internal BaseReturnCommand() { }
         /// <summary>
+        /// The return value command
         /// 返回值命令
         /// </summary>
         /// <param name="controller"></param>
         internal BaseReturnCommand(CommandClientController controller) : base(controller) { }
         /// <summary>
+        /// The return value command
         /// 返回值命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal BaseReturnCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe Command? BuildQueue(ref ClientBuildInfo buildInfo)
 #else
@@ -94,6 +103,7 @@ namespace AutoCSer.Net.CommandServer
             return this;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -103,7 +113,8 @@ namespace AutoCSer.Net.CommandServer
             if (System.Threading.Interlocked.CompareExchange(ref this.continuation, continuation, null) != null) continuation();
         }
         /// <summary>
-        /// 添加命令到发送队列
+        /// Add commands to the output queue
+        /// 添加命令到输出队列
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -118,9 +129,11 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
-        /// 检查等待添加队列命令
+        /// The command waiting for idle output attempts to be added to the output queue again
+        /// 等待空闲输出的命令再次尝试添加到输出队列
         /// </summary>
-        /// <returns>是否需要继续等待</returns>
+        /// <returns>Is it necessary to keep waiting
+        /// 是否需要继续等待</returns>
         internal override bool CheckWaitPush()
         {
             switch (Controller.Socket.TryPush(this))
@@ -133,7 +146,8 @@ namespace AutoCSer.Net.CommandServer
             return false;
         }
         /// <summary>
-        /// 设置返回类型
+        /// Set the error call return type
+        /// 设置错误调用返回类型
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>
@@ -152,7 +166,8 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
-        /// 设置返回类型
+        /// Set the error call return type
+        /// 设置错误调用返回类型
         /// </summary>
         /// <param name="returnType"></param>
         /// <param name="errorMessage"></param>

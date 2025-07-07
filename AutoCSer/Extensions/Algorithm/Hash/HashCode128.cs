@@ -84,6 +84,7 @@ namespace AutoCSer.Algorithm
             this.low = low;
         }
         /// <summary>
+        /// Gets two hash values of 32b
         /// 获取 2 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>
@@ -94,6 +95,7 @@ namespace AutoCSer.Algorithm
             return (hashCode + AutoCSer.Memory.Common.AddHashCode) ^ ((hashCode << 17) | (hashCode >> 47));
         }
         /// <summary>
+        /// Gets two hash values of 32b
         /// 获取 2 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>
@@ -104,6 +106,7 @@ namespace AutoCSer.Algorithm
             yield return (uint)(hashCode >> 32);
         }
         /// <summary>
+        /// Gets two hash values of 32b
         /// 获取 2 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>
@@ -114,6 +117,7 @@ namespace AutoCSer.Algorithm
             return new uint[] { (uint)hashCode, (uint)(hashCode >> 32) };
         }
         /// <summary>
+        /// Gets four hash values of 32b
         /// 获取 4 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>
@@ -130,6 +134,7 @@ namespace AutoCSer.Algorithm
             return new HashCode128(high ^ ((nextHigh << 17) | (nextLow >> 47)), low ^ ((nextLow << 17) | (nextHigh >> 47)));
         }
         /// <summary>
+        /// Gets three hash values of 32b
         /// 获取 3 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>
@@ -141,6 +146,7 @@ namespace AutoCSer.Algorithm
             yield return (uint)hashCode.high;
         }
         /// <summary>
+        /// Gets three hash values of 32b
         /// 获取 3 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>
@@ -151,6 +157,7 @@ namespace AutoCSer.Algorithm
             return new uint[] { (uint)hashCode.low, (uint)(hashCode.low >> 32), (uint)hashCode.high };
         }
         /// <summary>
+        /// Gets four hash values of 32b
         /// 获取 4 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>
@@ -163,6 +170,7 @@ namespace AutoCSer.Algorithm
             yield return (uint)(hashCode.high >> 32);
         }
         /// <summary>
+        /// Gets four hash values of 32b
         /// 获取 4 个 32b 的哈希值
         /// </summary>
         /// <returns></returns>

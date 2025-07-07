@@ -7,8 +7,9 @@ namespace AutoCSer
     /// <summary>
     /// 数组模拟最小堆
     /// </summary>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     [RemoteType]
     public unsafe class ArrayHeap<KT, VT> : IDisposable
         where KT : IComparable<KT>
@@ -59,7 +60,7 @@ namespace AutoCSer
             Dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -67,6 +68,7 @@ namespace AutoCSer
             else Unmanaged.Free(ref Heap);
         }
         /// <summary>
+        /// Clear the data
         /// 清除数据
         /// </summary>
         internal void Clear()
@@ -92,9 +94,9 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         /// <param name="value">数据值</param>
         internal unsafe void Push(KT key, ref VT value)
         {

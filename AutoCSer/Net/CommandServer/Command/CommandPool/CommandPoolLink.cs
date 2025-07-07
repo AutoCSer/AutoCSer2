@@ -90,7 +90,8 @@ namespace AutoCSer.Net.CommandServer
             return CommandPoolGetStateEnum.IdentityError;
         }
         /// <summary>
-        /// 取消回调
+        /// Cancel the keep callback
+        /// 取消保持回调
         /// </summary>
         /// <param name="identity"></param>
         /// <param name="nextIndex"></param>

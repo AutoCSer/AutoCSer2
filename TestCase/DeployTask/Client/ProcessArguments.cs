@@ -137,6 +137,7 @@ namespace AutoCSer.TestCase.DeployTaskClient
             }
         }
         /// <summary>
+        /// Determine whether the file exists
         /// 判断文件是否存在
         /// </summary>
         /// <returns></returns>

@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 namespace AutoCSer.CommandService
 {
     /// <summary>
-    /// 日志流持久化内存数据库客户端节点缓存，用于客户端单例
+    /// Log stream persistence memory database local client node cache for client singleton
+    /// 日志流持久化内存数据库本地客户端节点缓存，用于客户端单例
     /// </summary>
-    /// <typeparam name="T">客户端节点类型</typeparam>
+    /// <typeparam name="T">Client node type
+    /// 客户端节点类型</typeparam>
     public abstract class StreamPersistenceMemoryDatabaseLocalClientNodeCache<T>
         where T : class
     {
         /// <summary>
+        /// Client node
         /// 客户端节点
         /// </summary>
 #if NetStandard21
@@ -22,6 +25,7 @@ namespace AutoCSer.CommandService
         protected Task<LocalResult<T>> nodeTask;
 #endif
         /// <summary>
+        /// The client node of the IO thread synchronization callback
         /// IO 线程同步回调客户端节点
         /// </summary>
 #if NetStandard21
@@ -30,10 +34,12 @@ namespace AutoCSer.CommandService
         protected Task<LocalResult<T>> synchronousNodeTask;
 #endif
         /// <summary>
+        /// Client node access lock
         /// 客户端节点访问锁
         /// </summary>
         protected readonly System.Threading.SemaphoreSlim nodeLock = new System.Threading.SemaphoreSlim(1, 1);
         /// <summary>
+        /// Get the client node
         /// 获取客户端节点
         /// </summary>
         /// <returns></returns>
@@ -43,11 +49,13 @@ namespace AutoCSer.CommandService
             return nodeTask ?? getNode();
         }
         /// <summary>
+        /// Get the client node
         /// 获取客户端节点
         /// </summary>
         /// <returns></returns>
         protected abstract Task<LocalResult<T>> getNode();
         /// <summary>
+        /// Get the client node of the IO thread synchronous callback, node call await subsequent operation does not allow the existence of synchronization blocking logic or long CPU operation
         /// 获取 IO 线程同步回调客户端节点，节点调用 await 后续操作不允许存在同步阻塞逻辑或者长时间占用 CPU 运算
         /// </summary>
         /// <returns></returns>
@@ -57,6 +65,7 @@ namespace AutoCSer.CommandService
             return synchronousNodeTask ?? getSynchronousNode();
         }
         /// <summary>
+        /// Get the client node for the IO thread synchronous callback
         /// 获取 IO 线程同步回调客户端节点
         /// </summary>
         /// <returns></returns>
@@ -73,33 +82,42 @@ namespace AutoCSer.CommandService
         }
     }
     /// <summary>
-    /// 日志流持久化内存数据库客户端节点缓存，用于客户端单例
+    /// Log stream persistence memory database local client node cache for client singleton
+    /// 日志流持久化内存数据库本地客户端节点缓存，用于客户端单例
     /// </summary>
-    /// <typeparam name="NT">客户端节点类型</typeparam>
-    /// <typeparam name="ST">服务基础操作客户端接口类型</typeparam>
+    /// <typeparam name="NT">Client node type
+    /// 客户端节点类型</typeparam>
+    /// <typeparam name="ST">Basic service operation client interface type
+    /// 服务基础操作客户端接口类型</typeparam>
     public sealed class StreamPersistenceMemoryDatabaseLocalClientNodeCache<NT, ST> : StreamPersistenceMemoryDatabaseLocalClientNodeCache<NT>
         where ST : class, IServiceNodeLocalClientNode
         where NT : class
     {
         /// <summary>
-        /// 日志流持久化内存数据库客户端缓存，用于客户端单例
+        /// Log stream persistence memory database local client cache for client singleton
+        /// 日志流持久化内存数据库本地客户端缓存，用于客户端单例
         /// </summary>
         private readonly LocalClient<ST> client;
         /// <summary>
+        /// Get client node delegate
         /// 获取客户端节点委托
         /// </summary>
         private readonly Func<LocalClient<ST>, Task<LocalResult<NT>>> getNodeTask;
         /// <summary>
-        /// 日志流持久化内存数据库客户端节点缓存，用于客户端单例
+        /// Log stream persistence memory database local client node cache for client singleton
+        /// 日志流持久化内存数据库本地客户端节点缓存，用于客户端单例
         /// </summary>
-        /// <param name="client">日志流持久化内存数据库客户端缓存</param>
-        /// <param name="getNode">获取客户端节点委托</param>
+        /// <param name="client">Log stream persistence memory database local client cache
+        /// 日志流持久化内存数据库本地客户端缓存</param>
+        /// <param name="getNode">Get local client node delegate
+        /// 获取本地客户端节点委托</param>
         internal StreamPersistenceMemoryDatabaseLocalClientNodeCache(LocalClient<ST> client, Func<LocalClient<ST>, Task<LocalResult<NT>>> getNode)
         {
             this.client = client;
             getNodeTask = getNode;
         }
         /// <summary>
+        /// Get the client node
         /// 获取客户端节点
         /// </summary>
         /// <returns></returns>

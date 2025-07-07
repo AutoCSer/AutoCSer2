@@ -18,7 +18,7 @@ namespace AutoCSer.TextSerialize
         public bool CheckLoopReference = true;
 
         /// <summary>
-        /// 自定义序列化需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知
+        /// Custom serialization需要循环引用检查的类型，数组长度为 0 表示无需循环引用检查，null 表示未知
         /// </summary>
 #if NetStandard21
         public Type?[]? CustomReferenceTypes;

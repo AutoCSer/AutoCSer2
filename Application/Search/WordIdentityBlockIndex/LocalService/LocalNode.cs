@@ -15,7 +15,8 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
     /// <summary>
     /// 分词结果磁盘块索引信息节点
     /// </summary>
-    /// <typeparam name="T">分词数据关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type for word segmentation data
+    /// 分词数据关键字类型</typeparam>
     public abstract class LocalNode<T> : MethodParameterCreatorNode<ILocalNode<T>, BinarySerializeKeyValue<T, BlockIndex>>, ILocalNode<T>, ISnapshot<BinarySerializeKeyValue<T, BlockIndex>>, IEnumerableSnapshot<bool>
 #if NetStandard21
         where T : notnull, IEquatable<T>
@@ -48,6 +49,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// </summary>
         private bool isLoaded;
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         ISnapshotEnumerable<bool> IEnumerableSnapshot<bool>.SnapshotEnumerable { get { return new SnapshotGetValueEmpty<bool>(getIsLoaded); } }
@@ -64,9 +66,11 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             queueLocks = DictionaryCreator<T>.Create<SemaphoreSlimCache>();
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if NetStandard21
         public override ILocalNode<T>? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -149,6 +153,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             while (!StreamPersistenceMemoryDatabaseNodeIsRemoved);
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node">客户端节点信息</param>
@@ -174,20 +179,27 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             return index;
         }
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         int ISnapshot<BinarySerializeKeyValue<T, BlockIndex>>.GetSnapshotCapacity(ref object customObject)
         {
             return Datas.Count;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         SnapshotResult<BinarySerializeKeyValue<T, BlockIndex>> ISnapshot<BinarySerializeKeyValue<T, BlockIndex>>.GetSnapshotResult(BinarySerializeKeyValue<T, BlockIndex>[] snapshotArray, object customObject)
         {
             SnapshotResult<BinarySerializeKeyValue<T, BlockIndex>> result = new SnapshotResult<BinarySerializeKeyValue<T, BlockIndex>>(Datas.Count, snapshotArray.Length);
@@ -195,9 +207,10 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSet(BinarySerializeKeyValue<T, BlockIndex> value)
         {
             Datas.Add(value.Key, new LocalData<T>(value.Value));
@@ -212,9 +225,10 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             return default(KeyValue<bool, bool>);
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotSetLoaded(bool value)
         {
             isLoaded = value;
@@ -257,6 +271,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             else Monitor.Exit(queueLocks);
         }
         /// <summary>
+        /// The initialization data loading has been completed
         /// 初始化数据加载完成
         /// </summary>
         public void Loaded()
@@ -264,10 +279,13 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             isLoaded = true;
         }
         /// <summary>
-        /// 创建分词结果磁盘块索引信息
+        /// Create the disk block index information of the word segmentation result (Check the input parameters before the persistence operation)
+        /// 创建分词结果磁盘块索引信息（持久化操作之前检查输入参数）
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
-        /// <param name="text">分词文本数据</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
+        /// <param name="text">Word segmentation text data
+        /// 分词文本数据</param>
         /// <returns></returns>
         public ValueResult<WordIdentityBlockIndexUpdateStateEnum> LoadCreateBeforePersistence(T key, string text)
         {
@@ -279,20 +297,26 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             return WordIdentityBlockIndexUpdateStateEnum.NullKey;
         }
         /// <summary>
-        /// 创建分词结果磁盘块索引信息
+        /// Create the disk block index information of the word segmentation result (Initialize and load the persistent data)
+        /// 创建分词结果磁盘块索引信息（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
-        /// <param name="text">分词文本数据</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
+        /// <param name="text">Word segmentation text data
+        /// 分词文本数据</param>
         /// <param name="callback"></param>
         public void LoadCreateLoadPersistence(T key, string text, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
             CreateLoadPersistence(key, callback);
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
-        /// <param name="text">分词文本数据</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
+        /// <param name="text">Word segmentation text data
+        /// 分词文本数据</param>
         /// <param name="callback"></param>
         public void LoadCreate(T key, string text, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -314,9 +338,11 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
-        /// 创建分词结果磁盘块索引信息
+        /// Create the disk block index information of the word segmentation result (Initialize and load the persistent data)
+        /// 创建分词结果磁盘块索引信息（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void CreateLoadPersistence(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -328,9 +354,11 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void Create(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -356,18 +384,22 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
-        /// 更新分词结果磁盘块索引信息
+        /// Update the disk block index information of the word segmentation result (Initialize and load the persistent data)
+        /// 更新分词结果磁盘块索引信息（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void UpdateLoadPersistence(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
             CreateLoadPersistence(key, callback);
         }
         /// <summary>
+        /// Update the disk block index information of the word segmentation result
         /// 更新分词结果磁盘块索引信息
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void Update(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -393,9 +425,11 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
-        /// 删除分词结果磁盘块索引信息
+        /// Delete the disk block index information of the word segmentation result (Initialize and load the persistent data)
+        /// 删除分词结果磁盘块索引信息（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void DeleteLoadPersistence(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -406,9 +440,11 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
+        /// Delete the disk block index information of the word segmentation result
         /// 删除分词结果磁盘块索引信息
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void Delete(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -433,10 +469,13 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
-        /// 分词结果磁盘块索引信息完成更新操作
+        /// The disk block index information of the word segmentation result has completed the update operation (Initialize and load the persistent data)
+        /// 分词结果磁盘块索引信息完成更新操作（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <param name="callback"></param>
         public void CompletedLoadPersistence(T key, BlockIndex blockIndex, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -444,10 +483,13 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             if (Datas.TryGetValue(key, out data)) data.BlockIndex = blockIndex;
         }
         /// <summary>
+        /// The disk block index information of the word segmentation result has completed the update operation
         /// 分词结果磁盘块索引信息完成更新操作
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <param name="callback"></param>
         public void Completed(T key, BlockIndex blockIndex, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -461,18 +503,22 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             finally { callback.Callback(state); }
         }
         /// <summary>
-        /// 删除分词结果磁盘块索引信息
+        /// Delete the disk block index information of the word segmentation result (Initialize and load the persistent data)
+        /// 删除分词结果磁盘块索引信息（初始化加载持久化数据）
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void DeletedLoadPersistence(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
             Datas.Remove(key);
         }
         /// <summary>
+        /// Delete the disk block index information of the word segmentation result
         /// 删除分词结果磁盘块索引信息
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <param name="callback"></param>
         public void Deleted(T key, MethodCallback<WordIdentityBlockIndexUpdateStateEnum> callback)
         {
@@ -494,7 +540,8 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// <summary>
         /// 根据关键字获取需要分词的文本数据
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <returns>null 表示没有找到关键字数据</returns>
 #if NetStandard21
         public abstract AutoCSer.Net.ReturnCommand<string?> GetText(T key);
@@ -515,13 +562,15 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// <summary>
         /// 根据分词数据关键字获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <returns></returns>
         public abstract IDiskBlockClient GetDiskBlockClient(T key);
         /// <summary>
         /// 获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <returns></returns>
         public abstract IDiskBlockClient GetDiskBlockClient(BlockIndex blockIndex);
         /// <summary>

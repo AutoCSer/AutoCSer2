@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 1)]
+    [AutoCSer.Net.CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsAutoMethodIndex = true, TaskQueueMaxConcurrent = 1)]
     public interface IServerTaskQueueController
     {
         Task<string> TaskQueueReturn(CommandServerCallTaskLowPriorityQueue queue);

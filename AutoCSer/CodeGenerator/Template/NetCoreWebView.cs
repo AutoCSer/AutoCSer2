@@ -8,13 +8,15 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
-            /// 获取请求路径，默认为 类型命令空间+类型名称，用于代码生成
+            /// Get the request path. By default, it is the type namespace + the type name
+            /// 获取请求路径，默认为 类型命名空间 + 类型名称
             /// </summary>
             protected override string defaultRequestPath { get { return "@RequestPath"; } }
             #region PUSH Method
             #region IF ParameterCount
             /*IF:IsQueryName*/
             /// <summary>
+            /// The client queries the passed parameters
             /// 客户端查询传参
             /// </summary>
             public /*IF:IsQueryName*/struct __QUERYPARAMETER__
@@ -31,6 +33,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF IsQueryName
 #pragma warning disable CS0649
             /// <summary>
+            /// The client queries the passed parameters
             /// 客户端查询传参
             /// </summary>
             public __QUERYPARAMETER__ @QueryParameterName;
@@ -39,10 +42,13 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF ParameterCount
             #endregion PUSH Method
             /// <summary>
+            /// Initialize and load the data (basic operations are handled by the code generation component)
             /// 初始化加载数据（基本操作用代码生成组件处理）
             /// </summary>
-            /// <param name="httpContext">HTTP 上下文</param>
-            /// <param name="viewRequest">数据视图信息</param>
+            /// <param name="httpContext">HTTP Context
+            /// HTTP 上下文</param>
+            /// <param name="viewRequest">Data view information
+            /// 数据视图信息</param>
             /// <returns></returns>
             protected override async System.Threading.Tasks.Task<AutoCSer.NetCoreWeb.ResponseResult> load(Microsoft.AspNetCore.Http.HttpContext httpContext, AutoCSer.NetCoreWeb.ViewRequest viewRequest)
             {

@@ -14,11 +14,13 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Server node
     /// 服务端节点
     /// </summary>
     public abstract class ServerNode
     {
         /// <summary>
+        /// Node index information
         /// 节点索引信息
         /// </summary>
         public readonly NodeIndex Index;
@@ -27,6 +29,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal readonly ServerNodeCreator NodeCreator;
         /// <summary>
+        /// Node global keyword
         /// 节点全局关键字
         /// </summary>
         public readonly string Key;
@@ -88,11 +91,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public bool IsRemoved { get; private set; }
         /// <summary>
+        /// Server node
         /// 服务端节点
         /// </summary>
         /// <param name="nodeCreator"></param>
-        /// <param name="index"></param>
-        /// <param name="key">节点全局关键字</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
         /// <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         internal ServerNode(ServerNodeCreator nodeCreator, NodeIndex index, string key, bool isPersistence)
         {
@@ -105,6 +111,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             CreateNodeMethodParameter = nodeCreator.Service.AppendNode(this, key)?.Clone();
         }
         /// <summary>
+        /// 检查节点索引信息是否匹配
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool Check(NodeIndex index)
+        {
+            return Index.Equals(index) && !IsRemoved;
+        }
+        /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
         internal abstract Task Loaded();
@@ -124,6 +141,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Get server node based on node global keywords
         /// 根据节点全局关键字获取服务端节点
         /// </summary>
         /// <param name="key"></param>
@@ -191,30 +209,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal InputMethodParameter CreateInputMethodParameter(int methodIndex, out CallStateEnum state)
 #endif
         {
-            if ((uint)methodIndex < (uint)NodeCreator.Methods.Length)
+            var methods = NodeCreator.Methods;
+            if ((uint)methodIndex < (uint)methods.Length)
             {
-                var method = NodeCreator.Methods[methodIndex];
-                if (method != null)
+                var parameter = methods[methodIndex]?.CreateInputParameter(this);
+                if (parameter != null)
                 {
                     state = CallStateEnum.Success;
-                    switch (method.CallType)
-                    {
-                        case CallTypeEnum.CallInput: return ((CallInputMethod)method).CreateParameter(this);
-                        case CallTypeEnum.CallInputOutput:
-                        case CallTypeEnum.InputCallback:
-                            return ((CallInputOutputMethod)method).CreateParameter(this);
-                        case CallTypeEnum.SendOnly: return ((SendOnlyMethod)method).CreateParameter(this);
-                        case CallTypeEnum.InputKeepCallback:
-                        case CallTypeEnum.InputEnumerable:
-                            return ((InputKeepCallbackMethod)method).CreateParameter(this);
-                        default: state = CallStateEnum.CallTypeNotMatch; return null;
-                    }
+                    return parameter;
                 }
+                state = CallStateEnum.CallTypeNotMatch;
             }
             state = CallStateEnum.NotFoundMethod;
             return null;
         }
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -268,6 +278,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return CallStateEnum.NotFoundMethod;
         }
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -329,6 +340,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return CallStateEnum.NotFoundMethod;
         }
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         /// <param name="methodIndex"></param>
@@ -404,13 +416,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return !IsLoadException;
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         internal virtual void GetSnapshotArray() { }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
-        /// <returns>是否成功</returns>
+        /// <returns>Return false on failure</returns>
         internal virtual bool GetSnapshotResult()
         {
             return !IsLoadException;
@@ -426,24 +440,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 #if !AOT
         /// <summary>
+        /// Fix the interface method error and force overwriting the original interface method call. Except for the first parameter being the operation node object, the method definition must be consistent
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
         /// </summary>
         /// <param name="rawAssembly"></param>
-        /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号</param>
+        /// <param name="method">It must be a static method. The first parameter must be the interface type of the operation node, and the method number must be configured using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex
+        /// 必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
         public abstract void Repair(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback);
         /// <summary>
+        /// Bind a new method to dynamically add interface functionality. The initial state of the new method number must be free
         /// 绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
         /// </summary>
         /// <param name="rawAssembly"></param>
-        /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号与其他必要配置信息</param>
+        /// <param name="method">It must be a static method. The first parameter must be the interface type of the operation node. The method number and other necessary configuration information must be configured using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex
+        /// 必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号与其他必要配置信息</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
         public abstract void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback);
 #endif
 
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         /// <param name="values"></param>
@@ -460,24 +479,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             return result;
         }
-        ///// <summary>
-        ///// 获取快照数据集合
-        ///// </summary>
-        ///// <param name="values"></param>
-        ///// <param name="snapshotArray">预申请的快照数据容器</param>
-        ///// <returns>快照数据信息</returns>
-        //public static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, VT>> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
-        //{
-        //    if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
-        //    SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
-        //    foreach (KeyValuePair<KT, VT> value in values)
-        //    {
-        //        if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
-        //        else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
-        //    }
-        //    return result;
-        //}
         /// <summary>
+        /// Get the snapshot data collection
+        /// 获取快照数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="snapshotArray">预申请的快照数据容器</param>
+        /// <returns>快照数据信息</returns>
+        public static SnapshotResult<BinarySerializeKeyValue<KT, VT>> GetSnapshotResult<KT, VT>(ICollection<KeyValuePair<KT, VT>> values, BinarySerializeKeyValue<KT, VT>[] snapshotArray)
+        {
+            if (values.Count == 0) return new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(0);
+            SnapshotResult<BinarySerializeKeyValue<KT, VT>> result = new SnapshotResult<BinarySerializeKeyValue<KT, VT>>(values.Count, snapshotArray.Length);
+            foreach (KeyValuePair<KT, VT> value in values)
+            {
+                if (result.Count != snapshotArray.Length) snapshotArray[result.Count++].Set(value.Key, value.Value);
+                else result.Array.Array[result.Array.Length++].Set(value.Key, value.Value);
+            }
+            return result;
+        }
+        /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         /// <param name="values"></param>
@@ -513,6 +534,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         //    return result;
         //}
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         /// <param name="values"></param>
@@ -645,9 +667,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal static readonly ServerNodeTypeAttribute DefaultNodeTypeAttribute = new ServerNodeTypeAttribute();
     }
     /// <summary>
+    /// Server node
     /// 服务端节点
     /// </summary>
-    /// <typeparam name="T">节点接口类型</typeparam>
+    /// <typeparam name="T">Node interface type
+    /// 节点接口类型</typeparam>
     public class ServerNode<T> : ServerNode
     {
         /// <summary>
@@ -659,11 +683,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public T Target { get { return target; } }
         /// <summary>
+        /// Server node
         /// 服务端节点
         /// </summary>
         /// <param name="service"></param>
-        /// <param name="index"></param>
-        /// <param name="key">节点全局关键字</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
         /// <param name="target"></param>
         /// <param name="isPersistence">是否持久化，设置为 false 为纯内存模式在重启服务时数据将丢失</param>
         public ServerNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target, bool isPersistence) : base(service.GetNodeCreator<T>(), index, key, isPersistence)
@@ -676,11 +703,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务端节点（除了 服务基础操作节点 以外，该调用不支持节点持久化，只有支持快照的节点才支持持久化）
         /// </summary>
         /// <param name="service"></param>
-        /// <param name="index"></param>
-        /// <param name="key">节点全局关键字</param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
         /// <param name="target"></param>
         public ServerNode(StreamPersistenceMemoryDatabaseService service, NodeIndex index, string key, T target) : this(service, index, key, target, false) { }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
         internal override Task Loaded()
@@ -689,6 +719,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return node != null? loaded(node) : AutoCSer.Common.CompletedTask;
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
         /// <param name="node"></param>
@@ -763,10 +794,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 #if !AOT
         /// <summary>
+        /// Fix the interface method error and force overwriting the original interface method call. Except for the first parameter being the operation node object, the method definition must be consistent
         /// 修复接口方法错误，强制覆盖原接口方法调用，除了第一个参数为操作节点对象，方法定义必须一致
         /// </summary>
         /// <param name="rawAssembly"></param>
-        /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号</param>
+        /// <param name="method">It must be a static method. The first parameter must be the interface type of the operation node, and the method number must be configured using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex
+        /// 必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
         public override void Repair(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
@@ -774,10 +807,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             NodeCreator.Repair<T>(rawAssembly, method, methodAttribute, callback).NotWait();
         }
         /// <summary>
+        /// Bind a new method to dynamically add interface functionality. The initial state of the new method number must be free
         /// 绑定新方法，用于动态增加接口功能，新增方法编号初始状态必须为空闲状态
         /// </summary>
         /// <param name="rawAssembly"></param>
-        /// <param name="method">必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号与其他必要配置信息</param>
+        /// <param name="method">It must be a static method. The first parameter must be the interface type of the operation node. The method number and other necessary configuration information must be configured using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex
+        /// 必须是静态方法，第一个参数必须是操作节点接口类型，必须使用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute.MethodIndex 配置方法编号与其他必要配置信息</param>
         /// <param name="methodAttribute"></param>
         /// <param name="callback"></param>
         public override void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)

@@ -14,6 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class LocalServiceCallbackInputNode : ReadWriteQueueNode
     {
         /// <summary>
+        /// Local service client node
         /// 本地服务客户端节点
         /// </summary>
         private readonly LocalClientNode clientNode;
@@ -30,6 +31,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly LocalServiceCallbackInputNodeCallback serverCallback;
         /// <summary>
+        /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
         private readonly Action<LocalResult> callback;
@@ -38,7 +40,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="clientNode">本地服务客户端节点</param>
         /// <param name="parameter">调用方法与参数信息</param>
-        /// <param name="callback">客户端回调委托</param>
+        /// <param name="callback">The client callback delegate
+        /// 客户端回调委托</param>
         private LocalServiceCallbackInputNode(LocalClientNode clientNode, CallInputMethodParameter parameter, Action<LocalResult> callback)
         {
             this.clientNode = clientNode;
@@ -48,6 +51,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             serverCallback = new LocalServiceCallbackInputNodeCallback(this);
         }
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         public override void RunTask()
@@ -82,10 +86,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 创建本地服务调用节点方法队列节点
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="clientNode">本地服务客户端节点</param>
-        /// <param name="methodIndex">调用方法编号</param>
-        /// <param name="parameter">调用参数</param>
-        /// <param name="callback">客户端回调委托</param>
+        /// <param name="clientNode">Local service client node
+        /// 本地服务客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="parameter">Call parameters
+        /// 调用参数</param>
+        /// <param name="callback">The client callback delegate
+        /// 客户端回调委托</param>
         /// <returns></returns>
         public static void Create<T>(LocalClientNode clientNode, int methodIndex, T parameter, Action<LocalResult> callback) where T : struct
         {

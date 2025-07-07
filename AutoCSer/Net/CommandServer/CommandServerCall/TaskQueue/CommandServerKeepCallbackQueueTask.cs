@@ -18,6 +18,7 @@ namespace AutoCSer.Net
         /// </summary>
         private Task callTask;
         /// <summary>
+        /// TCP server-side asynchronous keep callback
         /// TCP 服务器端异步保持回调
         /// </summary>
         private CommandServerKeepCallback keepCallback;
@@ -91,6 +92,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>
@@ -148,7 +150,8 @@ namespace AutoCSer.Net
 #endif
         private Task<IEnumerable<T>> callTask;
         /// <summary>
-        /// TCP 服务器端异步保持回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
 #if NetStandard21
         [AllowNull]
@@ -284,6 +287,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>
@@ -327,6 +331,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>

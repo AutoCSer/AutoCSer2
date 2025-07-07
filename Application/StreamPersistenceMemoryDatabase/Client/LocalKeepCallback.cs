@@ -12,7 +12,8 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 本地服务调用节点方法队列节点回调输出
+    /// The local service invocation keep callback output
+    /// 本地服务调用保持回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class LocalKeepCallback<T> : IDisposable, IEnumeratorCommand<LocalResult<T>>
@@ -21,23 +22,28 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
     {
         /// <summary>
-        /// 本地服务调用节点方法队列节点回调对象
+        /// The local service invocation callback object
+        /// 本地服务调用回调对象
         /// </summary>
         private readonly LocalServiceKeepCallbackEnumeratorNodeCallback<T> callback;
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         private readonly EnumeratorCommandMoveNext moveNext = new EnumeratorCommandMoveNext();
         /// <summary>
+        /// Return value queue
         /// 返回值队列
         /// </summary>
         private readonly Queue<KeepCallbackResponseParameter> returnValueQueue = new Queue<KeepCallbackResponseParameter>();
         /// <summary>
+        /// Current returned data
         /// 当前返回数据
         /// </summary>
         private KeepCallbackResponseParameter current;
         /// <summary>
-        /// 当前返回数据
+        /// Get current data
+        /// 获取当前数据
         /// </summary>
         public LocalResult<T> Current
         {
@@ -52,14 +58,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// The return value type of the callback command
         /// 回调命令返回值类型
         /// </summary>
         public CommandClientReturnTypeEnum ReturnType { get; private set; }
         /// <summary>
+        /// Whether to synchronize the callback of the IO thread
         /// 是否 IO 线程同步回调
         /// </summary>
         private readonly bool isSynchronousCallback;
         /// <summary>
+        /// Exception information
         /// 异常信息
         /// </summary>
 #if NetStandard21
@@ -68,10 +77,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public Exception Exception { get; private set; }
 #endif
         /// <summary>
-        /// 本地服务调用节点方法队列节点回调输出
+        /// The local service invocation keep callback output
+        /// 本地服务调用保持回调输出
         /// </summary>
-        /// <param name="callback">本地服务调用节点方法队列节点回调对象</param>
-        /// <param name="isSynchronousCallback">是否 IO 线程同步回调</param>
+        /// <param name="callback">The local service invocation callback object
+        /// 本地服务调用回调对象</param>
+        /// <param name="isSynchronousCallback">Whether to synchronize the callback of the IO thread
+        /// 是否 IO 线程同步回调</param>
         internal LocalKeepCallback(LocalServiceKeepCallbackEnumeratorNodeCallback<T> callback, bool isSynchronousCallback)
         {
             this.callback = callback;
@@ -79,14 +91,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ReturnType = CommandClientReturnTypeEnum.Success;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
             callback.SetCancelKeep();
         }
         /// <summary>
-        /// 异步释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public ValueTask DisposeAsync()
@@ -95,6 +107,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return AutoCSer.Common.CompletedValueTask;
         }
         /// <summary>
+        /// Cancel output
         /// 取消输出
         /// </summary>
         /// <param name="returnType"></param>
@@ -139,7 +152,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 返回数据回调
+        /// Return the data callback operation
+        /// 返回数据回调操作
         /// </summary>
         /// <param name="response"></param>
         internal void Callback(KeepCallbackResponseParameter response)
@@ -163,7 +177,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// await bool, the collection enumeration command returns true when the next data exists
+        /// await bool，集合枚举命令存在下一个数据返回 true
         /// </summary>
         /// <returns></returns>
         public EnumeratorCommandMoveNext MoveNext()
@@ -184,7 +199,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return EnumeratorCommandMoveNext.NextValueFalse;
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         async Task<bool> IEnumeratorTask.MoveNextAsync()
@@ -193,7 +209,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 #if NetStandard21
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         async ValueTask<bool> IAsyncEnumerator<LocalResult<T>>.MoveNextAsync()
@@ -201,6 +218,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return await MoveNext();
         }
         /// <summary>
+        /// Get the IAsyncEnumerable
         /// 获取 IAsyncEnumerable
         /// </summary>
         /// <returns></returns>
@@ -239,10 +257,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else if (ReturnType != Net.CommandClientReturnTypeEnum.Success) yield return new LocalResult<T>(CallStateEnum.Unknown, Exception);
         }
         /// <summary>
-        /// 数据转换获取 IAsyncEnumerable
+        /// Convert the data and get the IAsyncEnumerable
+        /// 数据转换并获取 IAsyncEnumerable
         /// </summary>
-        /// <typeparam name="VT">目标数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <typeparam name="VT">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <returns></returns>
         public async IAsyncEnumerable<LocalResult<VT>> GetAsyncEnumerable<VT>(Func<T?, VT> getValue)
         {

@@ -8,6 +8,7 @@ namespace AutoCSer.CodeGenerator.Template
         {
             #region PART CLASS
             /// <summary>
+            /// XML serialization
             /// XML 序列化
             /// </summary>
             /// <param name="serializer"></param>
@@ -19,7 +20,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF Members.Length
             }
             /// <summary>
-            /// XML 序列化
+            /// XML serialization of member bitmap is supported
+            /// 支持成员位图的 XML 序列化
             /// </summary>
             /// <param name="memberMap"></param>
             /// <param name="serializer"></param>
@@ -33,6 +35,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF Members.Length
             /// <summary>
+            /// XML serialization
             /// XML 序列化
             /// </summary>
             /// <param name="__serializer__"></param>
@@ -64,7 +67,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion LOOP Members
             }
             /// <summary>
-            /// XML 序列化
+            /// XML serialization of member bitmap is supported
+            /// 支持成员位图的 XML 序列化
             /// </summary>
             /// <param name="__memberMap__"></param>
             /// <param name="__serializer__"></param>
@@ -95,6 +99,7 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #endregion IF Members.Length
             /// <summary>
+            /// Member XML deserialization
             /// 成员 XML 反序列化
             /// </summary>
             /// <param name="__deserializer__"></param>
@@ -131,7 +136,8 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF DeserializeMemberCount
             }
             /// <summary>
-            /// 获取 XML 反序列化成员名称
+            /// Gets an XML deserialized collection of member names and a collection of member indexes
+            /// 获取 XML 反序列化成员名称集合与成员索引集合
             /// </summary>
             /// <returns></returns>
             internal static AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string>>> @XmlDeserializeMemberNameMethodName()
@@ -145,7 +151,8 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #region IF DeserializeMemberCount
             /// <summary>
-            /// 获取 XML 反序列化成员名称
+            /// Gets an XML deserialized collection of member names and a collection of member indexes
+            /// 获取 XML 反序列化成员名称集合与成员索引集合
             /// </summary>
             /// <returns></returns>
             private static AutoCSer.KeyValue<AutoCSer.LeftArray<string>, AutoCSer.LeftArray<KeyValue<int, string>>> xmlDeserializeMemberName()
@@ -166,7 +173,8 @@ namespace AutoCSer.CodeGenerator.Template
             #endregion IF DeserializeMemberCount
             #region IF MemberTypeCount
             /// <summary>
-            /// 获取 Xml 序列化成员类型
+            /// Get the collection of XML serialized member types
+            /// 获取 XML 序列化成员类型集合
             /// </summary>
             /// <returns></returns>
             internal static AutoCSer.LeftArray<Type> @XmlSerializeMemberTypeMethodName()
@@ -179,7 +187,8 @@ namespace AutoCSer.CodeGenerator.Template
             }
             #endregion IF MemberTypeCount
             /// <summary>
-            /// 代码生成调用激活 AOT 反射
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
             /// </summary>
             #region IF CurrentType.Type.IsGenericType
             public static void @XmlSerializeMethodName(/*NOTE*/object value/*NOTE*/)/*NOTE*/ { }/*NOTE*/

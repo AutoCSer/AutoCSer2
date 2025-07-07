@@ -8,7 +8,8 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 服务端定义非对称测试接口（套接字上下文绑定服务端）
     /// </summary>
-    [CommandServerControllerInterface(MethodIndexEnumType = typeof(ServerBindContextDefinedDissymmetryControllerMethodEnum), IsAutoMethodIndex = false, MethodIndexEnumTypeCodeGeneratorPath = "", IsCodeGeneratorClientInterface = false)]
+    [AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute(typeof(IDefinedDissymmetryServerControllerMethodEnum))]
+    [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false)]
     public interface IDefinedDissymmetryServerController
     {
         void SetSocket(Data.ORM.BusinessModel value);

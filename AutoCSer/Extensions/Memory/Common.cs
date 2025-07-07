@@ -102,7 +102,8 @@ namespace AutoCSer.Extensions.Memory
         /// 字节流转32位无符号整数
         /// </summary>
         /// <param name="data">字节数组,不能为null</param>
-        /// <param name="startIndex">起始位置</param>
+        /// <param name="startIndex">Starting position
+        /// 起始位置</param>
         /// <returns>无符号整数值</returns>
         internal unsafe static uint GetUIntBigEndian(this byte[] data, int startIndex)
         {

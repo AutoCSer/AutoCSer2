@@ -203,7 +203,8 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="CT">转换数据类型</typeparam>
         /// <param name="query"></param>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -221,7 +222,8 @@ namespace AutoCSer.ORM
         /// <typeparam name="VT"></typeparam>
         /// <typeparam name="CT">转换数据类型</typeparam>
         /// <param name="query"></param>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
@@ -336,7 +338,8 @@ namespace AutoCSer.ORM
     /// 数据库表格持久化查询
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    /// <typeparam name="KT">关键字类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
     public class TableQuery<T, KT> : TableQuery<T>
         where T : class
         where KT : IEquatable<KT>
@@ -353,7 +356,7 @@ namespace AutoCSer.ORM
         {
             Writer = writer;
         }
-        /// /// <summary>
+        /// <summary>
         /// 模拟关联表格
         /// </summary>
         /// <typeparam name="RT">被关联表格模型类型</typeparam>

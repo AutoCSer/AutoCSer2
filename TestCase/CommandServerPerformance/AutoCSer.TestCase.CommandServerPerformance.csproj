@@ -22,6 +22,7 @@
   <ItemGroup>
     <Compile Include="Client\IService.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="{AutoCSer.TestCase.CommandServerPerformance}.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,5 +33,9 @@
     <ProjectReference Include="..\..\AutoCSer\Extensions\AutoCSer.Extensions.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe&quot; $(ProjectDir)..\..\AutoCSer\CodeGenerator\bin\$(ConfigurationName)\net8.0\AutoCSer.CodeGenerator.exe &quot;$(ProjectName)&quot; &quot;$(ProjectDir) &quot; &quot;$(TargetPath) &quot; &quot;$(RootNamespace)&quot;" />
+  </Target>
 
 </Project>

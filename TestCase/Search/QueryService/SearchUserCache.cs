@@ -45,7 +45,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             getUserMessage().NotWait();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Close()

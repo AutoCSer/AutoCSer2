@@ -17,6 +17,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private readonly Action<LocalResult<T>> callback;
         /// <summary>
+        /// Whether to synchronize the callback of the IO thread
         /// 是否 IO 线程同步回调
         /// </summary>
         private readonly bool isSynchronousCallback;
@@ -24,7 +25,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 本地服务调用节点方法队列节点回调对象
         /// </summary>
         /// <param name="callback">回调委托</param>
-        /// <param name="isSynchronousCallback">是否 IO 线程同步回调</param>
+        /// <param name="isSynchronousCallback">Whether to synchronize the callback of the IO thread
+        /// 是否 IO 线程同步回调</param>
         internal LocalServiceKeepCallbackNodeCallback(Action<LocalResult<T>> callback, bool isSynchronousCallback)
         {
             IsCancelKeep = 0;
@@ -32,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.isSynchronousCallback = isSynchronousCallback;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Dispose()
@@ -82,6 +84,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -108,6 +111,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callbackResponseParameter(ref returnValue)) CancelKeep();
         }
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
@@ -116,10 +120,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return callbackResponseParameter(ref returnValue);
         }
         /// <summary>
+        /// Return a collection of data
         /// 返回数据集合
         /// </summary>
         /// <param name="values"></param>
-        /// <param name="isCancel">回调完成之后是否关闭</param>
+        /// <param name="isCancel">Whether to close the callback after the callback is completed
+        /// 回调完成之后是否关闭回调</param>
         /// <returns></returns>
         public override bool Callback(IEnumerable<KeepCallbackResponseParameter> values, bool isCancel = true)
         {

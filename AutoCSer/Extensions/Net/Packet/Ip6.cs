@@ -144,12 +144,12 @@ namespace AutoCSer.Net.Packet
         /// <summary>
         /// IPv6包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public Ip6(SubArray<byte> data) : this(ref data) { }
         /// <summary>
         /// IPv6包
         /// </summary>
-        /// <param name="data">数据</param>
+        /// <param name="data">Data</param>
         public unsafe Ip6(ref SubArray<byte> data)
         {
             headerEndIndex = DefaultHeaderSize;

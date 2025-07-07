@@ -10,6 +10,7 @@ namespace AutoCSer.TestCase.BusinessService
     public sealed class FieldModel : AutoCSer.TestCase.CommonModel.TableModel.FieldModel
     {
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
@@ -19,7 +20,7 @@ namespace AutoCSer.TestCase.BusinessService
             return await Persistence.FieldModelQuery.GetByPrimaryKey(key);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <returns></returns>
         internal async Task<bool> Insert()

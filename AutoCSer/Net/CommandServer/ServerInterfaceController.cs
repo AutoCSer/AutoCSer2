@@ -44,98 +44,122 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerSocket, bool> CommandServerSocketSendSuccess = CommandServerSocket.Send;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Action<CommandServerCallQueue, CommandServerCallQueueNode> ServerCallQueueAdd = CommandServerCallQueue.Add;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Action<CommandServerCallReadWriteQueue, ReadWriteQueueNode> ServerCallReadWriteQueueAppendRead = CommandServerCallReadWriteQueue.AppendRead;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Action<CommandServerCallReadWriteQueue, ReadWriteQueueNode> ServerCallReadWriteQueueAppendWrite = CommandServerCallReadWriteQueue.AppendWrite;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Func<CommandServerCallQueue, CommandServerCallQueueNode, CommandClientReturnTypeEnum> ServerCallQueueAddIsDeserialize = CommandServerCallQueue.AddIsDeserialize;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Func<CommandServerCallReadWriteQueue, ReadWriteQueueNode, CommandClientReturnTypeEnum> ServerCallReadWriteQueueAppendReadIsDeserialize = CommandServerCallReadQueue.AppendReadIsDeserialize;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Func<CommandServerCallReadWriteQueue, ReadWriteQueueNode, CommandClientReturnTypeEnum> ServerCallReadWriteQueueAppendWriteIsDeserialize = CommandServerCallReadQueue.AppendWriteIsDeserialize;
         /// <summary>
+        /// Determine whether the socket has been closed
         /// 判断套接字是否已经关闭
         /// </summary>
         internal static readonly Func<CommandServerCallQueueNode, bool> CommandServerCallQueueNodeSocketIsClose = CommandServerCallQueueNode.SocketIsClose;
         /// <summary>
+        /// Determine whether the socket has been closed
         /// 判断套接字是否已经关闭
         /// </summary>
         internal static readonly Func<CommandServerCallReadWriteQueueNode, bool> CommandServerCallReadWriteQueueNodeSocketIsClose = CommandServerCallReadWriteQueueNode.SocketIsClose;
         /// <summary>
+        /// Determine whether the socket has been closed
         /// 判断套接字是否已经关闭
         /// </summary>
         internal static readonly Func<CommandServerCallConcurrencyReadQueueNode, bool> CommandServerCallConcurrencyReadQueueNodeSocketIsClose = CommandServerCallConcurrencyReadQueueNode.SocketIsClose;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerCallQueueNode, bool> CommandServerCallQueueNodeSetIsDeserialize = CommandServerCallQueueNode.SetIsDeserialize;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerCallReadWriteQueueNode, bool> CommandServerCallReadWriteQueueNodeSetIsDeserialize = CommandServerCallReadWriteQueueNode.SetIsDeserialize;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerCallConcurrencyReadQueueNode, bool> CommandServerCallConcurrencyReadQueueNodeSetIsDeserialize = CommandServerCallConcurrencyReadQueueNode.SetIsDeserialize;
         /// <summary>
-        /// 下线计数对象检查
+        /// Offline counting processing
+        /// 下线计数处理
         /// </summary>
         internal static readonly Action<CommandServerCallQueueNode> CommandServerCallQueueNodeCheckOfflineCount = CommandServerCallQueueNode.CheckOfflineCount;
         /// <summary>
-        /// 下线计数对象检查
+        /// Offline counting processing
+        /// 下线计数处理
         /// </summary>
         internal static readonly Action<CommandServerCallReadWriteQueueNode> CommandServerCallReadWriteQueueNodeCheckOfflineCount = CommandServerCallReadWriteQueueNode.CheckOfflineCount;
         /// <summary>
-        /// 下线计数对象检查
+        /// Offline counting processing
+        /// 下线计数处理
         /// </summary>
         internal static readonly Action<CommandServerCallConcurrencyReadQueueNode> CommandServerCallConcurrencyReadQueueNodeCheckOfflineCount = CommandServerCallConcurrencyReadQueueNode.CheckOfflineCount;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Action<CommandServerCallLowPriorityQueue, CommandServerCallQueueNode> ServerCallQueueLowPriorityLinkAdd = CommandServerCallLowPriorityQueue.Add;
         /// <summary>
-        /// 添加任务
+        /// Add the task node
+        /// 添加任务节点
         /// </summary>
         internal static readonly Func<CommandServerCallLowPriorityQueue, CommandServerCallQueueNode, CommandClientReturnTypeEnum> ServerCallQueueLowPriorityLinkAddIsDeserialize = CommandServerCallLowPriorityQueue.AddIsDeserialize;
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly Func<CommandServerCallQueueNode, CommandServerSocket> ServerCallQueueNodeGetSocket = CommandServerCallQueueNode.GetSocket;
         /// <summary>
+        /// Close the short connection
         /// 关闭短连接
         /// </summary>
         internal static readonly Action<CommandServerCallQueueNode> ServerCallQueueNodeCloseShortLink = CommandServerCallQueueNode.CloseShortLink;
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly Func<CommandServerCallReadWriteQueueNode, CommandServerSocket> ServerCallReadWriteQueueNodeGetSocket = CommandServerCallReadWriteQueueNode.GetSocket;
         /// <summary>
+        /// Close the short connection
         /// 关闭短连接
         /// </summary>
         internal static readonly Action<CommandServerCallReadWriteQueueNode> ServerCallReadWriteQueueNodeCloseShortLink = CommandServerCallReadWriteQueueNode.CloseShortLink;
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly Func<CommandServerCallConcurrencyReadQueueNode, CommandServerSocket> ServerCallConcurrencyReadQueueNodeGetSocket = CommandServerCallConcurrencyReadQueueNode.GetSocket;
         /// <summary>
+        /// Close the short connection
         /// 关闭短连接
         /// </summary>
         internal static readonly Action<CommandServerCallConcurrencyReadQueueNode> ServerCallConcurrencyReadQueueNodeCloseShortLink = CommandServerCallConcurrencyReadQueueNode.CloseShortLink;
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>
@@ -143,10 +167,12 @@ namespace AutoCSer.Net.CommandServer
         /// <returns></returns>
         internal delegate CommandServerSocket CommandServerCallTaskQueueTaskNodeGetSocketDelegate(CommandServerCallTaskQueueNode task, out CommandServerCallTaskQueue queue);
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly CommandServerCallTaskQueueTaskNodeGetSocketDelegate CommandServerCallTaskQueueTaskNodeGetSocket = CommandServerCallTaskQueueNode.GetSocket;
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>
@@ -155,6 +181,7 @@ namespace AutoCSer.Net.CommandServer
         /// <returns></returns>
         internal delegate CommandServerSocket CommandServerCommandServerKeepCallbackQueueTaskGetSocketDelegate(CommandServerKeepCallbackQueueTask task, CommandServerKeepCallback keepCallback, out CommandServerCallTaskQueue queue);
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly CommandServerCommandServerKeepCallbackQueueTaskGetSocketDelegate CommandServerKeepCallbackQueueTaskGetSocket = CommandServerKeepCallbackQueueTask.GetSocket;
@@ -207,7 +234,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<long> StopwatchGetTimestamp = Stopwatch.GetTimestamp;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerRunTask, bool> CommandServerRunTaskSetIsDeserialize = CommandServerRunTask.SetIsDeserialize;
         /// <summary>
@@ -215,7 +243,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerRunTask, CommandClientReturnTypeEnum> CommandServerRunTaskIsDeserialize = CommandServerRunTask.RunTaskIsDeserialize;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerRunTask<CommandServerVerifyStateEnum>, bool> CommandServerVerifyStateRunTaskSetIsDeserialize = CommandServerRunTask<CommandServerVerifyStateEnum>.SetIsDeserialize;
         /// <summary>
@@ -223,7 +252,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerVerifyStateRunTask, CommandClientReturnTypeEnum> CommandServerVerifyStateRunTaskIsDeserialize = CommandServerVerifyStateRunTask.RunTaskIsDeserialize;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerSendOnlyRunTask, bool> CommandServerSendOnlyRunTaskSetIsDeserialize = CommandServerSendOnlyRunTask.SetIsDeserialize;
         /// <summary>
@@ -231,7 +261,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerSendOnlyRunTask, CommandClientReturnTypeEnum> CommandServerSendOnlyRunTaskIsDeserialize = CommandServerSendOnlyRunTask.RunTaskIsDeserialize;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerCallbackRunTask, bool> CommandServerCallbackRunTaskSetIsDeserialize = CommandServerCallbackRunTask.SetIsDeserialize;
         /// <summary>
@@ -239,7 +270,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerCallbackRunTask, CommandClientReturnTypeEnum> CommandServerCallbackRunTaskIsDeserialize = CommandServerCallbackRunTask.RunTaskIsDeserialize;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerKeepCallbackRunTask, bool> CommandServerKeepCallbackRunTaskSetIsDeserialize = CommandServerKeepCallbackRunTask.SetIsDeserialize;
         /// <summary>
@@ -251,7 +283,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerKeepCallbackRunTask, CommandClientReturnTypeEnum> CommandServerKeepCallbackRunTaskAutoCancelKeepIsDeserialize = CommandServerKeepCallbackRunTask.RunTaskAutoCancelKeepIsDeserialize;
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         internal static readonly Action<CommandServerKeepCallbackCountRunTask, bool> CommandServerKeepCallbackCountRunTaskSetIsDeserialize = CommandServerKeepCallbackCountRunTask.SetIsDeserialize;
         /// <summary>
@@ -264,46 +297,56 @@ namespace AutoCSer.Net.CommandServer
         internal static readonly Func<CommandServerKeepCallbackCountRunTask, CommandClientReturnTypeEnum> CommandServerKeepCallbackCountRunTaskAutoCancelKeepIsDeserialize = CommandServerKeepCallbackCountRunTask.RunTaskAutoCancelKeepIsDeserialize;
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         internal static readonly Func<CommandServerCall, CommandServerSocket> ServerCallGetSocket = CommandServerCall.GetSocket;
         /// <summary>
-        /// 发送成功返回值类型
+        /// Send the return type successfully
+        /// 发送成功返回类型
         /// </summary>
         internal static readonly Func<CommandServerCallQueueNode, CommandServerCallQueue, bool> ServerCallQueueNodeSendSuccess = CommandServerCallQueueNode.Send;
         /// <summary>
-        /// 发送成功返回值类型
+        /// Send the return type successfully
+        /// 发送成功返回类型
         /// </summary>
         internal static readonly Func<CommandServerCallReadWriteQueueNode, bool> ServerCallReadWriteQueueNodeSendSuccess = CommandServerCallReadWriteQueueNode.Send;
         /// <summary>
-        /// 发送成功返回值类型
+        /// Send the return type successfully
+        /// 发送成功返回类型
         /// </summary>
         internal static readonly Func<CommandServerCallConcurrencyReadQueueNode, bool> ServerCallConcurrencyReadQueueNodeSendSuccess = CommandServerCallConcurrencyReadQueueNode.Send;
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         internal static readonly Func<CommandServerCall, bool> ServerCallSend = CommandServerCall.Send;
         /// <summary>
-        /// 验证函数发送数据
+        /// The verification method sends data
+        /// 验证方法发送数据
         /// </summary>
         internal static readonly Func<CommandServerCall, ServerInterfaceMethod, CommandServerVerifyStateEnum, bool> ServerCallSendVerifyState = CommandServerCall.Send;
         /// <summary>
+        /// Set the status of the verification result of the command service
         /// 设置命令服务验证结果状态
         /// </summary>
         internal static readonly Action<CommandServerCallQueueNode, CommandServerVerifyStateEnum> ServerCallQueueNodeSetVerifyState = CommandServerCallQueueNode.SetVerifyState;
         /// <summary>
+        /// Set the status of the verification result of the command service
         /// 设置命令服务验证结果状态
         /// </summary>
         internal static readonly Action<CommandServerCallReadWriteQueueNode, CommandServerVerifyStateEnum> ServerCallReadWriteQueueNodeSetVerifyState = CommandServerCallReadWriteQueueNode.SetVerifyState;
         /// <summary>
+        /// Set the status of the verification result of the command service
         /// 设置命令服务验证结果状态
         /// </summary>
         internal static readonly Action<CommandServerCallConcurrencyReadQueueNode, CommandServerVerifyStateEnum> ServerCallConcurrencyReadQueueNodeSetVerifyState = CommandServerCallConcurrencyReadQueueNode.SetVerifyState;
         /// <summary>
+        /// Set the status of the verification result of the command service
         /// 设置命令服务验证结果状态
         /// </summary>
         internal static readonly Action<CommandServerSocket, CommandServerVerifyStateEnum> CommandServerSocketSetVerifyState = CommandServerSocket.SetVerifyState;
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal static readonly Action<CommandServerSocket, Task> CommandServerSocketCheckTask = CommandServerSocket.CheckTask;
@@ -312,10 +355,12 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Action<CommandServerSocket, ServerInterfaceMethod, Task<CommandServerVerifyStateEnum>> CommandServerSocketCheckVerifyStateTask = CommandServerSocket.CheckTask;
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal static readonly Action<CommandServerSocket, Task<CommandServerSendOnly>> CommandServerSocketCheckSendOnlyTask = CommandServerSocket.CheckTask;
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal static readonly Action<CommandServerCallbackTask, Task> CommandServerCallbackTaskCheckTask = CommandServerCallbackTask.CheckTask;
@@ -324,10 +369,12 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Action<CommandServerKeepCallback> CommandServerKeepCallbackCancelKeep = (Action<CommandServerKeepCallback>)CommandServerKeepCallback.CancelKeep;
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         internal static readonly Action<CommandServerController, CommandServerCallTaskQueueNode> CommandServerControllerAddTaskQueue = CommandServerController.AddTaskQueue;
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         internal static readonly Action<CommandServerController, CommandServerCallTaskQueueNode> CommandServerControllerAddTaskQueueLowPriority = CommandServerController.AddTaskQueueLowPriority;
@@ -337,15 +384,17 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly MethodInfo CommandServerSocketDeserializeMethod;
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         internal static readonly MethodInfo CommandServerSocketSendOutputMethod;
         /// <summary>
+        /// Add the queue task
         /// 添加队列任务
         /// </summary>
         internal static readonly MethodInfo CommandServerSocketCallTaskQueueAppendQueueMethod;
         /// <summary>
-        /// 添加队列任务（低优先级）
+        /// Add low priority task to the queue
+        /// 添加队列低优先级任务
         /// </summary>
         internal static readonly MethodInfo CommandServerSocketCallTaskQueueAppendLowPriorityMethod;
 
@@ -467,18 +516,22 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly Func<CommandServerSocket, int, CommandServerKeepCallbackCountTask> CreateServerKeepCallbackCountTaskDelegate = CommandServerKeepCallbackCountTask.CreateServerKeepCallbackTask;
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal static readonly Action<CommandServerKeepCallbackTask, Task> CommandServerKeepCallbackTaskCheckTaskDelegate = CommandServerKeepCallbackTask.CheckTask;
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal static readonly Action<CommandServerKeepCallbackTask, Task> CommandServerKeepCallbackTaskCheckTaskAutoCancelKeepDelegate = CommandServerKeepCallbackTask.CheckTaskAutoCancelKeep;
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal static readonly Action<CommandServerKeepCallbackCountTask, Task> CommandServerKeepCallbackTaskCheckCountTaskDelegate = CommandServerKeepCallbackCountTask.CheckTask;
         /// <summary>
+        /// Check the completion status of the interface task
         /// 检查接口任务完成状态
         /// </summary>
         internal static readonly Action<CommandServerKeepCallbackCountTask, Task> CommandServerKeepCallbackTaskCheckCountTaskAutoCancelKeepDelegate = CommandServerKeepCallbackCountTask.CheckTaskAutoCancelKeep;
@@ -2155,10 +2208,6 @@ namespace AutoCSer.Net.CommandServer
                 this.controller = controller;
                 CommandServerRunTask.SetIsDeserialize(this, CommandServerSocket.Deserialize(socket, ref data, ref inputParameter, true));
             }
-            /// <summary>
-            /// 获取 Task
-            /// </summary>
-            /// <returns></returns>
             public override Task GetTask()
             {
                 return controller.AsynchronousTask(CommandServerCall.GetSocket(this), inputParameter.Value, inputParameter.Ref);
@@ -2178,10 +2227,6 @@ namespace AutoCSer.Net.CommandServer
             {
                 return CommandServerCallback<string>.Callback(this, ServerInterfaceControllerIL<T>.Method0, returnValue);
             }
-            /// <summary>
-            /// 获取 Task
-            /// </summary>
-            /// <returns></returns>
             public override Task GetTask()
             {
                 return controller.CallbackTask(CommandServerCall.GetSocket(this), inputParameter.Value, inputParameter.Ref, this);
@@ -2342,13 +2387,15 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private readonly CommandServerCallLowPriorityQueue queueLowPriority0;
         /// <summary>
+        /// The queue for asynchronous server calls
         /// 服务端异步调用队列
         /// </summary>
         private readonly CommandServerCallTaskQueueSet<int> taskQueueSet0;
         /// <summary>
         /// 命令服务控制器
         /// </summary>
-        /// <param name="server">命令服务</param>
+        /// <param name="server">Command server to listen
+        /// 命令服务端监听</param>
         /// <param name="controllerName">控制器名称</param>
         /// <param name="controller">控制器接口实例</param>
         /// <param name="getBindController">获取控制器接口实例</param>
@@ -2600,6 +2647,7 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
+        /// Server interface method information
         /// 服务端接口方法信息
         /// </summary>
         public static readonly ServerInterfaceMethod Method0;

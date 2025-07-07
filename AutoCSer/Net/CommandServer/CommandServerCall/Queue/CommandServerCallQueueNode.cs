@@ -7,32 +7,39 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 服务端执行队列任务
+    /// Server-side queue task nodes
+    /// 服务端队列任务节点
     /// </summary>
     public abstract class CommandServerCallQueueNode : QueueTaskNode
     {
         /// <summary>
+        /// Command server socket
         /// 命令服务套接字
         /// </summary>
         internal readonly CommandServerSocket Socket;
         /// <summary>
+        /// The server side goes offline to count the object
         /// 服务端下线计数对象
         /// </summary>
         internal OfflineCount OfflineCount;
         /// <summary>
-        /// 当前处理会话标识
+        /// Current session callback identity
+        /// 当前会话回调标识
         /// </summary>
         internal readonly CallbackIdentity CallbackIdentity;
         /// <summary>
+        /// Server-side method call types
         /// 服务端方法调用类型
         /// </summary>
         private readonly ServerMethodTypeEnum methodType;
         /// <summary>
+        /// Whether the parameters have been deserialized successfully
         /// 参数是否反序列化成功
         /// </summary>
         internal bool IsDeserialize;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// Server-side queue task nodes
+        /// 服务端队列任务节点
         /// </summary>
         protected CommandServerCallQueueNode()
         {
@@ -40,7 +47,8 @@ namespace AutoCSer.Net
             OfflineCount = OfflineCount.Null;
         }
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// Server-side queue task nodes
+        /// 服务端队列任务节点
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="methodType"></param>
@@ -69,6 +77,7 @@ namespace AutoCSer.Net
         //    }
         //}
         /// <summary>
+        /// Server-side queue timeout notification
         /// 服务端队列超时通知
         /// </summary>
         /// <param name="queue"></param>
@@ -80,7 +89,8 @@ namespace AutoCSer.Net
             return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
-        /// 下线计数对象检查
+        /// Offline counting processing
+        /// 下线计数处理
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected void checkOfflineCount()
@@ -88,7 +98,8 @@ namespace AutoCSer.Net
             if (OfflineCount.Get() == 0) Socket.Server.DecrementOfflineCount();
         }
         /// <summary>
-        /// 下线计数对象检查
+        /// Offline counting processing
+        /// 下线计数处理
         /// </summary>
         /// <param name="node"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -97,6 +108,7 @@ namespace AutoCSer.Net
             node.checkOfflineCount();
         }
         /// <summary>
+        /// Queue task execution exception
         /// 队列任务执行异常
         /// </summary>
         /// <param name="exception"></param>
@@ -129,6 +141,7 @@ namespace AutoCSer.Net
         //    node.OfflineCount = OfflineCount.Null;
         //}
         /// <summary>
+        /// Determine whether the socket has been closed
         /// 判断套接字是否已经关闭
         /// </summary>
         /// <param name="node"></param>
@@ -139,7 +152,8 @@ namespace AutoCSer.Net
             return node.Socket.IsClose;
         }
         /// <summary>
-        /// 设置参数是否反序列化成功
+        /// Set whether the parameter deserialization is successful
+        /// 设置参数反序列化是否成功
         /// </summary>
         /// <param name="node"></param>
         /// <param name="isDeserialize"></param>
@@ -151,6 +165,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="node"></param>
@@ -161,6 +176,7 @@ namespace AutoCSer.Net
             return node.Socket;
         }
         /// <summary>
+        /// Close the short connection
         /// 关闭短连接
         /// </summary>
         /// <param name="node"></param>
@@ -170,7 +186,8 @@ namespace AutoCSer.Net
             node.Socket.CloseShortLink();
         }
         /// <summary>
-        /// 发送成功返回值类型
+        /// Send the return type successfully
+        /// 发送成功返回类型
         /// </summary>
         /// <param name="node"></param>
         /// <param name="queue"></param>
@@ -182,12 +199,13 @@ namespace AutoCSer.Net
             return true;
         }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
-        /// <typeparam name="T">输出数据类型</typeparam>
+        /// <typeparam name="T">Output data type</typeparam>
         /// <param name="queue"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void send<T>(CommandServerCallQueue queue, ServerInterfaceMethod method, ref T outputParameter)
              where T : struct
@@ -195,14 +213,16 @@ namespace AutoCSer.Net
             queue.Send(Socket, Socket.GetOutput(CallbackIdentity, method, ref outputParameter));
         }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
-        /// <typeparam name="T">输出数据类型</typeparam>
+        /// <typeparam name="T">Output data type</typeparam>
         /// <param name="node"></param>
         /// <param name="queue"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static bool Send<T>(CommandServerCallQueueNode node, CommandServerCallQueue queue, ServerInterfaceMethod method, ref T outputParameter)
             where T : struct
@@ -211,26 +231,30 @@ namespace AutoCSer.Net
             return true;
         }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
-        /// <typeparam name="T">输出数据类型</typeparam>
+        /// <typeparam name="T">Output data type</typeparam>
         /// <param name="queue"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
         private void sendReturnValue<T>(CommandServerCallQueue queue, ServerInterfaceMethod method, T outputParameter)
         {
             ServerReturnValue<T> returnValue = new ServerReturnValue<T>(outputParameter);
             queue.Send(Socket, Socket.GetOutput(CallbackIdentity, method, ref returnValue));
         }
         /// <summary>
-        /// 服务端执行队列任务发送数据
+        /// The server queue task sends data
+        /// 服务端队列任务发送数据
         /// </summary>
-        /// <typeparam name="T">输出数据类型</typeparam>
+        /// <typeparam name="T">Output data type</typeparam>
         /// <param name="node"></param>
         /// <param name="queue"></param>
-        /// <param name="method">服务端输出信息</param>
-        /// <param name="outputParameter">返回值</param>
-        /// <returns>是否成功加入输出队列</returns>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="outputParameter">Return value output parameters</param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static bool SendReturnValue<T>(CommandServerCallQueueNode node, CommandServerCallQueue queue, ServerInterfaceMethod method, T outputParameter)
         {
@@ -238,6 +262,7 @@ namespace AutoCSer.Net
             return true;
         }
         /// <summary>
+        /// Set the status of the verification result of the command service
         /// 设置命令服务验证结果状态
         /// </summary>
         /// <param name="node"></param>

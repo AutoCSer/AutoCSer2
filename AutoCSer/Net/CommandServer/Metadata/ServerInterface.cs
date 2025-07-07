@@ -3,6 +3,7 @@ using AutoCSer.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 
 namespace AutoCSer.Net.CommandServer
@@ -17,6 +18,11 @@ namespace AutoCSer.Net.CommandServer
         /// 命令控制器配置
         /// </summary>
         internal CommandServerControllerInterfaceAttribute ControllerAttribute;
+        /// <summary>
+        /// The command service controller interface generates configuration
+        /// 命令服务控制器接口生成配置
+        /// </summary>
+        internal ServerControllerInterfaceAttribute GeneratorAttribute;
         /// <summary>
         /// 服务端接口方法信息集合
         /// </summary>
@@ -70,7 +76,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal LeftArray<string> Messages;
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         internal string? Error;
@@ -83,10 +89,11 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="type"></param>
         /// <param name="taskQueueControllerKeyType"></param>
         /// <param name="clientType"></param>
+        /// <param name="isGenericTypeDefinition"></param>
 #if NetStandard21
-        internal ServerInterface(Type type, Type? taskQueueControllerKeyType, Type? clientType = null)
+        internal ServerInterface(Type type, Type? taskQueueControllerKeyType, Type? clientType = null, bool isGenericTypeDefinition = false)
 #else
-        internal ServerInterface(Type type, Type taskQueueControllerKeyType, Type clientType = null)
+        internal ServerInterface(Type type, Type taskQueueControllerKeyType, Type clientType = null, bool isGenericTypeDefinition = false)
 #endif
         {
             Methods = null;
@@ -98,9 +105,11 @@ namespace AutoCSer.Net.CommandServer
             TaskQueueFieldBuilders = null;
             Messages = new LeftArray<string>(0);
 
-            ControllerAttribute = InterfaceController.GetCommandControllerAttribute(type == typeof(ServerInterface) ? clientType.notNull() : type, out Error);
+            Type getAttributeType = type == typeof(ServerInterface) ? clientType.notNull() : type;
+            GeneratorAttribute = ServerControllerInterfaceAttribute.Default;
+            ControllerAttribute = InterfaceController.GetCommandControllerAttribute(getAttributeType, isGenericTypeDefinition, out Error);
             if (Error != null) return;
-            if (clientType != null && clientType != type && !InterfaceController.CheckType(clientType, out Error)) return;
+            if (clientType != null && clientType != type && !InterfaceController.CheckType(clientType, isGenericTypeDefinition, out Error)) return;
             if (taskQueueControllerKeyType != null && ControllerAttribute.TaskQueueMaxConcurrent != 1)
             {
                 if (object.ReferenceEquals(ControllerAttribute, CommandServerController.DefaultAttribute))
@@ -109,14 +118,15 @@ namespace AutoCSer.Net.CommandServer
                 }
                 ControllerAttribute.TaskQueueMaxConcurrent = 1;
             }
+            GeneratorAttribute = getAttributeType.GetCustomAttribute<ServerControllerInterfaceAttribute>(false) ?? ServerControllerInterfaceAttribute.Default;
             if (type == typeof(ServerInterface)) return;
 
             LeftArray<ServerInterfaceMethod> methodArray = new LeftArray<ServerInterfaceMethod>(0);
-            Error = ServerInterfaceMethod.GetMethod(type, ControllerAttribute, taskQueueControllerKeyType, ref methodArray);
+            Error = ServerInterfaceMethod.GetMethod(type, ControllerAttribute, taskQueueControllerKeyType, !isGenericTypeDefinition, ref methodArray);
             if (Error != null) return;
             foreach (Type interfaceType in type.GetInterfaces())
             {
-                Error = ServerInterfaceMethod.GetMethod(interfaceType, ControllerAttribute, taskQueueControllerKeyType, ref methodArray);
+                Error = ServerInterfaceMethod.GetMethod(interfaceType, ControllerAttribute, taskQueueControllerKeyType, !isGenericTypeDefinition, ref methodArray);
                 if (Error != null) return;
             }
             if (methodArray.Length == 0)
@@ -126,7 +136,7 @@ namespace AutoCSer.Net.CommandServer
             }
 
             methodArray.Sort(InterfaceMethodBase.Compare);
-            Error = InterfaceMethodBase.CheckMethodIndexs(type, ControllerAttribute, ControllerAttribute.MethodIndexEnumType, ref methodArray, ref Messages, out Methods);
+            Error = InterfaceMethodBase.CheckMethodIndexs(type, ControllerAttribute, GeneratorAttribute.MethodIndexEnumType, ref methodArray, ref Messages, out Methods);
             if (Error != null) return;
             int methodIndex = 0;
             foreach (var method in Methods)
@@ -307,14 +317,14 @@ namespace AutoCSer.Net.CommandServer
 
             if (Methods == null)
             {
-                if (ControllerAttribute.MethodIndexEnumType != null)
+                if (GeneratorAttribute.MethodIndexEnumType != null)
                 {
-                    if (!ControllerAttribute.MethodIndexEnumType.IsEnum)
+                    if (!GeneratorAttribute.MethodIndexEnumType.IsEnum)
                     {
-                        controllerConstructorException = new Exception($"方法序号映射类型 {ControllerAttribute.MethodIndexEnumType.fullName()} 必须为 enum 类型");
+                        controllerConstructorException = new Exception($"方法序号映射类型 {GeneratorAttribute.MethodIndexEnumType.fullName()} 必须为 enum 类型");
                         return false;
                     }
-                    Array enums = System.Enum.GetValues(ControllerAttribute.MethodIndexEnumType);
+                    Array enums = System.Enum.GetValues(GeneratorAttribute.MethodIndexEnumType);
                     Dictionary<string, object> enumNames = new Dictionary<string, object>(enums.Length);
                     foreach (object value in enums) enumNames.Add(value.ToString().notNull(), value);
                     foreach (ClientInterfaceMethod method in methodArray)

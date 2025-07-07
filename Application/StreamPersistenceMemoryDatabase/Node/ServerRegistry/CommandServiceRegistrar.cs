@@ -10,15 +10,18 @@ using ValueTask = System.Threading.Tasks.Task;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
 {
     /// <summary>
-    /// 服务端注册组件
+    /// Server registration component
+    /// 服务注册组件
     /// </summary>
     public abstract class CommandServiceRegistrar : AutoCSer.Net.CommandServiceRegistrar
     {
         /// <summary>
+        /// Server registration node
         /// 服务注册节点
         /// </summary>
         protected readonly StreamPersistenceMemoryDatabaseClientNodeCache<IServerRegistryNodeClientNode> nodeCache;
         /// <summary>
+        /// The keep callback for server registration
         /// 服务注册保持回调
         /// </summary>
 #if NetStandard21
@@ -27,10 +30,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         protected volatile AutoCSer.Net.CommandKeepCallback keepCallback;
 #endif
         /// <summary>
-        /// 服务主机与端口信息
+        /// Server host and port information
+        /// 服务端主机与端口信息
         /// </summary>
         protected AutoCSer.Net.HostEndPoint endPoint;
         /// <summary>
+        /// Server Registration Log
         /// 服务注册日志
         /// </summary>
 #if NetStandard21
@@ -39,22 +44,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         protected ServerRegistryLog serverRegistryLog;
 #endif
         /// <summary>
+        /// Server session Identifier
         /// 服务会话标识ID
         /// </summary>
         protected ResponseResult<long> sessionID;
         /// <summary>
-        /// 注册节点类型
+        /// Server registration log operation type
+        /// 服务注册日志操作类型
         /// </summary>
         private readonly ServerRegistryOperationTypeEnum serverRegistryType;
         /// <summary>
+        /// Callback version
         /// 回调版本
         /// </summary>
         protected volatile int version;
         /// <summary>
+        /// Has the server registration component been added
         /// 是否已经添加服务端注册组件
         /// </summary>
         private bool isAppendRegistrar;
         /// <summary>
+        /// Can the server registration component be added
         /// 是否可以添加服务端注册组件
         /// </summary>
         internal bool IsAppendRegistrar
@@ -70,18 +80,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             }
         }
         /// <summary>
-        /// 服务端注册组件
+        /// Server registration component
+        /// 服务注册组件
         /// </summary>
-        /// <param name="server">待注册命令服务</param>
-        /// <param name="node">服务注册节点缓存</param>
-        /// <param name="serverRegistryType">注册节点类型</param>
+        /// <param name="server">The server is listening for the command to be registered
+        /// 待注册命令服务端监听</param>
+        /// <param name="node">Server registration node cache
+        /// 服务注册节点缓存</param>
+        /// <param name="serverRegistryType">Register node type
+        /// 注册节点类型</param>
         protected CommandServiceRegistrar(AutoCSer.Net.CommandListenerBase server, StreamPersistenceMemoryDatabaseClientNodeCache<IServerRegistryNodeClientNode> node, ServerRegistryOperationTypeEnum serverRegistryType = ServerRegistryOperationTypeEnum.Singleton) : base(server)
         {
             this.nodeCache = node;
             this.serverRegistryType = serverRegistryType;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override void Dispose()
         {
@@ -98,7 +112,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             base.Dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override async ValueTask DisposeAsync()
         {
@@ -111,10 +125,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             await base.DisposeAsync();
         }
         /// <summary>
-        /// 服务注册回调委托
+        /// Server registration callback
+        /// 服务注册回调
         /// </summary>
         /// <returns></returns>
-        public virtual async Task ServiceCallback()
+        public virtual async Task ServerCallback()
         {
             keepCallback = null;
             ++version;
@@ -126,7 +141,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
                     if (!sessionID.IsSuccess) sessionID = await node.Value.notNull().GetSessionID();
                     if (sessionID.IsSuccess)
                     {
-                        keepCallback = await node.Value.notNull().ServiceCallback(sessionID.Value, serviceCallback);
+                        keepCallback = await node.Value.notNull().ServerCallback(sessionID.Value, serviceCallback);
                         if (serverRegistryLog == null && endPoint.Port != 0) serverRegistryLog = getServerRegistryLog(endPoint);
                         if (serverRegistryLog != null) await node.Value.notNull().Append(serverRegistryLog);
                     }
@@ -134,6 +149,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             }
         }
         /// <summary>
+        /// Server registration callback
         /// 服务注册回调
         /// </summary>
         /// <param name="operationType"></param>
@@ -151,6 +167,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             }
         }
         /// <summary>
+        /// Gets the server registration log
         /// 获取服务注册日志
         /// </summary>
         /// <param name="endPoint"></param>
@@ -161,18 +178,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         }
     }
     /// <summary>
-    /// 服务端注册组件
+    /// Server registration component
+    /// 服务注册组件
     /// </summary>
-    /// <typeparam name="T">客户端套接字事件类型</typeparam>
+    /// <typeparam name="T">Command the client socket event type
+    /// 命令客户端套接字事件类型</typeparam>
     public class CommandServiceRegistrar<T> : CommandServiceRegistrar
         where T : ServerRegistryCommandClientSocketEvent<T>
     {
         /// <summary>
+        /// Command client socket event caching
         /// 命令客户端套接字事件缓存
         /// </summary>
         private readonly CommandClientSocketEventCache<T> client;
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override void Dispose()
         {
@@ -180,7 +200,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             base.Dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public override async ValueTask DisposeAsync()
         {
@@ -188,17 +208,23 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
             await base.DisposeAsync();
         }
         /// <summary>
-        /// 服务端注册组件
+        /// Server registration component
+        /// 服务注册组件
         /// </summary>
-        /// <param name="server">待注册命令服务</param>
-        /// <param name="client">命令客户端套接字事件缓存</param>
-        /// <param name="node">服务注册节点缓存</param>
-        /// <param name="serverRegistryType">注册节点类型</param>
+        /// <param name="server">The server is listening for the command to be registered
+        /// 待注册命令服务端监听</param>
+        /// <param name="client">Command client socket event caching
+        /// 命令客户端套接字事件缓存</param>
+        /// <param name="node">Server registration node cache
+        /// 服务注册节点缓存</param>
+        /// <param name="serverRegistryType">Register node type
+        /// 注册节点类型</param>
         public CommandServiceRegistrar(AutoCSer.Net.CommandListenerBase server, CommandClientSocketEventCache<T> client, StreamPersistenceMemoryDatabaseClientNodeCache<IServerRegistryNodeClientNode> node, ServerRegistryOperationTypeEnum serverRegistryType = ServerRegistryOperationTypeEnum.Singleton) : base(server, node, serverRegistryType) 
         {
             this.client = client;
         }
         /// <summary>
+        /// The server listener was successful
         /// 服务监听成功
         /// </summary>
         /// <param name="endPoint"></param>

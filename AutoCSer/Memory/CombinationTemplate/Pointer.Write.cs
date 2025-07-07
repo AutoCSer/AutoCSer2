@@ -11,7 +11,7 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写数据
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Write(ulong value)
         {

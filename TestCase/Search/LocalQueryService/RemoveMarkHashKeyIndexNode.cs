@@ -7,7 +7,8 @@ namespace AutoCSer.TestCase.SearchQueryService
     /// <summary>
     /// 带移除标记的可重用哈希索引节点
     /// </summary>
-    /// <typeparam name="T">索引关键字类型</typeparam>
+    /// <typeparam name="T">Index keyword type
+    /// 索引关键字类型</typeparam>
     internal sealed class RemoveMarkHashKeyIndexNode<T> : AutoCSer.CommandService.Search.DiskBlockIndex.RemoveMarkHashKeyIndexNode<T>
 #if NetStandard21
         where T : notnull, IEquatable<T>
@@ -29,7 +30,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 根据索引关键字获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="key">索引关键字</param>
+        /// <param name="key">Index keyword
+        /// 索引关键字</param>
         /// <returns></returns>
         public override IDiskBlockClient GetDiskBlockClient(T key)
         {
@@ -38,7 +40,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <summary>
         /// 获取磁盘块索引信息客户端
         /// </summary>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         /// <returns></returns>
         public override IDiskBlockClient GetDiskBlockClient(BlockIndex blockIndex)
         {

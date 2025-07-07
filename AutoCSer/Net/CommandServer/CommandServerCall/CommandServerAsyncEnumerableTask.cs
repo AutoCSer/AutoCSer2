@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// TCP 服务器端异步保持回调
+    /// TCP 服务器端异步保持回调任务
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal sealed class CommandServerAsyncEnumerableTask<T> : CommandServerKeepCallbackCount<T>
@@ -18,7 +18,7 @@ namespace AutoCSer.Net
         /// </summary>
         private readonly Task callTask;
         /// <summary>
-        /// TCP 服务器端异步回调
+        /// TCP 服务器端异步保持回调任务
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>
@@ -43,7 +43,8 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
-        /// 创建 TCP 服务器端异步回调对象
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="method"></param>

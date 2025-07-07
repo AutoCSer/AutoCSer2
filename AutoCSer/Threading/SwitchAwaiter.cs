@@ -11,10 +11,12 @@ namespace AutoCSer.Threading
     public sealed class SwitchAwaiter : INotifyCompletion
     {
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         private readonly bool isCompleted;
         /// <summary>
+        /// Completed status
         /// 完成状态
         /// </summary>
         public bool IsCompleted { get { return isCompleted; } }
@@ -28,6 +30,7 @@ namespace AutoCSer.Threading
         /// <param name="isCompleted"></param>
         private SwitchAwaiter(bool isCompleted) { this.isCompleted = isCompleted; }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -36,12 +39,14 @@ namespace AutoCSer.Threading
             await this;
         }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void GetResult() { }
         /// <summary>
+        /// await support
         /// await 支持
         /// </summary>
         /// <returns></returns>
@@ -51,6 +56,7 @@ namespace AutoCSer.Threading
             return this;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>

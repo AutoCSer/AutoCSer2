@@ -21,7 +21,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new SnapshotCloneNode<T>((ISnapshot<T>)target);
         }
         /// <summary>
-        /// 代码生成模板
+        /// AOT code generation template
+        /// AOT 代码生成模板
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -35,7 +36,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照克隆接口节点
     /// </summary>
-    /// <typeparam name="T">快照数据类型</typeparam>
+    /// <typeparam name="T">Snapshot data type
+    /// 快照数据类型</typeparam>
     internal sealed class SnapshotCloneNode<T> : SnapshotNode<T>
         where T : SnapshotCloneObject<T>
     {
@@ -45,6 +47,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="target">操作节点对象</param>
         internal SnapshotCloneNode(ISnapshot<T> target) : base(target) { }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         internal override void GetResult()

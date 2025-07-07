@@ -19,10 +19,12 @@ namespace AutoCSer.TestCase.BusinessClient
         /// </summary>
         public static CommandClient CommandClient { get { return Instance.commandClient; } }
         /// <summary>
+        /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
         private readonly CommandClientSocketEvent socketEvent;
         /// <summary>
+        /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
         public static CommandClientSocketEvent SocketEvent { get { return Instance.socketEvent; } }

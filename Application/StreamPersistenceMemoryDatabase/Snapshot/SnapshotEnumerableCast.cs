@@ -11,6 +11,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public sealed class SnapshotEnumerableCast<ST, T> : ISnapshotEnumerable<T>
     {
         /// <summary>
+        /// Snapshot collection
         /// 快照集合
         /// </summary>
         private readonly ISnapshotEnumerable<ST> snapshot;
@@ -29,6 +30,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.getValue = getValue;
         }
         /// <summary>
+        /// Get the collection of snapshot objects
         /// 获取快照对象集合
         /// </summary>
         IEnumerable<T> ISnapshotEnumerable<T>.SnapshotValues
@@ -42,13 +44,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 预申请快照容器数组
+        /// Get the array of pre-applied snapshot containers
+        /// 获取预申请快照容器数组
         /// </summary>
         void ISnapshotEnumerable<T>.GetSnapshotValueArray()
         {
             snapshot.GetSnapshotValueArray();
         }
         /// <summary>
+        /// Get the snapshot data collection
         /// 获取快照数据集合
         /// </summary>
         void ISnapshotEnumerable<T>.GetSnapshotResult()
@@ -56,6 +60,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             snapshot.GetSnapshotResult();
         }
         /// <summary>
+        /// Close the snapshot operation
         /// 关闭快照操作
         /// </summary>
         void ISnapshotEnumerable<T>.CloseSnapshot()

@@ -13,11 +13,16 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="callback"></param>
-        /// <param name="head">开始节点</param>
-        /// <param name="getCount">获取数量</param>
-        /// <param name="end">结束节点</param>
-        /// <param name="endCount">实际结束数量</param>
-        /// <param name="isCancel">回调完成之后是否关闭</param>
+        /// <param name="head">Head node
+        /// 头节点</param>
+        /// <param name="getCount">Get the quantity
+        /// 获取数量</param>
+        /// <param name="end">End node
+        /// 结束节点</param>
+        /// <param name="endCount">Actual end number
+        /// 实际结束数量</param>
+        /// <param name="isCancel">Whether to close the callback after the callback is completed
+        /// 回调完成之后是否关闭回调</param>
         /// <returns></returns>
 #if NetStandard21
         public static bool Callback<T>(this CommandServerKeepCallback<T> callback, T head, int getCount, out T? end, out int endCount, bool isCancel = true)

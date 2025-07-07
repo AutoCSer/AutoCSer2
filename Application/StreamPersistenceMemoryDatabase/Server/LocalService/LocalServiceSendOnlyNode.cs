@@ -28,6 +28,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 
         }
         /// <summary>
+        /// Call the node method
         /// 调用节点方法
         /// </summary>
         public override void RunTask()
@@ -39,9 +40,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 创建本地服务调用节点方法队列节点
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="clientNode">本地服务客户端节点</param>
-        /// <param name="methodIndex">调用方法编号</param>
-        /// <param name="parameter">调用参数</param>
+        /// <param name="clientNode">Local service client node
+        /// 本地服务客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="parameter">Call parameters
+        /// 调用参数</param>
         /// <returns></returns>
 #if NetStandard21
         public static MethodParameter? Create<T>(LocalClientNode clientNode, int methodIndex, T parameter) where T : struct

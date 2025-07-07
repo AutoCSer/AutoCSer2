@@ -10,7 +10,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
     /// <summary>
     /// 索引数据磁盘块索引缓存节点
     /// </summary>
-    /// <typeparam name="KT">索引关键字类型</typeparam>
+    /// <typeparam name="KT">Index keyword type
+    /// 索引关键字类型</typeparam>
     /// <typeparam name="VT">索引数据类型</typeparam>
     public abstract class UIntIndex<KT, VT> : BlockIndexDataCacheNode<KT, VT>
 #if NetStandard21
@@ -53,7 +54,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// 索引数据磁盘块索引缓存节点
         /// </summary>
         /// <param name="cache">索引数据磁盘块索引缓存</param>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         protected UIntIndex(BlockIndexDataCache<KT, VT> cache, KT key) : base(cache, key)
         {
             LittleValues = RemoveMarkHashSet.Empty;
@@ -80,7 +81,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             return count;
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="hashSet"></param>
         protected void load(ReusableHashCodeKeyHashSet hashSet)
@@ -101,7 +102,8 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
     /// <summary>
     /// 索引数据磁盘块索引缓存节点 KT:uint
     /// </summary>
-    /// <typeparam name="KT">索引关键字类型</typeparam>
+    /// <typeparam name="KT">Index keyword type
+    /// 索引关键字类型</typeparam>
     public sealed class UIntIndex<KT> : UIntIndex<KT, uint>
 #if NetStandard21
         where KT : notnull, IEquatable<KT>
@@ -113,7 +115,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
         /// 索引数据磁盘块索引缓存节点
         /// </summary>
         /// <param name="cache">索引数据磁盘块索引缓存</param>
-        /// <param name="key">关键字</param>
+        /// <param name="key">keyword</param>
         internal UIntIndex(BlockIndexDataCache<KT, uint> cache, KT key) : base(cache, key) { }
         /// <summary>
         /// 少量数据索引
@@ -138,7 +140,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             manyValues = new ReusableHashCodeKeyHashSet(data.Values);
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="capacity"></param>
@@ -147,7 +149,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             load(nodes, new ReusableHashCodeKeyHashSet(capacity));
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="hashSet"></param>
@@ -180,7 +182,7 @@ namespace AutoCSer.CommandService.Search.RemoveMarkHashIndexCache
             if (count != 0) cache.AddValueCount(this, count);
         }
         /// <summary>
-        /// 加载数据
+        /// Load data
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="manyIndex"></param>

@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Synchronous waiting command
     /// 同步等待命令
     /// </summary>
     internal class SynchronousCommand : Command
@@ -25,7 +26,7 @@ namespace AutoCSer.Net.CommandServer
         //    set { WaitLock.Reserved = (byte)value; }
         //}
         /// <summary>
-        /// 错误信息
+        /// Error message
         /// </summary>
 #if NetStandard21
         private string? errorMessage;
@@ -33,10 +34,11 @@ namespace AutoCSer.Net.CommandServer
         private string errorMessage;
 #endif
         /// <summary>
-        /// 返回值
+        /// Return value
         /// </summary>
         internal CommandClientReturnValue ReturnValue { get { return new CommandClientReturnValue(ReturnType, errorMessage); } }
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <param name="controller"></param>
@@ -47,10 +49,12 @@ namespace AutoCSer.Net.CommandServer
             //WaitLock.Set(this);
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -88,7 +92,8 @@ namespace AutoCSer.Net.CommandServer
             return this;
         }
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType)
@@ -97,9 +102,11 @@ namespace AutoCSer.Net.CommandServer
             WaitLock.setDispose();
         }
         /// <summary>
-        /// 返回值回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
@@ -123,9 +130,11 @@ namespace AutoCSer.Net.CommandServer
             return CommandClientReturnTypeEnum.SocketClosed;
         }
         /// <summary>
-        /// 检查等待添加队列命令
+        /// The command waiting for idle output attempts to be added to the output queue again
+        /// 等待空闲输出的命令再次尝试添加到输出队列
         /// </summary>
-        /// <returns>是否需要继续等待</returns>
+        /// <returns>Is it necessary to keep waiting
+        /// 是否需要继续等待</returns>
         internal override bool CheckWaitPush()
         {
             switch (Controller.Socket.TryPush(this))
@@ -140,6 +149,7 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
+        /// Return value callback
         /// 返回值回调
         /// </summary>
         /// <param name="data"></param>
@@ -177,6 +187,7 @@ namespace AutoCSer.Net.CommandServer
         }
     }
     /// <summary>
+    /// Synchronous waiting command
     /// 同步等待命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -184,10 +195,11 @@ namespace AutoCSer.Net.CommandServer
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         private T inputParameter;
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <param name="controller"></param>
@@ -211,10 +223,12 @@ namespace AutoCSer.Net.CommandServer
         //    this.inputParameter = inputParameter;
         //}
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else

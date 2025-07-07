@@ -467,7 +467,8 @@ namespace AutoCSer.ORM
         /// 查询表格数据
         /// </summary>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="readCount">读取数据数量，0 表示不限制</param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
@@ -487,7 +488,8 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="VT"></typeparam>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="readCount">读取数据数量，0 表示不限制</param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
         /// <param name="skipCount">跳过记录数量，比如用于分页</param>
@@ -619,7 +621,8 @@ namespace AutoCSer.ORM
         /// 查询表格数据
         /// </summary>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="pageIndex">分页号，从 1 开始</param>
         /// <param name="pageSize">分页记录数，最小值为 1</param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
@@ -639,7 +642,8 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="VT"></typeparam>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="pageIndex">分页号，从 1 开始</param>
         /// <param name="pageSize">分页记录数，最小值为 1</param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
@@ -809,7 +813,8 @@ namespace AutoCSer.ORM
         /// 查询表格分页数据
         /// </summary>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="pageIndex">分页号，从 1 开始</param>
         /// <param name="pageSize">分页记录数，最小值为 1</param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>
@@ -829,7 +834,8 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <typeparam name="VT"></typeparam>
         /// <typeparam name="CT">转换数据类型</typeparam>
-        /// <param name="getValue">数据转换委托</param>
+        /// <param name="getValue">Delegate for data transformation
+        /// 数据转换委托</param>
         /// <param name="pageIndex">分页号，从 1 开始</param>
         /// <param name="pageSize">分页记录数，最小值为 1</param>
         /// <param name="timeoutSeconds">查询命令超时秒数，0 表示不设置为默认值</param>

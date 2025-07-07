@@ -18,7 +18,8 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 填充整数
         /// </summary>
-        /// <param name="src">串起始地址,不能为null</param>
+        /// <param name="src">The starting address cannot be null
+        /// 起始地址，不能为null</param>
         /// <param name="count">整数数量,大于0</param>
 #if NetStandard21
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -52,7 +53,8 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 填充整数
         /// </summary>
-        /// <param name="src">串起始地址，不能为 null</param>
+        /// <param name="src">The starting address cannot be null
+        /// 起始地址，不能为null</param>
         /// <param name="count">字节数量，必须大于 0</param>
         internal unsafe static void Clear(byte* src, int count)
         {
@@ -89,7 +91,8 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 填充整数
         /// </summary>
-        /// <param name="src">串起始地址,不能为null</param>
+        /// <param name="src">The starting address cannot be null
+        /// 起始地址，不能为null</param>
         /// <param name="count">整数数量,大于0</param>
         /// <param name="value">填充整数</param>
 #if NetStandard21
@@ -124,8 +127,10 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 复制字节数组
         /// </summary>
-        /// <param name="source">原串起始地址,不能为null</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
+        /// <param name="source">The starting address of the original data cannot be null
+        /// 原数据起始地址，不能为null</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
         /// <param name="length">字节长度,大于等于0</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void Copy(void* source, void* destination, int length)
@@ -139,8 +144,10 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 复制字节数组
         /// </summary>
-        /// <param name="source">原串起始地址,不能为null</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
+        /// <param name="source">The starting address of the original data cannot be null
+        /// 原数据起始地址，不能为null</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
         /// <param name="length">字节长度,大于等于0</param>
         internal unsafe static void Copy(void* source, void* destination, long length)
         {
@@ -189,8 +196,10 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 复制字节数组(不足8字节按8字节算)
         /// </summary>
-        /// <param name="source">原串起始地址,不能为null</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
+        /// <param name="source">The starting address of the original data cannot be null
+        /// 原数据起始地址，不能为null</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
         /// <param name="length">字节长度,大于0</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static void SimpleCopyNotNull64(byte* source, byte* destination, int length)
@@ -214,8 +223,10 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 复制字节数组
         /// </summary>
-        /// <param name="source">原串起始地址,不能为null</param>
-        /// <param name="destination">目标串起始地址,不能为null</param>
+        /// <param name="source">The starting address of the original data cannot be null
+        /// 原数据起始地址，不能为null</param>
+        /// <param name="destination">The starting address of the target data cannot be null
+        /// 目标数据起始地址，不能为null</param>
         /// <param name="length">字节长度,大于等于0</param>
         private unsafe static void copy(byte* source, byte* destination, long length)
         {
@@ -265,12 +276,16 @@ namespace AutoCSer.Memory
             if ((length & 1) != 0) *destination = *source;
         }
         /// <summary>
+        /// Comparison of byte arrays
         /// 字节数组比较
         /// </summary>
-        /// <param name="left">不能为null</param>
-        /// <param name="right">不能为null</param>
+        /// <param name="left">null is not allowed
+        /// 不允许为 null</param>
+        /// <param name="right">null is not allowed
+        /// 不允许为 null</param>
         /// <param name="count">比较字节数</param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
         private unsafe static bool equal(byte* left, byte* right, int count)
         {
 #if DEBUG
@@ -316,12 +331,16 @@ namespace AutoCSer.Memory
 #endif
 
         /// <summary>
+        /// Comparison of byte arrays
         /// 字节数组比较
         /// </summary>
-        /// <param name="left">不能为null</param>
-        /// <param name="right">不能为null</param>
+        /// <param name="left">null is not allowed
+        /// 不允许为 null</param>
+        /// <param name="right">null is not allowed
+        /// 不允许为 null</param>
         /// <param name="count">比较字节数</param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
 #if NetStandard21
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #endif
@@ -341,12 +360,16 @@ namespace AutoCSer.Memory
 #endif
         }
         /// <summary>
+        /// Comparison of byte arrays
         /// 字节数组比较
         /// </summary>
-        /// <param name="left">不能为null</param>
-        /// <param name="right">不能为null</param>
+        /// <param name="left">null is not allowed
+        /// 不允许为 null</param>
+        /// <param name="right">null is not allowed
+        /// 不允许为 null</param>
         /// <param name="count">比较字节数,必须大于等于0</param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
         internal unsafe static bool SimpleEqualNotNull(byte* left, byte* right, int count)
         {
 #if DEBUG
@@ -361,12 +384,16 @@ namespace AutoCSer.Memory
             return (count &= (sizeof(ulong) - 1)) == 0 || (*((ulong*)left) ^ *((ulong*)right)) << (64 - (count << 3)) == 0;
         }
         /// <summary>
+        /// Comparison of byte arrays
         /// 字节数组比较
         /// </summary>
-        /// <param name="left">不能为null</param>
-        /// <param name="right">不能为null</param>
+        /// <param name="left">null is not allowed
+        /// 不允许为 null</param>
+        /// <param name="right">null is not allowed
+        /// 不允许为 null</param>
         /// <param name="count">比较字节数,必须大于等于0</param>
-        /// <returns>是否相等</returns>
+        /// <returns>Is it equal
+        /// 是否相等</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe static bool SimpleEqualNotNull(ref Pointer left, ref Pointer right, int count)
         {
@@ -392,7 +419,8 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 计算 64 位 HASH 值
         /// </summary>
-        /// <param name="start">数据起始位置</param>
+        /// <param name="start">Data starting position
+        /// 数据起始位置</param>
         /// <param name="length">数据长度</param>
         /// <returns>64 位 HASH 值</returns>
         internal unsafe static ulong GetHashCode64(byte* start, int length)

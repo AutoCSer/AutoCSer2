@@ -16,7 +16,8 @@ namespace AutoCSer.Net
     public abstract class AsyncEnumerableQueueTask<T> : CommandServerCallTaskQueueNode
     {
         /// <summary>
-        /// TCP 服务器端异步保持回调
+        /// TCP server-side asynchronously keep callback count
+        /// TCP 服务器端异步保持回调计数
         /// </summary>
         [AllowNull]
         private CommandServerKeepCallbackCount<T> keepCallback;
@@ -90,6 +91,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>
@@ -133,6 +135,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Get the command service socket
         /// 获取命令服务套接字
         /// </summary>
         /// <param name="task"></param>

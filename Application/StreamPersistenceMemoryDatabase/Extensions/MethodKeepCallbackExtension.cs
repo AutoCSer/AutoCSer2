@@ -7,6 +7,7 @@ using System.Reflection;
 namespace AutoCSer.Extensions
 {
     /// <summary>
+    /// Method call callback wrapper extension operations
     /// 方法调用回调包装扩展操作
     /// </summary>
     public static class MethodKeepCallbackExtension
@@ -17,12 +18,15 @@ namespace AutoCSer.Extensions
         //private static readonly Assembly currentAssembly = typeof(MethodKeepCallbackExtension).Assembly;
 
         /// <summary>
-        /// 返回数据链表
+        /// Data linked list callback
+        /// 数据链表回调
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methodCallback"></param>
-        /// <param name="head">开始节点</param>
-        /// <param name="end">结束节点</param>
+        /// <param name="head">Head node
+        /// 头节点</param>
+        /// <param name="end">End node
+        /// 结束节点</param>
         /// <returns></returns>
 #if NetStandard21
         internal static bool Callback<T>(this MethodKeepCallback<T> methodCallback, T head, T? end)

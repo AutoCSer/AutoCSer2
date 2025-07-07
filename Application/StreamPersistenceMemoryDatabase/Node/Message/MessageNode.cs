@@ -10,7 +10,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 消息处理节点
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     /// <typeparam name="IT">消息处理节点接口类型</typeparam>
     public abstract class MessageNode<T, IT> : ContextNode<IT, T>, ISnapshot<T>
         where IT : class, IMessageNode<T>
@@ -18,7 +19,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 消息处理节点
     /// </summary>
-    /// <typeparam name="T">消息数据类型</typeparam>
+    /// <typeparam name="T">Message data type
+    /// 消息数据类型</typeparam>
     public sealed class MessageNode<T> : ContextNode<IMessageNode<T>, T>, IMessageNode<T>, ISnapshot<T>
 #endif
         where T : Message<T>
@@ -140,9 +142,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 消息处理节点
         /// </summary>
-        /// <param name="arraySize">正在处理消息数组大小</param>
-        /// <param name="timeoutSeconds">消息处理超时秒数</param>
-        /// <param name="checkTimeoutSeconds">消息超时检查间隔秒数</param>
+        /// <param name="arraySize">The size of the message array being processed
+        /// 正在处理的消息数组大小</param>
+        /// <param name="timeoutSeconds">The number of seconds of message processing timeout
+        /// 消息处理超时秒数</param>
+        /// <param name="checkTimeoutSeconds">Check the interval in seconds for message timeouts
+        /// 消息超时检查间隔秒数</param>
         public MessageNode(int arraySize = 1 << 10, int timeoutSeconds = 30, int checkTimeoutSeconds = 1)
         {
             timeoutTimestamp = AutoCSer.Date.GetTimestampBySeconds(Math.Max(timeoutSeconds, 1));
@@ -163,9 +168,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             sendFailedIndex = -1;
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
-        /// <returns>加载完毕替换的新节点</returns>
+        /// <returns>The new node that has been loaded and replaced
+        /// 加载完毕替换的新节点</returns>
 #if AOT
         public override IT? StreamPersistenceMemoryDatabaseServiceLoaded()
 #else
@@ -194,7 +201,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         }
         /// <summary>
-        /// 节点移除后处理
+        /// Processing operations after node removal
+        /// 节点移除后的处理操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceNodeOnRemoved()
         {
@@ -203,6 +211,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             while (callbacks.TryPopOnly(out callback)) callback.Callback.notNull().CancelKeep();
         }
         /// <summary>
+        /// Database service shutdown operation
         /// 数据库服务关闭操作
         /// </summary>
         public override void StreamPersistenceMemoryDatabaseServiceDisposable()
@@ -210,20 +219,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             checkTimer.Cancel();
         }
         /// <summary>
+        /// Get the snapshot data collection container size for pre-applying snapshot data containers
         /// 获取快照数据集合容器大小，用于预申请快照数据容器
         /// </summary>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据集合容器大小</returns>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>The size of the snapshot data collection container
+        /// 快照数据集合容器大小</returns>
         public int GetSnapshotCapacity(ref object customObject)
         {
             return count + failedCount + 1;
         }
         /// <summary>
+        /// Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
         /// 获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
         /// </summary>
-        /// <param name="snapshotArray">预申请的快照数据容器</param>
-        /// <param name="customObject">自定义对象，用于预生成辅助数据</param>
-        /// <returns>快照数据信息</returns>
+        /// <param name="snapshotArray">Pre-applied snapshot data container
+        /// 预申请的快照数据容器</param>
+        /// <param name="customObject">Custom objects for pre-generating auxiliary data
+        /// 自定义对象，用于预生成辅助数据</param>
+        /// <returns>Snapshot data
+        /// 快照数据</returns>
         public SnapshotResult<T> GetSnapshotResult(T[] snapshotArray, object customObject)
         {
             SnapshotResult<T> result = new SnapshotResult<T>(count + failedCount + 1, snapshotArray.Length);
@@ -240,9 +256,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return result;
         }
         /// <summary>
-        /// 快照设置数据
+        /// Load snapshot data (recover memory data from snapshot data)
+        /// 加载快照数据（从快照数据恢复内存数据）
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">data</param>
         public void SnapshotAdd(T value)
         {
             if (getLoader().SnapshotAdd(value)) CurrentIdentity = value.MessageIdeneity.Identity;
@@ -315,7 +332,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             failedEnd = message;
         }
         /// <summary>
-        /// 获取未处理完成消息数量（包括失败消息）
+        /// Get the number of uncompleted messages (including failed messages)
+        /// 获取未完成消息数量（包括失败消息）
         /// </summary>
         /// <returns></returns>
         public int GetTotalCount()
@@ -323,7 +341,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return count + failedCount;
         }
         /// <summary>
-        /// 获取未处理完成消息数量（不包括失败消息）
+        /// Get the number of uncompleted messages (excluding failed messages)
+        /// 获取未完成消息数量（不包括失败消息）
         /// </summary>
         /// <returns></returns>
         public int GetCount()
@@ -331,6 +350,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return count;
         }
         /// <summary>
+        /// Get the number of consumer callbacks
         /// 获取消费者回调数量
         /// </summary>
         /// <returns></returns>
@@ -339,6 +359,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return callbacks.Length;
         }
         /// <summary>
+        /// Get the number of unfinished timeout messages
         /// 获取未完成处理超时消息数量
         /// </summary>
         /// <returns></returns>
@@ -347,13 +368,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return timeoutMessages.Count;
         }
         /// <summary>
-        /// 清除所有消息
+        /// Clear all messages (Initialize and load the persistent data)
+        /// 清除所有消息（初始化加载持久化数据）
         /// </summary>
         public void ClearLoadPersistence()
         {
             tryGetLoader()?.Clear();
         }
         /// <summary>
+        /// Clear all messages
         /// 清除所有消息
         /// </summary>
         public void Clear()
@@ -370,6 +393,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (fullCallbackIndex != 0) currentCallback = callbacks[0].Callback;
         }
         /// <summary>
+        /// Get the number of failed messages (Including handling timeout messages)
         /// 获取失败消息数量（包括处理超时消息）
         /// </summary>
         /// <returns></returns>
@@ -387,13 +411,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             failedHead.LinkNext = null;
         }
         /// <summary>
-        /// 清除所有失败消息（包括处理超时消息）
+        /// Clear all failure messages (including handling timeout messages)  (Initialize and load the persistent data)
+        /// 清除所有失败消息（包括处理超时消息）（初始化加载持久化数据）
         /// </summary>
         public void ClearFailedLoadPersistence()
         {
             tryGetLoader()?.ClearFailed();
         }
         /// <summary>
+        /// Clear all failure messages (including handling timeout messages)
         /// 清除所有失败消息（包括处理超时消息）
         /// </summary>
         public void ClearFailed()
@@ -443,10 +469,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (index == 0) currentCallback = fullCallbackIndex != 0 ? callbackArray[0].Callback : null;
         }
         /// <summary>
+        /// The consumer client gets the message
         /// 消费客户端获取消息
         /// </summary>
-        /// <param name="maxCount">当前客户端最大并发消息数量</param>
-        /// <param name="callback"></param>
+        /// <param name="maxCount">The current maximum number of concurrent messages on the client side
+        /// 当前客户端最大并发消息数量</param>
+        /// <param name="callback">Returning null indicates the heart rate test data. The client should ignore the null message
+        /// 返回 null 表示心跳测试数据，客户端应该忽略 null 消息</param>
 #if NetStandard21
         public void GetMessage(int maxCount, MethodKeepCallback<T?> callback)
 #else
@@ -621,7 +650,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return next;
         }
         /// <summary>
-        /// 生产者添加新消息
+        /// Producers add new message (Initialize and load the persistent data)
+        /// 生产者添加新消息（初始化加载持久化数据）
         /// </summary>
         /// <param name="message"></param>
         public void AppendMessageLoadPersistence(T message)
@@ -630,6 +660,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             getLoader().AppendMessage(message);
         }
         /// <summary>
+        /// Producers add new message
         /// 生产者添加新消息
         /// </summary>
         /// <param name="message"></param>
@@ -663,7 +694,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             //while (currentCallback != null);
         }
         /// <summary>
-        /// 消息完成处理
+        /// The message has been processed (Initialize and load the persistent data)
+        /// 消息完成处理（初始化加载持久化数据）
         /// </summary>
         /// <param name="identity"></param>
         public void CompletedLoadPersistence(MessageIdeneity identity)
@@ -671,6 +703,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             tryGetLoader()?.Completed(identity);
         }
         /// <summary>
+        /// The message has been processed
         /// 消息完成处理
         /// </summary>
         /// <param name="identity"></param>
@@ -736,7 +769,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// 消息失败处理
+        /// Message failed processing (Initialize and load the persistent data)
+        /// 消息失败处理（初始化加载持久化数据）
         /// </summary>
         /// <param name="identity"></param>
         public void FailedLoadPersistence(MessageIdeneity identity)
@@ -744,6 +778,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             tryGetLoader()?.Failed(identity);
         }
         /// <summary>
+        /// Message failed processing
         /// 消息失败处理
         /// </summary>
         /// <param name="identity"></param>
@@ -768,6 +803,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Message failed processing
         /// 消息失败处理
         /// </summary>
         /// <param name="message"></param>

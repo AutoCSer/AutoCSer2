@@ -6,7 +6,7 @@ namespace AutoCSer
     /// <summary>
     /// 0 长度空数组已完成任务
     /// </summary>
-    /// <typeparam name="T">返回值类型</typeparam>
+    /// <typeparam name="T">Return value type</typeparam>
     public static class EmptyLeftArrayCompletedTask<T>
     {
         /// <summary>

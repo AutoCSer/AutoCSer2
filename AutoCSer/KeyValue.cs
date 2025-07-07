@@ -5,11 +5,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer
 {
     /// <summary>
+    /// Key-value pairs
     /// 键值对
     /// </summary>
     public static class KeyValue
     {
         /// <summary>
+        /// Get the key-value pair
         /// 获取键值对
         /// </summary>
         /// <typeparam name="KT"></typeparam>
@@ -23,10 +25,13 @@ namespace AutoCSer
         }
     }
     /// <summary>
+    /// Key-value pairs
     /// 键值对
     /// </summary>
-    /// <typeparam name="KT">键类型</typeparam>
-    /// <typeparam name="VT">值类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// </typeparam>
+    /// <typeparam name="VT">Data value type
+    /// 数据值类型</typeparam>
 #if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
 #endif
@@ -35,18 +40,19 @@ namespace AutoCSer
     public partial struct KeyValue<KT, VT>
     {
         /// <summary>
-        /// 键
+        /// Keyword
         /// </summary>
         public KT Key;
         /// <summary>
-        /// 值
+        /// Data value
         /// </summary>
         public VT Value;
         /// <summary>
+        /// Key-value pairs
         /// 键值对
         /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">值</param>
+        /// <param name="key">Keyword</param>
+        /// <param name="value">Data value</param>
         public KeyValue(KT key, VT value)
         {
             Key = key;
@@ -55,24 +61,26 @@ namespace AutoCSer
         ///// <summary>
         ///// 键值对
         ///// </summary>
-        ///// <param name="key">键</param>
-        ///// <param name="value">值</param>
+        ///// <param name="key">Keyword</param>
+        ///// <param name="value">Data value</param>
         //public KeyValue(ref KT key, VT value)
         //{
         //    Key = key;
         //    Value = value;
         //}
         /// <summary>
+        /// Key-value pairs
         /// 键值对
         /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">值</param>
+        /// <param name="key">Keyword</param>
+        /// <param name="value">Data value</param>
         public KeyValue(ref KT key, ref VT value)
         {
             Key = key;
             Value = value;
         }
         /// <summary>
+        /// Clear the data
         /// 清空数据
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -84,10 +92,11 @@ namespace AutoCSer
 #pragma warning restore CS8601
         }
         /// <summary>
+        /// Reset the key-value pair
         /// 重置键值对
         /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">值</param>
+        /// <param name="key">Keyword</param>
+        /// <param name="value">Data value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Set(KT key, VT value)
         {

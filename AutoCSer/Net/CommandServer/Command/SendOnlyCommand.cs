@@ -8,12 +8,14 @@ using AutoCSer.Extensions;
 namespace AutoCSer.Net
 {
     /// <summary>
-    /// 仅发送数据命令 await bool 是否成功添加输出队列
+    /// Unresponsive command (await bool, return whether successfully added to the output queue)
+    /// 无响应命令（await bool，返回是否成功添加到输出队列）
     /// </summary>
     public class SendOnlyCommand : CallbackCommand
     {
         /// <summary>
-        /// 仅发送数据命令
+        /// Unresponsive command
+        /// 无响应命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -21,10 +23,12 @@ namespace AutoCSer.Net
         {
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -49,7 +53,8 @@ namespace AutoCSer.Net
             return this;
         }
         /// <summary>
-        /// 添加命令到发送队列
+        /// Add commands to the output queue
+        /// 添加命令到输出队列
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void PushSendOnly()
@@ -64,24 +69,27 @@ namespace AutoCSer.Net
             else AutoCSer.Threading.ThreadYield.YieldOnly();
         }
         /// <summary>
+        /// Discard command, used to clear the warning of await within async, is only used to ensure that the maximum number of unprocessed commands on the client side is not exceeded. If it is a batch request and may exceed the limit, await should be used to wait
         /// 丢弃命令，用于清除 async 内部提示 await 的警告，仅用于确定不会超过客户端最大未处理命令数量限制，如果是批量请求并且可能超过限制则应该 await 等待
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void Discard() { }
     }
     /// <summary>
-    /// 仅发送数据命令
+    /// Unresponsive command (await bool, return whether successfully added to the output queue)
+    /// 无响应命令（await bool，返回是否成功添加到输出队列）
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal sealed class SendOnlyCommand<T> : SendOnlyCommand
         where T : struct
     {
         /// <summary>
-        /// 输入参数
+        /// Input parameters
         /// </summary>
         private T inputParameter;
         /// <summary>
-        /// 仅发送数据命令
+        /// Unresponsive command
+        /// 无响应命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
@@ -92,10 +100,12 @@ namespace AutoCSer.Net
             PushSendOnly();
         }
         /// <summary>
-        /// 创建命令输入数据
+        /// Generate the input data of the request command
+        /// 生成请求命令输入数据
         /// </summary>
-        /// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        /// <returns>是否成功</returns>
+        /// <param name="buildInfo"></param>
+        /// <returns>The next request command
+        /// 下一个请求命令</returns>
 #if NetStandard21
         internal unsafe override Command? Build(ref ClientBuildInfo buildInfo)
 #else
@@ -137,8 +147,8 @@ namespace AutoCSer.Net
         ///// <summary>
         ///// 创建命令输入数据
         ///// </summary>
-        ///// <param name="buildInfo">TCP 客户端创建命令参数</param>
-        ///// <returns>是否成功</returns>
+        ///// <param name="buildInfo"></param>
+        ///// <returns>Return false on failure</returns>
         //internal unsafe override Command Build(ref ClientBuildInfo buildInfo)
         //{
         //    UnmanagedStream stream = Controller.Socket.OutputSerializer.Stream;
@@ -174,7 +184,8 @@ namespace AutoCSer.Net
         //    return this;
         //}
         /// <summary>
-        /// 创建命令输入数据错误处理
+        /// Error handling for generating the input data of the request command
+        /// 生成请求命令输入数据错误处理
         /// </summary>
         /// <param name="returnType"></param>
         protected override void OnBuildError(CommandClientReturnTypeEnum returnType) { }

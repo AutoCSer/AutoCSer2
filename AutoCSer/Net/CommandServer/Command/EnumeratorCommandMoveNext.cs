@@ -1,4 +1,5 @@
-﻿using AutoCSer.Net.CommandServer;
+﻿using AutoCSer.Extensions;
+using AutoCSer.Net.CommandServer;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -6,32 +7,39 @@ using System.Threading.Tasks;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
-    /// 枚举命令是否存在下一个数据 await bool
+    /// await bool, the collection enumeration command returns true when the next data exists
+    /// await bool，集合枚举命令存在下一个数据返回 true
     /// </summary>
     public sealed class EnumeratorCommandMoveNext : INotifyCompletion
     {
         /// <summary>
+        /// The number of return values
         /// 返回值数量
         /// </summary>
         internal int ReturnCount;
         /// <summary>
+        /// Has the callback been cancelled, 0/2
         /// 是否已经取消回调 0/2
         /// </summary>
         internal int IsCanceled;
         /// <summary>
-        /// 枚举命令是否存在下一个数据 是否当前等待数据
+        /// Is currently waiting for data
+        /// 当前是否等待数据
         /// </summary>
         internal bool IsCurrentMoveNext;
 
         /// <summary>
+        /// Completion status (For reuse requirements, setting IsCompleted = true is not allowed. After the comparison is set, it will be read immediately, resulting in repeated execution.)
         /// 完成状态（重用需求不允许设置 IsCompleted = true 比较设置完以后马上被读取掉导致重复执行）
         /// </summary>
         public bool IsCompleted { get; private set; }
         /// <summary>
+        /// Whether the next data exists
         /// 是否存在下一个数据
         /// </summary>
         private bool isNextValue;
         /// <summary>
+        /// Asynchronous callback
         /// 异步回调
         /// </summary>
 #if NetStandard21
@@ -53,11 +61,13 @@ namespace AutoCSer.Net.CommandServer
         private int pushCount;
 #endif
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         internal EnumeratorCommandMoveNext() { }
         /// <summary>
-        /// 枚举命令是否存在下一个数据
+        /// Whether the next data exists in the collection enumeration command
+        /// 集合枚举命令是否存在下一个数据
         /// </summary>
         /// <param name="isNextValue"></param>
         private EnumeratorCommandMoveNext(bool isNextValue)
@@ -66,6 +76,7 @@ namespace AutoCSer.Net.CommandServer
             IsCompleted = true;
         }
         /// <summary>
+        /// Wait for the next data
         /// 等待下一个数据
         /// </summary>
         /// <returns></returns>
@@ -75,6 +86,7 @@ namespace AutoCSer.Net.CommandServer
             return await this;
         }
         /// <summary>
+        /// Whether the output queue has been successfully added
         /// 是否成功添加输出队列
         /// </summary>
         /// <returns></returns>
@@ -87,6 +99,7 @@ namespace AutoCSer.Net.CommandServer
             return isNextValue;
         }
         /// <summary>
+        /// Set asynchronous callback
         /// 设置异步回调
         /// </summary>
         /// <param name="continuation"></param>
@@ -106,7 +119,7 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
-        /// 获取 await
+        /// Get the awaiter object
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -118,6 +131,7 @@ namespace AutoCSer.Net.CommandServer
             return this;
         }
         /// <summary>
+        /// Set whether the next data exists
         /// 设置是否存在下一个数据
         /// </summary>
         /// <param name="command"></param>
@@ -152,6 +166,7 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
+        /// Set whether the next data exists
         /// 设置是否存在下一个数据
         /// </summary>
         /// <param name="command"></param>
@@ -186,6 +201,7 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
+        /// Set whether the next data exists
         /// 设置是否存在下一个数据
         /// </summary>
         /// <param name="isSynchronousCallback"></param>
@@ -223,7 +239,8 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -238,6 +255,7 @@ namespace AutoCSer.Net.CommandServer
             return IsCanceled;
         }
         /// <summary>
+        /// Add new data
         /// 添加新数据
         /// </summary>
         /// <returns></returns>
@@ -252,11 +270,13 @@ namespace AutoCSer.Net.CommandServer
                 IsCurrentMoveNext = false;
                 return 0;
             }
-            if (IsCanceled == 0) ++ReturnCount;
+            //if (IsCanceled == 0) ++ReturnCount;
+            ReturnCount += IsCanceled.logicalInversion();
             return 1;
         }
         /// <summary>
-        /// 关闭回调
+        /// Close keep callback
+        /// 关闭保持回调
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -272,7 +292,8 @@ namespace AutoCSer.Net.CommandServer
             return 1;
         }
         /// <summary>
-        /// 尝试取消回调
+        /// Try to cancel the keep callback
+        /// 尝试取消保持回调
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -283,7 +304,8 @@ namespace AutoCSer.Net.CommandServer
             return 1;
         }
         /// <summary>
-        /// 取消回调
+        /// Cancel the keep callback
+        /// 取消保持回调
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -299,7 +321,8 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -315,6 +338,7 @@ namespace AutoCSer.Net.CommandServer
             //return 1;
         }
         /// <summary>
+        /// Add new data
         /// 添加新数据
         /// </summary>
         /// <returns></returns>
@@ -330,11 +354,13 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
-        /// 枚举命令存在下一个数据
+        /// The collection enumeration command has the next data
+        /// 集合枚举命令存在下一个数据
         /// </summary>
         internal static readonly EnumeratorCommandMoveNext NextValueTrue = new EnumeratorCommandMoveNext(true);
         /// <summary>
-        /// 枚举命令不存在下一个数据
+        /// The collection enumeration command does not have the next data
+        /// 集合枚举命令不存在下一个数据
         /// </summary>
         internal static readonly EnumeratorCommandMoveNext NextValueFalse = new EnumeratorCommandMoveNext(false);
     }

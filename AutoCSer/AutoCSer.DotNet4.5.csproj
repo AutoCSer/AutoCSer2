@@ -100,6 +100,7 @@
     <Compile Include="Culture\English.cs" />
     <Compile Include="EmptyArrayCompletedTask.cs" />
     <Compile Include="EmptyLeftArrayCompletedTask.cs" />
+    <Compile Include="ConsoleWriteMessage.cs" />
     <Compile Include="ConsoleWriteQueue.cs" />
     <Compile Include="Extensions\CommandServerKeepCallbackExtension.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
@@ -355,6 +356,7 @@
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\MergeCallbackCommand.cs" />
+    <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
     <Compile Include="Net\CommandServer\Command\SendOnlyCommand.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientMethodTypeEnum.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterface.cs" />
@@ -375,6 +377,7 @@
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseClientConfig.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListener.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListenerConfig.cs" />
+    <Compile Include="Net\CommandServer\ServerControllerInterfaceAttribute.cs" />
     <Compile Include="Net\CommandServer\ServerReturnValue.cs" />
     <Compile Include="Net\CommandServer\CommandServerMethodAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientReturnValue.cs" />

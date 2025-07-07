@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Synchronous waiting command
     /// 同步等待命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -15,15 +16,18 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private T outputParameter;
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal SynchronousOutputCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
-        /// 返回值回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
@@ -47,6 +51,7 @@ namespace AutoCSer.Net.CommandServer
         }
     }
     /// <summary>
+    /// Synchronous waiting command
     /// 同步等待命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -60,6 +65,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         private OT outputParameter;
         /// <summary>
+        /// Synchronous waiting command
         /// 同步等待命令
         /// </summary>
         /// <param name="controller"></param>
@@ -71,9 +77,11 @@ namespace AutoCSer.Net.CommandServer
             this.outputParameter = outputParameter;
         }
         /// <summary>
-        /// 返回值回调
+        /// Process the response data
+        /// 处理响应数据
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Response data
+        /// 响应数据</param>
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {

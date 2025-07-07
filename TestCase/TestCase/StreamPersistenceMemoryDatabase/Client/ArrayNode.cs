@@ -5,24 +5,29 @@ using System.Threading.Tasks;
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
 {
     /// <summary>
-    /// 数组客户端示例
+    /// Example of an array node client
+    /// 数组节点客户端示例
     /// </summary>
     internal static class ArrayNode
     {
         /// <summary>
+        /// The length of the test array
         /// 测试数组长度
         /// </summary>
         private const int length = 4;
         /// <summary>
+        /// Client node singleton
         /// 客户端节点单例
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeClientNode<int>> nodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.CreateNode(client => client.GetOrCreateArrayNode<int>(nameof(ArrayNode), length));
         /// <summary>
+        /// Client node singleton (supporting concurrent read operations)
         /// 客户端节点单例（支持并发读取操作）
         /// </summary>
         private static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeClientNode<int>> readWriteQueueNodeCache = CommandClientSocketEvent.StreamPersistenceMemoryDatabaseReadWriteQueueClientCache.CreateNode(client => client.GetOrCreateArrayNode<int>(nameof(ArrayNode), length));
         /// <summary>
-        /// 数组客户端示例
+        /// Example of an array node client
+        /// 数组节点客户端示例
         /// </summary>
         /// <returns></returns>
         internal static async Task<bool> Test()
@@ -32,7 +37,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             return true;
         }
         /// <summary>
-        /// 数组客户端示例
+        /// Example of an array node client
+        /// 数组节点客户端示例
         /// </summary>
         /// <returns></returns>
         private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IArrayNodeClientNode<int>> client)

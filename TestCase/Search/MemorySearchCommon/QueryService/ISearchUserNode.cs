@@ -6,9 +6,10 @@ using System;
 namespace AutoCSer.TestCase.SearchQueryService
 {
     /// <summary>
+    /// Non-index condition query data node interface
     /// 非索引条件查询数据节点接口
     /// </summary>
-    [ServerNode(IsAutoMethodIndex = false, IsClient = false, IsLocalClient = true, IsMethodParameterCreator = true)]
+    [ServerNode(IsClient = false, IsLocalClient = true, IsMethodParameterCreator = true)]
     public partial interface ISearchUserNode : IConditionDataNode<int, BinarySerializeKeyValue<int, SearchUser>>
     {
         /// <summary>

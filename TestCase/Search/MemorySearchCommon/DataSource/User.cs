@@ -5,7 +5,7 @@ namespace AutoCSer.TestCase.SearchDataSource
     /// <summary>
     /// 用户信息
     /// </summary>
-    [BinarySerialize(IsMixJsonSerialize = true)]
+    [BinarySerialize(IsJsonMix = true)]
     public sealed class User
     {
         /// <summary>

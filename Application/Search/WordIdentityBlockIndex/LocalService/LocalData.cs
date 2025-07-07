@@ -11,7 +11,8 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
     /// <summary>
     /// 分词结果磁盘块索引信息
     /// </summary>
-    /// <typeparam name="T">分词数据关键字类型</typeparam>
+    /// <typeparam name="T">Keyword type for word segmentation data
+    /// 分词数据关键字类型</typeparam>
     public sealed class LocalData<T>
 #if NetStandard21
         where T : notnull, IEquatable<T>
@@ -37,12 +38,14 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
         /// <summary>
         /// 分词结果磁盘块索引信息
         /// </summary>
-        /// <param name="blockIndex">磁盘块索引信息</param>
+        /// <param name="blockIndex">Disk block index information
+        /// 磁盘块索引信息</param>
         internal LocalData(BlockIndex blockIndex)
         {
             BlockIndex = blockIndex;
         }
         /// <summary>
+        /// Initialization loading is completed and processed
         /// 初始化加载完毕处理
         /// </summary>
         /// <param name="node"></param>
@@ -56,6 +59,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             else Delete(node, key).NotWait();
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node"></param>
@@ -114,6 +118,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
+        /// Create the disk block index information of the word segmentation result
         /// 创建分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node"></param>
@@ -202,6 +207,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
+        /// Update the disk block index information of the word segmentation result
         /// 更新分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node"></param>
@@ -294,6 +300,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
+        /// Delete the disk block index information of the word segmentation result
         /// 删除分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node"></param>
@@ -342,6 +349,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
             }
         }
         /// <summary>
+        /// Delete the disk block index information of the word segmentation result
         /// 删除分词结果磁盘块索引信息
         /// </summary>
         /// <param name="node"></param>

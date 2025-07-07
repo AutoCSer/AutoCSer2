@@ -12,7 +12,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     internal unsafe struct PersistenceBuffer
     {
         /// <summary>
-        /// 日志流持久化内存数据库服务端
+        /// Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务
         /// </summary>
         private readonly StreamPersistenceMemoryDatabaseService service;
         /// <summary>
@@ -58,7 +59,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 日志流持久化缓冲区
         /// </summary>
-        /// <param name="service">日志流持久化内存数据库服务端</param>
+        /// <param name="service">Log stream persistence memory database service
+        /// 日志流持久化内存数据库服务</param>
         internal PersistenceBuffer(StreamPersistenceMemoryDatabaseService service)
         {
             this.service = service;

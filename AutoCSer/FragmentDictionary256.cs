@@ -75,6 +75,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// The data collection
         /// 数据集合
         /// </summary>
         public IEnumerable<VT> Values
@@ -91,6 +92,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Clear the data (retain the fragmented array)
         /// 清除数据（保留分片数组）
         /// </summary>
         public void Clear()
@@ -99,6 +101,7 @@ namespace AutoCSer
             Count = 0;
         }
         /// <summary>
+        /// Clear fragmented array (used to solve the problem of low performance of clear call when the amount of data is large)
         /// 清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -108,7 +111,7 @@ namespace AutoCSer
             Count = 0;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -140,6 +143,7 @@ namespace AutoCSer
             return dictionary;
         }
         /// <summary>
+        /// If the keyword does not exist, add the data
         /// 如果关键字不存在则添加数据
         /// </summary>
         /// <param name="key"></param>
@@ -164,6 +168,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Set the data
         /// 设置数据
         /// </summary>
         /// <param name="key"></param>
@@ -193,6 +198,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Determine whether the keyword exists
         /// 判断关键字是否存在
         /// </summary>
         /// <param name="key"></param>
@@ -204,10 +210,12 @@ namespace AutoCSer
             return dictionary != null && dictionary.ContainsKey(key);
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
         public bool Remove(KT key)
         {
             Dictionary<KT, VT> dictionary = dictionarys[getIndex(key)];
@@ -219,11 +227,13 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Remove keyword
         /// 删除关键字
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <returns>是否存在关键字</returns>
+        /// <returns>Returning false indicates that the keyword does not exist
+        /// 返回 false 表示关键字不存在</returns>
 #if NetStandard21
         public bool Remove(KT key, [MaybeNullWhen(false)] out VT value)
 #else
@@ -243,10 +253,12 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Delete the matching data based on the keyword collection
         /// 根据关键字集合删除匹配数据
         /// </summary>
         /// <param name="keys"></param>
-        /// <returns>删除关键字数量</returns>
+        /// <returns>The number of deleted keywords
+        /// 删除关键字数量</returns>
         public int RemoveKeys(KT[] keys)
         {
             int count = 0;
@@ -257,6 +269,7 @@ namespace AutoCSer
             return count;
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
@@ -272,6 +285,7 @@ namespace AutoCSer
             return TryGetValue(key, out value, out dictionary);
         }
         /// <summary>
+        /// Get data based on keywords
         /// 根据关键字获取数据
         /// </summary>
         /// <param name="key"></param>
@@ -290,6 +304,7 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
+        /// Get the matching data array based on the keyword collection
         /// 根据关键字集合获取匹配数据数组
         /// </summary>
         /// <param name="keys"></param>

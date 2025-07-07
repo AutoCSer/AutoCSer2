@@ -4,7 +4,7 @@
 namespace AutoCSer
 {
     /// <summary>
-    /// 二进制反数据序列化
+    /// 二进制数据反序列化
     /// </summary>
     public sealed unsafe partial class BinaryDeserializer
     {

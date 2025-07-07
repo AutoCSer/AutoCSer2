@@ -77,6 +77,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return manyValues.Count != 0 ? manyValues.getArray() : EmptyArray<T>.Array;
         }
         /// <summary>
+        /// Determine whether there is data
         /// 判断是否存在数据
         /// </summary>
         /// <param name="value"></param>
@@ -87,7 +88,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             return !object.ReferenceEquals(littleValues, BlockIndexDataCacheNode<T>.EmptyRemoveMarkHashSet) ? littleValues.Contains(value) : manyValues.Contains(value);
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         internal void Append(T value)
@@ -111,6 +112,7 @@ namespace AutoCSer.CommandService.Search.MemoryIndex
             else manyValues.Add(value);
         }
         /// <summary>
+        /// Delete data
         /// 删除数据
         /// </summary>
         /// <param name="value"></param>

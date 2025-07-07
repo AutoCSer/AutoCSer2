@@ -14,56 +14,67 @@ using System.Diagnostics.CodeAnalysis;
 namespace AutoCSer.Net
 {
     /// <summary>
+    /// Command client socket
     /// 命令客户端套接字
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public sealed class CommandClientSocket
     {
         /// <summary>
-        /// 命令客户端
+        /// Command client
         /// </summary>
         public readonly CommandClient Client;
         /// <summary>
+        /// Socket
         /// 套接字
         /// </summary>
         public Socket Socket { get; private set; }
         /// <summary>
+        /// Server listening address
         /// 服务监听地址
         /// </summary>
         private readonly IPEndPoint serverEndPoint;
         /// <summary>
-        /// 主客户端控制器
+        /// Client main controller
+        /// 客户端主控制器
         /// </summary>
         public readonly CommandClientController Controller;
         /// <summary>
+        /// Client command pool
         /// 客户端命令池
         /// </summary>
         internal readonly CommandPool CommandPool;
         /// <summary>
+        /// Receive data socket asynchronous event object
         /// 接收数据套接字异步事件对象
         /// </summary>
         private readonly SocketAsyncEventArgs receiveAsyncEventArgs;
         /// <summary>
+        /// The maximum number of unprocessed commands on the client side
         /// 客户端最大未处理命令数量
         /// </summary>
         private readonly int commandQueueCount;
         /// <summary>
-        /// 保留补白
+        /// Reserve
+        /// 保留
         /// </summary>
         private int reserve;
         /// <summary>
+        /// Maximum input data length
         /// 最大输入数据长度
         /// </summary>
         internal readonly int MaxInputSize;
         /// <summary>
+        /// Maximum merged input data length
         /// 最大合并输入数据长度
         /// </summary>
         internal readonly int MaxMergeInputSize;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly CpuCachePad pad0;
         /// <summary>
+        /// Custom session object
         /// 自定义会话对象
         /// </summary>
 #if NetStandard21
@@ -72,6 +83,7 @@ namespace AutoCSer.Net
         public object SessionObject;
 #endif
         /// <summary>
+        /// Client heart rate detection timing
         /// 客户端心跳检测定时
         /// </summary>
 #if NetStandard21
@@ -80,17 +92,20 @@ namespace AutoCSer.Net
         private ClientCheckTimer checkTimer;
 #endif
         /// <summary>
+        /// Command controller access lock
         /// 命令控制器访问锁
         /// </summary>
         private SemaphoreSlimLock controllerLock;
         /// <summary>
-        /// 客户端控制器集合
+        /// A collection of client controller creators
+        /// 客户端控制器创建器集合
         /// </summary>
 #if NetStandard21
         [AllowNull]
 #endif
         private Dictionary<string, CommandClientInterfaceControllerCreator> controllerCreators;
         /// <summary>
+        /// Command client controller collection
         /// 命令客户端控制器集合
         /// </summary>
 #if NetStandard21
@@ -99,6 +114,7 @@ namespace AutoCSer.Net
         internal CommandClientController[] ControllerArray;
 #endif
         /// <summary>
+        /// Command client controller collection
         /// 命令客户端控制器集合
         /// </summary>
         public IEnumerable<CommandClientController> Controllers
@@ -116,6 +132,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Get the command client controller
         /// 获取命令客户端控制器
         /// </summary>
         /// <param name="controllerName"></param>
@@ -136,6 +153,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Get the command client controller
         /// 获取命令客户端控制器
         /// </summary>
         /// <param name="controllerType"></param>
@@ -149,6 +167,7 @@ namespace AutoCSer.Net
             get { return this[controllerType.Name]; }
         }
         /// <summary>
+        /// Receive binary deserialization of data
         /// 接收数据二进制反序列化
         /// </summary>
 #if NetStandard21
@@ -157,22 +176,27 @@ namespace AutoCSer.Net
         private AutoCSer.BinaryDeserializer receiveDeserializer;
 #endif
         /// <summary>
+        /// Temporary received data buffer
         /// 临时接收数据缓冲区
         /// </summary>
         private ByteArrayBuffer receiveBigBuffer;
         /// <summary>
+        /// Receive data buffer
         /// 接收数据缓冲区
         /// </summary>
         private ByteArrayBuffer receiveBuffer;
         /// <summary>
+        /// The starting position for receiving data
         /// 接收数据起始位置
         /// </summary>
         private unsafe byte* receiveDataStart;
         /// <summary>
-        /// 当前处理会话标识
+        /// Current session callback identity
+        /// 当前会话回调标识
         /// </summary>
         internal CallbackIdentity callbackIdentity;
         /// <summary>
+        /// Current client command
         /// 当前客户端命令
         /// </summary>
 #if NetStandard21
@@ -181,66 +205,81 @@ namespace AutoCSer.Net
         private Command command;
 #endif
         /// <summary>
+        /// Received data error message
         /// 接收数据错误信息
         /// </summary>
         internal string ReceiveErrorMessage;
         /// <summary>
+        /// The current number of bytes of received data being processed
         /// 当前处理接收数据字节数
         /// </summary>
         private int receiveIndex;
         /// <summary>
-        /// 当前接收数据编码后的字节大小
+        /// The byte size of the current data after encoding
+        /// 当前数据编码后的字节大小
         /// </summary>
         private int transferDataSize;
         /// <summary>
-        /// 当前接收数据字节大小
+        /// The current data byte size
+        /// 当前数据字节大小
         /// </summary>
         private int dataSize;
         /// <summary>
+        /// Receive the data thread ID
         /// 接收数据线程ID
         /// </summary>
         internal int OnReceiveThreadId;
         /// <summary>
-        /// 套接字接收数据错误
+        /// The data receiving socket is incorrect
+        /// 接收数据套接字错误
         /// </summary>
         private SocketError receiveSocketError;
         /// <summary>
+        /// The number of failed socket creation attempts
         /// 创建套接字失败次数
         /// </summary>
         private int createErrorCount = 0;
         /// <summary>
-        /// 服务更新版本号
+        /// The current version number of the client being created
+        /// 当前创建客户端的版本号
         /// </summary>
         internal int CreateVersion;
         /// <summary>
+        /// Receive data callback type
         /// 接收数据回调类型
         /// </summary>
         private ClientReceiveTypeEnum receiveType;
         /// <summary>
+        /// Received data error type
         /// 接收数据错误类型
         /// </summary>
         private ClientReceiveErrorTypeEnum receiveErrorType;
         /// <summary>
-        /// 保留补白
+        /// Reserve
+        /// 保留
         /// </summary>
         private short receiveReserve;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly CpuCachePad pad1;
         /// <summary>
+        /// The current number of queue commands
         /// 当前队列命令数量
         /// </summary>
         private long commandCount;
         /// <summary>
-        /// TCP 客户端输出信息链表
+        /// The linked list of output commands
+        /// 输出命令链表
         /// </summary>
         private LinkStack<Command> commands;
         /// <summary>
-        /// 等待事件
+        /// Output waiting event
+        /// 输出等待事件
         /// </summary>
         private System.Threading.AutoResetEvent outputWaitHandle;
         /// <summary>
+        /// The collection of commands waiting to be added to the queue
         /// 等待添加到队列的命令集合
         /// </summary>
         internal LinkStack<Command> waitPushCommands;
@@ -249,32 +288,37 @@ namespace AutoCSer.Net
         ///// </summary>
         //internal CommandBatch CommandBatch;
         /// <summary>
+        /// Has the socket been closed
         /// 是否已经关闭套接字
         /// </summary>
         private int isClosed;
         /// <summary>
+        /// Has the socket been closed
         /// 是否已经关闭套接字
         /// </summary>
         public bool IsClosed { get { return isClosed != 0; } }
         /// <summary>
-        /// 保留补白
+        /// Reserve
+        /// 保留
         /// </summary>
         private int commandReserve;
         /// <summary>
-        /// 填充隔离数据
+        /// The CPU cache is filled with data blocks
         /// </summary>
         private readonly CpuCachePad pad2;
         /// <summary>
+        /// Output data binary serialization
         /// 输出数据二进制序列化
         /// </summary>
         internal BinarySerializer OutputSerializer;
         /// <summary>
+        /// The current number of sent commands
         /// 当前发送命令数量
         /// </summary>
         private long buildCommandCount;
 
         /// <summary>
-        /// 默认空客户端套接字
+        /// Default empty socket
         /// </summary>
         private CommandClientSocket()
         {
@@ -295,13 +339,14 @@ namespace AutoCSer.Net
             setValue(true);
         }
         /// <summary>
-        /// 默认空客户端套接字
+        /// Default empty socket
         /// </summary>
         internal static readonly CommandClientSocket Null = new CommandClientSocket();
         /// <summary>
-        /// 客户端套接字
+        /// Command client socket
+        /// 命令客户端套接字
         /// </summary>
-        /// <param name="client">TCP 服务客户端创建器</param>
+        /// <param name="client">Command client</param>
         /// <param name="serverEndPoint"></param>
         /// <param name="createVersion"></param>
         internal CommandClientSocket(CommandClient client, IPEndPoint serverEndPoint, int createVersion)
@@ -329,7 +374,8 @@ namespace AutoCSer.Net
             create().Catch();
         }
         /// <summary>
-        /// 客户端套接字
+        /// Command client socket
+        /// 命令客户端套接字
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="endPoint"></param>
@@ -397,6 +443,7 @@ namespace AutoCSer.Net
             Controller = createController();
         }
         /// <summary>
+        /// Set the default value
         /// 设置默认值
         /// </summary>
         /// <param name="isNull"></param>
@@ -417,6 +464,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Create the main controller
         /// 创建主控制器
         /// </summary>
         /// <returns></returns>
@@ -426,7 +474,7 @@ namespace AutoCSer.Net
             return Client.ControllerCreators.Array[0].Create(this, CommandListener.MethodStartIndex, null);
         }
         /// <summary>
-        /// 关闭套接字
+        /// Close the socket
         /// </summary>
         internal void Close()
         {
@@ -461,7 +509,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 关闭套接字等待添加队列命令处理
+        /// The close socket operation deals with the collection of waiting commands
+        /// 关闭套接字操作处理等待命令集合
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void closeWaitPush()
@@ -470,6 +519,7 @@ namespace AutoCSer.Net
             while (head != null) head.CheckWaitPush(ref head);
         }
         /// <summary>
+        /// Increase the current number of sent commands
         /// 增加当前发送命令数量
         /// </summary>
         /// <param name="buildCount"></param>
@@ -494,7 +544,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 关闭套接字
+        /// Close the socket
         /// </summary>
         internal void Shutdown()
         {
@@ -511,7 +561,8 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 比较服务监听地址是否相等
+        /// Compare whether the server listening addresses are equal
+        /// 比较服务端监听地址是否相等
         /// </summary>
         /// <param name="endPoint"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -520,6 +571,7 @@ namespace AutoCSer.Net
             return endPoint.Port == serverEndPoint.Port && endPoint.Address == serverEndPoint.Address;
         }
         /// <summary>
+        /// Create a socket
         /// 创建套接字
         /// </summary>
         /// <returns></returns>
@@ -595,6 +647,7 @@ namespace AutoCSer.Net
             Close();
         }
         /// <summary>
+        /// Reverse client initialization operation
         /// 反向客户端初始化操作
         /// </summary>
         /// <returns></returns>
@@ -618,6 +671,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Verification call
         /// 验证调用
         /// </summary>
         /// <param name="exceptionCount"></param>
@@ -649,6 +703,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Service completion verification
         /// 服务完成验证
         /// </summary>
         /// <param name="exceptionCount"></param>
@@ -711,6 +766,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// The callback for the command controller to query data
         /// 命令控制器查询数据回调
         /// </summary>
         /// <param name="controllerOutputData"></param>
@@ -748,6 +804,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Create sockets to synchronously receive data
         /// 创建套接字同步接收数据
         /// </summary>
         private void createSynchronizeOnReceive()
@@ -757,10 +814,11 @@ namespace AutoCSer.Net
         //private static int currentSocketIdentity;
         //private readonly int socketIdentity = ++currentSocketIdentity;
         /// <summary>
+        /// The callback delegate after the data is received
         /// 数据接收完成后的回调委托
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="async">异步回调参数</param>
+        /// <param name="async">Asynchronous callback parameters</param>
 #if NetStandard21
         private void onReceive(object? sender, SocketAsyncEventArgs async)
 #else
@@ -832,10 +890,12 @@ namespace AutoCSer.Net
             else Close();
         }
         /// <summary>
+        /// Get the command callback number
         /// 获取命令回调序号
         /// </summary>
         /// <param name="count"></param>
-        /// <returns>是否异步</returns>
+        /// <returns>Whether it is an asynchronous operation
+        /// 是否异步操作</returns>
         private unsafe bool isCallbackIdentity(int count)
         {
         START:
@@ -939,9 +999,11 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Check the command data
         /// 检查命令数据
         /// </summary>
-        /// <returns>0 表示异步，1 表示成功继续解析数据，2 表示失败</returns>
+        /// <returns>0 indicates asynchronous, 1 indicates successful continuation of data parsing, and 2 indicates failure
+        /// 0 表示异步，1 表示成功继续解析数据，2 表示失败</returns>
         private unsafe int checkDataLoopFixed()
         {
             if (transferDataSize <= receiveBuffer.Buffer.notNull().BufferSize)
@@ -1005,9 +1067,11 @@ namespace AutoCSer.Net
             while (true);
         }
         /// <summary>
-        /// 回调命令数据
+        /// Check the command data
+        /// 检查命令数据
         /// </summary>
-        /// <returns>是否执行成功（非异步）</returns>
+        /// <returns>Whether the execution was successful (non-asynchronous)
+        /// 是否执行成功（非异步）</returns>
         private unsafe bool isOnDataLoopFixed()
         {
             if (transferDataSize == dataSize)
@@ -1050,6 +1114,7 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Receive error messages
         /// 接收错误信息
         /// </summary>
         /// <param name="start"></param>
@@ -1066,9 +1131,11 @@ namespace AutoCSer.Net
             return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
-        /// 回调命令数据
+        /// Check the command data
+        /// 检查命令数据
         /// </summary>
-        /// <returns>是否成功（非异步）</returns>
+        /// <returns>Whether the execution was successful (non-asynchronous)
+        /// 是否执行成功（非异步）</returns>
         private unsafe bool isOnBigDataLoopFixed()
         {
             System.Buffer.BlockCopy(receiveBuffer.Buffer.notNull().Buffer, receiveBuffer.StartIndex + receiveIndex, receiveBigBuffer.Buffer.notNull().Buffer, receiveBigBuffer.StartIndex, receiveBuffer.CurrentIndex - receiveIndex);
@@ -1114,10 +1181,12 @@ namespace AutoCSer.Net
             return true;
         }
         /// <summary>
+        /// Get data
         /// 获取数据
         /// </summary>
         /// <param name="count"></param>
-        /// <returns>是否异步</returns>
+        /// <returns>Whether it is an asynchronous operation
+        /// 是否异步操作</returns>
         private unsafe bool isData(int count)
         {
             do
@@ -1149,10 +1218,12 @@ namespace AutoCSer.Net
             while (true);
         }
         /// <summary>
+        /// Get data
         /// 获取数据
         /// </summary>
         /// <param name="count"></param>
-        /// <returns>是否异步</returns>
+        /// <returns>Whether it is an asynchronous operation
+        /// 是否异步操作</returns>
         private bool isBigData(int count)
         {
             do
@@ -1192,9 +1263,11 @@ namespace AutoCSer.Net
             while (true);
         }
         /// <summary>
-        /// 循环处理命令回调
+        /// Loop processing command
+        /// 循环处理命令
         /// </summary>
-        /// <returns>是否异步</returns>
+        /// <returns>Whether it is an asynchronous operation
+        /// 是否异步操作</returns>
         private unsafe bool loop()
         {
             bool isCallback = false;
@@ -1320,10 +1393,11 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
+        /// Received data processing
         /// 接收数据处理
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="errorMessage">错误信息</param>
+        /// <param name="errorMessage">Error message</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private ClientReceiveErrorTypeEnum onReceive(CommandClientReturnTypeEnum type, string errorMessage)
         {
@@ -1339,6 +1413,7 @@ namespace AutoCSer.Net
             return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
+        /// Received data processing
         /// 接收数据处理
         /// </summary>
         /// <param name="type"></param>
@@ -1354,6 +1429,7 @@ namespace AutoCSer.Net
             return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
+        /// Received data processing
         /// 接收数据处理
         /// </summary>
         /// <param name="data"></param>
@@ -1365,6 +1441,7 @@ namespace AutoCSer.Net
             return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
+        /// Merge command processing
         /// 合并命令处理
         /// </summary>
         /// <param name="data"></param>
@@ -1474,13 +1551,13 @@ namespace AutoCSer.Net
             return ClientReceiveErrorTypeEnum.CallbackIdentityLess;
         }
         /// <summary>
-        /// 反序列化
+        /// Deserialization
         /// </summary>
-        /// <typeparam name="T">数据类型</typeparam>
-        /// <param name="data">数据</param>
-        /// <param name="value">目标对象</param>
+        /// <typeparam name="T">Data type</typeparam>
+        /// <param name="data">Data</param>
+        /// <param name="value">Target object</param>
         /// <param name="isSimpleSerialize"></param>
-        /// <returns>是否成功</returns>
+        /// <returns>Return false on failure</returns>
         internal unsafe bool Deserialize<T>(ref SubArray<byte> data, ref T value, bool isSimpleSerialize)
             where T : struct
         {
@@ -1495,6 +1572,7 @@ namespace AutoCSer.Net
             return (receiveDeserializer ?? createReceiveDeserializer()).IndependentDeserialize(ref data, ref value);
         }
         /// <summary>
+        /// Receive binary deserialization of data
         /// 接收数据二进制反序列化
         /// </summary>
         /// <returns></returns>
@@ -1505,6 +1583,7 @@ namespace AutoCSer.Net
             return receiveDeserializer;
         }
         /// <summary>
+        /// Check whether the current serialization is in an IO synchronization environment
         /// 检查当前序列化是否 IO 同步环境
         /// </summary>
         /// <param name="deserializer"></param>
@@ -1516,7 +1595,7 @@ namespace AutoCSer.Net
             return socket == null || socket.OnReceiveThreadId == System.Environment.CurrentManagedThreadId;
         }
         /// <summary>
-        /// 发送数据
+        /// Send data
         /// </summary>
         private unsafe void buildOutput()
         {
@@ -1840,6 +1919,7 @@ namespace AutoCSer.Net
         //    return CommandBatch.Push(command) ? TryPush(command) : CommandPushStateEnum.Batch;
         //}
         /// <summary>
+        /// Add a command without checking the count
         /// 添加命令，不检查计数
         /// </summary>
         /// <param name="command"></param>
@@ -1853,6 +1933,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// Try adding commands
         /// 尝试添加命令
         /// </summary>
         /// <param name="command"></param>
@@ -1882,6 +1963,7 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Heart rate detection
         /// 心跳检测
         /// </summary>
         /// <returns></returns>
@@ -1906,20 +1988,22 @@ namespace AutoCSer.Net
             return false;
         }
         /// <summary>
-        /// 发送自定义数据
+        /// Send custom data
         /// </summary>
         /// <param name="data"></param>
-        /// <returns>是否添加到发送队列</returns>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public CustomDataCommand SendCustomData(byte[] data)
         {
             return new CustomDataCommand(this, data);
         }
         /// <summary>
-        /// 发送自定义数据
+        /// Send custom data
         /// </summary>
         /// <param name="data"></param>
-        /// <returns>是否添加到发送队列</returns>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public CustomDataCommand SendCustomData(SubArray<byte> data)
         {

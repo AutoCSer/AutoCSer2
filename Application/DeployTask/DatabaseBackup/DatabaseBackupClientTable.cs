@@ -76,6 +76,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// </summary>
         private readonly Func<string, string, EnumeratorCommand<T>> getCommand;
         /// <summary>
+        /// Receive data buffer
         /// 接收数据缓冲区
         /// </summary>
         protected LeftArray<T> values;

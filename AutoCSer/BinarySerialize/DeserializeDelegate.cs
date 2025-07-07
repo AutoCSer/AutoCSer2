@@ -98,7 +98,7 @@ namespace AutoCSer.BinarySerialize
             IsPrimitive = isPrimitive;
         }
         /// <summary>
-        /// 隐式转换
+        /// Implicit conversion
         /// </summary>
         /// <param name="value">自定义反序列化委托</param>
         /// <returns>自定义反序列化委托</returns>

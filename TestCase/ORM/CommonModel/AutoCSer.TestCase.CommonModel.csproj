@@ -22,12 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="BusinessServiceMethodEnum\AutoIdentityModelServiceMethodEnum.cs" />
+    <Compile Include="BusinessServiceMethodEnum\IAutoIdentityModelServiceMethodEnum.cs" />
+    <Compile Include="BusinessServiceMethodEnum\ICustomColumnFieldModelServiceMethodEnum.cs" />
+    <Compile Include="BusinessServiceMethodEnum\ICustomColumnPropertyModelServiceMethodEnum.cs" />
+    <Compile Include="BusinessServiceMethodEnum\IFieldModelServiceMethodEnum.cs" />
+    <Compile Include="BusinessServiceMethodEnum\IPropertyModelServiceMethodEnum.cs" />
     <Compile Include="BusinessTableEventConsoleOutput.cs" />
     <Compile Include="AutoIdentityModel.cs" />
-    <Compile Include="BusinessServiceMethodEnum\CustomColumnFieldModelServiceMethodEnum.cs" />
     <Compile Include="CustomColumnFieldModel.cs" />
-    <Compile Include="BusinessServiceMethodEnum\CustomColumnPropertyModelServiceMethodEnum.cs" />
     <Compile Include="CustomColumnPropertyModel.cs" />
     <Compile Include="CustomColumn\CustomColumnField.cs" />
     <Compile Include="CustomColumn\CustomColumnFieldPrimaryKey.cs" />
@@ -35,9 +37,7 @@
     <Compile Include="CustomColumn\CustomColumnPropertyPrimaryKey.cs" />
     <Compile Include="CustomColumn\DateTimeRange.cs" />
     <Compile Include="CustomColumn\Email.cs" />
-    <Compile Include="BusinessServiceMethodEnum\FieldModelServiceMethodEnum.cs" />
     <Compile Include="FieldModel.cs" />
-    <Compile Include="BusinessServiceMethodEnum\PropertyModelServiceMethodEnum.cs" />
     <Compile Include="PropertyModel.cs" />
   </ItemGroup>
 

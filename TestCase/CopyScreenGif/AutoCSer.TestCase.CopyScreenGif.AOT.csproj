@@ -34,6 +34,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\AutoCSer\Drawing\AutoCSer.Drawing.AOT.NET8.csproj" />
     <ProjectReference Include="..\Common\AutoCSer.TestCase.Common.AOT.NET8.csproj" />
+    <!--
+    <PackageReference Include="Microsoft.NETCore.App.Runtime.win-x64" Version="8.0.17" />
+    -->
   </ItemGroup>
   
 </Project>

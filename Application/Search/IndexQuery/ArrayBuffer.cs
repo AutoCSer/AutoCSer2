@@ -9,7 +9,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
     /// <summary>
     /// 数组缓冲区
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ArrayBuffer<T>
     {
@@ -112,7 +112,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
             }
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -121,7 +121,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
             Array[count++] = value;
         }
         /// <summary>
-        /// 添加数据
+        /// Add data
         /// </summary>
         /// <param name="value"></param>
         public void Add(T value)
@@ -168,7 +168,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
             return count;
         }
         /// <summary>
-        /// 复制数据
+        /// Copy data
         /// </summary>
         /// <param name="array"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

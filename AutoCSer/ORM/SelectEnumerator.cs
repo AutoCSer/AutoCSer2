@@ -91,7 +91,7 @@ namespace AutoCSer.ORM
             }
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <param name="connectionPool"></param>
         /// <returns></returns>
@@ -202,7 +202,8 @@ namespace AutoCSer.ORM
             this.query = query;
         }
         /// <summary>
-        /// 判断是否存在下一个数据
+        /// Whether the next data exists
+        /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
@@ -237,7 +238,7 @@ namespace AutoCSer.ORM
             --errorCount;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         public async ValueTask DisposeAsync()

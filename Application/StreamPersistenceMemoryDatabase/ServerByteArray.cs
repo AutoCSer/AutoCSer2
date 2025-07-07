@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
+    /// Server-side byte array/client-side serialized object (Client-side string/byte[] parameters can be implicitly converted, and serialization can call the static method BinarySerialize/JsonSerialize)
     /// 服务端字节数组 / 客户端序列化对象（客户端 string / byte[] 传参可隐式转换，序列化可调用静态方法 BinarySerialize / JsonSerialize）
     /// </summary>
     [RemoteType]
@@ -15,6 +16,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     public struct ServerByteArray : AutoCSer.BinarySerialize.ICustomSerialize<ServerByteArray>
     {
         /// <summary>
+        /// Server-side byte array
         /// 服务端字节数组
         /// </summary>
 #if NetStandard21
@@ -23,6 +25,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         internal byte[] Buffer;
 #endif
         /// <summary>
+        /// Client object serialization
         /// 客户端对象序列化
         /// </summary>
 #if NetStandard21
@@ -31,6 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private readonly RequestParameterSerializer serializer;
 #endif
         /// <summary>
+        /// Server-side byte array
         /// 服务端字节数组
         /// </summary>
         /// <param name="buffer"></param>
@@ -44,6 +48,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             serializer = null;
         }
         /// <summary>
+        /// Client-side serialized object
         /// 客户端序列化对象
         /// </summary>
         /// <param name="serializer"></param>
@@ -53,6 +58,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             Buffer = null;
         }
         /// <summary>
+        /// Server-side implicit conversion
         /// 服务端隐式转换
         /// </summary>
         /// <param name="value"></param>
@@ -62,7 +68,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static implicit operator byte[](ServerByteArray value) { return value.Buffer; }
 #endif
         /// <summary>
-        /// 隐式转换
+        /// Client-side implicit conversion
+        /// 客户端隐式转换
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -71,7 +78,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static implicit operator ServerByteArray(byte[] value) { return new ServerByteArray(value); }
 #endif
         /// <summary>
-        /// 隐式转换
+        /// Client-side implicit conversion
+        /// 客户端隐式转换
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -83,10 +91,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new ServerByteArray((StringRequestParameterSerializer)value);
         }
         /// <summary>
+        /// Get string data
         /// 获取字符串数据
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>字符串解析是否成功</returns>
+        /// <returns>Whether the string parsing was successful
+        /// 字符串解析是否成功</returns>
 #if NetStandard21
         public unsafe bool GetString(ref string? value)
 #else
@@ -101,6 +111,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         }
 
         /// <summary>
+        /// Serialization
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -110,6 +121,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else serializer.SerializeBuffer(Buffer);
         }
         /// <summary>
+        /// Deserialization
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
@@ -117,9 +129,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             deserializer.DeserializeBuffer(ref Buffer);
         }
-        
+
 
         /// <summary>
+        /// Get a binary serialization object
         /// 获取二进制序列化对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -135,10 +148,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new ServerByteArray(new RequestParameterBinarySerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
         }
         /// <summary>
+        /// Get the binary deserialized object
         /// 获取二进制反序列化对象
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>二进制解析是否成功</returns>
+        /// <returns>Whether deserialization was successful
+        /// 反序列化是否成功</returns>
 #if NetStandard21
         public unsafe bool BinaryDeserialize<T>(ref T? value)
 #else
@@ -157,7 +172,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return false;
         }
         /// <summary>
-        /// 获取 JSON 序列化对象
+        /// Get the JSON mixed binary serialization object
+        /// 获取 JSON 混杂二进制序列化对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -172,10 +188,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return new ServerByteArray(new RequestParameterJsonSerializer<T>(value));
         }
         /// <summary>
-        /// 获取 JSON 反序列化对象
+        /// Get the JSON mixed binary deserialized object
+        /// 获取 JSON 混杂二进制反序列化对象
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>JSON 解析是否成功</returns>
+        /// <returns>Whether deserialization was successful
+        /// 反序列化是否成功</returns>
 #if NetStandard21
         public unsafe bool JsonDeserialize<T>(ref T? value)
 #else

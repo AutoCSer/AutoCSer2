@@ -6,8 +6,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <summary>
     /// 快照字典节点
     /// </summary>
-    /// <typeparam name="KT">关键字类型</typeparam>
-    /// <typeparam name="VT">数据类型</typeparam>
+    /// <typeparam name="KT">Keyword type
+    /// 关键字类型</typeparam>
+    /// <typeparam name="VT">Data type</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal struct SnapshotDictionarySnapshotNode<KT, VT>
     {
@@ -20,6 +21,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal VT Value;
         /// <summary>
+        /// Key-value pairs
         /// 键值对
         /// </summary>
         internal BinarySerializeKeyValue<KT, VT> BinarySerializeKeyValue
@@ -27,6 +29,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             get { return new BinarySerializeKeyValue<KT, VT>(key, Value); }
         }
         /// <summary>
+        /// Key-value pairs
         /// 键值对
         /// </summary>
         internal KeyValue<KT, VT> KeyValue

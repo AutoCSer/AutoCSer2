@@ -6,6 +6,7 @@ using AutoCSer.Extensions;
 namespace AutoCSer.TextSerialize
 {
     /// <summary>
+    /// Deserialization of enumeration values
     /// 枚举值反序列化
     /// </summary>
     /// <typeparam name="T"></typeparam>

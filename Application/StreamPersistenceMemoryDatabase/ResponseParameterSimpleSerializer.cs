@@ -4,23 +4,26 @@ using System;
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// 返回参数序列化
+    /// Return parameter simple serialization
+    /// 返回参数简单序列化
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal sealed class ResponseParameterSimpleSerializer<T> : ResponseParameterSerializer
     {
         /// <summary>
-        /// 数据
+        /// Return data
         /// </summary>
         internal ServerReturnValue<T> Value;
         /// <summary>
-        /// 返回参数序列化
+        /// Return parameter simple serialization
+        /// 返回参数简单序列化
         /// </summary>
         internal ResponseParameterSimpleSerializer() { }
         /// <summary>
-        /// 返回参数序列化
+        /// Return parameter simple serialization
+        /// 返回参数简单序列化
         /// </summary>
-        /// <param name="value">数据</param>
+        /// <param name="value">Return data</param>
 #if NetStandard21
         internal ResponseParameterSimpleSerializer(T? value)
 #else
@@ -30,6 +33,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.Value.ReturnValue = value;
         }
         /// <summary>
+        /// Serialization
         /// 序列化
         /// </summary>
         /// <param name="serializer"></param>
@@ -38,10 +42,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             serializer.SimpleSerialize(ref Value);
         }
         /// <summary>
+        /// Deserialization
         /// 反序列化
         /// </summary>
         /// <param name="deserializer"></param>
-        /// <returns>目标对象</returns>
+        /// <returns>Target object</returns>
 #if NetStandard21
         internal override object? Deserialize(AutoCSer.BinaryDeserializer deserializer)
 #else

@@ -23,7 +23,8 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// <summary>
         /// 根据关键字获取需要分词的文本数据
         /// </summary>
-        /// <param name="key">分词数据关键字</param>
+        /// <param name="key">The keyword of the word segmentation data
+        /// 分词数据关键字</param>
         /// <returns>null 表示没有找到关键字数据</returns>
         public override AutoCSer.Net.ReturnCommand<string> GetText(int key)
         {

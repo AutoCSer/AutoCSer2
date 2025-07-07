@@ -15,6 +15,7 @@ namespace AutoCSer.Net
     public abstract class CommandListenerBase : IDisposable, IAsyncDisposable
     {
         /// <summary>
+        /// Server registration component
         /// 服务注册组件
         /// </summary>
 #if NetStandard21
@@ -23,10 +24,11 @@ namespace AutoCSer.Net
         protected CommandServiceRegistrar serviceRegistrar;
 #endif
         /// <summary>
-        /// TCP 套接字
+        /// TCP socket
         /// </summary>
         protected Socket socket;
         /// <summary>
+        /// Get the socket listen address
         /// 获取套接字监听地址
         /// </summary>
 #if NetStandard21
@@ -35,10 +37,12 @@ namespace AutoCSer.Net
         public System.Net.EndPoint EndPoint { get { return socket?.LocalEndPoint; } }
 #endif
         /// <summary>
+        /// Listen for asynchronous events of the socket
         /// 监听套接字异步事件
         /// </summary>
         protected SocketAsyncEventArgs listenAcceptEvent;
         /// <summary>
+        /// Socket asynchronous event object pool
         /// 套接字异步事件对象池
         /// </summary>
         internal SocketAsyncEventArgsPool SocketAsyncEventArgsPool;
@@ -53,11 +57,12 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsDisposed { get; private set; }
         /// <summary>
+        /// Is trigger the quick close socket
         /// 是否触发快速关闭套接字
         /// </summary>
         protected bool isSocketDisposed;
         /// <summary>
-        /// The service name is a unique identifier of the service registration. If the service registration is not required, it is only used for log output
+        /// The service name is a unique identifier of the server registration. If the server registration is not required, it is only used for log output
         /// 服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
         /// </summary>
 #if NetStandard21
@@ -66,12 +71,13 @@ namespace AutoCSer.Net
         public abstract string ServerName { get; }
 #endif
         /// <summary>
-        /// The service listens to host and port information
+        /// The server listens to host and port information
         /// 服务监听主机与端口信息
         /// </summary>
         public abstract HostEndPoint Host { get; }
         /// <summary>
-        /// 命令服务
+        /// Command server to listen
+        /// 命令服务端监听
         /// </summary>
         protected CommandListenerBase()
         {
@@ -79,7 +85,7 @@ namespace AutoCSer.Net
             listenAcceptEvent = CommandServerConfigBase.NullSocketAsyncEventArgs;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         protected virtual void dispose()
         {
@@ -98,7 +104,7 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         public void Dispose()
         {
@@ -119,7 +125,7 @@ namespace AutoCSer.Net
             if (!object.ReferenceEquals(listenAcceptEvent, CommandServerConfigBase.NullSocketAsyncEventArgs)) listenAcceptEvent.Dispose();
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <returns></returns>
         async ValueTask IAsyncDisposable.DisposeAsync()
@@ -141,10 +147,10 @@ namespace AutoCSer.Net
             if (!object.ReferenceEquals(listenAcceptEvent, CommandServerConfigBase.NullSocketAsyncEventArgs)) listenAcceptEvent.Dispose();
         }
         /// <summary>
-        /// Shut down the service after releasing the service registration component
+        /// Shut down the service after releasing the server registration component
         /// 释放服务注册组件以后关闭服务
         /// </summary>
-        /// <param name="delayMilliseconds">Milliseconds to wait after releasing the service registration component
+        /// <param name="delayMilliseconds">Milliseconds to wait after releasing the server registration component
         /// 释放服务注册组件以后等待毫秒数</param>
         /// <returns></returns>
         public async Task DisposeServiceRegistrar(int delayMilliseconds = 1000)

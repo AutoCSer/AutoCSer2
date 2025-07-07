@@ -24,6 +24,7 @@ namespace AutoCSer.Threading
         private LockCaller caller;
 #endif
         /// <summary>
+        /// Apply for a lock
         /// 申请锁
         /// </summary>
         /// <returns></returns>
@@ -254,6 +255,7 @@ namespace AutoCSer.Threading
             while (true);
         }
         /// <summary>
+        /// Release the lock
         /// 释放锁
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

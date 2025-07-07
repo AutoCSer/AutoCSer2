@@ -3,6 +3,7 @@
 namespace AutoCSer
 {
     /// <summary>
+    /// Binary data serialization member configuration
     /// 二进制数据序列化成员配置
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
@@ -29,11 +30,13 @@ namespace AutoCSer
         //public bool IsRemovePublic = true;
 #if !AOT
         /// <summary>
-        /// 是否采用 JSON 混合序列化
+        /// Are there any members that adopt JSON serialization
+        /// 是否存在部分成员采用 JSON 序列化
         /// </summary>
         public bool IsJsonMember;
         /// <summary>
-        /// 是否采用 JSON 混合序列化
+        /// Are there any members that adopt JSON serialization
+        /// 是否存在部分成员采用 JSON 序列化
         /// </summary>
         internal virtual bool GetIsJsonMember
         {
@@ -42,6 +45,7 @@ namespace AutoCSer
 #endif
 
         /// <summary>
+        /// Default empty configuration
         /// 默认空配置
         /// </summary>
         internal static readonly BinarySerializeMemberAttribute Null = new BinarySerializeMemberAttribute();

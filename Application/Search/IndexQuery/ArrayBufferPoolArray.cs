@@ -7,7 +7,7 @@ namespace AutoCSer.CommandService.Search.IndexQuery
     /// <summary>
     /// 数组缓冲区池数组
     /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
+    /// <typeparam name="T">Data type</typeparam>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ArrayBufferPoolArray<T>
     {

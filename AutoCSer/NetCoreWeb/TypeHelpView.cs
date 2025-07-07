@@ -60,7 +60,7 @@ namespace AutoCSer.NetCoreWeb
             }
         }
         /// <summary>
-        /// 类型名称
+        /// Type name
         /// </summary>
         public string Name { get { return ViewShowType.Name; } }
         /// <summary>
@@ -226,7 +226,7 @@ namespace AutoCSer.NetCoreWeb
         /// 帮助文档类型信息
         /// </summary>
         /// <param name="viewMiddleware">数据视图中间件</param>
-        /// <param name="type">类型</param>
+        /// <param name="type"></param>
         internal TypeHelpView(ViewMiddleware viewMiddleware, Type type)
         {
             this.ViewMiddleware = viewMiddleware;
@@ -254,7 +254,7 @@ namespace AutoCSer.NetCoreWeb
         /// </summary>
         private static readonly TypeHelpView nullType = new TypeHelpView(NullViewMiddleware.Null, typeof(void));
         /// <summary>
-        /// 获取 await 结果类型
+        /// Get the awaiter object 结果类型
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>

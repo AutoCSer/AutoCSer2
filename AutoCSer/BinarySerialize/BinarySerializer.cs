@@ -13,46 +13,54 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer
 {
     /// <summary>
+    /// Binary data serialization
     /// 二进制数据序列化
     /// </summary>
     public sealed partial class BinarySerializer : AutoCSer.Threading.Link<BinarySerializer>, IDisposable
     {
         /// <summary>
-        /// 空对象
+        /// null object
         /// </summary>
         public const int NullValue = int.MinValue;
         /// <summary>
-        /// 非空对象
+        /// not null object
         /// </summary>
         public const int NotNullValue = NullValue + 1;
         /// <summary>
+        /// Real type
         /// 真实类型
         /// </summary>
         public const int RealTypeValue = NotNullValue + 1;
         /// <summary>
+        /// Array reference execution type
         /// 数组引用执行类型
         /// </summary>
         private const AutoCSer.BinarySerialize.SerializePushTypeEnum arraySerializePushType = AutoCSer.BinarySerialize.SerializePushTypeEnum.TryReference;
         /// <summary>
+        /// Custom global configuration
         /// 自定义全局配置
         /// </summary>
         public static readonly CustomConfig CustomConfig = AutoCSer.Configuration.Common.Get<CustomConfig>()?.Value ?? new CustomConfig();
 #if AOT
         /// <summary>
+        /// Default binary data serialization type configuration
         /// 默认二进制数据序列化类型配置
         /// </summary>
         internal static readonly BinarySerializeAttribute DefaultAttribute = new BinarySerializeAttribute { IsBaseType = false };
 #else
         /// <summary>
+        /// Default binary data serialization type configuration
         /// 默认二进制数据序列化类型配置
         /// </summary>
         internal static readonly BinarySerializeAttribute DefaultAttribute = AutoCSer.Configuration.Common.Get<BinarySerializeAttribute>()?.Value ?? new BinarySerializeAttribute { IsBaseType = false };
 #endif
         /// <summary>
+        /// Public default configuration parameters
         /// 公共默认配置参数
         /// </summary>
         internal static readonly BinarySerializeConfig DefaultConfig = AutoCSer.Configuration.Common.Get<BinarySerializeConfig>()?.Value ?? new BinarySerializeConfig();
         /// <summary>
+        /// Copy the public default configuration parameters
         /// 复制公共默认配置参数
         /// </summary>
         /// <returns></returns>
@@ -63,11 +71,13 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 序列化输出缓冲区
+        /// Output buffer stream
+        /// 序列化输出缓冲区流
         /// </summary>
         public readonly UnmanagedStream Stream;
         /// <summary>
-        /// 上下文
+        /// Custom context
+        /// 自定义上下文
         /// </summary>
 #if NetStandard21
         internal object? Context;
@@ -75,10 +85,12 @@ namespace AutoCSer
         internal object Context;
 #endif
         /// <summary>
+        /// Serialization configuration parameters
         /// 序列化配置参数
         /// </summary>
         internal BinarySerializeConfig Config = DefaultConfig;
         /// <summary>
+        /// Member bitmap
         /// 成员位图
         /// </summary>
 #if NetStandard21
@@ -87,6 +99,7 @@ namespace AutoCSer
         internal MemberMap MemberMap;
 #endif
         /// <summary>
+        /// Current member bitmap
         /// 成员位图
         /// </summary>
 #if NetStandard21
@@ -95,7 +108,8 @@ namespace AutoCSer
         internal MemberMap CurrentMemberMap;
 #endif
         /// <summary>
-        /// JSON序列化成员位图
+        /// JSON serialization member bitmap
+        /// JSON 序列化成员位图
         /// </summary>
 #if NetStandard21
         internal MemberMap? JsonMemberMap;
@@ -103,7 +117,7 @@ namespace AutoCSer
         internal MemberMap JsonMemberMap;
 #endif
         /// <summary>
-        /// JSON序列化
+        /// JSON serialization
         /// </summary>
 #if NetStandard21
         private JsonSerializer? jsonSerializer;
@@ -111,7 +125,8 @@ namespace AutoCSer
         private JsonSerializer jsonSerializer;
 #endif
         /// <summary>
-        /// 历史对象指针位置
+        /// Historically reference the position of the object pointer
+        /// 历史引用对象指针位置
         /// </summary>
 #if NetStandard21
         private ReusableDictionary<ObjectReferenceType, int>? points;
@@ -119,45 +134,55 @@ namespace AutoCSer
         private ReusableDictionary<ObjectReferenceType, int> points;
 #endif
         /// <summary>
-        /// 节点层级计数
+        /// Node nesting depth counting
+        /// 节点嵌套层级计数
         /// </summary>
         internal int CurrentDepth;
         /// <summary>
+        /// The starting position of the data stream
         /// 数据流起始位置
         /// </summary>
         private int streamStartIndex;
         /// <summary>
+        /// Non-reference counting
         /// 增加非引用计数
         /// </summary>
         private bool notReferenceCount;
         /// <summary>
+        /// Is any object that are referenced
         /// 是否存在对象被引用
         /// </summary>
         private bool isObjectReference;
         /// <summary>
+        /// Warning prompt status
         /// 警告提示状态
         /// </summary>
         public SerializeWarningEnum Warning { get; internal set; }
         /// <summary>
+        /// Is serialization operations are being processed
         /// 是否正在处理序列化操作
         /// </summary>
         private bool isProcessing;
         /// <summary>
+        /// Binary data serialization
         /// 二进制数据序列化
         /// </summary>
-        /// <param name="isThreadStatic">是否线程静态实例模式</param>
+        /// <param name="isThreadStatic">Is static instance mode of the thread
+        /// 是否线程静态实例模式</param>
         internal BinarySerializer(bool isThreadStatic = false)
         {
             Stream = isThreadStatic ? new UnmanagedStream(AutoCSer.Common.Config.SerializeUnmanagedPool) : new UnmanagedStream(default(AutoCSer.Memory.UnmanagedPoolPointer));
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <param name="warning"></param>
-        /// <returns>序列化数据</returns>
+        /// <returns>Serialized data
+        /// 序列化数据</returns>
 #if NetStandard21
         private byte[] serialize<T>(ref T value, BinarySerializeConfig? config, out SerializeWarningEnum warning)
 #else
@@ -175,7 +200,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="serializer"></param>
@@ -194,11 +219,13 @@ namespace AutoCSer
             finally { Stream.ExchangeFromBuffer(serializer.Stream, ref buffer); }
         }
         /// <summary>
+        /// Object serialization (Thread static Instance pattern)
         /// 对象序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
         /// <param name="warning"></param>
         /// <returns></returns>
 #if NetStandard21
@@ -215,10 +242,11 @@ namespace AutoCSer
             return Stream.Data.Pointer.GetArray();
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         private unsafe void serialize<T>(ref T value)
         {
             notReferenceCount = TypeSerializer<T>.SerializeDelegateReference.NotReferenceCount;
@@ -239,6 +267,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Write the pointer to the historical object
         /// 写入历史对象指针
         /// </summary>
         /// <returns></returns>
@@ -261,7 +290,8 @@ namespace AutoCSer
             Stream.Write(pointSize);
         }
         /// <summary>
-        /// 设置上下文
+        /// Set the custom context
+        /// 设置自定义上下文
         /// </summary>
         /// <param name="context"></param>
         /// <param name="isSerializeCopyString"></param>
@@ -275,7 +305,8 @@ namespace AutoCSer
             return Stream;
         }
         /// <summary>
-        /// 设置上下文
+        /// Set the custom context
+        /// 设置自定义上下文
         /// </summary>
         /// <param name="context"></param>
         /// <param name="isSerializeCopyString"></param>
@@ -288,7 +319,7 @@ namespace AutoCSer
             return SetContext(context, ref isSerializeCopyString);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         void IDisposable.Dispose()
         {
@@ -302,6 +333,7 @@ namespace AutoCSer
             Stream.Dispose();
         }
         /// <summary>
+        /// Release resources (Thread static instance mode)
         /// 释放资源（线程静态实例模式）
         /// </summary>
         private void freeThreadStatic()
@@ -311,7 +343,7 @@ namespace AutoCSer
             isProcessing = false;
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void Free()
@@ -320,7 +352,7 @@ namespace AutoCSer
             AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Push(this);
         }
         /// <summary>
-        /// 释放资源
+        /// Release resources
         /// </summary>
         /// <param name="isSerializeCopyString"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -341,6 +373,7 @@ namespace AutoCSer
         //    return pushType == SerializePushType.Primitive ? SerializePushType.Primitive : CheckDepth(pushType);
         //}
         /// <summary>
+        /// Gets the serialization reference check type
         /// 获取序列化引用检查类型
         /// </summary>
         /// <param name="pushType"></param>
@@ -366,6 +399,7 @@ namespace AutoCSer
             return SerializePushTypeEnum.DepthOutOfRange;
         }
         /// <summary>
+        /// Gets the serialization reference check type
         /// 获取序列化引用检查类型
         /// </summary>
         /// <param name="pushType"></param>
@@ -394,7 +428,8 @@ namespace AutoCSer
             return SerializePushTypeEnum.DepthOutOfRange;
         }
         /// <summary>
-        /// 清除增加非引用计数
+        /// Clear the non-reference count
+        /// 清除非引用计数
         /// </summary>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void ClearNotReferenceCount()
@@ -403,6 +438,7 @@ namespace AutoCSer
             notReferenceCount = false;
         }
         /// <summary>
+        /// Gets the serialization reference check type
         /// 获取序列化引用检查类型
         /// </summary>
         /// <returns></returns>
@@ -412,11 +448,13 @@ namespace AutoCSer
             return !notReferenceCount && Config.CheckReference ? SerializePushTypeEnum.TryReference : SerializePushTypeEnum.DepthCount;
         }
         /// <summary>
+        /// Add historical objects
         /// 添加历史对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <returns>是否继续序列化对象</returns>
+        /// <returns>Is continues to serialize objects
+        /// 是否继续序列化对象</returns>
 #if NET8
         [MemberNotNull(nameof(points))]
 #endif
@@ -450,7 +488,8 @@ namespace AutoCSer
             return false;
         }
         /// <summary>
-        /// 序列化成员位图
+        /// Gets the serialization member bitmap
+        /// 获取序列化成员位图
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -475,10 +514,10 @@ namespace AutoCSer
             return null;
         }
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static void Serialize<T>(BinarySerializer binarySerializer, T value)
         {
@@ -486,7 +525,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Write(NullValue);
         }
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -496,7 +535,7 @@ namespace AutoCSer
             value.Serialize(this);
         }
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="serializer"></param>
@@ -507,6 +546,7 @@ namespace AutoCSer
             value.Serialize(serializer);
         }
         /// <summary>
+        /// Get the JSON serialization
         /// 获取 JSON 序列化
         /// </summary>
         /// <returns></returns>
@@ -517,6 +557,7 @@ namespace AutoCSer
             return jsonSerializer;
         }
         /// <summary>
+        /// JSON serialization to the buffer
         /// JSON 序列化到缓冲区
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -527,6 +568,7 @@ namespace AutoCSer
             if (index >= 0) SerializeBufferEnd(index, (jsonSerializer ?? createJsonSerializer()).SerializeBufferNotNull(ref value, Stream));
         }
         /// <summary>
+        /// JSON serialization to the buffer
         /// JSON 序列化到缓冲区
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -538,7 +580,8 @@ namespace AutoCSer
             else Stream.Write(0);
         }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        /// JSON mixed binary serialization
+        /// JSON 混杂二进制序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -556,23 +599,24 @@ namespace AutoCSer
                 Stream.JsonSerializeFill(index);
             }
         }
-//        /// <summary>
-//        /// JSON 序列化
-//        /// </summary>
-//        /// <typeparam name="T"></typeparam>
-//        /// <param name="value"></param>
-//        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-//#if NetStandard21
-//        public void JsonSerialize<T>(ref T? value)
-//#else
-//        public void JsonSerialize<T>(ref T value)
-//#endif
-//        {
-//            if (value != null) JsonSerialize(ref value, null);
-//            else Stream.Write(0);
-//        }
+        //        /// <summary>
+        //        /// JSON 序列化
+        //        /// </summary>
+        //        /// <typeparam name="T"></typeparam>
+        //        /// <param name="value"></param>
+        //        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //#if NetStandard21
+        //        public void JsonSerialize<T>(ref T? value)
+        //#else
+        //        public void JsonSerialize<T>(ref T value)
+        //#endif
+        //        {
+        //            if (value != null) JsonSerialize(ref value, null);
+        //            else Stream.Write(0);
+        //        }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        /// JSON mixed binary serialization
+        /// JSON 混杂二进制序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -595,7 +639,8 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        /// JSON mixed binary serialization
+        /// JSON 混杂二进制序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -606,7 +651,8 @@ namespace AutoCSer
             binarySerializer.Json(value);
         }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        /// JSON mixed binary serialization
+        /// JSON 混杂二进制序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -617,7 +663,8 @@ namespace AutoCSer
             binarySerializer.JsonSerialize(ref value, null);
         }
         /// <summary>
-        /// 二进制序列化转简单序列化（用于代码生成，不允许开发者调用）
+        /// Binary serialization to simple serialization (for AOT code generation, not allowed for developers to call)
+        /// 二进制序列化转简单序列化（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -632,7 +679,8 @@ namespace AutoCSer
             binarySerializer.SimpleSerialize(ref value);
         }
         /// <summary>
-        /// 自定义序列化不支持类型
+        /// Custom serialization does not support types
+        /// 自定义序列化不支持的类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -643,6 +691,7 @@ namespace AutoCSer
             if (size > 0) binarySerializer.Stream.Data.Pointer.MoveSize(size);
         }
         /// <summary>
+        /// Real type serialization
         /// 真实类型序列化
         /// </summary>
         /// <param name="value"></param>
@@ -661,6 +710,7 @@ namespace AutoCSer
             TypeSerializer<T>.Serialize(this, ref value);
         }
         /// <summary>
+        /// Real type serialization
         /// 真实类型序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -671,6 +721,7 @@ namespace AutoCSer
             binarySerializer.realTypeObject((T)value);
         }
         /// <summary>
+        /// Base type serialization
         /// 基类序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -705,6 +756,7 @@ namespace AutoCSer
             else TypeSerializer<BT>.DefaultSerializer(this, value);
         }
         /// <summary>
+        /// Base type serialization
         /// 基类序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -718,10 +770,10 @@ namespace AutoCSer
             binarySerializer.baseSerialize<T, BT>(value);
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
-        /// <param name="binarySerializer">二进制数据序列化</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="binarySerializer">Binary data serialization</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Nullable<T>(BinarySerializer binarySerializer, T? value) where T : struct
         {
@@ -729,9 +781,9 @@ namespace AutoCSer
             else binarySerializer.Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         /// <param name="count"></param>
         private unsafe void arrayOnly<T>(T[] array, int count)
         {
@@ -760,9 +812,9 @@ namespace AutoCSer
             else Stream.Write(0);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void BinarySerialize<T>(T[]? array) where T : class
 #else
@@ -786,19 +838,19 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Array<T>(BinarySerializer binarySerializer, T[] array) where T : class
         {
             binarySerializer.BinarySerialize(array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void BinarySerialize<T>(ListArray<T>? array) where T : class
 #else
@@ -822,29 +874,29 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void ListArray<T>(BinarySerializer binarySerializer, ListArray<T> array) where T : class
         {
             binarySerializer.BinarySerialize(array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void LeftArray<T>(BinarySerializer binarySerializer, LeftArray<T> array) where T : class
         {
             binarySerializer.arrayOnly(array.Array ?? EmptyArray<T>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         /// <param name="count"></param>
         private void structArrayOnly<T>(T[] array, int count)
         {
@@ -856,9 +908,9 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         private void structArray<T>(T[]? array)
 #else
@@ -882,19 +934,19 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void StructArray<T>(BinarySerializer binarySerializer, T[] array)
         {
             binarySerializer.structArray(array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         private void structArray<T>(ListArray<T>? array)
 #else
@@ -918,29 +970,29 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void StructListArray<T>(BinarySerializer binarySerializer, ListArray<T> array)
         {
             binarySerializer.structArray(array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void StructLeftArray<T>(BinarySerializer binarySerializer, LeftArray<T> array)
         {
             binarySerializer.structArrayOnly(array.Array ?? EmptyArray<T>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         /// <param name="count"></param>
         private unsafe void nullableArrayOnly<T>(T?[] array, int count) where T : struct
         {
@@ -970,9 +1022,9 @@ namespace AutoCSer
             Stream.Write(0);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void NullableArray<T>(T?[]? array) where T : struct
 #else
@@ -996,19 +1048,19 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NullableArray<T>(BinarySerializer binarySerializer, T?[] array) where T : struct
         {
             binarySerializer.NullableArray(array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
 #if NetStandard21
         public void NullableArray<T>(ListArray<T?>? array) where T : struct
 #else
@@ -1032,31 +1084,31 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NullableListArray<T>(BinarySerializer binarySerializer, ListArray<T?> array) where T : struct
         {
             binarySerializer.NullableArray(array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NullableLeftArray<T>(BinarySerializer binarySerializer, LeftArray<T?> array) where T : struct
         {
             binarySerializer.nullableArrayOnly(array.Array ?? EmptyArray<T?>.Array, array.Length);
         }
         /// <summary>
-        /// 集合转换
+        /// Collection serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
-        /// <param name="collection">对象集合</param>
+        /// <param name="collection">Collection object</param>
 #if NetStandard21
         private unsafe void collectionOnly<T, VT>(T collection) where T : ICollection<VT?>
 #else
@@ -1125,11 +1177,11 @@ namespace AutoCSer
             while (true);
         }
         /// <summary>
-        /// 集合转换
+        /// Collection serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
-        /// <param name="collection">对象集合</param>
+        /// <param name="collection">Collection object</param>
 #if NetStandard21
         public void Collection<T, VT>(T collection) where T : ICollection<VT?>
 #else
@@ -1165,12 +1217,12 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 集合转换
+        /// Collection serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
         /// <param name="binarySerializer"></param>
-        /// <param name="collection">对象集合</param>
+        /// <param name="collection">Collection object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public static void Collection<T, VT>(BinarySerializer binarySerializer, T collection) where T : ICollection<VT?>
@@ -1181,7 +1233,7 @@ namespace AutoCSer
             binarySerializer.Collection<T, VT>(collection);
         }
         /// <summary>
-        /// 字典序列化
+        /// Dictionary serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -1222,7 +1274,7 @@ namespace AutoCSer
             while (true);
         }
         /// <summary>
-        /// 字典序列化
+        /// Dictionary serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -1261,7 +1313,7 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 字典序列化
+        /// Dictionary serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -1276,88 +1328,96 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumByte<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
             serializer.Stream.Write((uint)AutoCSer.Metadata.EnumGenericType<T, byte>.ToInt(value));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumSByte<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
             serializer.Stream.Write((int)AutoCSer.Metadata.EnumGenericType<T, sbyte>.ToInt(value));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumShort<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
             serializer.Stream.Write((int)AutoCSer.Metadata.EnumGenericType<T, short>.ToInt(value));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumUShort<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
             serializer.Stream.Write((uint)AutoCSer.Metadata.EnumGenericType<T, ushort>.ToInt(value));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumInt<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
             serializer.Stream.Write(AutoCSer.Metadata.EnumGenericType<T, int>.ToInt(value));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumUInt<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
             serializer.Stream.Write(AutoCSer.Metadata.EnumGenericType<T, uint>.ToInt(value));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumLong<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
             serializer.Stream.Write(AutoCSer.Metadata.EnumGenericType<T, long>.ToInt(value));
         }
         /// <summary>
+        /// Serialization of enumeration values
         /// 枚举值序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="serializer">二进制数据序列化</param>
-        /// <param name="value">枚举值序列化</param>
+        /// <param name="serializer">Binary data serialization</param>
+        /// <param name="value">Enumeration value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public unsafe static void EnumULong<T>(BinarySerializer serializer, T value) where T : struct, IConvertible
         {
@@ -1365,26 +1425,29 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Logical value serialization
         /// 逻辑值序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(BinarySerializer binarySerializer, bool value)
         {
             binarySerializer.Stream.Write(value ? (int)1 : 0);
         }
         /// <summary>
+        /// Logical value serialization
         /// 逻辑值序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(BinarySerializer binarySerializer, bool? value)
         {
             binarySerializer.Stream.Write(value.HasValue ? (value.Value ? 1 : 0) : NullValue);
         }
         /// <summary>
+        /// Serialization of logical value arrays
         /// 逻辑值数组序列化
         /// </summary>
         /// <param name="array"></param>
@@ -1410,6 +1473,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Serialization of logical value arrays
         /// 逻辑值数组序列化
         /// </summary>
         /// <param name="array"></param>
@@ -1427,7 +1491,7 @@ namespace AutoCSer
             else Stream.Write(0);
         }
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1437,10 +1501,10 @@ namespace AutoCSer
             binarySerializer.Stream.Write((uint)value);
         }
         /// <summary>
-        /// 整数值序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(BinarySerializer binarySerializer, byte? value)
         {
@@ -1448,7 +1512,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Write(NullValue);
         }
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1458,17 +1522,17 @@ namespace AutoCSer
             binarySerializer.Stream.Write((int)value);
         }
         /// <summary>
-        /// 整数值序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(BinarySerializer binarySerializer, sbyte? value)
         {
             binarySerializer.Stream.Write(value.HasValue ? value.Value : NullValue);
         }
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1478,17 +1542,17 @@ namespace AutoCSer
             binarySerializer.Stream.Write((int)value);
         }
         /// <summary>
-        /// 整数值序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(BinarySerializer binarySerializer, short? value)
         {
             binarySerializer.Stream.Write(value.HasValue ? value.Value : NullValue);
         }
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1498,10 +1562,10 @@ namespace AutoCSer
             binarySerializer.Stream.Write((uint)value);
         }
         /// <summary>
-        /// 整数值序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(BinarySerializer binarySerializer, ushort? value)
         {
@@ -1509,7 +1573,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Write(NullValue);
         }
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1519,10 +1583,10 @@ namespace AutoCSer
             binarySerializer.Stream.Write((uint)value);
         }
         /// <summary>
-        /// 整数值序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveSerialize(BinarySerializer binarySerializer, char? value)
         {
@@ -1530,6 +1594,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Write(NullValue);
         }
         /// <summary>
+        /// Serialization of floating-point numbers
         /// 浮点数序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -1540,6 +1605,7 @@ namespace AutoCSer
             binarySerializer.Stream.Write((uint)*(ushort*)&value);
         }
         /// <summary>
+        /// Serialization of floating-point number groups
         /// 浮点数数组序列化
         /// </summary>
         /// <param name="array"></param>
@@ -1553,7 +1619,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
-        /// 整数序列化
+        /// Integer value serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1563,7 +1629,7 @@ namespace AutoCSer
             binarySerializer.Stream.Write(ref value);
         }
         /// <summary>
-        /// 成员序列化
+        /// Member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1573,7 +1639,7 @@ namespace AutoCSer
             binarySerializer.Stream.Data.Pointer.Write(ref value);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -1607,7 +1673,7 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1617,7 +1683,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize(value);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="value"></param>
         public unsafe void BinarySerialize(SubString value)
@@ -1629,7 +1695,7 @@ namespace AutoCSer
             else Stream.Write(0);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1639,7 +1705,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize(value);
         }
         /// <summary>
-        /// 类型序列化
+        /// Type serialization
         /// </summary>
         /// <param name="value"></param>
         private void primitiveSerializeOnly(Type value)
@@ -1650,7 +1716,7 @@ namespace AutoCSer
             BinarySerialize(remoteType.Name);
         }
         /// <summary>
-        /// 类型序列化
+        /// Type serialization
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -1676,7 +1742,7 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// 类型序列化
+        /// Type serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1690,7 +1756,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize(value);
         }
         /// <summary>
-        /// object 序列化
+        /// object serialization
         /// </summary>
         /// <param name="value"></param>
 #if NetStandard21
@@ -1716,7 +1782,7 @@ namespace AutoCSer
             Stream.Write(NullValue);
         }
         /// <summary>
-        /// object 序列化
+        /// object serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -1727,10 +1793,10 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 获取并设置自定义序列化成员位图
+        /// Get and set the custom serialization member bitmap
         /// </summary>
-        /// <param name="memberMap">设置的自定义序列化成员位图</param>
-        /// <returns>序列化成员位图</returns>
+        /// <param name="memberMap">The custom serialization member bitmap set</param>
+        /// <returns>Serialization member bitmap</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public BinarySerializeMemberMap GetCustomMemberMap(MemberMap? memberMap)
@@ -1743,9 +1809,10 @@ namespace AutoCSer
             return new BinarySerializeMemberMap(oldMemberMap, CurrentMemberMap, JsonMemberMap);
         }
         /// <summary>
+        /// Restore the custom serialization member bitmap
         /// 恢复自定义序列化成员位图
         /// </summary>
-        /// <param name="memberMap">序列化成员位图</param>
+        /// <param name="memberMap">Serialization member bitmap</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void SetCustomMemberMap(ref BinarySerializeMemberMap memberMap)
         {
@@ -1754,6 +1821,7 @@ namespace AutoCSer
             JsonMemberMap = memberMap.JsonMemberMap;
         }
         /// <summary>
+        /// Custom serialization calls
         /// 自定义序列化调用
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1769,6 +1837,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
+        /// Custom serialization calls
         /// 自定义序列化调用
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1780,6 +1849,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
+        /// Serialize into a data buffer (write directly without checking the object reference)
         /// 序列化为数据缓冲区（不检查对象引用直接写入）
         /// </summary>
         /// <param name="buffer"></param>
@@ -1792,6 +1862,7 @@ namespace AutoCSer
             else Stream.Write(0);
         }
         /// <summary>
+        /// Serialize into a data buffer (write directly without checking the object reference)
         /// 序列化为数据缓冲区（不检查对象引用直接写入）
         /// </summary>
         /// <param name="buffer"></param>
@@ -1804,10 +1875,12 @@ namespace AutoCSer
             else Stream.Write(0);
         }
         /// <summary>
+        /// Serialize into a data buffer (write directly without checking the object reference)
         /// 序列化为数据缓冲区（不检查对象引用直接写入）
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>不包括补白的字节数，0 表示序列化失败</returns>
+        /// <returns>Excluding the number of bytes for padding, 0 indicates a serialization failure
+        /// 不包括补白的字节数，0 表示序列化失败</returns>
 #if NetStandard21
         public void SerializeBuffer(string? value)
 #else
@@ -1818,10 +1891,12 @@ namespace AutoCSer
             if (index >= 0) SerializeBufferEnd(index, SerializeOnly(value));
         }
         /// <summary>
+        /// Serialize into a data buffer (write directly without checking the object reference)
         /// 序列化为数据缓冲区（不检查对象引用直接写入）
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>不包括补白的字节数，0 表示序列化失败</returns>
+        /// <returns>Excluding the number of bytes for padding, 0 indicates a serialization failure
+        /// 不包括补白的字节数，0 表示序列化失败</returns>
 #if NetStandard21
         internal unsafe int SerializeOnly(string? value)
 #else
@@ -1841,9 +1916,11 @@ namespace AutoCSer
             return sizeof(int);
         }
         /// <summary>
+        /// The custom serialization data buffer begins processing
         /// 自定义序列化数据缓冲区开始处理
         /// </summary>
-        /// <returns>起始位置，失败返回-1</returns>
+        /// <returns>Starting position. Return -1 if failed
+        /// 起始位置，失败返回-1</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal int SerializeBufferStart()
         {
@@ -1851,6 +1928,7 @@ namespace AutoCSer
             return Stream.MoveSize(sizeof(int)) ? index : -1;
         }
         /// <summary>
+        /// The custom serialization data buffer has completed processing
         /// 自定义序列化数据缓冲区结束处理
         /// </summary>
         /// <param name="index"></param>
@@ -1863,6 +1941,7 @@ namespace AutoCSer
             *(int*)(Stream.Data.Pointer.Byte + index) = dataSize;
         }
         /// <summary>
+        /// The custom serialization data buffer has completed processing
         /// 自定义序列化数据缓冲区结束处理
         /// </summary>
         /// <param name="index"></param>
@@ -1887,10 +1966,12 @@ namespace AutoCSer
         //    }
         //}
         /// <summary>
+        /// Independent objects are serialization into a piece of data that can be deserialization independently
         /// 独立对象序列化为一个可独立反序列化的数据
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe void IndependentSerialize<T>(ref T value)
             where T : struct
@@ -1911,6 +1992,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// The internal member object is serialization into an independently deserializable piece of data (with no reference check on the outer layer)
         /// 内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1922,7 +2004,8 @@ namespace AutoCSer
             else Stream.Write(((long)NullValue << 32) + sizeof(int));
         }
         /// <summary>
-        /// 内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）（用于代码生成，不允许开发者调用）
+        /// The internal member object is serialization into an independently deserializable data (with no reference check on the outer layer) (used for AOT code generation and not allowed for developers to call)
+        /// 内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -1978,7 +2061,8 @@ namespace AutoCSer
         //    else Stream.Write(((long)NullValue << 32) + sizeof(int));
         //}
         /// <summary>
-        /// 内部成员对象序列化为一个可独立反序列化的数据（用于代码生成，不允许开发者调用）
+        /// The internal member object is serialization into an independently deserializable data (for AOT code generation and not allowed for developers to call)
+        /// 内部成员对象序列化为一个可独立反序列化的数据（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -1996,6 +2080,7 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Recalculate the serialization byte length (4-byte alignment)
         /// 重新计算序列化字节长度（4字节对齐）
         /// </summary>
         /// <param name="size"></param>
@@ -2006,6 +2091,7 @@ namespace AutoCSer
             return (size + 3) & (long.MaxValue - 3);
         }
         /// <summary>
+        /// Recalculate the serialization byte length (4-byte alignment)
         /// 重新计算序列化字节长度（4字节对齐）
         /// </summary>
         /// <param name="size"></param>
@@ -2016,6 +2102,7 @@ namespace AutoCSer
             return (size + 3) & (int.MaxValue - 3);
         }
         /// <summary>
+        /// Recalculate the serialization byte length (4-byte alignment)
         /// 重新计算序列化字节长度（4字节对齐）
         /// </summary>
         /// <param name="size"></param>
@@ -2026,6 +2113,7 @@ namespace AutoCSer
             return size;
         }
         /// <summary>
+        /// Recalculate the serialization byte length (4-byte alignment)
         /// 重新计算序列化字节长度（4字节对齐）
         /// </summary>
         /// <param name="size"></param>
@@ -2036,6 +2124,7 @@ namespace AutoCSer
             return size;
         }
         /// <summary>
+        /// Serialize and fill the blank bytes
         /// 序列化填充空白字节
         /// </summary>
         /// <param name="write"></param>
@@ -2043,7 +2132,8 @@ namespace AutoCSer
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe void FillSize(byte* write, int size) { }
         /// <summary>
-        /// 序列化填充空白字节 short / ushort（4字节对齐）
+        /// short/ushort serialization padding blank bytes (4-byte alignment)
+        /// short / ushort 序列化填充空白字节（4字节对齐）
         /// </summary>
         /// <param name="write"></param>
         /// <param name="size"></param>
@@ -2053,7 +2143,8 @@ namespace AutoCSer
             if ((size & 1) != 0) *(short*)write = 0;
         }
         /// <summary>
-        /// 序列化填充空白字节 byte / sbyte（4字节对齐）
+        /// byte/sbyte serialization fills blank bytes (4-byte alignment)
+        /// byte / sbyte 序列化填充空白字节（4字节对齐）
         /// </summary>
         /// <param name="write"></param>
         /// <param name="size"></param>
@@ -2071,12 +2162,16 @@ namespace AutoCSer
             }
         }
         /// <summary>
+        /// Write as much data as possible into the serialization output buffer
         /// 在序列化输出缓存区尽可能写入多的数据
         /// </summary>
-        /// <param name="data">输出数据</param>
-        /// <param name="startIndex">输出数据起始位置</param>
-        /// <param name="count">最大写入字节数量</param>
-        /// <returns>写入字节数量，写入失败返回 -1</returns>
+        /// <param name="data">Output data</param>
+        /// <param name="startIndex">Output the starting position of the data
+        /// 输出数据起始位置</param>
+        /// <param name="count">The maximum number of bytes written
+        /// 最大写入字节数量</param>
+        /// <returns>Write the number of bytes. Return -1 in case of write failure
+        /// 写入字节数量，写入失败返回 -1</returns>
         internal unsafe int CustomWriteFree(byte[] data, int startIndex, int count)
         {
             int size = Stream.FreeSize - sizeof(int) * 2;
@@ -2101,6 +2196,7 @@ namespace AutoCSer
             return -1;
         }
         /// <summary>
+        /// Gets the serialization buffer move position
         /// 获取序列化缓冲区移动位置
         /// </summary>
         /// <returns></returns>
@@ -2111,16 +2207,18 @@ namespace AutoCSer
         }
 #if AOT
         /// <summary>
+        /// Serialization of logical value members
         /// 逻辑值成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="objectValue">逻辑值</param>
+        /// <param name="objectValue">Logical value</param>
         private static void primitiveMemberSerializeBool(BinarySerializer binarySerializer, object objectValue)
         {
             bool? value = (bool?)objectValue;
             binarySerializer.Stream.Data.Pointer.Write(value.HasValue ? (value.Value ? (byte)2 : (byte)1) : (byte)0);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2132,6 +2230,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(short.MinValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2143,6 +2242,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(short.MinValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2154,6 +2254,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2165,7 +2266,8 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
-        /// 整数成员序列化
+        /// Serialization of character members
+        /// 字符成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="objectValue"></param>
@@ -2176,6 +2278,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
+        /// Guid member serialization
         /// Guid 成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2185,6 +2288,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize((Guid)objectValue);
         }
         /// <summary>
+        /// Guid member serialization
         /// Guid 成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2196,7 +2300,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -2205,7 +2309,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize((string?)value);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -2214,7 +2318,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize((SubString)value);
         }
         /// <summary>
-        /// 类型序列化
+        /// Type member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -2223,7 +2327,7 @@ namespace AutoCSer
             binarySerializer.BinarySerialize((Type?)value);
         }
         /// <summary>
-        /// 字符串序列化
+        /// String member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -2232,92 +2336,93 @@ namespace AutoCSer
             binarySerializer.BinarySerialize(value);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NullableListArrayReflection<T>(BinarySerializer binarySerializer, object? array) where T : struct
         {
             binarySerializer.NullableArray((ListArray<T?>?)array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="objectValue">数组对象</param>
+        /// <param name="objectValue">Array object</param>
         public static void NullableLeftArrayReflection<T>(BinarySerializer binarySerializer, object objectValue) where T : struct
         {
             LeftArray<T?> array = (LeftArray<T?>)objectValue;
             binarySerializer.nullableArrayOnly(array.Array ?? EmptyArray<T?>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public static void StructListArrayReflection<T>(BinarySerializer binarySerializer, object? array)
         {
             binarySerializer.structArray((ListArray<T>?)array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="objectValue">数组对象</param>
+        /// <param name="objectValue">Array object</param>
         public static void StructLeftArrayReflection<T>(BinarySerializer binarySerializer, object objectValue)
         {
             LeftArray<T> array = (LeftArray<T>)objectValue;
             binarySerializer.structArrayOnly(array.Array ?? EmptyArray<T>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public static void ListArrayReflection<T>(BinarySerializer binarySerializer, object? array) where T : class
         {
             binarySerializer.BinarySerialize((ListArray<T>?)array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="objectValue">数组对象</param>
+        /// <param name="objectValue">Array object</param>
         public static void LeftArrayReflection<T>(BinarySerializer binarySerializer, object objectValue) where T : class
         {
             LeftArray<T> array = (LeftArray<T>)objectValue;
             binarySerializer.arrayOnly(array.Array ?? EmptyArray<T>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public static void NullableArrayReflection<T>(BinarySerializer binarySerializer, object? array) where T : struct
         {
             binarySerializer.NullableArray((T?[]?)array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public static void StructArrayReflection<T>(BinarySerializer binarySerializer, object? array)
         {
             binarySerializer.structArray((T[]?)array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         public static void ArrayReflection<T>(BinarySerializer binarySerializer, object? array) where T : class
         {
             binarySerializer.BinarySerialize((T[]?)array);
         }
         /// <summary>
-        /// 自定义序列化不支持类型
+        /// Custom serialization does not support types
+        /// 自定义序列化不支持的类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -2327,16 +2432,16 @@ namespace AutoCSer
             NotSupport(binarySerializer, (T)value);
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
-        /// <param name="binarySerializer">二进制数据序列化</param>
-        /// <param name="value">数据对象</param>
+        /// <param name="binarySerializer">Binary data serialization</param>
+        /// <param name="value">Data object</param>
         public static void NullableReflection<T>(BinarySerializer binarySerializer, object value) where T : struct
         {
             Nullable(binarySerializer, (T?)value);
         }
         /// <summary>
-        /// 字典序列化
+        /// Dictionary serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="KT"></typeparam>
@@ -2349,18 +2454,18 @@ namespace AutoCSer
             binarySerializer.Dictionary<T, KT, VT>((T)dictionary);
         }
         /// <summary>
-        /// 集合转换
+        /// Collection serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="VT"></typeparam>
         /// <param name="binarySerializer"></param>
-        /// <param name="collection">对象集合</param>
+        /// <param name="collection">Collection object</param>
         public static void CollectionReflection<T, VT>(BinarySerializer binarySerializer, object collection) where T : ICollection<VT?>
         {
             binarySerializer.Collection<T, VT>((T)collection);
         }
         /// <summary>
-        /// 基类序列化
+        /// Base type serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="BT"></typeparam>
@@ -2372,7 +2477,8 @@ namespace AutoCSer
             binarySerializer.baseSerialize<T, BT>((T)value);
         }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        /// JSON mixed binary serialization
+        /// JSON 混杂二进制序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -2382,7 +2488,8 @@ namespace AutoCSer
             binarySerializer.Json((T)value);
         }
         /// <summary>
-        /// 二进制混杂 JSON 序列化
+        /// JSON mixed binary serialization
+        /// JSON 混杂二进制序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -2393,7 +2500,8 @@ namespace AutoCSer
             binarySerializer.JsonSerialize(ref value, null);
         }
         /// <summary>
-        /// 简单序列化（用于代码生成，不允许开发者调用）
+        /// Simple serialization (for AOT code generation, not allowed for developers to call)
+        /// 简单序列化（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="binarySerializer"></param>
@@ -2404,16 +2512,16 @@ namespace AutoCSer
             binarySerializer.SimpleSerialize(ref value);
         }
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         public static void SerializeReflection<T>(BinarySerializer binarySerializer, object value)
         {
             Serialize(binarySerializer, (T)value);
         }
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="serializer"></param>
@@ -2423,15 +2531,17 @@ namespace AutoCSer
             ((T)value).Serialize(serializer);
         }
         /// <summary>
+        /// Serialization of logical value members
         /// 逻辑值成员序列化
         /// </summary>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinarySerialize(bool? value)
         {
             Stream.Write(value.HasValue ? (value.Value ? (byte)2 : (byte)1) : (byte)0);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="value"></param>
@@ -2442,6 +2552,7 @@ namespace AutoCSer
             else Stream.Write(short.MinValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="value"></param>
@@ -2452,6 +2563,7 @@ namespace AutoCSer
             else Stream.Write(short.MinValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="value"></param>
@@ -2462,6 +2574,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="value"></param>
@@ -2472,6 +2585,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="value"></param>
@@ -2482,7 +2596,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
-        /// 成员序列化
+        /// Guid member serialization
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -2491,7 +2605,7 @@ namespace AutoCSer
             Stream.Write(ref value);
         }
         /// <summary>
-        /// Guid 成员序列化
+        /// Guid member serialization
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -2504,54 +2618,54 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void NullableArray<T>(LeftArray<T?> array) where T : struct
         {
             nullableArrayOnly(array.Array ?? EmptyArray<T?>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void StructArray<T>(LeftArray<T> array) where T : struct
         {
             structArrayOnly(array.Array ?? EmptyArray<T>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinarySerialize<T>(LeftArray<T> array) where T : class
         {
             arrayOnly(array.Array ?? EmptyArray<T>.Array, array.Length);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void StructArray<T>(ListArray<T> array) where T : struct
         {
             structArray(array);
         }
         /// <summary>
-        /// 数组转换
+        /// Array serialization
         /// </summary>
-        /// <param name="array">数组对象</param>
+        /// <param name="array">Array object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void StructArray<T>(T[] array) where T : struct
         {
             structArray(array);
         }
         /// <summary>
-        /// 对象序列化
+        /// Object serialization
         /// </summary>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinarySerialize<T>(T? value) where T : struct
         {
@@ -2559,9 +2673,9 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
-        /// <param name="value">数据对象</param>
+        /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public void BinarySerialize<T>(T value)
         {
@@ -2569,7 +2683,7 @@ namespace AutoCSer
             else Stream.Write(NullValue);
         }
         /// <summary>
-        /// JSON 序列化
+        /// JSON serialization
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -2579,7 +2693,8 @@ namespace AutoCSer
             JsonSerialize(ref value, null);
         }
         /// <summary>
-        /// 二进制序列化转简单序列化（用于代码生成，不允许开发者调用）
+        /// Binary serialization to simple serialization (for AOT code generation, not allowed for developers to call)
+        /// 二进制序列化转简单序列化（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -2589,200 +2704,210 @@ namespace AutoCSer
             SimpleSerialize(ref value);
         }
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ICustomMethod;
         /// <summary>
-        /// 基类型序列化
+        /// Base type serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo BaseMethod;
         /// <summary>
+        /// Unsupported type serialization
         /// 不支持类型序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NotSupportMethod;
         /// <summary>
+        /// Nullable array serialization
         /// 可空数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableArrayMethod;
         /// <summary>
+        /// Nullable array serialization
         /// 可空数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableLeftArrayMethod;
         /// <summary>
+        /// Nullable array serialization
         /// 可空数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableListArrayMethod;
         /// <summary>
+        /// Serialization of value type arrays
         /// 值类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructArrayMethod;
         /// <summary>
+        /// Serialization of value type arrays
         /// 值类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructLeftArrayMethod;
         /// <summary>
+        /// Serialization of value type arrays
         /// 值类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructListArrayMethod;
         /// <summary>
+        /// Serialization of reference type arrays
         /// 引用类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ArrayMethod;
         /// <summary>
+        /// Serialization of reference type arrays
         /// 引用类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo LeftArrayMethod;
         /// <summary>
+        /// Serialization of reference type arrays
         /// 引用类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ListArrayMethod;
         /// <summary>
+        /// Nullable data serialization
         /// 可空数据序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableMethod;
         /// <summary>
-        /// 字典序列化
+        /// Dictionary serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo DictionaryMethod;
         /// <summary>
-        /// 集合序列化
+        /// Collection serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo CollectionMethod;
         /// <summary>
-        /// JSON 序列化
+        /// JSON serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo JsonMethod;
         /// <summary>
-        /// JSON 序列化
+        /// JSON serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructJsonMethod;
         /// <summary>
-        /// 简单序列化
+        /// Simple data serialization
+        /// 简单数据序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo SimpleMethod;
         /// <summary>
-        /// 自定义序列化
+        /// Custom serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ICustomReflectionMethod;
         /// <summary>
-        /// 基类型序列化
+        /// Base type serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo BaseReflectionMethod;
         /// <summary>
-        /// 不支持类型序列化
+        /// Unsupported type serialization
+        /// 不支持的类型序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NotSupportReflectionMethod;
         /// <summary>
+        /// Nullable array serialization
         /// 可空数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableArrayReflectionMethod;
         /// <summary>
+        /// Nullable array serialization
         /// 可空数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableLeftArrayReflectionMethod;
         /// <summary>
+        /// Nullable array serialization
         /// 可空数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableListArrayReflectionMethod;
         /// <summary>
+        /// Serialization of value type arrays
         /// 值类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructArrayReflectionMethod;
         /// <summary>
+        /// Serialization of value type arrays
         /// 值类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructLeftArrayReflectionMethod;
         /// <summary>
+        /// Serialization of value type arrays
         /// 值类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructListArrayReflectionMethod;
         /// <summary>
+        /// Serialization of reference type arrays
         /// 引用类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ArrayReflectionMethod;
         /// <summary>
+        /// Serialization of reference type arrays
         /// 引用类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo LeftArrayReflectionMethod;
         /// <summary>
+        /// Serialization of reference type arrays
         /// 引用类型数组序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo ListArrayReflectionMethod;
         /// <summary>
+        /// Nullable data serialization
         /// 可空数据序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo NullableReflectionMethod;
         /// <summary>
-        /// 字典序列化
+        /// Dictionary serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo DictionaryReflectionMethod;
         /// <summary>
-        /// 集合序列化
+        /// Collection serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo CollectionReflectionMethod;
         /// <summary>
-        /// JSON 序列化
+        /// JSON serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo JsonReflectionMethod;
         /// <summary>
-        /// JSON 序列化
+        /// JSON serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo StructJsonReflectionMethod;
         /// <summary>
-        /// 简单序列化
+        /// Simple data serialization
+        /// 简单数据序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo SimpleReflectionMethod;
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
         internal static readonly System.Reflection.MethodInfo SerializeReflectionMethod;
         /// <summary>
+        /// object reflection serialization
         /// object 反射序列化
         /// </summary>
         internal static readonly System.Reflection.MethodInfo RealTypeObjectMethod;
         /// <summary>
-        /// 序列化模板
+        /// AOT serialization template invocation
+        /// AOT 序列化模板调用
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         internal void SerializeMethodName<T>(object value) { }
-        ///// <summary>
-        ///// 序列化模板
-        ///// </summary>
-        ///// <param name="value"></param>
-        //internal void SerializeMethodName(object value) { }
-        ///// <summary>
-        ///// 代码生成模板
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        //internal static void BinarySerialize<T>() { }
-        ///// <summary>
-        ///// 代码生成模板
-        ///// </summary>
-        ///// <param name="type"></param>
-        //internal static void TypeSerialize(Type type) { }
         /// <summary>
-        /// 序列化模板
+        /// AOT serialization template invocation
+        /// AOT 序列化模板调用
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="values"></param>
         internal static void ReflectionMethodName<T>(params object[] values) { }
-        ///// <summary>
-        ///// 代码生成模板
-        ///// </summary>
-        //internal static void BinarySerializeGenericType<T>() { }
 #else
         /// <summary>
+        /// Serialization of logical value members
         /// 逻辑值成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
-        /// <param name="value">逻辑值</param>
+        /// <param name="value">Logical value</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private static void primitiveMemberSerialize(BinarySerializer binarySerializer, bool? value)
         {
             binarySerializer.Stream.Data.Pointer.Write(value.HasValue ? (value.Value ? (byte)2 : (byte)1) : (byte)0);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2794,6 +2919,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(short.MinValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2805,6 +2931,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(short.MinValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2816,6 +2943,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2827,6 +2955,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
+        /// Integer member serialization
         /// 整数成员序列化
         /// </summary>
         /// <param name="binarySerializer"></param>
@@ -2838,7 +2967,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
-        /// Guid 成员序列化
+        /// Guid member serialization
         /// </summary>
         /// <param name="binarySerializer"></param>
         /// <param name="value"></param>
@@ -2849,6 +2978,7 @@ namespace AutoCSer
             else binarySerializer.Stream.Data.Pointer.Write(NullValue);
         }
         /// <summary>
+        /// Fill the blank bytes
         /// 填充空白字节
         /// </summary>
         /// <param name="serializer"></param>
@@ -2859,6 +2989,7 @@ namespace AutoCSer
             serializer.FixedFillSize(fixedFillSize);
         }
         /// <summary>
+        /// Gets the current stream location
         /// 获取当前流位置
         /// </summary>
         /// <param name="serializer"></param>
@@ -2869,6 +3000,7 @@ namespace AutoCSer
             return serializer.Stream.Data.Pointer.CurrentIndex;
         }
         /// <summary>
+        /// Align the blank space by 4 bytes
         /// 补白对齐 4 字节
         /// </summary>
         /// <param name="serializer"></param>
@@ -2879,7 +3011,8 @@ namespace AutoCSer
             serializer.SerializeFill(startIndex);
         }
         /// <summary>
-        /// 获取JSON成员位图
+        /// Get the JSON member bitmap
+        /// 获取 JSON 成员位图
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="memberMap"></param>
@@ -2912,7 +3045,8 @@ namespace AutoCSer
         }
 #endif
         /// <summary>
-        /// 补白对齐 4 字节（用于代码生成，不允许开发者调用）
+        /// Align the blank space by 4 bytes (for AOT code generation and not allowed for developers to call)
+        /// 补白对齐 4 字节（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <param name="startIndex"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -2925,7 +3059,8 @@ namespace AutoCSer
             Stream.Data.Pointer.SerializeFillWithStartIndex(startIndex);
         }
         /// <summary>
-        /// 填充空白字节（用于代码生成，不允许开发者调用）
+        /// Fill the blank bytes (for AOT code generation and not allowed for developers to call)
+        /// 填充空白字节（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <param name="fixedFillSize"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -2938,7 +3073,8 @@ namespace AutoCSer
             Stream.Data.Pointer.SerializeFill(fixedFillSize);
         }
         /// <summary>
-        /// 写入序列化成员数量（用于代码生成，不允许开发者调用）
+        /// Write the number of serialized members (for AOT code generation and not allowed for developers to call)
+        /// 写入序列化成员数量（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
         /// <param name="prepSize"></param>
         /// <param name="memberCountVerify"></param>
@@ -2971,12 +3107,13 @@ namespace AutoCSer
         //}
 
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] Serialize<T>(T? value, BinarySerializeConfig? config = null)
 #else
@@ -2987,12 +3124,13 @@ namespace AutoCSer
             return Serialize(ref value, out warning, config);
         }
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] Serialize<T>(ref T? value, BinarySerializeConfig? config = null)
 #else
@@ -3003,13 +3141,15 @@ namespace AutoCSer
             return Serialize(ref value, out warning, config);
         }
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="warning">Warning prompt status
+        /// 警告提示状态</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] Serialize<T>(T? value, out SerializeWarningEnum warning, BinarySerializeConfig? config = null)
 #else
@@ -3019,13 +3159,15 @@ namespace AutoCSer
             return Serialize(ref value, out warning, config);
         }
         /// <summary>
-        /// 序列化
+        /// Serialization
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="warning">Warning prompt status
+        /// 警告提示状态</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] Serialize<T>(ref T? value, out SerializeWarningEnum warning, BinarySerializeConfig? config = null)
 #else
@@ -3046,12 +3188,14 @@ namespace AutoCSer
         }
 
         /// <summary>
+        /// Serialization (Thread static instance pattern)
         /// 序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] ThreadStaticSerialize<T>(T? value, BinarySerializeConfig? config = null)
 #else
@@ -3062,12 +3206,14 @@ namespace AutoCSer
             return ThreadStaticSerialize(ref value, out warning, config);
         }
         /// <summary>
+        /// Serialization (Thread static instance pattern)
         /// 序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] ThreadStaticSerialize<T>(ref T? value, BinarySerializeConfig? config = null)
 #else
@@ -3078,13 +3224,16 @@ namespace AutoCSer
             return ThreadStaticSerialize(ref value, out warning, config);
         }
         /// <summary>
+        /// Serialization (Thread static instance pattern)
         /// 序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="warning">Warning prompt status
+        /// 警告提示状态</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] ThreadStaticSerialize<T>(T? value, out SerializeWarningEnum warning, BinarySerializeConfig? config = null)
 #else
@@ -3094,13 +3243,16 @@ namespace AutoCSer
             return ThreadStaticSerialize(ref value, out warning, config);
         }
         /// <summary>
+        /// Serialization (Thread static instance pattern)
         /// 序列化（线程静态实例模式）
         /// </summary>
-        /// <typeparam name="T">目标数据类型</typeparam>
-        /// <param name="value">数据对象</param>
-        /// <param name="warning">警告提示状态</param>
-        /// <param name="config">配置参数</param>
-        /// <returns>序列化数据</returns>
+        /// <typeparam name="T">Target data type
+        /// 目标数据类型</typeparam>
+        /// <param name="value">Data object</param>
+        /// <param name="warning">Warning prompt status
+        /// 警告提示状态</param>
+        /// <param name="config">Configuration parameters</param>
+        /// <returns>Serialized data</returns>
 #if NetStandard21
         public static byte[] ThreadStaticSerialize<T>(ref T? value, out SerializeWarningEnum warning, BinarySerializeConfig? config = null)
 #else
@@ -3121,7 +3273,8 @@ namespace AutoCSer
         }
 
         /// <summary>
-        /// 基本类型转换函数
+        /// Basic type serialized delegate collection
+        /// 基本类型序列化委托集合
         /// </summary>
         internal static readonly Dictionary<HashObject<System.Type>, SerializeDelegateReference> SerializeDelegates;
         static BinarySerializer()
