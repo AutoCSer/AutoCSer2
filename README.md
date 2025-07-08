@@ -1,7 +1,7 @@
-﻿# AutoCSer - [English](https://github.com/AutoCSer/AutoCSer2/blob/master/README.Eng.md)
-AutoCSer 是一个 C# 实现的分布式应用基础设施框架，其核心是基于 TCP 长连接实现的**全双工 RPC 组件**，具有**高并发**、**高吞吐**等**高性能**特性，客户端提供 [.NET NativeAOT 支持](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.md)。  
+﻿# AutoCSer - [English](https://github.com/AutoCSer/AutoCSer2/blob/main/README.Eng.md)
+AutoCSer 是一个 C# 实现的分布式应用基础设施框架，其核心是基于 TCP 长连接实现的**全双工 RPC 组件**，具有**高并发**、**高吞吐**等**高性能**特性，客户端提供 [.NET NativeAOT 支持](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.md)。  
 AutoCSer RPC 在轻量级 API 的高并发实战环境中，单节点可提供 **100W+/s 以上**的 QPS 吞吐性能，[测试吞吐性能](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/CommandServerPerformance)超过 [.NET gRPC](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/ThirdParty/GrpcClientPerformance) **一个数量级**。  
-基于 AutoCSer RPC 实现的**支持面向对象编程**的[内存数据库](https://github.com/AutoCSer/AutoCSer2/tree/main/Application/StreamPersistenceMemoryDatabase)，支持传统数据库级别的**可靠持久化**，持久化 API 具有天然的**事务特性**，**本地嵌入模式**[支持 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.md) 可满足高性能游戏局内服务需求。  
+基于 AutoCSer RPC 实现的**支持面向对象编程**的[内存数据库](https://github.com/AutoCSer/AutoCSer2/tree/main/Application/StreamPersistenceMemoryDatabase)，支持传统数据库级别的**可靠持久化**，持久化 API 具有天然的**事务特性**，**本地嵌入模式**[支持 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.md) 可满足高性能游戏局内服务需求。  
 AutoCSer 内存数据库在轻量级 API 的高并发实战环境中，单节点可提供 **100W+/s 以上**的 TPS 吞吐性能，[测试吞吐性能](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/StreamPersistenceMemoryDatabase/Performance)远高于 [Garnet + StackExchange.Redis](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/ThirdParty/RedisPerformance) 组合。  
 NuGet 发布了核心程序集 AutoCSer.dll 的 3 个版本包括 [.NET8](https://www.nuget.org/packages/AutoCSer.NET8/) | [.NET Standard 2.1](https://www.nuget.org/packages/AutoCSer2.1/) | [.NET Standard 2.0](https://www.nuget.org/packages/AutoCSer2/)，.NET Framework 4.5 版本以及其它项目需要到 github 下载源代码自行编译。
 # 开箱即用的 RPC
@@ -91,14 +91,14 @@ NuGet 发布了核心程序集 AutoCSer.dll 的 3 个版本包括 [.NET8](https:
             }
         }
 ```
-1. [接口对称 API](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/01.SymmetryService/01.SymmetryService.md)
-2. [数据序列化](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/02.ServiceDataSerialize/02.ServiceDataSerialize.md)
-3. [线程调度策略](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/03.ServiceThreadStrategy/03.ServiceThreadStrategy.md)
-4. [鉴权与传输数据编码](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/04.ServiceAuthentication/04.ServiceAuthentication.md)
-5. [静态代码生成](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/05.CodeGenerator/05.CodeGenerator.md)
-6. [服务注册与推送](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/10.ServerRegistry/10.ServerRegistry.md)
-7. [反向 RPC 服务](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/11.ReverseServer/11.ReverseServer.md)
-8. [客户端 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.md)
+1. [接口对称 API](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/01.SymmetryService/01.SymmetryService.md)
+2. [数据序列化](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/02.ServiceDataSerialize/02.ServiceDataSerialize.md)
+3. [线程调度策略](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/03.ServiceThreadStrategy/03.ServiceThreadStrategy.md)
+4. [鉴权与传输数据编码](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/04.ServiceAuthentication/04.ServiceAuthentication.md)
+5. [静态代码生成](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/05.CodeGenerator/05.CodeGenerator.md)
+6. [服务注册与推送](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/10.ServerRegistry/10.ServerRegistry.md)
+7. [反向 RPC 服务](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/11.ReverseServer/11.ReverseServer.md)
+8. [客户端 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.md)
 
 # 内存数据库
 ## 数据库服务配置定义
@@ -203,12 +203,12 @@ NuGet 发布了核心程序集 AutoCSer.dll 的 3 个版本包括 [.NET8](https:
             GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
         });
 ```
-1. [内存数据库简介](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/06.MemoryDatabase/06.MemoryDatabase.md)
-2. [内置数据结构节点](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/07.MemoryDatabaseNode/07.MemoryDatabaseNode.md)
-3. [自定义节点](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/08.MemoryDatabaseCustomNode/08.MemoryDatabaseCustomNode.md)
-4. [本地嵌入模式](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/09.MemoryDatabaseLocalService/09.MemoryDatabaseLocalService.md)
-5. [静态代码生成](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/05.CodeGenerator/05.CodeGenerator.md)
-6. [服务注册与推送](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/10.ServerRegistry/10.ServerRegistry.md)
-7. [本地嵌入模式 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.md)
+1. [内存数据库简介](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/06.MemoryDatabase/06.MemoryDatabase.md)
+2. [内置数据结构节点](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/07.MemoryDatabaseNode/07.MemoryDatabaseNode.md)
+3. [自定义节点](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/08.MemoryDatabaseCustomNode/08.MemoryDatabaseCustomNode.md)
+4. [本地嵌入模式](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/09.MemoryDatabaseLocalService/09.MemoryDatabaseLocalService.md)
+5. [静态代码生成](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/05.CodeGenerator/05.CodeGenerator.md)
+6. [服务注册与推送](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/10.ServerRegistry/10.ServerRegistry.md)
+7. [本地嵌入模式 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.md)
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/AutoCSer/AutoCSer2)

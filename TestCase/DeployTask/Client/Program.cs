@@ -464,16 +464,18 @@ Press quit to exit.");
                 }
                 else
                 {
-                    string replacePath = null, masterReplacePath = null;
+                    string replacePath = null, treeReplacePath = null, blobReplacePath = null;
                     switch (index)
                     {
                         case 0:
                             replacePath = @"https://github.com/AutoCSer/AutoCSer2";
-                            masterReplacePath = @"https://github.com/AutoCSer/AutoCSer2/tree/main/";
+                            treeReplacePath = @"https://github.com/AutoCSer/AutoCSer2/tree/main/";
+                            blobReplacePath = @"https://github.com/AutoCSer/AutoCSer2/blob/main/";
                             break;
                     }
                     string text = System.Text.Encoding.UTF8.GetString(data, 3, data.Length - 3)
-                        .Replace(@"https://atomgit.com/autocser/AutoCSer/tree/master/", masterReplacePath)
+                        .Replace(@"https://atomgit.com/autocser/AutoCSer/tree/master/", treeReplacePath)
+                        .Replace(@"https://atomgit.com/autocser/AutoCSer/blob/master/", blobReplacePath)
                         .Replace(@"https://atomgit.com/autocser/AutoCSer", replacePath);
                     await File.WriteAllTextAsync(githubFile.FullName, text, System.Text.Encoding.UTF8);
                 }

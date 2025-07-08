@@ -1,7 +1,7 @@
 ﻿# AutoCSer
-AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a **full-duplex RPC component** based on TCP long connections, featuring **high concurrency**, **high throughput** and other **high-performance** characteristics. The client provides [.NET NativeAOT support](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.Eng.md).  
+AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a **full-duplex RPC component** based on TCP long connections, featuring **high concurrency**, **high throughput** and other **high-performance** characteristics. The client provides [.NET NativeAOT support](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.Eng.md).  
 In the high-concurrency practical environment of lightweight apis, AutoCSer RPC can provide a QPS throughput performance of **over 1 million per second** for a single node. [The test throughput performance](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/CommandServerPerformance) is **one order of magnitude higher than** [.NET gRPC](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/ThirdParty/GrpcClientPerformance).  
-The [in-memory database](https://github.com/AutoCSer/AutoCSer2/tree/main/Application/StreamPersistenceMemoryDatabase) that **supports object-oriented programming** and is implemented based on AutoCSer RPC. It **supports reliable persistence** at the level of traditional databases. The persistence API has **inherent transaction characteristics**. The **local embedding mode** [supports .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.Eng.md), which can meet the requirements of high-performance in-game services.  
+The [in-memory database](https://github.com/AutoCSer/AutoCSer2/tree/main/Application/StreamPersistenceMemoryDatabase) that **supports object-oriented programming** and is implemented based on AutoCSer RPC. It **supports reliable persistence** at the level of traditional databases. The persistence API has **inherent transaction characteristics**. The **local embedding mode** [supports .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.Eng.md), which can meet the requirements of high-performance in-game services.  
 In the high-concurrency practical environment of lightweight apis, the AutoCSer in-memory database can provide a TPS throughput performance of **over 1 million per second** on a single node. The [test throughput performance](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/StreamPersistenceMemoryDatabase/Performance) is much higher than the [Garnet + StackExchange.Redis](https://github.com/AutoCSer/AutoCSer2/tree/main/TestCase/ThirdParty/RedisPerformance) combination.  
 NuGet has released three versions of its core assembly AutoCSer.dll, including [.NET8](https://www.nuget.org/packages/AutoCSer.NET8/) | [.NET Standard 2.1](https://www.nuget.org/packages/AutoCSer2.1/) | [.NET Standard 2.0](https://www.nuget.org/packages/AutoCSer2/). For the version .NET Framework 4.5 and other projects, you need to download the source code from github and compile it yourself.
 # Out-of-the-box RPC
@@ -91,14 +91,14 @@ NuGet has released three versions of its core assembly AutoCSer.dll, including [
             }
         }
 ```
-1. [Interface symmetry API](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/01.SymmetryService/01.SymmetryService.Eng.md)
-2. [Data serialization](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/02.ServiceDataSerialize/02.ServiceDataSerialize.Eng.md)
-3. [Thread scheduling strategy](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/03.ServiceThreadStrategy/03.ServiceThreadStrategy.Eng.md)
-4. [Authentication and transmission data encoding](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/04.ServiceAuthentication/04.ServiceAuthentication.Eng.md)
-5. [Static code generation](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/05.CodeGenerator/05.CodeGenerator.Eng.md)
-6. [Service registration and push](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/10.ServerRegistry/10.ServerRegistry.Eng.md)
-7. [Reverse RPC service](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/11.ReverseServer/11.ReverseServer.Eng.md)
-8. [The client supports .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.Eng.md)
+1. [Interface symmetry API](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/01.SymmetryService/01.SymmetryService.Eng.md)
+2. [Data serialization](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/02.ServiceDataSerialize/02.ServiceDataSerialize.Eng.md)
+3. [Thread scheduling strategy](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/03.ServiceThreadStrategy/03.ServiceThreadStrategy.Eng.md)
+4. [Authentication and transmission data encoding](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/04.ServiceAuthentication/04.ServiceAuthentication.Eng.md)
+5. [Static code generation](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/05.CodeGenerator/05.CodeGenerator.Eng.md)
+6. [Service registration and push](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/10.ServerRegistry/10.ServerRegistry.Eng.md)
+7. [Reverse RPC service](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/11.ReverseServer/11.ReverseServer.Eng.md)
+8. [The client supports .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.Eng.md)
 
 # In-memory database
 ## Database service configuration definition
@@ -203,10 +203,10 @@ NuGet has released three versions of its core assembly AutoCSer.dll, including [
             GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
         });
 ```
-1. [Introduction to in-memory database](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/06.MemoryDatabase/06.MemoryDatabase.Eng.md)
-2. [Built-in data structure node](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/07.MemoryDatabaseNode/07.MemoryDatabaseNode.Eng.md)
-3. [Custom node](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/08.MemoryDatabaseCustomNode/08.MemoryDatabaseCustomNode.Eng.md)
-4. [Local embedding mode](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/09.MemoryDatabaseLocalService/09.MemoryDatabaseLocalService.Eng.md)
-5. [Static code generation](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/05.CodeGenerator/05.CodeGenerator.Eng.md)
-6. [Service registration and push](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/10.ServerRegistry/10.ServerRegistry.Eng.md)
-7. [The local embedding mode supports .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/master/Document/12.NativeAOT/12.NativeAOT.Eng.md)
+1. [Introduction to in-memory database](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/06.MemoryDatabase/06.MemoryDatabase.Eng.md)
+2. [Built-in data structure node](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/07.MemoryDatabaseNode/07.MemoryDatabaseNode.Eng.md)
+3. [Custom node](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/08.MemoryDatabaseCustomNode/08.MemoryDatabaseCustomNode.Eng.md)
+4. [Local embedding mode](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/09.MemoryDatabaseLocalService/09.MemoryDatabaseLocalService.Eng.md)
+5. [Static code generation](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/05.CodeGenerator/05.CodeGenerator.Eng.md)
+6. [Service registration and push](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/10.ServerRegistry/10.ServerRegistry.Eng.md)
+7. [The local embedding mode supports .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.Eng.md)
