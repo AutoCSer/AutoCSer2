@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="OnlyPersistence\Client\OnlyPersistenceNode.cs" />
     <Compile Include="Client\BitmapNode.cs" />
     <Compile Include="Client\SortedListNode.cs" />
     <Compile Include="Client\LeftArrayNode.cs" />
@@ -41,6 +42,7 @@
     <Compile Include="CustomNode\ICustomServiceNode.cs" />
     <Compile Include="CustomNode\ServiceConfig.cs" />
     <Compile Include="Data\TestClass.cs" />
+    <Compile Include="OnlyPersistence\ServiceConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Server\ServiceConfig.cs" />
     <Compile Include="{AutoCSer.Document.MemoryDatabaseLocalService}.AutoCSer.cs" />
@@ -53,6 +55,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
     <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
   

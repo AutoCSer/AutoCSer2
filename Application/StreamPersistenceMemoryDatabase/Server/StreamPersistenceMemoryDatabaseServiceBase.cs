@@ -378,7 +378,14 @@ namespace AutoCSer.CommandService
 #endif
         {
             nodeDictionary.Add(key, node);
-            if (Nodes[node.Index.Index].Set(node, node.Index.Identity)) CreateNodes.Remove(key);
+            if (Nodes[node.Index.Index].Set(node, node.Index.Identity))
+            {
+                CreateNodes.Remove(key);
+                if (PersistenceType == PersistenceTypeEnum.OnlyPersistence && IsLoaded && !CheckRebuild())
+                {
+                    AutoCSer.LogHelper.Error($"仅存档模式添加新介蒂安以后调用重建持久化操作失败。");
+                }
+            }
             else nodeDictionary.Remove(key);
             return CurrentMethodParameter;
         }
@@ -390,7 +397,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal bool PushPersistenceMethodParameter(MethodParameter methodParameter)
         {
-            if (PersistenceType == PersistenceTypeEnum.MemoryDatabase)
+            if (PersistenceType != PersistenceTypeEnum.ScanPersistence)
             {
                 if (PersistenceQueue.IsPushHead(methodParameter)) PersistenceWaitHandle.Set();
                 if (IsDisposed) PersistenceException(PersistenceQueue.Get());
@@ -412,7 +419,7 @@ namespace AutoCSer.CommandService
 #endif
              where T : class
         {
-            if (PersistenceType == PersistenceTypeEnum.MemoryDatabase)
+            if (PersistenceType != PersistenceTypeEnum.ScanPersistence)
             {
                 if (PersistenceQueue.IsPushHead(methodParameter))
                 {

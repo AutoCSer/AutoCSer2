@@ -118,10 +118,71 @@ namespace AutoCSer.CommandService
             switch (PersistenceType)
             {
                 case PersistenceTypeEnum.MemoryDatabase:
+                case PersistenceTypeEnum.OnlyPersistence:
                     if (PersistenceFileInfo.Exists)
                     {
                         if (PersistenceCallbackExceptionPositionFileInfo.Exists)
                         {
+                            if (PersistenceType == PersistenceTypeEnum.OnlyPersistence)
+                            {
+                                new ServiceLoader(this).Load();
+                                while (File.Exists(PersistenceFileInfo.FullName + Config.GetBackupFileNameSuffix() + ".bak")) System.Threading.Thread.Sleep(100);//避免文件名称冲突
+                                string backupFileNameSuffix = Config.GetBackupFileNameSuffix() + ".rb";
+                                FileInfo persistenceCallbackExceptionPositionFileInfo = new FileInfo(PersistenceCallbackExceptionPositionSwitchFileInfo.FullName + backupFileNameSuffix);
+                                FileInfo persistenceFileInfo = new FileInfo(PersistenceSwitchFileInfo.FullName + backupFileNameSuffix);
+                                long persistencePosition;
+                                fixed (byte* bufferFixed = PersistenceDataPositionBuffer)
+                                {
+                                    *(uint*)bufferFixed = ServiceLoader.PersistenceCallbackExceptionPositionFileHead;
+                                    *(ulong*)(bufferFixed + sizeof(int)) = RebuildPersistenceEndPosition;
+                                    using (FileStream fileStream = persistenceCallbackExceptionPositionFileInfo.Create()) fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.ExceptionPositionFileHeadSize);
+                                    *(uint*)bufferFixed = ServiceLoader.FieHead;
+                                    *(long*)(bufferFixed + (sizeof(int) + sizeof(ulong))) = 0;
+                                    using (FileStream fileStream = persistenceFileInfo.Create())
+                                    {
+                                        fileStream.Write(PersistenceDataPositionBuffer, 0, ServiceLoader.FileHeadSize);
+
+                                        var outputSerializer = default(BinarySerializer);
+                                        PersistenceBuffer persistenceBuffer = new PersistenceBuffer(this);
+                                        bool isSerializeCopyString = Config.IsSerializeCopyString;
+                                        try
+                                        {
+                                            persistenceBuffer.GetBufferLength();
+                                            using (UnmanagedStream outputStream = (outputSerializer = AutoCSer.Threading.LinkPool<BinarySerializer>.Default.Pop() ?? new BinarySerializer()).SetDefaultContext(CommandServerSocket.CommandServerSocketContext, ref isSerializeCopyString))
+                                            {
+                                                persistenceBuffer.OutputStream = outputStream;
+                                                for (int index = NodeIndex; index > 1;)
+                                                {
+                                                    var node = Nodes[--index].Node;
+                                                    if (node != null)
+                                                    {
+                                                        fixed (byte* dataFixed = persistenceBuffer.OutputBuffer.GetFixedBuffer())
+                                                        {
+                                                            persistenceBuffer.SetStart(dataFixed);
+                                                            persistenceBuffer.Reset();
+                                                            node.CreateNodeMethodParameter.notNull().PersistenceSerialize(outputSerializer, fileStream.Position);
+                                                            SubArray<byte> outputData = persistenceBuffer.GetData();
+                                                            fileStream.Write(outputData.Array, outputData.Start, outputData.Length);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        finally
+                                        {
+                                            persistenceBuffer.Free();
+                                            outputSerializer?.FreeContext(isSerializeCopyString);
+                                        }
+                                        persistencePosition = fileStream.Position;
+                                    }
+                                }
+                                backupFileNameSuffix = Config.GetBackupFileNameSuffix() + ".bak";
+                                File.Move(PersistenceFileInfo.FullName, PersistenceFileInfo.FullName + backupFileNameSuffix);
+                                File.Move(PersistenceCallbackExceptionPositionFileInfo.FullName, PersistenceCallbackExceptionPositionFileInfo.FullName + backupFileNameSuffix);
+                                File.Move(persistenceCallbackExceptionPositionFileInfo.FullName, PersistenceCallbackExceptionPositionSwitchFileInfo.FullName);
+                                File.Move(persistenceFileInfo.FullName, PersistenceSwitchFileInfo.FullName);
+                                SetRebuild(persistencePosition, ServiceLoader.ExceptionPositionFileHeadSize, persistencePosition);
+                            }
                             long startTimestamp = Stopwatch.GetTimestamp(), count = new ServiceLoader(this).Load();
                             //if (count != 0) Console.WriteLine($"初始化加载 {count} 条持久化数据耗时 {AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp)}ms");
                             nodeLoaded();
@@ -1777,7 +1838,7 @@ namespace AutoCSer.CommandService
         /// <returns></returns>
         internal override bool CheckRebuild()
         {
-            if (rebuildLoadExceptionNode == null && PersistenceType == PersistenceTypeEnum.MemoryDatabase)
+            if (rebuildLoadExceptionNode == null && PersistenceType != PersistenceTypeEnum.ScanPersistence)
             {
                 rebuildLoadExceptionNode = new PersistenceRebuilder(this).LoadExceptionNode;
                 if (rebuildLoadExceptionNode == null) return true;

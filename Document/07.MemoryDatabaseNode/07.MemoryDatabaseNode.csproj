@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Client\OnlyPersistenceNode.cs" />
     <Compile Include="Client\ManyHashBitMapFilterNode.cs" />
     <Compile Include="Client\ManyHashBitMapClientFilterNode.cs" />
     <Compile Include="Client\BitmapNode.cs" />
@@ -59,6 +60,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
     <ProjectReference Include="..\..\TestCase\Common\AutoCSer.TestCase.Common.NET8.csproj" />
   </ItemGroup>
 

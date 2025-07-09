@@ -15,9 +15,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             LocalResult<IOnlyPersistenceNodeLocalClientNode<TestClass>> node = await client.GetOrCreateOnlyPersistenceNode<TestClass>(typeof(IOnlyPersistenceNodeLocalClientNode<TestClass>).FullName);
 #endif
             if (!Program.Breakpoint(node)) return;
-            LocalResult result = await node.Value.Save(AutoCSer.RandomObject.Creator<TestClass>.Create());
+            LocalResult result = await node.Value.Save(AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull());
             if (!Program.Breakpoint(result)) return;
-            node.Value.SaveSendOnly(AutoCSer.RandomObject.Creator<TestClass>.Create());
+            node.Value.SaveSendOnly(AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull());
 
             completed(isReadWriteQueue);
         }

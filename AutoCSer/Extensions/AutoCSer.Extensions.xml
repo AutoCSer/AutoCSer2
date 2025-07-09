@@ -5686,6 +5686,11 @@
             是否已经读取文件头部
             </summary>
         </member>
+        <member name="F:AutoCSer.IO.StreamPersistenceLoader.isCancel">
+            <summary>
+            是否需要取消读取操作
+            </summary>
+        </member>
         <member name="F:AutoCSer.IO.StreamPersistenceLoader.loadBufferException">
             <summary>
             加载数据异常

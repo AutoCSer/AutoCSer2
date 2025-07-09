@@ -1965,8 +1965,8 @@ namespace AutoCSer.CommandService
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-///            仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） client node interface
+        /// Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+///            仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作） client node interface
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode<>))]
         public partial interface IOnlyPersistenceNodeClientNode<T>
@@ -4243,8 +4243,8 @@ namespace AutoCSer.CommandService
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-///            仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） local client node interface
+        /// Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+///            仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作） local client node interface
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode<>))]
         public partial interface IOnlyPersistenceNodeLocalClientNode<T>
@@ -7198,14 +7198,14 @@ namespace AutoCSer.CommandService
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
         /// <summary>
-        /// Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-///            仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+        /// Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+///            仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作）
         /// </summary>
         [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IOnlyPersistenceNodeMethodEnum))]
         public partial interface IOnlyPersistenceNode<T> { }
         /// <summary>
-        /// Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-///            仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） (Node method sequence number mapping enumeration type)
+        /// Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+///            仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作） (Node method sequence number mapping enumeration type)
         /// </summary>
         public enum IOnlyPersistenceNodeMethodEnum
         {

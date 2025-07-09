@@ -485,7 +485,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return GetOrCreateNode<IArrayNodeLocalClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateArrayNode(index, nodeKey, nodeInfo, typeof(T), length), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
-        /// Get only archived local client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
+        /// Get archive-only data local client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
         /// 获取仅存档本地客户端节点，服务端不存在则创建节点 OnlyPersistenceNode{T}
         /// </summary>
         /// <param name="key">Node global keyword

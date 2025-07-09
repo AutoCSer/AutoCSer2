@@ -83,6 +83,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
             Console.WriteLine($"{nameof(LeftArrayNode)} {await LeftArrayNode.Test()}");
             Console.WriteLine($"{nameof(SortedListNode)} {await SortedListNode.Test()}");
             Console.WriteLine($"{nameof(BitmapNode)} {await BitmapNode.Test()}");
+            Console.WriteLine($"{nameof(OnlyPersistenceNode)} {await OnlyPersistenceNode.Test()}");
         }
     }
 }

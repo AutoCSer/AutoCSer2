@@ -237,6 +237,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     if (!persistenceCallbackExceptionPositions.Contains(dataPosition))
                     {
                         NodeIndex index = *(NodeIndex*)(dataFixed + bufferIndex);
+                        if (service.PersistenceType == PersistenceTypeEnum.OnlyPersistence && !ServiceNode.ServiceNodeIndex.Equals(index))
+                        {
+                            isCancel = true;
+                            return;
+                        }
                         var node = default(ServerNode);
                         int methodIndex = *(int*)(dataFixed + (bufferIndex + sizeof(NodeIndex)));
                         ++loadCount;

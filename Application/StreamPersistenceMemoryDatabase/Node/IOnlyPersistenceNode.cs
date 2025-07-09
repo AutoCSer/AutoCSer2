@@ -3,8 +3,8 @@
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
     /// <summary>
-    /// Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations)
-    /// 仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+    /// Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations)
+    /// 仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作）
     /// </summary>
     /// <typeparam name="T">Archive data type
     /// 存档数据类型</typeparam>

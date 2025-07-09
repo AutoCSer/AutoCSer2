@@ -1937,8 +1937,8 @@ namespace AutoCSer.CommandService
             return GetOrCreateNode<IArrayNodeClientNode<T>>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateArrayNode(index, nodeKey, nodeInfo, typeof(T), length), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
-        /// Get only archived client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
-        /// 获取仅存档客户端节点，服务端不存在则创建节点 OnlyPersistenceNode{T}
+        /// Get archive-only data client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
+        /// 获取仅存档数据客户端节点，服务端不存在则创建节点 OnlyPersistenceNode{T}
         /// </summary>
         /// <param name="key">Node global keyword
         /// 节点全局关键字</param>

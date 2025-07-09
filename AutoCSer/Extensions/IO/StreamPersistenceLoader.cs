@@ -85,6 +85,10 @@ namespace AutoCSer.IO
         /// </summary>
         private bool isReadedHead;
         /// <summary>
+        /// 是否需要取消读取操作
+        /// </summary>
+        protected bool isCancel;
+        /// <summary>
         /// 加载数据异常
         /// </summary>
 #if NetStandard21
@@ -138,10 +142,20 @@ namespace AutoCSer.IO
                         do
                         {
                             buffer.ReadFileWait.WaitOne();
+                            if (isCancel)
+                            {
+                                position = readStream.Length;
+                                break;
+                            }
                             if (loadBufferException != null || readFile(ref buffer, ref buffer2)) break;
                             buffer.LoadDataWait.Set();
 
                             buffer2.ReadFileWait.WaitOne();
+                            if (isCancel)
+                            {
+                                position = readStream.Length;
+                                break;
+                            }
                             if (loadBufferException != null || readFile(ref buffer2, ref buffer)) break;
                             buffer2.LoadDataWait.Set();
                         }
@@ -152,7 +166,7 @@ namespace AutoCSer.IO
             }
             finally
             {
-                if (!isReadCompleted) isReadException = true;
+                if (!isReadCompleted && !isCancel) isReadException = true;
                 buffer.LoadDataWait.setDispose();
                 buffer2.LoadDataWait.setDispose();
                 if (isLoadBuffer) loadBufferWait.WaitOne();
@@ -305,13 +319,13 @@ namespace AutoCSer.IO
                 do
                 {
                     buffer.LoadDataWait.WaitOne();
-                    if (isReadException || buffer.LoadBuffer.Length == 0) return;
+                    if (isCancel || isReadException || buffer.LoadBuffer.Length == 0) return;
                     loadBuffer(ref buffer.LoadBuffer, buffer.LoadBufferPosition);
                     buffer.LoadBuffer.SetEmpty();
                     buffer.ReadFileWait.Set();
 
                     buffer2.LoadDataWait.WaitOne();
-                    if (isReadException || buffer2.LoadBuffer.Length == 0) return;
+                    if (isCancel || isReadException || buffer2.LoadBuffer.Length == 0) return;
                     loadBuffer(ref buffer2.LoadBuffer, buffer2.LoadBufferPosition);
                     buffer2.LoadBuffer.SetEmpty();
                     buffer2.ReadFileWait.Set();
@@ -358,6 +372,7 @@ namespace AutoCSer.IO
                                 throw new InvalidCastException(AutoCSer.Extensions.Culture.Configuration.Default.GetStreamPersistenceLoaderDecodeFailed(persistenceFileName, position + (start - transferDataStart)));
                             }
                             load(nextData, position + (start - transferDataStart));
+                            if (isCancel) return;
                         }
                         finally { outputDataBuffer.Free(); }
                         start += transferDataSize;
@@ -365,6 +380,7 @@ namespace AutoCSer.IO
                     else
                     {
                         load(new SubArray<byte>((int)(start - dataFixed), dataSize, data.Array), position + (start - dataStart));
+                        if (isCancel) return;
                         start += dataSize;
                     }
                 }

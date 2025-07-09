@@ -12,9 +12,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             ResponseResult<IOnlyPersistenceNodeClientNode<TestClass>> node = await client.GetOrCreateOnlyPersistenceNode<TestClass>(typeof(IOnlyPersistenceNodeClientNode<TestClass>).FullName);
             if (!Program.Breakpoint(node)) return;
 
-            ResponseResult result = await node.Value.Save(AutoCSer.RandomObject.Creator<TestClass>.Create());
+            ResponseResult result = await node.Value.Save(AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull());
             if (!Program.Breakpoint(result)) return;
-            node.Value.SaveSendOnly(AutoCSer.RandomObject.Creator<TestClass>.Create()).Discard();
+            node.Value.SaveSendOnly(AutoCSer.RandomObject.Creator<TestClass>.CreateNotNull()).Discard();
 
             completed();
         }

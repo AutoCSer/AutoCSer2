@@ -2141,7 +2141,7 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient`1.GetOrCreateOnlyPersistenceNode``1(System.String)">
             <summary>
-            Get only archived local client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
+            Get archive-only data local client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
             获取仅存档本地客户端节点，服务端不存在则创建节点 OnlyPersistenceNode{T}
             </summary>
             <param name="key">Node global keyword
@@ -2703,14 +2703,14 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1">
             <summary>
-            Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations)
-            仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+            Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations)
+            仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作）
             </summary>
             <typeparam name="T">Archive data type
             存档数据类型</typeparam>
             <summary>
-            Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-                       仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+            Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+                       仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作）
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1.SaveLoadPersistence(`0)">
@@ -23257,6 +23257,12 @@
             常规模式，数据库冷启动时加载历史数据恢复内存数据状态
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceTypeEnum.OnlyPersistence">
+            <summary>
+            Archive-only mode (Although the persistence API can achieve the archive-only effect without operating on memory data in the regular mode, some operations need to be triggered manually)
+            仅存档模式（虽然常规模式下持久化 API 不操作内存数据也可以达到仅存档效果，但是某些操作需要手动触发）
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceTypeEnum.ScanPersistence">
             <summary>
             The scanning archive mode loads all historical data in chronological order, which is used for operations such as the migration of offline data in the rapid archive mode (scenarios where the main data is not set for snapshot persistence)
@@ -31738,8 +31744,8 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNodeClientNode`1">
             <summary>
-            Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-                       仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） client node interface
+            Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+                       仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作） client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNodeClientNode`1.Save(`0)">
@@ -33103,8 +33109,8 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNodeLocalClientNode`1">
             <summary>
-            Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-                       仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） local client node interface
+            Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+                       仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作） local client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNodeLocalClientNode`1.Save(`0)">
@@ -35529,8 +35535,8 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNodeMethodEnum">
             <summary>
-            Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations) 
-                       仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作） (Node method sequence number mapping enumeration type)
+            Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations) 
+                       仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作） (Node method sequence number mapping enumeration type)
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNodeMethodEnum.Save">
@@ -38254,8 +38260,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClient`1.GetOrCreateOnlyPersistenceNode``1(System.String)">
             <summary>
-            Get only archived client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
-            获取仅存档客户端节点，服务端不存在则创建节点 OnlyPersistenceNode{T}
+            Get archive-only data client nodes. If the server does not exist, create node OnlyPersistenceNode{T}
+            获取仅存档数据客户端节点，服务端不存在则创建节点 OnlyPersistenceNode{T}
             </summary>
             <param name="key">Node global keyword
             节点全局关键字</param>

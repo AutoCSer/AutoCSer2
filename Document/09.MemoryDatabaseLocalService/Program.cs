@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Document.MemoryDatabaseLocalService.Client;
+using AutoCSer.Document.MemoryDatabaseLocalService.OnlyPersistence.Client;
 
 namespace AutoCSer.Document.MemoryDatabaseLocalService
 {
@@ -27,6 +28,8 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService
             Console.WriteLine($"{nameof(LeftArrayNode)} {await LeftArrayNode.Test()}");
             Console.WriteLine($"{nameof(SortedListNode)} {await SortedListNode.Test()}");
             Console.WriteLine($"{nameof(BitmapNode)} {await BitmapNode.Test()}");
+
+            Console.WriteLine($"{nameof(OnlyPersistenceNode)} {await OnlyPersistenceNode.Test()}");
 
             Console.WriteLine("Completed");
             Console.ReadKey();
