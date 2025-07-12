@@ -37,7 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// 服务注册客户端监听组件
         /// </summary>
         /// <param name="client"></param>
-        protected CommandClientServiceRegistrar(ICommandClient client) : base(client)
+        protected CommandClientServiceRegistrar(CommandClient client) : base(client)
         {
             endPoint = CommandServerConfigBase.NullIPEndPoint;
         }
@@ -95,7 +95,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// <param name="client"></param>
         /// <param name="socket"></param>
         /// <param name="node"></param>
-        public CommandClientServiceRegistrar(ICommandClient client, T socket, StreamPersistenceMemoryDatabaseClientNodeCache<IServerRegistryNodeClientNode> node) : base(client)
+        public CommandClientServiceRegistrar(CommandClient client, T socket, StreamPersistenceMemoryDatabaseClientNodeCache<IServerRegistryNodeClientNode> node) : base(client)
         {
             this.socket = socket;
             logClient = new CommandClientServiceRegistrarLogClient(this, node, client.ServerName.notNull());

@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerSynchronousController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerSynchronousController), true)]
 #endif
     public partial interface IClientSynchronousController
     {
@@ -175,6 +175,52 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static bool DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            if (client.ServerBindContextClientSynchronousController == null)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            CommandClientReturnValue returnType = client.ServerBindContextClientSynchronousController.Synchronous(0);
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnType = client.ServerBindContextClientSynchronousController.Synchronous();
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            int refValue = 0;
+            long outValue = 0;
+            CommandClientReturnValue<string> returnValue = client.ServerBindContextClientSynchronousController.SynchronousReturn(0, ref refValue, out outValue);
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnValue = client.ServerBindContextClientSynchronousController.SynchronousReturn();
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnType = client.ServerBindContextClientSynchronousController.Synchronous(0, ref refValue, out outValue);
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
             return true;
         }
         /// <summary>

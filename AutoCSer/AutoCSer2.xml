@@ -25037,6 +25037,213 @@
             队列枚举返回值
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandDefaultControllerConstructorParameterTypes">
+            <summary>
+            客户端默认初始化控制器构造函数参数类型集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandDefaultControllerConstructorInfo">
+            <summary>
+            客户端默认初始化控制器构造函数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerSynchronous">
+            <summary>
+            Synchronous return
+            同步返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerSendOnly">
+            <summary>
+            Unresponsive command
+            无响应命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallback">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallbackAction">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallbackQueue">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallbackActionQueue">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallback">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallbackAction">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallbackQueue">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallbackActionQueue">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerReturnType">
+            <summary>
+            Return value command
+            返回值命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerReturnTypeQueue">
+            <summary>
+            Return value queue command
+            返回值队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerEnumerator">
+            <summary>
+            Collection enumeration command
+            集合枚举命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerEnumeratorQueue">
+            <summary>
+            Collection enumeration queue command
+            集合枚举队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerThrow">
+            <summary>
+            Throw an exception
+            抛出异常
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerSynchronousMethod">
+            <summary>
+            Synchronous return
+            同步返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallbackMethod">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallbackActionMethod">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallbackQueueMethod">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerCallbackActionQueueMethod">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallbackMethod">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallbackActionMethod">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallbackQueueMethod">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerKeepCallbackActionQueueMethod">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerReturnValueMethod">
+            <summary>
+            Return value command
+            返回值命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerReturnValueQueueMethod">
+            <summary>
+            Return value queue command
+            返回值队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerEnumeratorMethod">
+            <summary>
+            Collection enumeration command
+            集合枚举命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerEnumeratorQueueMethod">
+            <summary>
+            Collection enumeration queue command
+            集合枚举队列命令
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.ClientInterfaceController`1">
+            <summary>
+            控制器接口默认初始化信息
+            </summary>
+            <typeparam name="T">客户端接口类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceController`1.Create(AutoCSer.Net.CommandClient,System.String)">
+            <summary>
+            创建客户端默认初始化控制器
+            </summary>
+            <param name="client"></param>
+            <param name="controllerName"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`1.callConstructor">
+            <summary>
+            控制器构造函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`1.ControllerConstructorException">
+            <summary>
+            控制器构造错误
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController`1.controllerConstructorMessages">
+            <summary>
+            控制器构造提示信息
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientInterfaceController`2">
             <summary>
             控制器接口信息
@@ -25726,6 +25933,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The return value command
+            返回值命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.BaseReturnCommand.BuildQueue(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
             Generate the input data of the request command
@@ -25791,6 +26005,12 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CallbackCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            回调委托命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CallbackCommand.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
@@ -25956,6 +26176,14 @@
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CallbackQueueCommand.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallbackQueueNode)">
+            <summary>
+            队列回调委托命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CallbackQueueCommand.#ctor(AutoCSer.Net.CommandClientDefaultController,System.Int32,AutoCSer.Net.CommandClientCallbackQueueNode)">
             <summary>
             队列回调委托命令
             </summary>
@@ -26752,6 +26980,12 @@
             套接字已经关闭
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandPushStateEnum.WaitConnect">
+            <summary>
+            The socket is waiting to connect (The controller used for default initialization)
+            等待连接中（用于默认初始化的控制器）
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.EnumeratorCommandMoveNext">
             <summary>
             await bool, the collection enumeration command returns true when the next data exists
@@ -27111,6 +27345,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.KeepCallbackCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.KeepCallbackCommand.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
             <summary>
@@ -27524,6 +27765,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.KeepCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.KeepCommand.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
             Generate the input data of the request command
@@ -27601,6 +27849,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.ReturnTypeCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Return the call type command
+            返回调用类型命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.ReturnTypeCommand.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
             Generate the input data of the request command
@@ -27668,6 +27923,13 @@
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ReturnTypeQueueCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Return the call type queue command
+            返回调用类型队列命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ReturnTypeQueueCommand.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
@@ -27752,6 +28014,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ReturnValueCommand`1.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The return value command
+            返回值命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ReturnValueCommand`1.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
@@ -27848,6 +28117,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
             <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ReturnValueQueueCommand`1.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Return value queue command
+            返回值队列命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ReturnValueQueueCommand`1.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
@@ -28485,7 +28761,7 @@
             客户端接口方法信息
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.#ctor(System.Type,System.Reflection.MethodInfo,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.#ctor(System.Type,System.Reflection.MethodInfo,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,System.Boolean,System.Boolean)">
             <summary>
             Client interface method information
             客户端接口方法信息
@@ -28495,6 +28771,7 @@
             <param name="controllerAttribute"></param>
             <param name="taskQueueControllerKeyType"></param>
             <param name="isServer"></param>
+            <param name="isDefault"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.DeserializeError(AutoCSer.Net.CommandClientController)">
             <summary>
@@ -28585,7 +28862,7 @@
             </summary>
             <param name="error"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@,System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@,System.Boolean,System.Boolean)">
             <summary>
             获取客户端接口方法集合
             </summary>
@@ -28594,6 +28871,7 @@
             <param name="taskQueueControllerKeyType"></param>
             <param name="methods"></param>
             <param name="isServer"></param>
+            <param name="isDefault"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientMethodTypeEnum">
@@ -28759,6 +29037,12 @@
             <param name="clientType"></param>
             <param name="isGenericTypeDefinition"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterface.#ctor(System.Type)">
+            <summary>
+            客户端默认初始化接口信息
+            </summary>
+            <param name="type"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterface.GetMethodGroup">
             <summary>
             获取方法分组
@@ -28766,6 +29050,17 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterface.GetClientMethods(System.Type,System.Type,System.Exception@,System.String[]@,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@)">
+            <summary>
+            获取客户端方法集合
+            </summary>
+            <param name="type"></param>
+            <param name="keyType"></param>
+            <param name="controllerConstructorException"></param>
+            <param name="controllerConstructorMessages"></param>
+            <param name="methodArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterface.GetClientDefaultMethods(System.Type,System.Type,System.Exception@,System.String[]@,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@)">
             <summary>
             获取客户端方法集合
             </summary>
@@ -33541,10 +33836,10 @@
             服务监听主机与端口信息
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandClient.AutoCSer#Net#ICommandClient#ControllerCreatorBindingFlags">
+        <member name="P:AutoCSer.Net.CommandClient.IsDefaultController">
             <summary>
-            Command client socket event controller attribute binding flags
-            命令客户端套接字事件控制器属性绑定标识
+            When the client is initialized, whether to create a default controller instance that returns an error state
+            客户端初始化的时候，是否创建返回错误状态的默认控制器实例
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClient.BinaryDeserializeConfig">
@@ -33652,12 +33947,19 @@
         <member name="F:AutoCSer.Net.CommandClient.IsReverse">
             <summary>
             Is the reverse service
+            是否反向服务
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClient.IsShortLink">
             <summary>
             Is the connection short
             是否短连接
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClient.DefaultControllerReturnType">
+            <summary>
+            The default initialization controller call return type
+            默认初始化控制器调用返回类型
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.#ctor(AutoCSer.Net.CommandClientConfig,AutoCSer.Net.CommandClientInterfaceControllerCreator[])">
@@ -33710,28 +34012,12 @@
             </summary>
             <param name="endPoint"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClient.WaitServerEndPoint">
-            <summary>
-            Wait for the server listen address
-            等待服务监听地址
-            </summary>
-            <returns>Whether to cancel a scheduled task
-            是否需要取消定时任务</returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandClient.ServerEndPointChanged(System.Net.IPEndPoint)">
             <summary>
             The server listens for address update notifications
             服务端监听地址更新通知
             </summary>
             <param name="endPoint"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandClient.AutoCSer#Net#ICommandClient#GetSendBufferPool">
-            <summary>
-            Get the send data buffer pool
-            获取发送数据缓存区池
-            </summary>
-            <returns>Send data buffer pool
-            发送数据缓存区池</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClient.GetSocketAsync">
             <summary>
@@ -33844,6 +34130,17 @@
             <param name="index"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClient.OnQueueTimeout(AutoCSer.Net.CommandClientCallQueue,System.Int64)">
+            <summary>
+            Queue task execution timeout notification
+            队列任务执行超时通知
+            </summary>
+            <param name="queue">Client execution queue
+            客户端执行队列</param>
+            <param name="seconds">Current task execution seconds
+            当前任务执行秒数</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandClient`1">
             <summary>
             Interface symmetry command client
@@ -33866,6 +34163,329 @@
             获取命令客户端套接字事件
             </summary>
             <returns>Return null on failure</returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandClientDefaultController">
+            <summary>
+            The client initializes the controller by default (to avoid null reference exceptions before the connection is established)
+            客户端默认初始化控制器（避免连接建立之前产生 null 引用异常）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientDefaultController.Client">
+            <summary>
+            Command client
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClientDefaultController.DefaultControllerReturnType">
+            <summary>
+            The default initialization controller call return type
+            默认初始化控制器调用返回类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientDefaultController.callQueue">
+            <summary>
+            The client executes the queue
+            客户端执行队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.#ctor">
+            <summary>
+            默认空控制器
+            Default empty controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.#ctor(AutoCSer.Net.CommandClient,System.String)">
+            <summary>
+            The client initializes the controller by default (to avoid null reference exceptions before the connection is established)
+            客户端默认初始化控制器（避免连接建立之前产生 null 引用异常）
+            </summary>
+            <param name="client">Command client</param>
+            <param name="controllerName"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.Synchronous(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Synchronous return
+            同步返回
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultSynchronous``1">
+            <summary>
+            Synchronous return
+            同步返回
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.SendOnly(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Unresponsive command
+            无响应命令
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.Callback(AutoCSer.Net.CommandClientDefaultController,AutoCSer.Net.CommandClientCallback)">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+            <param name="controller"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultCallback``1(AutoCSer.Net.CommandClientCallback{``0})">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.Callback(AutoCSer.Net.CommandClientDefaultController,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+            <param name="controller"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultCallbackAction``1(System.Action{AutoCSer.Net.CommandClientReturnValue{``0}})">
+            <summary>
+            Callback delegate command
+            回调委托命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.CallbackQueue(AutoCSer.Net.CommandClientCallbackQueueNode)">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.CallbackQueue(AutoCSer.Net.CommandClientDefaultController,AutoCSer.Net.CommandClientCallbackQueueNode)">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+            <param name="controller"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultCallbackQueue``1(AutoCSer.Net.CommandClientCallbackQueueNode{``0})">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.CallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.CallbackQueue(AutoCSer.Net.CommandClientDefaultController,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+            <param name="controller"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultCallbackActionQueue``1(System.Action{AutoCSer.Net.CommandClientReturnValue{``0},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            Callback delegate queue command
+            回调委托队列命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.KeepCallback(AutoCSer.Net.CommandClientDefaultController,AutoCSer.Net.CommandClientKeepCallback)">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultKeepCallback``1(AutoCSer.Net.CommandClientKeepCallback{``0})">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.KeepCallback(AutoCSer.Net.CommandClientDefaultController,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultKeepCallbackAction``1(System.Action{AutoCSer.Net.CommandClientReturnValue{``0},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            Keep callback command
+            保持回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.KeepCallbackQueue(AutoCSer.Net.CommandClientKeepCallbackQueue)">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.KeepCallbackQueue(AutoCSer.Net.CommandClientDefaultController,AutoCSer.Net.CommandClientKeepCallbackQueue)">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+            <param name="controller"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultKeepCallbackQueue``1(AutoCSer.Net.CommandClientKeepCallbackQueue{``0})">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.KeepCallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.KeepCallbackQueue(AutoCSer.Net.CommandClientDefaultController,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+            <param name="controller"></param>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultKeepCallbackActionQueue``1(System.Action{AutoCSer.Net.CommandClientReturnValue{``0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            Keep callback queue command
+            保持回调队列命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.ReturnType(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Return value command
+            返回值命令
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultReturnValue``1">
+            <summary>
+            Return value command
+            返回值命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.ReturnTypeQueue(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Return value queue command
+            返回值队列命令
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultReturnValueQueue``1">
+            <summary>
+            Return value queue command
+            返回值队列命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.Enumerator(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Collection enumeration command
+            集合枚举命令
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultEnumerator``1">
+            <summary>
+            Collection enumeration command
+            集合枚举命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.EnumeratorQueue(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Collection enumeration queue command
+            集合枚举队列命令
+            </summary>
+            <param name="controller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultEnumeratorQueue``1">
+            <summary>
+            Collection enumeration queue command
+            集合枚举队列命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.Throw(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Throw an exception
+            抛出异常
+            </summary>
+            <param name="controller"></param>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientDefaultController.Null">
+            <summary>
+            默认空控制器
+            Default empty controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.GetNull(AutoCSer.Net.CommandClient,System.String)">
+            <summary>
+            Get the empty controller
+            获取空控制器
+            </summary>
+            <param name="client"></param>
+            <param name="controllerName"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandClientCallback">
             <summary>
@@ -34507,6 +35127,13 @@
             </summary>
             <param name="client"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientCallQueue`1.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The client executes the queue
+            客户端执行队列
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="T:AutoCSer.Net.CommandClientCallQueue">
             <summary>
             The client executes the queue
@@ -34531,6 +35158,13 @@
             客户端执行队列
             </summary>
             <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallQueue.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The client executes the queue
+            客户端执行队列
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientCallQueue.Close">
             <summary>
@@ -34968,6 +35602,30 @@
             <summary>
             It has been added to the batch command
             已添加到批处理命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.NoSocketCreated">
+            <summary>
+            No socket was created
+            未创建套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.WaitConnect">
+            <summary>
+            The socket is waiting to connect
+            套接字等待连接中
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.DisconnectionReconnect">
+            <summary>
+            The disconnection is being reconnected
+            断线重连中
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.VerifyError">
+            <summary>
+            Verification failed
+            验证失败
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientReturnTypeEnum.SocketClosed">
@@ -35419,6 +36077,12 @@
             <summary>
             The default is true, indicating that the Nagle algorithm is disabled and data is sent immediately
             默认为 true 表示禁用 Nagle 算法，立即发送数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientConfig.IsDefaultController">
+            <summary>
+            A default value of false indicates that the client does not create a default initialization controller instance before verification. Setting it to true creates a default controller instance that returns an error state during client initialization to avoid the issue of null exceptions sent by instance references (at the cost of prolonging the client's initialization time)
+            默认为 false 表示客户端通过验证之前不创建默认的初始化控制器实例，设置为 true 则在客户端初始化的时候创建返回错误状态的默认控制器实例以避免实例引用发送 null 异常问题（代价是会延长客户端初始化的时间）
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientConfig.ControllerCreatorBindingFlags">
@@ -36176,6 +36840,11 @@
             控制器构造错误
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandClientInterfaceControllerCreator.IsTaskQueue">
+            <summary>
+            是否服务端 Task 队列客户端控制器
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.#ctor(System.String)">
             <summary>
             控制器创建器
@@ -36184,11 +36853,18 @@
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.Create(AutoCSer.Net.CommandClientSocket,System.Int32,System.String[])">
             <summary>
-            创建服务控制器
+            创建客户端控制器
             </summary>
             <param name="socket"></param>
             <param name="startMethodIndex"></param>
             <param name="serverMethodNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.CreateDefault(AutoCSer.Net.CommandClient)">
+            <summary>
+            创建客户端默认控制器
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator.Check">
@@ -36253,6 +36929,11 @@
             控制器构造错误
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.IsTaskQueue">
+            <summary>
+            是否服务端 Task 队列客户端控制器
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.#ctor(System.String)">
             <summary>
             控制器创建器
@@ -36266,6 +36947,13 @@
             <param name="socket"></param>
             <param name="startMethodIndex"></param>
             <param name="serverMethodNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.CreateDefault(AutoCSer.Net.CommandClient)">
+            <summary>
+            创建客户端默认控制器
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`2.Check">
@@ -36287,6 +36975,11 @@
             控制器构造错误
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandClientInterfaceControllerCreator`3.IsTaskQueue">
+            <summary>
+            是否服务端 Task 队列客户端控制器
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`3.#ctor(System.String)">
             <summary>
             控制器创建器
@@ -36300,6 +36993,13 @@
             <param name="socket"></param>
             <param name="startMethodIndex"></param>
             <param name="serverMethodNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`3.CreateDefault(AutoCSer.Net.CommandClient)">
+            <summary>
+            创建客户端默认控制器
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientInterfaceControllerCreator`3.Check">
@@ -37177,7 +37877,7 @@
             等待客户端套接字锁集合
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Command client socket events
             命令客户端套接字事件
@@ -37364,7 +38064,7 @@
             客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient,System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent`1.#ctor(AutoCSer.Net.CommandClient,System.Boolean)">
             <summary>
             Command client socket events
             命令客户端套接字事件
@@ -37399,7 +38099,7 @@
             Command client
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEventCache`1.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEventCache`1.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Command client socket event caching
             命令客户端套接字事件缓存
@@ -37442,7 +38142,7 @@
             当前命令客户端套接字事件任务
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`1.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`1.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Command client socket events
             命令客户端套接字事件
@@ -37499,7 +38199,7 @@
             当前命令客户端套接字事件任务
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`2.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEventTask`2.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Command client socket events
             命令客户端套接字事件
@@ -44052,6 +44752,12 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.CallbackCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Callback command
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.CallbackCommand.Wait">
             <summary>
             Wait for the command to add the output queue
@@ -44226,6 +44932,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.EnumeratorCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The collection enumeration command
+            集合枚举命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.EnumeratorCommand.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
             <summary>
             Error handling for generating the input data of the request command
@@ -44334,6 +45047,13 @@
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
+        </member>
+        <member name="M:AutoCSer.Net.EnumeratorCommand`1.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The collection enumeration command
+            集合枚举命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.EnumeratorCommand`1.#ctor(AutoCSer.Net.CommandClientController,System.Int32,`0@)">
             <summary>
@@ -44447,6 +45167,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.EnumeratorQueueCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The collection enumeration queue command
+            集合枚举队列命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.EnumeratorQueueCommand.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
             <summary>
             Error handling for generating the input data of the request command
@@ -44555,6 +45282,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The collection enumeration queue command
+            集合枚举队列命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.EnumeratorQueueCommand`1.#ctor(AutoCSer.Net.CommandClientController,System.Int32,`0@)">
             <summary>
             The collection enumeration queue command
@@ -44653,6 +45387,13 @@
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
+        </member>
+        <member name="M:AutoCSer.Net.KeepCallbackCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The keep callback command (await AutoCSer.Net.CommandKeepCallback, return the keep callback object of the command)
+            保持回调命令（await AutoCSer.Net.CommandKeepCallback，返回命令保持回调对象）
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.KeepCallbackCommand.Dispose">
             <summary>
@@ -44774,6 +45515,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.ReturnCommand`1.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The return value command
+            返回值命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="M:AutoCSer.Net.ReturnCommand`1.Wait">
             <summary>
             Wait for the command call to return the result
@@ -44887,6 +45635,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.ReturnQueueCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The return value queue command
+            返回值队列命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="T:AutoCSer.Net.ReturnQueueCommand`1">
             <summary>
             The return value queue command (await AutoCSer.Net.CommandClientReturnValue{T})
@@ -44902,6 +45657,13 @@
             <param name="controller"></param>
             <param name="methodIndex"></param>
         </member>
+        <member name="M:AutoCSer.Net.ReturnQueueCommand`1.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            The return value queue command
+            返回值队列命令
+            </summary>
+            <param name="controller"></param>
+        </member>
         <member name="T:AutoCSer.Net.SendOnlyCommand">
             <summary>
             Unresponsive command (await bool, return whether successfully added to the output queue)
@@ -44915,6 +45677,13 @@
             </summary>
             <param name="controller"></param>
             <param name="methodIndex"></param>
+        </member>
+        <member name="M:AutoCSer.Net.SendOnlyCommand.#ctor(AutoCSer.Net.CommandClientDefaultController)">
+            <summary>
+            Unresponsive command
+            无响应命令
+            </summary>
+            <param name="controller"></param>
         </member>
         <member name="M:AutoCSer.Net.SendOnlyCommand.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
             <summary>
@@ -44998,67 +45767,12 @@
             服务名称，服务注册唯一标识，没有用到服务注册的时候仅用于日志输出
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.ICommandClient.Log">
-            <summary>
-            Log processing instance
-            日志处理实例
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.ICommandClient.ControllerCreatorBindingFlags">
-            <summary>
-            Command client socket event controller property binding identifier
-            命令客户端套接字事件控制器属性绑定标识
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.ICommandClient.WaitServerEndPoint">
-            <summary>
-            Wait for the server listen address
-            等待服务监听地址
-            </summary>
-            <returns>Whether to cancel a scheduled task
-            是否需要取消定时任务</returns>
-        </member>
         <member name="M:AutoCSer.Net.ICommandClient.ServerEndPointChanged(System.Net.IPEndPoint)">
             <summary>
             The server listens for address update notifications
             服务端监听地址更新通知
             </summary>
             <param name="endPoint"></param>
-        </member>
-        <member name="M:AutoCSer.Net.ICommandClient.GetSocketEvent">
-            <summary>
-            Gets the command client socket event
-            获取命令客户端套接字事件
-            </summary>
-            <returns>Return null on failure</returns>
-        </member>
-        <member name="M:AutoCSer.Net.ICommandClient.GetSocketEvent``1">
-            <summary>
-            Gets the command client socket event
-            获取命令客户端套接字事件
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns>Return null on failure</returns>
-        </member>
-        <member name="P:AutoCSer.Net.ICommandClient.SocketEvent">
-            <summary>
-            Command client socket event
-            命令客户端套接字事件
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.ICommandClient.IsSocketClosed">
-            <summary>
-            Determines whether the current client socket is closed
-            判断当前客户端套接字是否已经关闭
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.ICommandClient.GetSendBufferPool">
-            <summary>
-            Gets the send data cache pool
-            获取发送数据缓存区池
-            </summary>
-            <returns>Send data cache pool
-            发送数据缓存区池</returns>
         </member>
         <member name="T:AutoCSer.Net.ICommandServerBindController">
             <summary>
@@ -45195,24 +45909,6 @@
             反向命令服务客户端配置
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandReverseClient.AutoCSer#Net#ICommandClient#ControllerCreatorBindingFlags">
-            <summary>
-            Command client socket event controller attribute binding flags
-            命令客户端套接字事件控制器属性绑定标识
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandReverseClient.SocketEvent">
-            <summary>
-            Command client socket events
-            命令客户端套接字事件
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseClient.socketEventTask">
-            <summary>
-            Command client socket event task caching
-            命令客户端套接字事件任务缓存
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandReverseClient.serverEndPoint">
             <summary>
             Server listening address
@@ -45289,14 +45985,6 @@
             <param name="createVersion"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandReverseClient.AutoCSer#Net#ICommandClient#WaitServerEndPoint">
-            <summary>
-            Wait for the server listen address
-            等待服务监听地址
-            </summary>
-            <returns>Whether to cancel a scheduled task
-            是否需要取消定时任务</returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandReverseClient.AutoCSer#Net#ICommandClient#ServerEndPointChanged(System.Net.IPEndPoint)">
             <summary>
             The server listens for address update notifications
@@ -45310,54 +45998,11 @@
             </summary>
             <param name="socket"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandReverseClient.AutoCSer#Net#ICommandClient#GetSendBufferPool">
-            <summary>
-            Get the send data buffer pool
-            获取发送数据缓存区池
-            </summary>
-            <returns>Send data buffer pool
-            发送数据缓存区池</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandReverseClient.GetSocketEvent">
-            <summary>
-            Gets the command client socket event
-            获取命令客户端套接字事件
-            </summary>
-            <returns>Return null on failure</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandReverseClient.GetSocketEvent``1">
-            <summary>
-            Gets the command client socket event
-            获取命令客户端套接字事件
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns>Return null on failure</returns>
-        </member>
         <member name="T:AutoCSer.Net.CommandReverseClientConfig">
             <summary>
             Reverse command service client configuration (initiating connection end)
             反向命令服务客户端配置（发起连接端）
             </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseClientConfig.ControllerCreatorBindingFlags">
-            <summary>
-            Command client socket event controller property binding identification, Defaults to the current type only define attributes BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly
-            命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandReverseClientConfig.GetSocketEventDelegate">
-            <summary>
-            Gets the command client socket event delegate
-            获取命令客户端套接字事件委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandReverseClientConfig.GetSocketEvent(AutoCSer.Net.CommandReverseClient)">
-            <summary>
-            Gets the command client socket event, which defaults to new CommandClientSocketEvent(commandClient) and is called once upon client initialization
-            获取命令客户端套接字事件，默认为 new CommandClientSocketEvent(commandClient)，客户端初始化时一次性调用
-            </summary>
-            <param name="commandClient"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandReverseClientConfig.GetRegistrar(AutoCSer.Net.CommandReverseClient)">
             <summary>
@@ -45373,6 +46018,38 @@
             用于启用服务注册以后重写自动启动连接逻辑
             </summary>
             <param name="client"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseClientConfig.CreateSocketSleep(System.Int32)">
+            <summary>
+            By default, the system hibernates for 10ms after the first failed socket creation, 100ms after the second failed socket creation, and 1s after the third failed socket creation. After each failed socket creation, the system hibernates for 5s
+            创建套接字失败重试休眠，默认第 1 次失败以后休眠 10ms，第 2 次失败以后休眠 100ms，第 3 次失败以后休眠 1s，以后每次失败都休眠 5s
+            </summary>
+            <param name="createErrorCount">Number of failures
+            失败次数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseClientConfig.OnCreateSocketRetrySuccess(AutoCSer.Net.CommandClientSocket,System.Net.IPEndPoint,System.Int32)">
+            <summary>
+            Socket retry connection successful prompt
+            套接字重试连接成功提示
+            </summary>
+            <param name="socket"></param>
+            <param name="serverEndPoint"></param>
+            <param name="exceptionCount">Number of abnormal errors
+            异常错误次数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandReverseClientConfig.OnCreateSocketException(AutoCSer.Net.CommandClientSocket,System.Exception,System.Net.IPEndPoint,System.Int32)">
+            <summary>
+            Socket creation exception prompt
+            套接字创建异常提示
+            </summary>
+            <param name="socket"></param>
+            <param name="exception"></param>
+            <param name="serverEndPoint"></param>
+            <param name="exceptionCount">Number of abnormal errors
+            异常错误次数</param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandReverseListener">
             <summary>

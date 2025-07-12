@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerCallbackTaskController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerCallbackTaskController), true)]
 #endif
     public partial interface IClientCallbackTaskController : IClientCallbackController
     {
@@ -28,6 +28,15 @@ namespace AutoCSer.TestCase.ServerBindContext
         internal static Task<bool> TestCase(CommandClientSocketEvent client, CommandServerSessionObject clientSessionObject)
         {
             return ClientCallbackController.TestCase(client.ServerBindContextClientCallbackTaskController, clientSessionObject);
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            return ClientCallbackController.DefaultControllerTestCase(client.ServerBindContextClientCallbackTaskController);
         }
     }
 }

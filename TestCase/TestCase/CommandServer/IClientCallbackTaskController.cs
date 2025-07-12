@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase
     /// 客户端测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerCallbackTaskController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerCallbackTaskController), true)]
 #endif
     public partial interface IClientCallbackTaskController : IClientCallbackController
     {
@@ -28,6 +28,15 @@ namespace AutoCSer.TestCase
         internal static Task<bool> TestCase(CommandClientSocketEvent client, CommandServerSessionObject clientSessionObject)
         {
             return ClientCallbackController.TestCase(client.ClientCallbackTaskController, clientSessionObject);
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            return ClientCallbackController.DefaultControllerTestCase(client.ClientCallbackTaskController);
         }
     }
 }

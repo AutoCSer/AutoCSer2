@@ -24,7 +24,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// Command client
         /// </summary>
-        protected readonly ICommandClient commandClient;
+        protected readonly CommandClient commandClient;
         /// <summary>
         /// Retry interval in milliseconds
         /// 重试间隔毫秒数
@@ -42,7 +42,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="commandClient">Command client</param>
         /// <param name="delayMilliseconds">Retry interval in milliseconds
         /// 重试间隔毫秒数</param>
-        protected MessageConsumer(ICommandClient commandClient, int delayMilliseconds)
+        protected MessageConsumer(CommandClient commandClient, int delayMilliseconds)
         {
             this.commandClient = commandClient;
             this.delayMilliseconds = Math.Max(delayMilliseconds, 1);
@@ -97,7 +97,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务端单次最大回调消息数量</param>
         /// <param name="delayMilliseconds">Retry interval in milliseconds
         /// 重试间隔毫秒数</param>
-        protected MessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<T> node, int maxMessageCount, int delayMilliseconds) : base(commandClient, delayMilliseconds)
+        protected MessageConsumer(CommandClient commandClient, IMessageNodeClientNode<T> node, int maxMessageCount, int delayMilliseconds) : base(commandClient, delayMilliseconds)
         {
             this.node = node;
             this.maxMessageCount = maxMessageCount;

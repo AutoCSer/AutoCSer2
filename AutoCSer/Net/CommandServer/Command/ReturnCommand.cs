@@ -113,6 +113,12 @@ namespace AutoCSer.Net
         /// <param name="methodIndex"></param>
         internal ReturnCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
+        /// The return value command
+        /// 返回值命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal ReturnCommand(CommandClientDefaultController controller) : base(controller) { }
+        /// <summary>
         /// Wait for the command call to return the result
         /// 等待命令调用返回结果
         /// </summary>

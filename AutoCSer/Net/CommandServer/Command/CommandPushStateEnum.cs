@@ -23,6 +23,11 @@ namespace AutoCSer.Net.CommandServer
         /// 套接字已经关闭
         /// </summary>
         Closed,
+        /// <summary>
+        /// The socket is waiting to connect (The controller used for default initialization)
+        /// 等待连接中（用于默认初始化的控制器）
+        /// </summary>
+        WaitConnect,
         ///// <summary>
         ///// 已添加到命令批处理
         ///// </summary>

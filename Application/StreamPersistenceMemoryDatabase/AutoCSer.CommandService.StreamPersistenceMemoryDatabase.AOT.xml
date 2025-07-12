@@ -5414,8 +5414,8 @@
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IOnlyPersistenceNode`1">
             <summary>
-            Only archive node interface (used for rapid archiving of large amounts of data, without modifying in-memory data or defining snapshot operations)
-            仅存档节点接口（用于大量数据快速存档，不修改内存数据，也不定义快照操作）
+            Archive-only data node interface (It is used for the rapid archiving of large amounts of concurrent data without modifying memory data or defining snapshot operations)
+            仅存档数据节点接口（用于大量并发数据快速存档，不修改内存数据，也不定义快照操作）
             </summary>
             <typeparam name="T">Archive data type
             存档数据类型</typeparam>
@@ -11089,6 +11089,12 @@
             常规模式，数据库冷启动时加载历史数据恢复内存数据状态
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceTypeEnum.OnlyPersistence">
+            <summary>
+            Archive-only mode (Although the persistence API can achieve the archive-only effect without operating on memory data in the regular mode, some operations need to be triggered manually)
+            仅存档模式（虽然常规模式下持久化 API 不操作内存数据也可以达到仅存档效果，但是某些操作需要手动触发）
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.PersistenceTypeEnum.ScanPersistence">
             <summary>
             The scanning archive mode loads all historical data in chronological order, which is used for operations such as the migration of offline data in the rapid archive mode (scenarios where the main data is not set for snapshot persistence)
@@ -14176,8 +14182,8 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceConfig.QueueTimeoutSeconds">
             <summary>
-            The default time for checking the execution timeout of the synchronous queue task is 5, which is used to check whether there are long-term blocking or deadlock issues with the queue task
-            同步队列任务执行超时检查秒数默认为 5 ，用于检查队列任务是否存在长时间阻塞或者死锁问题
+            The synchronization queue task execution timeout checks the number of seconds. By default, 0 indicates no check, which is used to check whether the queue task has been blocked for a long time or has deadlock issues
+            同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceConfig.Create">

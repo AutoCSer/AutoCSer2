@@ -172,7 +172,7 @@ namespace AutoCSer.TestCase
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(CommandClient client) : base(client) { }
 #if AOT
         /// <summary>
         /// 没有找到服务端控制器名称通知

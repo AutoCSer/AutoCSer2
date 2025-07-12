@@ -86,6 +86,7 @@ namespace AutoCSer.TestCase
                 Type errorType = typeof(Program);
                 do
                 {
+                    Task<bool> defaultControllerTask = CommandClientDefaultController.TestCase();
                     Task<bool> streamPersistenceMemoryDatabaseTask = streamPersistenceMemoryDatabaseCount > 0 ? StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.TestCase() : null;
                     Task<bool> shortLinkCommandServerTask = CommandServer.IsAotClient ? null : ShortLinkCommandServer.TestCase();
                     Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
@@ -103,6 +104,7 @@ namespace AutoCSer.TestCase
                     if (!await interfaceControllerTaskQueueTask) { errorType = typeof(InterfaceControllerTaskQueue); break; }
                     if (!await searchTreeTask) { errorType = typeof(SearchTree); break; }
                     if (!await reusableDictionaryTask) { errorType = typeof(ReusableDictionary); break; }
+                    if (!await defaultControllerTask) { errorType = typeof(CommandClientDefaultController); break; }
                     if (streamPersistenceMemoryDatabaseTask != null && !await streamPersistenceMemoryDatabaseTask) { errorType = typeof(StreamPersistenceMemoryDatabaseService); break; }
                     Console.Write('.');
                     --streamPersistenceMemoryDatabaseCount;

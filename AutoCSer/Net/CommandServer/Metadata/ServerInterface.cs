@@ -243,6 +243,24 @@ namespace AutoCSer.Net.CommandServer
             }
         }
         /// <summary>
+        /// 客户端默认初始化接口信息
+        /// </summary>
+        /// <param name="type"></param>
+        internal ServerInterface(Type type)
+        {
+            Methods = null;
+            VerifyMethodIndex = int.MinValue;
+            ControllerQueue = 0;
+            IsReadWriteQueue = ControllerReadWriteQueue = IsConcurrencyReadQueue = ControllerConcurrencyReadQueue = false;
+            QueueCount = 0;
+            Queues = EmptyArray<byte>.Array;
+            TaskQueueFieldBuilders = null;
+            Messages = new LeftArray<string>(0);
+            GeneratorAttribute = ServerControllerInterfaceAttribute.Default;
+            ControllerAttribute = CommandServerController.DefaultAttribute;
+            InterfaceController.CheckType(type, false, out Error);
+        }
+        /// <summary>
         /// 获取方法分组
         /// </summary>
         /// <returns></returns>
@@ -415,6 +433,48 @@ namespace AutoCSer.Net.CommandServer
                 else Messages.Add(method.Error);
             }
             if (messageCount != Messages.Length) controllerConstructorMessages = Messages.ToArray();
+            return true;
+        }
+        /// <summary>
+        /// 获取客户端方法集合
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="keyType"></param>
+        /// <param name="controllerConstructorException"></param>
+        /// <param name="controllerConstructorMessages"></param>
+        /// <param name="methodArray"></param>
+        /// <returns></returns>
+#if NetStandard21
+        internal bool GetClientDefaultMethods(Type type, Type? keyType, ref Exception? controllerConstructorException, ref string[]? controllerConstructorMessages, out LeftArray<ClientInterfaceMethod> methodArray)
+#else
+        internal bool GetClientDefaultMethods(Type type, Type keyType, ref Exception controllerConstructorException, ref string[] controllerConstructorMessages, out LeftArray<ClientInterfaceMethod> methodArray)
+#endif
+        {
+            methodArray = new LeftArray<ClientInterfaceMethod>(0);
+            if (Error == null)
+            {
+                if (Messages.Length != 0) controllerConstructorMessages = Messages.ToArray();
+                Error = ClientInterfaceMethod.GetMethod(type, ControllerAttribute, keyType, ref methodArray, false, true);
+            }
+            if (Error != null)
+            {
+                controllerConstructorException = new Exception($"{type.fullName()} 客户端默认初始化控制器生成失败 {Error}");
+                return false;
+            }
+            foreach (Type interfaceType in type.GetInterfaces())
+            {
+                Error = ClientInterfaceMethod.GetMethod(interfaceType, ControllerAttribute, keyType, ref methodArray, false, true);
+                if (Error != null)
+                {
+                    controllerConstructorException = new Exception($"{type.fullName()} 客户端默认初始化控制器生成失败 {Error}");
+                    return false;
+                }
+            }
+            if (methodArray.Length == 0)
+            {
+                controllerConstructorException = new Exception($"{type.fullName()} 客户端默认初始化控制器生成失败 没有找到接口方法定义");
+                return false;
+            }
             return true;
         }
     }

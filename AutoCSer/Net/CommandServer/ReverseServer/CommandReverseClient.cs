@@ -21,21 +21,31 @@ namespace AutoCSer.Net
         /// 反向命令服务客户端配置
         /// </summary>
         private readonly CommandReverseClientConfig config;
-        /// <summary>
-        /// Command client socket event controller attribute binding flags
-        /// 命令客户端套接字事件控制器属性绑定标识
-        /// </summary>
-        BindingFlags ICommandClient.ControllerCreatorBindingFlags { get { return config.ControllerCreatorBindingFlags; } }
-        /// <summary>
-        /// Command client socket events
-        /// 命令客户端套接字事件
-        /// </summary>
-        public CommandClientSocketEvent SocketEvent { get; private set; }
-        /// <summary>
-        /// Command client socket event task caching
-        /// 命令客户端套接字事件任务缓存
-        /// </summary>
-        private readonly Task<CommandClientSocketEvent> socketEventTask;
+        ///// <summary>
+        ///// Command client socket event controller attribute binding flags
+        ///// 命令客户端套接字事件控制器属性绑定标识
+        ///// </summary>
+        //BindingFlags ICommandClient.ControllerCreatorBindingFlags { get { return config.ControllerCreatorBindingFlags; } }
+        ///// <summary>
+        ///// When the client is initialized, whether to create a default controller instance that returns an error state
+        ///// 客户端初始化的时候，是否创建返回错误状态的默认控制器实例
+        ///// </summary>
+        //bool ICommandClient.IsDefaultController { get { return config.IsDefaultController; } }
+        ///// <summary>
+        ///// The default initialization controller call return type
+        ///// 默认初始化控制器调用返回类型
+        ///// </summary>
+        //public CommandClientReturnTypeEnum DefaultControllerReturnType { get; internal set; }
+        ///// <summary>
+        ///// Command client socket events
+        ///// 命令客户端套接字事件
+        ///// </summary>
+        //public CommandClientSocketEvent SocketEvent { get; private set; }
+        ///// <summary>
+        ///// Command client socket event task caching
+        ///// 命令客户端套接字事件任务缓存
+        ///// </summary>
+        //private readonly Task<CommandClientSocketEvent> socketEventTask;
         /// <summary>
         /// Server listening address
         /// 服务监听地址
@@ -83,10 +93,11 @@ namespace AutoCSer.Net
         {
             if (Controllers.Length == 0) throw new ArgumentException(AutoCSer.Common.Culture.GetReverseCommandServerNotFoundController(config.ServerName));
             this.config = config;
+            //DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
             currentSocket = CommandServerSocket.CommandServerSocketContext;
             serverEndPoint = CommandServerConfigBase.NullIPEndPoint;
-            SocketEvent = config.GetSocketEvent(this) ?? new CommandClientSocketEvent(this);
-            socketEventTask = Task.FromResult(SocketEvent);
+            //SocketEvent = config.GetSocketEvent(this) ?? new CommandClientSocketEvent(this);
+            //socketEventTask = Task.FromResult(SocketEvent);
             IsStart = true;
             config.CreateSocket(this);
         }
@@ -102,10 +113,11 @@ namespace AutoCSer.Net
         {
             if (Controllers.Length == 0) throw new ArgumentException(AutoCSer.Common.Culture.GetReverseCommandServerNotFoundController(config.ServerName));
             this.config = config;
+            //DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
             currentSocket = CommandServerSocket.CommandServerSocketContext;
             serverEndPoint = CommandServerConfigBase.NullIPEndPoint;
-            SocketEvent = config.GetSocketEvent(this) ?? new CommandClientSocketEvent(this);
-            socketEventTask = Task.FromResult(SocketEvent);
+            //SocketEvent = config.GetSocketEvent(this) ?? new CommandClientSocketEvent(this);
+            //socketEventTask = Task.FromResult(SocketEvent);
             IsStart = true;
             config.CreateSocket(this);
         }
@@ -126,6 +138,7 @@ namespace AutoCSer.Net
         internal void CreateSocket()
         {
             serverEndPoint = config.Host.IPEndPoint;
+            //DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
             create(Interlocked.Increment(ref createVersion)).NotWait();
         }
         /// <summary>
@@ -152,7 +165,7 @@ namespace AutoCSer.Net
                 {
                     if (createErrorCount != 0)
                     {
-                        await SocketEvent.CreateSocketSleep(createErrorCount);
+                        await config.CreateSocketSleep(createErrorCount);
                         if (IsDisposed || createVersion != this.createVersion) break;
                     }
                     Socket socket = new Socket(serverEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -169,39 +182,39 @@ namespace AutoCSer.Net
                     CommandServerSocket commandServerSocket = new CommandServerSocket(this, socket), closeSocket = Interlocked.Exchange(ref currentSocket, commandServerSocket);
                     commandServerSocket.Start();
                     closeSocket.DisposeSocket();
-                    if (exceptionCount != 0) await SocketEvent.OnCreateSocketRetrySuccess(null, serverEndPoint, exceptionCount);
+                    if (exceptionCount != 0) await config.OnCreateSocketRetrySuccess(null, serverEndPoint, exceptionCount);
                     return;
                 }
                 catch (Exception exception)
                 {
-                    await SocketEvent.OnCreateSocketException(null, exception, serverEndPoint, ++exceptionCount);
+                    await config.OnCreateSocketException(null, exception, serverEndPoint, ++exceptionCount);
                 }
                 ++createErrorCount;
             }
             while (!IsDisposed && createVersion == this.createVersion);
         }
-        /// <summary>
-        /// Wait for the server listen address
-        /// 等待服务监听地址
-        /// </summary>
-        /// <returns>Whether to cancel a scheduled task
-        /// 是否需要取消定时任务</returns>
-#if NetStandard21
-        ValueTask<bool> ICommandClient.WaitServerEndPoint()
-#else
-        Task<bool> ICommandClient.WaitServerEndPoint()
-#endif
-        {
-#if NetStandard21
-#if NET8
-            return ValueTask.FromResult(IsDisposed);
-#else
-            return AutoCSer.Common.GetCompletedValueTask(AutoCSer.Common.GetCompletedTask(IsDisposed));
-#endif
-#else
-            return AutoCSer.Common.GetCompletedTask(IsDisposed);
-#endif
-        }
+//        /// <summary>
+//        /// Wait for the server listen address
+//        /// 等待服务监听地址
+//        /// </summary>
+//        /// <returns>Whether to cancel a scheduled task
+//        /// 是否需要取消定时任务</returns>
+//#if NetStandard21
+//        ValueTask<bool> ICommandClient.WaitServerEndPoint()
+//#else
+//        Task<bool> ICommandClient.WaitServerEndPoint()
+//#endif
+//        {
+//#if NetStandard21
+//#if NET8
+//            return ValueTask.FromResult(IsDisposed);
+//#else
+//            return AutoCSer.Common.GetCompletedValueTask(AutoCSer.Common.GetCompletedTask(IsDisposed));
+//#endif
+//#else
+//            return AutoCSer.Common.GetCompletedTask(IsDisposed);
+//#endif
+//        }
         /// <summary>
         /// The server listens for address update notifications
         /// 服务监听地址更新通知
@@ -226,42 +239,42 @@ namespace AutoCSer.Net
                 create(Interlocked.Increment(ref createVersion)).NotWait();
             }
         }
-        /// <summary>
-        /// Get the send data buffer pool
-        /// 获取发送数据缓存区池
-        /// </summary>
-        /// <returns>Send data buffer pool
-        /// 发送数据缓存区池</returns>
-        ByteArrayPool ICommandClient.GetSendBufferPool() { return SendBufferPool; }
-        /// <summary>
-        /// Gets the command client socket event
-        /// 获取命令客户端套接字事件
-        /// </summary>
-        /// <returns>Return null on failure</returns>
-#if NetStandard21
-        public Task<CommandClientSocketEvent?> GetSocketEvent()
-#else
-        public Task<CommandClientSocketEvent> GetSocketEvent()
-#endif
-        {
-#pragma warning disable CS8619
-            return socketEventTask;
-#pragma warning restore CS8619
-        }
-        /// <summary>
-        /// Gets the command client socket event
-        /// 获取命令客户端套接字事件
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>Return null on failure</returns>
-#if NetStandard21
-        public async Task<T?> GetSocketEvent<T>()
-#else
-        public async Task<T> GetSocketEvent<T>()
-#endif
-            where T : CommandClientSocketEvent
-        {
-            return (await socketEventTask).castType<T>();
-        }
+        ///// <summary>
+        ///// Get the send data buffer pool
+        ///// 获取发送数据缓存区池
+        ///// </summary>
+        ///// <returns>Send data buffer pool
+        ///// 发送数据缓存区池</returns>
+        //ByteArrayPool ICommandClient.GetSendBufferPool() { return SendBufferPool; }
+//        /// <summary>
+//        /// Gets the command client socket event
+//        /// 获取命令客户端套接字事件
+//        /// </summary>
+//        /// <returns>Return null on failure</returns>
+//#if NetStandard21
+//        public Task<CommandClientSocketEvent?> GetSocketEvent()
+//#else
+//        public Task<CommandClientSocketEvent> GetSocketEvent()
+//#endif
+//        {
+//#pragma warning disable CS8619
+//            return socketEventTask;
+//#pragma warning restore CS8619
+//        }
+//        /// <summary>
+//        /// Gets the command client socket event
+//        /// 获取命令客户端套接字事件
+//        /// </summary>
+//        /// <typeparam name="T"></typeparam>
+//        /// <returns>Return null on failure</returns>
+//#if NetStandard21
+//        public async Task<T?> GetSocketEvent<T>()
+//#else
+//        public async Task<T> GetSocketEvent<T>()
+//#endif
+//            where T : CommandClientSocketEvent
+//        {
+//            return (await socketEventTask).castType<T>();
+//        }
     }
 }

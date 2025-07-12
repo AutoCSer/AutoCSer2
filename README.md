@@ -189,7 +189,7 @@ NuGet 发布了核心程序集 AutoCSer.dll 的 3 个版本包括 [.NET8](https:
         /// RPC 客户端实例
         /// </summary>
         /// <param name="client">命令客户端</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
     }
 ```
 ## 创建 RPC 客户端

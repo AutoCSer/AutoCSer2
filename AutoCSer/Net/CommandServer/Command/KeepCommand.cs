@@ -62,6 +62,19 @@ namespace AutoCSer.Net.CommandServer
             ReturnType = CommandClientReturnTypeEnum.Success;
         }
         /// <summary>
+        /// Keep callback command
+        /// 保持回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal KeepCommand(CommandClientDefaultController controller) : base(controller)
+        {
+            keepCallback = new CommandKeepCallback(this);
+            PushState = CommandPushStateEnum.WaitConnect;
+            ReturnType = controller.DefaultControllerReturnType;
+            IsDisposed = IsCompleted = true;
+            continuation = Common.EmptyAction;
+        }
+        /// <summary>
         /// Generate the input data of the request command
         /// 生成请求命令输入数据
         /// </summary>

@@ -34,7 +34,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public DiskBlockCommandClientSocketEvent(ICommandClient client) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString) { }
+        public DiskBlockCommandClientSocketEvent(CommandClient client) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString) { }
 
         /// <summary>
         /// 客户端单例（测试环境公用同一个磁盘块服务，实战环境需要物理隔离）

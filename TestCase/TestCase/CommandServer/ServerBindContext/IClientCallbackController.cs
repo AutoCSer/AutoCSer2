@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerCallbackController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerCallbackController), true)]
 #endif
     public partial interface IClientCallbackController
     {
@@ -138,6 +138,64 @@ namespace AutoCSer.TestCase.ServerBindContext
             }
             await AutoCSer.TestCase.ClientCallbackController.WaitCallback();
             if (!AutoCSer.TestCase.ClientCallbackController.ReturnType.IsSuccess || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            return DefaultControllerTestCase(client.ServerBindContextClientCallbackController);
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(ServerBindContext.IClientCallbackController client)
+        {
+            if (await client.CallbackReturn(0, 0, AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.Callback(0, 0, AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackReturn(AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.Callback(AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueueReturn(0, 0, AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueue(0, 0, AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueueReturn(AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueue(AutoCSer.TestCase.ClientCallbackController.DefaultControllerCallback))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase
     /// 客户端定义非对称测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(void))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(void), true)]
 #endif
     [AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute(typeof(IDefinedDissymmetryServerControllerMethodEnum))]
     [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false)]
@@ -65,6 +65,39 @@ namespace AutoCSer.TestCase
 
             Data.ORM.ModelGeneric result = await client.DefinedDissymmetryClientController.GetSocketTask().GetCommandResult();
             if (!ServerSynchronousController.SessionObject.Check(result))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            CommandClientReturnValue returnType = client.DefinedDissymmetryClientController.SetSocket(null);
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            CommandClientReturnValue<Data.ORM.ModelGeneric> returnValue = client.DefinedDissymmetryClientController.GetSocket();
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnType = await client.DefinedDissymmetryClientController.SetSocketTask(null);
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnValue = await client.DefinedDissymmetryClientController.GetSocketTask();
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

@@ -97,10 +97,11 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="controllerAttribute"></param>
         /// <param name="taskQueueControllerKeyType"></param>
         /// <param name="isServer"></param>
+        /// <param name="isDefault"></param>
 #if NetStandard21
-        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isServer) : base(type, method, controllerAttribute)
+        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isServer, bool isDefault) : base(type, method, controllerAttribute)
 #else
-        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isServer) : base(type, method, controllerAttribute)
+        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isServer, bool isDefault) : base(type, method, controllerAttribute)
 #endif
         {
             MethodAttribute = method.GetCustomAttribute<CommandClientMethodAttribute>(false) ?? CommandClientMethodAttribute.Defafult;
@@ -346,68 +347,71 @@ namespace AutoCSer.Net.CommandServer
                     }
                 }
             }
-            setParameterCount();
-            if (InputParameterCount != 0 || taskQueueControllerKeyType != null)
+            if (!isDefault)
             {
-                int parameterSkipCount = 0;
-                if (isServer)
+                setParameterCount();
+                if (InputParameterCount != 0 || taskQueueControllerKeyType != null)
                 {
-                    if (taskQueueControllerKeyType != null)
+                    int parameterSkipCount = 0;
+                    if (isServer)
                     {
-                        InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, taskQueueControllerKeyType);
+                        if (taskQueueControllerKeyType != null)
+                        {
+                            InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, taskQueueControllerKeyType);
+                        }
+                        else
+                        {
+                            ParameterInfo parameter = Parameters[ParameterStartIndex];
+                            if (!parameter.ParameterType.IsByRef && parameter.Name == QueueKeyParameterName)
+                            {
+                                Type equatableType = typeof(IEquatable<>).MakeGenericType(parameter.ParameterType);
+                                if (equatableType.IsAssignableFrom(parameter.ParameterType))
+                                {
+                                    taskQueueControllerKeyType = parameter.ParameterType;
+                                    parameterSkipCount = 1;
+                                }
+                            }
+                            if (taskQueueControllerKeyType == null) InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, null);
+                            else InputParameterType = ServerMethodParameter.Get(InputParameterCount - 1, InputParameters.Skip(parameterSkipCount), taskQueueControllerKeyType);
+                        }
+                        if (InputParameterType == null)
+                        {
+                            SetError($"接口 {type.fullName()}.{method.Name} 没有找到匹配的输入参数信息");
+                            return;
+                        }
                     }
                     else
                     {
-                        ParameterInfo parameter = Parameters[ParameterStartIndex];
-                        if (!parameter.ParameterType.IsByRef && parameter.Name == QueueKeyParameterName)
+                        InputParameterType = ServerMethodParameter.GetOrCreate(InputParameterCount, InputParameters, taskQueueControllerKeyType ?? typeof(void));
+                        IsSimpleSerializeParamter = controllerAttribute.IsSimpleSerializeInputParameter && InputParameterType.IsSimpleSerialize;
+                    }
+                    InputParameterFields = InputParameterType.GetFields(InputParameters, parameterSkipCount == 0 ? null : QueueKeyParameterName);
+                }
+                if (OutputParameterCount == 0)
+                {
+                    if (ReturnValueType != typeof(void) && !isServer)
+                    {
+                        IsSimpleDeserializeParamter = controllerAttribute.IsSimpleSerializeOutputParameter && SimpleSerialize.Serializer.IsType(ReturnValueType);
+                    }
+                }
+                else
+                {
+                    if (isServer)
+                    {
+                        OutputParameterType = ServerMethodParameter.Get(OutputParameterCount, OutputParameters, ReturnValueType);
+                        if (OutputParameterType == null)
                         {
-                            Type equatableType = typeof(IEquatable<>).MakeGenericType(parameter.ParameterType);
-                            if (equatableType.IsAssignableFrom(parameter.ParameterType))
-                            {
-                                taskQueueControllerKeyType = parameter.ParameterType;
-                                parameterSkipCount = 1;
-                            }
+                            SetError($"接口 {type.fullName()}.{method.Name} 没有找到匹配的输出参数信息");
+                            return;
                         }
-                        if (taskQueueControllerKeyType == null) InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, null);
-                        else InputParameterType = ServerMethodParameter.Get(InputParameterCount - 1, InputParameters.Skip(parameterSkipCount), taskQueueControllerKeyType);
                     }
-                    if (InputParameterType == null)
+                    else
                     {
-                        SetError($"接口 {type.fullName()}.{method.Name} 没有找到匹配的输入参数信息");
-                        return;
+                        OutputParameterType = ServerMethodParameter.GetOrCreate(OutputParameterCount, OutputParameters, ReturnValueType);
+                        IsSimpleDeserializeParamter = controllerAttribute.IsSimpleSerializeOutputParameter && OutputParameterType.IsSimpleSerialize;
                     }
+                    OutputParameterFields = OutputParameterType.GetFields(OutputParameters);
                 }
-                else
-                {
-                    InputParameterType = ServerMethodParameter.GetOrCreate(InputParameterCount, InputParameters, taskQueueControllerKeyType ?? typeof(void));
-                    IsSimpleSerializeParamter = controllerAttribute.IsSimpleSerializeInputParameter && InputParameterType.IsSimpleSerialize;
-                }
-                InputParameterFields = InputParameterType.GetFields(InputParameters, parameterSkipCount == 0 ? null : QueueKeyParameterName);
-            }
-            if (OutputParameterCount == 0)
-            {
-                if (ReturnValueType != typeof(void) && !isServer)
-                {
-                    IsSimpleDeserializeParamter = controllerAttribute.IsSimpleSerializeOutputParameter && SimpleSerialize.Serializer.IsType(ReturnValueType);
-                }
-            }
-            else
-            {
-                if (isServer)
-                {
-                    OutputParameterType = ServerMethodParameter.Get(OutputParameterCount, OutputParameters, ReturnValueType);
-                    if (OutputParameterType == null)
-                    {
-                        SetError($"接口 {type.fullName()}.{method.Name} 没有找到匹配的输出参数信息");
-                        return;
-                    }
-                }
-                else
-                {
-                    OutputParameterType = ServerMethodParameter.GetOrCreate(OutputParameterCount, OutputParameters, ReturnValueType);
-                    IsSimpleDeserializeParamter = controllerAttribute.IsSimpleSerializeOutputParameter && OutputParameterType.IsSimpleSerialize;
-                }
-                OutputParameterFields = OutputParameterType.GetFields(OutputParameters);
             }
             CallbackType = MethodAttribute.CallbackType;
             switch (MethodType)
@@ -1217,18 +1221,19 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="taskQueueControllerKeyType"></param>
         /// <param name="methods"></param>
         /// <param name="isServer"></param>
+        /// <param name="isDefault"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer)
+        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer, bool isDefault = false)
 #else
-        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer)
+        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer, bool isDefault = false)
 #endif
         {
             foreach (MethodInfo method in type.GetMethods())
             {
                 var error = InterfaceController.CheckMethod(type, method);
                 if (error != null) return error;
-                methods.Add(new ClientInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType, isServer));
+                methods.Add(new ClientInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType, isServer, isDefault));
                 //ClientInterfaceMethod clientMethod = new ClientInterfaceMethod(type, controllerAttribute, method, taskQueueControllerKeyType);
                 //if (clientMethod.MethodType == ClientMethodType.Unknown) return clientMethod.Error ?? $"{type.fullName()}.{method.Name} 未知客户端方法调用类型";
                 //methods.Add(clientMethod);

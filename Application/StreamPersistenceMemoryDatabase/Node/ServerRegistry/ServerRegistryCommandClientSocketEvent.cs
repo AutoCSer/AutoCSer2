@@ -34,7 +34,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务注册命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        protected ServerRegistryCommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client)
+        protected ServerRegistryCommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client)
         {
             registrars = new LeftArray<CommandServiceRegistrar>(0);
             registrarLock = new SemaphoreSlim(1, 1);

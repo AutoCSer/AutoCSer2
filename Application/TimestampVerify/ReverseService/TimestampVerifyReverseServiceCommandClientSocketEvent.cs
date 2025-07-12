@@ -28,7 +28,7 @@ namespace AutoCSer.CommandService
         /// 基于递增登录时间戳验证的反向服务认证套接字事件
         /// </summary>
         /// <param name="client"></param>
-        protected TimestampVerifyReverseServiceCommandClientSocketEvent(ICommandClient client) : base(client)
+        protected TimestampVerifyReverseServiceCommandClientSocketEvent(CommandClient client) : base(client)
         {
             md5 = MD5.Create();
             timestampVerifyChecker = new AutoCSer.CommandService.TimestampVerifyChecker(0);

@@ -71,6 +71,11 @@ namespace AutoCSer.Net
         /// </summary>
         public bool NoDelay = true;
         /// <summary>
+        /// A default value of false indicates that the client does not create a default initialization controller instance before verification. Setting it to true creates a default controller instance that returns an error state during client initialization to avoid the issue of null exceptions sent by instance references (at the cost of prolonging the client's initialization time)
+        /// 默认为 false 表示客户端通过验证之前不创建默认的初始化控制器实例，设置为 true 则在客户端初始化的时候创建返回错误状态的默认控制器实例以避免实例引用发送 null 异常问题（代价是会延长客户端初始化的时间）
+        /// </summary>
+        public bool IsDefaultController;
+        /// <summary>
         /// Command client socket event controller property binding identification, Defaults to the current type only define attributes BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly
         /// 命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
         /// </summary>
@@ -111,9 +116,9 @@ namespace AutoCSer.Net
         /// 获取命令客户端套接字事件委托
         /// </summary>
 #if NetStandard21
-        public Func<ICommandClient, CommandClientSocketEvent>? GetSocketEventDelegate;
+        public Func<CommandClient, CommandClientSocketEvent>? GetSocketEventDelegate;
 #else
-        public Func<ICommandClient, CommandClientSocketEvent> GetSocketEventDelegate;
+        public Func<CommandClient, CommandClientSocketEvent> GetSocketEventDelegate;
 #endif
         /// <summary>
         /// Gets the command client socket event, which defaults to new CommandClientSocketEvent(commandClient) and is called once upon client initialization

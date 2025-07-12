@@ -40,7 +40,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public DiskBlockIndexCommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public DiskBlockIndexCommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
         /// <summary>
         /// The client call the authentication API after creating a socket connection
         /// 客户端创建套接字连接以后调用认证 API

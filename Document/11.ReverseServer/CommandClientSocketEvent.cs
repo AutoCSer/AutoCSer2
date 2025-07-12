@@ -38,7 +38,7 @@ namespace AutoCSer.Document.ReverseServer
         /// RPC 客户端实例
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
         /// <summary>
         /// The reverse command server client listens for the authentication socket
         /// 反向命令服务客户端监听验证套接字

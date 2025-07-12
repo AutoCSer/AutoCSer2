@@ -19,7 +19,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
         /// <param name="commandClient">Command client</param>
         /// <param name="node">Binary serialized message client node
         /// 二进制序列化消息消息客户端节点</param>
-        internal BinaryMessageConsumer(AutoCSer.Net.ICommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node) : base(commandClient, node, 1 << 10) { }
+        internal BinaryMessageConsumer(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node) : base(commandClient, node, 1 << 10) { }
         /// <summary>
         /// Message processing. An exception also indicates that the message execution failed
         /// 消息处理，异常也表示消息执行失败
@@ -69,7 +69,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
         /// 服务端泛型消息客户端消费者示例
         /// </summary>
         /// <returns></returns>
-        private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>>> client, AutoCSer.Net.ICommandClient commandClient)
+        private static async Task<bool> test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>>> client, AutoCSer.Net.CommandClient commandClient)
         {
             var nodeResult = await client.GetNode();
             if (!nodeResult.IsSuccess)

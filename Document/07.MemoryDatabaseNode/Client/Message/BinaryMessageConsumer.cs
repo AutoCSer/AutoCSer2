@@ -17,7 +17,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client.Message
         /// <param name="commandClient">Command client</param>
         /// <param name="node">Binary serialized message client node
         /// 二进制序列化消息消息客户端节点</param>
-        internal BinaryMessageConsumer(AutoCSer.Net.ICommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node) : base(commandClient, node, 1 << 10) { }
+        internal BinaryMessageConsumer(AutoCSer.Net.CommandClient commandClient, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage<Data.TestClass>> node) : base(commandClient, node, 1 << 10) { }
         /// <summary>
         /// Message processing. An exception also indicates that the message execution failed
         /// 消息处理，异常也表示消息执行失败

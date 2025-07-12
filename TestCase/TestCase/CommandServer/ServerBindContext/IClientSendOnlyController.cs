@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerSendOnlyController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerSendOnlyController), true)]
 #endif
     public partial interface IClientSendOnlyController
     {
@@ -116,6 +116,23 @@ namespace AutoCSer.TestCase.ServerBindContext
             }
 
             if (!AutoCSer.TestCase.ServerSendOnlyController.CheckCount())
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            if (await client.ServerBindContextClientSendOnlyController.SendOnly(0, 0))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (await client.ServerBindContextClientSendOnlyController.SendOnly())
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

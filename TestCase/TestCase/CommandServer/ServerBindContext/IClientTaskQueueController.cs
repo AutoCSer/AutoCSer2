@@ -53,6 +53,39 @@ namespace AutoCSer.TestCase.ServerBindContext
             return true;
         }
         /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            CommandClientReturnValue<string> returnValue = await client.ServerBindContextClientTaskQueueController.TaskQueueReturn(0, 0);
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnValue = await client.ServerBindContextClientTaskQueueController.TaskQueueReturn();
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            CommandClientReturnValue returnType = await client.ServerBindContextClientTaskQueueController.TaskQueue(0, 0);
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnType = await client.ServerBindContextClientTaskQueueController.TaskQueue();
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            return true;
+        }
+        /// <summary>
         /// 短连接命令客户端测试
         /// </summary>
         /// <returns></returns>

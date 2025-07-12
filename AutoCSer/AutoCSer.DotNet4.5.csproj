@@ -215,6 +215,7 @@
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientKeepCallbackQueueNode.cs" />
     <Compile Include="Net\CommandServer\CommandClientConfig.cs" />
     <Compile Include="Net\CommandServer\CommandClientCompressConfig.cs" />
+    <Compile Include="Net\CommandServer\CommandClientDefaultController.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerCallbackRunTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerEnumerableKeepCallbackCountRunTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerKeepCallbackCountRunTask.cs" />

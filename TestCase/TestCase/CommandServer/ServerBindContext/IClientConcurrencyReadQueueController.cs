@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerConcurrencyReadQueueController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerConcurrencyReadQueueController), true)]
 #endif
     public partial interface IClientConcurrencyReadQueueController : IClientQueueController
     {

@@ -31,6 +31,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.CommandClientDefaultController.TestCase">
+            <summary>
+            默认控制器测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.CommandServer.TestCase">
             <summary>
             命令服务测试
@@ -169,7 +175,7 @@
             客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Command client socket events
             命令客户端套接字事件
@@ -219,6 +225,20 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.IClientCallbackController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientCallbackController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -244,6 +264,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IClientConcurrencyReadQueueController">
@@ -275,6 +302,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -302,6 +336,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -327,6 +368,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueController.DefaultControllerTestCase(AutoCSer.TestCase.IClientQueueController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ClientQueueController.ShortLinkTestCase">
@@ -364,6 +412,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientSendOnlyController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -391,6 +446,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientSynchronousController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -416,6 +478,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ClientTaskController.ShortLinkTestCase">
@@ -459,6 +528,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.ShortLinkTestCase">
@@ -599,6 +675,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryServerController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.DefinedSymmetryServerController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -734,6 +817,20 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.ServerBindContext.IClientCallbackController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -759,6 +856,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientConcurrencyReadQueueController">
@@ -790,6 +894,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -817,6 +928,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -842,6 +960,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.DefaultControllerTestCase(AutoCSer.TestCase.ServerBindContext.IClientQueueController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.ShortLinkTestCase">
@@ -879,6 +1004,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -906,6 +1038,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -931,6 +1070,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskController.ShortLinkTestCase">
@@ -977,6 +1123,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.ShortLinkTestCase">
@@ -1112,6 +1265,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController.ShortLinkTestCase">
@@ -1346,6 +1506,75 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#Callback(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#Callback(System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端） client controller
@@ -1471,6 +1700,75 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#Callback(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#Callback(System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientCallbackController#CallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientController">
             <summary>
@@ -1840,6 +2138,131 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端） client controller
@@ -2029,6 +2452,139 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallback(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallback(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCountReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCount(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCountReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCount(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCountQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCountQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackController#KeepCallbackCountQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientController">
             <summary>
@@ -2286,6 +2842,185 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackTaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#KeepCallbackCountTaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#AsyncEnumerableReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#AsyncEnumerableReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientKeepCallbackTaskController#AsyncEnumerableQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientQueueClientController">
             <summary>
@@ -2655,6 +3390,131 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端） client controller
@@ -3023,6 +3883,131 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#QueueReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientQueueController#Queue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端） client controller
@@ -3130,6 +4115,61 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSendOnlyController#SendOnly(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSendOnlyController#SendOnly">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSendOnlyController#SendOnlyQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSendOnlyController#SendOnlyQueue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSendOnlyController#SendOnlyTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSendOnlyController#SendOnlyTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSendOnlyController#SendOnlyTaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientController">
             <summary>
@@ -3499,6 +4539,131 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#SynchronousReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientSynchronousController#Synchronous">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientTaskClientController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端） client controller
@@ -3661,6 +4826,123 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault">
+            <summary>
+            客户端测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTaskAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#AsynchronousTaskAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#TaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#TaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IClientTaskController#TaskQueueException(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientControllerDefault">
+            <summary>
+            The client defines an asymmetric test interface (socket context binding the server) 
+                       客户端定义非对称测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedDissymmetryClientController#SetSocket(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
+            <summary>
+            
+            </summary>
+            <param name="value">数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedDissymmetryClientController#GetSocket">
+            <summary>
+            
+            </summary>
+            <returns>数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedDissymmetryClientController#SetSocketTask(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedDissymmetryClientController#GetSocketTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientController">
             <summary>
@@ -4078,6 +5360,159 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault">
+            <summary>
+            定义对称测试接口（套接字上下文绑定服务端） client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#SynchronousReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#Synchronous">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#AsynchronousTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#AsynchronousTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#AsynchronousTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#ServerBindContext#IDefinedSymmetryController#AsynchronousTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.Config">
             <summary>
@@ -7841,6 +9276,139 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ClientCallbackClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocket(System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#Callback(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#Callback(System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocket(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ClientCallbackTaskClientController">
             <summary>
             客户端测试接口 client controller
@@ -8030,6 +9598,139 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackSocket(System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#Callback(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#Callback(System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueSocket(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientCallbackController#CallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ClientConcurrencyReadQueueClientController">
             <summary>
@@ -8519,6 +10220,251 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientConcurrencyReadQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ClientKeepCallbackClientController">
             <summary>
             客户端测试接口 client controller
@@ -8836,6 +10782,267 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackSocket(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallback(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallback(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountSocket(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCount(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCount(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueueSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueueSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueueSocket(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueueSocket(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueueSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueueSocket(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueueReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueue(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueueReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackController#KeepCallbackCountQueue(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            
+            </summary>
+            <param name="Callback"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ClientKeepCallbackTaskClientController">
             <summary>
@@ -9267,6 +11474,359 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskSocketReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskSocketReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskSocketReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskSocketReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskSocketReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskSocketReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskSocketReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskSocketReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskSocketReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskQueueSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskQueueSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackTaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskQueueSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskQueueSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#KeepCallbackCountTaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskQueueSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#EnumerableKeepCallbackCountTaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#AsyncEnumerableSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#AsyncEnumerableSocketReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#AsyncEnumerableReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#AsyncEnumerableReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#AsyncEnumerableQueueSocketReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientKeepCallbackTaskController#AsyncEnumerableQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ClientQueueClientController">
             <summary>
@@ -9756,6 +12316,251 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ClientQueueClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ClientReadWriteQueueClientController">
             <summary>
             客户端测试接口 client controller
@@ -10244,6 +13049,251 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturnSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#QueueReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientReadWriteQueueClientControllerDefault.AutoCSer#TestCase#IClientQueueController#Queue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ClientSendOnlyClientController">
             <summary>
             客户端测试接口 client controller
@@ -10401,6 +13451,111 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlySocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlySocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnly(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnly">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyQueueSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyQueueSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyQueue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyTaskSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyTaskSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyTaskQueueSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyClientControllerDefault.AutoCSer#TestCase#IClientSendOnlyController#SendOnlyTaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.ClientSynchronousClientController">
             <summary>
@@ -10890,6 +14045,251 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
+        <member name="T:AutoCSer.TestCase.ClientSynchronousClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturnSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#SynchronousReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousClientControllerDefault.AutoCSer#TestCase#IClientSynchronousController#Synchronous">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ClientTaskClientController">
             <summary>
             客户端测试接口 client controller
@@ -11124,6 +14524,194 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.ClientTaskClientControllerDefault">
+            <summary>
+            客户端测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturnSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturnSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskSocket">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturnSocketAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturnSocketAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskSocketAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskSocketAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturnAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskReturnAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#AsynchronousTaskAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#TaskQueueReturnSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#TaskQueueSocket(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#TaskQueueReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#TaskQueue(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskClientControllerDefault.AutoCSer#TestCase#IClientTaskController#TaskQueueException(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="queueKey"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.TestCase.DefinedDissymmetryClientControllerDefault">
+            <summary>
+            客户端定义非对称测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedDissymmetryClientController#SetSocket(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
+            <summary>
+            
+            </summary>
+            <param name="value">数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedDissymmetryClientController#GetSocket">
+            <summary>
+            
+            </summary>
+            <returns>数据类型定义与服务端定义不一致，但需要保证二者的序列化行为一致</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedDissymmetryClientController#SetSocketTask(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedDissymmetryClientController#GetSocketTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.DefinedSymmetryClientController">
             <summary>
@@ -11541,6 +15129,159 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault">
+            <summary>
+            定义对称测试接口 client defafult controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#SynchronousReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous(System.Int32,System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous(System.Int32,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous(System.Int32,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous(System.Int32@,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous(System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous(System.Int64@)">
+            <summary>
+            
+            </summary>
+            <param name="Out"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#Synchronous">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#AsynchronousTaskReturn(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#AsynchronousTaskReturn">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#AsynchronousTask(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Value"></param>
+            <param name="Ref"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryClientControllerDefault.AutoCSer#TestCase#IDefinedSymmetryController#AsynchronousTask">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IDefinedDissymmetryServerControllerMethodEnum">
             <summary>

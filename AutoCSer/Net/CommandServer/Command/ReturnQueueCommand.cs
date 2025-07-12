@@ -16,6 +16,12 @@ namespace AutoCSer.Net
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal ReturnQueueCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
+        /// <summary>
+        /// The return value queue command
+        /// 返回值队列命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal ReturnQueueCommand(CommandClientDefaultController controller) : base(controller.DefaultControllerReturnType) { }
     }
     /// <summary>
     /// The return value queue command (await AutoCSer.Net.CommandClientReturnValue{T})
@@ -31,5 +37,11 @@ namespace AutoCSer.Net
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
         internal ReturnQueueCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
+        /// <summary>
+        /// The return value queue command
+        /// 返回值队列命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal ReturnQueueCommand(CommandClientDefaultController controller) : base(controller) { }
     }
 }

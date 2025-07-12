@@ -37,6 +37,16 @@ namespace AutoCSer.Net
         /// <param name="methodIndex"></param>
         internal CallbackCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
+        /// Callback command
+        /// </summary>
+        /// <param name="controller"></param>
+        internal CallbackCommand(CommandClientDefaultController controller) : base(controller)
+        {
+            PushState = CommandPushStateEnum.WaitConnect;
+            IsCompleted = true;
+            continuation = Common.EmptyAction;
+        }
+        /// <summary>
         /// Wait for the command to add the output queue
         /// 等待命令添加输出队列
         /// </summary>

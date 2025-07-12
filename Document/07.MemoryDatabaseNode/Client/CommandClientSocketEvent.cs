@@ -34,7 +34,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
         /// </summary>
         /// <param name="client">Command client
         /// 命令客户端</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
 
         /// <summary>
         /// In-memory database client singleton

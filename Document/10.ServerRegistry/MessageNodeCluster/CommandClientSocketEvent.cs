@@ -31,7 +31,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeCluster
         /// 注册服务 RPC 客户端实例
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
 
         /// <summary>
         /// Log stream persistence in-memory database client singleton

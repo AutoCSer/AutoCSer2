@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase
     /// 定义对称测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(IDefinedSymmetryController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IDefinedSymmetryController), true)]
 #endif
     public partial interface IDefinedSymmetryController
     {
@@ -283,6 +283,73 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            int refValue = 0;
+            long outValue = 0;
+            try
+            {
+                client.DefinedSymmetryController.SynchronousReturn(0, ref refValue, out outValue);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.DefinedSymmetryController.SynchronousReturn();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.DefinedSymmetryController.Synchronous(0, ref refValue, out outValue);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.DefinedSymmetryController.Synchronous();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.DefinedSymmetryController.AsynchronousTaskReturn(0, 0);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.DefinedSymmetryController.AsynchronousTaskReturn();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.DefinedSymmetryController.AsynchronousTask(0, 0);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.DefinedSymmetryController.AsynchronousTask();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
 
             return true;
         }

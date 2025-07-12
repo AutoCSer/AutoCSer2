@@ -44,6 +44,12 @@
             <param name="isShortLink"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.CommandClientDefaultController.TestCase">
+            <summary>
+            默认控制器测试
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.CommandClientSocketEvent">
             <summary>
             Command client socket events
@@ -191,7 +197,7 @@
             客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Command client socket events
             命令客户端套接字事件
@@ -214,6 +220,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.TestCase.IClientCallbackController">
@@ -242,6 +255,20 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.IClientCallbackController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientCallbackController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -266,6 +293,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientKeepCallbackController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -288,6 +322,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ClientKeepCallbackTaskController.ShortLinkTestCase">
@@ -324,6 +365,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientQueueController.DefaultControllerTestCase(AutoCSer.TestCase.IClientQueueController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientQueueController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -348,6 +396,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientSendOnlyController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientSendOnlyController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -370,6 +425,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientSynchronousController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ClientSynchronousController.ShortLinkTestCase">
@@ -409,6 +471,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskQueueController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ClientTaskQueueController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -431,6 +500,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ClientTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ClientTaskController.ShortLinkTestCase">
@@ -470,6 +546,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.DefinedDissymmetryClientController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -505,6 +588,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.DefinedSymmetryServerController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.DefinedSymmetryServerController.ShortLinkTestCase">
@@ -664,6 +754,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientConcurrencyReadQueueController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
@@ -704,6 +801,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryClientController.ShortLinkTestCase">
@@ -748,6 +852,20 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.ServerBindContext.IClientCallbackController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientCallbackController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -770,6 +888,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController.ShortLinkTestCase">
@@ -796,6 +921,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -818,6 +950,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.DefaultControllerTestCase(AutoCSer.TestCase.ServerBindContext.IClientQueueController)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientQueueController.ShortLinkTestCase">
@@ -844,6 +983,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -866,6 +1012,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController.ShortLinkTestCase">
@@ -892,6 +1045,13 @@
             <param name="clientSessionObject"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskController.ShortLinkTestCase">
             <summary>
             短连接命令客户端测试
@@ -909,6 +1069,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskQueueController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.ClientTaskQueueController.ShortLinkTestCase">
@@ -933,6 +1100,13 @@
             </summary>
             <param name="client"></param>
             <param name="clientSessionObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController.DefaultControllerTestCase(AutoCSer.TestCase.CommandClientSocketEvent)">
+            <summary>
+            默认控制器测试
+            </summary>
+            <param name="client"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController.ShortLinkTestCase">
@@ -1499,7 +1673,7 @@
             客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Command client socket events
             命令客户端套接字事件
@@ -1840,7 +2014,7 @@
             服务端泛型消息客户端消费者示例
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}})">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}})">
             <summary>
             Server-side generic message client-side consumer example
             服务端泛型消息客户端消费者示例
@@ -1889,7 +2063,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}}},AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.BinaryMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BinaryMessage{AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Data.TestClass}}},AutoCSer.Net.CommandClient)">
             <summary>
             Server-side generic message client-side consumer example
             服务端泛型消息客户端消费者示例
@@ -1902,7 +2076,7 @@
             客户端二进制序列化消息客户端消费者示例
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
             Client binary serialized message client consumer example
             客户端二进制序列化消息客户端消费者示例
@@ -1951,7 +2125,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayBinaryMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.CommandClient)">
             <summary>
             Client binary serialized message client consumer example
             客户端二进制序列化消息客户端消费者示例
@@ -1964,7 +2138,7 @@
             byte[] 消息客户端消费者示例
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
             Example of the byte[] message client consumer
             byte[] 消息客户端消费者示例
@@ -2013,7 +2187,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.CommandClient)">
             <summary>
             Example of the byte[] message client consumer
             byte[] 消息客户端消费者示例
@@ -2026,7 +2200,7 @@
             客户端 JSON 消息客户端消费者示例
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
             Client JSON message client consumer example
             客户端 JSON 消息客户端消费者示例
@@ -2075,7 +2249,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageJsonConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.CommandClient)">
             <summary>
             Client JSON message client consumer example
             客户端 JSON 消息客户端消费者示例
@@ -2088,7 +2262,7 @@
             客户端 string 二进制序列化消息客户端消费者示例
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.#ctor(AutoCSer.Net.ICommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.#ctor(AutoCSer.Net.CommandClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage})">
             <summary>
             Client string message client consumer example
             客户端 string 二进制序列化消息客户端消费者示例
@@ -2137,7 +2311,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode.ServerByteArrayMessageStringConsumer.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage}},AutoCSer.Net.CommandClient)">
             <summary>
             Client string message client consumer example
             客户端 string 二进制序列化消息客户端消费者示例

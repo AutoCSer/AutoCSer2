@@ -441,6 +441,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public bool IsGetReturnValue { get { return !IsSynchronous && ReturnValueType != null; } }
             /// <summary>
+            /// 默认控制器调用方法名称
+            /// </summary>
+            public readonly string DefaultControllerCallMethodName;
+            /// <summary>
             /// 控制器方法
             /// </summary>
             /// <param name="methodArrayIndex"></param>
@@ -534,6 +538,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 switch (method.MethodType)
                 {
                     case ClientMethodTypeEnum.Synchronous:
+                        if (!method.IsReturnType)
+                        {
+                            if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.Synchronous);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultSynchronous);
+                        }
+
                         if (InputParameterType == null)
                         {
                             if (OutputParameterType == null) CallMethodName = nameof(CommandClientController.Synchronous);
@@ -560,6 +570,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         }
                         break;
                     case ClientMethodTypeEnum.SendOnly:
+                        DefaultControllerCallMethodName = nameof(CommandClientDefaultController.SendOnly);
                         if (InputParameterType == null) CallMethodName = nameof(CommandClientController.SendOnly);
                         else
                         {
@@ -568,24 +579,52 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         }
                         break;
                     case ClientMethodTypeEnum.Callback:
+                        if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.Callback);
+                        else
+                        {
+                            if (method.IsCallbackAction) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultCallbackAction);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultCallback);
+                        }
+
                         if (InputParameterType == null) CallMethodName = nameof(CommandClientController.Callback);
                         else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.CallbackInput);
                         else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.CallbackOutput);
                         else CallMethodName = nameof(CommandClientController.CallbackOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.KeepCallback:
+                        if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.KeepCallback);
+                        else
+                        {
+                            if (method.IsCallbackAction) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultKeepCallbackAction);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultKeepCallback);
+                        }
+
                         if (InputParameterType == null) CallMethodName = nameof(CommandClientController.KeepCallback);
                         else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.KeepCallbackInput);
                         else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.KeepCallbackOutput);
                         else CallMethodName = nameof(CommandClientController.KeepCallbackOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.CallbackQueue:
+                        if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.CallbackQueue);
+                        else
+                        {
+                            if (method.IsCallbackAction) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultCallbackActionQueue);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultCallbackQueue);
+                        }
+
                         if (InputParameterType == null) CallMethodName = nameof(CommandClientController.CallbackQueue);
                         else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.CallbackQueueInput);
                         else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.CallbackQueueOutput);
                         else CallMethodName = nameof(CommandClientController.CallbackQueueOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.KeepCallbackQueue:
+                        if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.KeepCallbackQueue);
+                        else
+                        {
+                            if (method.IsCallbackAction) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultKeepCallbackActionQueue);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultKeepCallbackQueue);
+                        }
+
                         if (InputParameterType == null) CallMethodName = nameof(CommandClientController.KeepCallbackQueue);
                         else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.KeepCallbackQueueInput);
                         else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.KeepCallbackQueueOutput);
@@ -593,6 +632,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         break;
                     case ClientMethodTypeEnum.ReturnValue:
                     case ClientMethodTypeEnum.Task:
+                        if (method.MethodType == ClientMethodTypeEnum.ReturnValue)
+                        {
+                            if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.ReturnType);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultReturnValue);
+                        }
+
                         if (InputParameterType == null)
                         {
                             if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnType);
@@ -603,6 +648,9 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         else CallMethodName = nameof(CommandClientController.ReturnValueOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.ReturnValueQueue:
+                        if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.ReturnTypeQueue);
+                        else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultReturnValueQueue);
+
                         if (InputParameterType == null)
                         {
                             if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnTypeQueue);
@@ -614,12 +662,21 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         break;
                     case ClientMethodTypeEnum.Enumerator:
                     case ClientMethodTypeEnum.AsyncEnumerable:
+                        if (method.MethodType == ClientMethodTypeEnum.Enumerator)
+                        {
+                            if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.Enumerator);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultEnumerator);
+                        }
+
                         if (InputParameterType == null) CallMethodName = nameof(CommandClientController.Enumerator);
                         else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.EnumeratorInput);
                         else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.EnumeratorOutput);
                         else CallMethodName = nameof(CommandClientController.EnumeratorOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.EnumeratorQueue:
+                        if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.EnumeratorQueue);
+                        else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultEnumeratorQueue);
+
                         if (InputParameterType == null) CallMethodName = nameof(CommandClientController.EnumeratorQueue);
                         else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.EnumeratorQueueInput);
                         else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.EnumeratorQueueOutput);
@@ -654,6 +711,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// </summary>
         public new string TypeName;
         /// <summary>
+        /// 默认控制器类型名称
+        /// </summary>
+        public string DefaultControllerTypeName { get { return TypeName + "Default"; } }
+        /// <summary>
         /// 服务端接口类型
         /// </summary>
         public ExtensionType ServerType;
@@ -677,6 +738,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 验证方法序号
         /// </summary>
         public int VerifyMethodIndex;
+        /// <summary>
+        /// Whether to generate the default controller for the client
+        /// 是否生成客户端默认控制器
+        /// </summary>
+        public bool IsDefaultController { get { return CurrentAttribute.IsDefaultController; } }
 
         /// <summary>
         /// 安装下一个类型

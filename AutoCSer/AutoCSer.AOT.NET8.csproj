@@ -172,6 +172,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CodeGenerator\CommandClientControllerAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandClientCompressConfig.cs" />
     <Compile Include="Net\CommandServer\CommandClientControllerTypeAttribute.cs" />
+    <Compile Include="Net\CommandServer\CommandClientDefaultController.cs" />
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\CommandClientSocketEventCache.cs" />
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\CommandClientSocketEventTask.cs" />
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\SetClientController.cs" />
@@ -566,13 +567,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="ToGenericCollection.cs" />
     <Compile Include="{AutoCSer}.AOT.AutoCSer.cs" />
     <Compile Include="{AutoCSer}.CombinationTemplate.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

@@ -33,6 +33,6 @@ namespace AutoCSer.TestCase.DiskBlockClient
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(ICommandClient client) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString) { }
+        public CommandClientSocketEvent(CommandClient client) : base(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString) { }
     }
 }

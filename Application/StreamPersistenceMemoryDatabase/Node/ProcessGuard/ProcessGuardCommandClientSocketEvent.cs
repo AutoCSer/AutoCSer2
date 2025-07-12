@@ -41,7 +41,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public ProcessGuardCommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client)
+        public ProcessGuardCommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client)
         {
             //ClientCache = new AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientCache<ProcessGuardCommandClientSocketEvent>(client);
             //ProcessGuardNodeCache = ClientCache.CreateNode(client => client.GetOrCreateProcessGuardNode());

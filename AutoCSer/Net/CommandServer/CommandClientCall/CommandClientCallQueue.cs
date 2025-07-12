@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.Net.CommandServer;
 using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
@@ -44,6 +45,16 @@ namespace AutoCSer.Net
                 AppendTaskArray();
             }
         }
+        /// <summary>
+        /// The client executes the queue
+        /// 客户端执行队列
+        /// </summary>
+        /// <param name="controller"></param>
+        internal CommandClientCallQueue(CommandClientDefaultController controller)
+            : base(SecondTimer.TaskArray, 0, SecondTimerTaskThreadModeEnum.WaitTask, SecondTimerKeepModeEnum.After, 0)
+        {
+            this.client = controller.Client;
+        }
     }
     /// <summary>
     /// The client executes the queue
@@ -72,6 +83,16 @@ namespace AutoCSer.Net
             threadHandle = new System.Threading.Thread(run, ThreadPool.TinyStackSize);
             threadHandle.IsBackground = true;
             threadHandle.Start();
+        }
+        /// <summary>
+        /// The client executes the queue
+        /// 客户端执行队列
+        /// </summary>
+        /// <param name="controller"></param>
+        internal CommandClientCallQueue(CommandClientDefaultController controller) : base(controller)
+        {
+            WaitHandle = AutoCSer.Common.NullAutoResetEvent;
+            threadHandle = AutoCSer.Threading.ThreadPool.BackgroundExitThread.Handle;
         }
         /// <summary>
         /// Close the execution queue
@@ -131,7 +152,7 @@ namespace AutoCSer.Net
                     catch (Exception exception)
                     {
                         runSeconds = long.MaxValue;
-                        client.Config.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
+                        client.Log.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception | LogLevelEnum.AutoCSer);
                     }
                 }
                 while (value != null);
@@ -156,7 +177,7 @@ namespace AutoCSer.Net
         protected internal override Task OnTimerAsync()
         {
             long seconds = SecondTimer.CurrentSeconds - runSeconds;
-            if (seconds > KeepSeconds) return client.Config.OnQueueTimeout(this, seconds);
+            if (seconds > KeepSeconds) return client.OnQueueTimeout(this, seconds);
             return AutoCSer.Common.CompletedTask;
         }
     }

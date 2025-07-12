@@ -53,7 +53,7 @@ namespace AutoCSer.Document.ServiceAuthentication.CustomVerify
         /// 待验证用户标识</param>
         /// <param name="verifyKey">User verification key. The user password should be prefixed and hashed
         /// 用户验证密钥，用户密码应该增加前缀并哈希处理</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client, string userName, string verifyKey) : base(client)
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client, string userName, string verifyKey) : base(client)
         {
             this.userName = userName;
             this.verifyKey = verifyKey;

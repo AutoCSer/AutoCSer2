@@ -36,7 +36,7 @@ namespace AutoCSer.Net
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        protected CommandClientSocketEventTask(ICommandClient client) : base(client)
+        protected CommandClientSocketEventTask(CommandClient client) : base(client)
         {
             socketEventTask = Task.FromResult((T)this);
         }
@@ -126,7 +126,7 @@ namespace AutoCSer.Net
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        protected CommandClientSocketEventTask(ICommandClient client) : base(client)
+        protected CommandClientSocketEventTask(CommandClient client) : base(client)
         {
             socketEventTask = Task.FromResult((T)this);
         }

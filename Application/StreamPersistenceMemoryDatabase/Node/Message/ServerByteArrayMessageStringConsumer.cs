@@ -21,7 +21,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务端单次最大回调消息数量</param>
         /// <param name="delayMilliseconds">The retry interval is in milliseconds, with a default of 1000 and a minimum value of 1
         /// 重试间隔毫秒数，默认为 1000，最小值为 1</param>
-        protected ServerByteArrayMessageStringConsumer(ICommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, int maxMessageCount, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, maxMessageCount, delayMilliseconds) { }
+        protected ServerByteArrayMessageStringConsumer(CommandClient commandClient, IMessageNodeClientNode<ServerByteArrayMessage> node, int maxMessageCount, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, maxMessageCount, delayMilliseconds) { }
         /// <summary>
         /// Message processing. An exception also indicates that the message execution failed
         /// 消息处理，异常也表示消息执行失败

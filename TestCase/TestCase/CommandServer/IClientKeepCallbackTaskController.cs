@@ -10,7 +10,7 @@ namespace AutoCSer.TestCase
     /// 客户端测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerKeepCallbackTaskController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerKeepCallbackTaskController), true)]
 #endif
     public partial interface IClientKeepCallbackTaskController
     {
@@ -608,6 +608,66 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 #endif
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            EnumeratorCommand<string> stringCommand = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturn(0, 0);
+            if (await stringCommand != null || stringCommand.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            EnumeratorCommand command = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocket(0, 0);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            stringCommand = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturn();
+            if (await stringCommand != null || stringCommand.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            command = client.ClientKeepCallbackTaskController.KeepCallbackTaskSocket();
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+#if NetStandard21
+            try
+            {
+                client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturnAsync(0, 0);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ClientKeepCallbackTaskController.KeepCallbackTaskSocketReturnAsync();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+#endif
+            EnumeratorQueueCommand<string> stringQueueCommand = client.ClientKeepCallbackTaskController.KeepCallbackTaskQueueSocketReturn(0, 0);
+            if (await stringQueueCommand != null || stringQueueCommand.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            EnumeratorQueueCommand queueCommand = client.ClientKeepCallbackTaskController.KeepCallbackTaskQueueSocket(0, 0);
+            if (await queueCommand != null || queueCommand.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
 
             return true;
         }

@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase
     /// 客户端测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerKeepCallbackController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerKeepCallbackController), true)]
 #endif
     public partial interface IClientKeepCallbackController
     {
@@ -490,6 +490,54 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
+            }
+
+            return true;
+        }
+        internal static void DefaultControllerCallback(CommandClientReturnValue<string> value, KeepCallbackCommand keepCallbackCommand)
+        {
+            if (value.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                AutoCSer.ConsoleWriteQueue.WriteLine(value.ReturnType.ToString());
+            }
+        }
+        internal static void DefaultControllerCallback(CommandClientReturnValue value, KeepCallbackCommand keepCallbackCommand)
+        {
+            if (value.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                AutoCSer.ConsoleWriteQueue.WriteLine(value.ReturnType.ToString());
+            }
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            KeepCallbackCommand command = client.ClientKeepCallbackController.KeepCallbackSocketReturn(0, 0, DefaultControllerCallback);
+            var k = await command;
+            if (k != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            command = client.ClientKeepCallbackController.KeepCallbackSocket(0, 0, DefaultControllerCallback);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            command = client.ClientKeepCallbackController.KeepCallbackSocketReturn(DefaultControllerCallback);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            command = client.ClientKeepCallbackController.KeepCallbackSocket(DefaultControllerCallback);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             return true;

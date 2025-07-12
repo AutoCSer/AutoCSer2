@@ -189,7 +189,7 @@ NuGet has released three versions of its core assembly AutoCSer.dll, including [
         /// RPC client instance
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
     }
 ```
 ## Create the RPC client

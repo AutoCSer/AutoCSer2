@@ -31,7 +31,7 @@ namespace AutoCSer.Document.NativeAOT.Service
         /// RPC 客户端实例
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
 
         /// <summary>
         /// Client singleton

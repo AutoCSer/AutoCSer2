@@ -23,6 +23,10 @@ namespace AutoCSer.Net
         internal abstract Exception ControllerConstructorException { get; }
 #endif
         /// <summary>
+        /// 是否服务端 Task 队列客户端控制器
+        /// </summary>
+        internal abstract bool IsTaskQueue { get; }
+        /// <summary>
         /// 控制器创建器
         /// </summary>
         /// <param name="controllerName"></param>
@@ -31,7 +35,7 @@ namespace AutoCSer.Net
             ControllerName = controllerName;
         }
         /// <summary>
-        /// 创建服务控制器
+        /// 创建客户端控制器
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="startMethodIndex"></param>
@@ -42,6 +46,12 @@ namespace AutoCSer.Net
 #else
         internal abstract CommandClientController Create(CommandClientSocket socket, int startMethodIndex, string[] serverMethodNames);
 #endif
+        /// <summary>
+        /// 创建客户端默认控制器
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal abstract CommandClientDefaultController CreateDefault(CommandClient client);
         /// <summary>
         /// 检查客户端控制器相关错误信息
         /// </summary>
@@ -148,6 +158,10 @@ namespace AutoCSer.Net
         internal override Exception ControllerConstructorException { get { return ClientInterfaceController<T, ST>.ControllerConstructorException; } }
 #endif
         /// <summary>
+        /// 是否服务端 Task 队列客户端控制器
+        /// </summary>
+        internal override bool IsTaskQueue { get { return false; } }
+        /// <summary>
         /// 控制器创建器
         /// </summary>
         /// <param name="controllerName"></param>
@@ -171,6 +185,15 @@ namespace AutoCSer.Net
 #endif
         {
             return ClientInterfaceController<T, ST>.Create(socket, ControllerName, startMethodIndex, serverMethodNames);
+        }
+        /// <summary>
+        /// 创建客户端默认控制器
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal override CommandClientDefaultController CreateDefault(CommandClient client)
+        {
+            return ClientInterfaceController<T>.Create(client, ControllerName);
         }
         /// <summary>
         /// 检查客户端控制器相关错误信息
@@ -197,6 +220,10 @@ namespace AutoCSer.Net
         internal override Exception ControllerConstructorException { get { return ClientTaskQueueInterfaceController<T, ST, KT>.ControllerConstructorException; } }
 #endif
         /// <summary>
+        /// 是否服务端 Task 队列客户端控制器
+        /// </summary>
+        internal override bool IsTaskQueue { get { return true; } }
+        /// <summary>
         /// 控制器创建器
         /// </summary>
         /// <param name="controllerName"></param>
@@ -220,6 +247,15 @@ namespace AutoCSer.Net
 #endif
         {
             return ClientTaskQueueInterfaceController<T, ST, KT>.Create(socket, ControllerName, startMethodIndex, serverMethodNames);
+        }
+        /// <summary>
+        /// 创建客户端默认控制器
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal override CommandClientDefaultController CreateDefault(CommandClient client)
+        {
+            throw new InvalidOperationException();
         }
         /// <summary>
         /// 检查客户端控制器相关错误信息

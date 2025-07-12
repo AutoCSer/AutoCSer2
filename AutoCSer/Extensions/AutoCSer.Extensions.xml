@@ -146,14 +146,6 @@
             </summary>
             <param name="array"></param>
         </member>
-        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSortDesc(AutoCSer.LeftArray{System.UInt64},System.Int32,System.Int32)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="array">待排序数组</param>
-            <param name="skipCount">获取跳过数据数量</param>
-            <param name="count">获取数据记录数量，大于 0</param>
-        </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.GetQuickRangeSortKayDesc``1(AutoCSer.LeftArray{``0},System.Int32,System.Int32,System.Func{``0,System.UInt64})">
             <summary>
             范围排序
@@ -191,6 +183,14 @@
             数组排序
             </summary>
             <param name="array">长度大于 1</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LeftArraySort.QuickRangeSortDesc(AutoCSer.LeftArray{System.UInt64},System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
         </member>
         <member name="M:AutoCSer.Extensions.LeftArraySort.BinaryIndexOfLess(AutoCSer.LeftArray{System.UInt64},System.UInt64)">
             <summary>
@@ -605,10 +605,10 @@
             数组扩展
             </summary>
             <summary>
-            数组扩展
+            数组子串扩展
             </summary>
             <summary>
-            数组子串扩展
+            数组扩展
             </summary>
             <summary>
             数组扩展
@@ -708,14 +708,6 @@
             </summary>
             <param name="array"></param>
         </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSortDesc(System.UInt64[],System.Int32,System.Int32)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="array">待排序数组</param>
-            <param name="skipCount">获取跳过数据数量</param>
-            <param name="count">获取数据记录数量，大于 0</param>
-        </member>
         <member name="M:AutoCSer.Extensions.ArraySort.GetQuickRangeSortKayDesc``1(``0[],System.Int32,System.Int32,System.Int32,System.Int32,System.Func{``0,System.UInt64})">
             <summary>
             范围排序
@@ -798,6 +790,14 @@
             数组排序
             </summary>
             <param name="array">长度大于 1</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArraySort.QuickRangeSortDesc(System.UInt64[],System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="count">获取数据记录数量，大于 0</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.RandomSort``1(``0[])">
             <summary>
@@ -1653,89 +1653,6 @@
             <typeparam name="T">Data type</typeparam>
             <returns>Dictionary</returns>
         </member>
-        <member name="T:AutoCSer.Extensions.MemberCopyExtension">
-            <summary>
-            成员复制扩展操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``2(``1,AutoCSer.Metadata.MemberMap{``1})">
-            <summary>
-            对象成员复制
-            </summary>
-            <typeparam name="VT">对象类型</typeparam>
-            <typeparam name="BT">复制成员对象类型</typeparam>
-            <param name="value">被复制对象</param>
-            <param name="memberMap">成员位图</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``2(``0,AutoCSer.Metadata.MemberMap{``1})">
-            <summary>
-            对象成员复制
-            </summary>
-            <typeparam name="VT">对象类型</typeparam>
-            <typeparam name="BT">复制成员对象类型</typeparam>
-            <param name="value">被复制对象</param>
-            <param name="memberMap">成员位图</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``1(``0,AutoCSer.Metadata.MemberMap{``0})">
-            <summary>
-            对象成员复制
-            </summary>
-            <typeparam name="T">对象类型</typeparam>
-            <param name="value">被复制对象</param>
-            <param name="memberMap">成员位图</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyTo``1(``0,``0,AutoCSer.Metadata.MemberMap{``0})">
-            <summary>
-            对象成员复制
-            </summary>
-            <typeparam name="T">对象类型</typeparam>
-            <param name="value">读取数据对象</param>
-            <param name="writeValue">写入数据对象</param>
-            <param name="memberMap">成员位图</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyTo``1(``0,``0@,AutoCSer.Metadata.MemberMap{``0})">
-            <summary>
-            对象成员复制
-            </summary>
-            <typeparam name="T">对象类型</typeparam>
-            <param name="value">读取数据对象</param>
-            <param name="writeValue">写入数据对象</param>
-            <param name="memberMap">成员位图</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyFrom``1(``0,``0,AutoCSer.Metadata.MemberMap{``0})">
-            <summary>
-            对象成员复制
-            </summary>
-            <typeparam name="T">对象类型</typeparam>
-            <param name="value">写入数据对象</param>
-            <param name="readValue">读取数据对象</param>
-            <param name="memberMap">成员位图</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberwiseClone``1(``0)">
-            <summary>
-            对象浅复制
-            </summary>
-            <typeparam name="T">对象类型</typeparam>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Extensions.ThreadPoolExtension">
-            <summary>
-            线程池相关扩展
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.ThreadPoolExtension.RunTask``1(AutoCSer.Threading.ThreadPool,System.Func{``0})">
-            <summary>
-            线程池运行任务并等待返回结果
-            </summary>
-            <typeparam name="T">Return value type</typeparam>
-            <param name="threadPool">线程池</param>
-            <param name="task">任务</param>
-            <returns>返回结果</returns>
-        </member>
         <member name="T:AutoCSer.Extensions.DictionaryExtension">
             <summary>
             字典相关扩展
@@ -1901,11 +1818,14 @@
             异步锁扩展
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock)">
+        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
             <summary>
             异步锁重入计数，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效（非线程安全，不支持多线程并发操作同一个异步上下文）
             </summary>
             <param name="semaphoreSlimLock"></param>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
         </member>
         <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.ReentrantExit(AutoCSer.Threading.SemaphoreSlimLock)">
             <summary>
@@ -1974,6 +1894,20 @@
             <param name="parameter"></param>
             <param name="state"></param>
         </member>
+        <member name="T:AutoCSer.Extensions.ThreadPoolExtension">
+            <summary>
+            线程池相关扩展
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ThreadPoolExtension.RunTask``1(AutoCSer.Threading.ThreadPool,System.Func{``0})">
+            <summary>
+            线程池运行任务并等待返回结果
+            </summary>
+            <typeparam name="T">Return value type</typeparam>
+            <param name="threadPool">线程池</param>
+            <param name="task">任务</param>
+            <returns>返回结果</returns>
+        </member>
         <member name="T:AutoCSer.Extensions.TypeNameExtension">
             <summary>
             类型扩展操作
@@ -2017,6 +1951,75 @@
             根据匿名字段获取对应属性
             </summary>
             <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.MemberCopyExtension">
+            <summary>
+            成员复制扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``2(``1,AutoCSer.Metadata.MemberMap{``1})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="VT">对象类型</typeparam>
+            <typeparam name="BT">复制成员对象类型</typeparam>
+            <param name="value">被复制对象</param>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``2(``0,AutoCSer.Metadata.MemberMap{``1})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="VT">对象类型</typeparam>
+            <typeparam name="BT">复制成员对象类型</typeparam>
+            <param name="value">被复制对象</param>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``1(``0,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">被复制对象</param>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyTo``1(``0,``0,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">读取数据对象</param>
+            <param name="writeValue">写入数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyTo``1(``0,``0@,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">读取数据对象</param>
+            <param name="writeValue">写入数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopyFrom``1(``0,``0,AutoCSer.Metadata.MemberMap{``0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value">写入数据对象</param>
+            <param name="readValue">读取数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberwiseClone``1(``0)">
+            <summary>
+            对象浅复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Extensions.Memory.Common">
@@ -3250,35 +3253,6 @@
             <param name="semaphoreSlim"></param>
             <returns>-1 表示不匹配</returns>
         </member>
-        <member name="T:AutoCSer.Algorithm.ULongQuickRangeSortDesc">
-            <summary>
-            范围排序（一般用于获取分页）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSortDesc.skipCount">
-            <summary>
-            跳过数据指针
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSortDesc.getEndIndex">
-            <summary>
-            最后一条记录指针-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSortDesc.#ctor(System.UInt64*,System.UInt64*)">
-            <summary>
-            范围排序（一般用于获取分页）
-            </summary>
-            <param name="skipCount">跳过数据指针</param>
-            <param name="getEndIndex">最后一条记录指针-1</param>
-        </member>
-        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSortDesc.Sort(System.UInt64*,System.UInt64*)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">起始指针</param>
-            <param name="endIndex">结束指针-1</param>
-        </member>
         <member name="T:AutoCSer.Algorithm.ULongIndexQuickRangeSortDesc">
             <summary>
             范围排序（一般用于获取分页）
@@ -3351,6 +3325,35 @@
             <param name="startIndex">Starting position
             起始位置</param>
             <param name="endIndex">结束位置-1</param>
+        </member>
+        <member name="T:AutoCSer.Algorithm.ULongQuickRangeSortDesc">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSortDesc.skipCount">
+            <summary>
+            跳过数据指针
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.ULongQuickRangeSortDesc.getEndIndex">
+            <summary>
+            最后一条记录指针-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSortDesc.#ctor(System.UInt64*,System.UInt64*)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="skipCount">跳过数据指针</param>
+            <param name="getEndIndex">最后一条记录指针-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.ULongQuickRangeSortDesc.Sort(System.UInt64*,System.UInt64*)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">起始指针</param>
+            <param name="endIndex">结束指针-1</param>
         </member>
         <member name="T:AutoCSer.Algorithm.UnsafeSortArray">
             <summary>
@@ -3575,6 +3578,48 @@
             <param name="value">被除数</param>
             <returns>模数（余数）</returns>
         </member>
+        <member name="T:AutoCSer.Algorithm.QuickRangeSort`1">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <typeparam name="T">排序数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.array">
+            <summary>
+            待排序数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.comparer">
+            <summary>
+            排序比较器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.skipCount">
+            <summary>
+            跳过数据数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.getEndIndex">
+            <summary>
+            最后一条记录位置-1
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Algorithm.QuickRangeSort`1.#ctor(`0[],System.Func{`0,`0,System.Int32},System.Int32,System.Int32)">
+            <summary>
+            范围排序（一般用于获取分页）
+            </summary>
+            <param name="array">待排序数组</param>
+            <param name="comparer">排序比较器</param>
+            <param name="skipCount">获取跳过数据数量</param>
+            <param name="getEndIndex">最后一条获取记录位置-1</param>
+        </member>
+        <member name="M:AutoCSer.Algorithm.QuickRangeSort`1.Sort(System.Int32,System.Int32)">
+            <summary>
+            范围排序
+            </summary>
+            <param name="startIndex">数组起始位置</param>
+            <param name="endIndex">数组结束位置-1</param>
+        </member>
         <member name="T:AutoCSer.Algorithm.RadixSort">
             <summary>
             基数排序
@@ -3673,48 +3718,6 @@
             起始位置</param>
             <param name="count">The quantity of data to be sorted
             排序数据数量</param>
-        </member>
-        <member name="T:AutoCSer.Algorithm.QuickRangeSort`1">
-            <summary>
-            范围排序（一般用于获取分页）
-            </summary>
-            <typeparam name="T">排序数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.array">
-            <summary>
-            待排序数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.comparer">
-            <summary>
-            排序比较器
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.skipCount">
-            <summary>
-            跳过数据数量
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Algorithm.QuickRangeSort`1.getEndIndex">
-            <summary>
-            最后一条记录位置-1
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Algorithm.QuickRangeSort`1.#ctor(`0[],System.Func{`0,`0,System.Int32},System.Int32,System.Int32)">
-            <summary>
-            范围排序（一般用于获取分页）
-            </summary>
-            <param name="array">待排序数组</param>
-            <param name="comparer">排序比较器</param>
-            <param name="skipCount">获取跳过数据数量</param>
-            <param name="getEndIndex">最后一条获取记录位置-1</param>
-        </member>
-        <member name="M:AutoCSer.Algorithm.QuickRangeSort`1.Sort(System.Int32,System.Int32)">
-            <summary>
-            范围排序
-            </summary>
-            <param name="startIndex">数组起始位置</param>
-            <param name="endIndex">数组结束位置-1</param>
         </member>
         <member name="T:AutoCSer.Algorithm.LongSortIndex">
             <summary>
@@ -5350,6 +5353,71 @@
             空表达式节点
             </summary>
         </member>
+        <member name="T:AutoCSer.FragmentHashSet256`1">
+            <summary>
+            256 基分片 哈希表
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.FragmentHashSet256`1.hashSets">
+            <summary>
+            哈希表
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentHashSet256`1.Count">
+            <summary>
+            数据数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.FragmentHashSet256`1.Values">
+            <summary>
+            数据集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Clear">
+            <summary>
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.ClearArray">
+            <summary>
+            清除分片数组（用于解决数据量较大的情况下 Clear 调用性能低下的问题）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Add(`0)">
+            <summary>
+            添加数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.GetOrCreateHashSet(`0)">
+            <summary>
+            根据数据获取哈希表，不存在时创建哈希表
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Contains(`0)">
+            <summary>
+            判断数据是否存在
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.Remove(`0)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="value"></param>
+            <returns>是否存在数据</returns>
+        </member>
+        <member name="M:AutoCSer.FragmentHashSet256`1.GetArray">
+            <summary>
+            获取数据集合
+            </summary>
+            <returns>数据集合</returns>
+        </member>
         <member name="T:AutoCSer.HashSubString">
             <summary>
             字符串 HASH
@@ -5831,6 +5899,38 @@
             设置读取文件结果
             </summary>
             <param name="size"></param>
+        </member>
+        <member name="T:AutoCSer.MemberCopyMethod">
+            <summary>
+            成员复制方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.MemberCopyMethod.CopyArray``1(``0[]@,``0[])">
+            <summary>
+            数组复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="writeArray"></param>
+            <param name="readArray"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopyMethod.CopyArrayMemberMap``1(``0[]@,``0[],AutoCSer.Metadata.MemberMap{``0[]})">
+            <summary>
+            数组复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="writeArray"></param>
+            <param name="readArray"></param>
+            <param name="memberMap"></param>
+        </member>
+        <member name="F:AutoCSer.MemberCopyMethod.CopyArrayMethod">
+            <summary>
+            数组复制
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopyMethod.CopyArrayMemberMapMethod">
+            <summary>
+            数组复制
+            </summary>
         </member>
         <member name="T:AutoCSer.MemberCopy`1">
             <summary>
@@ -9611,6 +9711,29 @@
             默认带移除标记的可重用哈希表容器参数链表
             </summary>
         </member>
+        <member name="T:AutoCSer.UnmanagedRemoveMarkHashSetCapacity">
+            <summary>
+            带移除标记的非托管节点可重用哈希表容器参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.UnmanagedPool">
+            <summary>
+            节点集合非托管内存池
+            </summary>
+        </member>
+        <member name="M:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.#ctor(System.Int32,System.Byte,AutoCSer.UnmanagedRemoveMarkHashSetCapacity)">
+            <summary>
+            带移除标记的非托管节点可重用哈希表容器参数
+            </summary>
+            <param name="prime">取余质数</param>
+            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
+            <param name="next">下一个参数</param>
+        </member>
+        <member name="F:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.DefaultLink">
+            <summary>
+            默认带移除标记的可重用哈希表容器参数链表
+            </summary>
+        </member>
         <member name="T:AutoCSer.ReusableHashCodeKeyHashSet">
             <summary>
             可重用哈希表（主要用于非引用类型缓冲区，避免 new / Clear 开销）
@@ -9951,231 +10074,6 @@
             </summary>
             <param name="value"></param>
             <returns>移除的数据</returns>
-        </member>
-        <member name="T:AutoCSer.SearchTree.NodeDictionary`2">
-            <summary>
-            Binary search tree dictionary
-            二叉搜索树字典
-            </summary>
-            <typeparam name="KT">Keyword type
-            关键字类型</typeparam>
-            <typeparam name="VT">数据节点类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.SearchTree.NodeDictionary`2.Boot">
-            <summary>
-            Root node
-            根节点
-            </summary>
-        </member>
-        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Count">
-            <summary>
-            Number of nodes
-            节点数量
-            </summary>
-        </member>
-        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Height">
-            <summary>
-            Get the tree height has a time complexity of O(n)
-            获取树高度，时间复杂度 O(n)
-            </summary>
-        </member>
-        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Values">
-            <summary>
-            The data collection
-            数据集合
-            </summary>
-        </member>
-        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.FristValue">
-            <summary>
-            Get the first data
-            获取第一个数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.LastValue">
-            <summary>
-            Get the last data
-            获取最后一个数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Item(`0)">
-            <summary>
-            Get or set data based on keyword
-            根据关键字获取或者设置数据
-            </summary>
-            <param name="key">keyword</param>
-            <returns>数据,获取失败KeyNotFoundException</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.#ctor">
-            <summary>
-            二叉树字典
-            </summary>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Clear">
-            <summary>
-            Clear the data
-            清除数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Set(`1)">
-            <summary>
-            Set the data
-            设置数据
-            </summary>
-            <param name="value">data</param>
-            <returns>Have new keywords been added
-            是否添加了新关键字</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.set(AutoCSer.SearchTree.SetRemoveNode{`0,`1}@)">
-            <summary>
-            Set the data
-            设置数据
-            </summary>
-            <param name="node"></param>
-            <returns>Have new keywords been added
-            是否添加了新关键字</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Set(`1,`1@)">
-            <summary>
-            Set the data
-            设置数据
-            </summary>
-            <param name="value">data</param>
-            <param name="removeValue">When a method returns false, it indicates that data has been removed
-            方法返回 false 时表示被移除数据</param>
-            <returns>Have new keywords been added
-            是否添加了新关键字</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryAdd(`1)">
-            <summary>
-            Add data
-            </summary>
-            <param name="value">data</param>
-            <returns>Whether new data has been added
-            是否添加了新数据</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Remove(`0)">
-            <summary>
-            Delete node based on keyword
-            根据关键字删除节点
-            </summary>
-            <param name="key">keyword</param>
-            <returns>Returning false indicates that the keyword does not exist
-            返回 false 表示关键字不存在</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.RemoveKeys(`0[])">
-            <summary>
-            Delete the matching data based on the keyword collection
-            根据关键字集合删除匹配数据
-            </summary>
-            <param name="keys"></param>
-            <returns>The number of deleted keywords
-            删除关键字数量</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Remove(`0,`1@)">
-            <summary>
-            Delete node based on keyword
-            根据关键字删除节点
-            </summary>
-            <param name="key">keyword</param>
-            <param name="value">Deleted data
-            被删除数据</param>
-            <returns>Returning false indicates that the keyword does not exist
-            返回 false 表示关键字不存在</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.ContainsKey(`0)">
-            <summary>
-            Determines if the keyword exists
-            判断是否存在关键字
-            </summary>
-            <param name="key">keyword</param>
-            <returns>Whether the keyword exists
-            是否存在关键字</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryGetValue(`0,`1@)">
-            <summary>
-            Get data based on keywords
-            根据关键字获取数据
-            </summary>
-            <param name="key">keyword</param>
-            <param name="value">Target data</param>
-            <returns>Return false on failure</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetValueArray(`0[])">
-            <summary>
-            Get the matching data array based on the keyword collection
-            根据关键字集合获取匹配数据数组
-            </summary>
-            <param name="keys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.IndexOf(`0)">
-            <summary>
-            Get the matching node location based on the keyword
-            根据关键字获取匹配节点位置
-            </summary>
-            <param name="key">keyword</param>
-            <returns>Returning -1 indicates a failed match
-            返回 -1 表示失败匹配</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.CountLess(`0)">
-            <summary>
-            Get the number of nodes smaller than the specified keyword
-            获取比指定关键字小的节点数量
-            </summary>
-            <param name="key">keyword</param>
-            <returns>Number of nodes
-            节点数量</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.CountThan(`0)">
-            <summary>
-            Get the number of nodes larger than the specified keyword
-            获取比指定关键字大的节点数量
-            </summary>
-            <param name="key">keyword</param>
-            <returns>Number of nodes
-            节点数量</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.At(System.Int32)">
-            <summary>
-            Get data based on the node position
-            根据节点位置获取数据
-            </summary>
-            <param name="index">Node position
-            节点位置</param>
-            <returns>data</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryGetValueByIndex(System.Int32,`1@)">
-            <summary>
-            Get data based on the node position
-            根据节点位置获取数据
-            </summary>
-            <param name="index"></param>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetKeyRange(System.Int32,System.Int32)">
-            <summary>
-            Get a collection of data based on the range
-            根据范围获取数据集合
-            </summary>
-            <param name="skipCount">The number of skipped records
-            跳过记录数</param>
-            <param name="getCount">The number of records to be obtained
-            获取记录数</param>
-            <returns>The data collection
-            数据集合</returns>
-        </member>
-        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetKeyRangeDesc(System.Int32,System.Int32)">
-            <summary>
-            Get the data collection of the reverse range
-            获取逆序范围数据集合
-            </summary>
-            <param name="skipCount">The number of skipped records
-            跳过记录数</param>
-            <param name="getCount">The number of records to be obtained
-            获取记录数</param>
-            <returns>The data collection
-            数据集合</returns>
         </member>
         <member name="T:AutoCSer.SearchTree.Dictionary`2">
             <summary>
@@ -10649,6 +10547,14 @@
             获取记录数</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Check(System.Int32)">
+            <summary>
+            Check the correctness of the data (for testing)
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.FindArray`1">
             <summary>
             Search for data
@@ -11090,6 +10996,252 @@
             </summary>
             <param name="array"></param>
         </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.Check(System.Int32)">
+            <summary>
+            检查数据正确性
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.check">
+            <summary>
+            检查数据正确性
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.SearchTree.NodeDictionary`2">
+            <summary>
+            Binary search tree dictionary
+            二叉搜索树字典
+            </summary>
+            <typeparam name="KT">Keyword type
+            关键字类型</typeparam>
+            <typeparam name="VT">数据节点类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.SearchTree.NodeDictionary`2.Boot">
+            <summary>
+            Root node
+            根节点
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Count">
+            <summary>
+            Number of nodes
+            节点数量
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Height">
+            <summary>
+            Get the tree height has a time complexity of O(n)
+            获取树高度，时间复杂度 O(n)
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Values">
+            <summary>
+            The data collection
+            数据集合
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.FristValue">
+            <summary>
+            Get the first data
+            获取第一个数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.LastValue">
+            <summary>
+            Get the last data
+            获取最后一个数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.SearchTree.NodeDictionary`2.Item(`0)">
+            <summary>
+            Get or set data based on keyword
+            根据关键字获取或者设置数据
+            </summary>
+            <param name="key">keyword</param>
+            <returns>数据,获取失败KeyNotFoundException</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.#ctor">
+            <summary>
+            二叉树字典
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Clear">
+            <summary>
+            Clear the data
+            清除数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Set(`1)">
+            <summary>
+            Set the data
+            设置数据
+            </summary>
+            <param name="value">data</param>
+            <returns>Have new keywords been added
+            是否添加了新关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.set(AutoCSer.SearchTree.SetRemoveNode{`0,`1}@)">
+            <summary>
+            Set the data
+            设置数据
+            </summary>
+            <param name="node"></param>
+            <returns>Have new keywords been added
+            是否添加了新关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Set(`1,`1@)">
+            <summary>
+            Set the data
+            设置数据
+            </summary>
+            <param name="value">data</param>
+            <param name="removeValue">When a method returns false, it indicates that data has been removed
+            方法返回 false 时表示被移除数据</param>
+            <returns>Have new keywords been added
+            是否添加了新关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryAdd(`1)">
+            <summary>
+            Add data
+            </summary>
+            <param name="value">data</param>
+            <returns>Whether new data has been added
+            是否添加了新数据</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Remove(`0)">
+            <summary>
+            Delete node based on keyword
+            根据关键字删除节点
+            </summary>
+            <param name="key">keyword</param>
+            <returns>Returning false indicates that the keyword does not exist
+            返回 false 表示关键字不存在</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.RemoveKeys(`0[])">
+            <summary>
+            Delete the matching data based on the keyword collection
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="keys"></param>
+            <returns>The number of deleted keywords
+            删除关键字数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Remove(`0,`1@)">
+            <summary>
+            Delete node based on keyword
+            根据关键字删除节点
+            </summary>
+            <param name="key">keyword</param>
+            <param name="value">Deleted data
+            被删除数据</param>
+            <returns>Returning false indicates that the keyword does not exist
+            返回 false 表示关键字不存在</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.ContainsKey(`0)">
+            <summary>
+            Determines if the keyword exists
+            判断是否存在关键字
+            </summary>
+            <param name="key">keyword</param>
+            <returns>Whether the keyword exists
+            是否存在关键字</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            Get data based on keywords
+            根据关键字获取数据
+            </summary>
+            <param name="key">keyword</param>
+            <param name="value">Target data</param>
+            <returns>Return false on failure</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetValueArray(`0[])">
+            <summary>
+            Get the matching data array based on the keyword collection
+            根据关键字集合获取匹配数据数组
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.IndexOf(`0)">
+            <summary>
+            Get the matching node location based on the keyword
+            根据关键字获取匹配节点位置
+            </summary>
+            <param name="key">keyword</param>
+            <returns>Returning -1 indicates a failed match
+            返回 -1 表示失败匹配</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.CountLess(`0)">
+            <summary>
+            Get the number of nodes smaller than the specified keyword
+            获取比指定关键字小的节点数量
+            </summary>
+            <param name="key">keyword</param>
+            <returns>Number of nodes
+            节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.CountThan(`0)">
+            <summary>
+            Get the number of nodes larger than the specified keyword
+            获取比指定关键字大的节点数量
+            </summary>
+            <param name="key">keyword</param>
+            <returns>Number of nodes
+            节点数量</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.At(System.Int32)">
+            <summary>
+            Get data based on the node position
+            根据节点位置获取数据
+            </summary>
+            <param name="index">Node position
+            节点位置</param>
+            <returns>data</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.TryGetValueByIndex(System.Int32,`1@)">
+            <summary>
+            Get data based on the node position
+            根据节点位置获取数据
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetKeyRange(System.Int32,System.Int32)">
+            <summary>
+            Get a collection of data based on the range
+            根据范围获取数据集合
+            </summary>
+            <param name="skipCount">The number of skipped records
+            跳过记录数</param>
+            <param name="getCount">The number of records to be obtained
+            获取记录数</param>
+            <returns>The data collection
+            数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.GetKeyRangeDesc(System.Int32,System.Int32)">
+            <summary>
+            Get the data collection of the reverse range
+            获取逆序范围数据集合
+            </summary>
+            <param name="skipCount">The number of skipped records
+            跳过记录数</param>
+            <param name="getCount">The number of records to be obtained
+            获取记录数</param>
+            <returns>The data collection
+            数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Check(System.Int32)">
+            <summary>
+            Check the correctness of the data (for testing)
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.PageArray`1">
             <summary>
             分页数组数据
@@ -11403,6 +11555,14 @@
             数据转换委托</param>
             <returns>The data collection
             数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Check(System.Int32)">
+            <summary>
+            Check the correctness of the data (for testing)
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.SearchTree.SetRemoveNode`2">
             <summary>
@@ -12204,6 +12364,301 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Threading.LocalMillisecondIdentityGenerator">
+            <summary>
+            本地毫秒ID生成器（毫秒内超出计算范围时自动移动到下一个毫秒数据）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.#ctor(System.Byte)">
+            <summary>
+            毫秒ID生成器
+            </summary>
+            <param name="bits">毫秒内计数 2 进制位数，默认为 20 表示支持持续 278 年每秒 10亿 个 ID</param>
+        </member>
+        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.GetNext">
+            <summary>
+            获取下一个ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.OnceAutoWaitHandle">
+            <summary>
+            一次性等待锁（在 .NET8 NativeAOT 模式中会产生内存泄漏 https://github.com/dotnet/runtime/issues/115691#issuecomment-2891586165 ，waitLock 不允许使用频繁 new 出来的对象，可以用于一些静态对象）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.waitLock">
+            <summary>
+            同步等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.IsWait">
+            <summary>
+            是否等待中
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.Reserved">
+            <summary>
+            保留
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set(System.Object,System.Int32)">
+            <summary>
+            初始化数据
+            </summary>
+            <param name="waitLock">同步等待锁</param>
+            <param name="isWait">是否等待中</param>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Wait">
+            <summary>
+            等待结束
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set">
+            <summary>
+            结束等待
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager">
+            <summary>
+            可重入异步锁管理（非线程安全，不支持多线程并发操作同一个异步上下文）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Manager">
+            <summary>
+            可重入异步锁管理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Get">
+            <summary>
+            获取可重入异步锁管理，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.locks">
+            <summary>
+            异步锁重入计数
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Count">
+            <summary>
+            当前异步上下文锁数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.enter(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            申请锁计数
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+            <summary>
+            Apply for a lock
+            申请锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
+            <summary>
+            Apply for a lock
+            申请锁
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">
+            <summary>
+            释放锁计数
+            </summary>
+            <param name="semaphoreSlimLock"></param>
+            <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
+        </member>
+        <member name="T:AutoCSer.Threading.SemaphoreSlimCache">
+            <summary>
+            锁缓存（用于重用）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.Lock">
+            <summary>
+            数据加载访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.Count">
+            <summary>
+            当前申请数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.#ctor">
+            <summary>
+            节点缓存加载访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.cache">
+            <summary>
+            锁缓存
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.Get">
+            <summary>
+            获取锁缓存
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.Free(AutoCSer.Threading.SemaphoreSlimCache)">
+            <summary>
+            释放锁缓存
+            </summary>
+            <param name="semaphoreSlim"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.SynchronizationContextAction">
+            <summary>
+            同步上下文调用
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SynchronizationContextAction.call">
+            <summary>
+            调用委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction.#ctor(System.Action)">
+            <summary>
+            同步上下文调用
+            </summary>
+            <param name="call">调用委托</param>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction.Call(System.Object)">
+            <summary>
+            调用委托
+            </summary>
+            <param name="_"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.SynchronizationContextAction`1">
+            <summary>
+            同步上下文调用
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.call">
+            <summary>
+            调用委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.parameter">
+            <summary>
+            调用参数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.#ctor(System.Action{`0},`0)">
+            <summary>
+            同步上下文调用
+            </summary>
+            <param name="call">调用委托</param>
+            <param name="parameter">调用参数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.Call(System.Object)">
+            <summary>
+            调用委托
+            </summary>
+            <param name="_"></param>
+        </member>
+        <member name="T:AutoCSer.Threading.TaskRunTimer">
+            <summary>
+            Timed task running time
+            定时任务执行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskRunTimer.runTime">
+            <summary>
+            The next running time
+            下一次执行时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.TaskRunTimer.intervalSeconds">
+            <summary>
+            The number of seconds of execution interval
+            间隔执行秒数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Double)">
+            <summary>
+            Timed task running time
+            定时任务执行时间
+            </summary>
+            <param name="intervalSeconds">The number of seconds of execution interval
+            间隔执行秒数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
+            <summary>
+            Daily operating time
+            按天运行的定时任务运行时间
+            </summary>
+            <param name="hour">Start execution hours
+            开始执行小时</param>
+            <param name="minute">Start execution minutes
+            开始执行分钟数</param>
+            <param name="second">Start execution seconds
+            开始执行秒数</param>
+            <param name="intervalSeconds">The number of seconds of execution interval
+            间隔执行秒数</param>
+        </member>
+        <member name="M:AutoCSer.Threading.TaskRunTimer.Delay">
+            <summary>
+            Waiting time for execution
+            等待执行时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Threading.ThreadPoolTask`1">
+            <summary>
+            线程池任务
+            </summary>
+            <typeparam name="T">Return value type</typeparam>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.wait">
+            <summary>
+            返回结果等待锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.task">
+            <summary>
+            任务
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.returnValue">
+            <summary>
+            Return value
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.exception">
+            <summary>
+            执行任务异常信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.isCompleted">
+            <summary>
+            是否已完成
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.#ctor(AutoCSer.Threading.ThreadPool,System.Func{`0})">
+            <summary>
+            线程池任务
+            </summary>
+            <param name="threadPool">线程池</param>
+            <param name="task">任务</param>
+        </member>
+        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.run">
+            <summary>
+            Execute the task
+            执行任务
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.Wait">
+            <summary>
+            等待任务执行完成
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Threading.InterfaceControllerTaskQueue">
             <summary>
             接口任务队列
@@ -12484,12 +12939,15 @@
             </summary>
             <param name="next"></param>
         </member>
-        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.SetReturnType(AutoCSer.Net.CommandClientReturnTypeEnum,System.Boolean)">
+        <member name="M:AutoCSer.Threading.InterfaceControllerTaskQueueNodeBase.SetReturnType(AutoCSer.Net.CommandClientReturnTypeEnum,System.Boolean,System.String,System.String,System.Int32)">
             <summary>
             设置返回值类型
             </summary>
             <param name="returnType"></param>
             <param name="isSynchronousThread"></param>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
         </member>
         <member name="T:AutoCSer.Threading.TaskQueueInterfaceControllerMatchMethod">
             <summary>
@@ -12564,201 +13022,6 @@
             <param name="methods"></param>
             <returns>错误信息</returns>
         </member>
-        <member name="T:AutoCSer.Threading.LocalMillisecondIdentityGenerator">
-            <summary>
-            本地毫秒ID生成器（毫秒内超出计算范围时自动移动到下一个毫秒数据）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.#ctor(System.Byte)">
-            <summary>
-            毫秒ID生成器
-            </summary>
-            <param name="bits">毫秒内计数 2 进制位数，默认为 20 表示支持持续 278 年每秒 10亿 个 ID</param>
-        </member>
-        <member name="M:AutoCSer.Threading.LocalMillisecondIdentityGenerator.GetNext">
-            <summary>
-            获取下一个ID
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Threading.OnceAutoWaitHandle">
-            <summary>
-            一次性等待锁（在 .NET8 NativeAOT 模式中会产生内存泄漏 https://github.com/dotnet/runtime/issues/115691#issuecomment-2891586165 ，waitLock 不允许使用频繁 new 出来的对象，可以用于一些静态对象）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.waitLock">
-            <summary>
-            同步等待锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.IsWait">
-            <summary>
-            是否等待中
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.OnceAutoWaitHandle.Reserved">
-            <summary>
-            保留
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set(System.Object,System.Int32)">
-            <summary>
-            初始化数据
-            </summary>
-            <param name="waitLock">同步等待锁</param>
-            <param name="isWait">是否等待中</param>
-        </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Wait">
-            <summary>
-            等待结束
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.OnceAutoWaitHandle.Set">
-            <summary>
-            结束等待
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager">
-            <summary>
-            可重入异步锁管理（非线程安全，不支持多线程并发操作同一个异步上下文）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Manager">
-            <summary>
-            可重入异步锁管理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Get">
-            <summary>
-            获取可重入异步锁管理，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.locks">
-            <summary>
-            异步锁重入计数
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Count">
-            <summary>
-            当前异步上下文锁数量
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.enter(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            申请锁计数
-            </summary>
-            <param name="semaphoreSlimLock"></param>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            Apply for a lock
-            申请锁
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            Apply for a lock
-            申请锁
-            </summary>
-            <param name="semaphoreSlimLock"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">
-            <summary>
-            释放锁计数
-            </summary>
-            <param name="semaphoreSlimLock"></param>
-            <returns>失败表示没有找到需要释放的锁，意味着应用层出现锁申请与释放不匹配的情况</returns>
-        </member>
-        <member name="T:AutoCSer.Threading.SemaphoreSlimCache">
-            <summary>
-            锁缓存（用于重用）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.Lock">
-            <summary>
-            数据加载访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.Count">
-            <summary>
-            当前申请数量
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.#ctor">
-            <summary>
-            节点缓存加载访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.SemaphoreSlimCache.cache">
-            <summary>
-            锁缓存
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.Get">
-            <summary>
-            获取锁缓存
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Threading.SemaphoreSlimCache.Free(AutoCSer.Threading.SemaphoreSlimCache)">
-            <summary>
-            释放锁缓存
-            </summary>
-            <param name="semaphoreSlim"></param>
-        </member>
-        <member name="T:AutoCSer.Threading.SynchronizationContextAction">
-            <summary>
-            同步上下文调用
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.SynchronizationContextAction.call">
-            <summary>
-            调用委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction.#ctor(System.Action)">
-            <summary>
-            同步上下文调用
-            </summary>
-            <param name="call">调用委托</param>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction.Call(System.Object)">
-            <summary>
-            调用委托
-            </summary>
-            <param name="_"></param>
-        </member>
-        <member name="T:AutoCSer.Threading.SynchronizationContextAction`1">
-            <summary>
-            同步上下文调用
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.call">
-            <summary>
-            调用委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.SynchronizationContextAction`1.parameter">
-            <summary>
-            调用参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.#ctor(System.Action{`0},`0)">
-            <summary>
-            同步上下文调用
-            </summary>
-            <param name="call">调用委托</param>
-            <param name="parameter">调用参数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.SynchronizationContextAction`1.Call(System.Object)">
-            <summary>
-            调用委托
-            </summary>
-            <param name="_"></param>
-        </member>
         <member name="T:AutoCSer.Threading.TaskQueueInterfaceController">
             <summary>
             控制器接口信息
@@ -12825,126 +13088,6 @@
         <member name="F:AutoCSer.Threading.TaskQueueInterfaceController`2.controllerConstructorException">
             <summary>
             控制器构造错误
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Threading.TaskRunTimer">
-            <summary>
-            Timed task running time
-            定时任务执行时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskRunTimer.runTime">
-            <summary>
-            The next running time
-            下一次执行时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.TaskRunTimer.intervalSeconds">
-            <summary>
-            The number of seconds of execution interval
-            间隔执行秒数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Double)">
-            <summary>
-            Timed task running time
-            定时任务执行时间
-            </summary>
-            <param name="intervalSeconds">The number of seconds of execution interval
-            间隔执行秒数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskRunTimer.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
-            <summary>
-            Daily operating time
-            按天运行的定时任务运行时间
-            </summary>
-            <param name="hour">Start execution hours
-            开始执行小时</param>
-            <param name="minute">Start execution minutes
-            开始执行分钟数</param>
-            <param name="second">Start execution seconds
-            开始执行秒数</param>
-            <param name="intervalSeconds">The number of seconds of execution interval
-            间隔执行秒数</param>
-        </member>
-        <member name="M:AutoCSer.Threading.TaskRunTimer.Delay">
-            <summary>
-            Waiting time for execution
-            等待执行时间
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Threading.ThreadPoolTask`1">
-            <summary>
-            线程池任务
-            </summary>
-            <typeparam name="T">Return value type</typeparam>
-        </member>
-        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.wait">
-            <summary>
-            返回结果等待锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.task">
-            <summary>
-            任务
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.returnValue">
-            <summary>
-            Return value
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.exception">
-            <summary>
-            执行任务异常信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Threading.ThreadPoolTask`1.isCompleted">
-            <summary>
-            是否已完成
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.#ctor(AutoCSer.Threading.ThreadPool,System.Func{`0})">
-            <summary>
-            线程池任务
-            </summary>
-            <param name="threadPool">线程池</param>
-            <param name="task">任务</param>
-        </member>
-        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.run">
-            <summary>
-            Execute the task
-            执行任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Threading.ThreadPoolTask`1.Wait">
-            <summary>
-            等待任务执行完成
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.UnmanagedRemoveMarkHashSetCapacity">
-            <summary>
-            带移除标记的非托管节点可重用哈希表容器参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.UnmanagedPool">
-            <summary>
-            节点集合非托管内存池
-            </summary>
-        </member>
-        <member name="M:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.#ctor(System.Int32,System.Byte,AutoCSer.UnmanagedRemoveMarkHashSetCapacity)">
-            <summary>
-            带移除标记的非托管节点可重用哈希表容器参数
-            </summary>
-            <param name="prime">取余质数</param>
-            <param name="nodeBitCount">非托管节点数组大小二进制位数</param>
-            <param name="next">下一个参数</param>
-        </member>
-        <member name="F:AutoCSer.UnmanagedRemoveMarkHashSetCapacity.DefaultLink">
-            <summary>
-            默认带移除标记的可重用哈希表容器参数链表
             </summary>
         </member>
         <member name="T:AutoCSer.XmlDeserializer">
@@ -13081,6 +13224,12 @@
             XML 反序列化
             </summary>
         </member>
+        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Decimal@)">
+            <summary>
+            数字解析
+            </summary>
+            <param name="value">data</param>
+        </member>
         <member name="M:AutoCSer.XmlDeserializer.primitiveDeserialize(AutoCSer.XmlDeserializer,System.Numerics.Vector2@)">
             <summary>
             基础类型解析
@@ -13091,12 +13240,6 @@
         <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Numerics.Vector2@)">
             <summary>
             基础类型解析
-            </summary>
-            <param name="value">data</param>
-        </member>
-        <member name="M:AutoCSer.XmlDeserializer.XmlDeserialize(System.Decimal@)">
-            <summary>
-            数字解析
             </summary>
             <param name="value">data</param>
         </member>
@@ -16074,19 +16217,6 @@
             XML 序列化
             </summary>
         </member>
-        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Vector2)">
-            <summary>
-            基础类型转换
-            </summary>
-            <param name="value">数字</param>
-        </member>
-        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Vector2)">
-            <summary>
-            基础类型转换
-            </summary>
-            <param name="serializer"></param>
-            <param name="value">数字</param>
-        </member>
         <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.DateTime)">
             <summary>
             数据转换
@@ -16112,6 +16242,19 @@
             </summary>
             <param name="serializer"></param>
             <param name="value">data</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.XmlSerialize(System.Numerics.Vector2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="value">数字</param>
+        </member>
+        <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Numerics.Vector2)">
+            <summary>
+            基础类型转换
+            </summary>
+            <param name="serializer"></param>
+            <param name="value">数字</param>
         </member>
         <member name="M:AutoCSer.XmlSerializer.primitiveSerialize(AutoCSer.XmlSerializer,System.Char)">
             <summary>

@@ -57,6 +57,17 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="methodIndex"></param>
         internal BaseReturnCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
+        /// The return value command
+        /// 返回值命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal BaseReturnCommand(CommandClientDefaultController controller) : base(controller)
+        {
+            ReturnType = controller.DefaultControllerReturnType;
+            IsCompleted = true;
+            continuation = Common.EmptyAction;
+        }
+        /// <summary>
         /// Generate the input data of the request command
         /// 生成请求命令输入数据
         /// </summary>

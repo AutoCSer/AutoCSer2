@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinarySerialize.cs" />
+    <Compile Include="CommandClientDefaultController.cs" />
     <Compile Include="CommandReverseServer.cs" />
     <Compile Include="CommandServer.cs" />
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />

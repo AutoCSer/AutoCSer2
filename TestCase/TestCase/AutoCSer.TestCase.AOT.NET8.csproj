@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="BinarySerialize.cs" />
     <Compile Include="BinarySerializeCustomConfig.cs" />
+    <Compile Include="CommandClientDefaultController.cs" />
     <Compile Include="CommandServer.cs" />
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
     <Compile Include="CommandServer\CommandServerSessionObject.cs" />

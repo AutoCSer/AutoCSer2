@@ -21,7 +21,8 @@ namespace AutoCSer.TestCase
                 CommandReverseListenerConfig commandClientConfig = new CommandReverseListenerConfig
                 {
                     Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ReverseServer),
-                    GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
+                    GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
+                    IsDefaultController = true
                 };
 #if NetStandard21
                 await

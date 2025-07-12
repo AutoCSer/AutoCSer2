@@ -20,6 +20,7 @@ namespace AutoCSer.TestCase
                 Type errorType = typeof(Program);
                 do
                 {
+                    Task<bool> defaultControllerTask = CommandClientDefaultController.TestCase();
                     Task<bool> shortLinkCommandServerTask = ShortLinkCommandServer.TestCase();
                     Task<bool> reusableDictionaryTask = ThreadPool.TinyBackground.RunTask(ReusableDictionary.TestCase);
                     Task<bool> searchTreeTask = ThreadPool.TinyBackground.RunTask(SearchTree.TestCase);
@@ -33,6 +34,7 @@ namespace AutoCSer.TestCase
                     if (!await xmlTask) { errorType = typeof(Xml); break; }
                     if (!await searchTreeTask) { errorType = typeof(SearchTree); break; }
                     if (!await reusableDictionaryTask) { errorType = typeof(ReusableDictionary); break; }
+                    if (!await defaultControllerTask) { errorType = typeof(CommandClientDefaultController); break; }
                     if (!await commandServerTask) { errorType = typeof(CommandServer); break; }
                     Console.Write('.');
                 }

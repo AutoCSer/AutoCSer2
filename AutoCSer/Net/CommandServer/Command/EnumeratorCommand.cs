@@ -22,7 +22,7 @@ namespace AutoCSer.Net
         /// Whether the next data exists in the collection enumeration command
         /// 集合枚举命令是否存在下一个数据
         /// </summary>
-        private readonly EnumeratorCommandMoveNext moveNext = new EnumeratorCommandMoveNext();
+        private readonly EnumeratorCommandMoveNext moveNext;
         /// <summary>
         /// Return value queue access lock
         /// 返回值队列访问锁
@@ -40,7 +40,19 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
-        internal EnumeratorCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
+        internal EnumeratorCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) 
+        {
+            moveNext = new EnumeratorCommandMoveNext();
+        }
+        /// <summary>
+        /// The collection enumeration command
+        /// 集合枚举命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal EnumeratorCommand(CommandClientDefaultController controller) : base(controller) 
+        {
+            moveNext = EnumeratorCommandMoveNext.NextValueFalse;
+        }
         /// <summary>
         /// Error handling for generating the input data of the request command
         /// 生成请求命令输入数据错误处理
@@ -225,7 +237,7 @@ namespace AutoCSer.Net
         /// Whether the next data exists in the collection enumeration command
         /// 集合枚举命令是否存在下一个数据
         /// </summary>
-        protected readonly EnumeratorCommandMoveNext moveNext = new EnumeratorCommandMoveNext();
+        protected readonly EnumeratorCommandMoveNext moveNext;
         /// <summary>
         /// Return value queue
         /// 返回值队列
@@ -254,7 +266,19 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="methodIndex"></param>
-        internal EnumeratorCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
+        internal EnumeratorCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex)
+        {
+            moveNext = new EnumeratorCommandMoveNext();
+        }
+        /// <summary>
+        /// The collection enumeration command
+        /// 集合枚举命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal EnumeratorCommand(CommandClientDefaultController controller) : base(controller) 
+        {
+            moveNext = EnumeratorCommandMoveNext.NextValueFalse;
+        }
 #if !AOT
         /// <summary>
         /// The collection enumeration command
@@ -266,6 +290,7 @@ namespace AutoCSer.Net
         internal EnumeratorCommand(CommandClientController controller, int methodIndex, ref T returnValue) : base(controller, methodIndex)
         {
             this.returnValue = returnValue;
+            moveNext = new EnumeratorCommandMoveNext();
         }
         /// <summary>
         /// Process the response data

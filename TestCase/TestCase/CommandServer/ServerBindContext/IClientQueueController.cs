@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerQueueController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerQueueController), true)]
 #endif
     public partial interface IClientQueueController
     {
@@ -167,6 +167,41 @@ namespace AutoCSer.TestCase.ServerBindContext
 
             returnType = client.Queue();
             if (!returnType.IsSuccess || !AutoCSer.TestCase.ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static bool DefaultControllerTestCase(IClientQueueController client)
+        {
+            int refValue = 0;
+            long outValue = 0;
+            CommandClientReturnValue<string> returnValue = client.QueueReturn(0, ref refValue, out outValue);
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnValue = client.QueueReturn();
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            CommandClientReturnValue returnType = client.Queue(0, ref refValue, out outValue);
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnType = client.Queue();
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

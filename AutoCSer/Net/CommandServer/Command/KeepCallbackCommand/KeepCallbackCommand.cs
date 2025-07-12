@@ -60,6 +60,12 @@ namespace AutoCSer.Net.CommandServer
             this.callback = callback;
         }
         /// <summary>
+        /// Keep callback command
+        /// 保持回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal KeepCallbackCommand(CommandClientDefaultController controller) : base(controller) { }
+        /// <summary>
         /// Error handling for generating the input data of the request command
         /// 生成请求命令输入数据错误处理
         /// </summary>

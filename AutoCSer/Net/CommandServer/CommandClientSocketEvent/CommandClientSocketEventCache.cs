@@ -21,13 +21,13 @@ namespace AutoCSer.Net
         /// <summary>
         /// Command client
         /// </summary>
-        public readonly ICommandClient Client;
+        public readonly CommandClient Client;
         /// <summary>
         /// Command client socket event caching
         /// 命令客户端套接字事件缓存
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEventCache(ICommandClient client)
+        public CommandClientSocketEventCache(CommandClient client)
         {
             Client = client;
             SocketEvent = (T)client.SocketEvent;

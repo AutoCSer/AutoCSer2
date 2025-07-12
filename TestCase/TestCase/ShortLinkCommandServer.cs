@@ -114,7 +114,8 @@ namespace AutoCSer.TestCase
             {
                 Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.ShortLink),
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
-                IsShortLink = true
+                IsShortLink = true,
+                IsDefaultController = true
             };
             return new CommandClient(commandClientConfig);
         }

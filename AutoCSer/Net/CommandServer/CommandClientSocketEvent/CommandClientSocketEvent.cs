@@ -63,7 +63,7 @@ namespace AutoCSer.Net
         /// Command client
         /// 命令客户端
         /// </summary>
-        public readonly ICommandClient Client;
+        public readonly CommandClient Client;
         /// <summary>
         /// Set the client controller delegate
         /// 设置客户端控制器委托
@@ -107,7 +107,7 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="commandClient">Command client
         /// 命令客户端</param>
-        public CommandClientSocketEvent(ICommandClient commandClient)
+        public CommandClientSocketEvent(CommandClient commandClient)
         {
             Client = commandClient;
             socketWaitLocks.SetEmpty();
@@ -118,7 +118,7 @@ namespace AutoCSer.Net
                 Type type = GetType();
                 Dictionary<HashObject<System.Type>, PropertyInfo> propertys = DictionaryCreator.CreateHashObject<System.Type, PropertyInfo>();
                 Dictionary<string, PropertyInfo> propertyNames = DictionaryCreator<string>.Create<PropertyInfo>();
-                foreach (PropertyInfo property in type.GetProperties(commandClient.ControllerCreatorBindingFlags))
+                foreach (PropertyInfo property in type.GetProperties(commandClient.Config.ControllerCreatorBindingFlags))
                 {
                     if (property.CanRead && property.CanWrite)
                     {
@@ -146,6 +146,7 @@ namespace AutoCSer.Net
                 SetClientControllerDynamicMethod setClientControllerDynamicMethod = new SetClientControllerDynamicMethod(type);
                 bool isProperty = false;
 #endif
+                object[] defaultControllerParameters = EmptyArray<object>.Array;
                 foreach (CommandClientControllerCreatorParameter parameter in controllerCreatorParameters)
                 {
                     var property = default(PropertyInfo);
@@ -160,6 +161,16 @@ namespace AutoCSer.Net
                         setClientControllerDynamicMethod.Push(property, parameter.GetControllerName());
                         isProperty = true;
 #endif
+                        if (Client.Config.IsDefaultController)
+                        {
+                            CommandClientInterfaceControllerCreator creator = parameter.Creator;
+                            if (creator != null && !creator.IsTaskQueue)
+                            {
+                                if (defaultControllerParameters.Length == 0) defaultControllerParameters = new object[1];
+                                defaultControllerParameters[0] = creator.CreateDefault(commandClient);
+                                property.SetMethod.notNull().Invoke(this, defaultControllerParameters);
+                            }
+                        }
                     }
                 }
 #if AOT
@@ -466,7 +477,7 @@ namespace AutoCSer.Net
         /// <param name="client"></param>
         /// <param name="isSymmetryInterface">Symmetric interface definition
         /// 是否对称接口定义</param>
-        public CommandClientSocketEvent(ICommandClient client, bool isSymmetryInterface = false) : base(client) 
+        public CommandClientSocketEvent(CommandClient client, bool isSymmetryInterface = false) : base(client) 
         {
             IsSymmetryInterface = isSymmetryInterface;
         }

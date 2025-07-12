@@ -9,7 +9,7 @@ namespace AutoCSer.CodeGenerator.Template
         /// <summary>
         /// @CurrentType.CodeGeneratorXmlDocument
         /// </summary>
-        [AutoCSer.Net.CommandClientControllerType(typeof(@TypeName))]
+        [AutoCSer.Net.CommandClientControllerType(typeof(@TypeName)/*IF:IsDefaultController*/, typeof(@DefaultControllerTypeName)/*IF:IsDefaultController*/)]
         public partial interface @InterfaceTypeName { }
         /// <summary>
         /// @CurrentType.CodeGeneratorXmlDocument client controller
@@ -160,11 +160,57 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF EnumType
                 @CommandClientControllerMethodName();
                 AutoCSer.AotReflection.Interfaces(typeof(@TypeName));
+                #region IF IsDefaultController
+                @DefaultControllerTypeName/**/.@CommandClientControllerConstructorMethodName(null, null);
+                AutoCSer.AotReflection.Interfaces(typeof(@DefaultControllerTypeName));
+                #endregion IF IsDefaultController
             }
             #region NOTE
             private const int VerifyMethodIndex = int.MinValue;
             #endregion NOTE
         }
+        #region IF IsDefaultController
+        /// <summary>
+        /// @CurrentType.CodeGeneratorXmlDocument client defafult controller
+        /// </summary>
+        internal unsafe class @DefaultControllerTypeName : AutoCSer.Net.CommandClientDefaultController, @InterfaceTypeName/*NOTE*/, MethodInterfaceTypeName/*NOTE*/
+        {
+            private @DefaultControllerTypeName(AutoCSer.Net.CommandClient client, string controllerName) : base(client, controllerName) { }
+            internal static AutoCSer.Net.CommandClientDefaultController @CommandClientControllerConstructorMethodName(AutoCSer.Net.CommandClient client, string controllerName)
+            {
+                return new @DefaultControllerTypeName(client, controllerName);
+            }
+            #region LOOP Methods
+            /// <summary>
+            /// @Method.CodeGeneratorXmlDocument
+            /// </summary>
+            #region LOOP Method.Parameters
+            /// <param name="@ParameterName">@CodeGeneratorXmlDocument</param>
+            #endregion LOOP Method.Parameters
+            /// <returns>@Method.CodeGeneratorReturnXmlDocument</returns>
+            @MethodReturnType.FullName @MethodInterfaceTypeName/**/.@MethodName(/*LOOP:Method.Parameters*//*AT:RefOutString*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*/)
+            {
+                #region NOT Error
+                #region IF DefaultControllerCallMethodName
+                #region LOOP Method.Parameters
+                #region IF IsOut
+                @ParameterName = default(@ParameterType.FullName);
+                #endregion IF IsOut
+                #endregion LOOP Method.Parameters
+                /*IF:IsMethodReturn*/
+                return /*IF:IsMethodReturn*//*NOTE*/(MethodReturnType.FullName)/*NOTE*/base.@DefaultControllerCallMethodName/*IF:ReturnValueType*/<@ReturnValueType.FullName>/*IF:ReturnValueType*/(@CallbackParameterName);
+                #endregion IF DefaultControllerCallMethodName
+                #region NOT DefaultControllerCallMethodName
+                throw new Exception(DefaultControllerReturnType.ToString());
+                #endregion NOT DefaultControllerCallMethodName
+                #endregion NOT Error
+                #region IF Error
+                throw new Exception(@"@CodeGeneratorError");
+                #endregion IF Error
+            }
+            #endregion LOOP Methods
+        }
+        #endregion IF IsDefaultController
         #endregion PART CLASS
         private const int MethodArrayIndex = 0;
         private const int MethodIndex = 0;

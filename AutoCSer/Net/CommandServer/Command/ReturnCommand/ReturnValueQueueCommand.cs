@@ -11,6 +11,20 @@ namespace AutoCSer.Net.CommandServer
     /// 返回值队列命令
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    internal sealed class ReturnValueQueueCommand<T> : Net.ReturnQueueCommand<T>
+    {
+        /// <summary>
+        /// Return value queue command
+        /// 返回值队列命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal ReturnValueQueueCommand(CommandClientDefaultController controller) : base(controller) { }
+    }
+    /// <summary>
+    /// Return value queue command
+    /// 返回值队列命令
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     /// <typeparam name="OT"></typeparam>
     internal class ReturnValueQueueCommand<T, OT> : Net.ReturnQueueCommand<T>
         where OT : struct
@@ -81,6 +95,12 @@ namespace AutoCSer.Net.CommandServer
         {
             this.returnValue = returnValue;
         }
+        /// <summary>
+        /// Return value queue command
+        /// 返回值队列命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal ReturnValueQueueCommand(CommandClientDefaultController controller) : base(controller) { }
 #endif
         /// <summary>
         /// Generate the input data of the request command

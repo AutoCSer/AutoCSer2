@@ -262,7 +262,7 @@
             递增登录时间戳检查器
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyReverseServiceCommandClientSocketEvent`1.#ctor(AutoCSer.Net.CommandClient)">
             <summary>
             Reverse service authentication socket event based on incremental login timestamp verification
             基于递增登录时间戳验证的反向服务认证套接字事件
@@ -471,7 +471,7 @@
             客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.#ctor(AutoCSer.Net.ICommandClient,System.String)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient,System.String)">
             <summary>
             Service authentication client socket events based on incremental login timestamp verification
             基于递增登录时间戳验证的服务认证客户端套接字事件
@@ -514,7 +514,7 @@
             客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.#ctor(AutoCSer.Net.ICommandClient,System.String)">
+        <member name="M:AutoCSer.CommandService.TimestampVerifyCommandClientSocketEvent`1.#ctor(AutoCSer.Net.CommandClient,System.String)">
             <summary>
             Service authentication client socket events based on incremental login timestamp verification
             基于递增登录时间戳验证的服务认证客户端套接字事件

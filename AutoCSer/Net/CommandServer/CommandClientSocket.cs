@@ -370,6 +370,7 @@ namespace AutoCSer.Net
             //CommandBatch = Null.CommandBatch;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
+            client.DefaultControllerReturnType = CommandClientReturnTypeEnum.WaitConnect;
             Controller = createController();
             create().Catch();
         }
@@ -404,6 +405,7 @@ namespace AutoCSer.Net
             //CommandBatch = Null.CommandBatch;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
+            Client.DefaultControllerReturnType = CommandClientReturnTypeEnum.DisconnectionReconnect;
             Controller = createController();
             try
             {
@@ -440,6 +442,7 @@ namespace AutoCSer.Net
             //CommandBatch = Null.CommandBatch;
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
+            client.DefaultControllerReturnType = CommandClientReturnTypeEnum.WaitConnect;
             Controller = createController();
         }
         /// <summary>
@@ -622,6 +625,7 @@ namespace AutoCSer.Net
                     {
                         return;
                     }
+                    Client.DefaultControllerReturnType = CommandClientReturnTypeEnum.VerifyError;
                     ++Client.VerifyErrorCount;
                 }
                 catch (Exception exception)

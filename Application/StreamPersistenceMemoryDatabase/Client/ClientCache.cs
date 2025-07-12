@@ -53,7 +53,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="client">Command client</param>
         /// <param name="createClient">Create a log stream persistence in-memory database client instance
         /// 创建日志流持久化内存数据库客户端实例</param>
-        public ClientCache(AutoCSer.Net.ICommandClient client, Func<ET, IStreamPersistenceMemoryDatabaseClientSocketEvent> createClient) : this(new AutoCSer.Net.CommandClientSocketEventCache<ET>(client), createClient) { }
+        public ClientCache(AutoCSer.Net.CommandClient client, Func<ET, IStreamPersistenceMemoryDatabaseClientSocketEvent> createClient) : this(new AutoCSer.Net.CommandClientSocketEventCache<ET>(client), createClient) { }
         /// <summary>
         /// Log stream persistence memory database client cache for client singleton
         /// 日志流持久化内存数据库客户端缓存，用于客户端单例
@@ -116,7 +116,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="client">Command client</param>
         /// <param name="createClient">Create a log stream persistence in-memory database client instance
         /// 创建日志流持久化内存数据库客户端实例</param>
-        public ClientCache(AutoCSer.Net.ICommandClient client, Func<T, IStreamPersistenceMemoryDatabaseClientSocketEvent> createClient) : base(client, createClient) { }
+        public ClientCache(AutoCSer.Net.CommandClient client, Func<T, IStreamPersistenceMemoryDatabaseClientSocketEvent> createClient) : base(client, createClient) { }
         /// <summary>
         /// Log stream persistence memory database client cache for client singleton
         /// 日志流持久化内存数据库客户端缓存，用于客户端单例

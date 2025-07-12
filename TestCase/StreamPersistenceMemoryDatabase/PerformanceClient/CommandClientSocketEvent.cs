@@ -39,7 +39,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(CommandClient client) : base(client) { }
 
         /// <summary>
         /// 日志流持久化内存数据库客户端

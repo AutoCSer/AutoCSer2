@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 定义对称测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IDefinedSymmetryController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IDefinedSymmetryController), true)]
 #endif
     public partial interface IDefinedSymmetryController
     {
@@ -283,6 +283,73 @@ namespace AutoCSer.TestCase.ServerBindContext
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            int refValue = 0;
+            long outValue = 0;
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.SynchronousReturn(0, ref refValue, out outValue);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.SynchronousReturn();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.Synchronous(0, ref refValue, out outValue);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.Synchronous();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.AsynchronousTaskReturn(0, 0);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.AsynchronousTaskReturn();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.AsynchronousTask(0, 0);
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
+
+            try
+            {
+                client.ServerBindContextDefinedSymmetryController.AsynchronousTask();
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            catch { }
 
             return true;
         }

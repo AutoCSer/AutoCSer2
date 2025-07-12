@@ -105,28 +105,6 @@
             日志委托回调
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1">
-            <summary>
-            客户端验证完成处理
-            </summary>
-            <typeparam name="T">日志数据类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1.listener">
-            <summary>
-            反向命令服务客户端监听
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1.#ctor(AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener{`0})">
-            <summary>
-            客户端验证完成处理
-            </summary>
-            <param name="listener">反向命令服务客户端监听</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1.RunTask">
-            <summary>
-            客户端验证完成处理
-            </summary>
-        </member>
         <member name="T:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendLogTaskNode`1">
             <summary>
             添加日志
@@ -153,6 +131,28 @@
         <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.AppendLogTaskNode`1.RunTask">
             <summary>
             添加日志
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1">
+            <summary>
+            客户端验证完成处理
+            </summary>
+            <typeparam name="T">日志数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1.listener">
+            <summary>
+            反向命令服务客户端监听
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1.#ctor(AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener{`0})">
+            <summary>
+            客户端验证完成处理
+            </summary>
+            <param name="listener">反向命令服务客户端监听</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.ReverseLogCollection.ReverseService.CommandClientVerifiedTaskNode`1.RunTask">
+            <summary>
+            客户端验证完成处理
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.ReverseLogCollection.CommandReverseListener">

@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase
     /// 客户端测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerCallbackController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerCallbackController), true)]
 #endif
     public partial interface IClientCallbackController
     {
@@ -274,6 +274,92 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 #endif
+            return true;
+        }
+        internal static void DefaultControllerCallback(CommandClientReturnValue<string> value)
+        {
+            if (value.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                AutoCSer.ConsoleWriteQueue.WriteLine(value.ReturnType.ToString());
+            }
+        }
+        internal static void DefaultControllerCallback(CommandClientReturnValue value)
+        {
+            if (value.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                AutoCSer.ConsoleWriteQueue.WriteLine(value.ReturnType.ToString());
+            }
+        }
+        internal static void DefaultControllerCallback(CommandClientReturnValue<string> value, CommandClientCallQueue queue)
+        {
+            if (value.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                AutoCSer.ConsoleWriteQueue.WriteLine(value.ReturnType.ToString());
+            }
+        }
+        internal static void DefaultControllerCallback(CommandClientReturnValue value, CommandClientCallQueue queue)
+        {
+            if (value.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                AutoCSer.ConsoleWriteQueue.WriteLine(value.ReturnType.ToString());
+            }
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            return DefaultControllerTestCase(client.ClientCallbackController);
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(IClientCallbackController client)
+        {
+            if (await client.CallbackSocketReturn(0, 0, DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackSocket(0, 0, DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackSocketReturn(DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackSocket(DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueueSocketReturn(0, 0, DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueueSocket(0, 0, DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueueSocketReturn(DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            if (await client.CallbackQueueSocket(DefaultControllerCallback))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
             return true;
         }
         /// <summary>

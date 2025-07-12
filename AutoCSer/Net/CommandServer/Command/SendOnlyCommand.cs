@@ -23,6 +23,14 @@ namespace AutoCSer.Net
         {
         }
         /// <summary>
+        /// Unresponsive command
+        /// 无响应命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal SendOnlyCommand(CommandClientDefaultController controller) : base(controller)
+        {
+        }
+        /// <summary>
         /// Generate the input data of the request command
         /// 生成请求命令输入数据
         /// </summary>

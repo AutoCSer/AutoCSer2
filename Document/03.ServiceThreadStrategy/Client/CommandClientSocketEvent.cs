@@ -235,7 +235,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Client
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client) : base(client) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client) : base(client) { }
 
         /// <summary>
         /// Client singleton

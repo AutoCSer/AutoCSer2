@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}|Document\\05.CodeGenerator\\05.CodeGenerator.csproj|c:\\autocser2\\document\\05.codegenerator\\05.codegenerator.eng.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}|Document\\05.CodeGenerator\\05.CodeGenerator.csproj|solutionrelative:document\\05.codegenerator\\05.codegenerator.eng.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}|Document\\05.CodeGenerator\\05.CodeGenerator.csproj|c:\\autocser2\\document\\05.codegenerator\\05.codegenerator.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}|Document\\05.CodeGenerator\\05.CodeGenerator.csproj|solutionrelative:document\\05.codegenerator\\05.codegenerator.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+      "AbsoluteMoniker": "D:0:0:{3C636EA8-DD8F-4FFA-8284-5D0068B455D2}|AutoCSer\\AutoCSer.NET8.csproj|c:\\autocser2\\autocser\\autocser.net8.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{3C636EA8-DD8F-4FFA-8284-5D0068B455D2}|AutoCSer\\AutoCSer.NET8.csproj|solutionrelative:autocser\\autocser.net8.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +19,13 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "05.CodeGenerator.Eng.md",
-              "DocumentMoniker": "C:\\AutoCSer2\\Document\\05.CodeGenerator\\05.CodeGenerator.Eng.md",
-              "RelativeDocumentMoniker": "Document\\05.CodeGenerator\\05.CodeGenerator.Eng.md",
-              "ToolTip": "C:\\AutoCSer2\\Document\\05.CodeGenerator\\05.CodeGenerator.Eng.md",
-              "RelativeToolTip": "Document\\05.CodeGenerator\\05.CodeGenerator.Eng.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-07-09T11:59:59.171Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "05.CodeGenerator.md",
-              "DocumentMoniker": "C:\\AutoCSer2\\Document\\05.CodeGenerator\\05.CodeGenerator.md",
-              "RelativeDocumentMoniker": "Document\\05.CodeGenerator\\05.CodeGenerator.md",
-              "ToolTip": "C:\\AutoCSer2\\Document\\05.CodeGenerator\\05.CodeGenerator.md",
-              "RelativeToolTip": "Document\\05.CodeGenerator\\05.CodeGenerator.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-07-09T11:59:26.585Z",
+              "Title": "AutoCSer.NET8",
+              "DocumentMoniker": "C:\\AutoCSer2\\AutoCSer\\AutoCSer.NET8.csproj",
+              "RelativeDocumentMoniker": "AutoCSer\\AutoCSer.NET8.csproj",
+              "ToolTip": "C:\\AutoCSer2\\AutoCSer\\AutoCSer.NET8.csproj",
+              "RelativeToolTip": "AutoCSer\\AutoCSer.NET8.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-12T02:50:02.819Z",
               "EditorCaption": ""
             }
           ]

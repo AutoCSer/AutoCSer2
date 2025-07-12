@@ -29,6 +29,16 @@ namespace AutoCSer.Net.CommandServer
             this.callback = callback;
         }
         /// <summary>
+        /// 队列回调委托命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        internal CallbackQueueCommand(CommandClientDefaultController controller, int methodIndex, CommandClientCallbackQueueNode callback) : base(controller, methodIndex)
+        {
+            this.callback = callback;
+        }
+        /// <summary>
         /// Generate the input data of the request command
         /// 生成请求命令输入数据
         /// </summary>

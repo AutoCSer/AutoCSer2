@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase
     /// 客户端测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerConcurrencyReadQueueController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerConcurrencyReadQueueController), true)]
 #endif
     public partial interface IClientConcurrencyReadQueueController : IClientQueueController
     {

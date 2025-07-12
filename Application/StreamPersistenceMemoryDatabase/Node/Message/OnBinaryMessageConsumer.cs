@@ -28,7 +28,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 消息处理，异常或者返回 false 则表示消息执行失败</param>
         /// <param name="delayMilliseconds">The retry interval is in milliseconds, with a default of 1000 and a minimum value of 1
         /// 重试间隔毫秒数，默认为 1000，最小值为 1</param>
-        public OnBinaryMessageConsumer(ICommandClient commandClient, IMessageNodeClientNode<BinaryMessage<T>> node, Func<T, Task<bool>> onMessage, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds)
+        public OnBinaryMessageConsumer(CommandClient commandClient, IMessageNodeClientNode<BinaryMessage<T>> node, Func<T, Task<bool>> onMessage, int delayMilliseconds = DefaultDelayMilliseconds) : base(commandClient, node, delayMilliseconds)
         {
             getMessageTask = onMessage;
         }

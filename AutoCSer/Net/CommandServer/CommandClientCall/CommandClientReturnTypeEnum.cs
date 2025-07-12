@@ -48,6 +48,26 @@ namespace AutoCSer.Net
         /// </summary>
         PushBatch,
         /// <summary>
+        /// No socket was created
+        /// 未创建套接字
+        /// </summary>
+        NoSocketCreated,
+        /// <summary>
+        /// The socket is waiting to connect
+        /// 套接字等待连接中
+        /// </summary>
+        WaitConnect,
+        /// <summary>
+        /// The disconnection is being reconnected
+        /// 断线重连中
+        /// </summary>
+        DisconnectionReconnect,
+        /// <summary>
+        /// Verification failed
+        /// 验证失败
+        /// </summary>
+        VerifyError,
+        /// <summary>
         /// The socket has been closed
         /// 套接字已经关闭
         /// </summary>

@@ -49,10 +49,10 @@ namespace AutoCSer.Net
         /// </summary>
         public HostEndPoint Host { get { return Config.Host; } }
         /// <summary>
-        /// Command client socket event controller attribute binding flags
-        /// 命令客户端套接字事件控制器属性绑定标识
+        /// When the client is initialized, whether to create a default controller instance that returns an error state
+        /// 客户端初始化的时候，是否创建返回错误状态的默认控制器实例
         /// </summary>
-        BindingFlags ICommandClient.ControllerCreatorBindingFlags { get { return Config.ControllerCreatorBindingFlags; } }
+        public bool IsDefaultController { get { return Config.IsDefaultController; } }
         /// <summary>
         /// Binary deserialization configuration parameters
         /// 二进制反序列化配置参数
@@ -170,6 +170,7 @@ namespace AutoCSer.Net
         public bool IsDisposed { get; private set; }
         /// <summary>
         /// Is the reverse service
+        /// 是否反向服务
         /// </summary>
         internal readonly bool IsReverse;
         /// <summary>
@@ -177,6 +178,11 @@ namespace AutoCSer.Net
         /// 是否短连接
         /// </summary>
         internal readonly bool IsShortLink;
+        /// <summary>
+        /// The default initialization controller call return type
+        /// 默认初始化控制器调用返回类型
+        /// </summary>
+        public CommandClientReturnTypeEnum DefaultControllerReturnType { get; internal set; }
 #if NetStandard21
         /// <summary>
         /// Default empty command client
@@ -185,6 +191,7 @@ namespace AutoCSer.Net
         private CommandClient()
         {
             Config = CommandClientConfig.Null;
+            DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
             callbackQueues = EmptyArray<KeyValue<CommandClientCallQueue, CommandClientCallQueueLowPriorityLink>>.Array;
             BinaryDeserializeConfig = BinaryDeserializer.DefaultConfig;
             SendBufferPool = ReceiveBufferPool = ByteArrayPool.GetPool(Config.ReceiveBufferSizeBits);
@@ -208,6 +215,7 @@ namespace AutoCSer.Net
             if (config == null) throw new ArgumentNullException();
             Config = config;
             IsShortLink = config.IsShortLink;
+            DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
             callbackQueues = EmptyArray<KeyValue<CommandClientCallQueue, CommandClientCallQueueLowPriorityLink>>.Array;
             ReceiveBufferPool = ByteArrayPool.GetPool(config.ReceiveBufferSizeBits);
             SendBufferPool = ByteArrayPool.GetPool(config.SendBufferSizeBits);
@@ -238,6 +246,7 @@ namespace AutoCSer.Net
             IsReverse = true;
             Config = listener.Config;
             IsShortLink = Config.IsShortLink;
+            DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
             //CreateVersion = 1;
             callbackQueues = EmptyArray<KeyValue<CommandClientCallQueue, CommandClientCallQueueLowPriorityLink>>.Array;
             ReceiveBufferPool = ByteArrayPool.GetPool(Config.ReceiveBufferSizeBits);
@@ -391,27 +400,27 @@ namespace AutoCSer.Net
             if (serviceRegistrar != null) return serviceRegistrar.ConnectFail(endPoint);
             return AutoCSer.Common.CompletedTask;
         }
-        /// <summary>
-        /// Wait for the server listen address
-        /// 等待服务监听地址
-        /// </summary>
-        /// <returns>Whether to cancel a scheduled task
-        /// 是否需要取消定时任务</returns>
-#if NetStandard21
-        public async ValueTask<bool> WaitServerEndPoint()
-#else
-        public async Task<bool> WaitServerEndPoint()
-#endif
-        {
-            await socketLock.EnterAsync();
-            try
-            {
-                if (createSocket != null || IsDisposed) return true;
-                SocketEvent.ReleaseSocketWaitLock();
-            }
-            finally { socketLock.Exit(); }
-            return false;
-        }
+//        /// <summary>
+//        /// Wait for the server listen address
+//        /// 等待服务监听地址
+//        /// </summary>
+//        /// <returns>Whether to cancel a scheduled task
+//        /// 是否需要取消定时任务</returns>
+//#if NetStandard21
+//        public async ValueTask<bool> WaitServerEndPoint()
+//#else
+//        public async Task<bool> WaitServerEndPoint()
+//#endif
+//        {
+//            await socketLock.EnterAsync();
+//            try
+//            {
+//                if (createSocket != null || IsDisposed) return true;
+//                SocketEvent.ReleaseSocketWaitLock();
+//            }
+//            finally { socketLock.Exit(); }
+//            return false;
+//        }
         /// <summary>
         /// The server listens for address update notifications
         /// 服务端监听地址更新通知
@@ -440,13 +449,13 @@ namespace AutoCSer.Net
                 finally { socketLock.Exit(); }
             }
         }
-        /// <summary>
-        /// Get the send data buffer pool
-        /// 获取发送数据缓存区池
-        /// </summary>
-        /// <returns>Send data buffer pool
-        /// 发送数据缓存区池</returns>
-        ByteArrayPool ICommandClient.GetSendBufferPool() { return SendBufferPool; }
+        ///// <summary>
+        ///// Get the send data buffer pool
+        ///// 获取发送数据缓存区池
+        ///// </summary>
+        ///// <returns>Send data buffer pool
+        ///// 发送数据缓存区池</returns>
+        //ByteArrayPool ICommandClient.GetSendBufferPool() { return SendBufferPool; }
         /// <summary>
         /// Try to wait for a client socket
         /// 尝试等待客户端套接字
@@ -774,6 +783,16 @@ namespace AutoCSer.Net
         {
             return index < callbackQueues.Length ? callbackQueues[index].Value : getClientCallQueue(index).Value;
         }
+        /// <summary>
+        /// Queue task execution timeout notification
+        /// 队列任务执行超时通知
+        /// </summary>
+        /// <param name="queue">Client execution queue
+        /// 客户端执行队列</param>
+        /// <param name="seconds">Current task execution seconds
+        /// 当前任务执行秒数</param>
+        /// <returns></returns>
+        public Task OnQueueTimeout(CommandClientCallQueue queue, long seconds) { return Config.OnQueueTimeout(queue, seconds); }
     }
     /// <summary>
     /// Interface symmetry command client

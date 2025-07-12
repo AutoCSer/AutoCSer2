@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerKeepCallbackController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerKeepCallbackController), true)]
 #endif
     public partial interface IClientKeepCallbackController
     {
@@ -191,6 +191,39 @@ namespace AutoCSer.TestCase.ServerBindContext
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
+        {
+            KeepCallbackCommand command = client.ServerBindContextClientKeepCallbackController.KeepCallbackReturn(0, 0, AutoCSer.TestCase.ClientKeepCallbackController.DefaultControllerCallback);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            command = client.ServerBindContextClientKeepCallbackController.KeepCallback(0, 0, AutoCSer.TestCase.ClientKeepCallbackController.DefaultControllerCallback);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            command = client.ServerBindContextClientKeepCallbackController.KeepCallbackReturn(AutoCSer.TestCase.ClientKeepCallbackController.DefaultControllerCallback);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            command = client.ServerBindContextClientKeepCallbackController.KeepCallback(AutoCSer.TestCase.ClientKeepCallbackController.DefaultControllerCallback);
+            if (await command != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
             }
 
             return true;

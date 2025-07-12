@@ -20,6 +20,12 @@ namespace AutoCSer.Net
         /// <param name="methodIndex"></param>
         internal KeepCallbackCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
+        /// The keep callback command (await AutoCSer.Net.CommandKeepCallback, return the keep callback object of the command)
+        /// 保持回调命令（await AutoCSer.Net.CommandKeepCallback，返回命令保持回调对象）
+        /// </summary>
+        /// <param name="controller"></param>
+        internal KeepCallbackCommand(CommandClientDefaultController controller) : base(controller) { }
+        /// <summary>
         /// Release resources
         /// </summary>
         public void Dispose()

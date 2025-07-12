@@ -99,7 +99,7 @@ namespace AutoCSer.CommandService.DeployTask
             }
             this.isGetCompletedFileName = isGetCompletedFileName;
             isCombinePath = 2;
-            BufferSize = ((CommandClientSocketEvent)client).Client.GetSendBufferPool().Size;
+            BufferSize = ((CommandClientSocketEvent)client).Client.SendBufferPool.Size;
             completedFileName = string.Empty;
         }
         /// <summary>

@@ -17,6 +17,12 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="methodIndex"></param>
         internal ReturnTypeQueueCommand(CommandClientController controller, int methodIndex) : base(controller, methodIndex) { }
         /// <summary>
+        /// Return the call type queue command
+        /// 返回调用类型队列命令
+        /// </summary>
+        /// <param name="controller"></param>
+        internal ReturnTypeQueueCommand(CommandClientDefaultController controller) : base(controller) { }
+        /// <summary>
         /// Generate the input data of the request command
         /// 生成请求命令输入数据
         /// </summary>

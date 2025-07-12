@@ -38,7 +38,7 @@ namespace AutoCSer.Document.ServiceAuthentication.TimestampVerify
         /// <param name="client">Command client</param>
         /// <param name="verifyString">Verify string
         /// 验证字符串</param>
-        public CommandClientSocketEvent(AutoCSer.Net.ICommandClient client, string verifyString) : base(client, verifyString) { }
+        public CommandClientSocketEvent(AutoCSer.Net.CommandClient client, string verifyString) : base(client, verifyString) { }
 
         /// <summary>
         /// Client singleton

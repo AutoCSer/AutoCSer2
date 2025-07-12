@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase
     /// 客户端测试接口
     /// </summary>
 #if AOT
-    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerQueueController))]
+    [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerQueueController), true)]
 #endif
     public partial interface IClientQueueController
     {
@@ -311,6 +311,41 @@ namespace AutoCSer.TestCase
 
             returnType = client.Queue();
             if (!returnType.IsSuccess || !ServerSynchronousController.SessionObject.Check(clientSessionObject))
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 默认控制器测试
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static bool DefaultControllerTestCase(IClientQueueController client)
+        {
+            int refValue = 0;
+            long outValue = 0;
+            CommandClientReturnValue<string> returnValue = client.QueueReturnSocket(0, ref refValue, out outValue);
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnValue = client.QueueReturnSocket();
+            if (returnValue.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            CommandClientReturnValue returnType = client.QueueSocket(0, ref refValue, out outValue);
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            returnType = client.QueueSocket();
+            if (returnType.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

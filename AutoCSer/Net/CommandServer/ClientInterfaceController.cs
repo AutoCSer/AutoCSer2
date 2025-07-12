@@ -214,6 +214,156 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal static readonly MethodInfo CommandClientControllerEnumeratorQueueOutputReturnValueMethod;
 
+        /// <summary>
+        /// 客户端默认初始化控制器构造函数参数类型集合
+        /// </summary>
+        internal static readonly Type[] CommandDefaultControllerConstructorParameterTypes = new Type[] { typeof(CommandClient), typeof(string) };
+        /// <summary>
+        /// 客户端默认初始化控制器构造函数信息
+        /// </summary>
+        internal static readonly ConstructorInfo CommandDefaultControllerConstructorInfo = typeof(CommandClientDefaultController).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, CommandDefaultControllerConstructorParameterTypes, null).notNull();
+        /// <summary>
+        /// Synchronous return
+        /// 同步返回
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, CommandClientReturnValue> CommandClientDefaultControllerSynchronous = CommandClientDefaultController.Synchronous;
+        /// <summary>
+        /// Unresponsive command
+        /// 无响应命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, SendOnlyCommand> CommandClientDefaultControllerSendOnly = CommandClientDefaultController.SendOnly;
+        /// <summary>
+        /// Callback delegate command
+        /// 回调委托命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, CommandClientCallback, AutoCSer.Net.CallbackCommand> CommandClientDefaultControllerCallback = CommandClientDefaultController.Callback;
+        /// <summary>
+        /// Callback delegate command
+        /// 回调委托命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, Action<CommandClientReturnValue>, AutoCSer.Net.CallbackCommand> CommandClientDefaultControllerCallbackAction = CommandClientDefaultController.Callback;
+        /// <summary>
+        /// Callback delegate queue command
+        /// 回调委托队列命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, CommandClientCallbackQueueNode, AutoCSer.Net.CallbackCommand> CommandClientDefaultControllerCallbackQueue = CommandClientDefaultController.CallbackQueue;
+        /// <summary>
+        /// Callback delegate queue command
+        /// 回调委托队列命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, Action<AutoCSer.Net.CommandClientReturnValue, AutoCSer.Net.CommandClientCallQueue>, AutoCSer.Net.CallbackCommand> CommandClientDefaultControllerCallbackActionQueue = CommandClientDefaultController.CallbackQueue;
+        /// <summary>
+        /// Keep callback command
+        /// 保持回调命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, CommandClientKeepCallback, AutoCSer.Net.KeepCallbackCommand> CommandClientDefaultControllerKeepCallback = CommandClientDefaultController.KeepCallback;
+        /// <summary>
+        /// Keep callback command
+        /// 保持回调命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, Action<CommandClientReturnValue, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand> CommandClientDefaultControllerKeepCallbackAction = CommandClientDefaultController.KeepCallback;
+        /// <summary>
+        /// Keep callback queue command
+        /// 保持回调队列命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, CommandClientKeepCallbackQueue, AutoCSer.Net.KeepCallbackCommand> CommandClientDefaultControllerKeepCallbackQueue = CommandClientDefaultController.KeepCallbackQueue;
+        /// <summary>
+        /// Keep callback queue command
+        /// 保持回调队列命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, Action<CommandClientReturnValue, CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand> CommandClientDefaultControllerKeepCallbackActionQueue = CommandClientDefaultController.KeepCallbackQueue;
+        /// <summary>
+        /// Return value command
+        /// 返回值命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, AutoCSer.Net.ReturnCommand> CommandClientDefaultControllerReturnType = CommandClientDefaultController.ReturnType;
+        /// <summary>
+        /// Return value queue command
+        /// 返回值队列命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, AutoCSer.Net.ReturnCommand> CommandClientDefaultControllerReturnTypeQueue = CommandClientDefaultController.ReturnTypeQueue;
+        /// <summary>
+        /// Collection enumeration command
+        /// 集合枚举命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, AutoCSer.Net.EnumeratorCommand> CommandClientDefaultControllerEnumerator = CommandClientDefaultController.Enumerator;
+        /// <summary>
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
+        /// </summary>
+        internal static readonly Func<CommandClientDefaultController, AutoCSer.Net.EnumeratorQueueCommand> CommandClientDefaultControllerEnumeratorQueue = CommandClientDefaultController.EnumeratorQueue;
+        /// <summary>
+        /// Throw an exception
+        /// 抛出异常
+        /// </summary>
+        internal static readonly Action<CommandClientDefaultController> CommandClientDefaultControllerThrow = CommandClientDefaultController.Throw;
+
+        /// <summary>
+        /// Synchronous return
+        /// 同步返回
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerSynchronousMethod;
+        /// <summary>
+        /// Callback delegate command
+        /// 回调委托命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerCallbackMethod;
+        /// <summary>
+        /// Callback delegate command
+        /// 回调委托命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerCallbackActionMethod;
+        /// <summary>
+        /// Callback delegate queue command
+        /// 回调委托队列命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerCallbackQueueMethod;
+        /// <summary>
+        /// Callback delegate queue command
+        /// 回调委托队列命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerCallbackActionQueueMethod;
+        /// <summary>
+        /// Keep callback command
+        /// 保持回调命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerKeepCallbackMethod;
+        /// <summary>
+        /// Keep callback command
+        /// 保持回调命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerKeepCallbackActionMethod;
+        /// <summary>
+        /// Keep callback queue command
+        /// 保持回调队列命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerKeepCallbackQueueMethod;
+        /// <summary>
+        /// Keep callback queue command
+        /// 保持回调队列命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerKeepCallbackActionQueueMethod;
+        /// <summary>
+        /// Return value command
+        /// 返回值命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerReturnValueMethod;
+        /// <summary>
+        /// Return value queue command
+        /// 返回值队列命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerReturnValueQueueMethod;
+        /// <summary>
+        /// Collection enumeration command
+        /// 集合枚举命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerEnumeratorMethod;
+        /// <summary>
+        /// Collection enumeration queue command
+        /// 集合枚举队列命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerEnumeratorQueueMethod;
+
 #pragma warning disable CS8618
         static ClientInterfaceController()
 #pragma warning restore CS8618
@@ -290,9 +440,299 @@ namespace AutoCSer.Net.CommandServer
                         break;
                 }
             }
+            foreach (MethodInfo method in typeof(CommandClientDefaultController).GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+            {
+                switch (method.Name.Length - 15)
+                {
+                    case 15 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultCallback)) CommandClientDefaultControllerCallbackMethod = method;
+                        break;
+                    case 17 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultEnumerator)) CommandClientDefaultControllerEnumeratorMethod = method;
+                        break;
+                    case 18 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultReturnValue)) CommandClientDefaultControllerReturnValueMethod = method;
+                        else if (method.Name == nameof(CommandClientDefaultController.DefaultSynchronous)) CommandClientDefaultControllerSynchronousMethod = method;
+                        break;
+                    case 19 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultKeepCallback)) CommandClientDefaultControllerKeepCallbackMethod = method;
+                        break;
+                    case 20 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultCallbackQueue)) CommandClientDefaultControllerCallbackQueueMethod = method;
+                        break;
+                    case 21 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultCallbackAction)) CommandClientDefaultControllerCallbackActionMethod = method;
+                        break;
+                    case 22 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultEnumeratorQueue)) CommandClientDefaultControllerEnumeratorQueueMethod = method;
+                        break;
+                    case 23 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultReturnValueQueue)) CommandClientDefaultControllerReturnValueQueueMethod = method;
+                        break;
+                    case 24 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultKeepCallbackQueue)) CommandClientDefaultControllerKeepCallbackQueueMethod = method;
+                        break;
+                    case 25 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultKeepCallbackAction)) CommandClientDefaultControllerKeepCallbackActionMethod = method;
+                        break;
+                    case 26 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultCallbackActionQueue)) CommandClientDefaultControllerCallbackActionQueueMethod = method;
+                        break;
+                    case 30 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultKeepCallbackActionQueue)) CommandClientDefaultControllerKeepCallbackActionQueueMethod = method;
+                        break;
+                }
+            }
         }
     }
 #endif
+    /// <summary>
+    /// 控制器接口默认初始化信息
+    /// </summary>
+    /// <typeparam name="T">客户端接口类型</typeparam>
+    internal static class ClientInterfaceController<T>
+    {
+        /// <summary>
+        /// 创建客户端默认初始化控制器
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="controllerName"></param>
+        /// <returns></returns>
+        internal static CommandClientDefaultController Create(CommandClient client, string controllerName)
+        {
+            if (ControllerConstructorException == null)
+            {
+                CommandClientDefaultController controller = callConstructor(client, controllerName);
+                if (controllerConstructorMessages == null) return controller;
+                client.Config.OnControllerConstructorMessage(typeof(T), controllerConstructorMessages);
+                return controller;
+            }
+            throw ControllerConstructorException;
+        }
+        /// <summary>
+        /// 控制器构造函数
+        /// </summary>
+        private static readonly Func<CommandClient, string, CommandClientDefaultController> callConstructor;
+        /// <summary>
+        /// 控制器构造错误
+        /// </summary>
+#if NetStandard21
+        internal static readonly Exception? ControllerConstructorException;
+#else
+        internal static readonly Exception ControllerConstructorException;
+#endif
+        /// <summary>
+        /// 控制器构造提示信息
+        /// </summary>
+#if NetStandard21
+        private static readonly string[]? controllerConstructorMessages;
+#else
+        private static readonly string[] controllerConstructorMessages;
+#endif
+        static ClientInterfaceController()
+        {
+            Type type = typeof(T);
+#if AOT
+            callConstructor = CommandClientDefaultController.GetNull;
+#else
+#if NetStandard21
+            callConstructor = CommandClientDefaultController.GetNull;
+#endif
+#endif
+            try
+            {
+#if AOT
+                var attribute = type.GetCustomAttribute<CommandClientControllerTypeAttribute>();
+                if (attribute?.DefaultControllerType != null)
+                {
+                    var method = attribute.DefaultControllerType.GetMethod(AutoCSer.CodeGenerator.CommandClientControllerAttribute.CommandClientControllerConstructorMethodName, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public, new Type[] { typeof(CommandClient), typeof(string) });
+                    if (method != null && !method.IsGenericMethod && method.ReturnType == typeof(CommandClientDefaultController))
+                    {
+                        callConstructor = (Func<CommandClient, string, CommandClientDefaultController>)method.CreateDelegate(typeof(Func<CommandClient, string, CommandClientDefaultController>));
+                        return;
+                    }
+                    throw new MissingMethodException(attribute.DefaultControllerType.fullName(), AutoCSer.CodeGenerator.CommandClientControllerAttribute.CommandClientControllerConstructorMethodName);
+                }
+                throw new MissingMemberException(type.fullName(), typeof(CommandClientControllerTypeAttribute).fullName());
+#else
+                ServerInterface serverInterface = new ServerInterface(type);
+                LeftArray<ClientInterfaceMethod> methodArray;
+                if (!serverInterface.GetClientDefaultMethods(type, null, ref ControllerConstructorException, ref controllerConstructorMessages, out methodArray)) return;
+                TypeBuilder typeBuilder = AutoCSer.Reflection.Emit.Module.Builder.DefineType(AutoCSer.Common.NamePrefix + ".Net.CommandClient.InterfaceDefaultController." + type.FullName, TypeAttributes.Class | TypeAttributes.Sealed, typeof(CommandClientDefaultController), new Type[] { type });
+                #region 构造函数
+                ConstructorBuilder constructorBuilder = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, ClientInterfaceController.CommandDefaultControllerConstructorParameterTypes);
+                ILGenerator constructorGenerator = constructorBuilder.GetILGenerator();
+                #region base(client, controllerName)
+                constructorGenerator.Emit(OpCodes.Ldarg_0);
+                constructorGenerator.Emit(OpCodes.Ldarg_1);
+                constructorGenerator.Emit(OpCodes.Ldarg_2);
+                constructorGenerator.Emit(OpCodes.Call, ClientInterfaceController.CommandDefaultControllerConstructorInfo);
+                constructorGenerator.Emit(OpCodes.Ret);
+                #endregion
+                #endregion
+                foreach (ClientInterfaceMethod method in methodArray)
+                {
+                    MethodBuilder methodBuilder = typeBuilder.DefineMethod(method.Method.Name, MethodAttributes.Private | MethodAttributes.HideBySig | MethodAttributes.NewSlot | MethodAttributes.Virtual | MethodAttributes.Final, method.Method.ReturnType, method.Parameters.getArray(parameter => parameter.ParameterType));
+                    typeBuilder.DefineMethodOverride(methodBuilder, method.Method);
+                    ILGenerator methodGenerator = methodBuilder.GetILGenerator();
+                    if (method.Error == null)
+                    {
+                        methodGenerator.Emit(OpCodes.Ldarg_0);
+                        switch (method.MethodType)
+                        {
+                            case ClientMethodTypeEnum.Synchronous:
+                                if (method.IsReturnType) goto THROW;
+                                #region return Synchronous(this);
+                                if (method.ReturnValueType == typeof(void)) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerSynchronous.Method);
+                                else
+                                {
+                                    methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerSynchronousMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.SendOnly:
+                                #region return SendOnly(this);
+                                methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerSendOnly.Method);
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.Callback:
+                                #region return Callback(this, callback);
+                                methodGenerator.ldarg(method.Parameters.Length);
+                                if (method.ReturnValueType == typeof(void))
+                                {
+                                    if (method.IsCallbackAction) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerCallbackAction.Method);
+                                    else methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerCallback.Method);
+                                }
+                                else
+                                {
+                                    MethodInfo controllerMethod;
+                                    if (method.IsCallbackAction) controllerMethod = ClientInterfaceController.CommandClientDefaultControllerCallbackActionMethod;
+                                    else controllerMethod = ClientInterfaceController.CommandClientDefaultControllerCallbackMethod;
+                                    methodGenerator.call(controllerMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.KeepCallback:
+                                #region return KeepCallback(this, callback);
+                                methodGenerator.ldarg(method.Parameters.Length);
+                                if (method.ReturnValueType == typeof(void))
+                                {
+                                    if (method.IsCallbackAction) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerKeepCallbackAction.Method);
+                                    else methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerKeepCallback.Method);
+                                }
+                                else
+                                {
+                                    MethodInfo controllerMethod;
+                                    if (method.IsCallbackAction) controllerMethod = ClientInterfaceController.CommandClientDefaultControllerKeepCallbackActionMethod;
+                                    else controllerMethod = ClientInterfaceController.CommandClientDefaultControllerKeepCallbackMethod;
+                                    methodGenerator.call(controllerMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.CallbackQueue:
+                                #region return CallbackQueue(this, callback);
+                                methodGenerator.ldarg(method.Parameters.Length);
+                                if (method.ReturnValueType == typeof(void))
+                                {
+                                    if (method.IsCallbackAction) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerCallbackActionQueue.Method);
+                                    else methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerCallbackQueue.Method);
+                                }
+                                else
+                                {
+                                    MethodInfo controllerMethod;
+                                    if (method.IsCallbackAction) controllerMethod = ClientInterfaceController.CommandClientDefaultControllerCallbackActionQueueMethod;
+                                    else controllerMethod = ClientInterfaceController.CommandClientDefaultControllerCallbackQueueMethod;
+                                    methodGenerator.call(controllerMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.KeepCallbackQueue:
+                                #region return KeepCallbackQueue(this, callback);
+                                methodGenerator.ldarg(method.Parameters.Length);
+                                if (method.ReturnValueType == typeof(void))
+                                {
+                                    if (method.IsCallbackAction) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerKeepCallbackActionQueue.Method);
+                                    else methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerKeepCallbackQueue.Method);
+                                }
+                                else
+                                {
+                                    MethodInfo controllerMethod;
+                                    if (method.IsCallbackAction) controllerMethod = ClientInterfaceController.CommandClientDefaultControllerKeepCallbackActionQueueMethod;
+                                    else controllerMethod = ClientInterfaceController.CommandClientDefaultControllerKeepCallbackQueueMethod;
+                                    methodGenerator.call(controllerMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.ReturnValue:
+                                #region return ReturnValue(this);
+                                if (method.ReturnValueType == typeof(void)) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerReturnType.Method);
+                                else
+                                {
+                                    methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerReturnValueMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.ReturnValueQueue:
+                                #region return ReturnValueQueue(this);
+                                if (method.ReturnValueType == typeof(void)) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerReturnTypeQueue.Method);
+                                else
+                                {
+                                    methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerReturnValueQueueMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.Enumerator:
+                                #region return Enumerator(this);
+                                if (method.ReturnValueType == typeof(void)) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerEnumerator.Method);
+                                else
+                                {
+                                    methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerEnumeratorMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            case ClientMethodTypeEnum.EnumeratorQueue:
+                                #region return EnumeratorQueue(this);
+                                if (method.ReturnValueType == typeof(void)) methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerEnumeratorQueue.Method);
+                                else
+                                {
+                                    methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerEnumeratorQueueMethod.MakeGenericMethod(method.ReturnValueType));
+                                }
+                                #endregion
+                                break;
+                            default:
+                            THROW:
+                                #region Throw(this);
+                                methodGenerator.call(ClientInterfaceController.CommandClientDefaultControllerThrow.Method);
+                                #endregion
+                                if (method.Method.ReturnType != typeof(void)) methodGenerator.Emit(OpCodes.Ldnull);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        methodGenerator.ldstr(method.Error);
+                        methodGenerator.call(ClientInterfaceController.ClientInterfaceMethodThrowException.Method);
+                        if (method.Method.ReturnType != typeof(void)) methodGenerator.Emit(OpCodes.Ldnull);
+                    }
+                    methodGenerator.Emit(OpCodes.Ret);
+                }
+                Type controllerType = typeBuilder.CreateType();
+
+                DynamicMethod dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "CallConstructor", typeof(CommandClientDefaultController), ClientInterfaceController.CommandDefaultControllerConstructorParameterTypes, controllerType, true);
+                ILGenerator callConstructorGenerator = dynamicMethod.GetILGenerator();
+                callConstructorGenerator.Emit(OpCodes.Ldarg_0);
+                callConstructorGenerator.Emit(OpCodes.Ldarg_1);
+                callConstructorGenerator.Emit(OpCodes.Newobj, controllerType.GetConstructor(ClientInterfaceController.CommandDefaultControllerConstructorParameterTypes).notNull());
+                callConstructorGenerator.Emit(OpCodes.Ret);
+                callConstructor = (Func<CommandClient, string, CommandClientDefaultController>)dynamicMethod.CreateDelegate(typeof(Func<CommandClient, string, CommandClientDefaultController>));
+#endif
+            }
+            catch (Exception exception)
+            {
+                ControllerConstructorException = new Exception($"{type.fullName()} 客户端默认初始化控制器生成失败", exception);
+            }
+        }
+    }
     /// <summary>
     /// 控制器接口信息
     /// </summary>
@@ -308,7 +748,6 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="startMethodIndex"></param>
         /// <param name="serverMethodNames"></param>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         internal static CommandClientController Create(CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
 #else
@@ -407,9 +846,9 @@ namespace AutoCSer.Net.CommandServer
                             Methods = methods.Invoke(null, null).castValue<LeftArray<AutoCSer.Net.CommandServer.ClientMethod>>().ToArray();
                             return;
                         }
-                        throw new MissingMethodException(type.fullName(), AutoCSer.CodeGenerator.CommandClientControllerAttribute.CommandClientControllerMethodName);
+                        throw new MissingMethodException(attribute.ClientType.fullName(), AutoCSer.CodeGenerator.CommandClientControllerAttribute.CommandClientControllerMethodName);
                     }
-                    throw new MissingMethodException(type.fullName(), AutoCSer.CodeGenerator.CommandClientControllerAttribute.CommandClientControllerConstructorMethodName);
+                    throw new MissingMethodException(attribute.ClientType.fullName(), AutoCSer.CodeGenerator.CommandClientControllerAttribute.CommandClientControllerConstructorMethodName);
                 }
                 throw new MissingMemberException(type.fullName(), typeof(CommandClientControllerTypeAttribute).fullName());
 #else
