@@ -2,6 +2,7 @@
 using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -21,6 +22,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用方法编号
         /// </summary>
         private readonly int methodIndex;
+        /// <summary>
+        /// 回调访问锁
+        /// </summary>
+        private int isCallback;
         /// <summary>
         /// Node index information
         /// 节点索引信息
@@ -67,22 +72,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool Callback(ResponseParameter responseParameter)
         {
-            if (responseParameter.State == CallStateEnum.Success)
+            if (Interlocked.CompareExchange(ref isCallback, 1, 0) == 0)
             {
-                var result = ((ResponseParameter<T>)responseParameter).Value.ReturnValue;
-                if (clientNode.IsSynchronousCallback) callback(result);
-                else Task.Run(() => callback(result));
-            }
-            else
-            {
-                try
+                if (responseParameter.State == CallStateEnum.Success)
                 {
-                    if (clientNode.IsSynchronousCallback) callback(responseParameter.State);
-                    else Task.Run(() => callback(responseParameter.State));
+                    var result = ((ResponseParameter<T>)responseParameter).Value.ReturnValue;
+                    if (clientNode.IsSynchronousCallback) callback(result);
+                    else Task.Run(() => callback(result));
                 }
-                finally { clientNode.CheckState(nodeIndex, responseParameter.State); }
+                else
+                {
+                    try
+                    {
+                        if (clientNode.IsSynchronousCallback) callback(responseParameter.State);
+                        else Task.Run(() => callback(responseParameter.State));
+                    }
+                    finally { clientNode.CheckState(nodeIndex, responseParameter.State); }
+                }
+                return true;
             }
-            return true;
+            return false;
         }
         /// <summary>
         /// 创建本地服务调用节点方法队列节点

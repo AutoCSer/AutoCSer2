@@ -40057,6 +40057,37 @@
             取消保持回调命令
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.op_Implicit(AutoCSer.Net.CommandServerKeepCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.op_Implicit(AutoCSer.Net.CommandServerKeepCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback.CreateServerKeepCallback(AutoCSer.Net.CommandServerSocket)">
             <summary>
             Create an asynchronous callback object
@@ -40249,6 +40280,37 @@
             回调完成之后是否关闭回调</param>
             <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
             是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.op_Implicit(AutoCSer.Net.CommandServerKeepCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.op_Implicit(AutoCSer.Net.CommandServerKeepCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CreateServerKeepCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>

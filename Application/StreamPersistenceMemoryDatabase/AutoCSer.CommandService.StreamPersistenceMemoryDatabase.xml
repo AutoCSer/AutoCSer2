@@ -2552,6 +2552,17 @@
             </summary>
             <param name="state"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult.emptyAction(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult)">
+            <summary>
+            Emptu callback
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult.EmptyAction">
+            <summary>
+            Emptu callback
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1">
             <summary>
             The local service returns the result
@@ -2649,6 +2660,17 @@
             <typeparam name="PT"></typeparam>
             <returns>Error paging data
             错误分页数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.emptyAction(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0})">
+            <summary>
+            Emptu callback
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.EmptyAction">
+            <summary>
+            Emptu callback
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex">
             <summary>
@@ -23168,6 +23190,11 @@
             调用方法编号
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode`1.isCallback">
+            <summary>
+            回调访问锁
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode`1.nodeIndex">
             <summary>
             Node index information
@@ -23266,6 +23293,11 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackNode.methodIndex">
             <summary>
             调用方法编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackNode.isCallback">
+            <summary>
+            回调访问锁
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackNode.nodeIndex">
@@ -23436,6 +23468,11 @@
             调用节点方法
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackNode">
             <summary>
             本地服务调用节点方法队列节点
@@ -23495,6 +23532,11 @@
             <summary>
             Call the node method
             调用节点方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNode`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Int32,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}},System.Boolean)">
@@ -24029,8 +24071,8 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceConfig.QueueTimeoutSeconds">
             <summary>
-            The default time for checking the execution timeout of the synchronous queue task is 5, which is used to check whether there are long-term blocking or deadlock issues with the queue task
-            同步队列任务执行超时检查秒数默认为 5 ，用于检查队列任务是否存在长时间阻塞或者死锁问题
+            The synchronization queue task execution timeout checks the number of seconds. By default, 0 indicates no check, which is used to check whether the queue task has been blocked for a long time or has deadlock issues
+            同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceConfig.Create">
@@ -24236,6 +24278,11 @@
             调用节点方法
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode">
             <summary>
             本地服务调用节点方法队列节点
@@ -24291,6 +24338,11 @@
             <summary>
             Call the node method
             调用节点方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackEnumeratorNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackEnumeratorNode`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Int32,System.Boolean)">

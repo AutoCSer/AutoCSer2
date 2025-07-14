@@ -4,6 +4,7 @@ using AutoCSer.Threading;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -34,7 +35,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// The client callback delegate
         /// 客户端回调委托
         /// </summary>
-        private readonly Action<LocalResult> callback;
+        private Action<LocalResult> callback;
         /// <summary>
         /// 本地服务调用节点方法队列节点
         /// </summary>
@@ -65,21 +66,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool Callback(CallStateEnum result)
         {
-            if (result == CallStateEnum.Success)
+            Action<LocalResult> callback = Interlocked.Exchange(ref this.callback, LocalResult.EmptyAction);
+            if (!object.ReferenceEquals(callback, LocalResult.EmptyAction))
             {
-                if (clientNode.IsSynchronousCallback) callback(new LocalResult(result));
-                else Task.Run(() => callback(new LocalResult(result)));
-            }
-            else
-            {
-                try
+                if (result == CallStateEnum.Success)
                 {
                     if (clientNode.IsSynchronousCallback) callback(new LocalResult(result));
                     else Task.Run(() => callback(new LocalResult(result)));
                 }
-                finally { clientNode.CheckState(nodeIndex, result); }
+                else
+                {
+                    try
+                    {
+                        if (clientNode.IsSynchronousCallback) callback(new LocalResult(result));
+                        else Task.Run(() => callback(new LocalResult(result)));
+                    }
+                    finally { clientNode.CheckState(nodeIndex, result); }
+                }
+                return true;
             }
-            return true;
+            return false;
         }
 
         /// <summary>

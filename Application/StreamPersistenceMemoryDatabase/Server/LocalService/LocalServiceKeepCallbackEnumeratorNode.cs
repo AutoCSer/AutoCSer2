@@ -49,6 +49,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             completed();
         }
         /// <summary>
+        /// 调用方主动取消回调
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Cancel()
+        {
+            callback.SetCancelKeep();
+        }
+
+        /// <summary>
         /// 创建本地服务调用节点方法队列节点
         /// </summary>
         /// <param name="clientNode">Local service client node

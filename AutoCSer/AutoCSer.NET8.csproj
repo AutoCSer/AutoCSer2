@@ -5,10 +5,10 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.61</Version>
+    <Version>2.0.62</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
-    <Description>AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
+    <Description>AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a full-duplex RPC component based on TCP long connections, featuring high concurrency, high throughput and other high-performance characteristics.
 AutoCSer based on the implementation of support reliable persistence and object-oriented programming memory database, high concurrency throughput performance is much higher than Garnet + StackExchange.Redis, support according to the business logic to customize any data structure node, Supports the local embedding mode to meet the needs of high-performance game intra-office services.</Description>
     <Copyright>Copyright © Jin Xiao 2021</Copyright>
     <PackageTags>RPC;high-performance;JSON;serialization;in-memory-database;distributed-search;distributed-storage;distributed-lock;ORM;daemon;service-registration;reverse-service;API-monitor;GIF;file-synchronous;database-backup;AOT</PackageTags>
@@ -21,6 +21,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.Eng.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Title>AutoCSer RPC</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

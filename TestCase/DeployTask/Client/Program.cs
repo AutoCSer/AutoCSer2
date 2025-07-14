@@ -452,7 +452,7 @@ Press quit to exit.");
             foreach (string githubPath in githubPaths)
             {
                 FileInfo githubFile = new FileInfo(Path.Combine(githubPath, file.Name));
-                if (file.Extension != ".md" || index == 1)
+                if (file.Extension != ".md")
                 {
                     bool isChanged = !githubFile.Exists || githubFile.Length != data.Length;
                     if (!isChanged)
@@ -462,13 +462,18 @@ Press quit to exit.");
                     }
                     if (isChanged) await File.WriteAllBytesAsync(githubFile.FullName, data);
                 }
+                else if (index == 1)
+                {
+                    await File.WriteAllTextAsync(githubFile.FullName, @"  
+" + System.Text.Encoding.UTF8.GetString(data, 3, data.Length - 3), System.Text.Encoding.UTF8);
+                }
                 else
                 {
                     string replacePath = null, treeReplacePath = null, blobReplacePath = null;
                     switch (index)
                     {
                         case 0:
-                            replacePath = @"https://github.com/AutoCSer/AutoCSer2";
+                            replacePath = @"https://github.com/AutoCSer/AutoCSer2/";
                             treeReplacePath = @"https://github.com/AutoCSer/AutoCSer2/tree/main/";
                             blobReplacePath = @"https://github.com/AutoCSer/AutoCSer2/blob/main/";
                             break;
@@ -476,7 +481,7 @@ Press quit to exit.");
                     string text = System.Text.Encoding.UTF8.GetString(data, 3, data.Length - 3)
                         .Replace(@"https://atomgit.com/autocser/AutoCSer/tree/master/", treeReplacePath)
                         .Replace(@"https://atomgit.com/autocser/AutoCSer/blob/master/", blobReplacePath)
-                        .Replace(@"https://atomgit.com/autocser/AutoCSer", replacePath);
+                        .Replace(@"https://atomgit.com/autocser/AutoCSer/", replacePath);
                     await File.WriteAllTextAsync(githubFile.FullName, text, System.Text.Encoding.UTF8);
                 }
                 ++index;

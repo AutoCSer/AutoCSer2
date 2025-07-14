@@ -160,6 +160,50 @@ namespace AutoCSer.Net
         }
 
         /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue returnValue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback();
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback callback) { return callback.callback; }
+        /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="queue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue returnValue, AutoCSer.Net.CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback();
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue, AutoCSer.Net.CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback callback) { return callback.callback; }
+
+        /// <summary>
         /// Create an asynchronous callback object
         /// 创建异步回调对象
         /// </summary>
@@ -519,6 +563,50 @@ namespace AutoCSer.Net
             }
         }
 #endif
+
+        /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue<T> returnValue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback(returnValue.Value);
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback<T> callback) { return callback.callback; }
+        /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="queue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue<T> returnValue, AutoCSer.Net.CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback(returnValue.Value);
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback<T> callback) { return callback.callback; }
 
         /// <summary>
         /// Create an asynchronous callback object

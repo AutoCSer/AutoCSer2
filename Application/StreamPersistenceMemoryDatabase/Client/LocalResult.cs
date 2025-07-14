@@ -55,6 +55,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ErrorMessage = errorMessage;
         }
 #endif
+        /// <summary>
+        /// Emptu callback
+        /// </summary>
+        /// <param name="result"></param>
+        private static void emptyAction(LocalResult result) { }
+        /// <summary>
+        /// Emptu callback
+        /// </summary>
+        internal static readonly Action<LocalResult> EmptyAction = emptyAction;
     }
     /// <summary>
     /// The local service returns the result
@@ -190,5 +199,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             return new PageResult<PT>(CommandClientReturnTypeEnum.Success, CallState);
         }
+
+        /// <summary>
+        /// Emptu callback
+        /// </summary>
+        /// <param name="result"></param>
+        private static void emptyAction(LocalResult<T> result) { }
+        /// <summary>
+        /// Emptu callback
+        /// </summary>
+        internal static readonly Action<LocalResult<T>> EmptyAction = emptyAction;
     }
 }

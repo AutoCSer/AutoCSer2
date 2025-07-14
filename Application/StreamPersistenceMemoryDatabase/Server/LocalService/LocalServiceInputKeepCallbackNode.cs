@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -64,6 +65,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             service.InputKeepCallback(parameter, callback);
             completed();
+        }
+        /// <summary>
+        /// 调用方主动取消回调
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Cancel()
+        {
+            callback.Dispose();
         }
     }
     /// <summary>

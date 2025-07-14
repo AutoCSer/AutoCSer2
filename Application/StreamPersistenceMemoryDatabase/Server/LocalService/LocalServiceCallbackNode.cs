@@ -2,6 +2,7 @@
 using AutoCSer.Threading;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -20,6 +21,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用方法编号
         /// </summary>
         private readonly int methodIndex;
+        /// <summary>
+        /// 回调访问锁
+        /// </summary>
+        private int isCallback;
         /// <summary>
         /// Node index information
         /// 节点索引信息
@@ -66,21 +71,25 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool Callback(CallStateEnum result)
         {
-            if (result == CallStateEnum.Success)
+            if (Interlocked.CompareExchange(ref isCallback, 1, 0) == 0)
             {
-                if (clientNode.IsSynchronousCallback) callback(new LocalResult(result));
-                else Task.Run(() => callback(new LocalResult(result)));
-            }
-            else
-            {
-                try
+                if (result == CallStateEnum.Success)
                 {
                     if (clientNode.IsSynchronousCallback) callback(new LocalResult(result));
                     else Task.Run(() => callback(new LocalResult(result)));
                 }
-                finally { clientNode.CheckState(nodeIndex, result); }
+                else
+                {
+                    try
+                    {
+                        if (clientNode.IsSynchronousCallback) callback(new LocalResult(result));
+                        else Task.Run(() => callback(new LocalResult(result)));
+                    }
+                    finally { clientNode.CheckState(nodeIndex, result); }
+                }
+                return true;
             }
-            return true;
+            return false;
         }
         /// <summary>
         /// 创建本地服务调用节点方法队列节点

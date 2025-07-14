@@ -226,16 +226,13 @@
             测试断点信息添加到输出队列（DEBUG 有效）
             </summary>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint(System.Type,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint(System.Type)">
             <summary>
             检查返回数据
             </summary>
-            <param name="type">比较类型</param>
-            <param name="callerMemberName">Caller member name</param>
-            <param name="callerFilePath">Caller the source code file path</param>
-            <param name="callerLineNumber">Caller the line number of the source code</param>
+            <param name="type"></param>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(``0,``0,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(``0,``0)">
             <summary>
             Test breakpoint information is added to the output queue
             测试断点信息添加到输出队列
@@ -243,22 +240,16 @@
             <typeparam name="T"></typeparam>
             <param name="left"></param>
             <param name="right"></param>
-            <param name="callerMemberName">Caller member name</param>
-            <param name="callerFilePath">Caller the source code file path</param>
-            <param name="callerLineNumber">Caller the line number of the source code</param>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(System.Type,``0,``0,System.String,System.String,System.Int32)">
+        <member name="M:AutoCSer.FieldEquals.Comparor.Breakpoint``1(System.Type,``0,``0)">
             <summary>
             Test breakpoint information is added to the output queue
             测试断点信息添加到输出队列
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="type">比较类型</param>
+            <param name="type"></param>
             <param name="left"></param>
             <param name="right"></param>
-            <param name="callerMemberName">Caller member name</param>
-            <param name="callerFilePath">Caller the source code file path</param>
-            <param name="callerLineNumber">Caller the line number of the source code</param>
         </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Equals``1(``0,``0)">
             <summary>
