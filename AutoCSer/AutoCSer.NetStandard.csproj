@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.62</Version>
+    <Version>2.0.63</Version>
     <PackageId>AutoCSer2</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.0]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -117,7 +117,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="FragmentDictionary256.cs" />
     <Compile Include="HashObject.cs" />
     <Compile Include="HeadLeftArray.cs" />
-    <Compile Include="IEnumeratorTask.cs" />
     <Compile Include="Extensions\ParameterInfoExtension.cs" />
     <Compile Include="Extensions\SubArrayExtension.cs" />
     <Compile Include="Extensions\TypeBuilderExtension.cs" />
@@ -157,6 +156,8 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="NET8\Vector2Union.cs" />
     <Compile Include="NET8\Vector3Union.cs" />
     <Compile Include="NET8\Vector4Union.cs" />
+    <Compile Include="NetStandard\IAsyncEnumerator.cs" />
+    <Compile Include="NetStandard\ValueTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueue.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueueNode.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadWriteQueue.cs" />

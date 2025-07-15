@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Memory
 {

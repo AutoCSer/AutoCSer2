@@ -3,9 +3,6 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.CommandService.DiskBlock
 {
@@ -75,7 +72,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public override async ValueTask DisposeAsync()
+#else
+        public override async Task DisposeAsync()
+#endif
         {
             if (writeStream != null) await writeStream.DisposeAsync();
         }
@@ -193,9 +194,9 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        protected override ValueTask freeReadContext(object context) 
+        protected override async Task freeReadContext(object context) 
         {
-            return ((FileStream)context).DisposeAsync();
+            await ((FileStream)context).DisposeAsync();
         }
         /// <summary>
         /// 删除磁盘块

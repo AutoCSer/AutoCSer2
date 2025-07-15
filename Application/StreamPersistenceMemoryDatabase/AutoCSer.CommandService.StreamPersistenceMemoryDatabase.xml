@@ -1161,6 +1161,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse`1.System#Collections#Generic#IAsyncEnumerator{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#ResponseResult{T}}#MoveNextAsync">
+            <summary>
+            Whether the next data exists
+            是否存在下一个数据
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponse`1.MoveNextAsync">
             <summary>
             Whether the next data exists
@@ -2486,13 +2493,6 @@
             <summary>
             await bool, the collection enumeration command returns true when the next data exists
             await bool，集合枚举命令存在下一个数据返回 true
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.AutoCSer#IEnumeratorTask#MoveNextAsync">
-            <summary>
-            Whether the next data exists
-            是否存在下一个数据
             </summary>
             <returns></returns>
         </member>

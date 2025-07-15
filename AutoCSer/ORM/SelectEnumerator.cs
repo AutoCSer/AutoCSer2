@@ -7,9 +7,6 @@ using System.Data;
 using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.ORM
 {
@@ -75,7 +72,7 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="connectionPool"></param>
         /// <returns></returns>
-        protected async ValueTask getReader(ConnectionPool connectionPool)
+        protected async Task getReader(ConnectionPool connectionPool)
         {
             if (transaction == null)
             {
@@ -151,12 +148,7 @@ namespace AutoCSer.ORM
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
     /// <typeparam name="VT">枚举返回数据类型</typeparam>
-    public sealed class SelectEnumerator<T, VT> : SelectEnumerator
-#if NetStandard21
-        , IAsyncEnumerator<VT>
-#else
-        , IEnumeratorTask<VT>
-#endif
+    public sealed class SelectEnumerator<T, VT> : SelectEnumerator, IAsyncEnumerator<VT>
         where T : class
         where VT : class, T
     {
@@ -209,7 +201,7 @@ namespace AutoCSer.ORM
 #if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<VT>.MoveNextAsync()
 #else
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
+        async Task<bool> IAsyncEnumerator<VT>.MoveNextAsync()
 #endif
         {
             if (query == null) return false;
@@ -241,7 +233,11 @@ namespace AutoCSer.ORM
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public async ValueTask DisposeAsync()
+#else
+        public async Task DisposeAsync()
+#endif
         {
             await free(tableWriter?.ConnectionPool);
         }

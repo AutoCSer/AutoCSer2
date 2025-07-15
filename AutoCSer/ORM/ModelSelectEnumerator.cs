@@ -6,9 +6,6 @@ using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.ORM
 {
@@ -16,12 +13,7 @@ namespace AutoCSer.ORM
     /// 异步查询枚举器
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    public sealed class ModelSelectEnumerator<T> : SelectEnumerator
-#if NetStandard21
-    , IAsyncEnumerator<T>
-#else
-    , IEnumeratorTask<T>
-#endif
+    public sealed class ModelSelectEnumerator<T> : SelectEnumerator, IAsyncEnumerator<T>
         where T : class
     {
         /// <summary>
@@ -79,7 +71,7 @@ namespace AutoCSer.ORM
 #if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #else
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
+        async Task<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #endif
         {
             ++errorCount;
@@ -100,7 +92,11 @@ namespace AutoCSer.ORM
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public async ValueTask DisposeAsync()
+#else
+        public async Task DisposeAsync()
+#endif
         {
             var columnIndexs = Interlocked.Exchange(ref this.columnIndexs, null);
             if (columnIndexs != null) ModelReader<T>.FreeColumnIndexCache(columnIndexs);

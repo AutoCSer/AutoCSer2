@@ -115,7 +115,6 @@
     <Compile Include="FragmentDictionary256.cs" />
     <Compile Include="HashObject.cs" />
     <Compile Include="HeadLeftArray.cs" />
-    <Compile Include="IEnumeratorTask.cs" />
     <Compile Include="Extensions\ParameterInfoExtension.cs" />
     <Compile Include="Extensions\SubArrayExtension.cs" />
     <Compile Include="Extensions\TypeBuilderExtension.cs" />
@@ -200,7 +199,9 @@
     <Compile Include="NET8\UInt128.cs" />
     <Compile Include="NET8\Vector4Union.cs" />
     <Compile Include="NetStandard\IAsyncDisposable.cs" />
+    <Compile Include="NetStandard\IAsyncEnumerator.cs" />
     <Compile Include="NetStandard\MethodImpl.cs" />
+    <Compile Include="NetStandard\ValueTask.cs" />
     <Compile Include="Net\CommandServer\CallbackFlagsEnum.cs" />
     <Compile Include="Net\CommandServer\CallbackIdentity.cs" />
     <Compile Include="Net\CommandServer\CancelKeepCallbackData.cs" />

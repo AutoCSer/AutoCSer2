@@ -115,7 +115,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
-        public override async ValueTask<IPEndPoint?> GetServerEndPoint()
+        public override async Task<IPEndPoint?> GetServerEndPoint()
 #else
         public override async Task<IPEndPoint> GetServerEndPoint()
 #endif

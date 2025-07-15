@@ -34,22 +34,12 @@ namespace AutoCSer.Net
         /// </summary>
         /// <returns></returns>
 #if NetStandard21
-        public virtual ValueTask<IPEndPoint?> GetServerEndPoint()
+        public virtual Task<IPEndPoint?> GetServerEndPoint()
 #else
         public virtual Task<IPEndPoint> GetServerEndPoint()
 #endif
         {
-#if NetStandard21
-#pragma warning disable CS8619
-#if NET8
-            return ValueTask.FromResult(Client.Host.IPEndPoint);
-#else
-            return AutoCSer.Common.GetCompletedValueTask(Client.Host.IPEndPoint);
-#endif
-#pragma warning restore CS8619
-#else
             return AutoCSer.Common.GetCompletedTask(Client.Host.IPEndPoint);
-#endif
         }
         /// <summary>
         /// Server connection failed

@@ -1,9 +1,6 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.CommandService.DiskBlock
 {
@@ -20,9 +17,13 @@ namespace AutoCSer.CommandService.DiskBlock
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public override ValueTask DisposeAsync()
+#else
+        public override Task DisposeAsync()
+#endif
         {
-            return AutoCSer.Common.CompletedValueTask;
+            return AutoCSer.Common.AsyncDisposableCompletedTask;
         }
         /// <summary>
         /// 写入数据

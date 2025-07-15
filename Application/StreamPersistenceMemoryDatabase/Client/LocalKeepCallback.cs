@@ -5,9 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -16,10 +13,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 本地服务调用保持回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class LocalKeepCallback<T> : IDisposable, IEnumeratorCommand<LocalResult<T>>
-#if NetStandard21
-, IAsyncEnumerator<LocalResult<T>>
-#endif
+    public sealed class LocalKeepCallback<T> : IDisposable, IAsyncEnumerator<LocalResult<T>>, IEnumeratorCommand<LocalResult<T>>
     {
         /// <summary>
         /// The local service invocation callback object
@@ -101,10 +95,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public ValueTask DisposeAsync()
+#else
+        public Task DisposeAsync()
+#endif
         {
             callback.SetCancelKeep();
-            return AutoCSer.Common.CompletedValueTask;
+            return AutoCSer.Common.AsyncDisposableCompletedTask;
         }
         /// <summary>
         /// Cancel output
@@ -203,20 +201,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
-        {
-            return await MoveNext();
-        }
 #if NetStandard21
-        /// <summary>
-        /// Whether the next data exists
-        /// 是否存在下一个数据
-        /// </summary>
-        /// <returns></returns>
         async ValueTask<bool> IAsyncEnumerator<LocalResult<T>>.MoveNextAsync()
+#else
+        async Task<bool> IAsyncEnumerator<LocalResult<T>>.MoveNextAsync()
+#endif
         {
             return await MoveNext();
         }
+        ///// <summary>
+        ///// Whether the next data exists
+        ///// 是否存在下一个数据
+        ///// </summary>
+        ///// <returns></returns>
+        //async Task<bool> IEnumeratorTask.MoveNextAsync()
+        //{
+        //    return await MoveNext();
+        //}
+#if NetStandard21
         /// <summary>
         /// Get the IAsyncEnumerable
         /// 获取 IAsyncEnumerable

@@ -1,8 +1,7 @@
 ﻿#if !NetStandard21
-using System;
 using System.Threading.Tasks;
 
-namespace AutoCSer
+namespace System
 {
     /// <summary>
     /// 异步释放资源

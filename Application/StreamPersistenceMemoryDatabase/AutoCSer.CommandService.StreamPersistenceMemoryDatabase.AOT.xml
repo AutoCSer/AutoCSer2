@@ -1020,13 +1020,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.AutoCSer#IEnumeratorTask#MoveNextAsync">
-            <summary>
-            Whether the next data exists
-            是否存在下一个数据
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalKeepCallback`1.System#Collections#Generic#IAsyncEnumerator{AutoCSer#CommandService#StreamPersistenceMemoryDatabase#LocalResult{T}}#MoveNextAsync">
             <summary>
             Whether the next data exists
@@ -1095,6 +1088,17 @@
             </summary>
             <param name="state"></param>
             <param name="errorMessage"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult.emptyAction(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult)">
+            <summary>
+            Emptu callback
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult.EmptyAction">
+            <summary>
+            Emptu callback
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1">
             <summary>
@@ -1193,6 +1197,17 @@
             <typeparam name="PT"></typeparam>
             <returns>Error paging data
             错误分页数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.emptyAction(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0})">
+            <summary>
+            Emptu callback
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult`1.EmptyAction">
+            <summary>
+            Emptu callback
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex">
             <summary>
@@ -10529,6 +10544,11 @@
             调用方法编号
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode`1.isCallback">
+            <summary>
+            回调访问锁
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode`1.nodeIndex">
             <summary>
             Node index information
@@ -10627,6 +10647,11 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackNode.methodIndex">
             <summary>
             调用方法编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackNode.isCallback">
+            <summary>
+            回调访问锁
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackNode.nodeIndex">
@@ -10756,6 +10781,11 @@
             调用节点方法
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackNode">
             <summary>
             本地服务调用节点方法队列节点
@@ -10815,6 +10845,11 @@
             <summary>
             Call the node method
             调用节点方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNode`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Int32,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}},System.Boolean)">
@@ -13624,6 +13659,11 @@
             调用节点方法
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode">
             <summary>
             本地服务调用节点方法队列节点
@@ -13679,6 +13719,11 @@
             <summary>
             Call the node method
             调用节点方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackEnumeratorNode`1.Cancel">
+            <summary>
+            调用方主动取消回调
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackEnumeratorNode`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Int32,System.Boolean)">

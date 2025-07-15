@@ -2,9 +2,6 @@
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Net
 {
@@ -128,7 +125,11 @@ namespace AutoCSer.Net
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         async ValueTask IAsyncDisposable.DisposeAsync()
+#else
+        async Task IAsyncDisposable.DisposeAsync()
+#endif
         {
             dispose();
 

@@ -5,9 +5,6 @@ using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.ORM
 {
@@ -192,7 +189,11 @@ namespace AutoCSer.ORM
         /// 释放事务，回滚未提交事务
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public async ValueTask DisposeAsync()
+#else
+        public async Task DisposeAsync()
+#endif
         {
             try
             {

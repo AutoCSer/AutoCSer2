@@ -3,9 +3,6 @@ using AutoCSer.Net;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
 {
@@ -114,7 +111,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// <summary>
         /// Release resources
         /// </summary>
+#if NetStandard21
         public override async ValueTask DisposeAsync()
+#else
+        public override async Task DisposeAsync()
+#endif
         {
             if (serverRegistryLog != null)
             {
@@ -202,7 +203,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// <summary>
         /// Release resources
         /// </summary>
+#if NetStandard21
         public override async ValueTask DisposeAsync()
+#else
+        public override async Task DisposeAsync()
+#endif
         {
             await client.SocketEvent.Remove(this);
             await base.DisposeAsync();

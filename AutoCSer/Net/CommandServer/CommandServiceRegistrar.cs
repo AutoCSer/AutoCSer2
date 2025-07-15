@@ -2,9 +2,6 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Net
 {
@@ -36,20 +33,20 @@ namespace AutoCSer.Net
         /// <summary>
         /// Release resources
         /// </summary>
+#if NetStandard21
         public virtual ValueTask DisposeAsync()
+#else
+        public virtual Task DisposeAsync()
+#endif
         {
-            return AutoCSer.Common.CompletedValueTask;
+            return AutoCSer.Common.AsyncDisposableCompletedTask;
         }
         /// <summary>
         /// Get the server listening address
         /// 获取服务端监听地址
         /// </summary>
         /// <returns></returns>
-#if NetStandard21
-        public virtual async ValueTask<AutoCSer.Net.CommandServer.HostEndPoint> GetEndPoint()
-#else
         public virtual async Task<AutoCSer.Net.CommandServer.HostEndPoint> GetEndPoint()
-#endif
         {
             HostEndPoint host = server.Host;
             return host.Port != 0 ? (AutoCSer.Net.CommandServer.HostEndPoint)host : (AutoCSer.Net.CommandServer.HostEndPoint)host.Get(await GetHostPort());

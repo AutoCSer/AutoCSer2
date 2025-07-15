@@ -6,9 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -17,7 +14,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 保持回调输出
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class KeepCallbackResponse<T> : IDisposable, IEnumeratorCommand<ResponseResult<T>>
+    public sealed class KeepCallbackResponse<T> : IDisposable, IAsyncEnumerator<ResponseResult<T>>, IEnumeratorCommand<ResponseResult<T>>
     {
         /// <summary>
         /// Client node
@@ -185,6 +182,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否存在下一个数据
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
+        async ValueTask<bool> IAsyncEnumerator<ResponseResult<T>>.MoveNextAsync()
+#else
+        async Task<bool> IAsyncEnumerator<ResponseResult<T>>.MoveNextAsync()
+#endif
+        {
+            if (EnumeratorCommand != null) return await EnumeratorCommand.MoveNext();
+            return false;
+        }
+        /// <summary>
+        /// Whether the next data exists
+        /// 是否存在下一个数据
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> MoveNextAsync()
         {
             if (EnumeratorCommand != null) return await EnumeratorCommand.MoveNext();
@@ -231,7 +242,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public async ValueTask DisposeAsync()
+#else
+        public async Task DisposeAsync()
+#endif
         {
             if (EnumeratorCommand != null) await ((IAsyncDisposable)EnumeratorCommand).DisposeAsync();
         }

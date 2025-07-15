@@ -3,9 +3,6 @@ using AutoCSer.Net;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -121,7 +118,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 开始接收并处理消息
         /// </summary>
         /// <returns></returns>
-        private async ValueTask start() 
+        private async Task start() 
         {
             try
             {

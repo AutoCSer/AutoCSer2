@@ -9,9 +9,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Drawing.Gif
 {
@@ -155,7 +152,11 @@ namespace AutoCSer.Drawing.Gif
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public async ValueTask DisposeAsync()
+#else
+        public async Task DisposeAsync()
+#endif
         {
             if (Interlocked.CompareExchange(ref isDisposed, 1, 0) == 0) await disposeAsync();
         }

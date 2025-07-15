@@ -882,7 +882,7 @@ namespace AutoCSer.ORM
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public ValueTask<VT?> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction? transaction = null)
+        public Task<VT?> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction? transaction = null)
 #else
         public Task<VT> Delete<VT, KT>(ICachePersistence<T, VT, KT> cache, KT key, Transaction transaction = null)
 #endif
@@ -1076,7 +1076,7 @@ namespace AutoCSer.ORM
             }
 #else
             Dictionary<KT, VT> values = null;
-            IEnumeratorTask<VT> selectEnumerator = await Select<VT>(query, transaction);
+            IAsyncEnumerator<VT> selectEnumerator = await Select<VT>(query, transaction);
             try
             {
                 while (await selectEnumerator.MoveNextAsync())
@@ -1477,7 +1477,7 @@ namespace AutoCSer.ORM
                     }
                 }
 #else
-                IEnumeratorTask<VT> selectEnumerator = await query.Select<VT>();
+                IAsyncEnumerator<VT> selectEnumerator = await query.Select<VT>();
                 try
                 {
                     while (await selectEnumerator.MoveNextAsync())
@@ -1877,7 +1877,7 @@ namespace AutoCSer.ORM
                     }
                 }
 #else
-                IEnumeratorTask<VT> selectEnumerator = await query.Select<VT>();
+                IAsyncEnumerator<VT> selectEnumerator = await query.Select<VT>();
                 try
                 {
                     while (await selectEnumerator.MoveNextAsync())

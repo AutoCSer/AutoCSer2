@@ -52,7 +52,7 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        ValueTask<VT?> Delete(KT key, Transaction? transaction = null);
+        Task<VT?> Delete(KT key, Transaction? transaction = null);
 #else
         Task<VT> Delete(KT key, Transaction transaction = null);
 #endif

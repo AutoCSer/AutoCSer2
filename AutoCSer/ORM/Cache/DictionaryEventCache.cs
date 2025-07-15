@@ -79,7 +79,7 @@ namespace AutoCSer.ORM
                 while (await selectEnumerator.MoveNextAsync()) insert(selectEnumerator.Current);
             }
 #else
-            IEnumeratorTask<VT> selectEnumerator = await tableWriter.CreateQuery(null, false).Select<VT>();
+            IAsyncEnumerator<VT> selectEnumerator = await tableWriter.CreateQuery(null, false).Select<VT>();
             try
             {
                 while (await selectEnumerator.MoveNextAsync()) insert(selectEnumerator.Current);
@@ -182,7 +182,7 @@ namespace AutoCSer.ORM
         /// <param name="transaction"></param>
         /// <returns></returns>
 #if NetStandard21
-        async ValueTask<VT?> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction? transaction)
+        async Task<VT?> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction? transaction)
 #else
         async Task<VT> ICachePersistence<T, VT, KT>.Delete(KT key, Transaction transaction)
 #endif

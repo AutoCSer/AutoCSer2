@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3C636EA8-DD8F-4FFA-8284-5D0068B455D2}|AutoCSer\\AutoCSer.NET8.csproj|c:\\autocser2\\autocser\\autocser.net8.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{3C636EA8-DD8F-4FFA-8284-5D0068B455D2}|AutoCSer\\AutoCSer.NET8.csproj|solutionrelative:autocser\\autocser.net8.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|c:\\autocser2\\application\\streampersistencememorydatabase\\server\\localservice\\localservicekeepcallbacknode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6D608E-5770-4A3E-8560-B75A9C26BEAB}|Application\\StreamPersistenceMemoryDatabase\\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj|solutionrelative:application\\streampersistencememorydatabase\\server\\localservice\\localservicekeepcallbacknode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,20 +25,7 @@
               "ToolTip": "C:\\AutoCSer2\\AutoCSer\\AutoCSer.NET8.csproj",
               "RelativeToolTip": "AutoCSer\\AutoCSer.NET8.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-14T06:50:32.605Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LocalServiceKeepCallbackNode.cs",
-              "DocumentMoniker": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Server\\LocalService\\LocalServiceKeepCallbackNode.cs",
-              "RelativeDocumentMoniker": "Application\\StreamPersistenceMemoryDatabase\\Server\\LocalService\\LocalServiceKeepCallbackNode.cs",
-              "ToolTip": "C:\\AutoCSer2\\Application\\StreamPersistenceMemoryDatabase\\Server\\LocalService\\LocalServiceKeepCallbackNode.cs",
-              "RelativeToolTip": "Application\\StreamPersistenceMemoryDatabase\\Server\\LocalService\\LocalServiceKeepCallbackNode.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAA4wEcAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T04:22:40.753Z",
+              "WhenOpened": "2025-07-15T06:17:12.539Z",
               "EditorCaption": ""
             }
           ]

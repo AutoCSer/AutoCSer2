@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.ORM.RemoteProxy
 {
@@ -15,12 +12,7 @@ namespace AutoCSer.ORM.RemoteProxy
     /// 异步查询枚举器
     /// </summary>
     /// <typeparam name="T">持久化表格模型类型</typeparam>
-    public sealed class ModelSelectEnumerator<T>
-#if NetStandard21
-        : IAsyncEnumerator<T>
-#else
-        : IEnumeratorTask<T>
-#endif
+    public sealed class ModelSelectEnumerator<T> : IAsyncEnumerator<T>
         where T : class
     {
         /// <summary>
@@ -58,7 +50,7 @@ namespace AutoCSer.ORM.RemoteProxy
 #if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #else
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
+        async Task<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #endif
         {
             if (await enumeratorCommand.MoveNext())
@@ -77,11 +69,15 @@ namespace AutoCSer.ORM.RemoteProxy
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public ValueTask DisposeAsync()
+#else
+        public Task DisposeAsync()
+#endif
         {
             var columnIndexs = Interlocked.Exchange(ref this.columnIndexs, null);
             if (columnIndexs != null) ModelReader<T>.FreeColumnIndexCache(columnIndexs);
-            return AutoCSer.Common.CompletedValueTask;
+            return AutoCSer.Common.AsyncDisposableCompletedTask;
         }
     }
 }

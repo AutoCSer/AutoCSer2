@@ -13,9 +13,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Net
 {
@@ -568,7 +565,7 @@ namespace AutoCSer.Net
         /// 命令客户端套接字初始化失败
         /// </summary>
         /// <param name="socket"></param>
-        internal async ValueTask OnCreateError(CommandClientSocket socket)
+        internal async Task OnCreateError(CommandClientSocket socket)
         {
             await socketLock.EnterAsync();
             try

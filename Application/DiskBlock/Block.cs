@@ -6,9 +6,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.CommandService.DiskBlock
 {
@@ -78,7 +75,11 @@ namespace AutoCSer.CommandService.DiskBlock
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         public abstract ValueTask DisposeAsync();
+#else
+        public abstract Task DisposeAsync();
+#endif
         /// <summary>
         /// Release resources
         /// </summary>
@@ -213,7 +214,7 @@ namespace AutoCSer.CommandService.DiskBlock
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        protected virtual ValueTask freeReadContext(object context) { return AutoCSer.Common.CompletedValueTask; }
+        protected virtual Task freeReadContext(object context) { return AutoCSer.Common.CompletedTask; }
         /// <summary>
         /// 读取数据请求回调操作
         /// </summary>

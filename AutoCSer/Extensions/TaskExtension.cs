@@ -3,9 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Extensions
 {
@@ -22,6 +19,13 @@ namespace AutoCSer.Extensions
         /// <param name="task"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void NotWait(this Task task) { }
+        /// <summary>
+        /// A warning used to clear an await inside async without waiting for the task to execute
+        /// 不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
+        /// </summary>
+        /// <param name="task"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static void NotWait(this ValueTask task) { }
         /// <summary>
         /// Capture and output the exception log
         /// 捕获并输出异常日志
@@ -45,14 +49,6 @@ namespace AutoCSer.Extensions
             }
             else new AutoCSer.Threading.CatchTask(task, isQueue, callerFilePath ?? string.Empty, callerMemberName ?? string.Empty, callerLineNumber);
         }
-#if NetStandard21
-        /// <summary>
-        /// A warning used to clear an await inside async without waiting for the task to execute
-        /// 不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
-        /// </summary>
-        /// <param name="task"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void NotWait(this ValueTask task) { }
         /// <summary>
         /// Capture and output the exception log
         /// 捕获并输出异常日志
@@ -63,12 +59,14 @@ namespace AutoCSer.Extensions
         /// <param name="callerFilePath">Caller the source code file path</param>
         /// <param name="callerMemberName">Caller member name</param>
         /// <param name="callerLineNumber">Caller the line number of the source code</param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
         public static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+#else
+        public static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string callerFilePath = null, [CallerMemberName] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+#endif
         {
             Catch(task.AsTask(), isQueue, callerFilePath, callerMemberName, callerLineNumber);
         }
-#endif
         //        /// <summary>
         //        /// ValueTask 兼容
         //        /// </summary>
@@ -109,6 +107,18 @@ namespace AutoCSer.Extensions
         {
             if (task.IsCompleted) return;
             var exception = new WaitTask(task).Wait();
+            if (exception != null) throw exception;
+        }
+        /// <summary>
+        /// Getting the Result from the new thread prevents subsequent operations from blocking the Task scheduler thread synchronously
+        /// 从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static void wait(this ValueTask task)
+        {
+            if (task.IsCompleted) return;
+            var exception = new WaitTask(task.AsTask()).Wait();
             if (exception != null) throw exception;
         }
     }

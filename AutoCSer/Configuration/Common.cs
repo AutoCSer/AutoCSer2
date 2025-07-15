@@ -89,7 +89,7 @@ namespace AutoCSer.Configuration
         /// <param name="name">配置名称，默认为 null 表示默认名称</param>
         /// <returns>配置项数据</returns>
 #if NetStandard21
-        public static async ValueTask<ConfigObject<T>?> GetAsync<T>(string name = "") where T : class
+        public static async Task<ConfigObject<T>?> GetAsync<T>(string name = "") where T : class
 #else
         public static async Task<ConfigObject<T>> GetAsync<T>(string name = "") where T : class
 #endif

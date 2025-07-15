@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Net
 {
@@ -196,10 +193,8 @@ namespace AutoCSer.Net
     /// 集合枚举队列命令，不支持多线程并发调用 await MoveNext（await EnumeratorQueueCommand{T}，返回 null 表示添加到输出队列失败）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EnumeratorQueueCommand<T> : KeepCommand, IDisposable
-#if NetStandard21
-, IAsyncEnumerator<T>
-#else
+    public class EnumeratorQueueCommand<T> : KeepCommand, IAsyncEnumerator<T>, IDisposable
+#if !NetStandard21
 , IEnumeratorCommand<T>
 #endif
     {
@@ -383,7 +378,11 @@ namespace AutoCSer.Net
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         async ValueTask IAsyncDisposable.DisposeAsync()
+#else
+        async Task IAsyncDisposable.DisposeAsync()
+#endif
         {
             if (!IsDisposed)
             {
@@ -461,11 +460,22 @@ namespace AutoCSer.Net
 #if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #else
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
+        async Task<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #endif
         {
             return await MoveNext();
         }
+//#if !NetStandard21
+//        /// <summary>
+//        /// Whether the next data exists
+//        /// 是否存在下一个数据
+//        /// </summary>
+//        /// <returns></returns>
+//        async Task<bool> IEnumeratorTask.MoveNextAsync()
+//        {
+//            return await MoveNext();
+//        }
+//#endif
         /// <summary>
         /// Close keep callback
         /// 关闭保持回调

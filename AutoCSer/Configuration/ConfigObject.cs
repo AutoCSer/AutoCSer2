@@ -6,9 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoCSer.Extensions;
 using AutoCSer.Threading;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer
 {
@@ -176,7 +173,7 @@ namespace AutoCSer
         /// <summary>
         /// 清除配置更新触发任务
         /// </summary>
-        public virtual async ValueTask ClearOnChanged()
+        public virtual async Task ClearOnChanged()
         {
             if (onChangeds != null)
             {
@@ -190,11 +187,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="onChanged">配置更新触发任务</param>
         /// <returns></returns>
-#if NetStandard21
-        public virtual async ValueTask<bool> SetOnChanged(Func<ConfigObject<T>, Task> onChanged)
-#else
         public virtual async Task<bool> SetOnChanged(Func<ConfigObject<T>, Task> onChanged)
-#endif
         {
             if (IsReadOnly) throw new InvalidOperationException();
             await onChangedLock.EnterAsync();
@@ -212,11 +205,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="onChanged">配置更新触发任务</param>
         /// <returns></returns>
-#if NetStandard21
-        public virtual async ValueTask<bool> RemoveOnChanged(Func<ConfigObject<T>, Task> onChanged)
-#else
         public virtual async Task<bool> RemoveOnChanged(Func<ConfigObject<T>, Task> onChanged)
-#endif
         {
             if (IsReadOnly) throw new InvalidOperationException();
             await onChangedLock.EnterAsync();

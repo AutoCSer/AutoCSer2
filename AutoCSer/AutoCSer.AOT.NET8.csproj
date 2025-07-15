@@ -124,7 +124,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Extensions\TaskExtension.cs" />
     <Compile Include="FragmentDictionary256.cs" />
     <Compile Include="HeadLeftArray.cs" />
-    <Compile Include="IEnumeratorTask.cs" />
     <Compile Include="Extensions\ParameterInfoExtension.cs" />
     <Compile Include="Extensions\SubArrayExtension.cs" />
     <Compile Include="Extensions\TypeBuilderExtension.cs" />

@@ -7,7 +7,7 @@ namespace AutoCSer.Net
     /// Collection enumeration command interface
     /// 集合枚举命令接口
     /// </summary>
-    public interface IEnumeratorCommand : IEnumeratorTask
+    public interface IEnumeratorCommand : IAsyncDisposable// : IEnumeratorTask
     {
         /// <summary>
         /// await bool, the collection enumeration command returns true when the next data exists

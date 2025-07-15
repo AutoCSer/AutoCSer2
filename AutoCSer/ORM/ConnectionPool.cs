@@ -7,9 +7,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.ORM
 {
@@ -44,7 +41,7 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="connection"></param>
         /// <returns></returns>
-        internal async ValueTask FreeConnection(DbConnection connection)
+        internal async Task FreeConnection(DbConnection connection)
         {
             Monitor.Enter(connectionLock);
             if (connections.TryAdd(connection))
@@ -93,7 +90,7 @@ namespace AutoCSer.ORM
         /// </summary>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        internal async ValueTask FreeConnectionAsync(Transaction transaction)
+        internal async Task FreeConnectionAsync(Transaction transaction)
         {
             Monitor.Enter(connectionLock);
             var connection = transaction.ClearConnection();

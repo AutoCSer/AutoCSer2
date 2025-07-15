@@ -101,7 +101,7 @@ namespace AutoCSer.ORM
         /// <param name="isClone">默认为 true 表示浅复制缓存数据对象，避免缓存数据对象数据被意外修改</param>
         /// <returns></returns>
 #if NetStandard21
-        public async ValueTask<VT?> Get(KT key, bool isClone = true)
+        public async Task<VT?> Get(KT key, bool isClone = true)
 #else
         public async Task<VT> Get(KT key, bool isClone = true)
 #endif

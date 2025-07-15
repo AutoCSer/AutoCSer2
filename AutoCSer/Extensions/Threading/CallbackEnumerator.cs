@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Threading
 {
@@ -14,12 +11,7 @@ namespace AutoCSer.Threading
     /// 持续回调转 IAsyncEnumerator{T} 包装，MoveNext 操作不支持多任务并发 await 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class CallbackEnumerator<T>
-#if NetStandard21
-: IAsyncEnumerator<T>
-#else
-: IEnumeratorTask<T>
-#endif
+    public sealed class CallbackEnumerator<T> : IAsyncEnumerator<T>
     {
         /// <summary>
         /// Whether the next data exists in the collection enumeration command
@@ -51,9 +43,13 @@ namespace AutoCSer.Threading
         /// Release resources
         /// </summary>
         /// <returns></returns>
+#if NetStandard21
         ValueTask IAsyncDisposable.DisposeAsync()
+#else
+        Task IAsyncDisposable.DisposeAsync()
+#endif
         {
-            return AutoCSer.Common.CompletedValueTask;
+            return AutoCSer.Common.AsyncDisposableCompletedTask;
         }
         /// <summary>
         /// 数据回调
@@ -101,7 +97,7 @@ namespace AutoCSer.Threading
 #if NetStandard21
         async ValueTask<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #else
-        async Task<bool> IEnumeratorTask.MoveNextAsync()
+        async Task<bool> IAsyncEnumerator<T>.MoveNextAsync()
 #endif
         {
             return await MoveNext();

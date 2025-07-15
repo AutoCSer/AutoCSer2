@@ -10265,13 +10265,6 @@
             <param name="deserializeDelegate"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Common.Wait(System.Threading.Tasks.ValueTask)">
-            <summary>
-            Wait for the task to be completed
-            等待任务完成
-            </summary>
-            <param name="task"></param>
-        </member>
         <member name="M:AutoCSer.Common.GetAsyncEnumerable``1(AutoCSer.Net.IEnumeratorCommand{``0})">
             <summary>
             Get IAsyncEnumerable
@@ -10378,17 +10371,13 @@
             默认已完成任务
             </summary>
         </member>
-        <member name="M:AutoCSer.Common.GetCompletedValueTask``1(``0)">
+        <member name="P:AutoCSer.Common.AsyncDisposableCompletedTask">
             <summary>
-            Get the completed task
-            获取已完成任务
+            Completed tasks for asynchronously releasing resources
+            异步释放资源的已完成任务
             </summary>
-            <typeparam name="T">Return value type</typeparam>
-            <param name="value">Task return value
-            任务返回值</param>
-            <returns></returns>
         </member>
-        <member name="M:AutoCSer.Common.GetCompletedValueTask``1(System.Threading.Tasks.Task{``0})">
+        <member name="M:AutoCSer.Common.GetCompletedValueTask``1(``0)">
             <summary>
             Get the completed task
             获取已完成任务
@@ -12309,6 +12298,13 @@
             </summary>
             <param name="task"></param>
         </member>
+        <member name="M:AutoCSer.Extensions.TaskExtension.NotWait(System.Threading.Tasks.ValueTask)">
+            <summary>
+            A warning used to clear an await inside async without waiting for the task to execute
+            不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
+            </summary>
+            <param name="task"></param>
+        </member>
         <member name="M:AutoCSer.Extensions.TaskExtension.Catch(System.Threading.Tasks.Task,System.Boolean,System.String,System.String,System.Int32)">
             <summary>
             Capture and output the exception log
@@ -12320,13 +12316,6 @@
             <param name="callerFilePath">Caller the source code file path</param>
             <param name="callerMemberName">Caller member name</param>
             <param name="callerLineNumber">Caller the line number of the source code</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.TaskExtension.NotWait(System.Threading.Tasks.ValueTask)">
-            <summary>
-            A warning used to clear an await inside async without waiting for the task to execute
-            不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
-            </summary>
-            <param name="task"></param>
         </member>
         <member name="M:AutoCSer.Extensions.TaskExtension.Catch(System.Threading.Tasks.ValueTask,System.Boolean,System.String,System.String,System.Int32)">
             <summary>
@@ -12351,6 +12340,14 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.TaskExtension.wait(System.Threading.Tasks.Task)">
+            <summary>
+            Getting the Result from the new thread prevents subsequent operations from blocking the Task scheduler thread synchronously
+            从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtension.wait(System.Threading.Tasks.ValueTask)">
             <summary>
             Getting the Result from the new thread prevents subsequent operations from blocking the Task scheduler thread synchronously
             从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
@@ -13459,32 +13456,6 @@
             将数组指定位置元素设置为头节点
             </summary>
             <param name="index"></param>
-        </member>
-        <member name="T:AutoCSer.IEnumeratorTask">
-            <summary>
-            The collection enumerates asynchronous tasks
-            集合枚举异步任务
-            </summary>
-        </member>
-        <member name="M:AutoCSer.IEnumeratorTask.MoveNextAsync">
-            <summary>
-            Whether the next data exists
-            是否存在下一个数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.IEnumeratorTask`1">
-            <summary>
-            The collection enumerates asynchronous tasks
-            集合枚举异步任务
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:AutoCSer.IEnumeratorTask`1.Current">
-            <summary>
-            Get the current data
-            获取当前数据
-            </summary>
         </member>
         <member name="T:AutoCSer.Json.BinaryMixTypeEnum">
             <summary>

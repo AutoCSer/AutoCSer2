@@ -8,9 +8,6 @@ using AutoCSer.Threading;
 using System.Threading;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer.Net
 {
@@ -242,9 +239,9 @@ namespace AutoCSer.Net
         /// 客户端验证完成处理
         /// </summary>
         /// <returns></returns>
-        protected virtual ValueTask onVerified()
+        protected virtual Task onVerified()
         {
-            return AutoCSer.Common.CompletedValueTask;
+            return AutoCSer.Common.CompletedTask;
         }
         /// <summary>
         /// Gets the command client socket event

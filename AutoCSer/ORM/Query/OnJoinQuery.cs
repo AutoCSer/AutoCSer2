@@ -83,7 +83,7 @@ namespace AutoCSer.ORM
 #else
             VT value;
             Dictionary<KT, VT> values = null;
-            IEnumeratorTask<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction);
+            IAsyncEnumerator<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction);
             try
             {
                 while (await selectEnumerator.MoveNextAsync())
@@ -140,7 +140,7 @@ namespace AutoCSer.ORM
 #else
             List<VT> valueList;
             Dictionary<KT, List<VT>> values = null;
-            IEnumeratorTask<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction);
+            IAsyncEnumerator<VT> selectEnumerator = await Query.TableWriter.Select<VT>(Query.GetQuery(keyCount, timeoutSeconds, 0), transaction);
             try
             {
                 while (await selectEnumerator.MoveNextAsync())

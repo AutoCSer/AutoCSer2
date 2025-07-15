@@ -11,9 +11,6 @@ using System.Threading.Tasks;
 using AutoCSer.Extensions;
 using AutoCSer.Net;
 using AutoCSer.Threading;
-#if !NetStandard21
-using ValueTask = System.Threading.Tasks.Task;
-#endif
 
 namespace AutoCSer
 {
@@ -166,16 +163,6 @@ namespace AutoCSer
         }
 #if NetStandard21
         /// <summary>
-        /// Wait for the task to be completed
-        /// 等待任务完成
-        /// </summary>
-        /// <param name="task"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void Wait(ValueTask task)
-        {
-            task.AsTask().wait();
-        }
-        /// <summary>
         /// Get IAsyncEnumerable
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -187,17 +174,6 @@ namespace AutoCSer
             {
                 while (await enumeratorTask.MoveNext()) yield return enumeratorTask.Current;
             }
-        }
-#else
-        /// <summary>
-        /// Wait for the task to be completed
-        /// 等待任务完成
-        /// </summary>
-        /// <param name="task"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void Wait(Task task)
-        {
-            task.Wait();
         }
 #endif
 
@@ -322,16 +298,20 @@ namespace AutoCSer
         /// The task is completed by default
         /// 默认已完成任务
         /// </summary>
-#if NetStandard21
-#if NET8
+#if NET8 || !NetStandard21
         public static ValueTask CompletedValueTask { get { return ValueTask.CompletedTask; } }
 #else
         public static ValueTask CompletedValueTask { get { return new ValueTask(CompletedTask); } }
 #endif
-#else
-        public static ValueTask CompletedValueTask { get { return CompletedTask; } }
-#endif
+        /// <summary>
+        /// Completed tasks for asynchronously releasing resources
+        /// 异步释放资源的已完成任务
+        /// </summary>
 #if NetStandard21
+        public static ValueTask AsyncDisposableCompletedTask { get { return CompletedValueTask; } }
+#else
+        public static Task AsyncDisposableCompletedTask { get { return CompletedTask; } }
+#endif
         /// <summary>
         /// Get the completed task
         /// 获取已完成任务
@@ -343,26 +323,12 @@ namespace AutoCSer
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static ValueTask<T> GetCompletedValueTask<T>(T value)
         {
-#if NET8
+#if NET8 || !NetStandard21
             return ValueTask.FromResult(value);
 #else
             return new ValueTask<T>(Task.FromResult(value));
 #endif
         }
-        /// <summary>
-        /// Get the completed task
-        /// 获取已完成任务
-        /// </summary>
-        /// <typeparam name="T">Return value type</typeparam>
-        /// <param name="value">Task return value
-        /// 任务返回值</param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static ValueTask<T> GetCompletedValueTask<T>(Task<T> value)
-        {
-            return new ValueTask<T>(value);
-        }
-#endif
 
         /// <summary>
         /// Return true for the completed awaiter
