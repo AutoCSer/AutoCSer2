@@ -184,6 +184,32 @@ namespace AutoCSer.Net
         /// 主服务控制器
         /// </summary>
         internal CommandServerController Controller;
+#if !AOT
+        /// <summary>
+        /// Remote expression server metadata information
+        /// 远程表达式服务端元数据信息
+        /// </summary>
+#if NetStandard21
+        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata? RemoteMetadata;
+#else
+        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata RemoteMetadata;
+#endif
+        /// <summary>
+        /// Get the remote expression server metadata information
+        /// 获取远程表达式服务端元数据信息
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata? GetRemoteMetadata()
+#else
+        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata GetRemoteMetadata()
+#endif
+        {
+            if (RemoteMetadata != null) return RemoteMetadata;
+            return Config.IsRemoteExpression && !Config.IsShortLink ? RemoteMetadata = new AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata(this) : null;
+        }
+#endif
         /// <summary>
         /// End command sequence number
         /// 结束命令序号

@@ -27,7 +27,7 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            IBeforePersistenceNodeClientNode node = nodeResult.Value.notNull();
+            IBeforePersistenceNodeClientNode node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
             var identityResult = await node.AppendEntity(new IdentityEntity());
             long identity = identityResult.Value;
             if (!identityResult.IsSuccess || identity == 0)

@@ -36,7 +36,7 @@ namespace AutoCSer.DeployService
             {
                 FileInfo BatFile = new FileInfo(BatFileName);
                 if (BatFile.Exists) Process.Start(BatFile.FullName);
-                else AutoCSer.LogHelper.Error("没有找到批处理文件 " + BatFile.FullName, LogLevelEnum.Error | LogLevelEnum.AutoCSer).NotWait();
+                else AutoCSer.LogHelper.Error("没有找到批处理文件 " + BatFile.FullName, LogLevelEnum.Error | LogLevelEnum.AutoCSer).AutoCSerNotWait();
             }
         }
         /// <summary>

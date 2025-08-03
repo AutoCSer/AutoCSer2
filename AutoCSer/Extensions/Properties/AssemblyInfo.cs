@@ -22,11 +22,16 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator.AOT")]
 [assembly: InternalsVisibleTo("AutoCSer.Drawing.AOT")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.StreamPersistenceMemoryDatabase.AOT")]
+[assembly: InternalsVisibleTo("AutoCSer.RandomObject.AOT")]
+[assembly: InternalsVisibleTo("AutoCSer.FieldEquals.AOT")]
 #else
 [assembly: InternalsVisibleTo("AutoCSer.DynamicAssembly")]
 [assembly: InternalsVisibleTo("AutoCSer.CodeGenerator")]
 [assembly: InternalsVisibleTo("AutoCSer.NetCoreWeb")]
 [assembly: InternalsVisibleTo("AutoCSer.Drawing")]
+[assembly: InternalsVisibleTo("AutoCSer.RandomObject")]
+[assembly: InternalsVisibleTo("AutoCSer.FieldEquals")]
+
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.StreamPersistenceMemoryDatabase")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.DiskBlock")]
 [assembly: InternalsVisibleTo("AutoCSer.CommandService.Search")]

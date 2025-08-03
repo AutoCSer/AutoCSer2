@@ -139,7 +139,7 @@ namespace AutoCSer.Net
         {
             serverEndPoint = config.Host.IPEndPoint;
             //DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
-            create(Interlocked.Increment(ref createVersion)).NotWait();
+            create(Interlocked.Increment(ref createVersion)).AutoCSerNotWait();
         }
         /// <summary>
         /// Automatically start the connection
@@ -225,7 +225,7 @@ namespace AutoCSer.Net
             if (!IsDisposed && (endPoint.Port != serverEndPoint.Port || endPoint.Address != serverEndPoint.Address) && !config.IsShortLink)
             {
                 serverEndPoint = endPoint;
-                create(Interlocked.Increment(ref createVersion)).NotWait();
+                create(Interlocked.Increment(ref createVersion)).AutoCSerNotWait();
             }
         }
         /// <summary>
@@ -236,7 +236,7 @@ namespace AutoCSer.Net
         {
             if (!IsDisposed && object.ReferenceEquals(Interlocked.CompareExchange(ref currentSocket, CommandServerSocket.CommandServerSocketContext, socket), socket))
             {
-                create(Interlocked.Increment(ref createVersion)).NotWait();
+                create(Interlocked.Increment(ref createVersion)).AutoCSerNotWait();
             }
         }
         ///// <summary>

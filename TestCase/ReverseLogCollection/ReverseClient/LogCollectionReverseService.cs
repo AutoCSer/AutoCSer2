@@ -48,7 +48,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
         /// <param name="log">日志数据</param>
         public void Append(CommandServerSocket socket, CommandServerCallQueue queue, LogInfo log)
         {
-            Console.WriteLine($"{log.LogTime.toString()} {log.Message}");
+            Console.WriteLine($"{log.LogTime.AutoCSerExtensions().ToString()} {log.Message}");
         }
         /// <summary>
         /// 添加日志
@@ -59,7 +59,7 @@ namespace AutoCSer.TestCase.LogCollectionReverseClient
         /// <returns></returns>
         public CommandServerSendOnly AppendSendOnly(CommandServerSocket socket, CommandServerCallQueue queue, LogInfo log)
         {
-            Console.WriteLine($"{log.LogTime.toString()} {log.Message}");
+            Console.WriteLine($"{log.LogTime.AutoCSerExtensions().ToString()} {log.Message}");
             return CommandServerSendOnly.Null;
         }
     }

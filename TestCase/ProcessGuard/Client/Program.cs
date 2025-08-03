@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.ProcessGuardClient
             ResponseResult<IProcessGuardNodeClientNode> client = await CommandClientSocketEvent.ProcessGuardNodeCache.GetNode();
             if (client.IsSuccess)
             {
-                guard(client.Value, args).NotWait();
+                guard(client.Value, args).AutoCSerNotWait();
                 Console.WriteLine("Press quit to exit.");
                 while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await client.Value.RemoveCurrentProcess();

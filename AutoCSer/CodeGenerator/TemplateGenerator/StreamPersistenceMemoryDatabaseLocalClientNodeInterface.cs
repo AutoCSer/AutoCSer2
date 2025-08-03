@@ -37,7 +37,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 接口方法信息
             /// </summary>
-            public MethodIndex Method;
+            public Metadata.MethodIndex Method;
             /// <summary>
             /// 方法名称
             /// </summary>
@@ -66,7 +66,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     && (isServiceNode || method.Type != typeof(IServiceNode)))
                 {
                     this.ServerNodeMethod = method;
-                    Method = new MethodIndex(method.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, method.MethodIndex, method.ParameterStartIndex, method.ParameterEndIndex);
+                    Method = new Metadata.MethodIndex(method.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, method.MethodIndex, method.ParameterStartIndex, method.ParameterEndIndex);
                     switch (method.CallType)
                     {
                         case CallTypeEnum.SendOnly:

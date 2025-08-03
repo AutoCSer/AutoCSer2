@@ -18,7 +18,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// </summary>
         internal DatabaseBackupService()
         {
-            DeleteFile().NotWait();
+            DeleteFile().AutoCSerNotWait();
         }
         /// <summary>
         /// 删除历史文件
@@ -72,7 +72,7 @@ namespace AutoCSer.TestCase.DatabaseBackup
         /// <returns></returns>
         public override string[] GetDatabase(CommandServerCallQueue queue)
         {
-            return ConfigFile.Default.DatabaseArray.getArray(p => p.Name);
+            return ConfigFile.Default.DatabaseArray.AutoCSerCollectionExtensions().GetArray(p => p.Name);
         }
         /// <summary>
         /// 创建数据库备份器

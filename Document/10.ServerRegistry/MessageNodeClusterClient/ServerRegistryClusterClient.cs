@@ -44,14 +44,14 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
             this.getCount = Math.Max(getCount - 1, 0);
             getIndex = -1;
             notFoundClient = Task.FromResult(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage>>(AutoCSer.Net.CommandClientReturnTypeEnum.Unknown, "没有找到有效客户端节点"));
-            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Append(this).NotWait();
+            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Append(this).AutoCSerNotWait();
         }
         /// <summary>
         /// Release resources
         /// </summary>
         public override void Dispose()
         {
-            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Remove(this).NotWait();
+            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Remove(this).AutoCSerNotWait();
             base.Dispose();
         }
         /// <summary>
@@ -170,7 +170,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
                 var node = await Client.GetNode();
                 if (node.IsSuccess)
                 {
-                    var result = await node.Value.notNull().AppendMessage(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage.JsonSerialize(new Data.TestClass { Int = value, String = value.toString() }));
+                    var result = await node.Value.AutoCSerClassGenericTypeExtensions().NotNull().AppendMessage(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage.JsonSerialize(new Data.TestClass { Int = value, String = value.AutoCSerExtensions().ToString() }));
                     if (result.IsSuccess) Console.Write('+');
                     else ConsoleWriteQueue.Breakpoint($"AppendMessage {result.ReturnType}.{result.CallState}");
                 }

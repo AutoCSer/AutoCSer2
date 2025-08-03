@@ -132,7 +132,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// <returns></returns>
         public void CheckLog()
         {
-            if (System.Threading.Interlocked.CompareExchange(ref isCheckLog, 1, 0) == 0) checkLog().NotWait();
+            if (System.Threading.Interlocked.CompareExchange(ref isCheckLog, 1, 0) == 0) checkLog().AutoCSerNotWait();
         }
         /// <summary>
         /// Check the online status of the server

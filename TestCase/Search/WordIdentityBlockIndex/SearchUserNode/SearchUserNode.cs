@@ -48,7 +48,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
             users = new SearchTree.Dictionary<int, SearchUser>();
             loginTimes = new SearchTree.Set<CompareKey<DateTime, int>>();
             queueLock = new System.Threading.SemaphoreSlim(1, 1);
-            DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
+            DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().AutoCSerNotWait();
         }
         /// <summary>
         /// Initialization loading is completed and processed
@@ -167,7 +167,7 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
             {
                 if (!users.ContainsKey(key))
                 {
-                    createTask(key, callback).NotWait();
+                    createTask(key, callback).AutoCSerNotWait();
                     state = ConditionDataUpdateStateEnum.Callbacked;
                 }
                 else state = ConditionDataUpdateStateEnum.Success;
@@ -219,8 +219,8 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
             ConditionDataUpdateStateEnum state = ConditionDataUpdateStateEnum.Unknown;
             try
             {
-                if (users.ContainsKey(key)) updateTask(key, callback).NotWait();
-                else createTask(key, callback).NotWait();
+                if (users.ContainsKey(key)) updateTask(key, callback).AutoCSerNotWait();
+                else createTask(key, callback).AutoCSerNotWait();
                 state = ConditionDataUpdateStateEnum.Callbacked;
             }
             finally

@@ -170,7 +170,7 @@ Press quit to exit.");
                     return;
                 }
                 Console.WriteLine(serverFileName.Value);
-                getLog(node.Value, identity.Value).NotWait();
+                getLog(node.Value, identity.Value).AutoCSerNotWait();
                 state = await node.Value.Start(identity.Value);
                 if (!state.IsSuccess)
                 {
@@ -309,7 +309,7 @@ Press quit to exit.");
                     return;
                 }
                 Console.WriteLine(serverFileName.Value);
-                getLog(node.Value, identity.Value).NotWait();
+                getLog(node.Value, identity.Value).AutoCSerNotWait();
                 state = await node.Value.Start(identity.Value);
                 if (!state.IsSuccess)
                 {

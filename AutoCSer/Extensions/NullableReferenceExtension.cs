@@ -7,7 +7,7 @@ namespace AutoCSer.Extensions
     /// Nullable reference type extension operation (Used to eliminate IDE warnings)
     /// 可空引用类型扩展操作（用于消除 IDE 警告）
     /// </summary>
-    public static class NullableReferenceExtension
+    internal static class NullableReferenceExtension
     {
         /// <summary>
         /// The object is converted to a specified nullable reference type
@@ -18,9 +18,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static T? castClass<T>(this object? value) where T : class
+        internal static T? castClass<T>(this object? value) where T : class
 #else
-        public static T castClass<T>(this object value) where T : class
+        internal static T castClass<T>(this object value) where T : class
 #endif
         {
 #if NetStandard21
@@ -38,9 +38,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static T? castType<T>(this object? value)
+        internal static T? castType<T>(this object? value)
 #else
-        public static T castType<T>(this object value)
+        internal static T castType<T>(this object value)
 #endif
         {
             if (value != null) return (T)value;
@@ -55,9 +55,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static T castValue<T>(this object? value) where T : struct
+        internal static T castValue<T>(this object? value) where T : struct
 #else
-        public static T castValue<T>(this object value) where T : struct
+        internal static T castValue<T>(this object value) where T : struct
 #endif
         {
             if (value != null) return (T)value;
@@ -72,9 +72,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static T notNullCastType<T>(this object? value) where T : class
+        internal static T notNullCastType<T>(this object? value) where T : class
 #else
-        public static T notNullCastType<T>(this object value) where T : class
+        internal static T notNullCastType<T>(this object value) where T : class
 #endif
         {
 #if DEBUG
@@ -97,9 +97,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static T notNull<T>(this T? value) where T : class
+        internal static T notNull<T>(this T? value) where T : class
 #else
-        public static T notNull<T>(this T value) where T : class
+        internal static T notNull<T>(this T value) where T : class
 #endif
         {
 #if DEBUG
@@ -118,9 +118,9 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static T?[] castArray<T>(this T? value) where T : class
+        internal static T?[] castArray<T>(this T? value) where T : class
 #else
-        public static T[] castArray<T>(this T value) where T : class
+        internal static T[] castArray<T>(this T value) where T : class
 #endif
         {
 #if NetStandard21
@@ -138,7 +138,7 @@ namespace AutoCSer.Extensions
         /// <returns></returns>
 
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static object castObject<T>(this T value)
+        internal static object castObject<T>(this T value)
         {
 #pragma warning disable CS8603
             return value;
@@ -152,7 +152,7 @@ namespace AutoCSer.Extensions
         /// <param name="array"></param>
         /// <param name="index"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void setDefault<T>(this T[] array, int index)
+        internal static void setDefault<T>(this T[] array, int index)
         {
 #pragma warning disable CS8601
             array[index] = default(T);
@@ -166,7 +166,7 @@ namespace AutoCSer.Extensions
         /// <param name="array"></param>
         /// <param name="index"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static T getSetDefault<T>(this T[] array, int index)
+        internal static T getSetDefault<T>(this T[] array, int index)
         {
             T value = array[index];
 #pragma warning disable CS8601

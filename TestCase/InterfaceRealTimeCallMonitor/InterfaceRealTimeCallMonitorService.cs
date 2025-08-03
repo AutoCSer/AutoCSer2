@@ -63,7 +63,7 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
         /// <returns></returns>
         private ExceptionStatisticsClient getExceptionStatisticsNode(DateTime dateTime)
         {
-            uint date = dateTime.toIntDate();
+            uint date = dateTime.AutoCSerExtensions().ToIntDate();
             if (date <= exceptionStatisticsClient.Date) return exceptionStatisticsClient;
             return exceptionStatisticsClient = new ExceptionStatisticsClient(date);
         }

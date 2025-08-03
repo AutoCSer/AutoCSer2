@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.63</Version>
+    <Version>2.0.64</Version>
     <PackageId>AutoCSer2.1</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.1]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -125,6 +125,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Memory\ByteArrayBuffer.cs" />
     <Compile Include="Memory\BufferSizeBitsEnum.cs" />
     <Compile Include="Memory\ByteArrayPool.cs" />
+    <Compile Include="Memory\HashBytes.cs" />
     <Compile Include="Metadata\GenericType\EquatableGenericType.cs" />
     <Compile Include="Metadata\GenericType\DictionaryGenericType2.cs" />
     <Compile Include="Metadata\MemberGroup.cs" />
@@ -315,6 +316,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\MergeCallbackCommand.cs" />
+    <Compile Include="Net\CommandServer\Command\BaseCommand\RemoteMetadataCallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\SendOnlyCommand.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientMethodTypeEnum.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterface.cs" />
@@ -327,6 +329,39 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Output\ServerOutputKeepCallbackCountFree.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputReturnTypeKeepCallbackCount.cs" />
     <Compile Include="Net\CommandServer\CommandServerInterfaceControllerCreator.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallAction.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallConstantParameterAction.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallConstantParameterFunc.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallDelegate.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallFunc.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallParameterAction.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallParameterFunc.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterAction.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterFunc.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ClientMetadata.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameter.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterKey.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterSerializer.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ConstantTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\DelegateDeserializer.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\DelegateTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\FieldIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\FormatDeserialize.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\MethodIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\NodeHeaderEnum.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\PropertyIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionAction.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionFunc.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionSerializeStateEnum.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataCallback.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMemberIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMethodIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataOutputData.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataTypeIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\SerializeDataKey.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\SerializeInfo.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ServerMetadata.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\TypeIndex.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseClient.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseClientConfig.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListener.cs" />
@@ -343,6 +378,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Output\ServerOutput.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputCustomData.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputCancelKeepCallback.cs" />
+    <Compile Include="Net\CommandServer\Output\ServerOutputRemoteMetadata.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputReturnType.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientReturnTypeEnum.cs" />
     <Compile Include="Net\CommandServer\ServerControllerInterfaceAttribute.cs" />
@@ -469,6 +505,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="SimpleSerialize\Deserializer.cs" />
     <Compile Include="SimpleSerialize\SerializeDynamicMethod.cs" />
     <Compile Include="SimpleSerialize\Serializer.cs" />
+    <Compile Include="SimpleSerialize\SimpleSerializeType.cs" />
     <Compile Include="SubArray.cs" />
     <Compile Include="TextSerialize\TextSerializer.cs" />
     <Compile Include="Threading\CpuCachePad.cs" />

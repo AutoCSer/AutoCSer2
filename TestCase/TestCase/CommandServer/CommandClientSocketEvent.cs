@@ -124,6 +124,10 @@ namespace AutoCSer.TestCase
         /// 控制器异步队列接口测试（套接字上下文绑定服务端）
         /// </summary>
         public ServerBindContext.IServerTaskQueueControllerClientController ServerBindContextClientTaskQueueController { get; private set; }
+        /// <summary>
+        /// 远程表达式委托接口测试
+        /// </summary>
+        public IServerRemoteExpressionDelegateControllerClientController ClientRemoteExpressionDelegateController { get; private set; }
 #endif
         /// <summary>
         /// The set of parameters for creating the client controller is used to create the client controller object during the initialization of the client socket, and also to automatically bind the controller properties based on the interface type of the client controller after the client socket passes the service authentication API
@@ -164,6 +168,7 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(nameof(IDefinedDissymmetryServerController), typeof(ServerBindContext.IDefinedDissymmetryClientController));
 #if !AOT
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IServerTaskQueueControllerClientController));
+                if ((bool)customParameter) yield return new CommandClientControllerCreatorParameter(typeof(IServerRemoteExpressionDelegateController), typeof(IServerRemoteExpressionDelegateControllerClientController));
 #endif
             }
         }
@@ -172,9 +177,11 @@ namespace AutoCSer.TestCase
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
-        public CommandClientSocketEvent(CommandClient client) : base(client) { }
+        /// <param name="isRemoteExpression"></param>
+        public CommandClientSocketEvent(CommandClient client, bool isRemoteExpression = false) : base(client, isRemoteExpression) { }
 #if AOT
         /// <summary>
+        /// The notification of the server controller name was not found
         /// 没有找到服务端控制器名称通知
         /// </summary>
         /// <param name="socket"></param>
@@ -187,9 +194,10 @@ namespace AutoCSer.TestCase
                 case "AutoCSer.TestCase.IServerTaskQueueController":
                 case "AutoCSer.TestCase.IServerTaskQueueContextController+System.Int32":
                 case "AutoCSer.TestCase.ServerBindContext.IServerTaskQueueController":
+                case "AutoCSer.TestCase.IServerRemoteExpressionDelegateController":
                     return AutoCSer.Common.CompletedTask;
             }
-            return Client.Log.Debug($"没有找到客户端控制器名称 {controllerName}", LogLevelEnum.AutoCSer | LogLevelEnum.Debug | LogLevelEnum.Warn);
+            return base.NotFoundControllerName(socket, controllerName);
         }
 #endif
     }

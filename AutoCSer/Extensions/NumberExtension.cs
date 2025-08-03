@@ -8,38 +8,38 @@ namespace AutoCSer.Extensions
     /// Integer correlation extension operations
     /// 数值相关扩展操作
     /// </summary>
-    public unsafe static class NumberExtension
+    internal unsafe static class NumberExtension
     {
         /// <summary>
         /// The multiplier of a 16-bit integer divided by 10
         /// 16 位整数除以 10 转乘法的乘数
         /// </summary>
-        public const uint Div10_16Mul = ((1 << Div10_16Shift) + 9) / 10;
+        internal const uint Div10_16Mul = ((1 << Div10_16Shift) + 9) / 10;
         /// <summary>
         /// The number of shifts in the multiplication method of a 16-bit integer divided by 10
         /// 16 位整数除以 10 转乘法的位移
         /// </summary>
-        public const int Div10_16Shift = 19;
+        internal const int Div10_16Shift = 19;
         /// <summary>
         /// The multiplier of a 32-bit integer divided by 10,000
         /// 32 位整数除以 10000 转乘法的乘数
         /// </summary>
-        public const ulong Div10000Mul = ((1L << 45) + 9999) / 10000;
+        internal const ulong Div10000Mul = ((1L << 45) + 9999) / 10000;
         /// <summary>
         /// The number of shifts in the multiplication method of a 32-bit integer divided by 10,000
         /// 32 位整数除以 10000 转乘法的位移
         /// </summary>
-        public const int Div10000Shift = 45;
+        internal const int Div10000Shift = 45;
         /// <summary>
         /// The multiplier of a 32-bit integer divided by 100,000,000
         /// 32 位整数除以 100000000 转乘法的乘数
         /// </summary>
-        public const ulong Div100000000Mul = ((1L << 58) + 99999999) / 100000000;
+        internal const ulong Div100000000Mul = ((1L << 58) + 99999999) / 100000000;
         /// <summary>
         /// The number of shifts in the multiplication method of a 32-bit integer divided by 100,000,000
         /// 32 位整数除以 100000000 转乘法的位移
         /// </summary>
-        public const int Div100000000Shift = 58;
+        internal const int Div100000000Shift = 58;
 
         /// <summary>
         /// Integer to string conversion
@@ -50,7 +50,7 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this byte value)
+        internal unsafe static string toString(this byte value)
         {
             long chars;
             return new string((char*)&chars, 0, ToString(value, (char*)&chars));
@@ -95,7 +95,7 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this sbyte value)
+        internal unsafe static string toString(this sbyte value)
         {
             long chars;
             return new string((char*)&chars, 0, ToString(value, (char*)&chars));
@@ -164,7 +164,7 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this ushort value)
+        internal unsafe static string toString(this ushort value)
         {
             char* chars = stackalloc char[5 + 3];
             return new string(chars, 0, ToString(value, chars));
@@ -231,7 +231,7 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this short value)
+        internal unsafe static string toString(this short value)
         {
             char* chars = stackalloc char[6 + 2];
             return new string(chars, 0, ToString(value, chars));
@@ -303,7 +303,7 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this uint value)
+        internal unsafe static string toString(this uint value)
         {
             char* chars = stackalloc char[10 + 2];
             return new string(chars, 0, ToString(value, chars));
@@ -421,10 +421,25 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this int value)
+        internal unsafe static string toString(this int value)
         {
             char* chars = stackalloc char[12];
             return new string(chars, 0, ToString(value, chars));
+        }
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <param name="value">Integer value
+        /// 整数值</param>
+        /// <param name="prefix">Prefix
+        /// 前缀字符</param>
+        /// <returns></returns>
+        internal unsafe static string toString(this int value, char prefix)
+        {
+            char* chars = stackalloc char[13];
+            *chars = prefix;
+            return new string(chars, 0, ToString(value, chars + 1) + 1);
         }
         /// <summary>
         /// Integer to string conversion
@@ -577,7 +592,7 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this ulong value)
+        internal unsafe static string toString(this ulong value)
         {
             char* chars = stackalloc char[20];
             return new string(chars, 0, ToString(value, chars));
@@ -711,7 +726,7 @@ namespace AutoCSer.Extensions
         /// <returns>Integer string
         /// 整数字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public unsafe static string toString(this long value)
+        internal unsafe static string toString(this long value)
         {
             char* chars = stackalloc char[22 + 2];
             return new string(chars, 0, ToString(value, chars));
@@ -756,7 +771,7 @@ namespace AutoCSer.Extensions
         /// 整数值</param>
         /// <returns>A string of 16 hexadecimal characters
         /// 16 个十六进制字符的字符串</returns>
-        public static string toHex(this ulong value)
+        internal static string toHex(this ulong value)
         {
             string hexs = AutoCSer.Common.AllocateString(16);
             fixed (char* hexFixed = hexs) toHex(value, hexFixed);
@@ -785,7 +800,7 @@ namespace AutoCSer.Extensions
         /// <returns>A string of 8 hexadecimal characters
         /// 8 个十六进制字符的字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static string toHex(this uint value)
+        internal static string toHex(this uint value)
         {
             string hexs = AutoCSer.Common.AllocateString(8);
             fixed (char* hexFixed = hexs) toHex(value, hexFixed);
@@ -945,7 +960,7 @@ namespace AutoCSer.Extensions
         /// 不允许负数</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static int logicalInversion(this int value)
+        internal static int logicalInversion(this int value)
         {
             return (int)(((uint)value - 1) >> 31);
         }
@@ -957,27 +972,29 @@ namespace AutoCSer.Extensions
         /// 不允许负数</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static int toLogical(this int value)
+        internal static int toLogical(this int value)
         {
             return logicalInversion(value) ^ 1;
         }
+        /// <summary>
+        /// Logical inversion: 0 to 1, non-0 to 0
+        /// 逻辑取反，0 转 1，非 0 转 0
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static uint logicalInversion(this uint value)
+        {
+            return ((value - 1) & ~value) >> 31;
+        }
         ///// <summary>
-        ///// 逻辑取反，0 转 1，非 0 转 0
-        ///// </summary>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static uint logicalInversion(this uint value)
-        //{
-        //    return ((value - 1) & ~value) >> 31;
-        //}
-        ///// <summary>
+        ///// Convert logical values, converting non-0 to 1
         ///// 转逻辑值，非 0 转 1
         ///// </summary>
         ///// <param name="value"></param>
         ///// <returns></returns>
         //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static uint toLogical(this uint value)
+        //internal static uint toLogical(this uint value)
         //{
         //    return logicalInversion(value) ^ 1;
         //}
@@ -1015,7 +1032,7 @@ namespace AutoCSer.Extensions
         /// <returns>Number of valid bits
         /// 有效位数量</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static int bits(this uint value)
+        internal static int bits(this uint value)
         {
             return (value & 0x80000000U) == 0 ? NumberExtension.DeBruijn32.Byte[((value.fullBit() + 1) * NumberExtension.DeBruijn32Number) >> 27] : 32;
         }
@@ -1024,7 +1041,7 @@ namespace AutoCSer.Extensions
         ///// </summary>
         ///// <param name="value">data</param>
         ///// <returns>二进制1位的个数</returns>
-        //public static int bitCount(this uint value)
+        //internal static int bitCount(this uint value)
         //{
         //    //return bitCounts[(byte)value] + bitCounts[(byte)(value >> 8)] + bitCounts[(byte)(value >> 16)] + bitCounts[value >> 24];
 
@@ -1057,7 +1074,7 @@ namespace AutoCSer.Extensions
         /// 2^n related 32-bit deBruijn sequence
         /// 2^n 相关 32位 deBruijn 序列
         /// </summary>
-        public const uint DeBruijn32Number = 0x04653adfU;
+        internal const uint DeBruijn32Number = 0x04653adfU;
         /// <summary>
         /// Find 2 to the power of x
         /// 求 2 的 x 次方

@@ -9,7 +9,7 @@ namespace AutoCSer.ORM.Extensions
     /// <summary>
     /// 类型扩展操作
     /// </summary>
-    public static class TypeExtension
+    internal static class TypeExtension
     {
         /// <summary>
         /// C#类型转SQL数据类型集合

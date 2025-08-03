@@ -26,9 +26,9 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode<string> node = nodeResult.Value.notNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IDistributedLockNodeClientNode<string> node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
 
-            string lockKey = AutoCSer.Random.Default.Next().toString();
+            string lockKey = AutoCSer.Random.Default.Next().AutoCSerExtensions().ToString();
             Task<bool>[] tasks = new Task<bool>[Math.Max(AutoCSer.Common.ProcessorCount, 4)];
             for (int index = 0; index != tasks.Length; ++index) tasks[index] = test(node, lockKey, 1 << 10);
             foreach (Task<bool> task in tasks)

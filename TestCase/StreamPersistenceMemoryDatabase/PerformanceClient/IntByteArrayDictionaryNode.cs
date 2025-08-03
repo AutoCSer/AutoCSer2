@@ -80,23 +80,23 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
             {
                 case nameof(IntByteArrayDictionaryNode.SetBinarySerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (IntByteArrayDictionaryNode task in tasks) task.SetBinarySerialize().NotWait();
+                    foreach (IntByteArrayDictionaryNode task in tasks) task.SetBinarySerialize().AutoCSerNotWait();
                     break;
                 case nameof(IntByteArrayDictionaryNode.GetBinarySerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (IntByteArrayDictionaryNode task in tasks) task.GetBinarySerialize().NotWait();
+                    foreach (IntByteArrayDictionaryNode task in tasks) task.GetBinarySerialize().AutoCSerNotWait();
                     break;
                 case nameof(IntByteArrayDictionaryNode.SetJsonSerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (IntByteArrayDictionaryNode task in tasks) task.SetJsonSerialize().NotWait();
+                    foreach (IntByteArrayDictionaryNode task in tasks) task.SetJsonSerialize().AutoCSerNotWait();
                     break;
                 case nameof(IntByteArrayDictionaryNode.GetJsonSerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (IntByteArrayDictionaryNode task in tasks) task.GetJsonSerialize().NotWait();
+                    foreach (IntByteArrayDictionaryNode task in tasks) task.GetJsonSerialize().AutoCSerNotWait();
                     break;
                 case nameof(IntByteArrayDictionaryNode.Remove):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (IntByteArrayDictionaryNode task in tasks) task.Remove().NotWait();
+                    foreach (IntByteArrayDictionaryNode task in tasks) task.Remove().AutoCSerNotWait();
                     break;
             }
             await Wait(nameof(IntByteArrayDictionaryNode), isReadWriteQueue ? $"{serverMethodName}+{nameof(IReadWriteQueueService)}" : serverMethodName);

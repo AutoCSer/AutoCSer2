@@ -165,7 +165,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             long milliseconds = AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp);
             string persistenceMessasge = isPersistence ? " + Persistence" : null;
-            Console.WriteLine($"{typeName}.{methodName}{persistenceMessasge} Loop Completed {testCount}/{milliseconds.toString()}ms");
+            Console.WriteLine($"{typeName}.{methodName}{persistenceMessasge} Loop Completed {testCount}/{milliseconds.AutoCSerExtensions().ToString()}ms");
             await wait(typeName, waitMethodName);
         }
         /// <summary>
@@ -178,10 +178,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
         {
             await waitLock.WaitAsync();
             long milliseconds = AutoCSer.Date.GetMillisecondsByTimestamp(Stopwatch.GetTimestamp() - startTimestamp);
-            string concurrentMessasge = concurrent == 1 ? null : $" {concurrent.toString()} Concurrent";
+            string concurrentMessasge = concurrent == 1 ? null : $" {concurrent.AutoCSerExtensions().ToString()} Concurrent";
             string persistenceMessasge = isPersistence ? " + Persistence" : null;
-            string countMessage = milliseconds != 0 ? (testCount >= milliseconds ? $"{(testCount / milliseconds).toString()}/ms" : $"{(testCount * 1000 / milliseconds).toString()}/s") : testCount.toString();
-            Console.WriteLine($"{typeName}.{methodName}{persistenceMessasge} {concurrentMessasge} Completed {testCount}/{milliseconds.toString()}ms {countMessage}");
+            string countMessage = milliseconds != 0 ? (testCount >= milliseconds ? $"{(testCount / milliseconds).AutoCSerExtensions().ToString()}/ms" : $"{(testCount * 1000 / milliseconds).AutoCSerExtensions().ToString()}/s") : testCount.AutoCSerExtensions().ToString();
+            Console.WriteLine($"{typeName}.{methodName}{persistenceMessasge} {concurrentMessasge} Completed {testCount}/{milliseconds.AutoCSerExtensions().ToString()}ms {countMessage}");
             if (errorCount != 0) ConsoleWriteQueue.WriteLine($"ERROR {errorCount}", ConsoleColor.Red);
             await Task.Delay(1000);
         }

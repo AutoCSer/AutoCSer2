@@ -39,7 +39,7 @@ namespace AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            IStringDictionaryNodeLocalClientNode node = nodeResult.Value.notNull();
+            IStringDictionaryNodeLocalClientNode node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
             var result = await node.Clear();
             if (!result.IsSuccess)
             {

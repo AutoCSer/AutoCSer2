@@ -28,7 +28,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         /// <returns></returns>
         public override void RemoveHistoryFile(StreamPersistenceMemoryDatabaseService service)
         {
-            new RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).Catch();
+            new RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).AutoCSerExtensions().Catch();
         }
 #if !DEBUG
         /// <summary>

@@ -28,7 +28,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
         void AutoCSer.BinarySerialize.ICustomSerialize<Custom>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             var stringValue = default(string);
-            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.notNull());
+            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.AutoCSerClassGenericTypeExtensions().NotNull());
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.BinarySerialize
         void AutoCSer.BinarySerialize.ICustomSerialize<CustomStruct>.Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             var stringValue = default(string);
-            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.notNull());
+            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.AutoCSerClassGenericTypeExtensions().NotNull());
         }
     }
 }

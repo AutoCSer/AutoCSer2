@@ -126,7 +126,7 @@ namespace AutoCSer.Reflection
                         field.DeclaringType.notNull().typeFullName(ref typeNameBuilder);
                         nameStream.Write('.');
                         nameStream.SimpleWrite(field.Name);
-                        fieldName = TypeNameExtension.GetName(ref typeNameBuilder, typeNameString, nameFixed);
+                        fieldName = Extensions.TypeExtensions.GetName(ref typeNameBuilder, typeNameString, nameFixed);
                     }
                 }
             }
@@ -166,7 +166,7 @@ namespace AutoCSer.Reflection
                         property.DeclaringType.notNull().typeFullName(ref typeNameBuilder);
                         nameStream.Write('.');
                         nameStream.SimpleWrite(property.Name);
-                        propertyName = TypeNameExtension.GetName(ref typeNameBuilder, typeNameString, nameFixed);
+                        propertyName = Extensions.TypeExtensions.GetName(ref typeNameBuilder, typeNameString, nameFixed);
                     }
                 }
             }
@@ -234,7 +234,7 @@ namespace AutoCSer.Reflection
                                 nameStream.Write(')');
                             }
                             formatName(nameStream.Char, nameStream.CurrentChar);
-                            methodName = TypeNameExtension.GetName(ref typeNameBuilder, typeNameString, nameFixed);
+                            methodName = Extensions.TypeExtensions.GetName(ref typeNameBuilder, typeNameString, nameFixed);
                         }
                     }
                 }

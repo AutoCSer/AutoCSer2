@@ -197,7 +197,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistry
         /// </summary>
         public override void Dispose()
         {
-            client.SocketEvent.Remove(this).NotWait();
+            client.SocketEvent.Remove(this).AutoCSerNotWait();
             base.Dispose();
         }
         /// <summary>

@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
             Program program = new Program(args);
             if (!await program.switchProcess())
             {
-                program.start().NotWait();
+                program.start().AutoCSerNotWait();
                 Console.WriteLine("Press quit to exit.");
                 while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await program.exit();

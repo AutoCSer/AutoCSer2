@@ -104,7 +104,7 @@ namespace AutoCSer.CommandService.ReverseLogCollection
             if (!send(log))
             {
                 var removeLog = logs.Write(log);
-                if (removeLog != null) onRemove(log).NotWait();
+                if (removeLog != null) onRemove(log).AutoCSerNotWait();
             }
         }
         /// <summary>

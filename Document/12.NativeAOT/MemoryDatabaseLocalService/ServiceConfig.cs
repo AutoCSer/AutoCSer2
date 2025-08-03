@@ -26,7 +26,7 @@ namespace AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService
         /// <returns></returns>
         public override void RemoveHistoryFile(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService service)
         {
-            new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).Catch();
+            new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).AutoCSerExtensions().Catch();
         }
         /// <summary>
         /// Set the rebuild file size to at least 1MB

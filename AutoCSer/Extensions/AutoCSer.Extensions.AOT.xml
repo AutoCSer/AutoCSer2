@@ -632,9 +632,6 @@
             数组扩展
             </summary>
             <summary>
-            数组扩展
-            </summary>
-            <summary>
             数组子串扩展
             </summary>
             <summary>
@@ -798,13 +795,6 @@
             数组排序
             </summary>
             <param name="array">长度大于 1</param>
-        </member>
-        <member name="M:AutoCSer.Extensions.ArraySort.RandomSort``1(``0[])">
-            <summary>
-            随机排序
-            </summary>
-            <typeparam name="T">值类型</typeparam>
-            <param name="array">排序数组</param>
         </member>
         <member name="M:AutoCSer.Extensions.ArraySort.QuickSort(System.Int32[])">
             <summary>
@@ -1380,6 +1370,30 @@
             </summary>
             <param name="array">长度大于 1</param>
         </member>
+        <member name="T:AutoCSer.Extensions.ULongArrayExtensions">
+            <summary>
+            ulong array expansion operation
+            ulong 数组扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ULongArrayExtensions.array">
+            <summary>
+            ulong array
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongArrayExtensions.#ctor(System.UInt64[])">
+            <summary>
+            ulong array expansion operation
+            ulong 数组扩展操作
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongArrayExtensions.Sort">
+            <summary>
+            ulong array sorting
+            ulong 数组排序
+            </summary>
+        </member>
         <member name="T:AutoCSer.Extensions.SubArraySort">
             <summary>
             数组子串扩展
@@ -1653,6 +1667,898 @@
             <typeparam name="T">Data type</typeparam>
             <returns>Dictionary</returns>
         </member>
+        <member name="T:AutoCSer.Extensions.ArrayExtensions">
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions.RandomSort``1(``0[])">
+            <summary>
+            随机排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+        </member>
+        <member name="T:AutoCSer.Extensions.ArrayExtensions`1">
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.ArrayExtensions`1.array">
+            <summary>
+            Array
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.#ctor(`0[])">
+            <summary>
+            Array expansion operation
+            数组扩展操作
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.IsEmpty">
+            <summary>
+            数组是否为空或者长度为0
+            </summary>
+            <returns>数组是否为空或者长度为0</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Copy">
+            <summary>
+            复制数组
+            </summary>
+            <returns>复制后的新数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Concat(`0[])">
+            <summary>
+            合并数组
+            </summary>
+            <param name="otherArray">追加的数组</param>
+            <returns>合并后的数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.GetFind(System.Func{`0,System.Boolean})">
+            <summary>
+            获取匹配集合
+            </summary>
+            <param name="isValue">Determine whether the data match
+            判断数据是否匹配</param>
+            <returns>匹配集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.Sort(System.Func{`0,`0,System.Int32})">
+            <summary>
+            排序
+            </summary>
+            <param name="comparer">Data sorting comparator
+            数据排序比较器</param>
+            <returns>排序后的数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.JoinString(System.Char,System.Func{`0,System.String})">
+            <summary>
+            Connect string
+            连接字符串
+            </summary>
+            <param name="toString">The delegate that gets the string
+            获取字符串的委托</param>
+            <param name="join">连接字符</param>
+            <returns>字符串</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.RandomSort">
+            <summary>
+            随机排序
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.SetDefault(System.Int32)">
+            <summary>
+            Set the array elements to the default values
+            设置数组元素为默认值
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ArrayExtensions`1.GetSetDefault(System.Int32)">
+            <summary>
+            Set the array elements as default values and return the original values
+            设置数组元素为默认值并返回原始值
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="T:AutoCSer.Extensions.ClassGenericTypeExtensions`1">
+            <summary>
+            泛型扩展操作
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.ClassGenericTypeExtensions`1.value">
+            <summary>
+            泛型对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ClassGenericTypeExtensions`1.#ctor(`0)">
+            <summary>
+            泛型扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ClassGenericTypeExtensions`1.NotNull">
+            <summary>
+            Non-empty object type conversion
+            非空对象类型转换
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ClassGenericTypeExtensions`1.CastArray">
+            <summary>
+            Convert an array of nullable reference types to an array
+            可空引用类型数组转换为数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ClassGenericTypeExtensions`1.MemberCopy``1(AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="VT">对象类型</typeparam>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ClassGenericTypeExtensions`1.MemberCopy(AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ClassGenericTypeExtensions`1.MemberCopyTo(`0,AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <param name="writeValue">写入数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ClassGenericTypeExtensions`1.MemberCopyFrom(`0,AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <param name="readValue">读取数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="T:AutoCSer.Extensions.CollectionExtensions`1">
+            <summary>
+            集合相关扩展
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.CollectionExtensions`1.collection">
+            <summary>
+            集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.#ctor(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            集合相关扩展
+            </summary>
+            <param name="collection"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.Count">
+            <summary>
+            Get the quantity of data
+            获取数据数量
+            </summary>
+            <returns>null为0</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.GetArray">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.GetLeftArray``1(System.Func{`0,``0})">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <typeparam name="VT">返回数组类型</typeparam>
+            <param name="getValue">获取数组值的委托</param>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.GetArray``1(System.Func{`0,``0})">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <typeparam name="VT">返回数组类型</typeparam>
+            <param name="getValue">获取数组值的委托</param>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.GetListArray``1(System.Func{`0,``0})">
+            <summary>
+            根据集合内容返回单向动态数组
+            </summary>
+            <typeparam name="VT">返回数组类型</typeparam>
+            <param name="getValue">获取数组值的委托</param>
+            <returns>单向动态数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.GetFindArrayNotNull``1(System.Func{`0,``0})">
+            <summary>
+            获取匹配数组
+            </summary>
+            <typeparam name="VT">返回数组类型</typeparam>
+            <param name="getValue">获取数组值的委托</param>
+            <returns>匹配数组</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.CollectionExtensions`1.getDictionary``1(System.Func{`0,``0})">
+            <summary>
+            转换成字典
+            </summary>
+            <typeparam name="KT">哈希键值类型</typeparam>
+            <param name="getKey">键值获取器</param>
+            <returns>Dictionary</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.Extension">
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+            <summary>
+            Get the extended operation encapsulation
+            获取扩展操作封装
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.UInt64)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions``1(``0[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerULongArrayExtensions(System.UInt64[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerLongArrayExtensions(System.Int64[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerUIntArrayExtensions(System.UInt32[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerIntArrayExtensions(System.Int32[])">
+            <summary>
+            Get the AutoCSer array extension encapsulation
+            获取 AutoCSer 数组扩展封装
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions``2(System.Collections.Generic.Dictionary{``0,``1})">
+            <summary>
+            Get the AutoCSer dictionary extension encapsulation
+            获取 AutoCSer 字典扩展封装
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+            <param name="dictionary"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerEnumerableExtensions``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            获取 AutoCSer 可枚举集合扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerCollectionExtensions``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Get the AutoCSer collection extension encapsulation
+            获取 AutoCSer 集合扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerClassGenericTypeExtensions``1(``0)">
+            <summary>
+            获取 AutoCSer 泛型扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerGenericTypeExtensions``1(``0)">
+            <summary>
+            获取 AutoCSer 泛型扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Threading.SynchronizationContext)">
+            <summary>
+            获取 AutoCSer 同步上下文扩展封装
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            Get the AutoCSer Task extension encapsulation
+            获取 AutoCSer Task 扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerTaskExtensions``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            Get the AutoCSer Task extension encapsulation
+            获取 AutoCSer Task 扩展封装
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Threading.Tasks.Task)">
+            <summary>
+            Get the AutoCSer Task extension encapsulation
+            获取 AutoCSer Task 扩展封装
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Threading.Tasks.ValueTask)">
+            <summary>
+            Get the AutoCSer ValueTask extension encapsulation
+            获取 AutoCSer ValueTask 扩展封装
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerObjectExtensions(System.Object)">
+            <summary>
+            Get the AutoCSer object extension encapsulation
+            获取 AutoCSer object 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Int64)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.UInt32)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Int32)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.UInt16)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Int16)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.Byte)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.SByte)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.String)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.DateTime)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.Extension.AutoCSerExtensions(System.TimeSpan)">
+            <summary>
+            Get the AutoCSer extension encapsulation
+            获取 AutoCSer 扩展封装
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.ULongExtensions">
+            <summary>
+            ulong expansion operation
+            ulong 扩展操作
+            </summary>
+            <summary>
+            ulong expansion operation
+            ulong 扩展操作
+            </summary>
+            <summary>
+            ulong expansion operation
+            ulong 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ULongExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongExtensions.#ctor(System.UInt64)">
+            <summary>
+            ulong expansion operation
+            ulong 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongExtensions.BitCount">
+            <summary>
+            获取二进制1位的个数
+            </summary>
+            <returns>二进制1位的个数</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongExtensions.Bits">
+            <summary>
+            获取有效位长度
+            </summary>
+            <returns>有效位长度</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongExtensions.EndBits">
+            <summary>
+            获取最后二进制0位的长度
+            </summary>
+            <returns>最后二进制0位的长度</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ULongExtensions.ToHex">
+            <summary>
+            Convert to a string of 16 hexadecimal characters (capital letters)
+            转换为 16 个十六进制字符的字符串（大写字母）
+            </summary>
+            <returns>A string of 16 hexadecimal characters
+            16 个十六进制字符的字符串</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.DateTimeExtensions">
+            <summary>
+            DateTime expansion operation
+            时间扩展操作
+            </summary>
+            <summary>
+            DateTime expansion operation
+            DateTime 扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.DateTimeExtensions.ToString(System.Char)">
+            <summary>
+            Time is converted to string (yyyy-MM-ddTHH:mm:ss.fffffff)
+            时间转换成字符串（yyyy-MM-ddTHH:mm:ss.fffffff）
+            </summary>
+            <param name="dateSplit">The separator between years, months and days
+            年月日之间的分隔符</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.DateTimeExtensions.ToIntDate">
+            <summary>
+            The integer value of time conversion: Year[23b] + Month[4b] + Day[5b]
+            时间转整数值 Year[23b] + Month[4b] + Day[5b]
+            </summary>
+            <returns>Year[23b] + Month[4b] + Day[5b]</returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.DateTimeExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.DateTimeExtensions.#ctor(System.DateTime)">
+            <summary>
+            DateTime expansion operation
+            DateTime 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.Extensions.DictionaryExtensions">
+            <summary>
+            Dictionary expansion operation
+            字典扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.DictionaryExtensions.getValueArray``2(System.Collections.Generic.Dictionary{``0,``1},``0[])">
+            <summary>
+            Get the matching data array based on the keyword collection
+            根据关键字集合获取匹配数据数组
+            </summary>
+            <param name="dictionary"></param>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.DictionaryExtensions.removeKeys``2(System.Collections.Generic.Dictionary{``0,``1},``0[])">
+            <summary>
+            Delete the matching data based on the keyword collection
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="dictionary"></param>
+            <param name="keys"></param>
+            <returns>The number of deleted keywords
+            删除关键字数量</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.DictionaryExtensions`2">
+            <summary>
+            Dictionary expansion operation
+            字典扩展操作
+            </summary>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="VT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.DictionaryExtensions`2.dictionary">
+            <summary>
+            Dictionary
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.DictionaryExtensions`2.#ctor(System.Collections.Generic.Dictionary{`0,`1})">
+            <summary>
+            Dictionary expansion operation
+            字典扩展操作
+            </summary>
+            <param name="dictionary"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.DictionaryExtensions`2.GetValueArray(`0[])">
+            <summary>
+            Get the matching data array based on the keyword collection
+            根据关键字集合获取匹配数据数组
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.DictionaryExtensions`2.RemoveKeys(`0[])">
+            <summary>
+            Delete the matching data based on the keyword collection
+            根据关键字集合删除匹配数据
+            </summary>
+            <param name="keys"></param>
+            <returns>The number of deleted keywords
+            删除关键字数量</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.EnumerableExtensions">
+            <summary>
+            可枚举集合扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions.valueToEnumerable``1(``0)">
+            <summary>
+            单个数据转换为可枚举集合
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="value">枚举数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions.getLeftArray``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="values">Data collection
+            数据集合</param>
+            <param name="capacity">初始空间大小</param>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions.getListArray``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+            <param name="values">Data collection
+            数据集合</param>
+            <param name="capacity">初始空间大小</param>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions.enumerableTask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            并发任务，用于替代 Parallel.ForEachAsync
+            </summary>
+            <param name="source">获取任务参数集合</param>
+            <param name="taskCount">最大并发任务数量，最小值为 1</param>
+            <param name="getTask">获取任务委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions.enumerableValueTask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Threading.Tasks.ValueTask})">
+            <summary>
+            并发任务，用于替代 Parallel.ForEachAsync
+            </summary>
+            <param name="source">获取任务参数集合</param>
+            <param name="taskCount">最大并发任务数量，最小值为 1</param>
+            <param name="getTask">获取任务委托</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.EnumerableExtensions`1">
+            <summary>
+            可枚举集合扩展操作
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.EnumerableExtensions`1.values">
+            <summary>
+            可枚举集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            可枚举集合扩展操作
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions`1.GetLeftArray(System.Int32)">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <param name="capacity">初始空间大小</param>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions`1.GetListArray(System.Int32)">
+            <summary>
+            根据集合内容返回数组
+            </summary>
+            <param name="capacity">初始空间大小</param>
+            <returns>Array</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions`1.EnumerableTask(System.Int32,System.Func{`0,System.Threading.Tasks.Task})">
+            <summary>
+            并发任务，用于替代 Parallel.ForEachAsync
+            </summary>
+            <param name="taskCount">最大并发任务数量，最小值为 1</param>
+            <param name="getTask">获取任务委托</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.EnumerableExtensions`1.EnumerableValueTask(System.Int32,System.Func{`0,System.Threading.Tasks.ValueTask})">
+            <summary>
+            并发任务，用于替代 Parallel.ForEachAsync
+            </summary>
+            <param name="taskCount">最大并发任务数量，最小值为 1</param>
+            <param name="getTask">获取任务委托</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.GenericTypeExtensions`1">
+            <summary>
+            泛型扩展操作
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.GenericTypeExtensions`1.value">
+            <summary>
+            泛型对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.GenericTypeExtensions`1.#ctor(`0)">
+            <summary>
+            泛型扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.GenericTypeExtensions`1.ToEnumerable">
+            <summary>
+            单个数据转换为可枚举集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.GenericTypeExtensions`1.CastObject">
+            <summary>
+            Generic values are converted to object
+            泛型值转换为 object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.GenericTypeExtensions`1.MemberCopyTo(`0@,AutoCSer.Metadata.MemberMap{`0})">
+            <summary>
+            对象成员复制
+            </summary>
+            <param name="writeValue">写入数据对象</param>
+            <param name="memberMap">成员位图</param>
+        </member>
+        <member name="M:AutoCSer.Extensions.GenericTypeExtensions`1.MemberwiseClone">
+            <summary>
+            对象浅复制
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.IntExtensions">
+            <summary>
+            int expansion operation
+            int 扩展操作
+            </summary>
+            <summary>
+            int expansion operation
+            int 扩展操作
+            </summary>
+            <summary>
+            int expansion operation
+            int 扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntExtensions.LogicalInversion">
+            <summary>
+            Logical inversion: 0 to 1, non-0 to 0 (Negative numbers are not allowed)
+            逻辑取反，0 转 1，非 0 转 0（不允许负数）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntExtensions.ToLogical">
+            <summary>
+            Convert logical values, converting non-0 to 1 (Negative numbers are not allowed)
+            转逻辑值，非 0 转 1（不允许负数）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.IntExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntExtensions.#ctor(System.Int32)">
+            <summary>
+            int expansion operation
+            int 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.LongExtensions">
+            <summary>
+            long expansion operation
+            long 扩展操作
+            </summary>
+            <summary>
+            long expansion operation
+            long 扩展操作
+            </summary>
+            <summary>
+            long expansion operation
+            long 扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.LongExtensions.LogicalInversion">
+            <summary>
+            逻辑取反，0 转 1，非 0 转 0（不允许负数）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.LongExtensions.ToLogical">
+            <summary>
+            转逻辑值，非 0 转 1（不允许负数）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.LongExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.LongExtensions.#ctor(System.Int64)">
+            <summary>
+            long expansion operation
+            long 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LongExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
+        </member>
         <member name="T:AutoCSer.Extensions.MemberCopyExtension">
             <summary>
             成员复制扩展操作
@@ -1669,6 +2575,16 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.MemberCopyExtension.memberCopy``2(``0,AutoCSer.Metadata.MemberMap{``1})">
+            <summary>
+            对象成员复制
+            </summary>
+            <typeparam name="VT">对象类型</typeparam>
+            <typeparam name="BT">复制成员对象类型</typeparam>
+            <param name="value">被复制对象</param>
+            <param name="memberMap">成员位图</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.MemberCopyExtension.MemberCopy``2(``0,AutoCSer.Metadata.MemberMap{``1})">
             <summary>
             对象成员复制
             </summary>
@@ -1722,6 +2638,185 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Extensions.ObjectExtensions">
+            <summary>
+            object expansion operation
+            object 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ObjectExtensions.value">
+            <summary>
+            object
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ObjectExtensions.#ctor(System.Object)">
+            <summary>
+            object expansion operation
+            object 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ObjectExtensions.CastClass``1">
+            <summary>
+            The object is converted to a specified nullable reference type
+            object 转换为指定可空引用类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ObjectExtensions.CastType``1">
+            <summary>
+            The object is converted to a specified nullable type
+            object 转换为指定可空类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ObjectExtensions.CastValue``1">
+            <summary>
+            Convert object to a value type
+            object 转换为值类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ObjectExtensions.NotNullCastType``1">
+            <summary>
+            Non-empty object conversion type
+            非空 object 转换类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.StringExtensions">
+            <summary>
+            String expansion operation
+            字符串扩展操作
+            </summary>
+            <summary>
+            string expansion operation
+            string 扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.StringExtensions.Split(System.Char)">
+            <summary>
+            分割字符串
+            </summary>
+            <param name="splitChar">分割符</param>
+            <returns>字符子串集合</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.StringExtensions.GetHashCode64">
+            <summary>
+            计算 64 位稳定 HASH 值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.StringExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.StringExtensions.#ctor(System.String)">
+            <summary>
+            string expansion operation
+            string 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.Extensions.SynchronizationContextExtensions">
+            <summary>
+            同步上下文扩展
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SynchronizationContextExtensions.context">
+            <summary>
+            同步上下文
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SynchronizationContextExtensions.#ctor(System.Threading.SynchronizationContext)">
+            <summary>
+            同步上下文扩展
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SynchronizationContextExtensions.Post(System.Action,System.Object)">
+            <summary>
+            同步上下文调用
+            </summary>
+            <param name="call"></param>
+            <param name="state"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SynchronizationContextExtensions.Post``1(System.Action{``0},``0,System.Object)">
+            <summary>
+            同步上下文调用
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="call"></param>
+            <param name="parameter"></param>
+            <param name="state"></param>
+        </member>
+        <member name="T:AutoCSer.Extensions.TaskExtensions">
+            <summary>
+            Task expansion operation
+            Task 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.TaskExtensions.task">
+            <summary>
+            Task
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtensions.#ctor(System.Threading.Tasks.Task)">
+            <summary>
+            Task expansion operation
+            Task 扩展操作
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtensions.Wait">
+            <summary>
+            Getting the Result from the new thread prevents subsequent operations from blocking the Task scheduler thread synchronously
+            从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtensions.Catch(System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            Capture and output the exception log
+            捕获并输出异常日志
+            </summary>
+            <param name="isQueue">The default is false, indicating that the unfinished queue will not be added
+            默认为 false 表示不加入未完成队列</param>
+            <param name="callerFilePath">Caller the source code file path</param>
+            <param name="callerMemberName">Caller member name</param>
+            <param name="callerLineNumber">Caller the line number of the source code</param>
+        </member>
+        <member name="T:AutoCSer.Extensions.TaskExtensions`1">
+            <summary>
+            Task expansion operation
+            Task 扩展操作
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Extensions.TaskExtensions`1.task">
+            <summary>
+            Task
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtensions`1.#ctor(System.Threading.Tasks.Task{`0})">
+            <summary>
+            Task expansion operation
+            Task 扩展操作
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.TaskExtensions`1.GetResult">
+            <summary>
+            Getting the Result from the new thread prevents subsequent operations from blocking the Task scheduler thread synchronously
+            从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Extensions.ThreadPoolExtension">
             <summary>
             线程池相关扩展
@@ -1735,30 +2830,6 @@
             <param name="threadPool">线程池</param>
             <param name="task">任务</param>
             <returns>返回结果</returns>
-        </member>
-        <member name="T:AutoCSer.Extensions.DictionaryExtension">
-            <summary>
-            字典相关扩展
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryExtension.getValueArray``2(System.Collections.Generic.Dictionary{``0,``1},``0[])">
-            <summary>
-            Get the matching data array based on the keyword collection
-            根据关键字集合获取匹配数据数组
-            </summary>
-            <param name="dictionary"></param>
-            <param name="keys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.DictionaryExtension.removeKeys``2(System.Collections.Generic.Dictionary{``0,``1},``0[])">
-            <summary>
-            Delete the matching data based on the keyword collection
-            根据关键字集合删除匹配数据
-            </summary>
-            <param name="dictionary"></param>
-            <param name="keys"></param>
-            <returns>The number of deleted keywords
-            删除关键字数量</returns>
         </member>
         <member name="T:AutoCSer.Extensions.FileInfoExtension">
             <summary>
@@ -1777,57 +2848,6 @@
             刷新文件信息状态并返回文件最后修改时间
             </summary>
             <param name="file"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Extensions.EnumerableExtension">
-            <summary>
-            集合相关扩展
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Extensions.EnumerableExtension.valueToEnumerable``1(``0)">
-            <summary>
-            单个数据转换为可枚举集合
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="value">枚举数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.EnumerableExtension.getLeftArray``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
-            <summary>
-            根据集合内容返回数组
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="values">Data collection
-            数据集合</param>
-            <param name="capacity">初始空间大小</param>
-            <returns>Array</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.EnumerableExtension.getListArray``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
-            <summary>
-            根据集合内容返回数组
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-            <param name="values">Data collection
-            数据集合</param>
-            <param name="capacity">初始空间大小</param>
-            <returns>Array</returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.EnumerableExtension.enumerableTask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Threading.Tasks.Task})">
-            <summary>
-            并发任务，用于替代 Parallel.ForEachAsync
-            </summary>
-            <param name="source">获取任务参数集合</param>
-            <param name="taskCount">最大并发任务数量，最小值为 1</param>
-            <param name="getTask">获取任务委托</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Extensions.EnumerableExtension.enumerableValueTask``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Func{``0,System.Threading.Tasks.ValueTask})">
-            <summary>
-            并发任务，用于替代 Parallel.ForEachAsync
-            </summary>
-            <param name="source">获取任务参数集合</param>
-            <param name="taskCount">最大并发任务数量，最小值为 1</param>
-            <param name="getTask">获取任务委托</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Extensions.IntegerExtension">
@@ -1901,11 +2921,14 @@
             异步锁扩展
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock)">
+        <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.Reentrant(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
             <summary>
             异步锁重入计数，第一次（最外层）调用该方法的调用点为当前异步可重入锁的异步上下文，对于上层异步调用无效（非线程安全，不支持多线程并发操作同一个异步上下文）
             </summary>
             <param name="semaphoreSlimLock"></param>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
         </member>
         <member name="M:AutoCSer.Extensions.SemaphoreSlimLock.ReentrantExit(AutoCSer.Threading.SemaphoreSlimLock)">
             <summary>
@@ -1951,35 +2974,41 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.Extensions.SynchronizationContextExtension">
+        <member name="T:AutoCSer.Extensions.TimeSpanExtensions">
             <summary>
-            同步上下文扩展
+            TimeSpan expansion operation
+            时间扩展操作
+            </summary>
+            <summary>
+            TimeSpan expansion operation
+            TimeSpan 扩展操作
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.SynchronizationContextExtension.Post(System.Threading.SynchronizationContext,System.Action,System.Object)">
+        <member name="M:AutoCSer.Extensions.TimeSpanExtensions.ToString">
             <summary>
-            同步上下文调用
+            Time is converted to a string (HH:mm:ss.fffffff)
+            时间转换成字符串（HH:mm:ss.fffffff）
             </summary>
-            <param name="context"></param>
-            <param name="call"></param>
-            <param name="state"></param>
+            <returns></returns>
         </member>
-        <member name="M:AutoCSer.Extensions.SynchronizationContextExtension.Post``1(System.Threading.SynchronizationContext,System.Action{``0},``0,System.Object)">
+        <member name="F:AutoCSer.Extensions.TimeSpanExtensions.value">
             <summary>
-            同步上下文调用
+            Value
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="context"></param>
-            <param name="call"></param>
-            <param name="parameter"></param>
-            <param name="state"></param>
         </member>
-        <member name="T:AutoCSer.Extensions.TypeNameExtension">
+        <member name="M:AutoCSer.Extensions.TimeSpanExtensions.#ctor(System.TimeSpan)">
+            <summary>
+            TimeSpan expansion operation
+            TimeSpan 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:AutoCSer.Extensions.TypeExtensions">
             <summary>
             类型扩展操作
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.TypeNameExtension.getTypeFullName(System.Type,AutoCSer.Reflection.TypeNameBuilder@,System.String)">
+        <member name="M:AutoCSer.Extensions.TypeExtensions.getTypeFullName(System.Type,AutoCSer.Reflection.TypeNameBuilder@,System.String)">
             <summary>
             获取类型名称
             </summary>
@@ -1988,14 +3017,14 @@
             <param name="tempName"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Extensions.TypeNameExtension.typeFullName(System.Type,AutoCSer.Reflection.TypeNameBuilder@)">
+        <member name="M:AutoCSer.Extensions.TypeExtensions.typeFullName(System.Type,AutoCSer.Reflection.TypeNameBuilder@)">
             <summary>
             写入类型名称
             </summary>
             <param name="type"></param>
             <param name="typeNameBuilder"></param>
         </member>
-        <member name="M:AutoCSer.Extensions.TypeNameExtension.typeFullName(System.Type,AutoCSer.Reflection.TypeNameBuilder@,System.Type[])">
+        <member name="M:AutoCSer.Extensions.TypeExtensions.typeFullName(System.Type,AutoCSer.Reflection.TypeNameBuilder@,System.Type[])">
             <summary>
             写入类型名称
             </summary>
@@ -2003,7 +3032,7 @@
             <param name="typeNameBuilder"></param>
             <param name="genericArguments">泛型类型参数集合</param>
         </member>
-        <member name="M:AutoCSer.Extensions.TypeNameExtension.GetName(AutoCSer.Reflection.TypeNameBuilder@,System.String,System.Char*)">
+        <member name="M:AutoCSer.Extensions.TypeExtensions.GetName(AutoCSer.Reflection.TypeNameBuilder@,System.String,System.Char*)">
             <summary>
             获取类型名称
             </summary>
@@ -2012,12 +3041,154 @@
             <param name="nameFixed"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Extensions.TypeNameExtension.getPropertyMemberInfo(System.Reflection.FieldInfo)">
+        <member name="M:AutoCSer.Extensions.TypeExtensions.getPropertyMemberInfo(System.Reflection.FieldInfo)">
             <summary>
             根据匿名字段获取对应属性
             </summary>
             <param name="field"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.UIntExtensions">
+            <summary>
+            uint expansion operation
+            uint 扩展操作
+            </summary>
+            <summary>
+            uint expansion operation
+            uint 扩展操作
+            </summary>
+            <summary>
+            uint expansion operation
+            uint 扩展操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntExtensions.ToDate(System.DateTimeKind)">
+            <summary>
+            Convert integer values to time: Year[23b] + Month[4b] + Day[5b]
+            整数值转时间：Year[23b] + Month[4b] + Day[5b]
+            </summary>
+            <param name="kind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntExtensions.EndBits">
+            <summary>
+            获取最后二进制0位的长度
+            </summary>
+            <returns>最后二进制0位的长度</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntExtensions.CheckDivMul(System.Int32,System.UInt32)">
+            <summary>
+            32b 除法转位移乘法误差检查（除数必须大于 0）
+            </summary>
+            <param name="shiftBit">位移数量</param>
+            <param name="maxValue">最大被除数</param>
+            <returns>误差是否满足要求</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntExtensions.ToHex">
+            <summary>
+            Convert to a string of 8 hexadecimal characters (capital letters)
+            转换为 8 个十六进制字符的字符串（大写字母）
+            </summary>
+            <returns>A string of 8 hexadecimal characters
+            8 个十六进制字符的字符串</returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntExtensions.Bits">
+            <summary>
+            Get the number of valid bits
+            获取有效位数量
+            </summary>
+            <returns>Number of valid bits
+            有效位数量</returns>
+        </member>
+        <member name="F:AutoCSer.Extensions.UIntExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntExtensions.#ctor(System.UInt32)">
+            <summary>
+            uint expansion operation
+            uint 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.UShortExtensions">
+            <summary>
+            ushort expansion operation
+            ushort 扩展操作
+            </summary>
+            <summary>
+            ushort expansion operation
+            ushort 扩展操作
+            </summary>
+            <summary>
+            ushort expansion operation
+            ushort 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.UShortExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.UShortExtensions.#ctor(System.UInt16)">
+            <summary>
+            ushort expansion operation
+            ushort 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.UShortExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.ValueTaskExtensions">
+            <summary>
+            Task expansion operation
+            Task 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ValueTaskExtensions.task">
+            <summary>
+            Task
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ValueTaskExtensions.#ctor(System.Threading.Tasks.ValueTask)">
+            <summary>
+            Task expansion operation
+            Task 扩展操作
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ValueTaskExtensions.Wait">
+            <summary>
+            Getting the Result from the new thread prevents subsequent operations from blocking the Task scheduler thread synchronously
+            从新线程中获取 Result 防止后续操作出现同步阻塞 Task 调度线程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.ValueTaskExtensions.Catch(System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            Capture and output the exception log
+            捕获并输出异常日志
+            </summary>
+            <param name="isQueue">The default is false, indicating that the unfinished queue will not be added
+            默认为 false 表示不加入未完成队列</param>
+            <param name="callerFilePath">Caller the source code file path</param>
+            <param name="callerMemberName">Caller member name</param>
+            <param name="callerLineNumber">Caller the line number of the source code</param>
         </member>
         <member name="T:AutoCSer.Extensions.Memory.Common">
             <summary>
@@ -3336,6 +4507,168 @@
             AOT 代码生成调用激活反射
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.LongArrayExtensions">
+            <summary>
+            long array expansion operation
+            long 数组扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.LongArrayExtensions.array">
+            <summary>
+            long array
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.LongArrayExtensions.#ctor(System.Int64[])">
+            <summary>
+            long array expansion operation
+            long 数组扩展操作
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.LongArrayExtensions.Sort">
+            <summary>
+            long array sorting
+            long 数组排序
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.UIntArrayExtensions">
+            <summary>
+            uint array expansion operation
+            uint 数组扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.UIntArrayExtensions.array">
+            <summary>
+            uint array
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntArrayExtensions.#ctor(System.UInt32[])">
+            <summary>
+            uint array expansion operation
+            uint 数组扩展操作
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.UIntArrayExtensions.Sort">
+            <summary>
+            uint array sorting
+            uint 数组排序
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.IntArrayExtensions">
+            <summary>
+            int array expansion operation
+            int 数组扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.IntArrayExtensions.array">
+            <summary>
+            int array
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntArrayExtensions.#ctor(System.Int32[])">
+            <summary>
+            int array expansion operation
+            int 数组扩展操作
+            </summary>
+            <param name="array"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.IntArrayExtensions.Sort">
+            <summary>
+            int array sorting
+            int 数组排序
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Extensions.ShortExtensions">
+            <summary>
+            short expansion operation
+            short 扩展操作
+            </summary>
+            <summary>
+            short expansion operation
+            short 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ShortExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ShortExtensions.#ctor(System.Int16)">
+            <summary>
+            short expansion operation
+            short 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ShortExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.ByteExtensions">
+            <summary>
+            byte expansion operation
+            byte 扩展操作
+            </summary>
+            <summary>
+            byte expansion operation
+            byte 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.ByteExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.ByteExtensions.#ctor(System.Byte)">
+            <summary>
+            byte expansion operation
+            byte 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.ByteExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
+        </member>
+        <member name="T:AutoCSer.Extensions.SByteExtensions">
+            <summary>
+            sbyte expansion operation
+            sbyte 扩展操作
+            </summary>
+            <summary>
+            sbyte expansion operation
+            sbyte 扩展操作
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Extensions.SByteExtensions.value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.SByteExtensions.#ctor(System.SByte)">
+            <summary>
+            sbyte expansion operation
+            sbyte 扩展操作
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.SByteExtensions.ToString">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <returns>Integer string
+            整数字符串</returns>
         </member>
         <member name="T:AutoCSer.Algorithm.ULongQuickRangeSortDesc">
             <summary>
@@ -6332,77 +7665,6 @@
             获取数组子串
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Memory.HashBytes">
-            <summary>
-            用于 HASH 的字节数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Memory.HashBytes.SubArray">
-            <summary>
-            字节数组
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Memory.HashBytes.HashCode">
-            <summary>
-            HASH 值
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.#ctor(AutoCSer.SubArray{System.Byte},System.UInt64)">
-            <summary>
-            字节数组 HASH
-            </summary>
-            <param name="data">字节数组</param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.#ctor(AutoCSer.SubArray{System.Byte})">
-            <summary>
-            字节数组 HASH
-            </summary>
-            <param name="data">字节数组</param>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.op_Implicit(AutoCSer.SubArray{System.Byte})~AutoCSer.Memory.HashBytes">
-            <summary>
-            HASH字节数组隐式转换
-            </summary>
-            <param name="data">字节数组</param>
-            <returns>HASH字节数组</returns>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.op_Implicit(System.Byte[])~AutoCSer.Memory.HashBytes">
-            <summary>
-            HASH字节数组隐式转换
-            </summary>
-            <param name="data">字节数组</param>
-            <returns>HASH字节数组</returns>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.op_Implicit(AutoCSer.Memory.HashBytes)~AutoCSer.SubArray{System.Byte}">
-            <summary>
-            HASH字节数组隐式转换
-            </summary>
-            <param name="data">HASH字节数组</param>
-            <returns>字节数组</returns>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.Equals(AutoCSer.Memory.HashBytes)">
-            <summary>
-            比较字节数组是否相等
-            </summary>
-            <param name="other">用于HASH的字节数组</param>
-            <returns>Is it equal
-            是否相等</returns>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.GetHashCode">
-            <summary>
-            获取 HASH 值
-            </summary>
-            <returns>HASH 值</returns>
-        </member>
-        <member name="M:AutoCSer.Memory.HashBytes.Equals(System.Object)">
-            <summary>
-            比较字节数组是否相等
-            </summary>
-            <param name="other">字节数组HASH</param>
-            <returns>Is it equal
-            是否相等</returns>
         </member>
         <member name="T:AutoCSer.MessagePack.DataTypeEnum">
             <summary>
@@ -9970,6 +11232,14 @@
             <returns>The data collection
             数据集合</returns>
         </member>
+        <member name="M:AutoCSer.SearchTree.NodeDictionary`2.Check(System.Int32)">
+            <summary>
+            Check the correctness of the data (for testing)
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.Dictionary`2">
             <summary>
             Binary search tree dictionary
@@ -10442,6 +11712,14 @@
             获取记录数</param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.SearchTree.Dictionary`2.Check(System.Int32)">
+            <summary>
+            Check the correctness of the data (for testing)
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.FindArray`1">
             <summary>
             Search for data
@@ -10883,6 +12161,19 @@
             </summary>
             <param name="array"></param>
         </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.Check(System.Int32)">
+            <summary>
+            检查数据正确性
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Node`2.check">
+            <summary>
+            检查数据正确性
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.SearchTree.PageArray`1">
             <summary>
             分页数组数据
@@ -11196,6 +12487,14 @@
             数据转换委托</param>
             <returns>The data collection
             数据集合</returns>
+        </member>
+        <member name="M:AutoCSer.SearchTree.Set`1.Check(System.Int32)">
+            <summary>
+            Check the correctness of the data (for testing)
+            检查数据正确性（用于测试）
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.SearchTree.SetRemoveNode`2">
             <summary>
@@ -12083,18 +13382,21 @@
             </summary>
             <param name="semaphoreSlimLock"></param>
         </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock)">
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Enter(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
             <summary>
             Apply for a lock
             申请锁
             </summary>
         </member>
-        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock)">
+        <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.EnterAsync(AutoCSer.Threading.SemaphoreSlimLock,System.String,System.String,System.Int32)">
             <summary>
             Apply for a lock
             申请锁
             </summary>
             <param name="semaphoreSlimLock"></param>
+            <param name="callerMemberName"></param>
+            <param name="callerFilePath"></param>
+            <param name="callerLineNumber"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Threading.ReentrantSemaphoreSlimLockManager.Exit(AutoCSer.Threading.SemaphoreSlimLock)">

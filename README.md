@@ -123,7 +123,7 @@ NuGet 发布了核心程序集 AutoCSer.dll 的 3 个版本包括 [.NET8](https:
         /// <returns></returns>
         public override void RemoveHistoryFile(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService service)
         {
-            new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).Catch();
+            new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).AutoCSerExtensions().Catch();
         }
         /// <summary>
         /// 重建文件大小设置为至少 10MB

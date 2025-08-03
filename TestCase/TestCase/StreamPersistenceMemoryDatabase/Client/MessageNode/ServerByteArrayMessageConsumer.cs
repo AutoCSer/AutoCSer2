@@ -29,7 +29,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
         /// 消息是否执行成功</returns>
         protected override Task<bool> onMessage(byte[] message)
         {
-            lock (messageLock) messages.Remove(message.notNull()[0]);
+            lock (messageLock) messages.Remove(message.AutoCSerClassGenericTypeExtensions().NotNull()[0]);
             return AutoCSer.Common.GetCompletedTask(true);
         }
 
@@ -76,7 +76,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.MessageNode
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage> node = nodeResult.Value.notNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IMessageNodeClientNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArrayMessage> node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
             var result = await node.Clear();
             if (!result.IsSuccess)
             {

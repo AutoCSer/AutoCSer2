@@ -23,7 +23,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 接口方法信息
             /// </summary>
-            public MethodIndex Method;
+            public Metadata.MethodIndex Method;
             /// <summary>
             /// 返回值类型
             /// </summary>
@@ -48,7 +48,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 if (interfaceMethod != null)
                 {
-                    Method = new MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex);
+                    Method = new Metadata.MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex);
                     EnumName = Method.MethodName;
                     MethodReturnType = interfaceMethod.ReturnValueType;
                 }

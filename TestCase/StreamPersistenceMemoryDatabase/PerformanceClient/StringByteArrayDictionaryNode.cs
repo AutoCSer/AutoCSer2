@@ -77,23 +77,23 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
             {
                 case nameof(StringByteArrayDictionaryNode.SetBinarySerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (StringByteArrayDictionaryNode task in tasks) task.SetBinarySerialize().NotWait();
+                    foreach (StringByteArrayDictionaryNode task in tasks) task.SetBinarySerialize().AutoCSerNotWait();
                     break;
                 case nameof(StringByteArrayDictionaryNode.GetBinarySerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (StringByteArrayDictionaryNode task in tasks) task.GetBinarySerialize().NotWait();
+                    foreach (StringByteArrayDictionaryNode task in tasks) task.GetBinarySerialize().AutoCSerNotWait();
                     break;
                 case nameof(StringByteArrayDictionaryNode.SetJsonSerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (StringByteArrayDictionaryNode task in tasks) task.SetJsonSerialize().NotWait();
+                    foreach (StringByteArrayDictionaryNode task in tasks) task.SetJsonSerialize().AutoCSerNotWait();
                     break;
                 case nameof(StringByteArrayDictionaryNode.GetJsonSerialize):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (StringByteArrayDictionaryNode task in tasks) task.GetJsonSerialize().NotWait();
+                    foreach (StringByteArrayDictionaryNode task in tasks) task.GetJsonSerialize().AutoCSerNotWait();
                     break;
                 case nameof(StringByteArrayDictionaryNode.Remove):
                     right = Reset(null, maxTestCount >> 4, taskCount) >> LoopCountBit;
-                    foreach (StringByteArrayDictionaryNode task in tasks) task.Remove().NotWait();
+                    foreach (StringByteArrayDictionaryNode task in tasks) task.Remove().AutoCSerNotWait();
                     break;
             }
             await Wait(nameof(StringByteArrayDictionaryNode), isReadWriteQueue ? $"{serverMethodName}+{nameof(IReadWriteQueueService)}" : serverMethodName);
@@ -136,7 +136,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         {
                             var data = this.data.Clone();
                             data.StreetNumber = left + next;
-                            var result = await client.SetBinarySerialize(data.StreetNumber.toString(), data);
+                            var result = await client.SetBinarySerialize(data.StreetNumber.AutoCSerExtensions().ToString(), data);
                             if (result.Value) ++success;
                             else ++error;
                         }
@@ -172,7 +172,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         int next = right << LoopCountBit;
                         do
                         {
-                            var result = await client.TryGetBinaryDeserialize<string, Data.Address>((left + next).toString());
+                            var result = await client.TryGetBinaryDeserialize<string, Data.Address>((left + next).AutoCSerExtensions().ToString());
                             if (result.Value != null) ++success;
                             else ++error;
                         }
@@ -208,7 +208,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         int next = right << LoopCountBit;
                         do
                         {
-                            var result = await client.Remove((left + next).toString());
+                            var result = await client.Remove((left + next).AutoCSerExtensions().ToString());
                             if (result.Value) ++success;
                             else ++error;
                         }
@@ -246,7 +246,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         {
                             var data = this.data.Clone();
                             data.StreetNumber = left + next;
-                            var result = await client.SetJsonSerialize(data.StreetNumber.toString(), data);
+                            var result = await client.SetJsonSerialize(data.StreetNumber.AutoCSerExtensions().ToString(), data);
                             if (result.Value) ++success;
                             else ++error;
                         }
@@ -282,7 +282,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
                         int next = right << LoopCountBit;
                         do
                         {
-                            var result = await client.TryGetJsonDeserialize<string, Data.Address>((left + next).toString());
+                            var result = await client.TryGetJsonDeserialize<string, Data.Address>((left + next).AutoCSerExtensions().ToString());
                             if (result.Value != null) ++success;
                             else ++error;
                         }

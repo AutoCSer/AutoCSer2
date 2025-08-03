@@ -444,7 +444,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     getParameterMethod = typeof(InputKeepCallbackMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(InputKeepCallbackMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                     break;
             }
-            string methodName = AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase." + Type.FullName + "." + Method.Name + "." + MethodIndex.toString() + "." + Interlocked.Increment(ref createMethodIndex).toString();
+            string methodName = AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase." + Type.FullName + "." + Method.Name + MethodIndex.toString('.') + Interlocked.Increment(ref createMethodIndex).toString('.');
             if (repairMethod != null) methodName += ".Repair." + repairMethod.Name;
             TypeBuilder typeBuilder = AutoCSer.Reflection.Emit.Module.Builder.DefineType(methodName, TypeAttributes.Class | TypeAttributes.Sealed, parentType);
             #region 构造函数

@@ -230,7 +230,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         }
                         Dispose();
                         //node.CheckState(nodeIndex, response.State);
-                        node.CheckStateAsync(nodeIndex, response.State).NotWait();
+                        node.CheckStateAsync(nodeIndex, response.State).AutoCSerNotWait();
                         return response.State;
                     }
                     return AutoCSer.Net.CommandClientReturnTypeEnum.KeepCallbackDisposed;

@@ -62,8 +62,8 @@ namespace AutoCSer.TestCase.SearchQueryService
             DiskBlockCommandClientSocketEvent diskBlockClient = DiskBlockCommandClientSocketEvent.CommandClient.SocketEvent;
             userNameIndexCache = new SingleDiskBlockUIntKeyIntValueCache(diskBlockClient, DiskBlockIndexCommandClientSocketEvent.UserNameDiskBlockIndexNodeCache, 1 << 26);
             userRemarkIndexCache = new SingleDiskBlockUIntKeyIntValueCache(diskBlockClient, DiskBlockIndexCommandClientSocketEvent.UserRemarkDiskBlockIndexNodeCache, 1 << 26);
-            DiskBlockCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
-            TryAppendTaskArrayAsync(60 * 60).NotWait();
+            DiskBlockCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().AutoCSerNotWait();
+            TryAppendTaskArrayAsync(60 * 60).AutoCSerNotWait();
         }
         /// <summary>
         /// Release resources

@@ -690,7 +690,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     }
                 }
             _code_.Add(@"
-                AutoCSer.Extensions.TaskExtension.Catch(load());
+                AutoCSer.Extensions.Extension.AutoCSerExtensions(load()).Catch();
             }");
                 if (_isOut_) outEnd();
             }

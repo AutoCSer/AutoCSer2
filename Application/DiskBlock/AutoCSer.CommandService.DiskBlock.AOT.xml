@@ -910,6 +910,14 @@
             <param name="deserializer"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer.SimpleDeserialize``1(AutoCSer.BinaryDeserializer,``0@)">
+            <summary>
+            从独立数据缓冲区反序列化内部成员对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadBufferStateEnum">
             <summary>
             读取数据状态
@@ -1231,6 +1239,14 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.WriteBuffer.CreateWriteBufferSerializer``1(``0)">
             <summary>
+            获取二进制序列化数据缓冲区（需确定非简单序列化类型）
+            </summary>
+            <typeparam name="T">需确定非简单序列化类型</typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteBuffer.CreateSerializer``1(``0)">
+            <summary>
             获取二进制序列化数据缓冲区
             </summary>
             <typeparam name="T"></typeparam>
@@ -1266,6 +1282,29 @@
             <param name="value">data</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSerializer`1.Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            序列化，仅支持 struct 并且不能是自定义序列化类型
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1">
+            <summary>
+            内部成员对象序列化为一个可独立反序列化的数据
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.value">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.#ctor(`0)">
+            <summary>
+            内部成员对象序列化为一个可独立反序列化的数据
+            </summary>
+            <param name="value">data</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.Serialize(AutoCSer.BinarySerializer)">
             <summary>
             序列化，仅支持 struct 并且不能是自定义序列化类型
             </summary>

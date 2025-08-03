@@ -34,11 +34,22 @@ namespace AutoCSer.CommandService.DiskBlock
         internal override void Deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
             ServerReturnValue<T> value = this.value != null ? new ServerReturnValue<T>(this.value) : default(ServerReturnValue<T>);
+            if (AutoCSer.SimpleSerializeType<T>.IsSimple)
+            {
 #if AOT
-            InternalIndependentDeserializeNotReference(deserializer, ref value);
+                SimpleDeserialize(deserializer, ref value);
 #else
-            deserializer.InternalIndependentDeserializeNotReference(ref value);
+                deserializer.SimpleDeserialize(ref value);
 #endif
+            }
+            else
+            {
+#if AOT
+                InternalIndependentDeserializeNotReference(deserializer, ref value);
+#else
+                deserializer.InternalIndependentDeserializeNotReference(ref value);
+#endif
+            }
             this.value = value.ReturnValue;
         }
     }

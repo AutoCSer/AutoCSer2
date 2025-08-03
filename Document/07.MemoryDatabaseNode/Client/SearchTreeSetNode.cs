@@ -26,7 +26,7 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNodeClientNode<int> node = nodeResult.Value.notNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeSetNodeClientNode<int> node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
             var result = await node.Clear();
             if (!result.IsSuccess)
             {

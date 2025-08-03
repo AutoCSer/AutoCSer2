@@ -60,7 +60,7 @@ namespace AutoCSer.CommandService
             if (callbacks.Callback(log) == 0)
             {
                 var removeLog = logs.Write(log);
-                if (removeLog != null) onRemove(log).NotWait();
+                if (removeLog != null) onRemove(log).AutoCSerNotWait();
             }
         }
         /// <summary>

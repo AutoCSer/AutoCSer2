@@ -43,7 +43,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayDictionaryNodeClientNode<string> node = nodeResult.Value.notNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IByteArrayDictionaryNodeClientNode<string> node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
             var result = await node.Clear();
             if (!result.IsSuccess)
             {
@@ -111,6 +111,19 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             //获取二进制反序列化对象使用 TryGetBinaryDeserialize 扩展方法
             classResult = await node.TryGetBinaryDeserialize<string, Data.TestClass>("BinarySerialize");
             if (!classResult.IsSuccess || classResult.Value?.String != "AAA")
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            boolResult = await node.Set("SimpleSerialize", AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerByteArray.BinarySerialize(testData.String.Length));
+            if (!boolResult.Value)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            //Get the binary deserialized object using the TryGetBinaryDeserialize extension method
+            //获取二进制反序列化对象使用 TryGetBinaryDeserialize 扩展方法
+            var intResult = await node.TryGetBinaryDeserialize<string, int>("SimpleSerialize");
+            if (!intResult.IsSuccess || intResult.Value != testData.String.Length)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

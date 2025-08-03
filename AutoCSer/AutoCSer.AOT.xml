@@ -1884,6 +1884,15 @@
             <param name="buffer">Data buffer</param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SimpleDeserialize``1(System.Byte[],``0@)">
+            <summary>
+            Deserialize the internal member object from the independent data buffer
+            从独立数据缓冲区反序列化内部成员对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="buffer">Data buffer</param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.SetCustomError(System.String)">
             <summary>
             Set the custom error status for deserialization
@@ -1891,6 +1900,13 @@
             </summary>
             <param name="customError">Customize deserialization error messages</param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SetErrorState(AutoCSer.BinarySerialize.DeserializeStateEnum)">
+            <summary>
+            Set the error status
+            设置错误状态
+            </summary>
+            <param name="state"></param>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.primitiveMemberDeserializeHalfArray(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -2482,6 +2498,16 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.BinaryDeserializer.IndependentDeserializeBuffer``1(System.Byte[],``0@)">
+            <summary>
+            Deserialize independent objects from independent data buffers
+            从独立数据缓冲区反序列化独立对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="buffer"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.BinaryDeserializer.SimpleDeserializeBuffer``1(System.Byte[],``0@)">
             <summary>
             Deserialize independent objects from independent data buffers
             从独立数据缓冲区反序列化独立对象
@@ -7616,36 +7642,21 @@
             <param name="index"></param>
             <param name="size"></param>
         </member>
-        <member name="M:AutoCSer.BinarySerializer.SerializeBufferEnd(System.Int32)">
-            <summary>
-            The custom serialization data buffer has completed processing
-            自定义序列化数据缓冲区结束处理
-            </summary>
-            <param name="index"></param>
-        </member>
         <member name="M:AutoCSer.BinarySerializer.IndependentSerialize``1(``0@)">
             <summary>
             Independent objects are serialization into a piece of data that can be deserialization independently
-            独立对象序列化为一个可独立反序列化的数据
+            独立对象序列化为一个可独立反序列化的数据（需确定为非简单序列化类型）
             </summary>
             <typeparam name="T">Target data type
-            目标数据类型</typeparam>
+            目标数据类型（需确定为非简单序列化类型）</typeparam>
             <param name="value">Data object</param>
-        </member>
-        <member name="M:AutoCSer.BinarySerializer.InternalIndependentSerializeNotReference``1(``0@)">
-            <summary>
-            The internal member object is serialization into an independently deserializable piece of data (with no reference check on the outer layer)
-            内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.InternalIndependentSerializeNotNull``1(``0@)">
             <summary>
             The internal member object is serialization into an independently deserializable data (with no reference check on the outer layer) (used for AOT code generation and not allowed for developers to call)
             内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）（用于 AOT 代码生成，不允许开发者调用）
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">需确定为非简单序列化类型</typeparam>
             <param name="value"></param>
         </member>
         <member name="M:AutoCSer.BinarySerializer.SimpleSerialize``1(``0@)">
@@ -13216,101 +13227,120 @@
         </member>
         <member name="T:AutoCSer.BinarySerialize.DeserializeStateEnum">
             <summary>
+            Deserialization status
             反序列化状态
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.Success">
             <summary>
-            成功
+            Success
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.UnknownData">
             <summary>
+            The data is not identifiable
             数据不可识别
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.HeaderError">
             <summary>
+            The header data does not match
             头部数据不匹配
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.ObjectReferenceError">
             <summary>
+            The object reference data does not match
             对象引用数据不匹配
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.EndVerify">
             <summary>
+            End verification error
             结束验证错误
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.MemberMap">
             <summary>
+            Member bitmap detection failed
             成员位图检测失败
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.MemberMapType">
             <summary>
+            The member bitmap type is incorrect
             成员位图类型错误
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.MemberMapVerify">
             <summary>
+            The verification of the number of member bitmaps failed
             成员位图数量验证失败
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.JsonError">
             <summary>
-            JSON反序列化失败
+            JSON deserialization failed
+            JSON 反序列化失败
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.NoPoint">
             <summary>
+            The historical object was not hit
             没有命中历史对象
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.IndexOutOfRange">
             <summary>
+            Insufficient data length
             数据长度不足
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.ArraySizeOutOfRange">
             <summary>
+            The size of the array is out of range
             数组大小超出范围
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.ErrorDataType">
             <summary>
+            Unidentifiable data type
             不可识别的数据类型
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.ErrorType">
             <summary>
+            Type resolution error, or the generic type does not meet the AutoCSer.Common.Config.CheckRemoteType validity check conditions
             类型解析错误，或者泛型类型不满足 AutoCSer.Common.Config.CheckRemoteType 合法性检查条件
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.NotSupport">
             <summary>
+            Unsupported types
             不支持的类型
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.CustomBufferError">
             <summary>
+            The custom buffer creation failed
             自定义缓冲区创建失败
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.CustomError">
             <summary>
+            Custom deserialization failed
             自定义反序列化失败
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.ConstructorNull">
             <summary>
+            The constructor returns a null value
             构造函数返回 null 值
             </summary>
         </member>
         <member name="F:AutoCSer.BinarySerialize.DeserializeStateEnum.NotObject">
             <summary>
+            Non-object value
             非 object 值
             </summary>
         </member>
@@ -16239,14 +16269,14 @@
             任务扩展操作
             </summary>
         </member>
-        <member name="M:AutoCSer.Extensions.TaskExtension.NotWait(System.Threading.Tasks.Task)">
+        <member name="M:AutoCSer.Extensions.TaskExtension.AutoCSerNotWait(System.Threading.Tasks.Task)">
             <summary>
             A warning used to clear an await inside async without waiting for the task to execute
             不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
             </summary>
             <param name="task"></param>
         </member>
-        <member name="M:AutoCSer.Extensions.TaskExtension.NotWait(System.Threading.Tasks.ValueTask)">
+        <member name="M:AutoCSer.Extensions.TaskExtension.AutoCSerNotWait(System.Threading.Tasks.ValueTask)">
             <summary>
             A warning used to clear an await inside async without waiting for the task to execute
             不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
@@ -16380,12 +16410,12 @@
         </member>
         <member name="M:AutoCSer.Extensions.ArrayExtension.concat``1(``0[],``0[])">
             <summary>
-            连接数组
+            合并数组
             </summary>
             <typeparam name="T">Data type</typeparam>
             <param name="array">数组集合</param>
-            <param name="addArray">数组集合</param>
-            <returns>连接后的数组</returns>
+            <param name="otherArray">追加的数组</param>
+            <returns>合并后的数组</returns>
         </member>
         <member name="M:AutoCSer.Extensions.ArrayExtension.concat``1(``0[][])">
             <summary>
@@ -16717,6 +16747,17 @@
             <returns>Integer string
             整数字符串</returns>
         </member>
+        <member name="M:AutoCSer.Extensions.NumberExtension.toString(System.Int32,System.Char)">
+            <summary>
+            Integer to string conversion
+            整数转字符串
+            </summary>
+            <param name="value">Integer value
+            整数值</param>
+            <param name="prefix">Prefix
+            前缀字符</param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Extensions.NumberExtension.ToString(System.Int32,System.Char*)">
             <summary>
             Integer to string conversion
@@ -16937,6 +16978,14 @@
             </summary>
             <param name="value">Negative numbers are not allowed
             不允许负数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Extensions.NumberExtension.logicalInversion(System.UInt32)">
+            <summary>
+            Logical inversion: 0 to 1, non-0 to 0
+            逻辑取反，0 转 1，非 0 转 0
+            </summary>
+            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Extensions.NumberExtension.fullBit(System.UInt32)">
@@ -23899,6 +23948,77 @@
             定时清除缓存数据
             </summary>
         </member>
+        <member name="T:AutoCSer.Memory.HashBytes">
+            <summary>
+            用于 HASH 的字节数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.HashBytes.SubArray">
+            <summary>
+            字节数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.HashBytes.HashCode">
+            <summary>
+            HASH 值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.#ctor(AutoCSer.SubArray{System.Byte},System.UInt64)">
+            <summary>
+            字节数组 HASH
+            </summary>
+            <param name="data">字节数组</param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.#ctor(AutoCSer.SubArray{System.Byte})">
+            <summary>
+            字节数组 HASH
+            </summary>
+            <param name="data">字节数组</param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.op_Implicit(AutoCSer.SubArray{System.Byte})~AutoCSer.Memory.HashBytes">
+            <summary>
+            HASH字节数组隐式转换
+            </summary>
+            <param name="data">字节数组</param>
+            <returns>HASH字节数组</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.op_Implicit(System.Byte[])~AutoCSer.Memory.HashBytes">
+            <summary>
+            HASH字节数组隐式转换
+            </summary>
+            <param name="data">字节数组</param>
+            <returns>HASH字节数组</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.op_Implicit(AutoCSer.Memory.HashBytes)~AutoCSer.SubArray{System.Byte}">
+            <summary>
+            HASH字节数组隐式转换
+            </summary>
+            <param name="data">HASH字节数组</param>
+            <returns>字节数组</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.Equals(AutoCSer.Memory.HashBytes)">
+            <summary>
+            比较字节数组是否相等
+            </summary>
+            <param name="other">用于HASH的字节数组</param>
+            <returns>Is it equal
+            是否相等</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.GetHashCode">
+            <summary>
+            获取 HASH 值
+            </summary>
+            <returns>HASH 值</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBytes.Equals(System.Object)">
+            <summary>
+            比较字节数组是否相等
+            </summary>
+            <param name="other">字节数组HASH</param>
+            <returns>Is it equal
+            是否相等</returns>
+        </member>
         <member name="T:AutoCSer.Memory.UnmanagedStreamExchangeBuffer">
             <summary>
             非托管内存数据流切换数据缓冲区信息
@@ -24678,6 +24798,14 @@
             <param name="data"></param>
             <param name="size"></param>
         </member>
+        <member name="M:AutoCSer.Memory.Pointer.#ctor(System.Void*,System.Int32,System.Int32)">
+            <summary>
+            指针
+            </summary>
+            <param name="data"></param>
+            <param name="size"></param>
+            <param name="currentIndex"></param>
+        </member>
         <member name="P:AutoCSer.Memory.Pointer.Byte">
             <summary>
             字节指针
@@ -24842,6 +24970,40 @@
             设置当前数据操作位置
             </summary>
             <param name="current"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.SetCurrentIndex(System.Int32,System.Int32)">
+            <summary>
+            设置当前数据操作位置并写入数据
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.WriteSizeData(System.Int32)">
+            <summary>
+            写入数据长度
+            </summary>
+            <param name="dataIndex">数据起始位置</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.WriteSizeHeader(System.Int32)">
+            <summary>
+            写入数据长度
+            </summary>
+            <param name="headerIndex">头部起始位置</param>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetHashCode64(System.Int32)">
+            <summary>
+            计算 64 位 HASH 值
+            </summary>
+            <param name="startIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetHashCode64(System.Void*,System.Int32)">
+            <summary>
+            计算 64 位 HASH 值
+            </summary>
+            <param name="data"></param>
+            <param name="size"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.CheckSetBit(System.Int32)">
             <summary>
@@ -25140,6 +25302,19 @@
             转换成字节数组
             </summary>
             <returns>字节数组</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetBufferArray">
+            <summary>
+            整个缓冲区转换成字节数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.BufferSequenceEqual(System.Byte[])">
+            <summary>
+            整个缓冲区与字节数组比较
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.GetBuffer(AutoCSer.Memory.ByteArrayBuffer@,System.Int32)">
             <summary>
@@ -25456,6 +25631,13 @@
             <param name="count">比较字节数,必须大于等于0</param>
             <returns>Is it equal
             是否相等</returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Common.HashCodeShift(System.UInt32)">
+            <summary>
+            32 位哈希值位移操作
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
         </member>
         <member name="F:AutoCSer.Memory.Common.AddHashCode">
             <summary>
@@ -33559,6 +33741,11 @@
             自定义命令处理错误
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum.RemoteMetadataDataError">
+            <summary>
+            远程元数据回调数据解析失败
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientReceiveTypeEnum">
             <summary>
             命令服务客户端接收数据回调类型
@@ -34495,17 +34682,10 @@
             命令服务参数类型集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.types">
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.Types">
             <summary>
             命令服务参数类型集合
             </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.IsType(System.Type)">
-            <summary>
-            判断是否命令服务参数类型
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameter.typeIndex">
             <summary>
@@ -34538,6 +34718,12 @@
             <param name="parameters">参数集合</param>
             <param name="returnType">类型</param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.AppendType(System.Type)">
+            <summary>
+            添加命令服务参数类型
+            </summary>
+            <param name="type"></param>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerMethodParameterKey">
             <summary>
@@ -35088,6 +35274,11 @@
         <member name="F:AutoCSer.Net.CommandServer.KeepCallbackCommand.ControllerIndex">
             <summary>
             控制器信息查询命令索引
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.KeepCallbackCommand.RemoteMetadataIndex">
+            <summary>
+            远程元数据命令索引
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.KeepCallbackCommand.CommandPoolIndex">
@@ -41199,6 +41390,12 @@
             命令客户端
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientSocketEvent.customParameter">
+            <summary>
+            Custom pamameter
+            自定义参数
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocketEvent.setController">
             <summary>
             Set the client controller delegate
@@ -41229,13 +41426,15 @@
             等待客户端套接字锁集合
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient)">
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent.#ctor(AutoCSer.Net.CommandClient,System.Object)">
             <summary>
             Command client socket events
             命令客户端套接字事件
             </summary>
             <param name="commandClient">Command client
             命令客户端</param>
+            <param name="customParameter">Custom pamameter
+            自定义参数</param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocketEvent.AppendCreators(AutoCSer.LeftArray{AutoCSer.Net.CommandClientInterfaceControllerCreator}@)">
             <summary>
@@ -46946,7 +47145,7 @@
             <param name="exceptionCount"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientSocket.ControllerCallback(AutoCSer.Net.CommandServer.CommandControllerOutputData@)">
+        <member name="M:AutoCSer.Net.CommandClientSocket.Callback(AutoCSer.Net.CommandServer.CommandControllerOutputData@)">
             <summary>
             The callback for the command controller to query data
             命令控制器查询数据回调
@@ -58130,6 +58329,14 @@
             </summary>
             <param name="length"></param>
         </member>
+        <member name="M:AutoCSer.LeftArray`1.Set(System.Int32,`0)">
+            <summary>
+            Set the specified location data
+            设置指定位置数据
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:AutoCSer.LeftArray`1.SetEmpty">
             <summary>
             Empty and release the array, and set the valid length of the data to 0
@@ -60404,6 +60611,17 @@
         <member name="F:AutoCSer.SimpleSerialize.Serializer`1.DefaultSerializer">
             <summary>
             成员序列化
+            </summary>
+        </member>
+        <member name="T:AutoCSer.SimpleSerializeType`1">
+            <summary>
+            简单序列化类型信息
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.SimpleSerializeType`1.IsSimple">
+            <summary>
+            是否简单序列化
             </summary>
         </member>
         <member name="T:AutoCSer.SubArray`1">

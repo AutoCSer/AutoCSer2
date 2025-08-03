@@ -129,7 +129,7 @@ namespace AutoCSer.Threading
 
                             ThreadPool.CheckExit();
                             InternalTaskArray.OnTimer();
-                            TaskArray.OnTimer().NotWait();
+                            TaskArray.OnTimer().AutoCSerNotWait();
                         }
                         catch (Exception exception)
                         {

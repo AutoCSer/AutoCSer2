@@ -49,7 +49,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
             });
             NodeCache = client.CreateNode(client => client.GetOrCreateServerByteArrayMessageNode(nameof(AutoCSer.Document.ServerRegistry.MessageNodeClusterClient)));
-            check().Catch();
+            check().AutoCSerExtensions().Catch();
         }
         /// <summary>
         /// Get the client connection
@@ -67,7 +67,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeClusterClient
                     Console.WriteLine($"New client {Log.SessionID}");
                     //Each client of the cluster service needs to create a message consumer
                     //集群服务的每一个客户端都需要创建一个消息消费者
-                    messageConsumer = new MessageConsumer(client.ClientCache.Client, node.Value.notNull());
+                    messageConsumer = new MessageConsumer(client.ClientCache.Client, node.Value.AutoCSerClassGenericTypeExtensions().NotNull());
                     return true;
                 }
             }

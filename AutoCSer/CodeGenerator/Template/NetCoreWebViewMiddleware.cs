@@ -22,7 +22,7 @@ namespace AutoCSer.CodeGenerator.Template
                 #region LOOP Views
                 appendView(new AutoCSer.NetCoreWeb.ViewRequest(this, typeof(@NetCoreWebViewTypeFullName), () => new @NetCoreWebViewTypeFullName()/*PUSH:Parameter*/, typeof(@ParameterType.FullName), "@ParameterName"/*PUSH:Parameter*/));
                 #endregion LOOP Views
-                AutoCSer.Extensions.TaskExtension.Catch(load());
+                AutoCSer.Extensions.Extension.AutoCSerExtensions(load()).Catch();
             }
             #endregion PART CLASS
         }

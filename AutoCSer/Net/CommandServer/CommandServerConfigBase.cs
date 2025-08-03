@@ -56,6 +56,13 @@ namespace AutoCSer.Net
         /// 最大输入数据字节数，默认为 0 表示不限制，开放服务建议值小于 2^ReceiveBufferSizeBis - 12 而且不建议 API 产生大对象传输行为
         /// </summary>
         public int MaxInputSize;// = (16 << 10) - (sizeof(uint) + sizeof(int) * 2);
+#if !AOT
+        /// <summary>
+        /// The default value of false indicates that remote expressions are not supported. Setting it to true means allowing arbitrary code execution, so the client needs to be fully trusted
+        /// 默认为 false 表示不支持远程表达式；设置为 true 意味着允许执行任意代码，所以需要客户端完全可信任
+        /// </summary>
+        public bool IsRemoteExpression;
+#endif
 
         /// <summary>
         /// Log processing instance

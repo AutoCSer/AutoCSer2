@@ -8,7 +8,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 类型扩展操作
     /// </summary>
-    public static class TypeExtension
+    internal static class TypeExtension
     {
         /// <summary>
         /// 根据类型获取代码名称
@@ -18,9 +18,9 @@ namespace AutoCSer.Extensions
         /// <param name="isGenericParameterTypeName">是否输出泛型参数类型名称</param>
         /// <returns>代码名称</returns>
 #if NetStandard21
-        public static string? fullName(this Type type, TypeNameBuildEnum buildEnum = TypeNameBuildEnum.Code, bool isGenericParameterTypeName = true)
+        internal static string? fullName(this Type type, TypeNameBuildEnum buildEnum = TypeNameBuildEnum.Code, bool isGenericParameterTypeName = true)
 #else
-        public static string fullName(this Type type, TypeNameBuildEnum buildEnum = TypeNameBuildEnum.Code, bool isGenericParameterTypeName = true)
+        internal static string fullName(this Type type, TypeNameBuildEnum buildEnum = TypeNameBuildEnum.Code, bool isGenericParameterTypeName = true)
 #endif
         {
             return TypeNameBuilder.GetFullName(type, buildEnum, isGenericParameterTypeName);

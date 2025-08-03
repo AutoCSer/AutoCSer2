@@ -268,7 +268,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             serialize.generatorAttribute = defaultGeneratorAttribute;
             serialize.CurrentAttribute = (AutoCSer.CodeGenerator.JsonSerializeAttribute)type.GetCustomAttribute(typeof(AutoCSer.CodeGenerator.JsonSerializeAttribute)) ?? defaultJsonSerializeAttribute;
             serialize.CurrentType = type;
-            serialize.nextCreate().NotWait();
+            serialize.nextCreate().AutoCSerNotWait();
         }
         /// <summary>
         /// 安装完成处理

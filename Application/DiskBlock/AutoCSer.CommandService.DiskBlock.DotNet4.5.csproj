@@ -73,6 +73,7 @@
     <Compile Include="WriteBuffer.cs" />
     <Compile Include="IDiskBlockService.cs" />
     <Compile Include="WriteBufferSerializer.cs" />
+    <Compile Include="WriteBufferSimpleSerializer.cs" />
     <Compile Include="WriteOperationTypeEnum.cs" />
     <Compile Include="WriteRequest.cs" />
   </ItemGroup>

@@ -260,7 +260,7 @@ namespace AutoCSer.CommandService
                     callback(new BlockIndex(BinarySerializer.NullValue, -4));
                     return;
                 }
-                if (await Client.Write(WriteBuffer.CreateWriteBufferSerializer(data), callback)) returnType = CommandClientReturnTypeEnum.Success;
+                if (await Client.Write(WriteBuffer.CreateSerializer(data), callback)) returnType = CommandClientReturnTypeEnum.Success;
             }
             finally
             {
@@ -280,7 +280,7 @@ namespace AutoCSer.CommandService
 #endif
         {
             if (data == null) return new BlockIndex(BinarySerializer.NullValue, -4);
-            return Client.WaitWrite(WriteBuffer.CreateWriteBufferSerializer(data));
+            return Client.WaitWrite(WriteBuffer.CreateSerializer(data));
         }
         /// <summary>
         /// 写入二进制序列化数据
@@ -296,7 +296,7 @@ namespace AutoCSer.CommandService
 #endif
         {
             if (data == null) return BlockIndex.BinarySerializeNullValueCompletedReturnCommand;
-            return Client.Write(WriteBuffer.CreateWriteBufferSerializer(data));
+            return Client.Write(WriteBuffer.CreateSerializer(data));
         }
         /// <summary>
         /// 写入二进制序列化数据

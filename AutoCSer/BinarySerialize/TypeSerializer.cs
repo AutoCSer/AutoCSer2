@@ -392,7 +392,7 @@ namespace AutoCSer.BinarySerialize
                     jsonMemberIndexs = AutoCSer.Memory.Unmanaged.GetStaticPointer(fields.JsonFields.Length * sizeof(int), false);
                     int index = 0;
                     int* jsonMemberIndex = jsonMemberIndexs.Int;
-                    foreach (FieldIndex field in fields.JsonFields) jsonMemberMap.MemberMapData.SetMember(jsonMemberIndex[index++] = field.MemberIndex);
+                    foreach (Metadata.FieldIndex field in fields.JsonFields) jsonMemberMap.MemberMapData.SetMember(jsonMemberIndex[index++] = field.MemberIndex);
                 }
 #endif
             }

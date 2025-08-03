@@ -73,7 +73,7 @@ namespace AutoCSer.TestCase.DeployTaskClient
                 processName = process.ProcessName;
                 process.Exited += processExited;
                 workingSet64 = 0;
-                getWorkingSet64().NotWait();
+                getWorkingSet64().AutoCSerNotWait();
                 return true;
             }
             return false;

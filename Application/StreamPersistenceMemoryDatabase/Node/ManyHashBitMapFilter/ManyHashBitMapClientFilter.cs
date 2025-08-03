@@ -166,7 +166,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 finally { Monitor.Exit(mapLock); }
             }
-            else if (!isDispose) getMap().NotWait();
+            else if (!isDispose) getMap().AutoCSerNotWait();
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (getHashCodes == null) throw new ArgumentNullException(nameof(getHashCodes));
             this.getHashCodes = getHashCodes;
-            getMap().NotWait();
+            getMap().AutoCSerNotWait();
         }
         /// <summary>
         /// Set the bitmap data

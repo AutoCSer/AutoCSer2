@@ -174,7 +174,7 @@ namespace AutoCSer.TestCase
                 }
 #endif
 
-                data.RandomSort();
+                data.AutoCSerExtensions().RandomSort();
                 int removeValue;
                 foreach (int value in data)
                 {

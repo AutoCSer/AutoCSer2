@@ -132,7 +132,7 @@ namespace AutoCSer.CommandService.DiskBlock
                     if (readQueue.IsPushHead(request))
                     {
                         request = null;
-                        if (Interlocked.CompareExchange(ref isRead, 1, 0) == 0) read().NotWait();
+                        if (Interlocked.CompareExchange(ref isRead, 1, 0) == 0) read().AutoCSerNotWait();
                     }
                     else request = null;
                 }

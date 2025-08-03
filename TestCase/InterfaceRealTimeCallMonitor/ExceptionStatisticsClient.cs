@@ -24,12 +24,12 @@ namespace AutoCSer.TestCase.InterfaceRealTimeCallMonitor
         /// 异常调用统计信息客户端节点
         /// </summary>
         /// <param name="date">节点日期标识</param>
-        internal ExceptionStatisticsClient(uint date) : this(date, date.fromIntDate().AddDays(7), date.toHex())
+        internal ExceptionStatisticsClient(uint date) : this(date, date.AutoCSerExtensions().ToDate().AddDays(7), date.AutoCSerExtensions().ToHex())
         {
         }
         /// <summary>
         /// 异常调用统计信息客户端节点
         /// </summary>
-        internal ExceptionStatisticsClient() : this(AutoCSer.Threading.SecondTimer.UtcNow.toIntDate()) { }
+        internal ExceptionStatisticsClient() : this(AutoCSer.Threading.SecondTimer.UtcNow.AutoCSerExtensions().ToIntDate()) { }
     }
 }

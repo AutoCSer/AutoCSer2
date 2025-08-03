@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AutoCSer
@@ -283,7 +284,7 @@ namespace AutoCSer
         /// <param name="dateSplit">The separator between years, months and days
         /// 年月日之间的分隔符</param>
         /// <returns></returns>
-        public static string toString(this DateTime time, char dateSplit = DefaultDateSplit)
+        internal static string toString(this DateTime time, char dateSplit = DefaultDateSplit)
         {
             char* chars = stackalloc char[ToStringSize];
             return new string(chars, 0, ToString(time, chars, time.Kind == DateTimeKind.Utc ? 'T' : ' ', dateSplit));
@@ -294,7 +295,7 @@ namespace AutoCSer
         ///// <param name="time">时间</param>
         ///// <param name="dateSplit">日期分隔符</param>
         ///// <returns>时间字符串</returns>
-        //public static string toSecondString(this DateTime time, char dateSplit = '-')
+        //internal static string toSecondString(this DateTime time, char dateSplit = '-')
         //{
         //    string timeString = AutoCSer.Common.Config.AllocateString(19);
         //    fixed (char* timeFixed = timeString)
@@ -358,7 +359,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
-        public static string toString(this TimeSpan time)
+        internal static string toString(this TimeSpan time)
         {
             char* chars = stackalloc char[12 + 16];
             return new string(chars, 0, ToString(time, chars));
@@ -370,7 +371,7 @@ namespace AutoCSer
         /// <param name="time"></param>
         /// <returns>Year[23b] + Month[4b] + Day[5b]</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static uint toIntDate(this DateTime time)
+        internal static uint toIntDate(this DateTime time)
         {
             return ((uint)time.Year << 9) + ((uint)time.Month << 5) + (uint)time.Day;
         }
@@ -382,7 +383,7 @@ namespace AutoCSer
         /// <param name="kind"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static DateTime fromIntDate(this uint date, DateTimeKind kind = DateTimeKind.Utc)
+        internal static DateTime fromIntDate(this uint date, DateTimeKind kind = DateTimeKind.Utc)
         {
             return new DateTime((int)(date >> 9), (int)((date >> 5) & 15), (int)(date & 31), 0, 0, 0, kind);
         }

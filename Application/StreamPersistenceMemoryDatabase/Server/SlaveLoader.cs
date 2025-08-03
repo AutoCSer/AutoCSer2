@@ -227,7 +227,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             persistenceCallbackExceptionPositionStream.notNull().Flush();
                             getPersistenceCallbackExceptionPositionFileCompleted = true;
-                            if (!isBackup) getPersistenceFile().NotWait();
+                            if (!isBackup) getPersistenceFile().AutoCSerNotWait();
                             return;
                         }
                         callState = CallStateEnum.StateNotMatch;

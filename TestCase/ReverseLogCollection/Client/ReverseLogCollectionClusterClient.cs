@@ -32,7 +32,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
                 Host = new AutoCSer.Net.HostEndPoint(log.Port, log.Host),
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
             });
-            check().NotWait();
+            check().AutoCSerNotWait();
         }
         /// <summary>
         /// Get the client connection
@@ -72,7 +72,7 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         /// <param name="log"></param>
         private static void logCallback(LogInfo log)
         {
-            Console.WriteLine($"{log.LogTime.toString()} {log.Message}");
+            Console.WriteLine($"{log.LogTime.AutoCSerExtensions().ToString()} {log.Message}");
         }
     }
 }

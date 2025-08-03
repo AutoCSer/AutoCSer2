@@ -170,14 +170,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         client.ErrorMessage = "Get guard node failed";
                         await onError(client);
                         await initialize();
-                        trySwitch().NotWait();
+                        trySwitch().AutoCSerNotWait();
                         await onStart();
                         return client;
                     }
                     await initialize();
                     string switchProcessKey = this.switchProcessKey;
                     ResponseParameterAwaiter<bool> switchAwaiter = client.Value.Switch(switchProcessKey);
-                    if (isGuard) guard().NotWait();
+                    if (isGuard) guard().AutoCSerNotWait();
                     await onStart();
                     bool isConsole = true;
                     do
@@ -231,7 +231,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         private async Task trySwitch()
         {
-            if (isGuard) guard().NotWait();
+            if (isGuard) guard().AutoCSerNotWait();
             do
             {
                 ResponseResult<IProcessGuardNodeClientNode> client = await getProcessGuardClient.GetNode();

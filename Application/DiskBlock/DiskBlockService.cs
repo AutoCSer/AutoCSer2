@@ -325,7 +325,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 if (writeQueue.IsPushHead(request))
                 {
                     request = null;
-                    if (Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().NotWait();
+                    if (Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().AutoCSerNotWait();
                 }
                 else request = null;
             }
@@ -625,7 +625,7 @@ namespace AutoCSer.CommandService.DiskBlock
                 if (writeQueue.IsPushHead(request))
                 {
                     request = null;
-                    if (Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().NotWait();
+                    if (Interlocked.CompareExchange(ref isWrite, 1, 0) == 0) write().AutoCSerNotWait();
                 }
                 else request = null;
             }

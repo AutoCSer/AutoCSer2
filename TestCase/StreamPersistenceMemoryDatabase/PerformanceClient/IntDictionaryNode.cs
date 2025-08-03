@@ -73,15 +73,15 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabasePerformance
             {
                 case nameof(IntDictionaryNode.Set):
                     right = Reset(null, maxTestCount >> 2, taskCount) >> LoopCountBit;
-                    foreach (IntDictionaryNode task in tasks) task.Set().NotWait();
+                    foreach (IntDictionaryNode task in tasks) task.Set().AutoCSerNotWait();
                     break;
                 case nameof(IntDictionaryNode.Get):
                     right = Reset(null, maxTestCount >> 2, taskCount) >> LoopCountBit;
-                    foreach (IntDictionaryNode task in tasks) task.Get().NotWait();
+                    foreach (IntDictionaryNode task in tasks) task.Get().AutoCSerNotWait();
                     break;
                 case nameof(IntDictionaryNode.Remove):
                     right = Reset(null, maxTestCount >> 2, taskCount) >> LoopCountBit;
-                    foreach (IntDictionaryNode task in tasks) task.Remove().NotWait();
+                    foreach (IntDictionaryNode task in tasks) task.Remove().AutoCSerNotWait();
                     break;
             }
             await Wait(nameof(IntDictionaryNode), isReadWriteQueue ? $"{serverMethodName}+{nameof(IReadWriteQueueService)}" : serverMethodName);

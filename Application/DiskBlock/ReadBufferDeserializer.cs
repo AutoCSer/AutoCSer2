@@ -26,6 +26,17 @@ namespace AutoCSer.CommandService.DiskBlock
         {
             deserializer.InternalIndependentDeserializeNotReference(ref value);
         }
+        /// <summary>
+        /// 从独立数据缓冲区反序列化内部成员对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deserializer"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static void SimpleDeserialize<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicFields)]T>(AutoCSer.BinaryDeserializer deserializer, ref T value) where T : struct
+        {
+            deserializer.SimpleDeserialize(ref value);
+        }
 #endif
     }
 }

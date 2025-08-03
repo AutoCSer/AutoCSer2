@@ -35,9 +35,13 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal const int ControllerIndex = CustomDataIndex + 1;
         /// <summary>
+        /// 远程元数据命令索引
+        /// </summary>
+        internal const int RemoteMetadataIndex = ControllerIndex + 1;
+        /// <summary>
         /// 命令索引起始位置
         /// </summary>
-        internal const int CommandPoolIndex = ControllerIndex + 1;
+        internal const int CommandPoolIndex = RemoteMetadataIndex + 1;
         /// <summary>
         /// 命令信息
         /// </summary>

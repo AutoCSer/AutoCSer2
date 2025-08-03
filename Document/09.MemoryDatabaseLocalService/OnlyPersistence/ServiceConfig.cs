@@ -26,7 +26,7 @@ namespace AutoCSer.Document.MemoryDatabaseLocalService.OnlyPersistence
         /// <returns></returns>
         public override void RemoveHistoryFile(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService service)
         {
-            new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).Catch();
+            new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RemoveHistoryFile(service).Remove(new AutoCSer.Threading.TaskRunTimer(60.0)).AutoCSerExtensions().Catch();
         }
         /// <summary>
         /// The test environment is set to rebuild the file size at least 10MB (excluding the restart operation), and the production environment is handled according to actual needs

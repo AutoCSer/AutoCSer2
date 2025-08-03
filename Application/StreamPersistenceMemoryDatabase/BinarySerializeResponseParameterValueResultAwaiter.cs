@@ -47,7 +47,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="deserializer"></param>
         protected override void deserialize(AutoCSer.BinaryDeserializer deserializer)
         {
-            deserializer.InternalIndependentDeserializeNotReference(ref value);
+            if(AutoCSer.SimpleSerializeType<T>.IsSimple) deserializer.SimpleDeserialize(ref value);
+            else deserializer.InternalIndependentDeserializeNotReference(ref value);
         }
 
         /// <summary>

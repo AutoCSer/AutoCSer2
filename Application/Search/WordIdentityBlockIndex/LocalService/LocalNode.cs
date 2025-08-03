@@ -78,7 +78,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
 #endif
         {
             foreach (KeyValuePair<T, LocalData<T>> data in Datas.KeyValues) data.Value.Loaded(this, data.Key);
-            if (!isLoaded) load().NotWait();
+            if (!isLoaded) load().AutoCSerNotWait();
             return null;
         }
         /// <summary>
@@ -327,7 +327,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
                 {
                     LocalData<T> data = new LocalData<T>();
                     Datas.Add(key, data);
-                    data.Create(this, key, callback, text).NotWait();
+                    data.Create(this, key, callback, text).AutoCSerNotWait();
                     state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
                 }
                 else state = WordIdentityBlockIndexUpdateStateEnum.Success;
@@ -371,7 +371,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
                     {
                         LocalData<T> data = new LocalData<T>();
                         Datas.Add(key, data);
-                        data.Create(this, key, callback).NotWait();
+                        data.Create(this, key, callback).AutoCSerNotWait();
                         state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
                     }
                     else state = WordIdentityBlockIndexUpdateStateEnum.Success;
@@ -409,11 +409,11 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
                 if (key != null)
                 {
                     var data = default(LocalData<T>);
-                    if (Datas.TryGetValue(key, out data)) data.Update(this, key, callback).NotWait();
+                    if (Datas.TryGetValue(key, out data)) data.Update(this, key, callback).AutoCSerNotWait();
                     else
                     {
                         Datas.Add(key, data = new LocalData<T>());
-                        data.Create(this, key, callback).NotWait();
+                        data.Create(this, key, callback).AutoCSerNotWait();
                     }
                     state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
                 }
@@ -456,7 +456,7 @@ namespace AutoCSer.CommandService.Search.WordIdentityBlockIndex
                     var data = default(LocalData<T>);
                     if (Datas.TryGetValue(key, out data))
                     {
-                        data.Delete(this, key, callback).NotWait();
+                        data.Delete(this, key, callback).AutoCSerNotWait();
                         state = WordIdentityBlockIndexUpdateStateEnum.Callbacked;
                     }
                     else state = WordIdentityBlockIndexUpdateStateEnum.Success;

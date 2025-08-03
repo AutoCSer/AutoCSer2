@@ -20,8 +20,11 @@ namespace AutoCSer.TestCase
             CommandClientConfig commandClientConfig = new CommandClientConfig
             {
                 Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.TestCase),
-                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client),
-                IsDefaultController = true
+                GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, true),
+                IsDefaultController = true,
+#if !AOT
+                IsRemoteExpression = true
+#endif
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {
@@ -150,6 +153,11 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
+                if (!await ClientRemoteExpressionDelegateController.TestCase(client, clientSessionObject)
+                    || !await ClientRemoteExpressionDelegateController.TestCase(client, clientSessionObject))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
 #endif
             }
             return true;
@@ -169,7 +177,8 @@ namespace AutoCSer.TestCase
             CommandServerConfig commandServerConfig = new CommandServerConfig
             {
                 Host = new HostEndPoint((ushort)(isShortLink ? AutoCSer.TestCase.Common.CommandServerPortEnum.ShortLink : AutoCSer.TestCase.Common.CommandServerPortEnum.TestCase), string.Empty),
-                IsShortLink = isShortLink
+                IsShortLink = isShortLink,
+                IsRemoteExpression = !isShortLink
             };
             CommandListenerBuilder builder = new CommandListenerBuilder(32)
                     .Append<IServerSynchronousController>(new ServerSynchronousController())
@@ -205,7 +214,8 @@ namespace AutoCSer.TestCase
             {
                 builder = builder.Append<ServerBindContext.IServerTaskQueueController>(server => new ServerBindContext.ServerTaskQueueController());
             }
-            return builder.CreateCommandListener(commandServerConfig);
+            return builder.Append<IServerRemoteExpressionDelegateController>(new ServerRemoteExpressionDelegateController())
+                .CreateCommandListener(commandServerConfig);
         }
 #endif
     }

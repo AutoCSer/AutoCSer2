@@ -117,7 +117,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         *(ulong*)(data + (sizeof(DateTime) + sizeof(ulong))) = RepairNodeMethodDirectory.Position;
                         *(ulong*)(data + (sizeof(DateTime) + sizeof(ulong) * 2)) = RepairNodeMethodDirectory.RepairTime;
                         *(uint*)(data + (sizeof(DateTime) + sizeof(ulong) * 3)) = RepairNodeMethodDirectory.MethodIndex;
-                        serializer.SerializeBufferEnd(index);
+                        stream.Data.Pointer.WriteSizeHeader(index);
+                        //serializer.SerializeBufferEnd(index);
                     }
                 }
             }

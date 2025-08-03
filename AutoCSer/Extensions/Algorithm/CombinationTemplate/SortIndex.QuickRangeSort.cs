@@ -169,7 +169,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序

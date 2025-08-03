@@ -180,7 +180,7 @@ namespace AutoCSer.CommandService.DeployTask
                                 finally { Monitor.Exit(fileLock); }
                                 break;
                             }
-                            pullFile.Synchronous().NotWait();
+                            pullFile.Synchronous().AutoCSerNotWait();
                         }
 
                         bool isCallSuccess = isSuccess;

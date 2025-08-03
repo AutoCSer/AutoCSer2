@@ -28,7 +28,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.JsonSerialize
         void AutoCSer.Json.ICustomSerialize<Custom>.Deserialize(AutoCSer.JsonDeserializer deserializer)
         {
             var stringValue = default(string);
-            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.notNull());
+            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.AutoCSerClassGenericTypeExtensions().NotNull());
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace AutoCSer.Document.ServiceDataSerialize.JsonSerialize
         void AutoCSer.Json.ICustomSerialize<CustomStruct>.Deserialize(AutoCSer.JsonDeserializer deserializer)
         {
             var stringValue = default(string);
-            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.notNull());
+            if (deserializer.CustomDeserialize(ref stringValue)) Value = int.Parse(stringValue.AutoCSerClassGenericTypeExtensions().NotNull());
         }
     }
 }

@@ -35,7 +35,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 接口方法信息
             /// </summary>
-            public MethodIndex Method;
+            public Metadata.MethodIndex Method;
             /// <summary>
             /// 方法名称
             /// </summary>
@@ -71,7 +71,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (interfaceMethod != null)
                 {
                     this.interfaceMethod = interfaceMethod;
-                    Method = new MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex, interfaceMethod.ParameterStartIndex, interfaceMethod.ParameterEndIndex);
+                    Method = new Metadata.MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex, interfaceMethod.ParameterStartIndex, interfaceMethod.ParameterEndIndex);
                     TaskQueueKeyType = interfaceMethod.TaskQueueKeyType != null ? interfaceMethod.TaskQueueKeyType : (ExtensionType)null;
                     switch (interfaceMethod.MethodType)
                     {

@@ -29,20 +29,10 @@ namespace AutoCSer.Net.CommandServer
             CommandControllerOutputData controllerOutputData = default(CommandControllerOutputData);
             if (Socket.Deserialize(ref data, ref controllerOutputData, false))
             {
-                Socket.ControllerCallback(ref controllerOutputData);
+                Socket.Callback(ref controllerOutputData);
                 return ClientReceiveErrorTypeEnum.Success;
             }
             return ClientReceiveErrorTypeEnum.ControllerDataError;
-            //fixed (byte* dataFixed = data.GetFixedBuffer())
-            //{
-            //    byte* start = dataFixed + data.Start, end = start + data.Length;
-            //    if (SimpleSerialize.Deserializer<CommandControllerOutputData>.DefaultDeserializer(start, ref controllerOutputData, end) != end)
-            //    {
-            //        return ClientReceiveErrorTypeEnum.ControllerDataError;
-            //    }
-            //}
-            //Socket.ControllerCallback(ref controllerOutputData);
-            //return ClientReceiveErrorTypeEnum.Success;
         }
     }
 }

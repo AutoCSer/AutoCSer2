@@ -162,7 +162,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 EnumeratorCommand<int> enumeratorCommand = await client.InterfaceController.KeepCallback(); //服务端保持回调模式适合服务端无限制的推送数据操作，对于较大的集合也建议分拆成小数据流处理
                 await using ((IAsyncDisposable)enumeratorCommand)
                 {
-                    checkEnumeratorCommand(enumeratorCommand).NotWait();
+                    checkEnumeratorCommand(enumeratorCommand).AutoCSerNotWait();
                     for (int right = testCount; right != 0; await client.InterfaceController.SendOnly(left, --right))
                     {
                         //if ((right & ((1 << 6) - 1)) == 0) AutoCSer.Threading.ThreadYield.YieldOnly();//降低生产速度测试
@@ -174,7 +174,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
                 enumeratorCommand = await client.InterfaceController.KeepCallbackCount(); //服务端带计数的保持回调模式适合服务端推送数据操作，计数模式可以降低内存占用并且在一定程度上避免网络资源被独占，但是会降低吞吐性能
                 await using ((IAsyncDisposable)enumeratorCommand)
                 {
-                    checkEnumeratorCommand(enumeratorCommand).NotWait();
+                    checkEnumeratorCommand(enumeratorCommand).AutoCSerNotWait();
                     for (int right = testCount; right != 0; await client.InterfaceController.SendOnlyTask(left, --right)) ;
                     await LoopCompleted(nameof(AwaiterClientPerformance), nameof(client.InterfaceController.KeepCallbackCount));
                 }
@@ -224,7 +224,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
         {
             long startTimestamp = Stopwatch.GetTimestamp();
             int count = 0;
-            await Enumerable.Range(1, maxTestCount >> 1).enumerableTask(8192, async index => //3.8:25.4 轮空测试耗时占比 15%
+            await Enumerable.Range(1, maxTestCount >> 1).AutoCSerEnumerableExtensions().EnumerableTask(8192, async index => //3.8:25.4 轮空测试耗时占比 15%
             //await Enumerable.Range(1, 1000000).enumerableTask(50, async index => //0.1:4.4 轮空测试耗时占比 2.3%
             {
                 if (!isEmpty)
@@ -265,39 +265,39 @@ namespace AutoCSer.TestCase.CommandClientPerformance
             {
                 case nameof(Synchronous):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) Synchronous().NotWait();
+                    while (--taskCount >= 0) Synchronous().AutoCSerNotWait();
                     break;
                 case nameof(Callback):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) Callback().NotWait();
+                    while (--taskCount >= 0) Callback().AutoCSerNotWait();
                     break;
                 case nameof(Queue):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) Queue().NotWait();
+                    while (--taskCount >= 0) Queue().AutoCSerNotWait();
                     break;
                 case nameof(ConcurrencyReadQueue):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) ConcurrencyReadQueue().NotWait();
+                    while (--taskCount >= 0) ConcurrencyReadQueue().AutoCSerNotWait();
                     break;
                 case nameof(ReadWriteQueue):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) ReadWriteQueue().NotWait();
+                    while (--taskCount >= 0) ReadWriteQueue().AutoCSerNotWait();
                     break;
                 case nameof(TaskQueue):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) TaskQueue().NotWait();
+                    while (--taskCount >= 0) TaskQueue().AutoCSerNotWait();
                     break;
                 case nameof(TaskQueueKey):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) TaskQueueKey().NotWait();
+                    while (--taskCount >= 0) TaskQueueKey().AutoCSerNotWait();
                     break;
                 case nameof(Task):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) Task().NotWait();
+                    while (--taskCount >= 0) Task().AutoCSerNotWait();
                     break;
                 case nameof(SynchronousCallTask):
                     right = Reset(commandClient, maxTestCount, taskCount) >> LoopCountBit;
-                    while (--taskCount >= 0) SynchronousCallTask().NotWait();
+                    while (--taskCount >= 0) SynchronousCallTask().AutoCSerNotWait();
                     break;
             }
         }

@@ -89,7 +89,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             {
                 LocalResult<IStaticTrieGraphNodeLocalClientNode> trieGraphNode = await MemoryTrieGraphServiceConfig.StaticTrieGraphNodeCache.GetNode();
                 if (!trieGraphNode.IsSuccess) return trieGraphNode.GetPageResult<int>();
-                LocalResult<int[]> wordIdentitysResult = await trieGraphNode.Value.notNull().GetWordSegmentIdentity(queryParameter.Name);
+                LocalResult<int[]> wordIdentitysResult = await trieGraphNode.Value.AutoCSerClassGenericTypeExtensions().NotNull().GetWordSegmentIdentity(queryParameter.Name);
                 if (!wordIdentitysResult.IsSuccess) return wordIdentitysResult.GetPageResult<int>();
                 if (wordIdentitysResult.Value.Length == 0) return queryParameter.GetPageResult<int>();
                 userNameWordIdentitys = wordIdentitysResult.Value;
@@ -98,7 +98,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             {
                 LocalResult<IStaticTrieGraphNodeLocalClientNode> trieGraphNode = await MemoryTrieGraphServiceConfig.StaticTrieGraphNodeCache.GetNode();
                 if (!trieGraphNode.IsSuccess) return trieGraphNode.GetPageResult<int>();
-                LocalResult<int[]> wordIdentitysResult = await trieGraphNode.Value.notNull().GetWordSegmentIdentity(queryParameter.Remark);
+                LocalResult<int[]> wordIdentitysResult = await trieGraphNode.Value.AutoCSerClassGenericTypeExtensions().NotNull().GetWordSegmentIdentity(queryParameter.Remark);
                 if (!wordIdentitysResult.IsSuccess) return wordIdentitysResult.GetPageResult<int>();
                 if (wordIdentitysResult.Value.Length == 0) return queryParameter.GetPageResult<int>();
                 userRemarkWordIdentitys = wordIdentitysResult.Value;

@@ -35,12 +35,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
             string typeName = isReadWriteQueue ? $"ReadWriteQueue.{nameof(PerformanceSearchTreeDictionaryNode)}" : nameof(PerformanceSearchTreeDictionaryNode);
             int taskCount = getTaskCount();
             testValue = reset(maxTestCount >> 1, true, taskCount);
-            while (--taskCount >= 0) Set().NotWait();
+            while (--taskCount >= 0) Set().AutoCSerNotWait();
             await wait(typeName, nameof(Set));
 
             taskCount = getTaskCount();
             testValue = reset(maxTestCount >> 1, true, taskCount);
-            while (--taskCount >= 0) TryGetValue().NotWait();
+            while (--taskCount >= 0) TryGetValue().AutoCSerNotWait();
             await wait(typeName, nameof(TryGetValue));
 
             result = await this.node.Clear();

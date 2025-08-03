@@ -89,19 +89,37 @@ namespace AutoCSer.CommandService.DiskBlock
         }
 
         /// <summary>
+        /// 获取二进制序列化数据缓冲区（需确定非简单序列化类型）
+        /// </summary>
+        /// <typeparam name="T">需确定非简单序列化类型</typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        internal static WriteBuffer CreateWriteBufferSerializer<T>(T? value)
+#else
+        internal static WriteBuffer CreateWriteBufferSerializer<T>(T value)
+#endif
+        {
+            return new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
+        }
+        /// <summary>
         /// 获取二进制序列化数据缓冲区
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static WriteBuffer CreateWriteBufferSerializer<T>(T? value)
+        public static WriteBuffer CreateSerializer<T>(T? value)
 #else
-        public static WriteBuffer CreateWriteBufferSerializer<T>(T value)
+        public static WriteBuffer CreateSerializer<T>(T value)
 #endif
         {
-            return new WriteBuffer(new WriteBufferSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
+            if (AutoCSer.SimpleSerializeType<T>.IsSimple)
+            {
+                return new WriteBuffer(new WriteBufferSimpleSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
+            }
+            return CreateWriteBufferSerializer(value);
         }
     }
 }

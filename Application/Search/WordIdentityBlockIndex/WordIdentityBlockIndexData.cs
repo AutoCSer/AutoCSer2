@@ -54,9 +54,9 @@ namespace AutoCSer.CommandService.Search
         {
             if (!IsLoadedDeleted)
             {
-                if (BlockIndex.IsBinarySerializeNullValue) Create(node, key).NotWait();
+                if (BlockIndex.IsBinarySerializeNullValue) Create(node, key).AutoCSerNotWait();
             }
-            else Delete(node, key).NotWait();
+            else Delete(node, key).AutoCSerNotWait();
         }
         /// <summary>
         /// Create the disk block index information of the word segmentation result

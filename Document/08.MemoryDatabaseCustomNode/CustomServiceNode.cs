@@ -55,8 +55,8 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum state = getEquatableType(ref keyType, ref type);
             if (state == AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.Success)
             {
-                MethodInfo method = typeof(CustomServiceNode).GetMethod(nameof(createDictionaryCounterNode), BindingFlags.Instance | BindingFlags.NonPublic).notNull();
-                return (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex)method.MakeGenericMethod(type.notNull()).Invoke(this, new object[] { index, key, nodeInfo, capacity }).notNull();
+                MethodInfo method = typeof(CustomServiceNode).GetMethod(nameof(createDictionaryCounterNode), BindingFlags.Instance | BindingFlags.NonPublic).AutoCSerClassGenericTypeExtensions().NotNull();
+                return (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex)method.MakeGenericMethod(type.AutoCSerClassGenericTypeExtensions().NotNull()).Invoke(this, new object[] { index, key, nodeInfo, capacity }).AutoCSerClassGenericTypeExtensions().NotNull();
             }
             return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex(state);
         }
@@ -102,8 +102,8 @@ namespace AutoCSer.Document.MemoryDatabaseCustomNode
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum state = getEquatableType(ref keyType, ref type);
             if (state == AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.Success)
             {
-                MethodInfo method = typeof(CustomServiceNode).GetMethod(nameof(createDictionarySnapshotCloneCounterNode), BindingFlags.Instance | BindingFlags.NonPublic).notNull();
-                return (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex)method.MakeGenericMethod(type.notNull()).Invoke(this, new object[] { index, key, nodeInfo, capacity }).notNull();
+                MethodInfo method = typeof(CustomServiceNode).GetMethod(nameof(createDictionarySnapshotCloneCounterNode), BindingFlags.Instance | BindingFlags.NonPublic).AutoCSerClassGenericTypeExtensions().NotNull();
+                return (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex)method.MakeGenericMethod(type.AutoCSerClassGenericTypeExtensions().NotNull()).Invoke(this, new object[] { index, key, nodeInfo, capacity }).AutoCSerClassGenericTypeExtensions().NotNull();
             }
             return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex(state);
         }

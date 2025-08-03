@@ -112,7 +112,7 @@ namespace AutoCSer.CommandService.DeployTask
                 }
                 if (UploaderInfo.BackupPath != uploaderInfo.BackupPath) return UploadFileStateEnum.PathUploading;
             }
-            service.RemoveUploader(this).NotWait();
+            service.RemoveUploader(this).AutoCSerNotWait();
             return UploadFileStateEnum.Success;
         }
         /// <summary>
@@ -150,7 +150,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <returns></returns>
         protected internal override void OnTimer() 
         {
-            if (uploadTimestamp + service.TimeoutTimestamp <= Stopwatch.GetTimestamp()) service.RemoveUploader(this).NotWait();
+            if (uploadTimestamp + service.TimeoutTimestamp <= Stopwatch.GetTimestamp()) service.RemoveUploader(this).AutoCSerNotWait();
         }
         /// <summary>
         /// 匹配文件扩展名

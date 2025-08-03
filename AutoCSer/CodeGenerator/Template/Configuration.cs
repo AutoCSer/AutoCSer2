@@ -18,10 +18,10 @@ namespace AutoCSer.CodeGenerator.Template
                 AutoCSer.ConfigObject.Create<@FullName>(null);
                 #endregion LOOP CreateTypes
                 #region LOOP CreateTaskTypes
-                AutoCSer.Extensions.TaskExtension.NotWait(AutoCSer.ConfigObject.CreateTask<@FullName>(null));
+                AutoCSer.Extensions.TaskExtension.AutoCSerNotWait(AutoCSer.ConfigObject.CreateTask<@FullName>(null));
                 #endregion LOOP CreateTaskTypes
                 #region LOOP GetTaskTypes
-                AutoCSer.Extensions.TaskExtension.NotWait(AutoCSer.ConfigObject.GetTask<@FullName>(null));
+                AutoCSer.Extensions.TaskExtension.AutoCSerNotWait(AutoCSer.ConfigObject.GetTask<@FullName>(null));
                 #endregion LOOP GetTaskTypes
                 AutoCSer.AotReflection.All(typeof(@CurrentType.FullName));
             }

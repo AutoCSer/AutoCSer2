@@ -72,6 +72,21 @@ namespace AutoCSer.Memory
             CurrentIndex = 0;
         }
         /// <summary>
+        /// 指针
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="size"></param>
+        /// <param name="currentIndex"></param>
+        internal Pointer(void* data, int size, int currentIndex)
+        {
+#if DEBUG
+            if (size < 0) throw new Exception(size.toString() + " < 0");
+#endif
+            Data = data;
+            ByteSize = size;
+            CurrentIndex = currentIndex;
+        }
+        /// <summary>
         /// 字节指针
         /// </summary>
         public byte* Byte
@@ -346,6 +361,57 @@ namespace AutoCSer.Memory
             debugCheckCurrentIndex(newIndex);
 #endif
             CurrentIndex = newIndex;
+        }
+        /// <summary>
+        /// 设置当前数据操作位置并写入数据
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetCurrentIndex(int index, int value)
+        {
+            *(int*)((byte*)Data + index) = value;
+            CurrentIndex = index + sizeof(int);
+        }
+        /// <summary>
+        /// 写入数据长度
+        /// </summary>
+        /// <param name="dataIndex">数据起始位置</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void WriteSizeData(int dataIndex)
+        {
+            *(int*)((byte*)Data + (dataIndex - sizeof(int))) = CurrentIndex - dataIndex;
+        }
+        /// <summary>
+        /// 写入数据长度
+        /// </summary>
+        /// <param name="headerIndex">头部起始位置</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void WriteSizeHeader(int headerIndex)
+        {
+            *(int*)((byte*)Data + headerIndex) = CurrentIndex - (headerIndex + sizeof(int));
+        }
+        /// <summary>
+        /// 计算 64 位 HASH 值
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal ulong GetHashCode64(int startIndex)
+        {
+            return AutoCSer.Memory.Common.GetHashCode64((byte*)Data + startIndex, CurrentIndex - startIndex);
+        }
+        /// <summary>
+        /// 计算 64 位 HASH 值
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal ulong GetHashCode64(void* data, int size)
+        {
+            Set(data, size);
+            return AutoCSer.Memory.Common.GetHashCode64((byte*)data, size);
         }
         /// <summary>
         /// 设置位图
@@ -1069,6 +1135,32 @@ namespace AutoCSer.Memory
             if (CurrentIndex == 0) return EmptyArray<byte>.Array;
             return AutoCSer.Common.GetArray(Data, CurrentIndex);
         }
+        /// <summary>
+        /// 整个缓冲区转换成字节数组
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public byte[] GetBufferArray()
+        {
+            return AutoCSer.Common.GetArray(Data, ByteSize);
+        }
+        /// <summary>
+        /// 整个缓冲区与字节数组比较
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool BufferSequenceEqual(byte[] data)
+        {
+            if (data.Length == ByteSize)
+            {
+                fixed (byte* dataFixed = data)
+                {
+                    return AutoCSer.Memory.Common.SequenceEqual(dataFixed, Data, ByteSize);
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// 转换成字节数组
         /// </summary>

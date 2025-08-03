@@ -8,7 +8,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 集合相关扩展
     /// </summary>
-    public static class CollectionExtension
+    internal static class CollectionExtension
     {
         /// <summary>
         /// ICollection泛型转换
@@ -29,7 +29,7 @@ namespace AutoCSer.Extensions
         /// <param name="value">数据集合</param>
         /// <returns>null为0</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static int count<T>(this ICollection<T> value)
+        internal static int count<T>(this ICollection<T> value)
         {
             return value != null ? value.Count : 0;
         }
@@ -40,7 +40,7 @@ namespace AutoCSer.Extensions
         /// <param name="values">Data collection
         /// 数据集合</param>
         /// <returns>Array</returns>
-        public static T[] getArray<T>(this ICollection<T> values)
+        internal static T[] getArray<T>(this ICollection<T> values)
         {
             if (values.Count == 0) return EmptyArray<T>.Array;
             T[] array = new T[values.Count];
@@ -57,7 +57,7 @@ namespace AutoCSer.Extensions
         /// <param name="values">值集合</param>
         /// <param name="getValue">获取数组值的委托</param>
         /// <returns>Array</returns>
-        public static LeftArray<VT> getLeftArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
+        internal static LeftArray<VT> getLeftArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
         {
             if (values.Count == 0) return new LeftArray<VT>(0);
             LeftArray<VT> array = new LeftArray<VT>(values.Count);
@@ -73,7 +73,7 @@ namespace AutoCSer.Extensions
         /// <param name="getValue">获取数组值的委托</param>
         /// <returns>Array</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static VT[] getArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
+        internal static VT[] getArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
         {
             return getLeftArray<T, VT>(values, getValue).ToArray();
         }
@@ -86,7 +86,7 @@ namespace AutoCSer.Extensions
         /// <param name="getValue">获取数组值的委托</param>
         /// <returns>单向动态数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static ListArray<VT> getListArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
+        internal static ListArray<VT> getListArray<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
         {
             return new ListArray<VT>(getLeftArray<T, VT>(values, getValue));
         }
@@ -100,9 +100,9 @@ namespace AutoCSer.Extensions
         /// <param name="getValue">获取数组值的委托</param>
         /// <returns>匹配数组</returns>
 #if NetStandard21
-        public static VT[] getFindArrayNotNull<T, VT>(this ICollection<T> values, Func<T, VT?> getValue)
+        internal static VT[] getFindArrayNotNull<T, VT>(this ICollection<T> values, Func<T, VT?> getValue)
 #else
-        public static VT[] getFindArrayNotNull<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
+        internal static VT[] getFindArrayNotNull<T, VT>(this ICollection<T> values, Func<T, VT> getValue)
 #endif
             where VT : class
         {
@@ -136,7 +136,7 @@ namespace AutoCSer.Extensions
         /// <param name="values">值集合</param>
         /// <param name="getKey">键值获取器</param>
         /// <returns>Dictionary</returns>
-        public static Dictionary<KT, VT> getDictionary<VT, KT>(this ICollection<VT> values, Func<VT, KT> getKey)
+        internal static Dictionary<KT, VT> getDictionary<VT, KT>(this ICollection<VT> values, Func<VT, KT> getKey)
             where KT : IEquatable<KT>
         {
             Dictionary<KT, VT> dictionary = DictionaryCreator<KT>.Create<VT>(values.Count);

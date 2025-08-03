@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Extensions
@@ -6,7 +7,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展操作
     /// </summary>
-    public static unsafe class ArrayExtension
+    internal static unsafe class ArrayExtension
     {
         /// <summary>
         /// 数组是否为空或者长度为0
@@ -15,7 +16,7 @@ namespace AutoCSer.Extensions
         /// <param name="array">数组数据</param>
         /// <returns>数组是否为空或者长度为0</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static bool isEmpty<T>(this T[] array)
+        internal static bool isEmpty<T>(this T[] array)
         {
             return array == null || array.Length == 0;
         }
@@ -26,7 +27,7 @@ namespace AutoCSer.Extensions
         ///// <param name="array">数组数据</param>
         ///// <returns>非空数组</returns>
         //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static T[] notNull<T>(this T[] array)
+        //internal static T[] notNull<T>(this T[] array)
         //{
         //    return array != null ? array : EmptyArray<T>.Array;
         //}
@@ -37,7 +38,7 @@ namespace AutoCSer.Extensions
         /// <param name="array">待复制数组</param>
         /// <returns>复制后的新数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static T[] copy<T>(this T[] array)
+        internal static T[] copy<T>(this T[] array)
         {
             if (array.isEmpty()) return EmptyArray<T>.Array;
             return AutoCSer.Common.GetCopyArray(array, array.Length);
@@ -48,7 +49,7 @@ namespace AutoCSer.Extensions
         /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组集合</param>
         /// <returns>连接后的数组</returns>
-        public static T[] getArray<T>(this T[][] array)
+        internal static T[] getArray<T>(this T[][] array)
         {
             if (array.isEmpty()) return EmptyArray<T>.Array;
             if (array.Length != 1) return getConcatArray(array);
@@ -84,18 +85,18 @@ namespace AutoCSer.Extensions
             return EmptyArray<T>.Array;
         }
         /// <summary>
-        /// 连接数组
+        /// 合并数组
         /// </summary>
         /// <typeparam name="T">Data type</typeparam>
         /// <param name="array">数组集合</param>
-        /// <param name="addArray">数组集合</param>
-        /// <returns>连接后的数组</returns>
-        public static T[] concat<T>(this T[] array, T[] addArray)
+        /// <param name="otherArray">追加的数组</param>
+        /// <returns>合并后的数组</returns>
+        internal static T[] concat<T>(this T[] array, T[] otherArray)
         {
-            if (addArray.Length == 0) return array;
-            if (array.Length == 0) return addArray;
-            T[] newArray = AutoCSer.Common.GetCopyArray(array, array.Length + addArray.Length);
-            addArray.CopyTo(newArray, array.Length);
+            if (otherArray.Length == 0) return array;
+            if (array.Length == 0) return otherArray;
+            T[] newArray = AutoCSer.Common.GetCopyArray(array, array.Length + otherArray.Length);
+            otherArray.CopyTo(newArray, array.Length);
             return newArray;
         }
         /// <summary>
@@ -105,7 +106,7 @@ namespace AutoCSer.Extensions
         /// <param name="array">数组集合</param>
         /// <returns>连接后的数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static T[] concat<T>(params T[][] array)
+        internal static T[] concat<T>(params T[][] array)
         {
             return array.getArray();
         }
@@ -117,7 +118,7 @@ namespace AutoCSer.Extensions
         /// <param name="isValue">Determine whether the data match
         /// 判断数据是否匹配</param>
         /// <returns>匹配集合</returns>
-        public static LeftArray<T> getFind<T>(this T[] array, Func<T, bool> isValue)
+        internal static LeftArray<T> getFind<T>(this T[] array, Func<T, bool> isValue)
         {
             if (array != null)
             {
@@ -145,7 +146,7 @@ namespace AutoCSer.Extensions
         /// 数据排序比较器</param>
         /// <returns>排序后的数组</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static T[] sort<T>(this T[] array, Func<T, T, int> comparer)
+        internal static T[] sort<T>(this T[] array, Func<T, T, int> comparer)
         {
             AutoCSer.Algorithm.QuickSort<T>.Sort(array, comparer);
             return array;
@@ -163,7 +164,7 @@ namespace AutoCSer.Extensions
         /// <param name="join">连接字符</param>
         /// <returns>字符串</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static string joinString<T>(this T[] array, char join, Func<T, string> toString)
+        internal static string joinString<T>(this T[] array, char join, Func<T, string> toString)
         {
             if (array.Length == 0) return string.Empty;
             return JoinString(array.getArray(toString), join);
@@ -195,6 +196,19 @@ namespace AutoCSer.Extensions
             }
             return value;
         }
+#if !NET8
+        /// <summary>
+        /// 转换为只读集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static ReadOnlyCollection<T> AsReadOnly<T>(this T[] array)
+        {
+            return new ReadOnlyCollection<T>(array);
+        }
+#endif
 
 #if DEBUG
         /// <summary>

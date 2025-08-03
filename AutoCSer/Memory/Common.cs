@@ -410,6 +410,16 @@ namespace AutoCSer.Memory
         //    return (int)((uint)value ^ (uint)(value >> 32));
         //}
         /// <summary>
+        /// 32 位哈希值位移操作
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static uint HashCodeShift(uint code)
+        {
+            return (code << 13) | (code >> 19);
+        }
+        /// <summary>
         /// 哈希值计算加法运算常量
         /// </summary>
         internal const ulong AddHashCode = 0xa6e8f24c3bd07195UL;

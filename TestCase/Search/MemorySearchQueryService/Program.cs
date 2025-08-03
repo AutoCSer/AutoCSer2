@@ -23,14 +23,14 @@ namespace AutoCSer.TestCase.SearchQueryService
             };
             Task<DiskBlockService> diskBlockServiceTask = fileBlockServiceConfig.CreateFileBlockService();
 
-            trieGraphNode().NotWait();
+            trieGraphNode().AutoCSerNotWait();
 
-            userNameIndexNode().NotWait();
-            userRemarkIndexNode().NotWait();
-            searchUserNodeCache().NotWait();
+            userNameIndexNode().AutoCSerNotWait();
+            userRemarkIndexNode().AutoCSerNotWait();
+            searchUserNodeCache().AutoCSerNotWait();
 
-            userNameWordIdentityNode().NotWait();
-            userRemarkWordIdentityNode().NotWait();
+            userNameWordIdentityNode().AutoCSerNotWait();
+            userRemarkWordIdentityNode().AutoCSerNotWait();
 
             AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerConfig
             {

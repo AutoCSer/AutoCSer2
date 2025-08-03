@@ -13,7 +13,7 @@ namespace AutoCSer.TestCase.CopyScreenGif
             try
             {
                 Size size = AutoCSer.Drawing.Gif.CopyScreen.CheckSize();
-                FileInfo file = new FileInfo(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.CopyScreenGif), ((ulong)AutoCSer.Threading.SecondTimer.Now.Ticks).toHex() + ".gif"));
+                FileInfo file = new FileInfo(Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.TestCase.CopyScreenGif), ((ulong)AutoCSer.Threading.SecondTimer.Now.Ticks).AutoCSerExtensions().ToHex() + ".gif"));
                 DirectoryInfo directory = file.Directory;
                 if (!directory.Exists) directory.Create();
                 using (FileStream fileStream = new FileStream(file.FullName, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1, FileOptions.WriteThrough))

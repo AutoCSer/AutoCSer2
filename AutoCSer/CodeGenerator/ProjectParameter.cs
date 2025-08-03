@@ -66,12 +66,19 @@ namespace AutoCSer.CodeGenerator
                     try
                     {
                         types = Assembly.GetTypes();
-                        types = types.sort((left, right) => string.CompareOrdinal(left.FullName, right.FullName));
+                    }
+                    catch (System.Reflection.ReflectionTypeLoadException reflectionTypeLoadException)
+                    {
+                        types = reflectionTypeLoadException.Types.Where(p => p != null).ToArray();
                     }
                     catch (Exception exception)
                     {
                         types = EmptyArray<Type>.Array;
                         Messages.Exception(exception);
+                    }
+                    if (types.Length != 0)
+                    {
+                        types = types.sort((left, right) => string.CompareOrdinal(left.FullName, right.FullName));
                     }
                 }
                 return types;

@@ -2247,7 +2247,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         foreach (AutoCSer.CodeGenerator.Metadata.ExtensionType _value2_ in _value1_)
                         {
             _code_.Add(@"
-                AutoCSer.Extensions.TaskExtension.NotWait(AutoCSer.ConfigObject.CreateTask<");
+                AutoCSer.Extensions.TaskExtension.AutoCSerNotWait(AutoCSer.ConfigObject.CreateTask<");
             _code_.Add(_value2_.FullName);
             _code_.Add(@">(null));");
                             ++_loopIndex_;
@@ -2265,7 +2265,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         foreach (AutoCSer.CodeGenerator.Metadata.ExtensionType _value2_ in _value1_)
                         {
             _code_.Add(@"
-                AutoCSer.Extensions.TaskExtension.NotWait(AutoCSer.ConfigObject.GetTask<");
+                AutoCSer.Extensions.TaskExtension.AutoCSerNotWait(AutoCSer.ConfigObject.GetTask<");
             _code_.Add(_value2_.FullName);
             _code_.Add(@">(null));");
                             ++_loopIndex_;

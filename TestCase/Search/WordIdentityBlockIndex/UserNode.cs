@@ -34,8 +34,8 @@ namespace AutoCSer.TestCase.SearchWordIdentityBlockIndex
         {
             this.diskBlockIndexNode = diskBlockIndexNode;
             diskBlockClient = DiskBlockCommandClientSocketEvent.CommandClient.SocketEvent;
-            DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
-            DiskBlockCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
+            DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().AutoCSerNotWait();
+            DiskBlockCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().AutoCSerNotWait();
         }
         /// <summary>
         /// 根据分词数据关键字获取磁盘块索引信息客户端

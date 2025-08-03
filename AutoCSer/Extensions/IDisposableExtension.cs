@@ -6,7 +6,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 资源释放操作
     /// </summary>
-    public static class IDisposableExtension
+    internal static class IDisposableExtension
     {
 #if !NetStandard21
         /// <summary>
@@ -14,7 +14,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Task DisposeAsync(this IDisposable value)
+        internal static Task DisposeAsync(this IDisposable value)
         {
             value.Dispose();
             return AutoCSer.Common.CompletedTask;

@@ -260,7 +260,7 @@ namespace AutoCSer.Log
         /// </summary>
         private void checkFlush()
         {
-            if (isCheckFlush) Flush().NotWait();
+            if (isCheckFlush) Flush().AutoCSerNotWait();
         }
         /// <summary>
         /// 添加调试日志

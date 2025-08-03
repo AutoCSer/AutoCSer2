@@ -18,14 +18,14 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="task"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void NotWait(this Task task) { }
+        public static void AutoCSerNotWait(this Task task) { }
         /// <summary>
         /// A warning used to clear an await inside async without waiting for the task to execute
         /// 不等待任务执行的情况下，用于清除 async 内部提示 await 的警告
         /// </summary>
         /// <param name="task"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void NotWait(this ValueTask task) { }
+        public static void AutoCSerNotWait(this ValueTask task) { }
         /// <summary>
         /// Capture and output the exception log
         /// 捕获并输出异常日志
@@ -37,9 +37,9 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">Caller member name</param>
         /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
-        public static void Catch(this Task task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+        internal static void Catch(this Task task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
-        public static void Catch(this Task task, bool isQueue = false, [CallerFilePath] string callerFilePath = null, [CallerMemberName] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+        internal static void Catch(this Task task, bool isQueue = false, [CallerFilePath] string callerFilePath = null, [CallerMemberName] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
             if (task.IsCompleted)
@@ -60,9 +60,9 @@ namespace AutoCSer.Extensions
         /// <param name="callerMemberName">Caller member name</param>
         /// <param name="callerLineNumber">Caller the line number of the source code</param>
 #if NetStandard21
-        public static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+        internal static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
 #else
-        public static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string callerFilePath = null, [CallerMemberName] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+        internal static void Catch(this ValueTask task, bool isQueue = false, [CallerFilePath] string callerFilePath = null, [CallerMemberName] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
 #endif
         {
             Catch(task.AsTask(), isQueue, callerFilePath, callerMemberName, callerLineNumber);
@@ -73,7 +73,7 @@ namespace AutoCSer.Extensions
         //        /// <param name="task"></param>
         //        /// <returns></returns>
         //        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //        public static ValueTask ToValueTask(this Task task)
+        //        internal static ValueTask ToValueTask(this Task task)
         //        {
         //#if NetStandard21
         //            return new ValueTask(task);
@@ -89,7 +89,7 @@ namespace AutoCSer.Extensions
         /// 返回值类型</typeparam>
         /// <param name="task"></param>
         /// <returns></returns>
-        public static T getResult<T>(this Task<T> task)
+        internal static T getResult<T>(this Task<T> task)
         {
             if (task.IsCompleted) return task.Result;
             var exception = default(Exception);
@@ -103,7 +103,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
-        public static void wait(this Task task)
+        internal static void wait(this Task task)
         {
             if (task.IsCompleted) return;
             var exception = new WaitTask(task).Wait();
@@ -115,7 +115,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
-        public static void wait(this ValueTask task)
+        internal static void wait(this ValueTask task)
         {
             if (task.IsCompleted) return;
             var exception = new WaitTask(task.AsTask()).Wait();

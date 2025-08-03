@@ -240,7 +240,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
             if (Values.Count == RemoveMarkHashSetCapacity.MaxCapacity)
             {
                 isWriteBlock = true;
-                writeDiskBlock().NotWait();
+                writeDiskBlock().AutoCSerNotWait();
             }
         }
         /// <summary>
@@ -343,7 +343,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
                     isWriteBlock = false;
                     if (isClientGetBlockIndexData) node.Callback(key);
                 }
-                else writeDiskBlock().NotWait();
+                else writeDiskBlock().AutoCSerNotWait();
             }
             catch (Exception exception)
             {

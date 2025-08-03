@@ -9,7 +9,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 文件信息相关扩展
     /// </summary>
-    public static class FileInfoExtension
+    internal static class FileInfoExtension
     {
         /// <summary>
         /// 刷新文件信息状态并返回文件是否存在状态
@@ -17,7 +17,7 @@ namespace AutoCSer.Extensions
         /// <param name="file"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static bool RefreshExists(this FileInfo file)
+        internal static bool RefreshExists(this FileInfo file)
         {
             if(file != null)
             {
@@ -32,7 +32,7 @@ namespace AutoCSer.Extensions
         /// <param name="file"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static DateTime RefreshLastWriteTimeUtc(this FileInfo file)
+        internal static DateTime RefreshLastWriteTimeUtc(this FileInfo file)
         {
             if (file != null)
             {

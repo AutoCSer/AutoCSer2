@@ -804,7 +804,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         public override void Repair(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
-            NodeCreator.Repair<T>(rawAssembly, method, methodAttribute, callback).NotWait();
+            NodeCreator.Repair<T>(rawAssembly, method, methodAttribute, callback).AutoCSerNotWait();
         }
         /// <summary>
         /// Bind a new method to dynamically add interface functionality. The initial state of the new method number must be free
@@ -817,7 +817,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         public override void Bind(byte[] rawAssembly, MethodInfo method, ServerMethodAttribute methodAttribute, CommandServerCallback<CallStateEnum> callback)
         {
-            NodeCreator.Bind<T>(rawAssembly, method, methodAttribute, callback).NotWait();
+            NodeCreator.Bind<T>(rawAssembly, method, methodAttribute, callback).AutoCSerNotWait();
         }
 #endif
 

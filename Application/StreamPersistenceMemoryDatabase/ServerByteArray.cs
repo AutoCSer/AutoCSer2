@@ -145,6 +145,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static ServerByteArray BinarySerialize<T>(T value)
 #endif
         {
+            if (AutoCSer.SimpleSerializeType<T>.IsSimple)
+            {
+                return new ServerByteArray(new RequestParameterSimpleSerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
+            }
             return new ServerByteArray(new RequestParameterBinarySerializer<ServerReturnValue<T>>(new ServerReturnValue<T>(value)));
         }
         /// <summary>
@@ -163,11 +167,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (Buffer?.Length > 0)
             {
                 ServerReturnValue<T> returnValue = new ServerReturnValue<T>(value);
-                if (AutoCSer.BinaryDeserializer.IndependentDeserializeBuffer<ServerReturnValue<T>>(Buffer, ref returnValue))
+                if (AutoCSer.SimpleSerializeType<T>.IsSimple)
+                {
+                    if (AutoCSer.BinaryDeserializer.SimpleDeserializeBuffer<ServerReturnValue<T>>(Buffer, ref returnValue))
+                    {
+                        value = returnValue.ReturnValue;
+                        return true;
+                    }
+                }
+                else if (AutoCSer.BinaryDeserializer.IndependentDeserializeBuffer<ServerReturnValue<T>>(Buffer, ref returnValue))
                 {
                     value = returnValue.ReturnValue;
                     return true;
-                };
+                }
             }
             return false;
         }

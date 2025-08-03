@@ -49,6 +49,13 @@ namespace AutoCSer.Net
         /// 接收数据套接字异步事件对象
         /// </summary>
         private readonly SocketAsyncEventArgs receiveAsyncEventArgs;
+#if !AOT
+        /// <summary>
+        /// Remote expression client metadata information
+        /// 远程表达式客户端元数据信息
+        /// </summary>
+        internal readonly AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata RemoteMetadata;
+#endif
         /// <summary>
         /// The maximum number of unprocessed commands on the client side
         /// 客户端最大未处理命令数量
@@ -334,6 +341,9 @@ namespace AutoCSer.Net
             Socket = CommandServerConfigBase.NullSocket;
             outputWaitHandle = AutoCSer.Common.NullAutoResetEvent;
             OutputSerializer = CommandServerConfigBase.NullBinarySerializer;
+#if !AOT
+            RemoteMetadata = new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(true);
+#endif
             //CommandBatch = new CommandBatch(this);
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(true);
@@ -371,6 +381,9 @@ namespace AutoCSer.Net
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
             client.DefaultControllerReturnType = CommandClientReturnTypeEnum.WaitConnect;
+#if !AOT
+            RemoteMetadata = client.Config.IsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
+#endif
             Controller = createController();
             create().Catch();
         }
@@ -406,6 +419,9 @@ namespace AutoCSer.Net
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
             Client.DefaultControllerReturnType = CommandClientReturnTypeEnum.DisconnectionReconnect;
+#if !AOT
+            RemoteMetadata = Client.Config.IsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
+#endif
             Controller = createController();
             try
             {
@@ -443,6 +459,9 @@ namespace AutoCSer.Net
             controllerLock = new SemaphoreSlimLock(0, 1);
             setValue(false);
             client.DefaultControllerReturnType = CommandClientReturnTypeEnum.WaitConnect;
+#if !AOT
+            RemoteMetadata = client.Config.IsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
+#endif
             Controller = createController();
         }
         /// <summary>
@@ -458,6 +477,12 @@ namespace AutoCSer.Net
                 {
                     CommandPool.Array[CommandServer.KeepCallbackCommand.CustomDataIndex].Command = new CustomDataCallbackCommand(this);
                     CommandPool.Array[CommandServer.KeepCallbackCommand.ControllerIndex].Command = new ControllerCallbackCommand(this);
+#if !AOT
+                    if (Client.Config.IsRemoteExpression)
+                    {
+                        CommandPool.Array[CommandServer.KeepCallbackCommand.RemoteMetadataIndex].Command = new RemoteMetadataCallbackCommand(this);
+                    }
+#endif
                 }
                 CommandPool.Array[CommandServer.KeepCallbackCommand.MergeIndex].Command = new MergeCallbackCommand(this);
                 CommandPool.Array[CommandServer.KeepCallbackCommand.CancelKeepCallbackIndex].Command = new CancelKeepCallbackCommand(this);
@@ -774,7 +799,7 @@ namespace AutoCSer.Net
         /// 命令控制器查询数据回调
         /// </summary>
         /// <param name="controllerOutputData"></param>
-        internal void ControllerCallback(ref CommandControllerOutputData controllerOutputData)
+        internal void Callback(ref CommandControllerOutputData controllerOutputData)
         {
             controllerCreators.Remove(controllerOutputData.ControllerName);
             if (controllerOutputData.ControllerIndex > 0)

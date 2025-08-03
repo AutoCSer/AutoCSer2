@@ -100,7 +100,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.maxMessageCount = maxMessageCount;
             lastError.Set(CommandClientReturnTypeEnum.Success, CallStateEnum.Success, null);
             onMessageHandle = onMessage;
-            start().NotWait();
+            start().AutoCSerNotWait();
         }
         /// <summary>
         /// Release resources
@@ -145,10 +145,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (message.IsSuccess)
             {
-                if (message.Value != null) checkOnMessage(message.Value).NotWait();
+                if (message.Value != null) checkOnMessage(message.Value).AutoCSerNotWait();
                 return;
             }
-            onError(message, command).NotWait();
+            onError(message, command).AutoCSerNotWait();
         }
         /// <summary>
         /// Handle error messages

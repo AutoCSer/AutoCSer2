@@ -107,7 +107,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting

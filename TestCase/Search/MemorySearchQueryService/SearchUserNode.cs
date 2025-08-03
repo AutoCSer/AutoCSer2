@@ -77,8 +77,8 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// <param name="service"></param>
         internal SearchUserNode(StreamPersistenceMemoryDatabaseService service) : base(MemorySearchUserServiceConfig.SearchUserNodeCache)
         {
-            userNameNode = (HashCodeKeyIndexNode<int>)service.GetNode(nameof(OperationDataTypeEnum.UserNameNode)).castType<ServerNode<IHashCodeKeyIndexNode<int>>>().Target;
-            userRemarkNode = (HashCodeKeyIndexNode<int>)service.GetNode(nameof(OperationDataTypeEnum.UserRemarkNode)).castType<ServerNode<IHashCodeKeyIndexNode<int>>>().Target;
+            userNameNode = (HashCodeKeyIndexNode<int>)service.GetNode(nameof(OperationDataTypeEnum.UserNameNode)).AutoCSerObjectExtensions().CastType<ServerNode<IHashCodeKeyIndexNode<int>>>().Target;
+            userRemarkNode = (HashCodeKeyIndexNode<int>)service.GetNode(nameof(OperationDataTypeEnum.UserRemarkNode)).AutoCSerObjectExtensions().CastType<ServerNode<IHashCodeKeyIndexNode<int>>>().Target;
             intBufferPool = new AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPoolArray<int>(8);
             userBufferPool = new AutoCSer.CommandService.Search.IndexQuery.ArrayBufferPoolArray<SearchUserSearchTreeNode>(8);
             HashSetPool = AutoCSer.CommandService.Search.IndexQuery.HashSetPool<int>.GetArray(256);
@@ -86,7 +86,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             users = new AutoCSer.SearchTree.NodeDictionary<int, SearchUserSearchTreeNode>();
             loginTimes = new AutoCSer.SearchTree.Set<CompareKey<DateTime, int>>();
             queueLock = new System.Threading.SemaphoreSlim(1, 1);
-            DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().NotWait();
+            DataSourceCommandClientSocketEvent.CommandClient.Client.GetSocketEvent().AutoCSerNotWait();
         }
         /// <summary>
         /// Trigger the timed operation
@@ -234,7 +234,7 @@ namespace AutoCSer.TestCase.SearchQueryService
             {
                 if (!users.ContainsKey(key))
                 {
-                    createTask(key, callback).NotWait();
+                    createTask(key, callback).AutoCSerNotWait();
                     state = ConditionDataUpdateStateEnum.Callbacked;
                 }
                 else state = ConditionDataUpdateStateEnum.Success;
@@ -286,8 +286,8 @@ namespace AutoCSer.TestCase.SearchQueryService
             ConditionDataUpdateStateEnum state = ConditionDataUpdateStateEnum.Unknown;
             try
             {
-                if (users.ContainsKey(key)) updateTask(key, callback).NotWait();
-                else createTask(key, callback).NotWait();
+                if (users.ContainsKey(key)) updateTask(key, callback).AutoCSerNotWait();
+                else createTask(key, callback).AutoCSerNotWait();
                 state = ConditionDataUpdateStateEnum.Callbacked;
             }
             finally

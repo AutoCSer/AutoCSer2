@@ -79,10 +79,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             switch (state)
             {
-                case CallStateEnum.PersistenceCallbackException: Renew(nodeIndex).NotWait(); break;
+                case CallStateEnum.PersistenceCallbackException: Renew(nodeIndex).AutoCSerNotWait(); break;
                 case CallStateEnum.NodeIndexOutOfRange:
                 case CallStateEnum.NodeIdentityNotMatch:
-                    Reindex(nodeIndex).NotWait();
+                    Reindex(nodeIndex).AutoCSerNotWait();
                     break;
             }
         }

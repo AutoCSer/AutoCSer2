@@ -45,7 +45,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy
             {
                 if (await commandListener.Start())
                 {
-                    client().Catch();
+                    client().AutoCSerTaskExtensions().Catch();
 
                     Console.ReadKey();
                 }

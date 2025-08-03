@@ -116,10 +116,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (message.IsSuccess)
             {
-                if (message.Value != null) checkOnMessage(message.Value).NotWait();
+                if (message.Value != null) checkOnMessage(message.Value).AutoCSerNotWait();
                 return;
             }
-            onError(message).NotWait();
+            onError(message).AutoCSerNotWait();
         }
         /// <summary>
         /// Message processing
@@ -206,7 +206,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.node = node;
             this.maxMessageCount = maxMessageCount;
             lastError.Set(CommandClientReturnTypeEnum.Success, CallStateEnum.Success, null);
-            start().NotWait();
+            start().AutoCSerNotWait();
         }
         /// <summary>
         /// Release resources
@@ -244,10 +244,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (message.IsSuccess)
             {
-                if (message.Value != null) checkOnMessage(message.Value).NotWait();
+                if (message.Value != null) checkOnMessage(message.Value).AutoCSerNotWait();
                 return;
             }
-            onError(message).NotWait();
+            onError(message).AutoCSerNotWait();
         }
         /// <summary>
         /// Error handling of received messages

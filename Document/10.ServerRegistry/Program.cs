@@ -34,8 +34,8 @@ namespace AutoCSer.Document.ServerRegistry
 
                     await using (var messageServer = await AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Create((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.ServiceRegistryPort - 1))
                     {
-                        AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Test().Catch();
-                        AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryClusterClient.Test().Catch();
+                        AutoCSer.Document.ServerRegistry.MessageNodeCluster.CommandServerConfig.Test().AutoCSerExtensions().Catch();
+                        AutoCSer.Document.ServerRegistry.MessageNodeClusterClient.ServerRegistryClusterClient.Test().AutoCSerExtensions().Catch();
 
                         Console.ReadKey();
                     }

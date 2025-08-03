@@ -10,6 +10,102 @@ using AutoCSer;
 namespace AutoCSer.TestCase
 {
         /// <summary>
+        /// 远程表达式委托服务端测试接口 client interface
+        /// </summary>
+        public partial interface IServerRemoteExpressionDelegateControllerClientController
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Action(AutoCSer.Net.CommandServer.RemoteExpressionAction action);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Action1(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject> action);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Action2(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject,int> action, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Action3(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject,int,int> action, int parameter, int parameter2);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Default(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Func(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Func1(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Func2(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int,int> func, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Func3(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int,int,int> func, int parameter, int parameter2);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Index(AutoCSer.Net.CommandServer.RemoteExpressionFunc<object,int> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> TypeBinaryExpression(AutoCSer.Net.CommandServer.RemoteExpressionFunc<object,int,int> func, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Unbox(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,object,int> func, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<bool> Logical(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,bool> func, int parameter, int parameter2);
+        }
+}namespace AutoCSer.TestCase
+{
+        /// <summary>
         /// 服务端测试接口 client interface
         /// </summary>
         public partial interface IServerTaskQueueControllerClientController
@@ -125,6 +221,118 @@ namespace AutoCSer.TestCase
             /// AutoCSer.TestCase.Data.ORM.BusinessModel value 
             /// </summary>
             SetSocketTask = 3,
+        }
+}namespace AutoCSer.TestCase
+{
+        /// <summary>
+        /// 远程表达式委托服务端测试接口
+        /// </summary>
+        [AutoCSer.Net.CommandServer.ServerControllerInterface(typeof(IServerRemoteExpressionDelegateControllerMethodEnum))]
+        public partial interface IServerRemoteExpressionDelegateController { }
+        /// <summary>
+        /// 远程表达式委托服务端测试接口 (The method sequence number maps the enumeration type)
+        /// </summary>
+        public enum IServerRemoteExpressionDelegateControllerMethodEnum
+        {
+            /// <summary>
+            /// [0] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionAction action 
+            /// 返回值 int 
+            /// </summary>
+            Action = 0,
+            /// <summary>
+            /// [1] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionAction{AutoCSer.TestCase.CommandServerSessionObject} action 
+            /// 返回值 int 
+            /// </summary>
+            Action1 = 1,
+            /// <summary>
+            /// [2] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionAction{AutoCSer.TestCase.CommandServerSessionObject,int} action 
+            /// int parameter 
+            /// 返回值 int 
+            /// </summary>
+            Action2 = 2,
+            /// <summary>
+            /// [3] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionAction{AutoCSer.TestCase.CommandServerSessionObject,int,int} action 
+            /// int parameter 
+            /// int parameter2 
+            /// 返回值 int 
+            /// </summary>
+            Action3 = 3,
+            /// <summary>
+            /// [4] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int} func 
+            /// 返回值 int 
+            /// </summary>
+            Default = 4,
+            /// <summary>
+            /// [5] 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{int} func 
+            /// 返回值 int 
+            /// </summary>
+            Func = 5,
+            /// <summary>
+            /// [6] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{AutoCSer.TestCase.CommandServerSessionObject,int} func 
+            /// 返回值 int 
+            /// </summary>
+            Func1 = 6,
+            /// <summary>
+            /// [7] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{AutoCSer.TestCase.CommandServerSessionObject,int,int} func 
+            /// int parameter 
+            /// 返回值 int 
+            /// </summary>
+            Func2 = 7,
+            /// <summary>
+            /// [8] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{AutoCSer.TestCase.CommandServerSessionObject,int,int,int} func 
+            /// int parameter 
+            /// int parameter2 
+            /// 返回值 int 
+            /// </summary>
+            Func3 = 8,
+            /// <summary>
+            /// [9] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{object,int} func 
+            /// 返回值 int 
+            /// </summary>
+            Index = 9,
+            /// <summary>
+            /// [10] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{object,int,int} func 
+            /// int parameter 
+            /// 返回值 int 
+            /// </summary>
+            TypeBinaryExpression = 10,
+            /// <summary>
+            /// [11] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{AutoCSer.TestCase.CommandServerSessionObject,object,int} func 
+            /// int parameter 
+            /// 返回值 int 
+            /// </summary>
+            Unbox = 11,
+            /// <summary>
+            /// [12] 
+            /// AutoCSer.Net.CommandServer.RemoteExpressionFunc{int,int,bool} func 
+            /// int parameter 
+            /// int parameter2 
+            /// 返回值 bool 
+            /// </summary>
+            Logical = 12,
         }
 }
 #endif

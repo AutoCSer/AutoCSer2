@@ -774,7 +774,7 @@ namespace AutoCSer.Net.CommandServer
                         }
                         if (isMethod)
                         {
-                            method.MethodFieldBuilder = typeBuilder.DefineField($"Method{methodIndex.toString()}", typeof(ServerInterfaceMethod), FieldAttributes.Public | FieldAttributes.Static | FieldAttributes.InitOnly);
+                            method.MethodFieldBuilder = typeBuilder.DefineField(methodIndex.toString('m'), typeof(ServerInterfaceMethod), FieldAttributes.Public | FieldAttributes.Static | FieldAttributes.InitOnly);
                             staticConstructorGenerator.int32(methodIndex);
                             staticConstructorGenerator.call(getServerInterfaceMethod);
                             staticConstructorGenerator.Emit(OpCodes.Stsfld, method.MethodFieldBuilder);
@@ -815,7 +815,7 @@ namespace AutoCSer.Net.CommandServer
                         if (serverInterface.Queues[--queueIndex] != 0)
                         {
                             #region QueueX = CommandListener.GetServerCallQueue(server, X);
-                            queueFieldBuilders[queueIndex].Key = typeBuilder.DefineField($"Queue{queueIndex.toString()}", typeof(CommandServerCallQueue), FieldAttributes.Public | FieldAttributes.InitOnly);
+                            queueFieldBuilders[queueIndex].Key = typeBuilder.DefineField(queueIndex.toString('Q'), typeof(CommandServerCallQueue), FieldAttributes.Public | FieldAttributes.InitOnly);
                             constructorGenerator.Emit(OpCodes.Ldarg_0);
                             constructorGenerator.Emit(OpCodes.Ldarg_1);
                             constructorGenerator.int32(queueIndex);
@@ -825,7 +825,7 @@ namespace AutoCSer.Net.CommandServer
                             #region queueLowPriorityX = CommandListener.GetServerCallQueueLowPriority(server, X);
                             if ((serverInterface.Queues[queueIndex] & 2) != 0)
                             {
-                                queueFieldBuilders[queueIndex].Value = typeBuilder.DefineField($"queueLowPriority{queueIndex.toString()}", typeof(CommandServerCallLowPriorityQueue), FieldAttributes.Public | FieldAttributes.InitOnly);
+                                queueFieldBuilders[queueIndex].Value = typeBuilder.DefineField(queueIndex.toString('q'), typeof(CommandServerCallLowPriorityQueue), FieldAttributes.Public | FieldAttributes.InitOnly);
                                 constructorGenerator.Emit(OpCodes.Ldarg_0);
                                 constructorGenerator.Emit(OpCodes.Ldarg_1);
                                 constructorGenerator.int32(queueIndex);
@@ -872,7 +872,7 @@ namespace AutoCSer.Net.CommandServer
                     foreach (HashObject<Type> taskQueueType in serverInterface.TaskQueueFieldBuilders.Keys.getArray())
                     {
                         EquatableGenericType equatableGenericType = EquatableGenericType.Get(taskQueueType);
-                        FieldBuilder taskQueueSetFieldBuilder = typeBuilder.DefineField($"taskQueueSet{queueTypeIndex.toString()}", equatableGenericType.ServerCallTaskQueueSetType, FieldAttributes.Public | FieldAttributes.InitOnly);
+                        FieldBuilder taskQueueSetFieldBuilder = typeBuilder.DefineField(queueTypeIndex.toString('t'), equatableGenericType.ServerCallTaskQueueSetType, FieldAttributes.Public | FieldAttributes.InitOnly);
                         constructorGenerator.Emit(OpCodes.Ldarg_0);
                         constructorGenerator.Emit(OpCodes.Ldarg_1);
                         constructorGenerator.call(equatableGenericType.CommandListenerGetServerCallTaskQueueSetDelegate.Method);

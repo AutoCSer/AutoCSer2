@@ -1,4 +1,5 @@
 ﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
+using AutoCSer.Extensions;
 using System;
 
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
@@ -11,14 +12,14 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
         [ServerMethod(MethodIndex = (int)ICallbackNodeMethodEnum.SetValueCallbackPersistence)]
         public static void SetValueCallbackPersistenceV1(CallbackNode node, int value, MethodCallback<int> callback)
         {
-            Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.toString()} : {nameof(CallbackNodeRepairMethod)}.{nameof(SetValueCallbackPersistenceV1)}({value})");
+            Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.AutoCSerExtensions().ToString()} : {nameof(CallbackNodeRepairMethod)}.{nameof(SetValueCallbackPersistenceV1)}({value})");
             node.SetValue64(value);
             callback.Callback(value + 1);
         }
         [ServerMethod(MethodIndex = (int)ICallbackNodeMethodEnum.BindNodeMethodTest, IsPersistence = false, IsWriteQueue = true)]
         public static void BindNodeMethodTestV1(CallbackNode node, int value, MethodCallback<int> callback)
         {
-            Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.toString()} : {nameof(CallbackNodeRepairMethod)}.{nameof(BindNodeMethodTestV1)}({value})");
+            Console.WriteLine($"{AutoCSer.Threading.SecondTimer.Now.AutoCSerExtensions().ToString()} : {nameof(CallbackNodeRepairMethod)}.{nameof(BindNodeMethodTestV1)}({value})");
             node.SetValue64(value);
             callback.Callback(value + 1);
         }

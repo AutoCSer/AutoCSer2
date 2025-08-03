@@ -5,7 +5,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 字符串相关操作
     /// </summary>
-    public unsafe static class SubStringExtension
+    internal unsafe static class SubStringExtension
     {
         /// <summary>
         /// 字符子串转小写字母是否匹配右侧小写字母字符串
@@ -62,7 +62,7 @@ namespace AutoCSer.Extensions
         /// <param name="text">待分割字符串</param>
         /// <param name="splitChar">分割符</param>
         /// <returns>字符子串集合</returns>
-        public static LeftArray<SubString> split(this string text, char splitChar)
+        internal static LeftArray<SubString> split(this string text, char splitChar)
         {
             return ((SubString)text).Split(splitChar);
         }

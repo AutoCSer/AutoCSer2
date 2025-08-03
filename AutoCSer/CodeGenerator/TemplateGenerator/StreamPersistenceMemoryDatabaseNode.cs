@@ -30,7 +30,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 接口方法信息
             /// </summary>
-            public readonly MethodIndex Method;
+            public readonly Metadata.MethodIndex Method;
             /// <summary>
             /// 方法名称
             /// </summary>
@@ -61,7 +61,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <param name="method"></param>
             public NodeMethod(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method)
             {
-                Method = new MethodIndex(method.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, method.MethodIndex, method.ParameterStartIndex, method.ParameterEndIndex);
+                Method = new Metadata.MethodIndex(method.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, method.MethodIndex, method.ParameterStartIndex, method.ParameterEndIndex);
                 EnumName = Method.MethodName;
                 MethodReturnType = method.ReturnValueType;
                 if (method.MethodAttribute.SnapshotMethodSort != 0) SnapshotType = method.Parameters[method.ParameterStartIndex].ParameterType;

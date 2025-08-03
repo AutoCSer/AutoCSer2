@@ -97,7 +97,7 @@ namespace AutoCSer.Threading
         /// <param name="value"></param>
         protected void dispose(T value)
         {
-            if (isAsyncDisponse) ((IAsyncDisposable)value).DisposeAsync().NotWait();
+            if (isAsyncDisponse) ((IAsyncDisposable)value).DisposeAsync().AutoCSerNotWait();
             else ((IDisposable)value).Dispose();
         }
         /// <summary>

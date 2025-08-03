@@ -27,6 +27,7 @@
     <Compile Include="CommandClientDefaultController.cs" />
     <Compile Include="CommandReverseServer.cs" />
     <Compile Include="CommandServer.cs" />
+    <Compile Include="CommandServer\ClientRemoteExpressionDelegateController.cs" />
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
     <Compile Include="CommandServer\IClientCallbackTaskController.cs" />
     <Compile Include="CommandServer\IClientCallbackController.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
     <Compile Include="CommandServer\IServerQueueController.cs" />
     <Compile Include="CommandServer\IServerReadWriteQueueController.cs" />
+    <Compile Include="CommandServer\IServerRemoteExpressionDelegateController.cs" />
     <Compile Include="CommandServer\IServerSendOnlyController.cs" />
     <Compile Include="CommandServer\IServerSynchronousController.cs" />
     <Compile Include="CommandServer\IServerTaskQueueContextController.cs" />

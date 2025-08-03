@@ -17,7 +17,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
         internal MessageConsumer(LocalClient client, ITestClassMessageNodeLocalClientNode node) : base(client, (LocalClientNode)node, 1 << 10) 
         {
             this.node = node;
-            start().NotWait();
+            start().AutoCSerNotWait();
         }
         /// <summary>
         /// Start receiving and processing messages
@@ -86,7 +86,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
 
             //new BinaryMessageConsumer(commandClient, node.Value).Start(1 << 10).NotWait();
 
-            foreach (TestClassMessage message in messages.getLeftArray())
+            foreach (TestClassMessage message in messages.AutoCSerCollectionExtensions().GetArray())
             {
                 result = await node.Value.AppendMessage(message);
                 if (!Program.Breakpoint(result)) return;

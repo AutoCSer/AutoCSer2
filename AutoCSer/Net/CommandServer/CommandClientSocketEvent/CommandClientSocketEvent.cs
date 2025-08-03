@@ -65,6 +65,15 @@ namespace AutoCSer.Net
         /// </summary>
         public readonly CommandClient Client;
         /// <summary>
+        /// Custom pamameter
+        /// 自定义参数
+        /// </summary>
+#if NetStandard21
+        protected readonly object? customParameter;
+#else
+        protected readonly object customParameter;
+#endif
+        /// <summary>
         /// Set the client controller delegate
         /// 设置客户端控制器委托
         /// </summary>
@@ -107,9 +116,16 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="commandClient">Command client
         /// 命令客户端</param>
-        public CommandClientSocketEvent(CommandClient commandClient)
+        /// <param name="customParameter">Custom pamameter
+        /// 自定义参数</param>
+#if NetStandard21
+        public CommandClientSocketEvent(CommandClient commandClient, object? customParameter = null)
+#else
+        public CommandClientSocketEvent(CommandClient commandClient, object customParameter = null)
+#endif
         {
             Client = commandClient;
+            this.customParameter = customParameter;
             socketWaitLocks.SetEmpty();
 
             var controllerCreatorParameters = ControllerCreatorParameters;

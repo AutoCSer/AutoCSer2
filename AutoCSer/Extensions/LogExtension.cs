@@ -45,7 +45,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).AutoCSerNotWait();
             }
             catch { }
         }
@@ -66,7 +66,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).AutoCSerNotWait();
             }
             catch { }
         }
@@ -88,7 +88,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Exception(exception, message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
+                log.Exception(exception, message, level, callerMemberName, callerFilePath, callerLineNumber).AutoCSerNotWait();
             }
             catch { }
         }
@@ -128,7 +128,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).AutoCSerNotWait();
             }
             catch { }
         }
@@ -168,7 +168,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).AutoCSerNotWait();
             }
             catch { }
         }
@@ -208,7 +208,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).AutoCSerNotWait();
             }
             catch { }
         }
@@ -248,7 +248,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).NotWait();
+                log.Debug(message, level, callerMemberName, callerFilePath, callerLineNumber).AutoCSerNotWait();
             }
             catch { }
         }
@@ -259,7 +259,7 @@ namespace AutoCSer.Extensions
         {
             try
             {
-                log.Flush().NotWait();
+                log.Flush().AutoCSerNotWait();
             }
             catch { }
         }

@@ -17,6 +17,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 内部成员对象序列化为一个可独立反序列化的数据
         /// </summary>
         /// <param name="value">data</param>
+        internal RequestParameterSimpleSerializer(T value)
+        {
+            this.value = value;
+        }
+        /// <summary>
+        /// 内部成员对象序列化为一个可独立反序列化的数据
+        /// </summary>
+        /// <param name="value">data</param>
         internal RequestParameterSimpleSerializer(ref T value)
         {
             this.value = value;

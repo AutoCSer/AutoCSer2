@@ -91,7 +91,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -127,7 +127,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -135,10 +135,40 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="array"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Sort(this long[] array)
+        internal static void Sort(this long[] array)
         {
             if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize64) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length);
             else if (array.Length > 1) QuickSort(array);
+        }
+    }
+    /// <summary>
+    /// long array expansion operation
+    /// long 数组扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct LongArrayExtensions
+    {
+        /// <summary>
+        /// long array
+        /// </summary>
+        private readonly long[] array;
+        /// <summary>
+        /// long array expansion operation
+        /// long 数组扩展操作
+        /// </summary>
+        /// <param name="array"></param>
+        public LongArrayExtensions(long[] array)
+        {
+            this.array = array;
+        }
+        /// <summary>
+        /// long array sorting
+        /// long 数组排序
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Sort()
+        {
+            array.Sort();
         }
     }
 }
@@ -165,7 +195,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -173,10 +203,40 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="array"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Sort(this uint[] array)
+        internal static void Sort(this uint[] array)
         {
             if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length);
             else if (array.Length > 1) QuickSort(array);
+        }
+    }
+    /// <summary>
+    /// uint array expansion operation
+    /// uint 数组扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct UIntArrayExtensions
+    {
+        /// <summary>
+        /// uint array
+        /// </summary>
+        private readonly uint[] array;
+        /// <summary>
+        /// uint array expansion operation
+        /// uint 数组扩展操作
+        /// </summary>
+        /// <param name="array"></param>
+        public UIntArrayExtensions(uint[] array)
+        {
+            this.array = array;
+        }
+        /// <summary>
+        /// uint array sorting
+        /// uint 数组排序
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Sort()
+        {
+            array.Sort();
         }
     }
 }
@@ -203,7 +263,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -211,10 +271,40 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="array"></param>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void Sort(this int[] array)
+        internal static void Sort(this int[] array)
         {
             if (array.Length >= AutoCSer.Algorithm.RadixSort.SortSize32) AutoCSer.Algorithm.RadixSort.Sort(array, 0, array.Length);
             else if (array.Length > 1) QuickSort(array);
+        }
+    }
+    /// <summary>
+    /// int array expansion operation
+    /// int 数组扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct IntArrayExtensions
+    {
+        /// <summary>
+        /// int array
+        /// </summary>
+        private readonly int[] array;
+        /// <summary>
+        /// int array expansion operation
+        /// int 数组扩展操作
+        /// </summary>
+        /// <param name="array"></param>
+        public IntArrayExtensions(int[] array)
+        {
+            this.array = array;
+        }
+        /// <summary>
+        /// int array sorting
+        /// int 数组排序
+        /// </summary>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void Sort()
+        {
+            array.Sort();
         }
     }
 }
@@ -476,7 +566,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -729,7 +819,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -982,7 +1072,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -1235,7 +1325,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -1488,7 +1578,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -1741,7 +1831,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -1994,7 +2084,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组子串扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -2185,7 +2275,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -2404,7 +2494,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -2623,7 +2713,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -2842,7 +2932,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -3061,7 +3151,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -3280,7 +3370,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -3499,7 +3589,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -3783,7 +3873,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -3975,7 +4065,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -4167,7 +4257,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -4359,7 +4449,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -4551,7 +4641,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -4743,7 +4833,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -4935,7 +5025,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// 范围排序
@@ -4977,7 +5067,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 数组扩展
     /// </summary>
-    public static unsafe partial class ArraySort
+    internal static unsafe partial class ArraySort
     {
         /// <summary>
         /// Array sorting
@@ -8506,6 +8596,590 @@ namespace AutoCSer
         private static void primitiveSerialize(XmlSerializer serializer, Guid? value)
         {
             serializer.XmlSerialize(value);
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.LongExtensions AutoCSerExtensions(this long value)
+        {
+            return new AutoCSer.Extensions.LongExtensions(value);
+        }
+    }
+    /// <summary>
+    /// long expansion operation
+    /// long 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct LongExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly long value;
+        /// <summary>
+        /// long expansion operation
+        /// long 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public LongExtensions(long value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.UIntExtensions AutoCSerExtensions(this uint value)
+        {
+            return new AutoCSer.Extensions.UIntExtensions(value);
+        }
+    }
+    /// <summary>
+    /// uint expansion operation
+    /// uint 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct UIntExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly uint value;
+        /// <summary>
+        /// uint expansion operation
+        /// uint 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public UIntExtensions(uint value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.IntExtensions AutoCSerExtensions(this int value)
+        {
+            return new AutoCSer.Extensions.IntExtensions(value);
+        }
+    }
+    /// <summary>
+    /// int expansion operation
+    /// int 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct IntExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly int value;
+        /// <summary>
+        /// int expansion operation
+        /// int 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public IntExtensions(int value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.UShortExtensions AutoCSerExtensions(this ushort value)
+        {
+            return new AutoCSer.Extensions.UShortExtensions(value);
+        }
+    }
+    /// <summary>
+    /// ushort expansion operation
+    /// ushort 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct UShortExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly ushort value;
+        /// <summary>
+        /// ushort expansion operation
+        /// ushort 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public UShortExtensions(ushort value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.ShortExtensions AutoCSerExtensions(this short value)
+        {
+            return new AutoCSer.Extensions.ShortExtensions(value);
+        }
+    }
+    /// <summary>
+    /// short expansion operation
+    /// short 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct ShortExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly short value;
+        /// <summary>
+        /// short expansion operation
+        /// short 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public ShortExtensions(short value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.ByteExtensions AutoCSerExtensions(this byte value)
+        {
+            return new AutoCSer.Extensions.ByteExtensions(value);
+        }
+    }
+    /// <summary>
+    /// byte expansion operation
+    /// byte 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct ByteExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly byte value;
+        /// <summary>
+        /// byte expansion operation
+        /// byte 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public ByteExtensions(byte value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.SByteExtensions AutoCSerExtensions(this sbyte value)
+        {
+            return new AutoCSer.Extensions.SByteExtensions(value);
+        }
+    }
+    /// <summary>
+    /// sbyte expansion operation
+    /// sbyte 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct SByteExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly sbyte value;
+        /// <summary>
+        /// sbyte expansion operation
+        /// sbyte 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public SByteExtensions(sbyte value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.StringExtensions AutoCSerExtensions(this string value)
+        {
+            return new AutoCSer.Extensions.StringExtensions(value);
+        }
+    }
+    /// <summary>
+    /// string expansion operation
+    /// string 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct StringExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly string value;
+        /// <summary>
+        /// string expansion operation
+        /// string 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public StringExtensions(string value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.DateTimeExtensions AutoCSerExtensions(this DateTime value)
+        {
+            return new AutoCSer.Extensions.DateTimeExtensions(value);
+        }
+    }
+    /// <summary>
+    /// DateTime expansion operation
+    /// DateTime 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct DateTimeExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly DateTime value;
+        /// <summary>
+        /// DateTime expansion operation
+        /// DateTime 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public DateTimeExtensions(DateTime value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// Get the extended operation encapsulation
+    /// 获取扩展操作封装
+    /// </summary>
+    public static partial class Extension
+    {
+        /// <summary>
+        /// Get the AutoCSer extension encapsulation
+        /// 获取 AutoCSer 扩展封装
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static AutoCSer.Extensions.TimeSpanExtensions AutoCSerExtensions(this TimeSpan value)
+        {
+            return new AutoCSer.Extensions.TimeSpanExtensions(value);
+        }
+    }
+    /// <summary>
+    /// TimeSpan expansion operation
+    /// TimeSpan 扩展操作
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct TimeSpanExtensions
+    {
+        /// <summary>
+        /// Value
+        /// </summary>
+        private readonly TimeSpan value;
+        /// <summary>
+        /// TimeSpan expansion operation
+        /// TimeSpan 扩展操作
+        /// </summary>
+        /// <param name="value"></param>
+        public TimeSpanExtensions(TimeSpan value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// long expansion operation
+    /// long 扩展操作
+    /// </summary>
+    public partial struct LongExtensions
+    {
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public new string ToString()
+        {
+            return value.toString();
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// uint expansion operation
+    /// uint 扩展操作
+    /// </summary>
+    public partial struct UIntExtensions
+    {
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public new string ToString()
+        {
+            return value.toString();
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// int expansion operation
+    /// int 扩展操作
+    /// </summary>
+    public partial struct IntExtensions
+    {
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public new string ToString()
+        {
+            return value.toString();
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// ushort expansion operation
+    /// ushort 扩展操作
+    /// </summary>
+    public partial struct UShortExtensions
+    {
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public new string ToString()
+        {
+            return value.toString();
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// short expansion operation
+    /// short 扩展操作
+    /// </summary>
+    public partial struct ShortExtensions
+    {
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public new string ToString()
+        {
+            return value.toString();
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// byte expansion operation
+    /// byte 扩展操作
+    /// </summary>
+    public partial struct ByteExtensions
+    {
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public new string ToString()
+        {
+            return value.toString();
+        }
+    }
+}
+
+namespace AutoCSer.Extensions
+{
+    /// <summary>
+    /// sbyte expansion operation
+    /// sbyte 扩展操作
+    /// </summary>
+    public partial struct SByteExtensions
+    {
+        /// <summary>
+        /// Integer to string conversion
+        /// 整数转字符串
+        /// </summary>
+        /// <returns>Integer string
+        /// 整数字符串</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public new string ToString()
+        {
+            return value.toString();
         }
     }
 }

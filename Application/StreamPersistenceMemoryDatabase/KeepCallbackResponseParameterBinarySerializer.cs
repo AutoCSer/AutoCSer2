@@ -32,7 +32,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #endif
         {
             ServerReturnValue<T> value = default(ServerReturnValue<T>);
-            return deserializer.InternalIndependentDeserializeNotReference(ref value) ? new KeepCallbackResponseDeserializeValue<T>(value.ReturnValue) : null;
+            if (AutoCSer.SimpleSerializeType<T>.IsSimple ? deserializer.SimpleDeserialize(ref value) : deserializer.InternalIndependentDeserializeNotReference(ref value))
+            {
+                return new KeepCallbackResponseDeserializeValue<T>(value.ReturnValue);
+            }
+            return null;
         }
 
         /// <summary>

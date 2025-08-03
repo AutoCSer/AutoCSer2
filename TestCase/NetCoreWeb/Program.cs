@@ -23,7 +23,7 @@ namespace AutoCSer.TestCase.NetCoreWeb
             Program program = new Program(args);
             if (!await program.switchProcess())
             {
-                program.start().Catch();
+                program.start().AutoCSerTaskExtensions().Catch();
                 Console.WriteLine("Press quit to exit.");
                 while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;
                 await program.exit();
@@ -80,7 +80,7 @@ http://localhost:5000/ViewHelp.html");
             if (AutoCSer.TestCase.Common.JsonFileConfig.Default.IsRemote)
             {
                 //如果有其它静态文件需求，需要设置 IWebHostEnvironment.ContentRootPath 避免引用 bin 目录
-                builder.UseUrls("http://0.0.0.0:" + ((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.WebViewHttp).toString());
+                builder.UseUrls("http://0.0.0.0:" + ((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.WebViewHttp).AutoCSerExtensions().ToString());
                 if (!string.IsNullOrEmpty(AutoCSer.TestCase.Common.JsonFileConfig.Default.HttpsCertificateFileName))
                 {
                     builder.ConfigureKestrel(serverOptions => {

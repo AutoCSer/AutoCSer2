@@ -263,7 +263,7 @@ namespace AutoCSer.BinarySerialize
                     jsonMemberMap = new MemberMap<T>();
                     jsonMemberIndexs = AutoCSer.Common.GetUninitializedArray<int>(fields.JsonFields.Length);
                     int index = 0;
-                    foreach (FieldIndex field in fields.JsonFields) jsonMemberMap.MemberMapData.SetMember(jsonMemberIndexs[index++] = field.MemberIndex);
+                    foreach (Metadata.FieldIndex field in fields.JsonFields) jsonMemberMap.MemberMapData.SetMember(jsonMemberIndexs[index++] = field.MemberIndex);
                 }
                 else jsonMemberIndexs = EmptyArray<int>.Array;
 #endif

@@ -49,7 +49,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     case CallStateEnum.PersistenceCallbackException:
                         try
                         {
-                            node.Renew(nodeIndex).NotWait();
+                            node.Renew(nodeIndex).AutoCSerNotWait();
                         }
                         finally { callback(result.Value); }
                         return;
@@ -57,7 +57,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     case CallStateEnum.NodeIdentityNotMatch:
                         try
                         {
-                            node.Reindex(nodeIndex).NotWait();
+                            node.Reindex(nodeIndex).AutoCSerNotWait();
                         }
                         finally { callback(result.Value); }
                         return;
@@ -131,7 +131,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     case CallStateEnum.PersistenceCallbackException:
                         try
                         {
-                            node.Renew(nodeIndex).NotWait();
+                            node.Renew(nodeIndex).AutoCSerNotWait();
                         }
                         finally { callback(result.Value.State); }
                         return;
@@ -139,7 +139,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     case CallStateEnum.NodeIdentityNotMatch:
                         try
                         {
-                            node.Reindex(nodeIndex).NotWait();
+                            node.Reindex(nodeIndex).AutoCSerNotWait();
                         }
                         finally { callback(result.Value.State); }
                         return;

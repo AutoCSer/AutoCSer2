@@ -181,6 +181,22 @@ namespace AutoCSer.Net
         /// 同步输出尾节点
         /// </summary>
         private ServerOutput outputEnd;
+#if !AOT
+        /// <summary>
+        /// Format the remote expression deserialization data
+        /// 格式化远程表达式反序列化数据
+        /// </summary>
+#if NetStandard21
+        private AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize? remoteExpressionFormatDeserialize;
+#else
+        private AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize remoteExpressionFormatDeserialize;
+#endif
+        /// <summary>
+        /// A collection of arguments for create a remote expression
+        /// 创建远程表达式参数集合
+        /// </summary>
+        private object[] createRemoteExpressionParameters;
+#endif
         /// <summary>
         /// The current command method sequence number + command flag bit information
         /// 当前命令方法序号 + 命令标志位信息
@@ -398,6 +414,9 @@ namespace AutoCSer.Net
             sendAsyncEventArgs = CommandServerConfigBase.NullSocketAsyncEventArgs;
             outputHead = outputEnd = CommandServerConfig.NullServerOutput;
             bindControllers = EmptyArray<CommandServerBindContextController>.Array;
+#if !AOT
+            createRemoteExpressionParameters = EmptyArray<object>.Array;
+#endif
         }
         /// <summary>
         /// Command server socket
@@ -425,6 +444,9 @@ namespace AutoCSer.Net
             sendAsyncEventArgs = CommandServerConfigBase.NullSocketAsyncEventArgs;
             outputHead = outputEnd = CommandServerConfig.NullServerOutput;
             bindControllers = EmptyArray<CommandServerBindContextController>.Array;
+#if !AOT
+            createRemoteExpressionParameters = EmptyArray<object>.Array;
+#endif
         }
         /// <summary>
         /// Get the socket context binding server instance
@@ -622,8 +644,11 @@ namespace AutoCSer.Net
             switch (verifyState)
             {
                 case CommandServerVerifyStateEnum.Success:
-                case CommandServerVerifyStateEnum.Retry:
+#if !AOT
+                    onVerify();
+#endif
                     return true;
+                case CommandServerVerifyStateEnum.Retry: return true;
                 default: DisposeSocket(); return false;
             }
         }
@@ -638,6 +663,38 @@ namespace AutoCSer.Net
         {
             socket.SetVerifyState(verifyState);
         }
+#if !AOT
+        /// <summary>
+        /// Operations after successful verification
+        /// 验证成功后的操作
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private void onVerify()
+        {
+            Server.GetRemoteMetadata()?.Append(this);
+        }
+        /// <summary>
+        /// Format the remote expression deserialization data
+        /// 格式化远程表达式反序列化数据
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize GetRemoteExpressionFormatDeserialize()
+        {
+            if (remoteExpressionFormatDeserialize != null) return remoteExpressionFormatDeserialize;
+            return remoteExpressionFormatDeserialize = new AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize(Server.RemoteMetadata.notNull());
+        }
+        /// <summary>
+        /// A collection of arguments for create a remote expression
+        /// 创建远程表达式参数集合
+        /// </summary>
+        /// <returns></returns>
+        internal object[] GetRemoteExpressionParameters()
+        {
+            if (createRemoteExpressionParameters.Length != 0) return createRemoteExpressionParameters;
+            return createRemoteExpressionParameters = new object[] { GetRemoteExpressionFormatDeserialize() };
+        }
+#endif
         /// <summary>
         /// Start receiving data
         /// 开始接收数据
@@ -663,6 +720,9 @@ namespace AutoCSer.Net
                 else
                 {
                     VerifyState = CommandServerVerifyStateEnum.Success;
+#if !AOT
+                    onVerify();
+#endif
                     if (isReceiveCommand()) return;
                 }
             }

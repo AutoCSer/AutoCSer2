@@ -67,7 +67,7 @@ namespace AutoCSer
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal bool GetIsMemberMap(Type type)
         {
-            return IsMemberMap && !ServerMethodParameter.IsType(type);// & !IsAnonymousFields，默认为 true 在 IsAnonymousFields 为 false 时生效
+            return IsMemberMap && !ServerMethodParameter.Types.Contains(type);// & !IsAnonymousFields，默认为 true 在 IsAnonymousFields 为 false 时生效
         }
 
         /// <summary>

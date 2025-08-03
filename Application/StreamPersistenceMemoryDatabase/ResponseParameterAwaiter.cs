@@ -72,7 +72,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                node.Renew(nodeIndex).NotWait();
+                node.Renew(nodeIndex).AutoCSerNotWait();
             }
             finally { onCompleted(); }
         }
@@ -84,7 +84,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             try
             {
-                node.Reindex(nodeIndex).NotWait();
+                node.Reindex(nodeIndex).AutoCSerNotWait();
             }
             finally { onCompleted(); }
         }

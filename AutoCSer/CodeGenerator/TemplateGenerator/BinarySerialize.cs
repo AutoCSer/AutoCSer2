@@ -259,7 +259,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             serialize.generatorAttribute = defaultGeneratorAttribute;
             serialize.CurrentAttribute = (AutoCSer.CodeGenerator.BinarySerializeAttribute)type.GetCustomAttribute(typeof(AutoCSer.CodeGenerator.BinarySerializeAttribute)) ?? defaultBinarySerializeAttribute;
             serialize.CurrentType = type;
-            serialize.nextCreate().NotWait();
+            serialize.nextCreate().AutoCSerNotWait();
         }
         /// <summary>
         /// 生成代码

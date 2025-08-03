@@ -17,14 +17,14 @@ namespace AutoCSer.TestCase.ReverseLogCollectionClient
         /// </summary>
         internal ServerRegistryClusterClient() : base(ServerRegistryLogCommandClientSocketEvent.ServerRegistryNodeCache, LogInfo.ServerName)
         {
-            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Append(this).NotWait();
+            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Append(this).AutoCSerNotWait();
         }
         /// <summary>
         /// Release resources
         /// </summary>
         public override void Dispose()
         {
-            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Remove(this).NotWait();
+            ServerRegistryLogCommandClientSocketEvent.StreamPersistenceMemoryDatabaseClientCache.ClientCache.SocketEvent.Remove(this).AutoCSerNotWait();
             base.Dispose();
         }
         /// <summary>

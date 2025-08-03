@@ -254,6 +254,23 @@ namespace AutoCSer
             if ((length += Length) > Array.Length) setCapacity(Math.Max(Math.Max(length, Array.Length << 1), DynamicArray.DefalutArrayCapacity));
         }
         /// <summary>
+        /// Set the specified location data
+        /// 设置指定位置数据
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        internal void Set(int index, T value)
+        {
+            if (index >= Array.Length) setCapacity(Math.Max(Math.Max(index + 1, Array.Length << 1), DynamicArray.DefalutArrayCapacity));
+            if (index >= Length)
+            {
+                int length = index + 1;
+                if (DynamicArray<T>.IsClearArray) System.Array.Clear(Array, Length, length - Length);
+                Length = length;
+            }
+            Array[index] = value;
+        }
+        /// <summary>
         /// Empty and release the array, and set the valid length of the data to 0
         /// 置空并释放数组并将数据有效长度设置为 0
         /// </summary>

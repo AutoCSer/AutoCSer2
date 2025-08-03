@@ -65,8 +65,8 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeCluster
         {
             AutoCSer.Document.ServerRegistry.MessageNodeCluster.ServiceConfig databaseServiceConfig = new AutoCSer.Document.ServerRegistry.MessageNodeCluster.ServiceConfig
             {
-                PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, Path.Combine(nameof(AutoCSer.Document.ServerRegistry.MessageNodeCluster)), port.toString()),
-                PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.Document.ServerRegistry.MessageNodeCluster), nameof(AutoCSer.Document.ServerRegistry.ServiceConfig.PersistenceSwitchPath) + port.toString())
+                PersistencePath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, Path.Combine(nameof(AutoCSer.Document.ServerRegistry.MessageNodeCluster)), port.AutoCSerExtensions().ToString()),
+                PersistenceSwitchPath = Path.Combine(AutoCSer.TestCase.Common.Config.AutoCSerTemporaryFilePath, nameof(AutoCSer.Document.ServerRegistry.MessageNodeCluster), nameof(AutoCSer.Document.ServerRegistry.ServiceConfig.PersistenceSwitchPath) + port.AutoCSerExtensions().ToString())
             };
             AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService databaseService = databaseServiceConfig.Create();
 
@@ -82,7 +82,7 @@ namespace AutoCSer.Document.ServerRegistry.MessageNodeCluster
                 .CreateCommandListener(commandServerConfig);
             if (await commandListener.Start())
             {
-                Console.WriteLine($"Message port {port.toString()} started.");
+                Console.WriteLine($"Message port {port.AutoCSerExtensions().ToString()} started.");
                 return commandListener;
             }
             return null;

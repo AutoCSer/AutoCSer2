@@ -48,7 +48,7 @@ namespace AutoCSer.TestCase.ServerRegistryService
                     await Task.Delay(5 * 1000);
                     ushort port = this.port;
                     if (++port == (ushort)CommandServerPortEnum.ServiceRegistryPort + 10) port = (ushort)CommandServerPortEnum.ServiceRegistryPort;
-                    new Service(port).Start().NotWait();
+                    new Service(port).Start().AutoCSerNotWait();
                     await Task.Delay(1 * 1000);
                 }
             }

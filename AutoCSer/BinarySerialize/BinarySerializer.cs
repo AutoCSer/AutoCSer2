@@ -1940,16 +1940,16 @@ namespace AutoCSer
             else if (!Stream.IsResizeError) Warning |= SerializeWarningEnum.BufferSize;
             *(int*)(Stream.Data.Pointer.Byte + index) = dataSize;
         }
-        /// <summary>
-        /// The custom serialization data buffer has completed processing
-        /// 自定义序列化数据缓冲区结束处理
-        /// </summary>
-        /// <param name="index"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal unsafe void SerializeBufferEnd(int index)
-        {
-            *(int*)(Stream.Data.Pointer.Byte + index) = Stream.Data.Pointer.CurrentIndex - (index + sizeof(int));
-        }
+        ///// <summary>
+        ///// The custom serialization data buffer has completed processing
+        ///// 自定义序列化数据缓冲区结束处理
+        ///// </summary>
+        ///// <param name="index"></param>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal unsafe void SerializeBufferEnd(int index)
+        //{
+        //    *(int*)(Stream.Data.Pointer.Byte + index) = Stream.Data.Pointer.CurrentIndex - (index + sizeof(int));
+        //}
         ///// <summary>
         ///// 自定义序列化数据缓冲区
         ///// </summary>
@@ -1967,10 +1967,10 @@ namespace AutoCSer
         //}
         /// <summary>
         /// Independent objects are serialization into a piece of data that can be deserialization independently
-        /// 独立对象序列化为一个可独立反序列化的数据
+        /// 独立对象序列化为一个可独立反序列化的数据（需确定为非简单序列化类型）
         /// </summary>
         /// <typeparam name="T">Target data type
-        /// 目标数据类型</typeparam>
+        /// 目标数据类型（需确定为非简单序列化类型）</typeparam>
         /// <param name="value">Data object</param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe void IndependentSerialize<T>(ref T value)
@@ -1991,23 +1991,23 @@ namespace AutoCSer
                 *(int*)(Stream.Data.Pointer.Byte + streamStartIndex) |= BinarySerializeConfig.ObjectReference;
             }
         }
-        /// <summary>
-        /// The internal member object is serialization into an independently deserializable piece of data (with no reference check on the outer layer)
-        /// 内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal unsafe void InternalIndependentSerializeNotReference<T>(ref T value)
-        {
-            if (value != null) InternalIndependentSerializeNotNull(ref value);
-            else Stream.Write(((long)NullValue << 32) + sizeof(int));
-        }
+        ///// <summary>
+        ///// The internal member object is serialization into an independently deserializable piece of data (with no reference check on the outer layer)
+        ///// 内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="value"></param>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal unsafe void InternalIndependentSerializeNotReference<T>(ref T value)
+        //{
+        //    if (value != null) InternalIndependentSerializeNotNull(ref value);
+        //    else Stream.Write(((long)NullValue << 32) + sizeof(int));
+        //}
         /// <summary>
         /// The internal member object is serialization into an independently deserializable data (with no reference check on the outer layer) (used for AOT code generation and not allowed for developers to call)
         /// 内部成员对象序列化为一个可独立反序列化的数据（外层无引用检查）（用于 AOT 代码生成，不允许开发者调用）
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">需确定为非简单序列化类型</typeparam>
         /// <param name="value"></param>
 #if AOT
         public unsafe void InternalIndependentSerializeNotNull<T>(ref T value)
@@ -2033,7 +2033,8 @@ namespace AutoCSer
                 this.streamStartIndex = streamStartIndex;
                 notReferenceCount = true;
                 points?.ClearCount();
-                *(int*)(Stream.Data.Pointer.Byte + (index - sizeof(int))) = Stream.Data.Pointer.CurrentIndex - index;
+                Stream.Data.Pointer.WriteSizeData(index);
+                //* (int*)(Stream.Data.Pointer.Byte + (index - sizeof(int))) = Stream.Data.Pointer.CurrentIndex - index;
             }
         }
         ///// <summary>
@@ -2076,7 +2077,8 @@ namespace AutoCSer
             if (index != 0)
             {
                 AutoCSer.SimpleSerialize.Serializer<T>.DefaultSerializer(Stream, ref value);
-                *(int*)(Stream.Data.Pointer.Byte + (index - sizeof(int))) = Stream.Data.Pointer.CurrentIndex - index;
+                Stream.Data.Pointer.WriteSizeData(index);
+                //*(int*)(Stream.Data.Pointer.Byte + (index - sizeof(int))) = Stream.Data.Pointer.CurrentIndex - index;
             }
         }
         /// <summary>

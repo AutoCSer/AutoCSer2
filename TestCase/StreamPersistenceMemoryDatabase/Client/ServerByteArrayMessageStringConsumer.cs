@@ -36,7 +36,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
             isCompleted = false;
             using (ServerByteArrayMessageStringConsumer consumer = new ServerByteArrayMessageStringConsumer(commandClient, node.Value))
             {
-                foreach (string message in messages.getLeftArray())
+                foreach (string message in messages.AutoCSerCollectionExtensions().GetArray())
                 {
                     result = await node.Value.AppendMessage(message);
                     if (!Program.Breakpoint(result)) return;

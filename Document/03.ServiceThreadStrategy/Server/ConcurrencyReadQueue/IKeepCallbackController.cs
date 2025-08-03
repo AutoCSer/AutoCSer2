@@ -69,7 +69,7 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Server.ConcurrencyReadQueue
         /// <returns>The return value type must be void</returns>
         void IKeepCallbackController.CallbackCount(AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue, int left, int right, AutoCSer.Net.CommandServerKeepCallbackCount<int> callback)
         {
-            Task.KeepCallbackController.CallbackCount(left, right, callback).wait();
+            Task.KeepCallbackController.CallbackCount(left, right, callback).AutoCSerExtensions().Wait();
         }
     }
 }

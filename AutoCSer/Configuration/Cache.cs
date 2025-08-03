@@ -150,7 +150,7 @@ namespace AutoCSer.Configuration
                 foreach (Type type in root.MainTypes) append(type);
                 foreach (Type type in root.PublicTypes) append(type);
             }
-            if (exceptionTypeArray.Length != 0) Root.OnLoadException(root, exceptionTypeArray).NotWait();
+            if (exceptionTypeArray.Length != 0) Root.OnLoadException(root, exceptionTypeArray).AutoCSerNotWait();
         }
     }
 }

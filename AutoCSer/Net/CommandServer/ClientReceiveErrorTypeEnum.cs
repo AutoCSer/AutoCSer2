@@ -63,5 +63,9 @@ namespace AutoCSer.Net.CommandServer
         /// 自定义命令处理错误
         /// </summary>
         CustomCommandError,
+        /// <summary>
+        /// 远程元数据回调数据解析失败
+        /// </summary>
+        RemoteMetadataDataError,
     }
 }

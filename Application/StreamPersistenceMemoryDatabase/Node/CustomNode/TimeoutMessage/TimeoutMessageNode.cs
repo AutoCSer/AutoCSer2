@@ -84,7 +84,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         {
             foreach (TimeoutMessage<T> task in tasks.Values)
             {
-                if (task.Data.CheckLoadRunTask()) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.Loaded).NotWait();
+                if (task.Data.CheckLoadRunTask()) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.Loaded).AutoCSerNotWait();
                 if (task.Data.IsFailed) ++failedCount;
             }
             checkTimer.Set(this);
@@ -253,7 +253,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         {
             tasks.Add(currentIdentity, task);
             task.Data.AppendRun(currentIdentity++);
-            task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).NotWait();
+            task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).AutoCSerNotWait();
         }
         /// <summary>
         /// Trigger task execution (Initialize and load the persistent data)
@@ -275,7 +275,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         public void RunTask(long identity)
         {
             var task = default(TimeoutMessage<T>);
-            if (tasks.TryGetValue(identity, out task) && task.Data.CheckRunTask()) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).NotWait();
+            if (tasks.TryGetValue(identity, out task) && task.Data.CheckRunTask()) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.ClientCall).AutoCSerNotWait();
         }
         /// <summary>
         /// Execute the task
@@ -329,7 +329,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
         {
             foreach (TimeoutMessage<T> task in tasks.Values)
             {
-                if (task.Data.IsFailed) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.RetryFailed).NotWait();
+                if (task.Data.IsFailed) task.RunTask(this, TimeoutMessageRunTaskTypeEnum.RetryFailed).AutoCSerNotWait();
             }
         }
         /// <summary>
@@ -391,7 +391,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
                     if (taskHead.Data.CheckTimeout())
                     {
                         if (taskHead.Data.Timeout > AutoCSer.Threading.SecondTimer.UtcNow) return;
-                        taskHead.Timeout(this).NotWait();
+                        taskHead.Timeout(this).AutoCSerNotWait();
                     }
                     taskHead = taskHead.LinkNext;
                 }

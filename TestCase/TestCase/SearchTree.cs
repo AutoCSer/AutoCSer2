@@ -20,7 +20,7 @@ namespace AutoCSer.TestCase
         internal static bool TestCase()
         {
             int random = AutoCSer.Random.Default.Next();
-            data.RandomSort();
+            data.AutoCSerExtensions().RandomSort();
 
             AutoCSer.SearchTree.Dictionary<int, int> dictionary = new AutoCSer.SearchTree.Dictionary<int, int>();
             int nextValue = 0;
@@ -82,7 +82,7 @@ namespace AutoCSer.TestCase
                 ++nextValue;
             }
 
-            data.RandomSort();
+            data.AutoCSerExtensions().RandomSort();
             int removeValue;
             foreach (int value in data)
             {

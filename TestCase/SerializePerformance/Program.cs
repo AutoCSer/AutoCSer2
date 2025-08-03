@@ -89,14 +89,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 json = AutoCSer.JsonSerializer.Serialize(value);
             }
             long endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Json Serialize " + ((json.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Json Serialize " + ((json.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
 
             if (isOutput) Console.WriteLine(json);
 
             startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) value = AutoCSer.JsonDeserializer.Deserialize<T>(json);
             endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Json Deserialize " + ((json.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Json Deserialize " + ((json.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
         }
         /// <summary>
         /// JSON 序列化测试（线程静态实例模式）
@@ -117,14 +117,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 json = AutoCSer.JsonSerializer.ThreadStaticSerialize(value);
             }
             long endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Json Serialize ThreadStatic " + ((json.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Json Serialize ThreadStatic " + ((json.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
 
             if (isOutput) Console.WriteLine(json);
 
             startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) value = AutoCSer.JsonDeserializer.ThreadStaticDeserialize<T>(json);
             endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Json Deserialize ThreadStatic " + ((json.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Json Deserialize ThreadStatic " + ((json.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
         }
         /// <summary>
         /// 二进制序列化测试
@@ -140,12 +140,12 @@ namespace AutoCSer.TestCase.SerializePerformance
             long startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) bytes = AutoCSer.BinarySerializer.Serialize(value);
             long endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Binary Serialize " + ((bytes.Length * count) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Binary Serialize " + ((bytes.Length * count) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
 
             startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) value = AutoCSer.BinaryDeserializer.Deserialize<T>(bytes);
             endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Binary Deserialize " + ((bytes.Length * count) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Binary Deserialize " + ((bytes.Length * count) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
         }
         /// <summary>
         /// 二进制序列化测试（线程静态实例模式）
@@ -161,12 +161,12 @@ namespace AutoCSer.TestCase.SerializePerformance
             long startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) bytes = AutoCSer.BinarySerializer.ThreadStaticSerialize(value);
             long endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Binary Serialize ThreadStatic " + ((bytes.Length * count) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Binary Serialize ThreadStatic " + ((bytes.Length * count) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
 
             startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) value = AutoCSer.BinaryDeserializer.ThreadStaticDeserialize<T>(bytes);
             endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Binary Deserialize ThreadStatic " + ((bytes.Length * count) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Binary Deserialize ThreadStatic " + ((bytes.Length * count) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
         }
         /// <summary>
         /// XML 序列化测试
@@ -187,14 +187,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 xml = AutoCSer.XmlSerializer.Serialize(value);
             }
             long endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Xml Serialize " + ((xml.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Xml Serialize " + ((xml.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
 
             if (isOutput) Console.WriteLine(xml);
 
             startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) value = AutoCSer.XmlDeserializer.Deserialize<T>(xml);
             endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Xml Deserialize " + ((xml.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Xml Deserialize " + ((xml.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
         }
         /// <summary>
         /// XML 序列化测试（线程静态实例模式）
@@ -215,14 +215,14 @@ namespace AutoCSer.TestCase.SerializePerformance
                 xml = AutoCSer.XmlSerializer.ThreadStaticSerialize(value);
             }
             long endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Xml Serialize ThreadStatic " + ((xml.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Xml Serialize ThreadStatic " + ((xml.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
 
             if (isOutput) Console.WriteLine(xml);
 
             startTimestamp = Stopwatch.GetTimestamp();
             for (int index = count; index != 0; --index) value = AutoCSer.XmlDeserializer.ThreadStaticDeserialize<T>(xml);
             endTimestamp = Stopwatch.GetTimestamp();
-            Console.WriteLine((count / 10000).toString() + "W " + typeof(T).Name + " Xml Deserialize ThreadStatic " + ((xml.Length * count * 2) >> 20).toString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).toString() + "ms");
+            Console.WriteLine((count / 10000).AutoCSerExtensions().ToString() + "W " + typeof(T).Name + " Xml Deserialize ThreadStatic " + ((xml.Length * count * 2) >> 20).AutoCSerExtensions().ToString() + "MB " + AutoCSer.Date.GetMillisecondsByTimestamp(endTimestamp - startTimestamp).AutoCSerExtensions().ToString() + "ms");
         }
     }
 }

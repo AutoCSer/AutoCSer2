@@ -15,6 +15,10 @@ namespace AutoCSer.Metadata
 #endif
     {
 #if !AOT
+        ///// <summary>
+        ///// 远程表达式序列化枚举值
+        ///// </summary>
+        //internal abstract Func<UnmanagedStream, object, bool> RemoteExpressionSerializeEnum { get; }
         /// <summary>
         /// 获取简单序列化枚举委托
         /// </summary>
@@ -137,6 +141,28 @@ namespace AutoCSer.Metadata
         /// 获取当前泛型类型
         /// </summary>
         internal override Type CurrentType { get { return typeof(T); } }
+
+        ///// <summary>
+        ///// 远程表达式序列化枚举值
+        ///// </summary>
+        //internal override Func<UnmanagedStream, object, bool> RemoteExpressionSerializeEnum
+        //{
+        //    get
+        //    {
+        //        switch (UnderlyingType)
+        //        {
+        //            case UnderlyingTypeEnum.Int: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumInt<T>;
+        //            case UnderlyingTypeEnum.UInt: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumUInt<T>;
+        //            case UnderlyingTypeEnum.Byte: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumByte<T>;
+        //            case UnderlyingTypeEnum.ULong: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumULong<T>;
+        //            case UnderlyingTypeEnum.UShort: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumUShort<T>;
+        //            case UnderlyingTypeEnum.Long: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumLong<T>;
+        //            case UnderlyingTypeEnum.Short: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumShort<T>;
+        //            case UnderlyingTypeEnum.SByte: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumSByte<T>;
+        //            default: return (Func<UnmanagedStream, object, bool>)AutoCSer.Net.CommandServer.RemoteExpressionSerializer.SerializeEnumInt<T>;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 获取简单序列化枚举委托

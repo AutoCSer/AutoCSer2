@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerRegistryService
     {
         static async Task Main(string[] args)
         {
-            new Service((ushort)CommandServerPortEnum.ServiceRegistryPort).Start().NotWait();
+            new Service((ushort)CommandServerPortEnum.ServiceRegistryPort).Start().AutoCSerNotWait();
 
             Console.WriteLine("Press quit to exit.");
             while (await AutoCSer.Breakpoint.ReadLineDelay() != "quit") ;

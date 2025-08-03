@@ -78,7 +78,7 @@ namespace AutoCSer.TestCase.BusinessClient
             {
                 if (instance != null) return instance;
                 LogHelper.ErrorIgnoreException("请在 Main 函数中初始化调用 await Initialize() 避免产生同步阻塞");
-                return Initialize().getResult();
+                return Initialize().AutoCSerExtensions().GetResult();
             }
         }
         /// <summary>

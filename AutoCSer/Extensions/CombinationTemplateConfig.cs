@@ -20,6 +20,7 @@ namespace AutoCSer.Extensions
             {
                 yield return Path.Combine("Algorithm", DefaultTemplatePath);
                 yield return Path.Combine("Xml", DefaultTemplatePath);
+                yield return Path.Combine("Extensions", DefaultTemplatePath);
             }
         }
     }

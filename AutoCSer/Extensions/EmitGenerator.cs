@@ -17,7 +17,7 @@ namespace AutoCSer.Extensions
         /// <param name="generator"></param>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void int32(this ILGenerator generator, bool value)
+        internal static void int32(this ILGenerator generator, bool value)
         {
             generator.Emit(value ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
         }
@@ -26,7 +26,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="value"></param>
-        public static void int32(this ILGenerator generator, int value)
+        internal static void int32(this ILGenerator generator, int value)
         {
             switch (value)
             {
@@ -48,7 +48,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="index"></param>
-        public static void ldarg(this ILGenerator generator, int index)
+        internal static void ldarg(this ILGenerator generator, int index)
         {
             switch (index)
             {
@@ -65,7 +65,7 @@ namespace AutoCSer.Extensions
         /// <param name="generator"></param>
         /// <param name="method"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void call(this ILGenerator generator, MethodInfo method)
+        internal static void call(this ILGenerator generator, MethodInfo method)
         {
             generator.Emit(method.IsFinal || !method.IsVirtual ? OpCodes.Call : OpCodes.Callvirt, method);
         }
@@ -76,7 +76,7 @@ namespace AutoCSer.Extensions
         /// <param name="generator"></param>
         /// <param name="value"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void ldstr(this ILGenerator generator, string value)
+        internal static void ldstr(this ILGenerator generator, string value)
         {
             generator.Emit(OpCodes.Ldstr, value);
         }
@@ -86,7 +86,7 @@ namespace AutoCSer.Extensions
         /// <param name="generator"></param>
         /// <param name="type"></param>
         /// <param name="local"></param>
-        public static void initobjShort(this ILGenerator generator, Type type, LocalBuilder local)
+        internal static void initobjShort(this ILGenerator generator, Type type, LocalBuilder local)
         {
             if (DynamicArray.IsClearArray(type))
             {
@@ -108,7 +108,7 @@ namespace AutoCSer.Extensions
         /// <param name="generator"></param>
         /// <param name="type"></param>
         /// <param name="local"></param>
-        public static void initobj(this ILGenerator generator, Type type, LocalBuilder local)
+        internal static void initobj(this ILGenerator generator, Type type, LocalBuilder local)
         {
             if (DynamicArray.IsClearArray(type))
             {
@@ -132,7 +132,7 @@ namespace AutoCSer.Extensions
         /// <param name="value"></param>
         /// <param name="genericType"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void memberMapObjectIsMember(this ILGenerator generator, OpCode target, int value, GenericType genericType)
+        internal static void memberMapObjectIsMember(this ILGenerator generator, OpCode target, int value, GenericType genericType)
         {
             generator.Emit(target);
             generator.int32(value);
@@ -146,7 +146,7 @@ namespace AutoCSer.Extensions
         /// <param name="value"></param>
         /// <param name="genericType"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void memberMapObjectSetMember(this ILGenerator generator, OpCode target, int value, GenericType genericType)
+        internal static void memberMapObjectSetMember(this ILGenerator generator, OpCode target, int value, GenericType genericType)
         {
             generator.Emit(target);
             generator.int32(value);
@@ -165,7 +165,7 @@ namespace AutoCSer.Extensions
         ///// <param name="target"></param>
         ///// <param name="value"></param>
         //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static void memberMapIsMember(this ILGenerator generator, OpCode target, int value)
+        //internal static void memberMapIsMember(this ILGenerator generator, OpCode target, int value)
         //{
         //    generator.Emit(target);
         //    generator.int32(value);
@@ -182,7 +182,7 @@ namespace AutoCSer.Extensions
         ///// <param name="target"></param>
         ///// <param name="value"></param>
         //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static void memberMapSetMember(this ILGenerator generator, OpCode target, int value)
+        //internal static void memberMapSetMember(this ILGenerator generator, OpCode target, int value)
         //{
         //    generator.Emit(target);
         //    generator.int32(value);

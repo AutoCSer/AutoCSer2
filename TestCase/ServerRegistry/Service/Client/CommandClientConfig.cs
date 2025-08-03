@@ -27,7 +27,7 @@ namespace AutoCSer.TestCase.ServerRegistryServiceClient
         /// <param name="client"></param>
         public override void AutoCreateSocket(CommandClient client)
         {
-            if (IsAutoSocket) AutoCreateSocketAsync(client).NotWait();
+            if (IsAutoSocket) AutoCreateSocketAsync(client).AutoCSerNotWait();
         }
         /// <summary>
         /// 获取命令客户端套接字事件（初始化时一次性调用）

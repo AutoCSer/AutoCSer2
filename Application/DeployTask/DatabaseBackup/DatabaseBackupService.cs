@@ -71,7 +71,7 @@ namespace AutoCSer.CommandService.DeployTask
             }
             catch (Exception catchException)
             {
-                OnException(exception = catchException).NotWait();
+                OnException(exception = catchException).AutoCSerNotWait();
             }
             finally
             {

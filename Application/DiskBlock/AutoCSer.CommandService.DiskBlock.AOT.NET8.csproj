@@ -53,6 +53,7 @@
     <Compile Include="WriteBuffer.cs" />
     <Compile Include="IDiskBlockService.cs" />
     <Compile Include="WriteBufferSerializer.cs" />
+    <Compile Include="WriteBufferSimpleSerializer.cs" />
     <Compile Include="{AutoCSer.CommandService.DiskBlock}.AOT.AutoCSer.cs" />
   </ItemGroup>
 

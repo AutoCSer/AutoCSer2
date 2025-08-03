@@ -14,7 +14,7 @@ namespace AutoCSer.TestCase.SearchDataSource
         {
             await AutoCSer.Threading.SwitchAwaiter.Default;
 
-            userMessageNode().NotWait();
+            userMessageNode().AutoCSerNotWait();
 
             AutoCSer.Net.CommandServerConfig commandServerConfig = new AutoCSer.Net.CommandServerConfig
             {

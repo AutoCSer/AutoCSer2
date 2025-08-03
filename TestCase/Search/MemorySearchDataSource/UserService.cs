@@ -102,7 +102,7 @@ namespace AutoCSer.TestCase.SearchDataSource
             CommandClientReturnValue<PageResult<int>> ids = await client.SearchUserClient.GetUserPage(queryParameter);
             if (!ids.IsSuccess) return new PageResult<User>(ids.ReturnType);
             if (!ids.Value.IsSuccess) return ids.Value.Cast<User>();
-            return ids.Value.Cast(users.getValueArray(ids.Value.Values));
+            return ids.Value.Cast(users.AutoCSerExtensions().GetValueArray(ids.Value.Values));
         }
     }
 }

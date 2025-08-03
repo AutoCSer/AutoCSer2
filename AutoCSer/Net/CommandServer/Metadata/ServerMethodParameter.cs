@@ -11,7 +11,7 @@ namespace AutoCSer.Net.CommandServer
     /// <summary>
     /// 命令服务参数类型
     /// </summary>
-    internal sealed class ServerMethodParameter
+    internal class ServerMethodParameter
     {
         /// <summary>
         /// 参数类型
@@ -59,7 +59,7 @@ namespace AutoCSer.Net.CommandServer
         /// 命令服务参数类型
         /// </summary>
         /// <param name="type">参数类型</param>
-        private ServerMethodParameter(Type type)
+        internal ServerMethodParameter(Type type)
         {
             Type = type;
             Fields = type.GetFields();
@@ -150,17 +150,17 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 命令服务参数类型集合
         /// </summary>
-        private static readonly HashSet<HashObject<Type>> types = HashSetCreator.CreateHashObject<Type>();
-        /// <summary>
-        /// 判断是否命令服务参数类型
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool IsType(Type type)
-        {
-            return types.Contains(type);
-        }
+        internal static readonly HashSet<HashObject<Type>> Types = HashSetCreator.CreateHashObject<Type>();
+        ///// <summary>
+        ///// 判断是否命令服务参数类型
+        ///// </summary>
+        ///// <param name="type"></param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal static bool IsType(Type type)
+        //{
+        //    return Types.Contains(type);
+        //}
         /// <summary>
         /// 命令服务参数类型编号
         /// </summary>
@@ -230,10 +230,23 @@ namespace AutoCSer.Net.CommandServer
                     FieldBuilder returnFieldBuilder = typeBuilder.DefineField(nameof(ServerReturnValue<int>.ReturnValue), returnType, FieldAttributes.Public);
                 }
                 keyTypes.Add(key, type = new ServerMethodParameter(typeBuilder.CreateType()));
-                types.Add(type.Type);
+                Types.Add(type.Type);
             }
             finally { Monitor.Exit(keyTypes); }
             return type;
+        }
+        /// <summary>
+        /// 添加命令服务参数类型
+        /// </summary>
+        /// <param name="type"></param>
+        internal static void AppendType(Type type)
+        {
+            Monitor.Enter(keyTypes);
+            try
+            {
+                Types.Add(type);
+            }
+            finally { Monitor.Exit(keyTypes); }
         }
     }
 }

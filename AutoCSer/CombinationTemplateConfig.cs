@@ -24,6 +24,7 @@ namespace AutoCSer
                 yield return Path.Combine("Json", DefaultTemplatePath);
                 yield return Path.Combine("BinarySerialize", DefaultTemplatePath);
                 yield return Path.Combine("SimpleSerialize", DefaultTemplatePath);
+                //yield return Path.Combine("Net", "CommandServer", "Expression", DefaultTemplatePath);
             }
         }
     }

@@ -43,7 +43,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode<int, Data.TestClass> node = nodeResult.Value.notNull();
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ISearchTreeDictionaryNodeClientNode<int, Data.TestClass> node = nodeResult.Value.AutoCSerClassGenericTypeExtensions().NotNull();
             var result = await node.Clear();
             if (!result.IsSuccess)
             {

@@ -43,7 +43,6 @@ namespace AutoCSer.Net.CommandServer
             if (stream.MoveSize(sizeof(CallbackIdentity) + sizeof(int)))
             {
                 socket.OutputSerializer.IndependentSerialize(ref controllerOutputData);
-                //SimpleSerialize.Serializer<CommandControllerOutputData>.DefaultSerializer(socket.OutputSerializer.Stream, ref controllerOutputData);
                 if (!stream.IsResizeError)
                 {
                     int dataSize = stream.Data.Pointer.CurrentIndex - streamLength, dataLength = dataSize - (sizeof(CallbackIdentity) + sizeof(int));

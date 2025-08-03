@@ -3189,6 +3189,28 @@ namespace AutoCSer
             }
             return false;
         }
+        /// <summary>
+        /// Deserialize the internal member object from the independent data buffer
+        /// 从独立数据缓冲区反序列化内部成员对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="buffer">Data buffer</param>
+        /// <param name="value"></param>
+        internal bool SimpleDeserialize<T>(byte[] buffer, ref T value) where T : struct
+        {
+            fixed (byte* bufferFixed = buffer)
+            {
+                byte* start = bufferFixed;
+                int size = *(int*)start;
+                if (size > 0 && (size & 3) == 0 && size == buffer.Length - sizeof(int))
+                {
+                    start += sizeof(int);
+                    byte* end = start + size;
+                    return SimpleSerialize.Deserializer<T>.DefaultDeserializer(start, ref value, end) == end;
+                }
+            }
+            return false;
+        }
         ///// <summary>
         ///// 自定义反序列化调用
         ///// </summary>
@@ -3309,6 +3331,16 @@ namespace AutoCSer
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// Set the error status
+        /// 设置错误状态
+        /// </summary>
+        /// <param name="state"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetErrorState(DeserializeStateEnum state)
+        {
+            if (State == DeserializeStateEnum.Success) State = state;
         }
         ///// <summary>
         ///// 设置反序列化自定义错误状态
@@ -3986,6 +4018,55 @@ namespace AutoCSer
         /// <param name="value"></param>
         internal void SimpleMethodName<T>(ref T value) { }
 #else
+        ///// <summary>
+        ///// Set the current position for reading data
+        ///// 设置当前读取数据位置
+        ///// </summary>
+        ///// <param name="serializeInfo"></param>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal void SetCurrent(ref AutoCSer.Net.CommandServer.RemoteExpression.SerializeInfo serializeInfo)
+        //{
+        //    Current = serializeInfo.End;
+        //}
+        ///// <summary>
+        ///// Set the current position for reading data
+        ///// 设置当前读取数据位置
+        ///// </summary>
+        ///// <param name="current"></param>
+        ///// <param name="end"></param>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal void SetCurrent(byte* current, byte* end)
+        //{
+        //    Current = current;
+        //    End = end;
+        //}
+        ///// <summary>
+        ///// Set the current position for reading data
+        ///// 设置当前读取数据位置
+        ///// </summary>
+        ///// <param name="current"></param>
+        ///// <returns></returns>
+        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        //internal bool TrySetCurrent(byte* current)
+        //{
+        //    if (current != null && current <= End)
+        //    {
+        //        Current = current;
+        //        return true;
+        //    }
+        //    SetIndexOutOfRange();
+        //    return false;
+        //}
+        /// <summary>
+        /// Set the error of insufficient data length
+        /// 设置数据长度不足错误
+        /// </summary>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal void SetIndexOutOfRange()
+        {
+            Current = End;
+            State = AutoCSer.BinarySerialize.DeserializeStateEnum.IndexOutOfRange;
+        }
         /// <summary>
         /// Fix the number of packet padding bytes
         /// 固定分组填充字节数
@@ -4156,6 +4237,23 @@ namespace AutoCSer
             try
             {
                 return deserializer.IndependentDeserialize(buffer, ref value);
+            }
+            finally { deserializer.Free(); }
+        }
+        /// <summary>
+        /// Deserialize independent objects from independent data buffers
+        /// 从独立数据缓冲区反序列化独立对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="buffer"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static bool SimpleDeserializeBuffer<T>(byte[] buffer, ref T value) where T : struct
+        {
+            BinaryDeserializer deserializer = AutoCSer.Threading.LinkPool<BinaryDeserializer>.Default.Pop() ?? new BinaryDeserializer();
+            try
+            {
+                return deserializer.SimpleDeserialize(buffer, ref value);
             }
             finally { deserializer.Free(); }
         }

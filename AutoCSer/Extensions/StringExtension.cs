@@ -6,7 +6,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// 字符串相关操作
     /// </summary>
-    public unsafe static class StringExtension
+    internal unsafe static class StringExtension
     {
 #if DEBUG
         /// <summary>
@@ -15,7 +15,7 @@ namespace AutoCSer.Extensions
         /// <param name="source"></param>
         /// <param name="index"></param>
         /// <param name="count"></param>
-        public static void DebugCheckSize(this string source, int index, int count)
+        internal static void DebugCheckSize(this string source, int index, int count)
         {
             if (index < 0) throw new Exception(index.toString() + " < 0");
             if (count <= 0) throw new Exception(count.toString() + " <= 0");
@@ -185,7 +185,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static ulong getHashCode64(this string value)
+        internal static ulong getHashCode64(this string value)
         {
             if (value != null)
             {

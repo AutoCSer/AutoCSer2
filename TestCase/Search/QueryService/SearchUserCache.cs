@@ -42,7 +42,7 @@ namespace AutoCSer.TestCase.SearchQueryService
         {
             this.queryService = queryService;
             this.batchCount = Math.Max(batchCount, 1);
-            getUserMessage().NotWait();
+            getUserMessage().AutoCSerNotWait();
         }
         /// <summary>
         /// Release resources
@@ -93,7 +93,7 @@ namespace AutoCSer.TestCase.SearchQueryService
                 return;
             }
             command.Dispose();
-            if (!queryService.IsDispose) getUserMessage().NotWait();
+            if (!queryService.IsDispose) getUserMessage().AutoCSerNotWait();
         }
         /// <summary>
         /// 获取用户搜索非索引条件数据集合

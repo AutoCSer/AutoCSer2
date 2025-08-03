@@ -17,7 +17,7 @@ namespace AutoCSer.Document.SymmetryService
             {
                 if (await commandListener.Start())
                 {
-                    Client.Test().NotWait();
+                    Client.Test().AutoCSerNotWait();
 
                     Console.ReadLine();
                 }

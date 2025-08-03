@@ -51,7 +51,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             DefaultConstructor constructor = new DefaultConstructor();
             constructor.generatorAttribute = defaultGeneratorAttribute;
             constructor.CurrentType = type;
-            constructor.nextCreate().NotWait();
+            constructor.nextCreate().AutoCSerNotWait();
         }
 
         /// <summary>

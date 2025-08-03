@@ -48,7 +48,7 @@ namespace AutoCSer.Net
         public static CommandClientSocketEventCache<T> Create(CommandReverseListenerConfig config)
         {
             CommandReverseListener listener = new CommandReverseListener(config);
-            listener.Start().NotWait();
+            listener.Start().AutoCSerNotWait();
             return new CommandClientSocketEventCache<T>(listener.CommandClient);
         }
     }

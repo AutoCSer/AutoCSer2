@@ -6,7 +6,7 @@ namespace AutoCSer.TestCase
     /// Custom session object
     /// 自定义会话对象
     /// </summary>
-    internal sealed class CommandServerSessionObject
+    public sealed class CommandServerSessionObject
     {
         internal int Value;
         internal int Ref;
@@ -72,6 +72,14 @@ namespace AutoCSer.TestCase
             this.Ref = refValue;
             return Xor();
         }
+        internal void Set(int value)
+        {
+            this.Value = value;
+        }
+        //internal void Set(bool value)
+        //{
+        //    this.Value = value ? int.MaxValue : int.MinValue;
+        //}
 
         internal bool Check(CommandServerSessionObject clientSessionObject)
         {

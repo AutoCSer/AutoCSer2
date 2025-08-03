@@ -7,14 +7,14 @@ namespace AutoCSer.Extensions
     /// Integer correlation extension operations
     /// 数值相关扩展操作
     /// </summary>
-    public unsafe static class IntegerExtension
+    internal unsafe static class IntegerExtension
     {
         /// <summary>
         /// 获取二进制1位的个数
         /// </summary>
         /// <param name="value">data</param>
         /// <returns>二进制1位的个数</returns>
-        public static int bitCount(this ulong value)
+        internal static int bitCount(this ulong value)
         {
             value -= ((value >> 1) & 0x5555555555555555UL);//2:2
             value = (value & 0x3333333333333333UL) + ((value >> 2) & 0x3333333333333333UL);//4:4
@@ -31,7 +31,7 @@ namespace AutoCSer.Extensions
         /// <param name="value">data</param>
         /// <returns>有效位长度</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static int bits(this ulong value)
+        internal static int bits(this ulong value)
         {
             return (value & 0xffffffff00000000UL) == 0 ? AutoCSer.Extensions.NumberExtension.bits((uint)value) : (AutoCSer.Extensions.NumberExtension.bits((uint)(value >> 32)) + 32);
             //if ((value & 0x8000000000000000UL) == 0)
@@ -53,7 +53,7 @@ namespace AutoCSer.Extensions
         /// <param name="value">data</param>
         /// <returns>最后二进制0位的长度</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static int endBits(this uint value)
+        internal static int endBits(this uint value)
         {
             return value != 0 ? NumberExtension.DeBruijn32.Byte[((value & (0U - value)) * NumberExtension.DeBruijn32Number) >> 27] : 0;
         }
@@ -62,7 +62,7 @@ namespace AutoCSer.Extensions
         /// </summary>
         /// <param name="value">data</param>
         /// <returns>最后二进制0位的长度</returns>
-        public static int endBits(this ulong value)
+        internal static int endBits(this ulong value)
         {
             return (value & 0xffffffff00000000UL) == 0
                 ? (value != 0 ? endBits((uint)(value >> 32)) + 32 : 0)
@@ -75,7 +75,7 @@ namespace AutoCSer.Extensions
         /// <param name="value">不允许负数</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static long logicalInversion(this long value)
+        internal static long logicalInversion(this long value)
         {
             return (long)(((ulong)value - 1) >> 63);
         }
@@ -85,7 +85,7 @@ namespace AutoCSer.Extensions
         /// <param name="value">不允许负数</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static long toLogical(this long value)
+        internal static long toLogical(this long value)
         {
             return logicalInversion(value) ^ 1;
         }
@@ -97,7 +97,7 @@ namespace AutoCSer.Extensions
         /// <param name="shiftBit">位移数量</param>
         /// <param name="maxValue">最大被除数</param>
         /// <returns>误差是否满足要求</returns>
-        public static bool checkDivMul(this uint divisor, int shiftBit, uint maxValue = uint.MaxValue)
+        internal static bool checkDivMul(this uint divisor, int shiftBit, uint maxValue = uint.MaxValue)
         {
             ulong shiftValue = 1UL << shiftBit, multiplier = (shiftValue - 1) / divisor + 1;
             if (maxValue * (multiplier * divisor - shiftValue) < shiftValue) //误差判断
@@ -113,7 +113,7 @@ namespace AutoCSer.Extensions
         /// <param name="shiftBit">位移数量</param>
         /// <param name="maxValue">最大被除数</param>
         /// <returns>误差是否满足要求</returns>
-        public static bool checkDivMul(this ushort divisor, int shiftBit, ushort maxValue = ushort.MaxValue)
+        internal static bool checkDivMul(this ushort divisor, int shiftBit, ushort maxValue = ushort.MaxValue)
         {
             uint shiftValue = 1U << shiftBit, multiplier = (shiftValue - 1) / divisor + 1;
             if (maxValue * (multiplier * divisor - shiftValue) < shiftValue) //误差判断
