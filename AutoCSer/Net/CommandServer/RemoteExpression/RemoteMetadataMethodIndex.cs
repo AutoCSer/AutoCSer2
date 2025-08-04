@@ -30,6 +30,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         public int[] ParameterTypes;
         /// <summary>
+        /// A collection of generic parameter types
         /// 泛型参数类型集合
         /// </summary>
         public int[] GenericTypes;

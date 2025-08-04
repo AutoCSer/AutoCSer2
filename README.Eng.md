@@ -99,6 +99,7 @@ NuGet has released three versions of its core assembly AutoCSer.dll, including [
 6. [Service registration and push](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/10.ServerRegistry/10.ServerRegistry.Eng.md)
 7. [Reverse RPC service](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/11.ReverseServer/11.ReverseServer.Eng.md)
 8. [The client supports .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.Eng.md)
+9. [Remote Lambda expression](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/13.RemoteExpression/13.RemoteExpression.Eng.md)
 
 # In-memory database
 ## Database service configuration definition

@@ -92,6 +92,13 @@ namespace AutoCSer.Net
         /// 默认为 true 表示禁用 Nagle 算法，立即发送数据
         /// </summary>
         public bool NoDelay = true;
+#if !AOT
+        /// <summary>
+        /// The default value of false indicates that remote expressions are not supported. Setting it to true means allowing arbitrary code execution, so the client needs to be fully trusted
+        /// 默认为 false 表示不支持远程表达式；设置为 true 意味着允许执行任意代码，所以需要客户端完全可信任
+        /// </summary>
+        public bool IsRemoteExpression;
+#endif
         /// <summary>
         /// The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
         /// 默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1

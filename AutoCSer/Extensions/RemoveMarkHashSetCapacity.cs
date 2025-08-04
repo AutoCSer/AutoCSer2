@@ -7,7 +7,8 @@ namespace AutoCSer
     /// <summary>
     /// 带移除标记的可重用哈希表容器参数
     /// </summary>
-    /// <typeparam name="T">参数类型</typeparam>
+    /// <typeparam name="T">Parameter type
+    /// 参数类型</typeparam>
     internal abstract class RemoveMarkHashSetCapacity<T> : AutoCSer.Threading.Link<T>
         where T : RemoveMarkHashSetCapacity<T>
     {

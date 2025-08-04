@@ -54,7 +54,25 @@ namespace AutoCSer.Net
         /// Remote expression client metadata information
         /// 远程表达式客户端元数据信息
         /// </summary>
-        internal readonly AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata RemoteMetadata;
+        internal AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata RemoteMetadata;
+        /// <summary>
+        /// Get the remote expression client metadata information
+        /// 获取远程表达式客户端元数据信息
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        internal AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata? GetRemoteMetadata()
+#else
+        internal AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata GetRemoteMetadata()
+#endif
+        {
+            if (!object.ReferenceEquals(RemoteMetadata, Null.RemoteMetadata))
+            {
+                if (RemoteMetadata.GetIsCommand() && commands.IsPushHead(new RemoteMetadataCommand(this))) outputWaitHandle.Set();
+                return RemoteMetadata;
+            }
+            return null;
+        }
 #endif
         /// <summary>
         /// The maximum number of unprocessed commands on the client side
@@ -382,7 +400,7 @@ namespace AutoCSer.Net
             setValue(false);
             client.DefaultControllerReturnType = CommandClientReturnTypeEnum.WaitConnect;
 #if !AOT
-            RemoteMetadata = client.Config.IsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
+            RemoteMetadata = client.Config.GetIsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
 #endif
             Controller = createController();
             create().Catch();
@@ -420,7 +438,7 @@ namespace AutoCSer.Net
             setValue(false);
             Client.DefaultControllerReturnType = CommandClientReturnTypeEnum.DisconnectionReconnect;
 #if !AOT
-            RemoteMetadata = Client.Config.IsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
+            RemoteMetadata = Client.Config.GetIsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
 #endif
             Controller = createController();
             try
@@ -460,7 +478,7 @@ namespace AutoCSer.Net
             setValue(false);
             client.DefaultControllerReturnType = CommandClientReturnTypeEnum.WaitConnect;
 #if !AOT
-            RemoteMetadata = client.Config.IsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
+            RemoteMetadata = client.Config.GetIsRemoteExpression ? new AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata(false) : Null.RemoteMetadata;
 #endif
             Controller = createController();
         }
@@ -478,7 +496,7 @@ namespace AutoCSer.Net
                     CommandPool.Array[CommandServer.KeepCallbackCommand.CustomDataIndex].Command = new CustomDataCallbackCommand(this);
                     CommandPool.Array[CommandServer.KeepCallbackCommand.ControllerIndex].Command = new ControllerCallbackCommand(this);
 #if !AOT
-                    if (Client.Config.IsRemoteExpression)
+                    if (Client.Config.GetIsRemoteExpression)
                     {
                         CommandPool.Array[CommandServer.KeepCallbackCommand.RemoteMetadataIndex].Command = new RemoteMetadataCallbackCommand(this);
                     }

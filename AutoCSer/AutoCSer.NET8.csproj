@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.64</Version>
+    <Version>2.0.65</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a full-duplex RPC component based on TCP long connections, featuring high concurrency, high throughput and other high-performance characteristics.
@@ -185,31 +185,21 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CommandServerCall\KeepCallbackCountCallbackAwaiter.cs" />
     <Compile Include="Net\CommandServer\CommandServerCompressConfig.cs" />
     <Compile Include="Net\CommandServer\CommandServerSocketBuildOutputThreadEnum.cs" />
+    <Compile Include="Net\CommandServer\Command\BaseCommand\RemoteMetadataCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\RemoteMetadataCallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
     <Compile Include="Net\CommandServer\Command\CompletedReturnCommand.cs" />
     <Compile Include="Net\CommandServer\Command\IEnumeratorCommand.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputRemoteMetadata.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallConstantParameterAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterFunc.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallConstantParameterFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\CallDelegate.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallFunc.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallParameterAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallParameterFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ClientMetadata.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameter.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterKey.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterSerializer.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantTypeEnum.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\DelegateDeserializer.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\FieldIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\DelegateTypeEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\FormatDeserialize.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMemberIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMethodIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataOutputData.cs" />

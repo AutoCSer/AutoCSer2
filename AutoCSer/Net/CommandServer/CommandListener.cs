@@ -37,15 +37,20 @@ namespace AutoCSer.Net
         internal const int CheckMethodIndex = CancelKeepMethodIndex - 1;
 
         /// <summary>
-        /// Gets the controller index command
+        /// Get the controller index command
         /// 获取控制器索引命令
         /// </summary>
         internal const int ControllerMethodIndex = CheckMethodIndex - 1;
         /// <summary>
+        /// Get the remote metadata command
+        /// 获取远程元数据命令
+        /// </summary>
+        internal const int RemoteMetadataMethodIndex = ControllerMethodIndex - 1;
+        /// <summary>
         /// Custom data packet command
         /// 自定义数据包命令
         /// </summary>
-        internal const int CustomDataMethodIndex = ControllerMethodIndex - 1;
+        internal const int CustomDataMethodIndex = RemoteMetadataMethodIndex - 1;
         /// <summary>
         /// Client flow merging command
         /// 客户端流合并命令

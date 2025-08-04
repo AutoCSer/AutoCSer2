@@ -58,6 +58,10 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 是否需要检查常量表达式
         /// </summary>
         private bool isCheckConstant;
+        /// <summary>
+        /// 是否已经发送获取远程元数据命令
+        /// </summary>
+        private bool isCommand;
 
         /// <summary>
         /// 远程表达式元数据信息编号回调委托集合
@@ -118,6 +122,17 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             this.parameters = EmptyArray<ParameterExpression>.Array.AsReadOnly();
         }
         /// <summary>
+        /// 是否发送获取远程元数据命令
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool GetIsCommand()
+        {
+            if (isCommand) return false;
+            return isCommand = true;
+        }
+        /// <summary>
+        /// Remote metadata callback
         /// 远程元数据回调
         /// </summary>
         /// <param name="remoteMetadataOutputData"></param>
@@ -219,6 +234,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             return typeArray;
         }
         /// <summary>
+        /// Remote metadata callback
         /// 远程元数据回调
         /// </summary>
         /// <param name="callback"></param>
@@ -937,12 +953,16 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             int startIndex = stream.GetIndexBeforeMove(sizeof(int) * 2);
             if (startIndex >= 0)
             {
-                *(int*)(stream.Data.Pointer.Byte + startIndex) = (byte)RemoteExpressionSerializeStateEnum.Success;
-                ClientMetadata metadata = serializer.Context.castType<CommandClientSocket>().notNull().RemoteMetadata;
-                if (!metadata.Serialize(serializer, parameterTypes, expression.Parameters, expression.Body) && !stream.IsResizeError)
+                var metadata = serializer.Context.castType<CommandClientSocket>().notNull().GetRemoteMetadata();
+                if (metadata != null)
                 {
-                    stream.Data.Pointer.SetCurrentIndex(startIndex, (byte)metadata.State);
+                    *(int*)(stream.Data.Pointer.Byte + startIndex) = (byte)RemoteExpressionSerializeStateEnum.Success;
+                    if (!metadata.Serialize(serializer, parameterTypes, expression.Parameters, expression.Body) && !stream.IsResizeError)
+                    {
+                        stream.Data.Pointer.SetCurrentIndex(startIndex, (byte)metadata.State);
+                    }
                 }
+                else stream.Data.Pointer.SetCurrentIndex(startIndex, (byte)RemoteExpressionSerializeStateEnum.NotSupportClient);
             }
         }
     }

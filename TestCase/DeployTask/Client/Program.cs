@@ -573,6 +573,7 @@ Press quit to exit.");
                 await waitProcess(@"Document\10.ServerRegistry\bin\Release\net8.0\AutoCSer.Document.ServerRegistry.exe", 2);
                 await waitProcess(@"Document\11.ReverseServer\bin\Release\net8.0\AutoCSer.Document.ReverseServer.exe");
                 await waitProcess(@"Document\12.NativeAOT\bin\Service\Release\net8.0\AutoCSer.Document.NativeAOT.Service.exe", new ProcessArguments(@"Document\12.NativeAOT\bin\Release\net8.0\publish\AutoCSer.Document.NativeAOT.exe"));
+                await waitProcess(@"Document\13.RemoteExpression\bin\Release\net8.0\AutoCSer.Document.RemoteExpression.exe");
                 if (serializePerformanceProcess) await serializePerformance.WaitLogFile();
                 if (gifProcess) await gif.WaitLogFile();
 

@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.64</Version>
+    <Version>2.0.65</Version>
     <PackageId>AutoCSer2</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.0]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -188,30 +188,20 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CommandServerCall\TaskQueue\CommandServerCallTaskQueueVerifyStateTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\TaskQueue\CommandServerControllerCallTaskQueue.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\TaskQueue\CommandServerKeepCallbackQueueTask.cs" />
+    <Compile Include="Net\CommandServer\Command\BaseCommand\RemoteMetadataCommand.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerQueueTypeEnum.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallConstantParameterAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallConstantParameterFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\CallDelegate.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallFunc.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallParameterAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallParameterFunc.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ClientMetadata.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameter.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterKey.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterSerializer.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantTypeEnum.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\DelegateDeserializer.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\DelegateTypeEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\FieldIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\FormatDeserialize.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\MethodIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\NodeHeaderEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\PropertyIndex.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionAction.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionSerializeStateEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataCallback.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMemberIndex.cs" />

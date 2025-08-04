@@ -12,14 +12,17 @@ using System.Threading;
 namespace AutoCSer.Net.CommandServer
 {
     /// <summary>
+    /// Remote expression delegate
     /// 远程表达式委托
     /// </summary>
     public static class RemoteExpressionFunc
     {
         /// <summary>
+        /// Get the remote expression delegate
         /// 获取远程表达式委托
         /// </summary>
-        /// <typeparam name="RT">返回值类型</typeparam>
+        /// <typeparam name="RT">Return value type
+        /// 返回值类型</typeparam>
         /// <param name="expression"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -68,14 +71,17 @@ namespace AutoCSer.Net.CommandServer
         //}
     }
     /// <summary>
-    /// 远程表达式委托（依赖内存数据状态，不支持持久化）
+    /// Remote expression delegate Func{RT} (It relies on the state of in-memory data and does not support persistence)
+    /// 远程表达式委托 Func{RT}（依赖内存数据状态，不支持持久化）
     /// </summary>
-    /// <typeparam name="RT">返回值类型</typeparam>
+    /// <typeparam name="RT">Return value type
+    /// 返回值类型</typeparam>
     [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct RemoteExpressionFunc<RT> : AutoCSer.BinarySerialize.ICustomSerialize<RemoteExpressionFunc<RT>>
     {
         /// <summary>
+        /// Server side delegate
         /// 服务端委托
         /// </summary>
 #if NetStandard21
@@ -84,21 +90,26 @@ namespace AutoCSer.Net.CommandServer
         private CallParameterFunc<RT> function;
 #endif
         /// <summary>
+        /// Server deserialization state
         /// 服务端反序列化状态
         /// </summary>
         private RemoteExpressionSerializeStateEnum state;
         /// <summary>
+        /// Whether the server deserialization was successful
         /// 服务端反序列化是否成功
         /// </summary>
         public bool IsSuccess { get { return state == RemoteExpressionSerializeStateEnum.Success; } }
         /// <summary>
+        /// Client-side Lambda expression
         /// 客户端 Lambda 表达式
         /// </summary>
         private readonly System.Linq.Expressions.Expression<Func<RT>> expression;
         /// <summary>
+        /// Remote expression delegate
         /// 远程表达式委托
         /// </summary>
-        /// <param name="expression">客户端 Lambda 表达式</param>
+        /// <param name="expression">Client-side Lambda expression
+        /// 客户端 Lambda 表达式</param>
         public RemoteExpressionFunc(System.Linq.Expressions.Expression<Func<RT>> expression)
         {
             this.expression = expression;
@@ -111,6 +122,7 @@ namespace AutoCSer.Net.CommandServer
         ///// <param name="expression"></param>
         //public static implicit operator RemoteExpressionFunc<RT>(System.Linq.Expressions.Expression<Func<RT>> expression) { return new RemoteExpressionFunc<RT>(expression); }
         /// <summary>
+        /// Get the deserialization state of the server
         /// 获取服务端反序列化状态
         /// </summary>
         /// <returns></returns>
@@ -120,7 +132,8 @@ namespace AutoCSer.Net.CommandServer
             return state;
         }
         /// <summary>
-        /// 委托调用
+        /// Call the service delegate
+        /// 调用服务端委托
         /// </summary>
         /// <returns></returns>
         public RT Call()
@@ -128,7 +141,18 @@ namespace AutoCSer.Net.CommandServer
             if (state == RemoteExpressionSerializeStateEnum.Success) return function.notNull().Call();
             throw new MissingMethodException(state.ToString());
         }
-
+        /// <summary>
+        /// When deserialization is successful, the server delegate is called
+        /// 反序列化成功时调用服务端委托
+        /// </summary>
+        /// <returns>Server deserialization state
+        /// 服务端反序列化状态</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public RemoteExpressionFuncResult<RT> CallState()
+        {
+            if (state == RemoteExpressionSerializeStateEnum.Success) return new RemoteExpressionFuncResult<RT>(function.notNull().Call());
+            return new RemoteExpressionFuncResult<RT> { State = state };
+        }
         /// <summary>
         /// Serialization
         /// 序列化
@@ -179,20 +203,25 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
+        /// A collection of generic parameter types
         /// 泛型参数类型集合
         /// </summary>
         private static readonly Type[] parameterTypes = new Type[] { typeof(RT) };
     }
     /// <summary>
+    /// Remote expression delegate Func{T, RT} (It relies on the state of in-memory data and does not support persistence)
     /// 远程表达式委托（依赖内存数据状态，不支持持久化）
     /// </summary>
-    /// <typeparam name="T">参数类型</typeparam>
-    /// <typeparam name="RT">返回值类型</typeparam>
+    /// <typeparam name="T">Parameter type
+    /// 参数类型</typeparam>
+    /// <typeparam name="RT">Return value type
+    /// 返回值类型</typeparam>
     [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct RemoteExpressionFunc<T, RT> : AutoCSer.BinarySerialize.ICustomSerialize<RemoteExpressionFunc<T, RT>>
     {
         /// <summary>
+        /// Server side delegate
         /// 服务端委托
         /// </summary>
 #if NetStandard21
@@ -201,21 +230,26 @@ namespace AutoCSer.Net.CommandServer
         private CallParameterFunc<T, RT> function;
 #endif
         /// <summary>
+        /// Server deserialization state
         /// 服务端反序列化状态
         /// </summary>
         private RemoteExpressionSerializeStateEnum state;
         /// <summary>
+        /// Whether the server deserialization was successful
         /// 服务端反序列化是否成功
         /// </summary>
         public bool IsSuccess { get { return state == RemoteExpressionSerializeStateEnum.Success; } }
         /// <summary>
+        /// Client-side Lambda expression
         /// 客户端 Lambda 表达式
         /// </summary>
         private readonly System.Linq.Expressions.Expression<Func<T, RT>> expression;
         /// <summary>
+        /// Remote expression delegate
         /// 远程表达式委托
         /// </summary>
-        /// <param name="expression">客户端 Lambda 表达式</param>
+        /// <param name="expression">Client-side Lambda expression
+        /// 客户端 Lambda 表达式</param>
         public RemoteExpressionFunc(System.Linq.Expressions.Expression<Func<T, RT>> expression)
         {
             this.expression = expression;
@@ -228,6 +262,7 @@ namespace AutoCSer.Net.CommandServer
         ///// <param name="expression"></param>
         //public static implicit operator RemoteExpressionFunc<T, RT>(System.Linq.Expressions.Expression<Func<T, RT>> expression) { return new RemoteExpressionFunc<T, RT>(expression); }
         /// <summary>
+        /// Get the deserialization state of the server
         /// 获取服务端反序列化状态
         /// </summary>
         /// <returns></returns>
@@ -237,7 +272,8 @@ namespace AutoCSer.Net.CommandServer
             return state;
         }
         /// <summary>
-        /// 委托调用
+        /// Call the service delegate
+        /// 调用服务端委托
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
@@ -246,7 +282,19 @@ namespace AutoCSer.Net.CommandServer
             if (state == RemoteExpressionSerializeStateEnum.Success) return function.notNull().Call(parameter);
             throw new MissingMethodException(state.ToString());
         }
-
+        /// <summary>
+        /// When deserialization is successful, the server delegate is called
+        /// 反序列化成功时调用服务端委托
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns>Server deserialization state
+        /// 服务端反序列化状态</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public RemoteExpressionFuncResult<RT> CallState(T parameter)
+        {
+            if (state == RemoteExpressionSerializeStateEnum.Success) return new RemoteExpressionFuncResult<RT>(function.notNull().Call(parameter));
+            return new RemoteExpressionFuncResult<RT> { State = state };
+        }
         /// <summary>
         /// Serialization
         /// 序列化
@@ -297,21 +345,27 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
+        /// A collection of generic parameter types
         /// 泛型参数类型集合
         /// </summary>
         private static readonly Type[] parameterTypes = new Type[] { typeof(T), typeof(RT) };
     }
     /// <summary>
+    /// Remote expression delegate Func{T1, T2, RT} (It relies on the state of in-memory data and does not support persistence)
     /// 远程表达式委托（依赖内存数据状态，不支持持久化）
     /// </summary>
-    /// <typeparam name="T1">参数类型</typeparam>
-    /// <typeparam name="T2">参数类型</typeparam>
-    /// <typeparam name="RT">返回值类型</typeparam>
+    /// <typeparam name="T1">Parameter type
+    /// 参数类型</typeparam>
+    /// <typeparam name="T2">Parameter type
+    /// 参数类型</typeparam>
+    /// <typeparam name="RT">Return value type
+    /// 返回值类型</typeparam>
     [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct RemoteExpressionFunc<T1, T2, RT> : AutoCSer.BinarySerialize.ICustomSerialize<RemoteExpressionFunc<T1, T2, RT>>
     {
         /// <summary>
+        /// Server side delegate
         /// 服务端委托
         /// </summary>
 #if NetStandard21
@@ -320,21 +374,26 @@ namespace AutoCSer.Net.CommandServer
         private CallParameterFunc<T1, T2, RT> function;
 #endif
         /// <summary>
+        /// Server deserialization state
         /// 服务端反序列化状态
         /// </summary>
         private RemoteExpressionSerializeStateEnum state;
         /// <summary>
+        /// Whether the server deserialization was successful
         /// 服务端反序列化是否成功
         /// </summary>
         public bool IsSuccess { get { return state == RemoteExpressionSerializeStateEnum.Success; } }
         /// <summary>
+        /// Client-side Lambda expression
         /// 客户端 Lambda 表达式
         /// </summary>
         private readonly System.Linq.Expressions.Expression<Func<T1, T2, RT>> expression;
         /// <summary>
+        /// Remote expression delegate
         /// 远程表达式委托
         /// </summary>
-        /// <param name="expression">客户端 Lambda 表达式</param>
+        /// <param name="expression">Client-side Lambda expression
+        /// 客户端 Lambda 表达式</param>
         public RemoteExpressionFunc(System.Linq.Expressions.Expression<Func<T1, T2, RT>> expression)
         {
             this.expression = expression;
@@ -347,6 +406,7 @@ namespace AutoCSer.Net.CommandServer
         ///// <param name="expression"></param>
         //public static implicit operator RemoteExpressionFunc<T1, T2, RT>(System.Linq.Expressions.Expression<Func<T1, T2, RT>> expression) { return new RemoteExpressionFunc<T1, T2, RT>(expression); }
         /// <summary>
+        /// Get the deserialization state of the server
         /// 获取服务端反序列化状态
         /// </summary>
         /// <returns></returns>
@@ -356,7 +416,8 @@ namespace AutoCSer.Net.CommandServer
             return state;
         }
         /// <summary>
-        /// 委托调用
+        /// Call the service delegate
+        /// 调用服务端委托
         /// </summary>
         /// <param name="parameter1"></param>
         /// <param name="parameter2"></param>
@@ -366,7 +427,20 @@ namespace AutoCSer.Net.CommandServer
             if (state == RemoteExpressionSerializeStateEnum.Success) return function.notNull().Call(parameter1, parameter2);
             throw new MissingMethodException(state.ToString());
         }
-
+        /// <summary>
+        /// When deserialization is successful, the server delegate is called
+        /// 反序列化成功时调用服务端委托
+        /// </summary>
+        /// <param name="parameter1"></param>
+        /// <param name="parameter2"></param>
+        /// <returns>Server deserialization state
+        /// 服务端反序列化状态</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public RemoteExpressionFuncResult<RT> CallState(T1 parameter1, T2 parameter2)
+        {
+            if (state == RemoteExpressionSerializeStateEnum.Success) return new RemoteExpressionFuncResult<RT>(function.notNull().Call(parameter1, parameter2));
+            return new RemoteExpressionFuncResult<RT> { State = state };
+        }
         /// <summary>
         /// Serialization
         /// 序列化
@@ -417,22 +491,29 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
+        /// A collection of generic parameter types
         /// 泛型参数类型集合
         /// </summary>
         private static readonly Type[] parameterTypes = new Type[] { typeof(T1), typeof(T2), typeof(RT) };
     }
     /// <summary>
+    /// Remote expression delegate Func{T1, T2, T3, RT} (It relies on the state of in-memory data and does not support persistence)
     /// 远程表达式委托（依赖内存数据状态，不支持持久化）
     /// </summary>
-    /// <typeparam name="T1">参数类型</typeparam>
-    /// <typeparam name="T2">参数类型</typeparam>
-    /// <typeparam name="T3">参数类型</typeparam>
-    /// <typeparam name="RT">返回值类型</typeparam>
+    /// <typeparam name="T1">Parameter type
+    /// 参数类型</typeparam>
+    /// <typeparam name="T2">Parameter type
+    /// 参数类型</typeparam>
+    /// <typeparam name="T3">Parameter type
+    /// 参数类型</typeparam>
+    /// <typeparam name="RT">Return value type
+    /// 返回值类型</typeparam>
     [AutoCSer.BinarySerialize(IsReferenceMember = false, CustomReferenceTypes = new Type[0])]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct RemoteExpressionFunc<T1, T2, T3, RT> : AutoCSer.BinarySerialize.ICustomSerialize<RemoteExpressionFunc<T1, T2, T3, RT>>
     {
         /// <summary>
+        /// Server side delegate
         /// 服务端委托
         /// </summary>
 #if NetStandard21
@@ -441,21 +522,26 @@ namespace AutoCSer.Net.CommandServer
         private CallParameterFunc<T1, T2, T3, RT> function;
 #endif
         /// <summary>
+        /// Server deserialization state
         /// 服务端反序列化状态
         /// </summary>
         private RemoteExpressionSerializeStateEnum state;
         /// <summary>
+        /// Whether the server deserialization was successful
         /// 服务端反序列化是否成功
         /// </summary>
         public bool IsSuccess { get { return state == RemoteExpressionSerializeStateEnum.Success; } }
         /// <summary>
+        /// Client-side Lambda expression
         /// 客户端 Lambda 表达式
         /// </summary>
         private readonly System.Linq.Expressions.Expression<Func<T1, T2, T3, RT>> expression;
         /// <summary>
+        /// Remote expression delegate
         /// 远程表达式委托
         /// </summary>
-        /// <param name="expression">客户端 Lambda 表达式</param>
+        /// <param name="expression">Client-side Lambda expression
+        /// 客户端 Lambda 表达式</param>
         public RemoteExpressionFunc(System.Linq.Expressions.Expression<Func<T1, T2, T3, RT>> expression)
         {
             this.expression = expression;
@@ -468,6 +554,7 @@ namespace AutoCSer.Net.CommandServer
         ///// <param name="expression"></param>
         //public static implicit operator RemoteExpressionFunc<T1, T2, T3, RT>(System.Linq.Expressions.Expression<Func<T1, T2, T3, RT>> expression) { return new RemoteExpressionFunc<T1, T2, T3, RT>(expression); }
         /// <summary>
+        /// Get the deserialization state of the server
         /// 获取服务端反序列化状态
         /// </summary>
         /// <returns></returns>
@@ -477,7 +564,8 @@ namespace AutoCSer.Net.CommandServer
             return state;
         }
         /// <summary>
-        /// 委托调用
+        /// Call the service delegate
+        /// 调用服务端委托
         /// </summary>
         /// <param name="parameter1"></param>
         /// <param name="parameter2"></param>
@@ -488,7 +576,21 @@ namespace AutoCSer.Net.CommandServer
             if (state == RemoteExpressionSerializeStateEnum.Success) return function.notNull().Call(parameter1, parameter2, parameter3);
             throw new MissingMethodException(state.ToString());
         }
-
+        /// <summary>
+        /// When deserialization is successful, the server delegate is called
+        /// 反序列化成功时调用服务端委托
+        /// </summary>
+        /// <param name="parameter1"></param>
+        /// <param name="parameter2"></param>
+        /// <param name="parameter3"></param>
+        /// <returns>Server deserialization state
+        /// 服务端反序列化状态</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public RemoteExpressionFuncResult<RT> CallState(T1 parameter1, T2 parameter2, T3 parameter3)
+        {
+            if (state == RemoteExpressionSerializeStateEnum.Success) return new RemoteExpressionFuncResult<RT>(function.notNull().Call(parameter1, parameter2, parameter3));
+            return new RemoteExpressionFuncResult<RT> { State = state };
+        }
         /// <summary>
         /// Serialization
         /// 序列化
@@ -539,6 +641,7 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
+        /// A collection of generic parameter types
         /// 泛型参数类型集合
         /// </summary>
         private static readonly Type[] parameterTypes = new Type[] { typeof(T1), typeof(T2), typeof(T3), typeof(RT) };

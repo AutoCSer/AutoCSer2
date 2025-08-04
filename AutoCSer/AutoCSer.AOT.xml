@@ -47876,8 +47876,14 @@
         </member>
         <member name="F:AutoCSer.Net.CommandListener.ControllerMethodIndex">
             <summary>
-            Gets the controller index command
+            Get the controller index command
             获取控制器索引命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandListener.RemoteMetadataMethodIndex">
+            <summary>
+            Get the remote metadata command
+            获取远程元数据命令
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandListener.CustomDataMethodIndex">
@@ -53710,13 +53716,15 @@
         </member>
         <member name="T:AutoCSer.EmptyArray`1">
             <summary>
+            An empty array of 0 length
             0 长度空数组
             </summary>
             <typeparam name="T">Data type</typeparam>
         </member>
         <member name="F:AutoCSer.EmptyArray`1.Array">
             <summary>
-            0元素数组（严重警告，禁止对该对象进行 Array.Resize 操作，在无法保证的场景禁止使用）
+            0-element Array (Serious warning: Do not perform Array.resize operations on this object. Do not use in scenarios where it cannot be guaranteed)
+            0 元素数组（严重警告，禁止对该对象进行 Array.Resize 操作，在无法保证的场景禁止使用）
             </summary>
         </member>
         <member name="T:AutoCSer.Enumerator`1">

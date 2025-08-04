@@ -114,7 +114,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <returns></returns>
         internal static DelegateDeserializer Deserialize(BinaryDeserializer deserializer, Type[] parameterTypes, ref RemoteExpressionSerializeStateEnum state)
         {
-            state = RemoteExpressionSerializeStateEnum.DeserializeError;
+            state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
             int stateValue;
             if (deserializer.Read(out stateValue))
             {

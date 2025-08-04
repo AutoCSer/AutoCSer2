@@ -99,6 +99,7 @@ NuGet 发布了核心程序集 AutoCSer.dll 的 3 个版本包括 [.NET8](https:
 6. [服务注册与推送](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/10.ServerRegistry/10.ServerRegistry.md)
 7. [反向 RPC 服务](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/11.ReverseServer/11.ReverseServer.md)
 8. [客户端 .NET NativeAOT](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/12.NativeAOT/12.NativeAOT.md)
+9. [远程 Lambda 表达式](https://github.com/AutoCSer/AutoCSer2/blob/main/Document/13.RemoteExpression/13.RemoteExpression.md)
 
 # 内存数据库
 ## 数据库服务配置定义

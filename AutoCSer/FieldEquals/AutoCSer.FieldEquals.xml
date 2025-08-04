@@ -63,14 +63,6 @@
             <param name="right"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Half,System.Half)">
-            <summary>
-            浮点数比较
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.FieldEquals.Comparor.Equals(System.Single,System.Single)">
             <summary>
             浮点数比较

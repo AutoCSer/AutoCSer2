@@ -36,6 +36,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// </summary>
         internal LeftArray<int> NewFields;
         /// <summary>
+        /// A collection of generic parameter types
         /// 泛型参数类型集合
         /// </summary>
         private Type[] parameterTypes;
@@ -137,11 +138,11 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                                 *(int*)(writeStart - sizeof(int)) = (int)(write - writeStart);
                                 serializeInfo.Set(start, (int)(write - start));
                             }
-                            else state = RemoteExpressionSerializeStateEnum.DeserializeError;
+                            else state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
                         }
                         else serializeInfo.Set(start, size);
                     }
-                    else state = RemoteExpressionSerializeStateEnum.DeserializeError;
+                    else state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
                 }
             }
             finally
@@ -466,7 +467,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                         }
                     }
                 }
-                else state = RemoteExpressionSerializeStateEnum.DeserializeError;
+                else state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
                 return false;
             }
             return (header & (int)NodeHeaderEnum.MethodIndex) == 0 || writeIndex();
@@ -486,7 +487,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     var type = readRemoteType();
                     if (type != null) return writeIndex(apppendType(type));
                 }
-                else state = RemoteExpressionSerializeStateEnum.DeserializeError;
+                else state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
                 return false;
             }
             if ((header & (int)NodeHeaderEnum.TypeIndex) != 0)
@@ -539,7 +540,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                         }
                     }
                 }
-                else state = RemoteExpressionSerializeStateEnum.DeserializeError;
+                else state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
                 return false;
             }
             return (header & (int)NodeHeaderEnum.PropertyIndex) == 0 || writeIndex();
@@ -573,7 +574,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                         }
                     }
                 }
-                else state = RemoteExpressionSerializeStateEnum.DeserializeError;
+                else state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
                 return false;
             }
             return (header & (int)NodeHeaderEnum.FieldIndex) == 0 || writeIndex();

@@ -28158,6 +28158,26 @@
             输出数据访问锁申请完成
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.RemoteMetadataCommand">
+            <summary>
+            获取远程元数据命令
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataCommand.#ctor(AutoCSer.Net.CommandClientSocket)">
+            <summary>
+            获取远程元数据命令
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataCommand.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
+            <summary>
+            Generate the input data of the request command
+            生成请求命令输入数据
+            </summary>
+            <param name="buildInfo"></param>
+            <returns>The next request command
+            下一个请求命令</returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteMetadataCallbackCommand">
             <summary>
             远程元数据回调命令
@@ -28300,814 +28320,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`1.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0,`1}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0,`1}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`2.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0,`1,`2}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0,`1,`2}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`3.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0,`1,`2,`3}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction{`0,`1,`2,`3}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterAction`4.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`1.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0,`1}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0,`1}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`2.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0,`1,`2}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0,`1,`2}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`3.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0,`1,`2,`3}})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction{`0,`1,`2,`3}},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterAction`4.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1},`0})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1},`0},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`2.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1,`2},`1})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1,`2},`1},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`3.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1,`2,`3},`2})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1,`2,`3},`2},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`4.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1,`2,`3,`4},`3})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc{`0,`1,`2,`3,`4},`3},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallSimpleConstantParameterFunc`5.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1},`0})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1},`0},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`2.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1,`2},`1})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1,`2},`1},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`3.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1,`2,`3},`2})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1,`2,`3},`2},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`4.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-            <typeparam name="RT"></typeparam>
-            <typeparam name="CT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5.constantParameter">
-            <summary>
-            常量参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1,`2,`3,`4},`3})">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc{`0,`1,`2,`3,`4},`3},AutoCSer.BinaryDeserializer)">
-            <summary>
-            常量参数封装表达式
-            </summary>
-            <param name="expression"></param>
-            <param name="deserializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallConstantParameterFunc`5.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate">
             <summary>
             调用表达式委托
@@ -29118,478 +28330,6 @@
             创建表达式委托
             </summary>
             <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallAction">
-            <summary>
-            封装表达式
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallAction.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction.#ctor(System.Action)">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`1">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`1.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`1.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallAction{`0}})">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`1.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`1.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`1.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`2">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`2.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`2.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallAction{`0,`1}})">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`2.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`2.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`2.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`3">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`3.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`3.#ctor(System.Action{AutoCSer.Net.CommandServer.RemoteExpression.CallAction{`0,`1,`2}})">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`3.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`3.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallAction`3.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`1">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`1.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`1.#ctor(System.Func{`0})">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`1.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`1.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`1.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`2">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`2.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`2.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallFunc{`0,`1},`1})">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`2.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`2.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`2.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`3">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`3.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`3.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallFunc{`0,`1,`2},`2})">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`3.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`3.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`3.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`4">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`4.expression">
-            <summary>
-            封装表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`4.#ctor(System.Func{AutoCSer.Net.CommandServer.RemoteExpression.CallFunc{`0,`1,`2,`3},`3})">
-            <summary>
-            封装表达式
-            </summary>
-            <param name="expression"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`4.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`4.Create(AutoCSer.BinaryDeserializer)">
-            <summary>
-            创建表达式委托
-            </summary>
-            <param name="deserializer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallFunc`4.CreateExpression(AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize)">
-            <summary>
-            创建常量参数表达式
-            </summary>
-            <param name="formatDeserialize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction">
-            <summary>
-            封装表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`1">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`1.parameter">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`1.Call(`0)">
-            <summary>
-            调用表达式委托
-            </summary>
-            <param name="parameter"></param>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`2">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`2.parameter1">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`2.parameter2">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`2.Call(`0,`1)">
-            <summary>
-            调用表达式委托
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`3">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`3.parameter1">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`3.parameter2">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`3.parameter3">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterAction`3.Call(`0,`1,`2)">
-            <summary>
-            调用表达式委托
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-            <param name="parameter3"></param>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`1">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`1.Call">
-            <summary>
-            调用表达式委托
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`2">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`2.parameter">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`2.Call(`0)">
-            <summary>
-            调用表达式委托
-            </summary>
-            <param name="parameter"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`3">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`3.parameter1">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`3.parameter2">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`3.Call(`0,`1)">
-            <summary>
-            调用表达式委托
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`4">
-            <summary>
-            封装表达式
-            </summary>
-            <typeparam name="T1"></typeparam>
-            <typeparam name="T2"></typeparam>
-            <typeparam name="T3"></typeparam>
-            <typeparam name="RT"></typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`4.parameter1">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`4.parameter2">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`4.parameter3">
-            <summary>
-            委托参数
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.CallParameterFunc`4.Call(`0,`1,`2)">
-            <summary>
-            调用表达式委托
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-            <param name="parameter3"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata">
@@ -29650,6 +28390,11 @@
             是否需要检查常量表达式
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.isCommand">
+            <summary>
+            是否已经发送获取远程元数据命令
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.callbacks">
             <summary>
             远程表达式元数据信息编号回调委托集合
@@ -29702,8 +28447,15 @@
             </summary>
             <param name="isNull"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.GetIsCommand">
+            <summary>
+            是否发送获取远程元数据命令
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.Callback(AutoCSer.Net.CommandServer.RemoteMetadataOutputData@)">
             <summary>
+            Remote metadata callback
             远程元数据回调
             </summary>
             <param name="remoteMetadataOutputData"></param>
@@ -29726,6 +28478,7 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.Callback(AutoCSer.Net.CommandServer.RemoteMetadataCallback)">
             <summary>
+            Remote metadata callback
             远程元数据回调
             </summary>
             <param name="callback"></param>
@@ -30114,78 +28867,6 @@
             常量参数序列化
             </summary>
         </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer">
-            <summary>
-            表达式反序列化信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.SerializeInfo">
-            <summary>
-            远程表达式序列化信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.Socket">
-            <summary>
-            Command server socket
-            命令服务套接字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.metadata">
-            <summary>
-            Remote expression server metadata information
-            远程表达式服务端元数据信息
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.State">
-            <summary>
-            远程表达式序列化状态
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata,AutoCSer.BinaryDeserializer,System.Type[])">
-            <summary>
-            表达式反序列化信息
-            </summary>
-            <param name="socket"></param>
-            <param name="metadata"></param>
-            <param name="deserializer"></param>
-            <param name="parameterTypes"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.LockExpressionArray">
-            <summary>
-            获取远程表达式集合
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.GetExpression(System.Collections.Generic.Dictionary{AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey,AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate}[],System.Int32,System.Collections.Generic.Dictionary{AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey,AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate}@)">
-            <summary>
-            获取创建表达式委托实例
-            </summary>
-            <param name="expressionArray"></param>
-            <param name="index"></param>
-            <param name="expressions"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.GetConstantParameterType">
-            <summary>
-            获取常量参数类型信息
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.GetFormatDeserialize">
-            <summary>
-            获取格式化远程表达式反序列化数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.Deserialize(AutoCSer.BinaryDeserializer,System.Type[],AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum@)">
-            <summary>
-            获取表达式反序列化信息
-            </summary>
-            <param name="deserializer"></param>
-            <param name="parameterTypes"></param>
-            <param name="state"></param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.FieldIndex">
             <summary>
             远程表达式字段编号
@@ -30309,6 +28990,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.parameterTypes">
             <summary>
+            A collection of generic parameter types
             泛型参数类型集合
             </summary>
         </member>
@@ -31268,534 +29950,6 @@
             UInt128
             </summary>
         </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionAction">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction.action">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionAction.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction.#ctor(System.Linq.Expressions.Expression{System.Action})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction.Call">
-            <summary>
-            委托调用
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionAction`1">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-            <typeparam name="T">参数类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.action">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.#ctor(System.Linq.Expressions.Expression{System.Action{`0}})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.Call(`0)">
-            <summary>
-            委托调用
-            </summary>
-            <param name="parameter"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction{T}}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction{T}}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.parameterTypes">
-            <summary>
-            泛型参数类型集合
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionAction`2">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-            <typeparam name="T1">参数类型</typeparam>
-            <typeparam name="T2">参数类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.action">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.#ctor(System.Linq.Expressions.Expression{System.Action{`0,`1}})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.Call(`0,`1)">
-            <summary>
-            委托调用
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction{T1,T2}}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction{T1,T2}}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.parameterTypes">
-            <summary>
-            泛型参数类型集合
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionAction`3">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-            <typeparam name="T1">参数类型</typeparam>
-            <typeparam name="T2">参数类型</typeparam>
-            <typeparam name="T3">参数类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.action">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.#ctor(System.Linq.Expressions.Expression{System.Action{`0,`1,`2}})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.Call(`0,`1,`2)">
-            <summary>
-            委托调用
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-            <param name="parameter3"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction{T1,T2,T3}}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionAction{T1,T2,T3}}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.parameterTypes">
-            <summary>
-            泛型参数类型集合
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionFunc">
-            <summary>
-            远程表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc.Get``1(System.Linq.Expressions.Expression{System.Func{``0}})">
-            <summary>
-            获取远程表达式委托
-            </summary>
-            <typeparam name="RT">返回值类型</typeparam>
-            <param name="expression"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-            <typeparam name="RT">返回值类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.function">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.#ctor(System.Linq.Expressions.Expression{System.Func{`0}})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.Call">
-            <summary>
-            委托调用
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{RT}}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{RT}}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.parameterTypes">
-            <summary>
-            泛型参数类型集合
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-            <typeparam name="T">参数类型</typeparam>
-            <typeparam name="RT">返回值类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.function">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.#ctor(System.Linq.Expressions.Expression{System.Func{`0,`1}})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.Call(`0)">
-            <summary>
-            委托调用
-            </summary>
-            <param name="parameter"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{T,RT}}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{T,RT}}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.parameterTypes">
-            <summary>
-            泛型参数类型集合
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-            <typeparam name="T1">参数类型</typeparam>
-            <typeparam name="T2">参数类型</typeparam>
-            <typeparam name="RT">返回值类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.function">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.#ctor(System.Linq.Expressions.Expression{System.Func{`0,`1,`2}})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.Call(`0,`1)">
-            <summary>
-            委托调用
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{T1,T2,RT}}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{T1,T2,RT}}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.parameterTypes">
-            <summary>
-            泛型参数类型集合
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4">
-            <summary>
-            远程表达式委托（依赖内存数据状态，不支持持久化）
-            </summary>
-            <typeparam name="T1">参数类型</typeparam>
-            <typeparam name="T2">参数类型</typeparam>
-            <typeparam name="T3">参数类型</typeparam>
-            <typeparam name="RT">返回值类型</typeparam>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.function">
-            <summary>
-            服务端委托
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.state">
-            <summary>
-            服务端反序列化状态
-            </summary>
-        </member>
-        <member name="P:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.IsSuccess">
-            <summary>
-            服务端反序列化是否成功
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.expression">
-            <summary>
-            客户端 Lambda 表达式
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.#ctor(System.Linq.Expressions.Expression{System.Func{`0,`1,`2,`3}})">
-            <summary>
-            远程表达式委托
-            </summary>
-            <param name="expression">客户端 Lambda 表达式</param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.GetState">
-            <summary>
-            获取服务端反序列化状态
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.Call(`0,`1,`2)">
-            <summary>
-            委托调用
-            </summary>
-            <param name="parameter1"></param>
-            <param name="parameter2"></param>
-            <param name="parameter3"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{T1,T2,T3,RT}}#Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            Serialization
-            序列化
-            </summary>
-            <param name="serializer"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteExpressionFunc{T1,T2,T3,RT}}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            Deserialization
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.parameterTypes">
-            <summary>
-            泛型参数类型集合
-            </summary>
-        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteMetadataMemberIndex">
             <summary>
             远程元数据成员编号信息
@@ -31873,6 +30027,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteMetadataMethodIndex.GenericTypes">
             <summary>
+            A collection of generic parameter types
             泛型参数类型集合
             </summary>
         </member>
@@ -31984,141 +30139,169 @@
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum">
             <summary>
+            Remote expression serialization status
             远程表达式序列化状态
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.Unknown">
             <summary>
+            Unknown state
             未知状态
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.Success">
             <summary>
-            成功
+            Serialization successful
+            序列化成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportClient">
+            <summary>
+            The client does not support remote expressions
+            客户端不支持远程表达式
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.UnknownNodeType">
             <summary>
+            Unknown node type
             未知节点类型
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportNew">
             <summary>
+            The new operation on nodes is not supported
             不支持 new 操作节点 
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportLambda">
             <summary>
+            Lambda nodes are not supported
             不支持 Lambda 节点
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportBlock">
             <summary>
+            Code block nodes are not supported
             不支持代码块节点 Block
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportDynamic">
             <summary>
+            Dynamic type nodes are not supported
             不支持动态类型节点 Dynamic
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportLabel">
             <summary>
+            goto tag nodes are not supported
             不支持 goto 标签节点 Label
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportExtension">
             <summary>
+            Expansion nodes are not supported
             不支持扩展节点 Extension
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportDebugInfo">
             <summary>
+            Debugging information nodes are not supported
             不支持调试信息节点 DebugInfo
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportConditional">
-            <summary>
-            不支持条件表达式节点 Conditional
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportArrayIndex">
             <summary>
+            Multidimensional array indexing is not supported
             不支持多维数组索引
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.ConstantNullReference">
             <summary>
+            A null reference exception occurred in the calculation of constant values
             常量值计算发生空引用异常
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.TooManyConstant">
             <summary>
+            The number of constant parameters exceeds the maximum value of 65535
             常量参数数量超过最大值 65535
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.TooManyGenericArguments">
             <summary>
+            The number of parameters of the generic type exceeds the maximum value of 255
             泛型类型参数数量超过最大值 255
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.TooManyParameters">
             <summary>
-            方法参数数量最大值 255
+            The number of method parameters exceeds the maximum value of 255
+            方法参数数量超过最大值 255
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundParameter">
             <summary>
+            No matching parameter expression was found
             没有找到匹配参数表达式
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.DeserializeError">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.DeserializeFailed">
             <summary>
+            Server deserialization failed
             服务端反序列化失败
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundCommandServerSocket">
             <summary>
+            The server deserialization did not find the socket context
             服务端反序列化没有找到套接字上下文
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundRemoteMetadata">
             <summary>
+            The server deserialization did not find the remote metadata information, indicating that the server is missing configuration AutoCSer.Net.CommandServerConfig.IsRemoteExpression
             服务端反序列化没有找到远程元数据信息，说明服务端缺少配置 AutoCSer.Net.CommandServerConfig.IsRemoteExpression
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.UnknownSerializeInfo">
             <summary>
+            The server is unaware of the serialization information
             服务端未知序列化信息
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.FormatWriteIndexOutOfRange">
             <summary>
+            The server formatted data write address is out of range
             服务端格式化数据写入地址超出范围
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.FormatReadIndexOutOfRange">
             <summary>
+            The server formatted the data reading address is out of range
             服务端格式化数据读取地址超出范围
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundType">
             <summary>
+            The server did not find the remote type information
             服务端没有找到远程类型信息
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundMethod">
             <summary>
+            The server did not find the remote method information
             服务端没有找到远程方法信息
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundProperty">
             <summary>
+            The server did not find the remote property information
             服务端没有找到远程属性信息
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundField">
             <summary>
+            The server did not find the remote field information
             服务端没有找到远程字段信息
             </summary>
         </member>
@@ -41460,6 +39643,18 @@
             命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandClientConfig.IsRemoteExpression">
+            <summary>
+            The default value of false indicates that remote expressions are not supported. To set it to true, the server needs to manually set AutoCSer.Net.CommandServerConfig.IsRemoteExpression to true for it to take effect
+            默认为 false 表示不支持远程表达式，设置为 true 需要服务端手动设置 AutoCSer.Net.CommandServerConfig.IsRemoteExpression 为 true 才能生效
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClientConfig.GetIsRemoteExpression">
+            <summary>
+            Does it support remote expressions
+            是否支持支持远程表达式
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientConfig.AutoCreateSocket(AutoCSer.Net.CommandClient)">
             <summary>
             Used to override the connection logic after server registration is enabled
@@ -45172,6 +43367,12 @@
             默认为 true 表示禁用 Nagle 算法，立即发送数据
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.IsRemoteExpression">
+            <summary>
+            The default value of false indicates that remote expressions are not supported. Setting it to true means allowing arbitrary code execution, so the client needs to be fully trusted
+            默认为 false 表示不支持远程表达式；设置为 true 意味着允许执行任意代码，所以需要客户端完全可信任
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.MaxReadWriteQueueConcurrency">
             <summary>
             The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
@@ -45388,12 +43589,6 @@
             <summary>
             The maximum number of bytes of input data, the default is 0 to indicate no limit, the open service recommended value is less than 2^ ReceiveBufferSizeBis-12 and the API is not recommended to produce large object transport behavior
             最大输入数据字节数，默认为 0 表示不限制，开放服务建议值小于 2^ReceiveBufferSizeBis - 12 而且不建议 API 产生大对象传输行为
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerConfigBase.IsRemoteExpression">
-            <summary>
-            The default value of false indicates that remote expressions are not supported. Setting it to true means allowing arbitrary code execution, so the client needs to be fully trusted
-            默认为 false 表示不支持远程表达式；设置为 true 意味着允许执行任意代码，所以需要客户端完全可信任
             </summary>
         </member>
         <member name="P:AutoCSer.Net.CommandServerConfigBase.Log">
@@ -47553,6 +45748,13 @@
             远程表达式客户端元数据信息
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientSocket.GetRemoteMetadata">
+            <summary>
+            Get the remote expression client metadata information
+            获取远程表达式客户端元数据信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocket.commandQueueCount">
             <summary>
             The maximum number of unprocessed commands on the client side
@@ -48639,8 +46841,14 @@
         </member>
         <member name="F:AutoCSer.Net.CommandListener.ControllerMethodIndex">
             <summary>
-            Gets the controller index command
+            Get the controller index command
             获取控制器索引命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandListener.RemoteMetadataMethodIndex">
+            <summary>
+            Get the remote metadata command
+            获取远程元数据命令
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandListener.CustomDataMethodIndex">
@@ -52190,12 +50398,6 @@
             <param name="socket"></param>
             <param name="verifyState"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerSocket.onVerify">
-            <summary>
-            Operations after successful verification
-            验证成功后的操作
-            </summary>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.GetRemoteExpressionFormatDeserialize">
             <summary>
             Format the remote expression deserialization data
@@ -52209,6 +50411,18 @@
             创建远程表达式参数集合
             </summary>
             <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.isRemoteMetadata">
+            <summary>
+            Has the remote metadata been obtained
+            是否已经获取远程元数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.appendRemoteMetadata">
+            <summary>
+            The client get the remote metadata
+            客户端获取远程元数据
+            </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerSocket.Start">
             <summary>

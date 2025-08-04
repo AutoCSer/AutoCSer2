@@ -644,11 +644,8 @@ namespace AutoCSer.Net
             switch (verifyState)
             {
                 case CommandServerVerifyStateEnum.Success:
-#if !AOT
-                    onVerify();
-#endif
+                case CommandServerVerifyStateEnum.Retry:
                     return true;
-                case CommandServerVerifyStateEnum.Retry: return true;
                 default: DisposeSocket(); return false;
             }
         }
@@ -664,15 +661,6 @@ namespace AutoCSer.Net
             socket.SetVerifyState(verifyState);
         }
 #if !AOT
-        /// <summary>
-        /// Operations after successful verification
-        /// 验证成功后的操作
-        /// </summary>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private void onVerify()
-        {
-            Server.GetRemoteMetadata()?.Append(this);
-        }
         /// <summary>
         /// Format the remote expression deserialization data
         /// 格式化远程表达式反序列化数据
@@ -693,6 +681,23 @@ namespace AutoCSer.Net
         {
             if (createRemoteExpressionParameters.Length != 0) return createRemoteExpressionParameters;
             return createRemoteExpressionParameters = new object[] { GetRemoteExpressionFormatDeserialize() };
+        }
+        /// <summary>
+        /// Has the remote metadata been obtained
+        /// 是否已经获取远程元数据
+        /// </summary>
+        private bool isRemoteMetadata;
+        /// <summary>
+        /// The client get the remote metadata
+        /// 客户端获取远程元数据
+        /// </summary>
+        private void appendRemoteMetadata()
+        {
+            if (!isRemoteMetadata)
+            {
+                isRemoteMetadata = true;
+                Server.GetRemoteMetadata()?.Append(this);
+            }
         }
 #endif
         /// <summary>
@@ -720,9 +725,6 @@ namespace AutoCSer.Net
                 else
                 {
                     VerifyState = CommandServerVerifyStateEnum.Success;
-#if !AOT
-                    onVerify();
-#endif
                     if (isReceiveCommand()) return;
                 }
             }
@@ -1419,6 +1421,13 @@ namespace AutoCSer.Net
                                 receiveIndex += sizeof(uint);
                                 isCommand = false;
                                 goto START;
+#if !AOT
+                            case CommandListener.RemoteMetadataMethodIndex - CommandListener.MinMethodIndex:
+                                appendRemoteMetadata();
+                                receiveIndex += sizeof(uint);
+                                isCommand = false;
+                                goto START;
+#endif
                             case CommandListener.CheckMethodIndex - CommandListener.MinMethodIndex:
                                 receiveIndex += sizeof(uint);
                                 isCommand = false;
@@ -2282,6 +2291,13 @@ namespace AutoCSer.Net
                                     if ((receiveSize -= sizeof(int)) == 0) return true;
                                     receiveIndex += sizeof(int);
                                     break;
+#if !AOT
+                                case CommandListener.RemoteMetadataMethodIndex - CommandListener.CustomDataMethodIndex:
+                                    appendRemoteMetadata();
+                                    if ((receiveSize -= sizeof(int)) == 0) return true;
+                                    receiveIndex += sizeof(int);
+                                    break;
+#endif
                                 case CommandListener.CheckMethodIndex - CommandListener.CustomDataMethodIndex:
                                     if ((receiveSize -= sizeof(int)) == 0) return true;
                                     receiveIndex += sizeof(int);

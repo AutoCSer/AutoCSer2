@@ -253,6 +253,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12.NativeAOT.Service", "Doc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.CodeGenerator", "Document\05.CodeGenerator\05.CodeGenerator.csproj", "{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13.RemoteExpression", "Document\13.RemoteExpression\13.RemoteExpression.csproj", "{FEEF156D-5681-F1AF-092E-99AD67943C0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -623,6 +625,10 @@ Global
 		{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEEF156D-5681-F1AF-092E-99AD67943C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEEF156D-5681-F1AF-092E-99AD67943C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEEF156D-5681-F1AF-092E-99AD67943C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEEF156D-5681-F1AF-092E-99AD67943C0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -745,6 +751,7 @@ Global
 		{81D7094F-BB93-9E88-B5D7-747F6C6DD2A3} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 		{94297A24-995D-FEAC-FBF6-027C6155B31C} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 		{9D7A3EEB-3815-4FF2-552C-1AA6F7A43EC2} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
+		{FEEF156D-5681-F1AF-092E-99AD67943C0C} = {DDB32DF7-903D-4A12-AC57-471718A94FE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FF9DAF1-0EED-40D6-A2E3-62AE78E31106}
