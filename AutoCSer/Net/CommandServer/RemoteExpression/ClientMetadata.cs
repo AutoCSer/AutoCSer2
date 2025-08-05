@@ -781,10 +781,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 switch (targetExpression.NodeType)
                 {
                     case ExpressionType.MemberAccess:
-                        var value = getConstantParameter((MemberExpression)expression);
+                        var value = getConstantParameter((MemberExpression)targetExpression);
                         return value.Type != null ? getConstantParameter(expression.Member, value.Value) : value;
                     case ExpressionType.Constant:
-                        ConstantExpression constantExpression = (ConstantExpression)targetExpression;
                         return getConstantParameter(expression.Member, ((ConstantExpression)targetExpression).Value);
                     default: return default(ConstantParameter);
                 }

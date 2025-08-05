@@ -38,9 +38,10 @@ namespace AutoCSer.Document.RemoteExpression
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
 
+                ActionTarget constantParameter = new ActionTarget { Value = AutoCSer.Random.Default.Next() };
                 int parameter = AutoCSer.Random.Default.Next();
-                var result = await client.RemoteExpressionDelegateController.Func(new AutoCSer.Net.CommandServer.RemoteExpressionFunc<int>(() => parameter + 1));
-                if (result.Value != parameter + 1)
+                var result = await client.RemoteExpressionDelegateController.Func(new AutoCSer.Net.CommandServer.RemoteExpressionFunc<int>(() => constantParameter.Value + parameter));
+                if (result.Value != constantParameter.Value + parameter)
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
