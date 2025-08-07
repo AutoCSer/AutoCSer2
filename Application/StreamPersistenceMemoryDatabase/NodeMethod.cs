@@ -50,18 +50,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 参数检查
         /// </summary>
+        /// <param name="parameter"></param>
         /// <returns></returns>
-        protected bool checkParameter()
+        protected bool checkParameter(ParameterInfo parameter)
         {
-            for (int parameterIndex = ParameterStartIndex; parameterIndex != ParameterEndIndex; ++parameterIndex)
-            {
-                if (Parameters[parameterIndex].ParameterType.IsByRef)
-                {
-                    SetError(CallStateEnum.NodeMethodParameterIsByRef, $"节点方法 {Type.fullName()}.{Method.Name} 不允许下 ref / out 参数 {Parameters[parameterIndex].Name}");
-                    return false;
-                }
-            }
-            return true;
+            if (!parameter.ParameterType.IsByRef) return true;
+            SetError(CallStateEnum.NodeMethodParameterIsByRef, $"节点方法 {Type.fullName()}.{Method.Name} 不允许下 ref / out 参数 {parameter.Name}");
+            return false;
         }
         /// <summary>
         /// 设置错误信息

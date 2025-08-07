@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.66</Version>
+    <Version>2.0.67</Version>
     <PackageId>AutoCSer2.1</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.1]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -125,6 +125,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Memory\ByteArrayBuffer.cs" />
     <Compile Include="Memory\BufferSizeBitsEnum.cs" />
     <Compile Include="Memory\ByteArrayPool.cs" />
+    <Compile Include="Memory\HashBuffer.cs" />
     <Compile Include="Memory\HashBytes.cs" />
     <Compile Include="Metadata\GenericType\EquatableGenericType.cs" />
     <Compile Include="Metadata\GenericType\DictionaryGenericType2.cs" />
@@ -348,7 +349,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMethodIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataOutputData.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataTypeIndex.cs" />
-    <Compile Include="Net\CommandServer\RemoteExpression\SerializeDataKey.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\SerializeInfo.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ServerMetadata.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\TypeIndex.cs" />

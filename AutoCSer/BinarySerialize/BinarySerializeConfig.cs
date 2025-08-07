@@ -104,13 +104,10 @@ namespace AutoCSer
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal unsafe int WriteHeader(UnmanagedStream stream)
         {
-            int headerValue = (int)HeaderMapValue;
-            if (MemberMap != null) headerValue |= MemberMapValue;
-            int streamStartIndex = stream.GetIndexBeforeMove(sizeof(int));
-            *(int*)((byte*)stream.Data.Pointer.Data + streamStartIndex) = headerValue;
-            return streamStartIndex;
+            return stream.GetIndexBeforeMove(sizeof(int), MemberMap == null ? (int)HeaderMapValue : ((int)HeaderMapValue | MemberMapValue));
         }
     }
 }

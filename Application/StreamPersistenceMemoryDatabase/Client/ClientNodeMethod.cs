@@ -220,7 +220,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     }
                 }
             }
-            if (!checkParameter()) return;
+            for (int parameterIndex = ParameterStartIndex; parameterIndex != ParameterEndIndex; ++parameterIndex)
+            {
+                if (!checkParameter(Parameters[parameterIndex])) return;
+            }
             if (ParameterStartIndex != ParameterEndIndex)
             {
                 InputParameterType = AutoCSer.Net.CommandServer.ServerMethodParameter.Get(ParameterCount, InputParameters, typeof(void)).notNull();

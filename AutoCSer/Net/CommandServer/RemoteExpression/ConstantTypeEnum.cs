@@ -8,40 +8,11 @@ namespace AutoCSer.Net.CommandServer
     internal enum ConstantTypeEnum : byte
     {
         /// <summary>
-        /// string
+        /// 未知类型
         /// </summary>
-        String,
+        Unknown,
         /// <summary>
-        /// string[0]
-        /// </summary>
-        EmptyString,
-        /// <summary>
-        /// string[1]
-        /// </summary>
-        CharString,
-        /// <summary>
-        /// byte[]
-        /// </summary>
-        ByteArray,
-        /// <summary>
-        /// byte[0]
-        /// </summary>
-        EmptyByteArray,
-        /// <summary>
-        /// byte[1]
-        /// </summary>
-        ByteArray1,
-        /// <summary>
-        /// byte[2]
-        /// </summary>
-        ByteArray2,
-        /// <summary>
-        /// byte[3]
-        /// </summary>
-        ByteArray3,
-
-        /// <summary>
-        /// bool
+        /// false
         /// </summary>
         Bool,
         /// <summary>
@@ -105,7 +76,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         Guid,
         /// <summary>
-        /// bool?
+        /// bool? false
         /// </summary>
         NullableBool,
         /// <summary>
@@ -168,6 +139,94 @@ namespace AutoCSer.Net.CommandServer
         /// Guid?
         /// </summary>
         NullableGuid,
+        /// <summary>
+        /// System.Numerics.Complex
+        /// </summary>
+        Complex,
+        /// <summary>
+        /// System.Numerics.Plane
+        /// </summary>
+        Plane,
+        /// <summary>
+        /// System.Numerics.Quaternion
+        /// </summary>
+        Quaternion,
+        /// <summary>
+        /// System.Numerics.Matrix3x2
+        /// </summary>
+        Matrix3x2,
+        /// <summary>
+        /// System.Numerics.Matrix4x4
+        /// </summary>
+        Matrix4x4,
+        /// <summary>
+        /// System.Numerics.Vector2
+        /// </summary>
+        Vector2,
+        /// <summary>
+        /// System.Numerics.Vector3
+        /// </summary>
+        Vector3,
+        /// <summary>
+        /// System.Numerics.Vector4
+        /// </summary>
+        Vector4,
+        /// <summary>
+        /// Half
+        /// </summary>
+        Half,
+        /// <summary>
+        /// Int128
+        /// </summary>
+        Int128,
+        /// <summary>
+        /// UInt128
+        /// </summary>
+        UInt128,
+        /// <summary>
+        /// byte[]
+        /// </summary>
+        ByteArray,
+        /// <summary>
+        /// string
+        /// </summary>
+        String,
+        /// <summary>
+        /// string null
+        /// </summary>
+        NullString,
+        /// <summary>
+        /// string[0]
+        /// </summary>
+        EmptyString,
+        /// <summary>
+        /// string[1]
+        /// </summary>
+        CharString,
+        /// <summary>
+        /// byte[] null
+        /// </summary>
+        NullByteArray,
+        /// <summary>
+        /// byte[0]
+        /// </summary>
+        EmptyByteArray,
+        /// <summary>
+        /// byte[1]
+        /// </summary>
+        ByteArray1,
+        /// <summary>
+        /// byte[2]
+        /// </summary>
+        ByteArray2,
+        /// <summary>
+        /// true
+        /// </summary>
+        True,
+        /// <summary>
+        /// bool? true
+        /// </summary>
+        NullableBoolTrue,
         /// <summary>
         /// bool? null
         /// </summary>
@@ -232,51 +291,5 @@ namespace AutoCSer.Net.CommandServer
         /// Guid? null
         /// </summary>
         NullGuid,
-
-        /// <summary>
-        /// System.Numerics.Complex
-        /// </summary>
-        Complex,
-        /// <summary>
-        /// System.Numerics.Plane
-        /// </summary>
-        Plane,
-        /// <summary>
-        /// System.Numerics.Quaternion
-        /// </summary>
-        Quaternion,
-        /// <summary>
-        /// System.Numerics.Matrix3x2
-        /// </summary>
-        Matrix3x2,
-        /// <summary>
-        /// System.Numerics.Matrix4x4
-        /// </summary>
-        Matrix4x4,
-        /// <summary>
-        /// System.Numerics.Vector2
-        /// </summary>
-        Vector2,
-        /// <summary>
-        /// System.Numerics.Vector3
-        /// </summary>
-        Vector3,
-        /// <summary>
-        /// System.Numerics.Vector4
-        /// </summary>
-        Vector4,
-
-        /// <summary>
-        /// Half
-        /// </summary>
-        Half,
-        /// <summary>
-        /// Int128
-        /// </summary>
-        Int128,
-        /// <summary>
-        /// UInt128
-        /// </summary>
-        UInt128,
     }
 }

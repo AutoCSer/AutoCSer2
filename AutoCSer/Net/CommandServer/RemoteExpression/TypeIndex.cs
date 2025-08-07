@@ -21,9 +21,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 类型信息
         /// </summary>
 #if NetStandard21
-        private readonly Type? type;
+        internal readonly Type? Type;
 #else
-        private readonly Type type;
+        internal readonly Type Type;
 #endif
         /// <summary>
         /// 远程表达式类型编号
@@ -32,7 +32,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal TypeIndex(int index)
         {
             this.index = index;
-            type = null;
+            Type = null;
             NodeHeader = (int)NodeHeaderEnum.TypeIndex;
         }
         /// <summary>
@@ -46,7 +46,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
 #endif
         {
             index = 0;
-            this.type = type;
+            this.Type = type;
             NodeHeader = type != null ? (int)NodeHeaderEnum.Type : 0;
         }
         /// <summary>
@@ -58,11 +58,11 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         {
             if (NodeHeader != 0)
             {
-                if (type == null) return metadata.Stream.Write(index);
-                AutoCSer.Reflection.RemoteType remoteType = type;
+                if (Type == null) return metadata.Stream.Write(index);
+                AutoCSer.Reflection.RemoteType remoteType = Type;
                 if (metadata.Stream.Write(AutoCSer.BinarySerializer.NullValue) && metadata.Serialize(remoteType.AssemblyName) && metadata.Serialize(remoteType.Name))
                 {
-                    metadata.AppendTypeIndex(type);
+                    metadata.AppendTypeIndex(Type);
                     return true;
                 }
                 return false;

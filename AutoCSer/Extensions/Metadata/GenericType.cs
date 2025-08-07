@@ -87,6 +87,23 @@ namespace AutoCSer.Extensions.Metadata
         internal abstract Delegate MemberMapCopyArrayDelegate { get; }
 
         /// <summary>
+        /// 二进制序列化
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value"></param>
+        internal abstract void BinarySerialize(BinarySerializer serializer, object value);
+        /// <summary>
+        /// 二进制反序列化
+        /// </summary>
+        /// <param name="deserializer"></param>
+        /// <returns></returns>
+#if NetStandard21
+        internal abstract object? BinaryDeserialize(BinaryDeserializer deserializer);
+#else
+        internal abstract object BinaryDeserialize(BinaryDeserializer deserializer);
+#endif
+
+        /// <summary>
         /// 创建泛型类型元数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -233,6 +250,37 @@ namespace AutoCSer.Extensions.Metadata
         internal override Delegate MemberMapCopyArrayDelegate
         {
             get { return (AutoCSer.MemberCopy<T[]>.MemberMapCopyer)AutoCSer.MemberCopy<T>.CopyArray; }
+        }
+
+        /// <summary>
+        /// 二进制序列化
+        /// </summary>
+        /// <param name="serializer"></param>
+        /// <param name="value"></param>
+        internal override void BinarySerialize(BinarySerializer serializer, object value)
+        {
+            AutoCSer.Net.CommandServer.ServerReturnValue<T> returnValue = new AutoCSer.Net.CommandServer.ServerReturnValue<T>((T)value);
+            if (AutoCSer.SimpleSerializeType<T>.IsSimple) serializer.SimpleSerialize(ref returnValue);
+            else serializer.InternalIndependentSerializeNotNull(ref returnValue);
+        }
+        /// <summary>
+        /// 二进制反序列化
+        /// </summary>
+        /// <param name="deserializer"></param>
+        /// <returns></returns>
+#if NetStandard21
+        internal override object? BinaryDeserialize(BinaryDeserializer deserializer)
+#else
+        internal override object BinaryDeserialize(BinaryDeserializer deserializer)
+#endif
+        {
+            AutoCSer.Net.CommandServer.ServerReturnValue<T> returnValue = default(AutoCSer.Net.CommandServer.ServerReturnValue<T>);
+            if (AutoCSer.SimpleSerializeType<T>.IsSimple)
+            {
+                if (deserializer.SimpleDeserialize(ref returnValue)) return returnValue.ReturnValue;
+            }
+            else if (deserializer.InternalIndependentDeserializeNotReference(ref returnValue)) return returnValue.ReturnValue;
+            return null;
         }
     }
 }

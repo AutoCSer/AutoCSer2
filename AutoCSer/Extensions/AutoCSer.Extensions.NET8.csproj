@@ -139,9 +139,12 @@
     <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterAction.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\CallSimpleConstantParameterFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\DelegateDeserializer.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\LambdaExpressionDeserializer.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\LambdaExpressionSerializer.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionAction.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionFunc.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionFuncResult.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteLambdaExpression.cs" />
     <Compile Include="Net\Packet\Arp.cs" />
     <Compile Include="Net\Packet\Ethernet.cs" />
     <Compile Include="Net\Packet\EthernetCodeEnum.cs" />

@@ -2794,6 +2794,107 @@
             <param name="parameter2"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaAction(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action})">
+            <summary>
+            
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaAction1(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action{AutoCSer.TestCase.CommandServerSessionObject}})">
+            <summary>
+            
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaAction2(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action{AutoCSer.TestCase.CommandServerSessionObject,System.Int32}},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="action"></param>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaAction3(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action{AutoCSer.TestCase.CommandServerSessionObject,System.Int32,System.Int32}},System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="action"></param>
+            <param name="parameter"></param>
+            <param name="parameter2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaFunc(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{System.Int32}})">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaFunc1(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,System.Int32}})">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaFunc2(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,System.Int32,System.Int32}},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaFunc3(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,System.Int32,System.Int32,System.Int32}},System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <param name="parameter"></param>
+            <param name="parameter2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaDefault(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,System.Int32}})">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaIndex(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{System.Object,System.Int32}})">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaLogical(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{System.Int32,System.Int32,System.Boolean}},System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <param name="parameter"></param>
+            <param name="parameter2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaTypeBinaryExpression(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{System.Object,System.Int32,System.Int32}},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerClientController.LambdaUnbox(AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,System.Object,System.Int32}},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="func"></param>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.IServerTaskQueueControllerClientController">
             <summary>
             服务端测试接口 client interface
@@ -2999,6 +3100,118 @@
             int parameter 
             int parameter2 
             返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaAction">
+            <summary>
+            [13] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action} action 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaAction1">
+            <summary>
+            [14] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action{AutoCSer.TestCase.CommandServerSessionObject}} action 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaAction2">
+            <summary>
+            [15] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action{AutoCSer.TestCase.CommandServerSessionObject,int}} action 
+            int parameter 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaAction3">
+            <summary>
+            [16] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Action{AutoCSer.TestCase.CommandServerSessionObject,int,int}} action 
+            int parameter 
+            int parameter2 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaFunc">
+            <summary>
+            [17] 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{int}} func 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaFunc1">
+            <summary>
+            [18] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,int}} func 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaFunc2">
+            <summary>
+            [19] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,int,int}} func 
+            int parameter 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaFunc3">
+            <summary>
+            [20] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,int,int,int}} func 
+            int parameter 
+            int parameter2 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaDefault">
+            <summary>
+            [21] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int}} func 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaIndex">
+            <summary>
+            [22] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{object,int}} func 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaLogical">
+            <summary>
+            [23] 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{int,int,bool}} func 
+            int parameter 
+            int parameter2 
+            返回值 bool 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaTypeBinaryExpression">
+            <summary>
+            [24] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{object,int,int}} func 
+            int parameter 
+            返回值 int 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.IServerRemoteExpressionDelegateControllerMethodEnum.LambdaUnbox">
+            <summary>
+            [25] 
+            AutoCSer.Net.CommandServerSocket socket 
+            AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{AutoCSer.TestCase.CommandServerSessionObject,object,int}} func 
+            int parameter 
+            返回值 int 
             </summary>
         </member>
     </members>

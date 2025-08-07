@@ -47,5 +47,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 非枚举类型常量值
         /// </summary>
         ConstantNotEnum = 0x20000,
+        /// <summary>
+        /// 是否数组类型
+        /// </summary>
+        IsArray = 0x40000,
     }
 }

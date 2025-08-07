@@ -195,25 +195,10 @@ namespace AutoCSer.Net
         /// 远程表达式服务端元数据信息
         /// </summary>
 #if NetStandard21
-        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata? RemoteMetadata;
+        internal readonly AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata? RemoteMetadata;
 #else
-        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata RemoteMetadata;
+        internal readonly AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata RemoteMetadata;
 #endif
-        /// <summary>
-        /// Get the remote expression server metadata information
-        /// 获取远程表达式服务端元数据信息
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#if NetStandard21
-        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata? GetRemoteMetadata()
-#else
-        internal AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata GetRemoteMetadata()
-#endif
-        {
-            if (RemoteMetadata != null) return RemoteMetadata;
-            return Config.IsRemoteExpression && !Config.IsShortLink ? RemoteMetadata = new AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata(this) : null;
-        }
 #endif
         /// <summary>
         /// End command sequence number
@@ -284,6 +269,9 @@ namespace AutoCSer.Net
             else if ((MaxMergeInputSize = MaxInputSize + ReceiveBufferPool.Size) < 0) MaxMergeInputSize = int.MaxValue;
             taskRunConcurrent = Math.Max(config.MaxTaskRunConcurrent, 0);
             SocketAsyncEventArgsPool = new SocketAsyncEventArgsPool(config.SocketAsyncEventArgsMaxCount);
+#if !AOT
+            if (config.IsRemoteExpression && !Config.IsShortLink) RemoteMetadata = new AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata(this);
+#endif
             Controller = Null.Controller;
             Controllers.SetEmpty();
             if (config.BuildOutputThread == CommandServerSocketBuildOutputThreadEnum.Queue && Interlocked.CompareExchange(ref isSocketBuildOutputThread, 1, 0) == 0)

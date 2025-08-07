@@ -7997,10 +7997,11 @@
             设置方法调用类型
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeMethod.checkParameter">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeMethod.checkParameter(System.Reflection.ParameterInfo)">
             <summary>
             参数检查
             </summary>
+            <param name="parameter"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeMethod.SetError(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum,System.String)">

@@ -68,7 +68,11 @@ namespace AutoCSer.Net
         {
             if (!object.ReferenceEquals(RemoteMetadata, Null.RemoteMetadata))
             {
-                if (RemoteMetadata.GetIsCommand() && commands.IsPushHead(new RemoteMetadataCommand(this))) outputWaitHandle.Set();
+                if (RemoteMetadata.GetIsCommand())
+                {
+                    if (commands.IsPushHead(new RemoteMetadataCommand(this))) outputWaitHandle.Set();
+                    System.Threading.Thread.Sleep(0);
+                }
                 return RemoteMetadata;
             }
             return null;

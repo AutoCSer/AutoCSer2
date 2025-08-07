@@ -35,12 +35,12 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="metadata"></param>
         internal RemoteMetadataOutputData(ServerMetadata metadata)
         {
-            int count = metadata.Types.Length;
+            int count = metadata.TypeArray.Length;
             if (count != 0)
             {
                 TypeIndexs = new RemoteMetadataTypeIndex[count];
                 int index = 0;
-                foreach (Type type in metadata.Types.Array)
+                foreach (Type type in metadata.TypeArray.Array)
                 {
                     TypeIndexs[index].Set(type, index + 1);
                     if (--count == 0) break;
@@ -49,12 +49,12 @@ namespace AutoCSer.Net.CommandServer
             }
             else TypeIndexs = EmptyArray<RemoteMetadataTypeIndex>.Array;
 
-            count = metadata.Properties.Length;
+            count = metadata.PropertyArray.Length;
             if (count != 0)
             {
                 PropertyIndexs = new RemoteMetadataMemberIndex[count];
                 int index = 0;
-                foreach (KeyValue<PropertyInfo, RemoteMetadataMemberIndex> property in metadata.Properties.Array)
+                foreach (KeyValue<PropertyInfo, RemoteMetadataMemberIndex> property in metadata.PropertyArray.Array)
                 {
                     PropertyIndexs[index] = property.Value;
                     if (--count == 0) break;
@@ -63,12 +63,12 @@ namespace AutoCSer.Net.CommandServer
             }
             else PropertyIndexs = EmptyArray<RemoteMetadataMemberIndex>.Array;
 
-            count = metadata.Fields.Length;
+            count = metadata.FieldArray.Length;
             if (count != 0)
             {
                 FieldIndexs = new RemoteMetadataMemberIndex[count];
                 int index = 0;
-                foreach (KeyValue<FieldInfo, RemoteMetadataMemberIndex> field in metadata.Fields.Array)
+                foreach (KeyValue<FieldInfo, RemoteMetadataMemberIndex> field in metadata.FieldArray.Array)
                 {
                     FieldIndexs[index] = field.Value;
                     if (--count == 0) break;
@@ -77,12 +77,12 @@ namespace AutoCSer.Net.CommandServer
             }
             else FieldIndexs = EmptyArray<RemoteMetadataMemberIndex>.Array;
 
-            count = metadata.Methods.Length;
+            count = metadata.MethodArray.Length;
             if (count != 0)
             {
                 MethodIndexs = new RemoteMetadataMethodIndex[count];
                 int index = 0;
-                foreach (KeyValue<MethodInfo, RemoteMetadataMethodIndex> method in metadata.Methods.Array)
+                foreach (KeyValue<MethodInfo, RemoteMetadataMethodIndex> method in metadata.MethodArray.Array)
                 {
                     MethodIndexs[index] = method.Value;
                     if (--count == 0) break;
@@ -101,7 +101,7 @@ namespace AutoCSer.Net.CommandServer
             int count = formatDeserialize.NewTypes.Length;
             if (count != 0)
             {
-                Type[] types = metadata.Types.Array;
+                Type[] types = metadata.TypeArray.Array;
                 TypeIndexs = new RemoteMetadataTypeIndex[count];
                 int index = 0;
                 foreach (int typeIndex in formatDeserialize.NewTypes.Array)
@@ -116,7 +116,7 @@ namespace AutoCSer.Net.CommandServer
             count = formatDeserialize.NewProperties.Length;
             if (count != 0)
             {
-                KeyValue<PropertyInfo, RemoteMetadataMemberIndex>[] properties = metadata.Properties.Array;
+                KeyValue<PropertyInfo, RemoteMetadataMemberIndex>[] properties = metadata.PropertyArray.Array;
                 PropertyIndexs = new RemoteMetadataMemberIndex[count];
                 int index = 0;
                 foreach (int propertyIndex in formatDeserialize.NewProperties.Array)
@@ -131,7 +131,7 @@ namespace AutoCSer.Net.CommandServer
             count = formatDeserialize.NewFields.Length;
             if (count != 0)
             {
-                KeyValue<FieldInfo, RemoteMetadataMemberIndex>[] fields = metadata.Fields.Array;
+                KeyValue<FieldInfo, RemoteMetadataMemberIndex>[] fields = metadata.FieldArray.Array;
                 FieldIndexs = new RemoteMetadataMemberIndex[count];
                 int index = 0;
                 foreach (int fieldIndex in formatDeserialize.NewFields.Array)
@@ -146,7 +146,7 @@ namespace AutoCSer.Net.CommandServer
             count = formatDeserialize.NewMethods.Length;
             if (count != 0)
             {
-                KeyValue<MethodInfo, RemoteMetadataMethodIndex>[] methods = metadata.Methods.Array;
+                KeyValue<MethodInfo, RemoteMetadataMethodIndex>[] methods = metadata.MethodArray.Array;
                 MethodIndexs = new RemoteMetadataMethodIndex[count];
                 int index = 0;
                 foreach (int methodIndex in formatDeserialize.NewMethods.Array)

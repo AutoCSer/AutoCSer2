@@ -91,6 +91,14 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="parameter3"></param>
             /// <returns></returns>
             AutoCSer.Net.ReturnCommand<int> Func3(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,int,int> func, int parameter1, int parameter2, int parameter3);
+            /// <summary>
+            /// Test API for support persistent Lambda expressions 
+///            支持持久化的 Lambda 表达式测试 API
+            /// </summary>
+            /// <param name="func">Support persistent remote Lambda expressions 
+///            支持持久化的远程 Lambda 表达式</param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Persistent(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<int>> func);
         }
 }namespace AutoCSer.Document.RemoteExpression
 {
@@ -182,6 +190,14 @@ namespace AutoCSer.Document.RemoteExpression
             /// 返回值 int 
             /// </summary>
             Func3 = 7,
+            /// <summary>
+            /// [8] Test API for support persistent Lambda expressions 
+///            支持持久化的 Lambda 表达式测试 API
+            /// AutoCSer.Net.CommandServer.RemoteLambdaExpression{System.Func{int}} func Support persistent remote Lambda expressions 
+///            支持持久化的远程 Lambda 表达式
+            /// 返回值 int 
+            /// </summary>
+            Persistent = 8,
         }
 }
 #endif

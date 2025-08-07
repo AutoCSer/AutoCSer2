@@ -173,8 +173,8 @@ namespace AutoCSer.Net.CommandServer
             if (delegateDeserializer.State == RemoteExpressionSerializeStateEnum.Success)
             {
                 var expression = default(CallDelegate);
-                var expressions = default(Dictionary<SerializeDataKey, CallDelegate>);
-                Dictionary<SerializeDataKey, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
+                var expressions = default(Dictionary<HashBuffer, CallDelegate>);
+                Dictionary<HashBuffer, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
                 try
                 {
                     expression = delegateDeserializer.GetExpression(expressionArray, (byte)DelegateTypeEnum.Func, out expressions);
@@ -188,7 +188,7 @@ namespace AutoCSer.Net.CommandServer
                                 .Invoke(null, delegateDeserializer.Socket.GetRemoteExpressionParameters()).notNullCastType<CallDelegate>();
                         }
                         else expression = CallFunc<RT>.CreateExpression(delegateDeserializer.GetFormatDeserialize());
-                        expressions.Add(new SerializeDataKey(ref delegateDeserializer.SerializeInfo.Key), expression);
+                        expressions.Add(new HashBuffer(ref delegateDeserializer.SerializeInfo.Key), expression);
                     }
                 }
                 finally { Monitor.Exit(expressionArray); }
@@ -315,8 +315,8 @@ namespace AutoCSer.Net.CommandServer
             if (delegateDeserializer.State == RemoteExpressionSerializeStateEnum.Success)
             {
                 var expression = default(CallDelegate);
-                var expressions = default(Dictionary<SerializeDataKey, CallDelegate>);
-                Dictionary<SerializeDataKey, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
+                var expressions = default(Dictionary<HashBuffer, CallDelegate>);
+                Dictionary<HashBuffer, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
                 try
                 {
                     expression = delegateDeserializer.GetExpression(expressionArray, (byte)DelegateTypeEnum.Func1, out expressions);
@@ -330,7 +330,7 @@ namespace AutoCSer.Net.CommandServer
                                 .Invoke(null, delegateDeserializer.Socket.GetRemoteExpressionParameters()).notNullCastType<CallDelegate>();
                         }
                         else expression = CallFunc<T, RT>.CreateExpression(delegateDeserializer.GetFormatDeserialize());
-                        expressions.Add(new SerializeDataKey(ref delegateDeserializer.SerializeInfo.Key), expression);
+                        expressions.Add(new HashBuffer(ref delegateDeserializer.SerializeInfo.Key), expression);
                     }
                 }
                 finally { Monitor.Exit(expressionArray); }
@@ -461,8 +461,8 @@ namespace AutoCSer.Net.CommandServer
             if (delegateDeserializer.State == RemoteExpressionSerializeStateEnum.Success)
             {
                 var expression = default(CallDelegate);
-                var expressions = default(Dictionary<SerializeDataKey, CallDelegate>);
-                Dictionary<SerializeDataKey, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
+                var expressions = default(Dictionary<HashBuffer, CallDelegate>);
+                Dictionary<HashBuffer, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
                 try
                 {
                     expression = delegateDeserializer.GetExpression(expressionArray, (byte)DelegateTypeEnum.Func2, out expressions);
@@ -476,7 +476,7 @@ namespace AutoCSer.Net.CommandServer
                                 .Invoke(null, delegateDeserializer.Socket.GetRemoteExpressionParameters()).notNullCastType<CallDelegate>();
                         }
                         else expression = CallFunc<T1, T2, RT>.CreateExpression(delegateDeserializer.GetFormatDeserialize());
-                        expressions.Add(new SerializeDataKey(ref delegateDeserializer.SerializeInfo.Key), expression);
+                        expressions.Add(new HashBuffer(ref delegateDeserializer.SerializeInfo.Key), expression);
                     }
                 }
                 finally { Monitor.Exit(expressionArray); }
@@ -611,8 +611,8 @@ namespace AutoCSer.Net.CommandServer
             if (delegateDeserializer.State == RemoteExpressionSerializeStateEnum.Success)
             {
                 var expression = default(CallDelegate);
-                var expressions = default(Dictionary<SerializeDataKey, CallDelegate>);
-                Dictionary<SerializeDataKey, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
+                var expressions = default(Dictionary<HashBuffer, CallDelegate>);
+                Dictionary<HashBuffer, CallDelegate>[] expressionArray = delegateDeserializer.LockExpressionArray();
                 try
                 {
                     expression = delegateDeserializer.GetExpression(expressionArray, (byte)DelegateTypeEnum.Func3, out expressions);
@@ -626,7 +626,7 @@ namespace AutoCSer.Net.CommandServer
                                 .Invoke(null, delegateDeserializer.Socket.GetRemoteExpressionParameters()).notNullCastType<CallDelegate>();
                         }
                         else expression = CallFunc<T1, T2, T3, RT>.CreateExpression(delegateDeserializer.GetFormatDeserialize());
-                        expressions.Add(new SerializeDataKey(ref delegateDeserializer.SerializeInfo.Key), expression);
+                        expressions.Add(new HashBuffer(ref delegateDeserializer.SerializeInfo.Key), expression);
                     }
                 }
                 finally { Monitor.Exit(expressionArray); }

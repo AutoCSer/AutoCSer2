@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 
 namespace AutoCSer.Net.CommandServer.RemoteExpression
@@ -20,7 +21,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <summary>
         /// 远程表达式关键字
         /// </summary>
-        internal SerializeDataKey Key;
+        internal HashBuffer Key;
         /// <summary>
         /// 数据结束位置
         /// </summary>
@@ -46,7 +47,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                             HashCode = *(uint*)current;
                             if ((current += sizeof(int)) <= end)
                             {
-                                Key = new SerializeDataKey(start, (int)(current - start) - sizeof(int), (int)HashCode);
+                                Key = new HashBuffer(start, (int)(current - start) - sizeof(int), (int)HashCode);
                                 End = current;
                                 return;
                             }
@@ -57,7 +58,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                         HashCode = *(uint*)current;
                         if ((current += sizeof(int)) <= end)
                         {
-                            Key = new SerializeDataKey(start, (int)(current - start) - sizeof(int) * 2, (int)HashCode);
+                            Key = new HashBuffer(start, (int)(current - start) - sizeof(int) * 2, (int)HashCode);
                             End = current;
                             return;
                         }
@@ -66,7 +67,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             }
             ConstantParameterCount = -1;
             HashCode = 0;
-            Key = default(SerializeDataKey);
+            Key = default(HashBuffer);
             End = null;
             deserializer.SetIndexOutOfRange();
         }
@@ -77,10 +78,10 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <param name="size"></param>
         internal void Set(byte* start, int size)
         {
-            ulong hashCode64 = Key.DeserializeData.GetHashCode64(start, size);
+            ulong hashCode64 = Key.Buffer.GetHashCode64(start, size);
             uint hashCode = (uint)(hashCode64 ^ (hashCode64 >> 32));
             HashCode = hashCode | hashCode.logicalInversion();
-            Key.DeserializeData.CurrentIndex = (int)HashCode;
+            Key.Buffer.CurrentIndex = (int)HashCode;
         }
     }
 }

@@ -47,7 +47,8 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// </summary>
         private LeftArray<ConstantParameter> constantParameters;
         /// <summary>
-        /// 序列化状态
+        /// Remote expression serialization status
+        /// 远程表达式序列化状态
         /// </summary>
         internal RemoteExpressionSerializeStateEnum State;
         /// <summary>
@@ -821,22 +822,29 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <param name="member"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         private ConstantParameter getConstantParameter(MemberInfo member, object? target)
 #else
         private ConstantParameter getConstantParameter(MemberInfo member, object target)
 #endif
         {
-            if (target != null)
-            {
-                //throw new NullReferenceException
-                var property = member as PropertyInfo;
-                if (property != null) return new ConstantParameter(property.PropertyType, property.GetValue(target));
-                FieldInfo field = (FieldInfo)member;
-                return new ConstantParameter(field.FieldType, field.GetValue(target));
-            }
+            if (target != null) return GetConstantParameter(member, target);
             State = RemoteExpressionSerializeStateEnum.ConstantNullReference;
             return default(ConstantParameter);
+        }
+        /// <summary>
+        /// 获取常量参数
+        /// </summary>
+        /// <param name="member"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        internal static ConstantParameter GetConstantParameter(MemberInfo member, object target)
+        {
+            var property = member as PropertyInfo;
+            if (property != null) return new ConstantParameter(property.PropertyType, property.GetValue(target));
+            FieldInfo field = (FieldInfo)member;
+            return new ConstantParameter(field.FieldType, field.GetValue(target));
         }
         /// <summary>
         /// 序列化成员表达式节点
@@ -911,9 +919,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        internal static T? GetConstantParameter<T>(ClientMetadata metadata, int index)
+        internal static T? GetConstantParameterValue<T>(ClientMetadata metadata, int index)
 #else
-        internal static T GetConstantParameter<T>(ClientMetadata metadata, int index)
+        internal static T GetConstantParameterValue<T>(ClientMetadata metadata, int index)
 #endif
         {
             return metadata.constantParameters.Array[index].Value.castType<T>();
@@ -949,20 +957,23 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal unsafe static void Serialize(BinarySerializer serializer, Type[] parameterTypes, LambdaExpression expression)
         {
             UnmanagedStream stream = serializer.Stream;
-            int startIndex = stream.GetIndexBeforeMove(sizeof(int) * 2);
-            if (startIndex >= 0)
+            if (expression != null)
             {
-                var metadata = serializer.Context.castType<CommandClientSocket>().notNull().GetRemoteMetadata();
-                if (metadata != null)
+                int startIndex = stream.GetIndexBeforeMove(sizeof(int) * 2, (byte)RemoteExpressionSerializeStateEnum.Success);
+                if (startIndex >= 0)
                 {
-                    *(int*)(stream.Data.Pointer.Byte + startIndex) = (byte)RemoteExpressionSerializeStateEnum.Success;
-                    if (!metadata.Serialize(serializer, parameterTypes, expression.Parameters, expression.Body) && !stream.IsResizeError)
+                    var metadata = serializer.Context.castType<CommandClientSocket>().notNull().GetRemoteMetadata();
+                    RemoteExpressionSerializeStateEnum state;
+                    if (metadata != null)
                     {
-                        stream.Data.Pointer.SetCurrentIndex(startIndex, (byte)metadata.State);
+                        if (metadata.Serialize(serializer, parameterTypes, expression.Parameters, expression.Body) || stream.IsResizeError) return;
+                        state = metadata.State;
                     }
+                    else state = RemoteExpressionSerializeStateEnum.NotSupportClient;
+                    stream.Data.Pointer.SetCurrentIndex(startIndex, (byte)state);
                 }
-                else stream.Data.Pointer.SetCurrentIndex(startIndex, (byte)RemoteExpressionSerializeStateEnum.NotSupportClient);
             }
+            else stream.Write((int)(byte)RemoteExpressionSerializeStateEnum.NullExpression);
         }
     }
 }

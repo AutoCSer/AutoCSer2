@@ -414,6 +414,17 @@ namespace AutoCSer.Memory
         /// 增加数据流字节长度并返回增加之前的位置
         /// </summary>
         /// <param name="size">增加字节长度</param>
+        /// <param name="value">写入数据</param>
+        /// <returns>失败返回 -1</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal int GetIndexBeforeMove(int size, int value)
+        {
+            return PrepSize(size) ? Data.Pointer.GetIndexBeforeMove(size, value) : -1;
+        }
+        /// <summary>
+        /// 增加数据流字节长度并返回增加之前的位置
+        /// </summary>
+        /// <param name="size">增加字节长度</param>
         /// <returns>Return null on failure</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         protected internal byte* GetCanResizeBeforeMove(int size)
@@ -502,11 +513,17 @@ namespace AutoCSer.Memory
         /// <summary>
         /// 写数据
         /// </summary>
-        /// <param name="value">data</param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void Write(Guid value)
+        public bool Write(Guid value)
         {
-            if (PrepSize(sizeof(Guid))) Data.Pointer.Write(ref value);
+            if (PrepSize(sizeof(Guid)))
+            {
+                Data.Pointer.Write(ref value);
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// 写数据

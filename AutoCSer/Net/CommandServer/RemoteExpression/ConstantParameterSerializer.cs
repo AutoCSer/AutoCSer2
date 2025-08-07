@@ -34,7 +34,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 generator.Emit(OpCodes.Ldloca_S, parameter);
                 generator.ldarg(0);
                 generator.int32(index);
-                generator.call(GetConstantParameterMethod.MakeGenericMethod(parameters.Array[index].Type));
+                generator.call(GetConstantParameterValueMethod.MakeGenericMethod(parameters.Array[index].Type));
                 generator.Emit(OpCodes.Stfld, field);
             }
             generator.ldarg(0);
@@ -87,7 +87,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <summary>
         /// 获取常量参数
         /// </summary>
-        internal static readonly MethodInfo GetConstantParameterMethod = typeof(ClientMetadata).GetMethod(nameof(ClientMetadata.GetConstantParameter), BindingFlags.Static | BindingFlags.NonPublic).notNull();
+        internal static readonly MethodInfo GetConstantParameterValueMethod = typeof(ClientMetadata).GetMethod(nameof(ClientMetadata.GetConstantParameterValue), BindingFlags.Static | BindingFlags.NonPublic).notNull();
         /// <summary>
         /// 常量参数序列化
         /// </summary>

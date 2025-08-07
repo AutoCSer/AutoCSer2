@@ -91,6 +91,14 @@ namespace AutoCSer.Document.RemoteExpression
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
+
+                constantParameter = new ActionTarget { Value = AutoCSer.Random.Default.Next() };
+                parameter = AutoCSer.Random.Default.Next();
+                result = await client.RemoteExpressionDelegateController.Persistent(new AutoCSer.Net.CommandServer.RemoteLambdaExpression<Func<int>>(() => constantParameter.Value + parameter));
+                if (result.Value != constantParameter.Value + parameter)
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
             }
             catch (Exception exception)
             {

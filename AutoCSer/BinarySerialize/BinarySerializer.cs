@@ -2034,7 +2034,6 @@ namespace AutoCSer
                 notReferenceCount = true;
                 points?.ClearCount();
                 Stream.Data.Pointer.WriteSizeData(index);
-                //* (int*)(Stream.Data.Pointer.Byte + (index - sizeof(int))) = Stream.Data.Pointer.CurrentIndex - index;
             }
         }
         ///// <summary>

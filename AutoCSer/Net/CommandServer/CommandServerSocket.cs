@@ -696,7 +696,7 @@ namespace AutoCSer.Net
             if (!isRemoteMetadata)
             {
                 isRemoteMetadata = true;
-                Server.GetRemoteMetadata()?.Append(this);
+                Server.RemoteMetadata?.Append(this);
             }
         }
 #endif

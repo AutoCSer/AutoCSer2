@@ -1810,6 +1810,14 @@
             设置固定数据结束位置（用于 AOT 代码生成，不允许开发者调用）
             </summary>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.ReadBuffer(System.Byte*@,System.Byte*@)">
+            <summary>
+            读取数据缓冲区起始与结束位置信息
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.Deserialize``1(System.Byte[],AutoCSer.BinarySerialize.DeserializeConfig)">
             <summary>
             Deserialization
@@ -24667,7 +24675,8 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.State">
             <summary>
-            序列化状态
+            Remote expression serialization status
+            远程表达式序列化状态
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.isMetadataIndex">
@@ -24959,6 +24968,14 @@
             <param name="target"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.GetConstantParameter(System.Reflection.MemberInfo,System.Object)">
+            <summary>
+            获取常量参数
+            </summary>
+            <param name="member"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.write(System.Linq.Expressions.MemberExpression)">
             <summary>
             序列化成员表达式节点
@@ -24980,7 +24997,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.GetConstantParameter``1(AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata,System.Int32)">
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.GetConstantParameterValue``1(AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata,System.Int32)">
             <summary>
             获取常量参数
             </summary>
@@ -25142,7 +25159,7 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ConstantParameterSerializer.GetConstantParameterMethod">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ConstantParameterSerializer.GetConstantParameterValueMethod">
             <summary>
             获取常量参数
             </summary>
@@ -25525,7 +25542,7 @@
             默认头部标记
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.MethodIndex.method">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.MethodIndex.Method">
             <summary>
             方法信息
             </summary>
@@ -25604,6 +25621,11 @@
             非枚举类型常量值
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.NodeHeaderEnum.IsArray">
+            <summary>
+            是否数组类型
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.PropertyIndex">
             <summary>
             远程表达式属性编号
@@ -25619,7 +25641,7 @@
             默认头部标记
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.PropertyIndex.property">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.PropertyIndex.Property">
             <summary>
             属性信息
             </summary>
@@ -25641,55 +25663,6 @@
             序列化
             </summary>
             <param name="metadata"></param>
-            <returns></returns>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey">
-            <summary>
-            远程表达式关键字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey.data">
-            <summary>
-            远程表达式序列化数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey.DeserializeData">
-            <summary>
-            远程表达式反序列化数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey.#ctor(System.Byte*,System.Int32,System.Int32)">
-            <summary>
-            远程表达式关键字
-            </summary>
-            <param name="data"></param>
-            <param name="size"></param>
-            <param name="hashCode"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey.#ctor(AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey@)">
-            <summary>
-            远程表达式关键字
-            </summary>
-            <param name="key"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey.Equals(AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey)">
-            <summary>
-            
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey.Equals(System.Object)">
-            <summary>
-            
-            </summary>
-            <param name="obj"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey.GetHashCode">
-            <summary>
-            
-            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.SerializeInfo">
@@ -25762,7 +25735,7 @@
             远程类型编号集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Types">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.TypeArray">
             <summary>
             远程类型集合
             </summary>
@@ -25772,7 +25745,7 @@
             远程方法编号集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Methods">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.MethodArray">
             <summary>
             远程方法集合
             </summary>
@@ -25782,7 +25755,7 @@
             远程属性编号集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Properties">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.PropertyArray">
             <summary>
             远程属性集合 + 类型编号
             </summary>
@@ -25792,9 +25765,29 @@
             远程字段编号集合
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Fields">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.FieldArray">
             <summary>
             远程字段集合 + 类型编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Types">
+            <summary>
+            远程 Lambda 表达式反序列化类型缓存集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Methods">
+            <summary>
+            远程 Lambda 表达式反序列化方法缓存集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Properties">
+            <summary>
+            远程 Lambda 表达式反序列化属性缓存集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Fields">
+            <summary>
+            远程 Lambda 表达式反序列化属性缓存集合
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.#ctor(AutoCSer.Net.CommandListener)">
@@ -25861,6 +25854,11 @@
             远程表达式常量参数类型编号
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Default">
+            <summary>
+            非服务全局元数据信息
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.TypeIndex">
             <summary>
             远程表达式类型编号
@@ -25876,7 +25874,7 @@
             默认头部标记
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.TypeIndex.type">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.TypeIndex.Type">
             <summary>
             类型信息
             </summary>
@@ -25905,49 +25903,14 @@
             远程表达式序列化常量类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.String">
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Unknown">
             <summary>
-            string
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.EmptyString">
-            <summary>
-            string[0]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.CharString">
-            <summary>
-            string[1]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.ByteArray">
-            <summary>
-            byte[]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.EmptyByteArray">
-            <summary>
-            byte[0]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.ByteArray1">
-            <summary>
-            byte[1]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.ByteArray2">
-            <summary>
-            byte[2]
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.ByteArray3">
-            <summary>
-            byte[3]
+            未知类型
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Bool">
             <summary>
-            bool
+            false
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Byte">
@@ -26027,7 +25990,7 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.NullableBool">
             <summary>
-            bool?
+            bool? false
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.NullableByte">
@@ -26103,6 +26066,116 @@
         <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.NullableGuid">
             <summary>
             Guid?
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Complex">
+            <summary>
+            System.Numerics.Complex
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Plane">
+            <summary>
+            System.Numerics.Plane
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Quaternion">
+            <summary>
+            System.Numerics.Quaternion
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Matrix3x2">
+            <summary>
+            System.Numerics.Matrix3x2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Matrix4x4">
+            <summary>
+            System.Numerics.Matrix4x4
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Vector2">
+            <summary>
+            System.Numerics.Vector2
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Vector3">
+            <summary>
+            System.Numerics.Vector3
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Vector4">
+            <summary>
+            System.Numerics.Vector4
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Half">
+            <summary>
+            Half
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Int128">
+            <summary>
+            Int128
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.UInt128">
+            <summary>
+            UInt128
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.ByteArray">
+            <summary>
+            byte[]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.String">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.NullString">
+            <summary>
+            string null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.EmptyString">
+            <summary>
+            string[0]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.CharString">
+            <summary>
+            string[1]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.NullByteArray">
+            <summary>
+            byte[] null
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.EmptyByteArray">
+            <summary>
+            byte[0]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.ByteArray1">
+            <summary>
+            byte[1]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.ByteArray2">
+            <summary>
+            byte[2]
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.True">
+            <summary>
+            true
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.NullableBoolTrue">
+            <summary>
+            bool? true
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.NullBool">
@@ -26185,61 +26258,6 @@
             Guid? null
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Complex">
-            <summary>
-            System.Numerics.Complex
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Plane">
-            <summary>
-            System.Numerics.Plane
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Quaternion">
-            <summary>
-            System.Numerics.Quaternion
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Matrix3x2">
-            <summary>
-            System.Numerics.Matrix3x2
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Matrix4x4">
-            <summary>
-            System.Numerics.Matrix4x4
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Vector2">
-            <summary>
-            System.Numerics.Vector2
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Vector3">
-            <summary>
-            System.Numerics.Vector3
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Vector4">
-            <summary>
-            System.Numerics.Vector4
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Half">
-            <summary>
-            Half
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.Int128">
-            <summary>
-            Int128
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServer.ConstantTypeEnum.UInt128">
-            <summary>
-            UInt128
-            </summary>
-        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum">
             <summary>
             Remote expression serialization status
@@ -26256,6 +26274,12 @@
             <summary>
             Serialization successful
             序列化成功
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NullExpression">
+            <summary>
+            The expression is null
+            表达式为 null
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportClient">
@@ -26406,6 +26430,18 @@
             <summary>
             The server did not find the remote field information
             服务端没有找到远程字段信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.ConstantError">
+            <summary>
+            Constant value deserialization failed
+            常量值反序列化失败
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NullParameter">
+            <summary>
+            The deserialization of the necessary parameters for generating the expression failed
+            生成表达式的必要参数反序列化失败
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteMetadataCallback">
@@ -40699,13 +40735,6 @@
             远程表达式服务端元数据信息
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandListener.GetRemoteMetadata">
-            <summary>
-            Get the remote expression server metadata information
-            获取远程表达式服务端元数据信息
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:AutoCSer.Net.CommandListener.CommandEndIndex">
             <summary>
             End command sequence number
@@ -49257,6 +49286,62 @@
             定时清除缓存数据
             </summary>
         </member>
+        <member name="T:AutoCSer.Memory.HashBuffer">
+            <summary>
+            用于 HASH 的字节数组与数据缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.HashBuffer.data">
+            <summary>
+            字节数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.HashBuffer.Buffer">
+            <summary>
+            数据缓冲区
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.#ctor(System.Byte*,System.Int32,System.Int32)">
+            <summary>
+            用于 HASH 的数据缓冲区
+            </summary>
+            <param name="data"></param>
+            <param name="size"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.#ctor(System.Byte*,System.Byte*)">
+            <summary>
+            用于 HASH 的数据缓冲区
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.#ctor(AutoCSer.Memory.HashBuffer@)">
+            <summary>
+            用于 HASH 的字节数组
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.Equals(AutoCSer.Memory.HashBuffer)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.Equals(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.GetHashCode">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Memory.HashBytes">
             <summary>
             用于 HASH 的字节数组
@@ -50235,6 +50320,13 @@
             <param name="startIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Memory.Pointer.WriteSizeGetHashCode64(System.Int32)">
+            <summary>
+            写入数据长度并计算 64 位 HASH 值
+            </summary>
+            <param name="startIndex">头部起始位置</param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Memory.Pointer.GetHashCode64(System.Void*,System.Int32)">
             <summary>
             计算 64 位 HASH 值
@@ -50291,6 +50383,14 @@
             移动当前数据操作位置并返回移动之前的位置
             </summary>
             <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetIndexBeforeMove(System.Int32,System.Int32)">
+            <summary>
+            移动当前数据操作位置并返回移动之前的位置
+            </summary>
+            <param name="size"></param>
+            <param name="value">写入数据</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.SerializeMoveSize(System.Int32,System.Int32)">
@@ -51626,6 +51726,14 @@
             <param name="size">增加字节长度</param>
             <returns>失败返回 -1</returns>
         </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.GetIndexBeforeMove(System.Int32,System.Int32)">
+            <summary>
+            增加数据流字节长度并返回增加之前的位置
+            </summary>
+            <param name="size">增加字节长度</param>
+            <param name="value">写入数据</param>
+            <returns>失败返回 -1</returns>
+        </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.GetCanResizeBeforeMove(System.Int32)">
             <summary>
             增加数据流字节长度并返回增加之前的位置
@@ -51680,7 +51788,8 @@
             <summary>
             写数据
             </summary>
-            <param name="value">data</param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Guid@)">
             <summary>
@@ -54466,6 +54575,14 @@
             默认为 true 表示需要调用 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性</param>
             <returns>Return false on failure</returns>
         </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.GetTypeIndex(System.Boolean@)">
+            <summary>
+            Get the index of a fixed-type array
+            获取固定类型数组索引
+            </summary>
+            <param name="isArray"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Reflection.RemoteType.Equals(AutoCSer.Reflection.RemoteType)">
             <summary>
             
@@ -54492,7 +54609,7 @@
             固定类型最大数量 46
             </summary>
         </member>
-        <member name="F:AutoCSer.Reflection.RemoteType.fixedTypes">
+        <member name="F:AutoCSer.Reflection.RemoteType.FixedTypes">
             <summary>
             Fixed type collection
             固定类型集合

@@ -1,12 +1,53 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|c:\\autocser2\\document\\12.nativeaot\\12.nativeaot.eng.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|solutionrelative:document\\12.nativeaot\\12.nativeaot.eng.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|c:\\autocser2\\document\\12.nativeaot\\12.nativeaot.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|solutionrelative:document\\12.nativeaot\\12.nativeaot.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
+        {
+          "DockedWidth": 1036,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "12.NativeAOT.Eng.md",
+              "DocumentMoniker": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
+              "RelativeDocumentMoniker": "Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
+              "ToolTip": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
+              "RelativeToolTip": "Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAgwHYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-08-07T07:17:15.638Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "12.NativeAOT.md",
+              "DocumentMoniker": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.md",
+              "RelativeDocumentMoniker": "Document\\12.NativeAOT\\12.NativeAOT.md",
+              "ToolTip": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.md",
+              "RelativeToolTip": "Document\\12.NativeAOT\\12.NativeAOT.md",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAAHUAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-08-07T07:16:56.98Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
         {
           "DockedWidth": 1036,
           "SelectedChildIndex": -1,

@@ -23,9 +23,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 属性信息
         /// </summary>
 #if NetStandard21
-        private readonly PropertyInfo? property;
+        internal readonly PropertyInfo? Property;
 #else
-        private readonly PropertyInfo property;
+        internal readonly PropertyInfo Property;
 #endif
         /// <summary>
         /// 远程表达式属性编号
@@ -34,7 +34,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal PropertyIndex(int index)
         {
             this.index = index;
-            property = null;
+            Property = null;
             NodeHeader = (int)NodeHeaderEnum.PropertyIndex;
         }
         /// <summary>
@@ -48,7 +48,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
 #endif
         {
             index = 0;
-            this.property = property;
+            this.Property = property;
             NodeHeader = property == null ? 0 : (int)NodeHeaderEnum.Property;
         }
         /// <summary>
@@ -59,11 +59,11 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal bool Serialize(ClientMetadata metadata)
         {
             if (NodeHeader == 0) return true;
-            if (property == null) return metadata.Stream.Write(index);
+            if (Property == null) return metadata.Stream.Write(index);
             UnmanagedStream stream = metadata.Stream;
             BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
-            return stream.Write(AutoCSer.BinarySerializer.NullValue) && metadata.Serialize(property.ReflectedType.notNull())
-                && metadata.Serialize(property.Name) && stream.Write((int)bindingFlags);
+            return stream.Write(AutoCSer.BinarySerializer.NullValue) && metadata.Serialize(Property.ReflectedType.notNull())
+                && metadata.Serialize(Property.Name) && stream.Write((int)bindingFlags);
         }
     }
 }

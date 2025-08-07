@@ -174,7 +174,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 }
                 if (CallType == CallTypeEnum.Unknown) setCallType();
             }
-            if (!checkParameter()) return;
+            for (int parameterIndex = ParameterStartIndex; parameterIndex != ParameterEndIndex; ++parameterIndex)
+            {
+                ParameterInfo parameter = Parameters[parameterIndex];
+                if (!checkParameter(parameter)) return;
+#if !AOT
+                if (IsPersistence)
+                {
+                    bool isError = false;
+                    Type parameterType = parameter.ParameterType;
+                    if (parameterType.IsGenericType)
+                    {
+                        Type genericType = parameterType.GetGenericTypeDefinition();
+                        if (IsPersistence)
+                        {
+                            if (genericType == typeof(RemoteExpressionFunc<>) || genericType == typeof(RemoteExpressionFunc<,>) || genericType == typeof(RemoteExpressionFunc<,,>) || genericType == typeof(RemoteExpressionFunc<,,,>)
+                                || genericType == typeof(RemoteExpressionAction<>) || genericType == typeof(RemoteExpressionAction<,>) || genericType == typeof(RemoteExpressionAction<,,>))
+                            {
+                                isError = true;
+                            }
+                        }
+                    }
+                    else if (parameterType == typeof(RemoteExpressionAction)) isError = true;
+                    if (isError)
+                    {
+                        SetError(CallStateEnum.NodeMethodParameterIsByRef, $"节点持久化方法 {Type.fullName()}.{Method.Name} 参数 {parameter.Name} 类型 {parameterType.fullName()} 不支持持久化操作，建议修改为支持持久化操作的 {typeof(RemoteLambdaExpression<>).fullName()}");
+                        return;
+                    }
+                }
+#endif
+            }
             if (Method.Name.EndsWith(LoadPersistenceMethodNameSuffix, StringComparison.Ordinal))
             {
                 PersistenceMethodName.Set(Method.Name, 0, Method.Name.Length - LoadPersistenceMethodNameSuffix.Length);

@@ -2467,6 +2467,14 @@
             设置固定数据结束位置（用于 AOT 代码生成，不允许开发者调用）
             </summary>
         </member>
+        <member name="M:AutoCSer.BinaryDeserializer.ReadBuffer(System.Byte*@,System.Byte*@)">
+            <summary>
+            读取数据缓冲区起始与结束位置信息
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.BinaryDeserializer.Deserialize``1(System.Byte[],AutoCSer.BinarySerialize.DeserializeConfig)">
             <summary>
             Deserialization
@@ -23948,6 +23956,62 @@
             定时清除缓存数据
             </summary>
         </member>
+        <member name="T:AutoCSer.Memory.HashBuffer">
+            <summary>
+            用于 HASH 的字节数组与数据缓冲区
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.HashBuffer.data">
+            <summary>
+            字节数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Memory.HashBuffer.Buffer">
+            <summary>
+            数据缓冲区
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.#ctor(System.Byte*,System.Int32,System.Int32)">
+            <summary>
+            用于 HASH 的数据缓冲区
+            </summary>
+            <param name="data"></param>
+            <param name="size"></param>
+            <param name="hashCode"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.#ctor(System.Byte*,System.Byte*)">
+            <summary>
+            用于 HASH 的数据缓冲区
+            </summary>
+            <param name="start"></param>
+            <param name="end"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.#ctor(AutoCSer.Memory.HashBuffer@)">
+            <summary>
+            用于 HASH 的字节数组
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.Equals(AutoCSer.Memory.HashBuffer)">
+            <summary>
+            
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.Equals(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.HashBuffer.GetHashCode">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Memory.HashBytes">
             <summary>
             用于 HASH 的字节数组
@@ -24997,6 +25061,13 @@
             <param name="startIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Memory.Pointer.WriteSizeGetHashCode64(System.Int32)">
+            <summary>
+            写入数据长度并计算 64 位 HASH 值
+            </summary>
+            <param name="startIndex">头部起始位置</param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Memory.Pointer.GetHashCode64(System.Void*,System.Int32)">
             <summary>
             计算 64 位 HASH 值
@@ -25053,6 +25124,14 @@
             移动当前数据操作位置并返回移动之前的位置
             </summary>
             <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Memory.Pointer.GetIndexBeforeMove(System.Int32,System.Int32)">
+            <summary>
+            移动当前数据操作位置并返回移动之前的位置
+            </summary>
+            <param name="size"></param>
+            <param name="value">写入数据</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.Pointer.SerializeMoveSize(System.Int32,System.Int32)">
@@ -26332,6 +26411,14 @@
             <param name="size">增加字节长度</param>
             <returns>失败返回 -1</returns>
         </member>
+        <member name="M:AutoCSer.Memory.UnmanagedStreamBase.GetIndexBeforeMove(System.Int32,System.Int32)">
+            <summary>
+            增加数据流字节长度并返回增加之前的位置
+            </summary>
+            <param name="size">增加字节长度</param>
+            <param name="value">写入数据</param>
+            <returns>失败返回 -1</returns>
+        </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.GetCanResizeBeforeMove(System.Int32)">
             <summary>
             增加数据流字节长度并返回增加之前的位置
@@ -26386,7 +26473,8 @@
             <summary>
             写数据
             </summary>
-            <param name="value">data</param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Memory.UnmanagedStreamBase.Write(System.Guid@)">
             <summary>
@@ -54455,6 +54543,14 @@
             默认为 true 表示需要调用 AutoCSer.Common.Config.CheckRemoteType 检查远程类型的合法性</param>
             <returns>Return false on failure</returns>
         </member>
+        <member name="M:AutoCSer.Reflection.RemoteType.GetTypeIndex(System.Boolean@)">
+            <summary>
+            Get the index of a fixed-type array
+            获取固定类型数组索引
+            </summary>
+            <param name="isArray"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Reflection.RemoteType.Equals(AutoCSer.Reflection.RemoteType)">
             <summary>
             
@@ -54481,7 +54577,7 @@
             固定类型最大数量 46
             </summary>
         </member>
-        <member name="F:AutoCSer.Reflection.RemoteType.fixedTypes">
+        <member name="F:AutoCSer.Reflection.RemoteType.FixedTypes">
             <summary>
             Fixed type collection
             固定类型集合

@@ -1,4 +1,5 @@
 ﻿using AutoCSer.Extensions;
+using AutoCSer.Memory;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -56,9 +57,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 获取远程表达式集合
         /// </summary>
         /// <returns></returns>
-        internal Dictionary<SerializeDataKey, CallDelegate>[] LockExpressionArray()
+        internal Dictionary<HashBuffer, CallDelegate>[] LockExpressionArray()
         {
-            Dictionary<SerializeDataKey, CallDelegate>[] expressionArray = metadata.ExpressionArray;
+            Dictionary<HashBuffer, CallDelegate>[] expressionArray = metadata.ExpressionArray;
             Monitor.Enter(expressionArray);
             return expressionArray;
         }
@@ -70,9 +71,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <param name="expressions"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal CallDelegate? GetExpression(Dictionary<SerializeDataKey, CallDelegate>[] expressionArray, int index, out Dictionary<SerializeDataKey, CallDelegate> expressions)
+        internal CallDelegate? GetExpression(Dictionary<HashBuffer, CallDelegate>[] expressionArray, int index, out Dictionary<HashBuffer, CallDelegate> expressions)
 #else
-        internal CallDelegate GetExpression(Dictionary<SerializeDataKey, CallDelegate>[] expressionArray, int index, out Dictionary<SerializeDataKey, CallDelegate> expressions)
+        internal CallDelegate GetExpression(Dictionary<HashBuffer, CallDelegate>[] expressionArray, int index, out Dictionary<HashBuffer, CallDelegate> expressions)
 #endif
         {
             expressions = expressionArray[index];
@@ -81,7 +82,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 var expression = default(CallDelegate);
                 if (expressions.TryGetValue(SerializeInfo.Key, out expression)) return expression;
             }
-            else expressionArray[index] = expressions = DictionaryCreator<SerializeDataKey>.Create<CallDelegate>();
+            else expressionArray[index] = expressions = DictionaryCreator<HashBuffer>.Create<CallDelegate>();
             return null;
         }
         /// <summary>
@@ -91,7 +92,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal unsafe ServerMethodParameter GetConstantParameterType()
         {
             ServerMethodParameter constantParameterType = metadata.GetConstantParameterType(ref SerializeInfo);
-            Socket.GetRemoteExpressionFormatDeserialize().SetExpression((byte*)SerializeInfo.Key.DeserializeData.Data, constantParameterType.Fields);
+            Socket.GetRemoteExpressionFormatDeserialize().SetExpression((byte*)SerializeInfo.Key.Buffer.Data, constantParameterType.Fields);
             return constantParameterType;
         }
         /// <summary>
@@ -101,7 +102,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal unsafe FormatDeserialize GetFormatDeserialize()
         {
             FormatDeserialize formatDeserialize = Socket.GetRemoteExpressionFormatDeserialize();
-            formatDeserialize.SetExpression((byte*)SerializeInfo.Key.DeserializeData.Data, EmptyArray<FieldInfo>.Array);
+            formatDeserialize.SetExpression((byte*)SerializeInfo.Key.Buffer.Data, EmptyArray<FieldInfo>.Array);
             return formatDeserialize;
         }
 
@@ -123,7 +124,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     var socket = deserializer.Context.castType<CommandServerSocket>();
                     if (socket != null)
                     {
-                        var metadata = socket.Server.GetRemoteMetadata();
+                        var metadata = socket.Server.RemoteMetadata;
                         if (metadata != null)
                         {
                             DelegateDeserializer delegateDeserializer = new DelegateDeserializer(socket, metadata, deserializer, parameterTypes);

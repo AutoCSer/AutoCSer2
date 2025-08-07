@@ -30,7 +30,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <summary>
         /// 远程表达式集合
         /// </summary>
-        internal readonly Dictionary<SerializeDataKey, CallDelegate>[] ExpressionArray;
+        internal readonly Dictionary<HashBuffer, CallDelegate>[] ExpressionArray;
         /// <summary>
         /// 远程类型编号集合
         /// </summary>
@@ -38,7 +38,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <summary>
         /// 远程类型集合
         /// </summary>
-        internal LeftArray<Type> Types;
+        internal LeftArray<Type> TypeArray;
         /// <summary>
         /// 远程方法编号集合
         /// </summary>
@@ -46,7 +46,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <summary>
         /// 远程方法集合
         /// </summary>
-        internal LeftArray<KeyValue<MethodInfo, RemoteMetadataMethodIndex>> Methods;
+        internal LeftArray<KeyValue<MethodInfo, RemoteMetadataMethodIndex>> MethodArray;
         /// <summary>
         /// 远程属性编号集合
         /// </summary>
@@ -54,7 +54,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <summary>
         /// 远程属性集合 + 类型编号
         /// </summary>
-        internal LeftArray<KeyValue<PropertyInfo, RemoteMetadataMemberIndex>> Properties;
+        internal LeftArray<KeyValue<PropertyInfo, RemoteMetadataMemberIndex>> PropertyArray;
         /// <summary>
         /// 远程字段编号集合
         /// </summary>
@@ -62,7 +62,23 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <summary>
         /// 远程字段集合 + 类型编号
         /// </summary>
-        internal LeftArray<KeyValue<FieldInfo, RemoteMetadataMemberIndex>> Fields;
+        internal LeftArray<KeyValue<FieldInfo, RemoteMetadataMemberIndex>> FieldArray;
+        /// <summary>
+        /// 远程 Lambda 表达式反序列化类型缓存集合
+        /// </summary>
+        internal readonly Dictionary<HashBuffer, Type> Types;
+        /// <summary>
+        /// 远程 Lambda 表达式反序列化方法缓存集合
+        /// </summary>
+        internal readonly Dictionary<HashBuffer, MethodInfo> Methods;
+        /// <summary>
+        /// 远程 Lambda 表达式反序列化属性缓存集合
+        /// </summary>
+        internal readonly Dictionary<HashBuffer, PropertyInfo> Properties;
+        /// <summary>
+        /// 远程 Lambda 表达式反序列化属性缓存集合
+        /// </summary>
+        internal readonly Dictionary<HashBuffer, FieldInfo> Fields;
         /// <summary>
         /// Command server to listen
         /// 命令服务端监听
@@ -71,17 +87,21 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal ServerMetadata(CommandListener server)
         {
             this.server = server;
-            ExpressionArray = new Dictionary<SerializeDataKey, CallDelegate>[(byte)DelegateTypeEnum.Count];
+            ExpressionArray = new Dictionary<HashBuffer, CallDelegate>[(byte)DelegateTypeEnum.Count];
             TypeIndexs = DictionaryCreator.CreateHashObject<Type, int>();
             methodIndexs = DictionaryCreator.CreateHashObject<MethodInfo, int>();
             propertyIndexs = DictionaryCreator.CreateHashObject<PropertyInfo, int>();
             fieldIndexs = DictionaryCreator.CreateHashObject<FieldInfo, int>();
-            Types = new LeftArray<Type>(0);
-            Methods = new LeftArray<KeyValue<MethodInfo, RemoteMetadataMethodIndex>>(0);
-            Properties = new LeftArray<KeyValue<PropertyInfo, RemoteMetadataMemberIndex>>(0);
-            Fields = new LeftArray<KeyValue<FieldInfo, RemoteMetadataMemberIndex>>(0);
+            TypeArray = new LeftArray<Type>(0);
+            MethodArray = new LeftArray<KeyValue<MethodInfo, RemoteMetadataMethodIndex>>(0);
+            PropertyArray = new LeftArray<KeyValue<PropertyInfo, RemoteMetadataMemberIndex>>(0);
+            FieldArray = new LeftArray<KeyValue<FieldInfo, RemoteMetadataMemberIndex>>(0);
             sockets = new LeftArray<CommandServerSocket>(0);
             socketLock = new object();
+            Types = DictionaryCreator<HashBuffer>.Create<Type>();
+            Methods = DictionaryCreator<HashBuffer>.Create<MethodInfo>();
+            Properties = DictionaryCreator<HashBuffer>.Create<PropertyInfo>();
+            Fields = DictionaryCreator<HashBuffer>.Create<FieldInfo>();
         }
         /// <summary>
         /// 添加命令服务套接字
@@ -97,7 +117,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             finally
             {
                 Monitor.Exit(socketLock);
-                if ((Types.Length | Methods.Length | Properties.Length | Fields.Length) != 0) socket.Push(new ServerOutputRemoteMetadata(this));
+                if ((TypeArray.Length | MethodArray.Length | PropertyArray.Length | FieldArray.Length) != 0) socket.Push(new ServerOutputRemoteMetadata(this));
             }
         }
         /// <summary>
@@ -117,10 +137,10 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 if (!methodIndexs.TryGetValue(method, out index))
                 {
                     index = methodIndexs.Count;
-                    Methods.PrepLength(1);
+                    MethodArray.PrepLength(1);
                     methodIndex.Index = index;
                     methodIndexs.Add(method, index);
-                    Methods.UnsafeAdd(new KeyValue<MethodInfo, RemoteMetadataMethodIndex>(method.Value, methodIndex));
+                    MethodArray.UnsafeAdd(new KeyValue<MethodInfo, RemoteMetadataMethodIndex>(method.Value, methodIndex));
                     isNew = true;
                 }
             }
@@ -144,9 +164,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             {
                 if (!propertyIndexs.TryGetValue(property, out index))
                 {
-                    Properties.PrepLength(1);
+                    PropertyArray.PrepLength(1);
                     propertyIndexs.Add(property, index = propertyIndexs.Count);
-                    Properties.UnsafeAdd(new KeyValue<PropertyInfo, RemoteMetadataMemberIndex>(property.Value, new RemoteMetadataMemberIndex(property.Value.Name, index, typeIndex, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance)));
+                    PropertyArray.UnsafeAdd(new KeyValue<PropertyInfo, RemoteMetadataMemberIndex>(property.Value, new RemoteMetadataMemberIndex(property.Value.Name, index, typeIndex, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance)));
                     isNew = true;
                 }
             }
@@ -171,9 +191,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             {
                 if (!fieldIndexs.TryGetValue(field, out index))
                 {
-                    Fields.PrepLength(1);
+                    FieldArray.PrepLength(1);
                     fieldIndexs.Add(field, index = fieldIndexs.Count);
-                    Fields.UnsafeAdd(new KeyValue<FieldInfo, RemoteMetadataMemberIndex>(field.Value, new RemoteMetadataMemberIndex(field.Value.Name, index, typeIndex, bindingFlags)));
+                    FieldArray.UnsafeAdd(new KeyValue<FieldInfo, RemoteMetadataMemberIndex>(field.Value, new RemoteMetadataMemberIndex(field.Value.Name, index, typeIndex, bindingFlags)));
                     isNew = true;
                 }
             }
@@ -217,7 +237,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal unsafe ServerMethodParameter GetConstantParameterType(ref SerializeInfo serializeInfo)
         {
             int count = serializeInfo.ConstantParameterCount, index = 0;
-            byte* start = (byte*)serializeInfo.Key.DeserializeData.Data;
+            byte* start = (byte*)serializeInfo.Key.Buffer.Data;
             byte[] typeIndexs = AutoCSer.Common.GetUninitializedArray<byte>(count * sizeof(int));
             AutoCSer.Common.CopyTo(start + (*(int*)start + sizeof(int) * 3), typeIndexs);
             var constantParameterType = default(ServerMethodParameter);
@@ -233,7 +253,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     {
                         do
                         {
-                            typeBuilder.DefineField(index.toString(), Types.Array[*(int*)(typeIndexFixed + (index << 2)) - 1], FieldAttributes.Public);
+                            typeBuilder.DefineField(index.toString(), TypeArray.Array[*(int*)(typeIndexFixed + (index << 2)) - 1], FieldAttributes.Public);
                         }
                         while (++index != count);
                     }
@@ -254,5 +274,10 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 远程表达式常量参数类型编号
         /// </summary>
         private static int constantParameterTypeIndex;
+
+        /// <summary>
+        /// 非服务全局元数据信息
+        /// </summary>
+        internal static readonly ServerMetadata Default = new ServerMetadata(CommandListener.Null);
     }
 }

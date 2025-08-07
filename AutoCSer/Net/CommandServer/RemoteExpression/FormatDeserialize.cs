@@ -106,7 +106,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <returns></returns>
         internal RemoteExpressionSerializeStateEnum Format(ref SerializeInfo serializeInfo, BinaryDeserializer deserializer, Type[] parameterTypes)
         {
-            byte* start = (byte*)serializeInfo.Key.DeserializeData.Data;
+            byte* start = (byte*)serializeInfo.Key.Buffer.Data;
             this.deserializer = deserializer;
             this.parameterTypes = parameterTypes;
             NewTypes.Length = NewMethods.Length = NewProperties.Length = NewFields.Length = 0;
@@ -307,7 +307,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         {
             int typeIndex = *(int*)read;
             read += sizeof(int);
-            if (typeIndex > 0) return new KeyValue<Type, int>(metadata.Types.Array[typeIndex - 1], typeIndex);
+            if (typeIndex > 0) return new KeyValue<Type, int>(metadata.TypeArray.Array[typeIndex - 1], typeIndex);
             if (typeIndex != AutoCSer.BinarySerializer.NullValue)
             {
                 Type type = parameterTypes[-typeIndex];
@@ -358,9 +358,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             {
                 if (!typeIndexs.TryGetValue(type, out typeIndex))
                 {
-                    metadata.Types.PrepLength(1);
+                    metadata.TypeArray.PrepLength(1);
                     typeIndexs.Add(type, typeIndex = typeIndexs.Count + 1);
-                    metadata.Types.UnsafeAdd(type.Value);
+                    metadata.TypeArray.UnsafeAdd(type.Value);
                     isNewType = true;
                 }
             }
@@ -775,7 +775,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             {
                 int index = *(int*)read - 1;
                 read += sizeof(int);
-                return metadata.Types.Array[index];
+                return metadata.TypeArray.Array[index];
             }
             return null;
         }
@@ -794,7 +794,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             {
                 int index = *(int*)read;
                 read += sizeof(int);
-                return metadata.Methods.Array[index].Key;
+                return metadata.MethodArray.Array[index].Key;
             }
             return null;
         }
@@ -813,7 +813,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             {
                 int index = *(int*)read;
                 read += sizeof(int);
-                return metadata.Properties.Array[index].Key;
+                return metadata.PropertyArray.Array[index].Key;
             }
             return null;
         }
@@ -826,8 +826,8 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         {
             int index = *(int*)read;
             read += sizeof(int);
-            if ((header & (int)NodeHeaderEnum.PropertyIndex) != 0) return metadata.Properties.Array[index].Key;
-            return metadata.Fields.Array[index].Key;
+            if ((header & (int)NodeHeaderEnum.PropertyIndex) != 0) return metadata.PropertyArray.Array[index].Key;
+            return metadata.FieldArray.Array[index].Key;
         }
     }
 }

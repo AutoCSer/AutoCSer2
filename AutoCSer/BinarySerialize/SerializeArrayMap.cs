@@ -44,18 +44,11 @@ namespace AutoCSer.BinarySerialize
             this.stream = stream;
             int length = ((arrayLength + (31 + 32)) >> 5) << 2;
             Bit = 1U << 31;
-            WriteIndex = stream.GetIndexBeforeMove(length);
+            WriteIndex = stream.GetIndexBeforeMove(length, arrayLength);
             Map = 0;
 #if DEBUG
-            endIndex = 0;
+            endIndex = WriteIndex < 0 ? 0 : (WriteIndex + length);
 #endif
-            if (WriteIndex != -1)
-            {
-                *(int*)(stream.Data.Pointer.Byte + WriteIndex) = arrayLength;
-#if DEBUG
-                endIndex = WriteIndex + length;
-#endif
-            }
         }
         /// <summary>
         /// 数组位图

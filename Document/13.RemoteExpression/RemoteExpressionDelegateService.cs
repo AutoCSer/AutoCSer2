@@ -1,4 +1,7 @@
-﻿namespace AutoCSer.Document.RemoteExpression
+﻿using AutoCSer.Extensions;
+using System.Data.SqlTypes;
+
+namespace AutoCSer.Document.RemoteExpression
 {
     /// <summary>
     /// Remote expression delegate test service instance
@@ -110,6 +113,18 @@
         {
             action.Call(parameter1, parameter2, parameter3);
             return ActionTarget.Default.Value;
+        }
+
+        /// <summary>
+        /// Test API for persistent Lambda expressions
+        /// 可持久化的 Lambda 表达式测试 API
+        /// </summary>
+        /// <param name="func">Persistent remote Lambda expressions
+        /// 可持久化的远程 Lambda 表达式</param>
+        /// <returns></returns>
+        int IRemoteExpressionDelegateService.Persistent(AutoCSer.Net.CommandServer.RemoteLambdaExpression<Func<int>> func)
+        {
+            return func.Compile()();
         }
     }
 }

@@ -19,6 +19,11 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         Success,
         /// <summary>
+        /// The expression is null
+        /// 表达式为 null
+        /// </summary>
+        NullExpression,
+        /// <summary>
         /// The client does not support remote expressions
         /// 客户端不支持远程表达式
         /// </summary>
@@ -153,5 +158,15 @@ namespace AutoCSer.Net.CommandServer
         /// 服务端没有找到远程字段信息
         /// </summary>
         NotFoundField,
+        /// <summary>
+        /// Constant value deserialization failed
+        /// 常量值反序列化失败
+        /// </summary>
+        ConstantError,
+        /// <summary>
+        /// The deserialization of the necessary parameters for generating the expression failed
+        /// 生成表达式的必要参数反序列化失败
+        /// </summary>
+        NullParameter,
     }
 }

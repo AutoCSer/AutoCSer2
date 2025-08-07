@@ -138,6 +138,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Memory\ByteArrayBuffer.cs" />
     <Compile Include="Memory\BufferSizeBitsEnum.cs" />
     <Compile Include="Memory\ByteArrayPool.cs" />
+    <Compile Include="Memory\HashBuffer.cs" />
     <Compile Include="Memory\HashBytes.cs" />
     <Compile Include="Memory\UnmanagedStreamExchangeBuffer.cs" />
     <Compile Include="Metadata\CallDefaultConstructor.cs" />

@@ -402,6 +402,18 @@ namespace AutoCSer.Memory
             return AutoCSer.Memory.Common.GetHashCode64((byte*)Data + startIndex, CurrentIndex - startIndex);
         }
         /// <summary>
+        /// 写入数据长度并计算 64 位 HASH 值
+        /// </summary>
+        /// <param name="startIndex">头部起始位置</param>
+        /// <returns></returns>
+        internal ulong WriteSizeGetHashCode64(int startIndex)
+        {
+            byte* start = (byte*)Data + startIndex;
+            int size = CurrentIndex - startIndex;
+            *(int*)start = size - sizeof(int);
+            return AutoCSer.Memory.Common.GetHashCode64(start, size);
+        }
+        /// <summary>
         /// 计算 64 位 HASH 值
         /// </summary>
         /// <param name="data"></param>
@@ -513,7 +525,23 @@ namespace AutoCSer.Memory
             CurrentIndex += size;
             return index;
         }
-        //
+        /// <summary>
+        /// 移动当前数据操作位置并返回移动之前的位置
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="value">写入数据</param>
+        /// <returns></returns>
+        internal int GetIndexBeforeMove(int size, int value)
+        {
+#if DEBUG
+            if (size < sizeof(int)) throw new Exception(size.toString() + " < sizeof(int)");
+            debugCheckWriteSize(size);
+#endif
+            int index = CurrentIndex;
+            *(int*)((byte*)Data + index) = value;
+            CurrentIndex += size;
+            return index;
+        }
         /// <summary>
         /// 写入缓冲区字节数
         /// </summary>

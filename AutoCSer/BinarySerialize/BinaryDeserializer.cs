@@ -4158,6 +4158,21 @@ namespace AutoCSer
         {
             Current += (int)(fixedCurrent - Current) & 3;
         }
+        /// <summary>
+        /// 读取数据缓冲区起始与结束位置信息
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        internal bool ReadBuffer(out byte* start, out byte* end)
+        {
+            int size = *(int*)Current;
+            start = Current + sizeof(int);
+            end = start + size;
+            if (size > 0 && end <= End) return true;
+            State = DeserializeStateEnum.IndexOutOfRange;
+            return false;
+        }
 
         /// <summary>
         /// Deserialization

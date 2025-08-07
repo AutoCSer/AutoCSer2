@@ -1,53 +1,66 @@
 ﻿using AutoCSer.Extensions;
 using System;
 
-namespace AutoCSer.Net.CommandServer.RemoteExpression
+namespace AutoCSer.Memory
 {
     /// <summary>
-    /// 远程表达式关键字
+    /// 用于 HASH 的字节数组与数据缓冲区
     /// </summary>
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    internal unsafe struct SerializeDataKey : IEquatable<SerializeDataKey>
+    internal unsafe struct HashBuffer : IEquatable<HashBuffer>
     {
         /// <summary>
-        /// 远程表达式序列化数据
+        /// 字节数组
         /// </summary>
         private readonly byte[] data;
         /// <summary>
-        /// 远程表达式反序列化数据
+        /// 数据缓冲区
         /// </summary>
-        internal AutoCSer.Memory.Pointer DeserializeData;
+        internal Pointer Buffer;
         /// <summary>
-        /// 远程表达式关键字
+        /// 用于 HASH 的数据缓冲区
         /// </summary>
         /// <param name="data"></param>
         /// <param name="size"></param>
         /// <param name="hashCode"></param>
-        internal SerializeDataKey(byte* data, int size, int hashCode)
+        internal HashBuffer(byte* data, int size, int hashCode)
         {
             this.data = EmptyArray<byte>.Array;
-            DeserializeData = new AutoCSer.Memory.Pointer(data, size, hashCode);
+            Buffer = new Pointer(data, size, hashCode);
         }
         /// <summary>
-        /// 远程表达式关键字
+        /// 用于 HASH 的数据缓冲区
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        internal HashBuffer(byte* start, byte* end)
+        {
+            int size = *(int*)start + sizeof(int);
+            this.data = EmptyArray<byte>.Array;
+            byte* hashData = start + size;
+            if (size > 0 && end - hashData >= sizeof(int)) Buffer = new Pointer(start, size, *(int*)hashData);
+            else Buffer = default(Pointer);
+        }
+        /// <summary>
+        /// 用于 HASH 的字节数组
         /// </summary>
         /// <param name="key"></param>
-        internal SerializeDataKey(ref SerializeDataKey key)
+        internal HashBuffer(ref HashBuffer key)
         {
-            DeserializeData = key.DeserializeData;
-            data = DeserializeData.GetBufferArray();
+            Buffer = key.Buffer;
+            data = Buffer.GetBufferArray();
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(SerializeDataKey other)
+        public bool Equals(HashBuffer other)
         {
             if (data.Length != 0)
             {
                 if (other.data.Length != 0) return AutoCSer.Common.SequenceEqual(data, other.data);
-                return other.DeserializeData.BufferSequenceEqual(data);
+                return other.Buffer.BufferSequenceEqual(data);
             }
             return other.data.Length != 0 && other.Equals(this);
         }
@@ -62,7 +75,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         public override bool Equals(object obj)
 #endif
         {
-            return Equals(obj.castValue<SerializeDataKey>());
+            return Equals(obj.castValue<HashBuffer>());
         }
         /// <summary>
         /// 
@@ -70,7 +83,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return DeserializeData.CurrentIndex;
+            return Buffer.CurrentIndex;
         }
     }
 }

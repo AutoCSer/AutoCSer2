@@ -91,39 +91,47 @@ namespace AutoCSer.Reflection
         public bool TryGet(out Type type, bool checkType = true)
 #endif
         {
-            if (string.IsNullOrEmpty(AssemblyName))
+            bool isArray;
+            int index = GetTypeIndex(out isArray);
+            if (index >= 0)
             {
-                if (Name.Length == 1)
-                {
-                    int index = Name[0];
-                    bool isArray = false;
-                    if (index >= arrayChar)
-                    {
-                        index -= arrayChar;
-                        isArray = true;
-                    }
-                    index -= 0x23;
-                    if ((uint)index < fixedTypes.Length)
-                    {
-                        type = fixedTypes[index];
-                        if (isArray) type = type.MakeArrayType();
-                        return true;
-                    }
-                }
-                type = null;
-                return false;
+                type = FixedTypes[index];
+                if (isArray) type = type.MakeArrayType();
+                return true;
             }
             var assembly = AssemblyCache.Get(AssemblyName);
             if (assembly != null)
             {
                 type = assembly.GetType(Name);
-                if(type != null)
+                if (type != null)
                 {
                     return !checkType || AutoCSer.Common.Config.CheckRemoteType(type);
                 }
             }
             else type = null;
             return false;
+        }
+        /// <summary>
+        /// Get the index of a fixed-type array
+        /// 获取固定类型数组索引
+        /// </summary>
+        /// <param name="isArray"></param>
+        /// <returns></returns>
+        internal int GetTypeIndex(out bool isArray)
+        {
+            isArray = false;
+            if (string.IsNullOrEmpty(AssemblyName) && Name.Length == 1)
+            {
+                int index = Name[0];
+                if (index >= arrayChar)
+                {
+                    index -= arrayChar;
+                    isArray = true;
+                }
+                index -= 0x23;
+                if ((uint)index < FixedTypes.Length) return index;
+            }
+            return -1;
         }
         /// <summary>
         /// 
@@ -165,7 +173,7 @@ namespace AutoCSer.Reflection
         /// Fixed type collection
         /// 固定类型集合
         /// </summary>
-        private static readonly Type[] fixedTypes = new Type[] 
+        internal static readonly Type[] FixedTypes = new Type[] 
         {
             typeof(bool), typeof(bool?), typeof(byte), typeof(byte?), typeof(sbyte), typeof(sbyte?), typeof(short), typeof(short?),
             typeof(ushort), typeof(ushort?), typeof(int), typeof(int?), typeof(uint), typeof(uint?), typeof(long), typeof(long?),
@@ -201,7 +209,7 @@ namespace AutoCSer.Reflection
 #if AOT
             int arrayIndex = 0;
 #endif
-            foreach(Type type in fixedTypes)
+            foreach(Type type in FixedTypes)
             {
                 typeNames.Add(type, typeIndex.ToString());
 #if AOT

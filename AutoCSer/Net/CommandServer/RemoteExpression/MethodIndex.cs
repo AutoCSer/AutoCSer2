@@ -23,9 +23,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 方法信息
         /// </summary>
 #if NetStandard21
-        private readonly MethodInfo? method;
+        internal readonly MethodInfo? Method;
 #else
-        private readonly MethodInfo method;
+        internal readonly MethodInfo Method;
 #endif
         /// <summary>
         /// 远程表达式方法编号
@@ -34,7 +34,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal MethodIndex(int index)
         {
             this.index = index;
-            method = null;
+            Method = null;
             NodeHeader = (int)NodeHeaderEnum.MethodIndex;
         }
         /// <summary>
@@ -48,7 +48,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
 #endif
         {
             index = 0;
-            this.method = method;
+            this.Method = method;
             NodeHeader = method == null ? 0 : (int)NodeHeaderEnum.Method;
         }
         /// <summary>
@@ -59,17 +59,17 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         internal bool Serialize(ClientMetadata metadata)
         {
             if (NodeHeader == 0) return true;
-            if (method == null) return metadata.Stream.Write(index);
-            BindingFlags bindingFlags = method.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
+            if (Method == null) return metadata.Stream.Write(index);
+            BindingFlags bindingFlags = Method.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
             UnmanagedStream stream = metadata.Stream;
-            bindingFlags |= method.IsPublic ? BindingFlags.Public : (BindingFlags.Public | BindingFlags.NonPublic);
-            if(stream.Write(AutoCSer.BinarySerializer.NullValue) && metadata.Serialize(method.ReflectedType.notNull()) 
-                && metadata.Serialize(method.Name) && stream.Write((int)bindingFlags))
+            bindingFlags |= Method.IsPublic ? BindingFlags.Public : (BindingFlags.Public | BindingFlags.NonPublic);
+            if(stream.Write(AutoCSer.BinarySerializer.NullValue) && metadata.Serialize(Method.ReflectedType.notNull()) 
+                && metadata.Serialize(Method.Name) && stream.Write((int)bindingFlags))
             {
-                Type[] types = method.IsGenericMethod ? method.GetGenericArguments() : EmptyArray<Type>.Array;
+                Type[] types = Method.IsGenericMethod ? Method.GetGenericArguments() : EmptyArray<Type>.Array;
                 if (types.Length < 256)
                 {
-                    ParameterInfo[] parameters = method.GetParameters();
+                    ParameterInfo[] parameters = Method.GetParameters();
                     if (parameters.Length < 256)
                     {
                         if (stream.Write(types.Length | (parameters.Length << 8)))

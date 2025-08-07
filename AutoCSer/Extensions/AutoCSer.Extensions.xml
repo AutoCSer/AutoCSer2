@@ -3552,6 +3552,20 @@
             Copy the array
             </summary>
         </member>
+        <member name="M:AutoCSer.Extensions.Metadata.GenericType.BinarySerialize(AutoCSer.BinarySerializer,System.Object)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Metadata.GenericType.BinaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Extensions.Metadata.GenericType.create``1">
             <summary>
             创建泛型类型元数据
@@ -3662,6 +3676,20 @@
             <summary>
             Copy the array
             </summary>
+        </member>
+        <member name="M:AutoCSer.Extensions.Metadata.GenericType`1.BinarySerialize(AutoCSer.BinarySerializer,System.Object)">
+            <summary>
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.Metadata.GenericType`1.BinaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Extensions.Metadata.GenericType2">
             <summary>
@@ -9028,7 +9056,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.GetExpression(System.Collections.Generic.Dictionary{AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey,AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate}[],System.Int32,System.Collections.Generic.Dictionary{AutoCSer.Net.CommandServer.RemoteExpression.SerializeDataKey,AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate}@)">
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.DelegateDeserializer.GetExpression(System.Collections.Generic.Dictionary{AutoCSer.Memory.HashBuffer,AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate}[],System.Int32,System.Collections.Generic.Dictionary{AutoCSer.Memory.HashBuffer,AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate}@)">
             <summary>
             获取创建表达式委托实例
             </summary>
@@ -9057,6 +9085,968 @@
             <param name="parameterTypes"></param>
             <param name="state"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer">
+            <summary>
+            远程 Lambda 表达式反序列化
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.metadata">
+            <summary>
+            Remote expression server metadata information
+            远程表达式服务端元数据信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializer">
+            <summary>
+            Binary data deserialization
+            二进制数据反序列化
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.Parameters">
+            <summary>
+            表达式参数集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.read">
+            <summary>
+            当前读取位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.end">
+            <summary>
+            当前结束位置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.State">
+            <summary>
+            远程表达式序列化状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.#ctor(AutoCSer.BinaryDeserializer,AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata)">
+            <summary>
+            远程 Lambda 表达式反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="metadata"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.setError(AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum)">
+            <summary>
+            设置错误状态
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.setIndexOutOfRange">
+            <summary>
+            设置反序列化数据超出预期范围错误状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.Deserialize">
+            <summary>
+            反序列化
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserialize(System.Linq.Expressions.ParameterExpression[]@)">
+            <summary>
+            反序列化参数集合
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeType">
+            <summary>
+            反序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeTypeArray(System.Int32)">
+            <summary>
+            反序列化类型集合
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeType(System.UInt32)">
+            <summary>
+            反序列化方法信息
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeMethod(System.UInt32)">
+            <summary>
+            反序列化方法信息
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeProperty(System.UInt32)">
+            <summary>
+            反序列化属性信息
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeProperty">
+            <summary>
+            反序列化属性信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeMember(System.UInt32)">
+            <summary>
+            反序列化成员信息
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserialize(System.String@)">
+            <summary>
+            字符串反序列化
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeConstant(System.UInt32)">
+            <summary>
+            常量反序列化
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeArguments">
+            <summary>
+            反序列化方法调用参数集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeExpression(System.UInt32)">
+            <summary>
+            反序列化表达式节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeExpression">
+            <summary>
+            反序列化表达式节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.add(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Add
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.addChecked(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            AddChecked
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.and(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            And
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.andAlso(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            AndAlso
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.arrayIndex(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            ArrayIndex
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.divide(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Divide
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.equal(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Equal
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.exclusiveOr(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            ExclusiveOr
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.greaterThan(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            GreaterThan
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.greaterThanOrEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            GreaterThanOrEqual
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.leftShift(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            LeftShift
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.lessThan(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            LessThan
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.lessThanOrEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            LessThanOrEqual
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.modulo(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Modulo
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.multiply(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Multiply
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.multiplyChecked(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            MultiplyChecked
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.notEqual(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            NotEqual
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.or(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Or
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.orElse(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            OrElse
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.power(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Power
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.rightShift(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            RightShift
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.subtract(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Subtract
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.subtractChecked(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            SubtractChecked
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.assign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Assign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.coalesce(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Coalesce
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.addAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            AddAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.andAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            AndAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.divideAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            DivideAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.exclusiveOrAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            ExclusiveOrAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.leftShiftAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            LeftShiftAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.moduloAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            ModuloAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.multiplyAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            MultiplyAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.orAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            OrAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.powerAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            PowerAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.rightShiftAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            RightShiftAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.subtractAssign(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            SubtractAssign
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.addAssignChecked(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            AddAssignChecked
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.multiplyAssignChecked(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            MultiplyAssignChecked
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.subtractAssignChecked(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            SubtractAssignChecked
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.typeIs(System.Linq.Expressions.Expression,System.Type)">
+            <summary>
+            TypeIs
+            </summary>
+            <param name="expression"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.typeEqual(System.Linq.Expressions.Expression,System.Type)">
+            <summary>
+            TypeEqual
+            </summary>
+            <param name="expression"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.negate(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Negate
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.unaryPlus(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            UnaryPlus
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.negateChecked(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            NegateChecked
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.not(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Not
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.decrement(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Decrement
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.increment(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            Increment
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.preIncrementAssign(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            PreIncrementAssign
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.preDecrementAssign(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            PreDecrementAssign
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.postIncrementAssign(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            PostIncrementAssign
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.postDecrementAssign(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            PostDecrementAssign
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.onesComplement(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            OnesComplement
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.isTrue(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            IsTrue
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.isFalse(System.Linq.Expressions.Expression,System.Reflection.MethodInfo)">
+            <summary>
+            IsFalse
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.arrayLength(System.Linq.Expressions.Expression)">
+            <summary>
+            ArrayLength
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.quote(System.Linq.Expressions.Expression)">
+            <summary>
+            Quote
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.convert(System.Linq.Expressions.Expression,System.Type,System.Reflection.MethodInfo)">
+            <summary>
+            Convert
+            </summary>
+            <param name="expression"></param>
+            <param name="type"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.convertChecked(System.Linq.Expressions.Expression,System.Type,System.Reflection.MethodInfo)">
+            <summary>
+            ConvertChecked
+            </summary>
+            <param name="expression"></param>
+            <param name="type"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.typeAs(System.Linq.Expressions.Expression,System.Type)">
+            <summary>
+            TypeAs
+            </summary>
+            <param name="expression"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.unbox(System.Linq.Expressions.Expression,System.Type)">
+            <summary>
+            Unbox
+            </summary>
+            <param name="expression"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.call(System.Linq.Expressions.Expression,System.Reflection.MethodInfo,System.Linq.Expressions.Expression[])">
+            <summary>
+            Call
+            </summary>
+            <param name="expression"></param>
+            <param name="method"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.index(System.Linq.Expressions.Expression,System.Reflection.PropertyInfo,System.Linq.Expressions.Expression[])">
+            <summary>
+            Index
+            </summary>
+            <param name="expression"></param>
+            <param name="property"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.memberAccess(System.Linq.Expressions.Expression,System.Reflection.MemberInfo)">
+            <summary>
+            MemberAccess
+            </summary>
+            <param name="expression"></param>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.condition(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Condition
+            </summary>
+            <param name="test"></param>
+            <param name="ifTrue"></param>
+            <param name="ifFalse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.invoke(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression[])">
+            <summary>
+            Invoke
+            </summary>
+            <param name="expression"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.defaultExpression(System.Type)">
+            <summary>
+            Default
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.setNullParameter">
+            <summary>
+            设置参数反序列化失败错误状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer">
+            <summary>
+            远程 Lambda 表达式序列化
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.stream">
+            <summary>
+            Output buffer stream
+            序列化输出缓冲区流
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializer">
+            <summary>
+            Binary data serialization
+            二进制数据序列化
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.parameters">
+            <summary>
+            表达式参数集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.state">
+            <summary>
+            Remote expression serialization status
+            远程表达式序列化状态
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.isCheckConstant">
+            <summary>
+            是否需要检查常量表达式
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.#ctor(AutoCSer.BinarySerializer,System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.ParameterExpression})">
+            <summary>
+            远程 Lambda 表达式序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.Serialize(System.Linq.Expressions.Expression)">
+            <summary>
+            序列化 Lambda 表达式
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.writeHashCode(System.Int32)">
+            <summary>
+            写入表达式序列化数据的哈希值
+            </summary>
+            <param name="startIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializeRemoteType(AutoCSer.Reflection.RemoteType)">
+            <summary>
+            序列化类型信息
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Type)">
+            <summary>
+            序列化类型信息
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Reflection.MethodInfo)">
+            <summary>
+            序列化方法信息
+            </summary>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Reflection.PropertyInfo)">
+            <summary>
+            序列化属性信息
+            </summary>
+            <param name="property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Reflection.FieldInfo)">
+            <summary>
+            序列化字段信息
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializeParameters">
+            <summary>
+            序列化参数集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.Expression})">
+            <summary>
+            方法调用参数序列化节点
+            </summary>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.String)">
+            <summary>
+            字符串序列化
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializeNode(System.Linq.Expressions.Expression)">
+            <summary>
+            序列化表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            序列化二元表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializeCheckConversion(System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            序列化二元表达式节点（检查 Lambda 转换参数）
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializeArrayIndex(System.Linq.Expressions.BinaryExpression)">
+            <summary>
+            序列化数组索引调用节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.TypeBinaryExpression)">
+            <summary>
+            序列化类型判断表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.UnaryExpression,System.Boolean,System.Boolean)">
+            <summary>
+            序列化一元表达式节点
+            </summary>
+            <param name="expression"></param>
+            <param name="isMethod"></param>
+            <param name="isType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.MethodCallExpression)">
+            <summary>
+            序列化方法调用表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.IndexExpression)">
+            <summary>
+            序列化索引调用节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.InvocationExpression)">
+            <summary>
+            序列化 Invoke 节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.DefaultExpression)">
+            <summary>
+            序列化类型默认值表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.ConditionalExpression)">
+            <summary>
+            序列化条件表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            序列化成员表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.getConstantParameter(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            获取常量参数值
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.getConstantParameter(System.Reflection.MemberInfo,System.Object)">
+            <summary>
+            获取常量参数值
+            </summary>
+            <param name="member"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.write(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            序列化成员表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializeParameter(System.Linq.Expressions.Expression)">
+            <summary>
+            序列化参数节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.ConstantExpression)">
+            <summary>
+            序列化常量表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Type,System.Object)">
+            <summary>
+            序列化常量表达式节点
+            </summary>
+            <param name="type"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.constantTypes">
+            <summary>
+            常量类型集合
+            </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionAction">
             <summary>
@@ -9792,6 +10782,68 @@
             Whether the server deserialization was successful
             服务端反序列化是否成功
             </summary>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1">
+            <summary>
+            Persistent remote Lambda expressions
+            可持久化的远程 Lambda 表达式
+            </summary>
+            <typeparam name="T">Delegate type
+            委托类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.Expression">
+            <summary>
+            Client-side Lambda expression
+            客户端 Lambda 表达式
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.state">
+            <summary>
+            Server deserialization state
+            服务端反序列化状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.IsSuccess">
+            <summary>
+            Whether the server deserialization was successful
+            服务端反序列化是否成功
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.#ctor(System.Linq.Expressions.Expression{`0})">
+            <summary>
+            Remote Lambda expression
+            远程 Lambda 表达式
+            </summary>
+            <param name="expression">Client-side Lambda expression
+            客户端 Lambda 表达式</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.GetState">
+            <summary>
+            Get the deserialization state of the server
+            获取服务端反序列化状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.Compile">
+            <summary>
+            Compile delegate
+            编译委托
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteLambdaExpression{T}}#Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            Serialization
+            序列化
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#Net#CommandServer#RemoteLambdaExpression{T}}#Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            Deserialization
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
         </member>
         <member name="T:AutoCSer.Net.Packet.Arp">
             <summary>
