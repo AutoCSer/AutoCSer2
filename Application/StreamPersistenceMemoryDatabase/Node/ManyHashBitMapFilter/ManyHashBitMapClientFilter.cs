@@ -242,14 +242,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     if (map.GetBitValueByHashCode(hashCode) == 0)
                     {
-                        if(isDispose) return ResponseResult.DisposedTask;
-                        return set(value);
+                        if(!isDispose) return set(value);
+                        return ResponseResult.DisposedTask;
                     }
                 }
                 return ResponseResult.SuccessTask;
             }
-            if (isDispose) return ResponseResult.DisposedTask;
-            return setMap(value);
+            if (!isDispose) return setMap(value); 
+            return ResponseResult.DisposedTask;
         }
         /// <summary>
         /// Set the bitmap data
@@ -277,13 +277,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 int bit = map.GetBitByHashCode(hashCode);
                 if (map.GetBitValue(bit) == 0)
                 {
-                    if (isDispose) return CallStateEnum.Disposed;
-                    ResponseResult result = await node.SetBit(bit);
-                    if (!result.IsSuccess) return result;
-
-                    Monitor.Enter(mapLock);
-                    map.SetBit(bit);
-                    Monitor.Exit(mapLock);
+                    if (!isDispose)
+                    {
+                        ResponseResult result = await node.SetBit(bit);
+                        if (result.IsSuccess)
+                        {
+                            Monitor.Enter(mapLock);
+                            map.SetBit(bit);
+                            Monitor.Exit(mapLock);
+                        }
+                        return result;
+                    }
+                    else return CallStateEnum.Disposed;
                 }
             }
             return CallStateEnum.Success;
@@ -316,16 +321,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 返回 false 表示数据不存在</returns>
         public Task<ResponseResult<bool>> Check(T value)
         {
-            if (isDispose) return Task.FromResult(new ResponseResult<bool>(CallStateEnum.Disposed));
-            if (map.Size != 0)
+            if (!isDispose)
             {
-                foreach (uint hashCode in getHashCodes(value))
+                if (map.Size != 0)
                 {
-                    if (map.GetBitValueByHashCode(hashCode) == 0) return ResponseResult.FalseTask;
+                    foreach (uint hashCode in getHashCodes(value))
+                    {
+                        if (map.GetBitValueByHashCode(hashCode) == 0) return ResponseResult.FalseTask;
+                    }
+                    return ResponseResult.TrueTask;
                 }
-                return ResponseResult.TrueTask;
+                return check(value);
             }
-            return check(value);
+            return Task.FromResult(new ResponseResult<bool>(CallStateEnum.Disposed));
         }
         /// <summary>
         /// Check the bitmap data
@@ -341,15 +349,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (map.Size == 0)
             {
                 ResponseResult<ManyHashBitMap> mapResult = await node.GetData();
-                if (!mapResult.IsSuccess) return mapResult.Cast<bool>();
-                set(mapResult.Value);
+                if (mapResult.IsSuccess) set(mapResult.Value); 
+                else return mapResult.Cast<bool>();
             }
-            if (isDispose) return CallStateEnum.Disposed;
-            foreach (uint hashCode in getHashCodes(value))
+            if (!isDispose)
             {
-                if (map.GetBitValueByHashCode(hashCode) == 0) return false;
+                foreach (uint hashCode in getHashCodes(value))
+                {
+                    if (map.GetBitValueByHashCode(hashCode) == 0) return false;
+                }
+                return true;
             }
-            return true;
+            return CallStateEnum.Disposed;
         }
     }
 }

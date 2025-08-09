@@ -60,10 +60,18 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
     <Compile Include="CreateNodeIndex.cs" />
+    <Compile Include="Extensions\UniformProbabilityTotalStatisticsClientNodeExtension.cs" />
     <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
+    <Compile Include="Memory\Unmanaged.cs" />
     <Compile Include="Node\OnlyPersistenceNode.cs" />
     <Compile Include="Node\IOnlyPersistenceNode.cs" />
     <Compile Include="Node\ProcessGuard\CommandListenerSwitchProcess.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\IUniformProbabilityClientStatisticsNode.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\IUniformProbabilityTotalStatisticsNode.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityClientStatistics.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityClientStatisticsCallback.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityClientStatisticsNode.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityTotalStatisticsNode.cs" />
     <Compile Include="RequestParameterContext.cs" />
     <Compile Include="Server\CreatingNodeInfo.cs" />
     <Compile Include="Culture\Chinese.cs" />
@@ -82,7 +90,6 @@
     <Compile Include="Extensions\MethodKeepCallbackExtension.cs" />
     <Compile Include="Extensions\ProcessGuardNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\ResponseResultExtension.cs" />
-    <Compile Include="Extensions\SearchTreeDictionaryNodeLocalClientNodeExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
     <Compile Include="JsonResponseParameterAwaiter.cs" />
     <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
@@ -302,6 +309,7 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNodeCallback.cs" />
+    <Compile Include="Server\MethodKeepCallbackTimeout.cs" />
     <Compile Include="Server\PersistenceFile.cs" />
     <Compile Include="Server\PersistenceTypeEnum.cs" />
     <Compile Include="Server\ScanPersistenceServiceLoader.cs" />

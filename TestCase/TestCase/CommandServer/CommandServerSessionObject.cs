@@ -11,6 +11,7 @@ namespace AutoCSer.TestCase
         internal int Value;
         internal int Ref;
         internal long Out;
+        internal int? NullableValue;
         internal long Xor(int value, ref int refValue, out long outValue)
         {
             this.Value = value;

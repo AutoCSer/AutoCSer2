@@ -96,8 +96,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return await this;
         }
         /// <summary>
-        /// Get the result of the command call
-        /// 获取命令调用结果
+        /// Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+        /// 获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
         /// </summary>
         /// <returns></returns>
 #if NetStandard21

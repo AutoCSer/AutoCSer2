@@ -17,9 +17,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务接口回调委托
         /// </summary>
 #if NetStandard21
-        internal CommandServerKeepCallback<KeepCallbackResponseParameter>? callback;
+        internal CommandServerKeepCallback<KeepCallbackResponseParameter>? CommandServerKeepCallback;
 #else
-        internal CommandServerKeepCallback<KeepCallbackResponseParameter> callback;
+        internal CommandServerKeepCallback<KeepCallbackResponseParameter> CommandServerKeepCallback;
 #endif
         /// <summary>
         /// Server-side node method flags
@@ -38,7 +38,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Has the keep callback been cancelled
         /// 是否已经取消保持回调
         /// </summary>
-        public bool IsCancelKeepCallback { get { return callback == null || callback.IsCancelKeepCallback; } }
+        public bool IsCancelKeepCallback { get { return CommandServerKeepCallback == null || CommandServerKeepCallback.IsCancelKeepCallback; } }
         /// <summary>
         /// 无回调
         /// </summary>
@@ -50,7 +50,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="flag">服务端节点方法标记</param>
         internal MethodKeepCallback(CommandServerKeepCallback<KeepCallbackResponseParameter> callback, MethodFlagsEnum flag)
         {
-            this.callback = callback;
+            this.CommandServerKeepCallback = callback;
             this.flag = flag;
             isResponseParameter = typeof(T) == typeof(ResponseParameterSerializer);
         }
@@ -61,13 +61,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool Callback(ResponseParameterSerializer value)
         {
-            if (callback != null)
+            if (CommandServerKeepCallback != null)
             {
                 if (isResponseParameter)
                 {
                     try
                     {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value, 0));
+                        return CommandServerKeepCallback.VirtualCallback(new KeepCallbackResponseParameter(value, 0));
                     }
                     catch (Exception exception)
                     {
@@ -86,7 +86,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool Callback(T value)
         {
-            if (callback != null)
+            if (CommandServerKeepCallback != null)
             {
                 if (!isResponseParameter)
                 {
@@ -95,7 +95,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         KeepCallbackResponseParameter responseParameter = KeepCallbackResponseParameter.Create(value, flag);
                         isParameter = true;
-                        return callback.VirtualCallback(responseParameter);
+                        return CommandServerKeepCallback.VirtualCallback(responseParameter);
                     }
                     catch (Exception exception)
                     {
@@ -110,7 +110,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     try
                     {
-                        return callback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>(), 0));
+                        return CommandServerKeepCallback.VirtualCallback(new KeepCallbackResponseParameter(value.notNullCastType<ResponseParameterSerializer>(), 0));
                     }
                     catch (Exception exception)
                     {
@@ -137,14 +137,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool Callback(IEnumerable<T> values)
         {
-            if (callback != null && values != null)
+            if (CommandServerKeepCallback != null && values != null)
             {
                 bool isParameter = false, isCallback = false;
                 try
                 {
                     IEnumerable<KeepCallbackResponseParameter> responseParameter = KeepCallbackResponseParameter.CreateValues(values, flag);
                     isParameter = true;
-                    isCallback = callback.Callback(responseParameter, false);//本地调用已重写，无需 VirtualCallback
+                    isCallback = CommandServerKeepCallback.Callback(responseParameter, false);//本地调用已重写，无需 VirtualCallback
                 }
                 catch (Exception exception)
                 {
@@ -165,17 +165,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="state">失败状态</param>
         public void CallbackCancelKeep(CallStateEnum state)
         {
-            if (callback != null)
+            if (CommandServerKeepCallback != null)
             {
                 try
                 {
-                    callback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
+                    CommandServerKeepCallback.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
                 }
                 catch (Exception exception)
                 {
                     AutoCSer.LogHelper.ExceptionIgnoreException(exception);
                 }
-                callback = null;
+                CommandServerKeepCallback = null;
             }
         }
         /// <summary>
@@ -183,17 +183,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         public void CancelKeep()
         {
-            if (callback != null)
+            if (CommandServerKeepCallback != null)
             {
                 try
                 {
-                    callback.CancelKeep();//本地调用已重写，无需 VirtualCallbackCancelKeep
+                    CommandServerKeepCallback.CancelKeep();//本地调用已重写，无需 VirtualCallbackCancelKeep
                 }
                 catch(Exception exception)
                 {
                     AutoCSer.LogHelper.ExceptionIgnoreException(exception);
                 }
-                callback = null;
+                CommandServerKeepCallback = null;
             }
         }
 

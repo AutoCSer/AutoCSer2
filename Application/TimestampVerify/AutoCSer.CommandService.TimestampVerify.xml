@@ -138,6 +138,16 @@
             待验证时间戳</param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.ITimestampVerifySession">
+            <summary>
+            基于递增登录时间戳验证的服务认证会话对象接口
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.ITimestampVerifySession.ServerTimestamp">
+            <summary>
+            服务端分配的时间戳
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.ITimestampVerifyService">
             <summary>
             Service authentication interface based on incremental login timestamp verification (in conjunction with HASH to prevent replay login operations)
@@ -177,16 +187,6 @@
             <param name="timestamp">Timestamp to be verified
             待验证时间戳</param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.ITimestampVerifySession">
-            <summary>
-            基于递增登录时间戳验证的服务认证会话对象接口
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.ITimestampVerifySession.ServerTimestamp">
-            <summary>
-            服务端分配的时间戳
-            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.ITimestampVerifyReverseService`1">
             <summary>

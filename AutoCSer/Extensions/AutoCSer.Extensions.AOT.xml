@@ -3251,6 +3251,13 @@
             <param name="start"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Extensions.Memory.Common.getHashCode64(System.Byte[])">
+            <summary>
+            计算 64 位稳定 HASH 值
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Extensions.Memory.Unmanaged">
             <summary>
             非托管内存
@@ -12959,8 +12966,8 @@
         </member>
         <member name="M:AutoCSer.Threading.AwaitCallBack.GetResult">
             <summary>
-            await support
-            await 支持
+            Only for supporting await
+            仅用于支持 await
             </summary>
             <returns></returns>
         </member>
@@ -13025,8 +13032,8 @@
         </member>
         <member name="M:AutoCSer.Threading.AwaitCallBack`1.GetResult">
             <summary>
-            await support
-            await 支持
+            Only for supporting await
+            仅用于支持 await
             </summary>
             <returns></returns>
         </member>

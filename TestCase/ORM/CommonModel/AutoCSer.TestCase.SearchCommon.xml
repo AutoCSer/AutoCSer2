@@ -1084,6 +1084,38 @@
                        节点标识，已经存在节点则直接返回
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeMethodEnum.CreateUniformProbabilityClientStatisticsNode">
+            <summary>
+            [31] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeMethodEnum.CreateUniformProbabilityTotalStatisticsNode">
+            <summary>
+            [32] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="F:AutoCSer.TestCase.SearchDataSource.ITimeoutMessageServiceNodeMethodEnum.CreateSearchUserMessageNode">
             <summary>
             [256] 创建用户搜索数据更新消息节点 ITimeoutMessageNode{OperationData{int}}
@@ -1821,6 +1853,38 @@
                        节点标识，已经存在节点则直接返回
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateUniformProbabilityClientStatisticsNode">
+            <summary>
+            [31] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateUniformProbabilityTotalStatisticsNode">
+            <summary>
+            [32] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.ISearchUserServiceNodeMethodEnum.CreateSearchUserNode">
             <summary>
             [256] 创建非索引条件查询数据节点 ISearchUserNode
@@ -2353,6 +2417,38 @@
                        服务端节点信息
             AutoCSer.Reflection.RemoteType valueType Archive data type 
                        存档数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeMethodEnum.CreateUniformProbabilityClientStatisticsNode">
+            <summary>
+            [31] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.SearchWordIdentityBlockIndex.IServiceNodeMethodEnum.CreateUniformProbabilityTotalStatisticsNode">
+            <summary>
+            [32] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
                        节点标识，已经存在节点则直接返回
             </summary>

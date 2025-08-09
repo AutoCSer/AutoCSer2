@@ -87,8 +87,8 @@ namespace AutoCSer.CommandService.DiskBlock
             return await this;
         }
         /// <summary>
-        /// await support
-        /// await 支持
+        /// Only for supporting await
+        /// 仅用于支持 await
         /// </summary>
         /// <returns></returns>
         public virtual ReadResult<T> GetResult()

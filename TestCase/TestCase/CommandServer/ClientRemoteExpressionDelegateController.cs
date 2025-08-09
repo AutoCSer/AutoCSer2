@@ -118,7 +118,8 @@ namespace AutoCSer.TestCase
             parameter = AutoCSer.Random.Default.Next();
             if (parameter == int.MaxValue) parameter = 1;
             parameter2 = parameter + 1;
-            CommandClientReturnValue<bool> boolReturnValue = await client.ClientRemoteExpressionDelegateController.Logical(new RemoteExpressionFunc<int, int, bool>((p, p2) => p + 1 == p2 && p <= p2), parameter, parameter2);
+            CommandServerSessionObject nullableValue = new CommandServerSessionObject { NullableValue = parameter };
+            CommandClientReturnValue<bool> boolReturnValue = await client.ClientRemoteExpressionDelegateController.Logical(new RemoteExpressionFunc<int, int, bool>((p, p2) => nullableValue.NullableValue + 1 == p2 && nullableValue.NullableValue <= p2 && p + 1 == p2 && p <= p2), parameter, parameter2);
             if (!boolReturnValue.IsSuccess || !boolReturnValue.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -127,7 +128,8 @@ namespace AutoCSer.TestCase
             parameter = AutoCSer.Random.Default.Next();
             if (parameter == int.MinValue) parameter = 1;
             parameter2 = parameter - 1;
-            boolReturnValue = await client.ClientRemoteExpressionDelegateController.Logical(new RemoteExpressionFunc<int, int, bool>((p, p2) => p == p2 || p > p2), parameter, parameter2);
+            nullableValue.NullableValue = parameter;
+            boolReturnValue = await client.ClientRemoteExpressionDelegateController.Logical(new RemoteExpressionFunc<int, int, bool>((p, p2) => (nullableValue.NullableValue == p2 || nullableValue.NullableValue > p2)  && (p == p2 || p > p2)), parameter, parameter2);
             if (!boolReturnValue.IsSuccess || !boolReturnValue.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -233,7 +235,7 @@ namespace AutoCSer.TestCase
             parameter = AutoCSer.Random.Default.Next();
             if (parameter == int.MaxValue) parameter = 1;
             parameter2 = parameter + 1;
-            boolReturnValue = await client.ClientRemoteExpressionDelegateController.LambdaLogical(new RemoteLambdaExpression<Func<int, int, bool>>((p, p2) => p + 1 == p2 && p <= p2), parameter, parameter2);
+            boolReturnValue = await client.ClientRemoteExpressionDelegateController.LambdaLogical(new RemoteLambdaExpression<Func<int, int, bool>>((p, p2) => nullableValue.NullableValue != null && p + 1 == p2 && p <= p2), parameter, parameter2);
             if (!boolReturnValue.IsSuccess || !boolReturnValue.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -242,7 +244,7 @@ namespace AutoCSer.TestCase
             parameter = AutoCSer.Random.Default.Next();
             if (parameter == int.MinValue) parameter = 1;
             parameter2 = parameter - 1;
-            boolReturnValue = await client.ClientRemoteExpressionDelegateController.LambdaLogical(new RemoteLambdaExpression<Func<int, int, bool>>((p, p2) => p == p2 || p > p2), parameter, parameter2);
+            boolReturnValue = await client.ClientRemoteExpressionDelegateController.LambdaLogical(new RemoteLambdaExpression<Func<int, int, bool>>((p, p2) => nullableValue.NullableValue == null || p == p2 || p > p2), parameter, parameter2);
             if (!boolReturnValue.IsSuccess || !boolReturnValue.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

@@ -323,7 +323,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         UnknownPersistenceType,
 
-
+        /// <summary>
+        /// The client initialization loading has not been completed
+        /// 客户端初始化加载未完成
+        /// </summary>
+        ClientLoadUnfinished,
 
         /// <summary>
         /// Callback already (available for counting)

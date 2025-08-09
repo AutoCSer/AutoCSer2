@@ -148,5 +148,22 @@ namespace AutoCSer.Extensions.Memory
             //return ((ulong)start[0] << 56) + ((ulong)start[1] << 48) + ((ulong)start[2] << 40) + ((ulong)start[3] << 32)
             //    + ((ulong)start[4] << 24) + ((ulong)start[5] << 16) + ((ulong)start[6] << 8) + (ulong)start[7];
         }
+        /// <summary>
+        /// 计算 64 位稳定 HASH 值
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        internal static ulong getHashCode64(this byte[] data)
+        {
+            if (data != null)
+            {
+                if (data.Length != 0)
+                {
+                    fixed (byte* dataFixed = data) return AutoCSer.Memory.Common.GetHashCode64(dataFixed, data.Length);
+                }
+                return 0;
+            }
+            return ulong.MaxValue;
+        }
     }
 }

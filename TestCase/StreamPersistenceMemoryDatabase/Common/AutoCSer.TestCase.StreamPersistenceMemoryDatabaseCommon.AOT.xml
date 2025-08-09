@@ -2823,6 +2823,55 @@
             二进制序列化代码生成调用激活 AOT 反射
             </summary>
         </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__)">
+            <summary>
+            Binary serialization
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            Binary serialization
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__@)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__.BinarySerializeMemberTypes">
+            <summary>
+            Get the binary serialization type information
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip6__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip256__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.__ip256__)">
             <summary>
             Binary serialization
@@ -3149,6 +3198,38 @@
                        服务端节点信息</param>
             <param name="size">Bitmap size (number of bits) 
                        位图大小（位数量）</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IServiceNodeLocalClientNode#CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CustomServiceNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IServiceNodeLocalClientNode#CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
             <returns>Node identifier, there have been a node is returned directly 
                        节点标识，已经存在节点则直接返回</returns>
         </member>
@@ -10258,6 +10339,38 @@
                        节点标识，已经存在节点则直接返回
             </summary>
         </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateUniformProbabilityClientStatisticsNode">
+            <summary>
+            [6] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateUniformProbabilityTotalStatisticsNode">
+            <summary>
+            [7] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateCallbackNode">
             <summary>
             [256] 创建回调测试节点 ICallbackNode
@@ -10587,6 +10700,18 @@
             <summary>
             Creat a multi-hash bitmap filter node IManyHashBitMapFilterNode 
                        创建多哈希位图过滤节点 IManyHashBitMapFilterNode server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode_CreateUniformProbabilityClientStatisticsNode_6">
+            <summary>
+            Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode_CreateUniformProbabilityTotalStatisticsNode_7">
+            <summary>
+            Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode server node method
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode_CreateCallbackNode_256">
@@ -13855,19 +13980,19 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.AotMethod">
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AotMethod">
             <summary>
             触发 AOT 编译
             </summary>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.AotMethod.Call">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AotMethod.Call">
             <summary>
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.AotMethod.binaryDeserializeMemberTypes">
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AotMethod.binaryDeserializeMemberTypes">
             <summary>
             Binary deserialization member type activation reflection
             二进制反序列化成员类型激活反射

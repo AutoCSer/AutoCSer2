@@ -38,7 +38,7 @@ namespace AutoCSer.Extensions
 #if DEBUG
             if (head == null) throw new ArgumentNullException("head is null");
 #endif
-            var callback = methodCallback.callback;
+            var callback = methodCallback.CommandServerKeepCallback;
             if (callback != null && callback.IsCancelKeep == 0)
             {
                 bool isPush = false;

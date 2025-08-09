@@ -469,8 +469,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.CompletedReadAwaiter`1.GetResult">
             <summary>
-            await support
-            await 支持
+            Only for supporting await
+            仅用于支持 await
             </summary>
             <returns></returns>
         </member>
@@ -1216,124 +1216,6 @@
             默认空磁盘块
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter">
-            <summary>
-            读取数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
-            <summary>
-            读取字符串
-            </summary>
-            <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">Disk block index information
-            磁盘块索引信息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1">
-            <summary>
-            读取数据 await ReadResult{T}
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.command">
-            <summary>
-            读取数据命令
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.continuation">
-            <summary>
-            Asynchronous callback
-            异步回调
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.result">
-            <summary>
-            读取数据
-            </summary>
-        </member>
-        <member name="P:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.IsCompleted">
-            <summary>
-            Completed status
-            完成状态
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.#ctor">
-            <summary>
-            读取数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
-            <summary>
-            读取数据
-            </summary>
-            <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">Disk block index information
-            磁盘块索引信息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.Wait">
-            <summary>
-            await support
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetResult">
-            <summary>
-            await support
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetAwaiter">
-            <summary>
-            await support
-            await 支持
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
-            <summary>
-            Set asynchronous callback
-            设置异步回调
-            </summary>
-            <param name="continuation"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.onCompleted">
-            <summary>
-            设置错误结果并尝试回调操作
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.setCompleted">
-            <summary>
-            设置完成状态
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1">
-            <summary>
-            读取二进制序列化对象
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
-            <summary>
-            读取二进制序列化对象
-            </summary>
-            <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">Disk block index information
-            磁盘块索引信息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadBinaryCallback`1">
             <summary>
             读取二进制序列化对象回调
@@ -1415,17 +1297,6 @@
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DiskBlock#ReadBuffer}#Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer">
-            <summary>
-            读取数据缓冲区反序列化
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             反序列化
             </summary>
@@ -1532,26 +1403,6 @@
             </summary>
             <param name="buffer"></param>
             <returns></returns>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1">
-            <summary>
-            读取 JSON 对象
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
-            <summary>
-            读取 JSON 对象
-            </summary>
-            <param name="client">磁盘块客户端接口</param>
-            <param name="blockIndex">Disk block index information
-            磁盘块索引信息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
         </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadJsonCallback`1">
             <summary>
@@ -1705,6 +1556,172 @@
             </summary>
             <param name="state"></param>
         </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadStringCallback">
+            <summary>
+            读取字符串回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringCallback.#ctor(System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{System.String}})">
+            <summary>
+            读取字符串回调
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringCallback.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter">
+            <summary>
+            读取数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取字符串
+            </summary>
+            <param name="client">磁盘块客户端接口</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1">
+            <summary>
+            读取数据 await ReadResult{T}
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.command">
+            <summary>
+            读取数据命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.continuation">
+            <summary>
+            Asynchronous callback
+            异步回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.result">
+            <summary>
+            读取数据
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.IsCompleted">
+            <summary>
+            Completed status
+            完成状态
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.#ctor">
+            <summary>
+            读取数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取数据
+            </summary>
+            <param name="client">磁盘块客户端接口</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.Wait">
+            <summary>
+            await support
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetResult">
+            <summary>
+            Only for supporting await
+            仅用于支持 await
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.GetAwaiter">
+            <summary>
+            await support
+            await 支持
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
+            <summary>
+            Set asynchronous callback
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.onCompleted">
+            <summary>
+            设置错误结果并尝试回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadAwaiter`1.setCompleted">
+            <summary>
+            设置完成状态
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1">
+            <summary>
+            读取二进制序列化对象
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取二进制序列化对象
+            </summary>
+            <param name="client">磁盘块客户端接口</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBinaryAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer">
+            <summary>
+            读取数据缓冲区反序列化
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadBufferDeserializer.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1">
+            <summary>
+            读取 JSON 对象
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1.#ctor(AutoCSer.CommandService.IDiskBlockClient,AutoCSer.CommandService.DiskBlock.BlockIndex)">
+            <summary>
+            读取 JSON 对象
+            </summary>
+            <param name="client">磁盘块客户端接口</param>
+            <param name="blockIndex">Disk block index information
+            磁盘块索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.ReadJsonAwaiter`1.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.ReadStringAwaiter">
             <summary>
             读取字符串
@@ -1719,23 +1736,6 @@
             磁盘块索引信息</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringAwaiter.Deserialize(AutoCSer.BinaryDeserializer)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="deserializer"></param>
-        </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.ReadStringCallback">
-            <summary>
-            读取字符串回调
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringCallback.#ctor(System.Action{AutoCSer.CommandService.DiskBlock.ReadResult{System.String}})">
-            <summary>
-            读取字符串回调
-            </summary>
-            <param name="callback"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.ReadStringCallback.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             反序列化
             </summary>
@@ -1835,29 +1835,6 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <typeparam name="T">Data type</typeparam>
-        </member>
-        <member name="F:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.value">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.#ctor(`0)">
-            <summary>
-            内部成员对象序列化为一个可独立反序列化的数据
-            </summary>
-            <param name="value">data</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.Serialize(AutoCSer.BinarySerializer)">
-            <summary>
-            序列化，仅支持 struct 并且不能是自定义序列化类型
-            </summary>
-            <param name="serializer"></param>
-        </member>
         <member name="T:AutoCSer.CommandService.DiskBlock.WriteBufferSerializer">
             <summary>
             写入数据缓冲区内部成员对象序列化为一个可独立反序列化的数据
@@ -1887,6 +1864,29 @@
             <param name="value">data</param>
         </member>
         <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSerializer`1.Serialize(AutoCSer.BinarySerializer)">
+            <summary>
+            序列化，仅支持 struct 并且不能是自定义序列化类型
+            </summary>
+            <param name="serializer"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1">
+            <summary>
+            内部成员对象序列化为一个可独立反序列化的数据
+            </summary>
+            <typeparam name="T">Data type</typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.value">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.#ctor(`0)">
+            <summary>
+            内部成员对象序列化为一个可独立反序列化的数据
+            </summary>
+            <param name="value">data</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DiskBlock.WriteBufferSimpleSerializer`1.Serialize(AutoCSer.BinarySerializer)">
             <summary>
             序列化，仅支持 struct 并且不能是自定义序列化类型
             </summary>

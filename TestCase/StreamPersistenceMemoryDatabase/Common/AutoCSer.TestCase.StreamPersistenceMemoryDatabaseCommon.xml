@@ -52,7 +52,7 @@
         <!-- Badly formed XML comment ignored for member "T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNode" -->
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeClientNode">
             <summary>
-             客户端节点接口
+             client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeClientNode.AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
@@ -87,7 +87,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeLocalClientNode">
             <summary>
-             本地客户端节点接口
+             local client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeLocalClientNode.AddMonster(AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.Monster)">
@@ -122,7 +122,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeMethodEnum">
             <summary>
-             节点方法序号映射枚举类型
+             (Node method sequence number mapping enumeration type)
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game.IGameNodeMethodEnum.AddMonster">
@@ -168,7 +168,7 @@
             客户端节点接口扩展，用于服务端动态绑定新接口方法测试
             </summary>
             <summary>
-            回调测试节点 客户端节点接口
+            回调测试节点 client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeClientNode.CallCustomPersistence(System.Int32)">
@@ -325,7 +325,8 @@
             自定义基础服务节点接口
             </summary>
             <summary>
-            服务基础操作自定义扩展接口（用于添加自定义节点创建接口）
+            Customize the basic service node interface 
+                       自定义基础服务节点接口
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNode.CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -368,7 +369,8 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeClientNode">
             <summary>
-            服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 客户端节点接口
+            Customize the basic service node interface 
+                       自定义基础服务节点接口 client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeClientNode.CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -399,7 +401,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode">
             <summary>
-            回调测试节点 本地客户端节点接口
+            回调测试节点 local client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeLocalClientNode.CallCustomPersistence(System.Int32)">
@@ -552,7 +554,8 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode">
             <summary>
-            服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 本地客户端节点接口
+            Customize the basic service node interface 
+                       自定义基础服务节点接口 local client node interface
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeLocalClientNode.CreateCallbackNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo)">
@@ -583,7 +586,7 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeMethodEnum">
             <summary>
-            回调测试节点 节点方法序号映射枚举类型
+            回调测试节点 (Node method sequence number mapping enumeration type)
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNodeMethodEnum.CallCustomPersistence">
@@ -815,7 +818,8 @@
         </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum">
             <summary>
-            服务基础操作自定义扩展接口（用于添加自定义节点创建接口） 节点方法序号映射枚举类型
+            Customize the basic service node interface 
+                       自定义基础服务节点接口 (Node method sequence number mapping enumeration type)
             </summary>
         </member>
         <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateArrayNode">
@@ -1332,6 +1336,38 @@
                        服务端节点信息
             AutoCSer.Reflection.RemoteType valueType Archive data type 
                        存档数据类型
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateUniformProbabilityClientStatisticsNode">
+            <summary>
+            [31] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICustomServiceNodeMethodEnum.CreateUniformProbabilityTotalStatisticsNode">
+            <summary>
+            [32] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
             返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
                        节点标识，已经存在节点则直接返回
             </summary>

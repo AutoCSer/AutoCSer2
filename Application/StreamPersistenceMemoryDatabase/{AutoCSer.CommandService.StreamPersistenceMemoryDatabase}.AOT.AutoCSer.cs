@@ -1988,6 +1988,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <returns>Node identifier, there have been a node is returned directly 
 ///            节点标识，已经存在节点则直接返回</returns>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateManyHashBitMapFilterNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, int size);
+            /// <summary>
+            /// Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+///            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte indexBits);
+            /// <summary>
+            /// Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+///            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte indexBits);
         }
         /// <summary>
         /// Service basic operation interface 
@@ -2423,6 +2453,97 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip4__>();
             }
             }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip6__
+            {
+                internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
+                internal string key;
+                internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
+                internal byte indexBits;
+                
+            /// <summary>
+            /// Binary serialization
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__ value)
+            {
+                if (serializer.WriteMemberCountVerify(8, 1073741828)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// Binary serialization
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(indexBits);
+                __serializer__.FixedFillSize(3);
+                __serializer__.Simple(index);
+                __serializer__.BinarySerialize(key);
+                __serializer__.Json(nodeInfo);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.indexBits);
+                __deserializer__.FixedFillSize(3);
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.index);
+                __deserializer__.BinaryDeserialize(ref this.key);
+                __deserializer__.Json(ref this.nodeInfo);
+            }
+            /// <summary>
+            /// Get the binary serialization type information
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 4, 1073741828);
+                typeInfo.Add(typeof(byte));
+                typeInfo.Add(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex));
+                typeInfo.Add(typeof(string));
+                typeInfo.Add(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__>();
+            }
+            }
             /// <summary>
             /// Create a bitmap node IBitmapNode 
 ///            创建位图节点 IBitmapNode
@@ -2574,6 +2695,62 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
 
             /// <summary>
+            /// Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+///            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> IServiceNodeLocalClientNode/**/.CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte indexBits)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip6__>(this, 6
+                    , new __ip6__
+                    {
+                        index = index,
+                        key = key,
+                        nodeInfo = nodeInfo,
+                        indexBits = indexBits,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+///            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> IServiceNodeLocalClientNode/**/.CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte indexBits)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip6__>(this, 7
+                    , new __ip6__
+                    {
+                        index = index,
+                        key = key,
+                        nodeInfo = nodeInfo,
+                        indexBits = indexBits,
+                    }
+                    );
+            }
+
+            /// <summary>
             /// AOT code generation call activation reflection
             /// AOT 代码生成调用激活反射
             /// </summary>
@@ -2583,6 +2760,491 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicFields(typeof(IServiceNodeMethodEnum));
                 AutoCSer.AotReflection.NonPublicMethods(typeof(ServiceNodeLocalClient));
                 AutoCSer.AotReflection.Interfaces(typeof(ServiceNodeLocalClient));
+            }
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+///            基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） local client node interface
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode), typeof(UniformProbabilityClientStatisticsNodeLocalClient))]
+        public partial interface IUniformProbabilityClientStatisticsNodeLocalClientNode
+        {
+            /// <summary>
+            /// Get the array of binary bits 
+///            获取二进制位数量的数组
+            /// </summary>
+            /// <returns></returns>
+            void GetBitArray(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte[]>> __callback__);
+            /// <summary>
+            /// Get the newly set data 
+///            获取新设置的数据
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetIndexBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __callback__);
+            /// <summary>
+            /// Try to modify the number of binary bits at the specified index position 
+///            尝试修改指定索引位置的二进制位数量
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="bits">The number of the last consecutive binary bits 1 
+///            最后连续的二进制位 1 的数量</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> SetIndexBit(int index, byte bits);
+        }
+        /// <summary>
+        /// Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+///            基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） local client node
+        /// </summary>
+        internal unsafe partial class UniformProbabilityClientStatisticsNodeLocalClient : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode<IUniformProbabilityClientStatisticsNodeLocalClientNode>, IUniformProbabilityClientStatisticsNodeLocalClientNode
+        {
+            /// <summary>
+            /// Local client node
+            /// 本地客户端节点
+            /// </summary>
+            /// <param name="key">Node global keyword
+            /// 节点全局关键字</param>
+            /// <param name="creator">A delegate to create a node operation object
+            /// 创建节点操作对象委托</param>
+            /// <param name="client">Log stream persistence in-memory database local client
+            /// 日志流持久化内存数据库本地客户端</param>
+            /// <param name="index">Node index information
+            /// 节点索引信息</param>
+            /// <param name="isPersistenceCallbackExceptionRenewNode">Persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the exception is repair and restart the server, If this parameter is set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+            /// 服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+            private UniformProbabilityClientStatisticsNodeLocalClient(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+                : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
+            internal static IUniformProbabilityClientStatisticsNodeLocalClientNode LocalClientNodeConstructor(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+            {
+                return new UniformProbabilityClientStatisticsNodeLocalClient(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip2__
+            {
+                internal int index;
+                internal byte bits;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(8))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.index);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.bits);
+                    __stream__.TryMoveSize(3);
+                }
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.index);
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.bits);
+                __start__ += 3;
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip4__
+            {
+                internal byte[] bitCountArray;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.bitCountArray);
+                }
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.bitCountArray, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__));
+            }
+            }
+            /// <summary>
+            /// Get the array of binary bits 
+///            获取二进制位数量的数组
+            /// </summary>
+            /// <returns></returns>
+            void IUniformProbabilityClientStatisticsNodeLocalClientNode/**/.GetBitArray(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte[]>> __callback__)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode<byte[]>/**/.Create(this, 0
+                    , __callback__
+                    , false
+                    );
+            }
+
+            /// <summary>
+            /// Get the newly set data 
+///            获取新设置的数据
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> IUniformProbabilityClientStatisticsNodeLocalClientNode/**/.GetIndexBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __callback__)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNode<int>/**/.Create(this, 1
+                    , __callback__
+                    , false
+                    );
+            }
+
+            /// <summary>
+            /// Try to modify the number of binary bits at the specified index position 
+///            尝试修改指定索引位置的二进制位数量
+            /// </summary>
+            /// <param name="index">Index position 
+///            索引位置</param>
+            /// <param name="bits">The number of the last consecutive binary bits 1 
+///            最后连续的二进制位 1 的数量</param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> IUniformProbabilityClientStatisticsNodeLocalClientNode/**/.SetIndexBit(int index, byte bits)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode/**/.Create(this, 2
+                    , new __ip2__
+                    {
+                        index = index,
+                        bits = bits,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal static void LocalClientNode()
+            {
+                LocalClientNodeConstructor(null, null, null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex), false);
+                AutoCSer.AotReflection.NonPublicFields(typeof(IUniformProbabilityClientStatisticsNodeMethodEnum));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(UniformProbabilityClientStatisticsNodeLocalClient));
+                AutoCSer.AotReflection.Interfaces(typeof(UniformProbabilityClientStatisticsNodeLocalClient));
+            }
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+///            基于均匀概率的总量统计节点接口（类似 HyperLogLog） local client node interface
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNode(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode), typeof(UniformProbabilityTotalStatisticsNodeLocalClient))]
+        public partial interface IUniformProbabilityTotalStatisticsNodeLocalClientNode
+        {
+            /// <summary>
+            /// Add statistical data 
+///            添加统计数据
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> Append(ulong value);
+            /// <summary>
+            /// Get the statistical quantity 
+///            获取统计数量
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<double>> Count();
+            /// <summary>
+            /// Get the number of index binary bits 
+///            获取索引二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte>> GetIndexBits();
+        }
+        /// <summary>
+        /// Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+///            基于均匀概率的总量统计节点接口（类似 HyperLogLog） local client node
+        /// </summary>
+        internal unsafe partial class UniformProbabilityTotalStatisticsNodeLocalClient : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode<IUniformProbabilityTotalStatisticsNodeLocalClientNode>, IUniformProbabilityTotalStatisticsNodeLocalClientNode
+        {
+            /// <summary>
+            /// Local client node
+            /// 本地客户端节点
+            /// </summary>
+            /// <param name="key">Node global keyword
+            /// 节点全局关键字</param>
+            /// <param name="creator">A delegate to create a node operation object
+            /// 创建节点操作对象委托</param>
+            /// <param name="client">Log stream persistence in-memory database local client
+            /// 日志流持久化内存数据库本地客户端</param>
+            /// <param name="index">Node index information
+            /// 节点索引信息</param>
+            /// <param name="isPersistenceCallbackExceptionRenewNode">Persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the exception is repair and restart the server, If this parameter is set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+            /// 服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+            private UniformProbabilityTotalStatisticsNodeLocalClient(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+                : base(key, creator, client, index, isPersistenceCallbackExceptionRenewNode) { }
+            internal static IUniformProbabilityTotalStatisticsNodeLocalClientNode LocalClientNodeConstructor(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
+            {
+                return new UniformProbabilityTotalStatisticsNodeLocalClient(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip0__
+            {
+                internal ulong value;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(8))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.value);
+                }
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.value);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip3__
+            {
+                internal byte[] bitCountArray;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.bitCountArray);
+                }
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.bitCountArray, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__));
+            }
+            }
+            /// <summary>
+            /// Add statistical data 
+///            添加统计数据
+            /// </summary>
+            /// <param name="value"></param>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> IUniformProbabilityTotalStatisticsNodeLocalClientNode/**/.Append(ulong value)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode/**/.Create(this, 0
+                    , new __ip0__
+                    {
+                        value = value,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// Get the statistical quantity 
+///            获取统计数量
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<double>> IUniformProbabilityTotalStatisticsNodeLocalClientNode/**/.Count()
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallOutputNode<double>/**/.Create(this, 1
+                    , true
+                    );
+            }
+
+            /// <summary>
+            /// Get the number of index binary bits 
+///            获取索引二进制位数量
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte>> IUniformProbabilityTotalStatisticsNodeLocalClientNode/**/.GetIndexBits()
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallOutputNode<byte>/**/.Create(this, 2
+                    , true
+                    );
+            }
+
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal static void LocalClientNode()
+            {
+                LocalClientNodeConstructor(null, null, null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex), false);
+                AutoCSer.AotReflection.NonPublicFields(typeof(IUniformProbabilityTotalStatisticsNodeMethodEnum));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(UniformProbabilityTotalStatisticsNodeLocalClient));
+                AutoCSer.AotReflection.Interfaces(typeof(UniformProbabilityTotalStatisticsNodeLocalClient));
             }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -3417,6 +4079,36 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 ///            节点标识，已经存在节点则直接返回
             /// </summary>
             CreateManyHashBitMapFilterNode = 5,
+            /// <summary>
+            /// [6] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+///            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+///            节点索引信息
+            /// string key Node global keyword 
+///            节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+///            服务端节点信息
+            /// byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            /// Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateUniformProbabilityClientStatisticsNode = 6,
+            /// <summary>
+            /// [7] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+///            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+///            节点索引信息
+            /// string key Node global keyword 
+///            节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+///            服务端节点信息
+            /// byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            /// Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateUniformProbabilityTotalStatisticsNode = 7,
         }
         /// <summary>
         /// Create a bitmap node IBitmapNode 
@@ -3497,6 +4189,32 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+///            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode server node method
+        /// </summary>
+        internal sealed class IServiceNode_CreateUniformProbabilityClientStatisticsNode_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__>
+        {
+            internal IServiceNode_CreateUniformProbabilityClientStatisticsNode_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)3) { }
+            public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.Callback(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IServiceNode>(methodParameter).CreateUniformProbabilityClientStatisticsNode(parameter.index, parameter.key, parameter.nodeInfo, parameter.indexBits));
+            }
+        }
+        /// <summary>
+        /// Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+///            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode server node method
+        /// </summary>
+        internal sealed class IServiceNode_CreateUniformProbabilityTotalStatisticsNode_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__>
+        {
+            internal IServiceNode_CreateUniformProbabilityTotalStatisticsNode_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)3) { }
+            public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.Callback(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IServiceNode>(methodParameter).CreateUniformProbabilityTotalStatisticsNode(parameter.index, parameter.key, parameter.nodeInfo, parameter.indexBits));
+            }
+        }
+        /// <summary>
         /// Service basic operation interface 
 ///            服务基础操作接口 (Create the calling method and parameter information)
         /// </summary>
@@ -3517,8 +4235,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         new IServiceNode_RemoveNodeByKey_3(),
                         new IServiceNode_CreateManyHashBitMapClientFilterNode_4(),
                         new IServiceNode_CreateManyHashBitMapFilterNode_5(),
+                        new IServiceNode_CreateUniformProbabilityClientStatisticsNode_6(),
+                        new IServiceNode_CreateUniformProbabilityTotalStatisticsNode_7(),
                     }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
                     {
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
@@ -3533,6 +4255,296 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 GetServerNodeCreatorMethod();
                 AutoCSer.AotReflection.NonPublicMethods(typeof(ServiceNodeMethodParameterCreator));
+            }
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+///            基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器）
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IUniformProbabilityClientStatisticsNodeMethodEnum), typeof(UniformProbabilityClientStatisticsNodeMethodParameterCreator))]
+        public partial interface IUniformProbabilityClientStatisticsNode { }
+        /// <summary>
+        /// Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+///            基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） (node method sequence number mapping enumeration type)
+        /// </summary>
+        public enum IUniformProbabilityClientStatisticsNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] Get the array of binary bits 
+///            获取二进制位数量的数组
+            /// </summary>
+            GetBitArray = 0,
+            /// <summary>
+            /// [1] Get the newly set data 
+///            获取新设置的数据
+            /// </summary>
+            GetIndexBit = 1,
+            /// <summary>
+            /// [2] Try to modify the number of binary bits at the specified index position 
+///            尝试修改指定索引位置的二进制位数量
+            /// int index Index position 
+///            索引位置
+            /// byte bits The number of the last consecutive binary bits 1 
+///            最后连续的二进制位 1 的数量
+            /// </summary>
+            SetIndexBit = 2,
+            /// <summary>
+            /// [3] Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data) 
+///            尝试修改指定索引位置的二进制位数量（初始化加载持久化数据）
+            /// int index Index position 
+///            索引位置
+            /// byte bits The number of the last consecutive binary bits 1 
+///            最后连续的二进制位 1 的数量
+            /// </summary>
+            SetIndexBitLoadPersistence = 3,
+            /// <summary>
+            /// [4] Add snapshot data 
+///            添加快照数据
+            /// byte[] bitCountArray 
+            /// </summary>
+            SnapshotSet = 4,
+        }
+        /// <summary>
+        /// Get the array of binary bits 
+///            获取二进制位数量的数组 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityClientStatisticsNode_GetBitArray_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
+        {
+            internal IUniformProbabilityClientStatisticsNode_GetBitArray_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)7, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
+            public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>)node).GetBitArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<byte[]>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134));
+            }
+        }
+        /// <summary>
+        /// Get the newly set data 
+///            获取新设置的数据 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityClientStatisticsNode_GetIndexBit_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod
+        {
+            internal IUniformProbabilityClientStatisticsNode_GetIndexBit_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
+            public override void KeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> callback)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>)node).GetIndexBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134));
+            }
+        }
+        /// <summary>
+        /// Try to modify the number of binary bits at the specified index position 
+///            尝试修改指定索引位置的二进制位数量 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityClientStatisticsNode_SetIndexBit_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__>
+        {
+            internal IUniformProbabilityClientStatisticsNode_SetIndexBit_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)11) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IUniformProbabilityClientStatisticsNode>(methodParameter).SetIndexBit(parameter.index, parameter.bits);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }
+        /// <summary>
+        /// Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data) 
+///            尝试修改指定索引位置的二进制位数量（初始化加载持久化数据） server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityClientStatisticsNode_SetIndexBitLoadPersistence_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__>
+        {
+            internal IUniformProbabilityClientStatisticsNode_SetIndexBitLoadPersistence_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)8) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IUniformProbabilityClientStatisticsNode>(methodParameter).SetIndexBitLoadPersistence(parameter.index, parameter.bits);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }
+        /// <summary>
+        /// Add snapshot data 
+///            添加快照数据 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityClientStatisticsNode_SnapshotSet_4 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__>
+        {
+            internal IUniformProbabilityClientStatisticsNode_SnapshotSet_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)9) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IUniformProbabilityClientStatisticsNode>(methodParameter).SnapshotSet(parameter.bitCountArray);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }
+        /// <summary>
+        /// Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+///            基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） (Create the calling method and parameter information)
+        /// </summary>
+        internal sealed partial class UniformProbabilityClientStatisticsNodeMethodParameterCreator
+        {
+            private static void SnapshotSet_SnapshotSerialize(AutoCSer.BinarySerializer serializer, byte[] value)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ snapshotMethodParameter = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ { bitCountArray = value };
+                serializer.SimpleSerialize(ref snapshotMethodParameter);
+            }
+            /// <summary>
+            /// Get the method information of generate server-side node
+            /// 获取生成服务端节点方法信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod GetServerNodeCreatorMethod()
+            {
+                return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[]
+                    {
+                        new IUniformProbabilityClientStatisticsNode_GetBitArray_0(),
+                        new IUniformProbabilityClientStatisticsNode_GetIndexBit_1(),
+                        new IUniformProbabilityClientStatisticsNode_SetIndexBit_2(),
+                        new IUniformProbabilityClientStatisticsNode_SetIndexBitLoadPersistence_3(),
+                        new IUniformProbabilityClientStatisticsNode_SnapshotSet_4(),
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
+                    {
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(3),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo[]
+                    {
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo(4, typeof(byte[]), SnapshotSet_SnapshotSerialize),
+                    });
+            }
+            internal static void MethodParameterCreator()
+            {
+                GetServerNodeCreatorMethod();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(UniformProbabilityClientStatisticsNodeMethodParameterCreator));
+            }
+        }
+}namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
+{
+        /// <summary>
+        /// Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+///            基于均匀概率的总量统计节点接口（类似 HyperLogLog）
+        /// </summary>
+        [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeType(typeof(IUniformProbabilityTotalStatisticsNodeMethodEnum), typeof(UniformProbabilityTotalStatisticsNodeMethodParameterCreator))]
+        public partial interface IUniformProbabilityTotalStatisticsNode { }
+        /// <summary>
+        /// Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+///            基于均匀概率的总量统计节点接口（类似 HyperLogLog） (node method sequence number mapping enumeration type)
+        /// </summary>
+        public enum IUniformProbabilityTotalStatisticsNodeMethodEnum
+        {
+            /// <summary>
+            /// [0] Add statistical data 
+///            添加统计数据
+            /// ulong value 
+            /// </summary>
+            Append = 0,
+            /// <summary>
+            /// [1] Get the statistical quantity 
+///            获取统计数量
+            /// Return value : double 
+            /// </summary>
+            Count = 1,
+            /// <summary>
+            /// [2] Get the number of index binary bits 
+///            获取索引二进制位数量
+            /// Return value : byte 
+            /// </summary>
+            GetIndexBits = 2,
+            /// <summary>
+            /// [3] Add snapshot data 
+///            添加快照数据
+            /// byte[] bitCountArray 
+            /// </summary>
+            SnapshotSet = 3,
+        }
+        /// <summary>
+        /// Add statistical data 
+///            添加统计数据 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityTotalStatisticsNode_Append_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__>
+        {
+            internal IUniformProbabilityTotalStatisticsNode_Append_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)11) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IUniformProbabilityTotalStatisticsNode>(methodParameter).Append(parameter.value);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }
+        /// <summary>
+        /// Get the statistical quantity 
+///            获取统计数量 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityTotalStatisticsNode_Count_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
+        {
+            internal IUniformProbabilityTotalStatisticsNode_Count_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)6) { }
+            public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityTotalStatisticsNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityTotalStatisticsNode>)node).Count(), ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)6);
+            }
+        }
+        /// <summary>
+        /// Get the number of index binary bits 
+///            获取索引二进制位数量 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityTotalStatisticsNode_GetIndexBits_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
+        {
+            internal IUniformProbabilityTotalStatisticsNode_GetIndexBits_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)6) { }
+            public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityTotalStatisticsNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityTotalStatisticsNode>)node).GetIndexBits(), ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)6);
+            }
+        }
+        /// <summary>
+        /// Add snapshot data 
+///            添加快照数据 server node method
+        /// </summary>
+        internal sealed class IUniformProbabilityTotalStatisticsNode_SnapshotSet_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__>
+        {
+            internal IUniformProbabilityTotalStatisticsNode_SnapshotSet_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)9) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IUniformProbabilityTotalStatisticsNode>(methodParameter).SnapshotSet(parameter.bitCountArray);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
+            }
+        }
+        /// <summary>
+        /// Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+///            基于均匀概率的总量统计节点接口（类似 HyperLogLog） (Create the calling method and parameter information)
+        /// </summary>
+        internal sealed partial class UniformProbabilityTotalStatisticsNodeMethodParameterCreator
+        {
+            private static void SnapshotSet_SnapshotSerialize(AutoCSer.BinarySerializer serializer, byte[] value)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__ snapshotMethodParameter = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__ { bitCountArray = value };
+                serializer.SimpleSerialize(ref snapshotMethodParameter);
+            }
+            /// <summary>
+            /// Get the method information of generate server-side node
+            /// 获取生成服务端节点方法信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod GetServerNodeCreatorMethod()
+            {
+                return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[]
+                    {
+                        new IUniformProbabilityTotalStatisticsNode_Append_0(),
+                        new IUniformProbabilityTotalStatisticsNode_Count_1(),
+                        new IUniformProbabilityTotalStatisticsNode_GetIndexBits_2(),
+                        new IUniformProbabilityTotalStatisticsNode_SnapshotSet_3(),
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
+                    {
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                    }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo[]
+                    {
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo(3, typeof(byte[]), SnapshotSet_SnapshotSerialize),
+                    });
+            }
+            internal static void MethodParameterCreator()
+            {
+                GetServerNodeCreatorMethod();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(UniformProbabilityTotalStatisticsNodeMethodParameterCreator));
             }
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -3792,12 +4804,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip2__.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip3__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip4__.BinarySerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.LocalClientNode();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.SimpleSerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleSerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.LocalClientNode();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__.SimpleSerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__.SimpleSerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.LocalClientNode();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodParameterCreator.MethodParameterCreator();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeMethodParameterCreator.MethodParameterCreator();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeMethodParameterCreator.MethodParameterCreator();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityFragment/**/.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MessageIdeneity/**/.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex/**/.SimpleSerialize();
@@ -3825,6 +4846,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<uint[]>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<uint>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<byte>));
                     binaryDeserializeMemberTypes();
 
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.Json.TypeSerializer<AutoCSer.Reflection.RemoteType>));

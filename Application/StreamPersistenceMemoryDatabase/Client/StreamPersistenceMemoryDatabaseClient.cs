@@ -1612,6 +1612,40 @@ namespace AutoCSer.CommandService
             return GetOrCreateNode<IManyHashBitMapFilterNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateManyHashBitMapFilterNode(index, nodeKey, nodeInfo, size), isPersistenceCallbackExceptionRenewNode);
         }
         /// <summary>
+        /// Get the total statistical nodes of client synchronization based on uniform probability (similar to HyperLogLog, suitable for small containers). If the server does not exist, create node UniformProbabilityClientStatisticsNode
+        /// 获取基于均匀概率的客户端同步总量统计节点（类似 HyperLogLog，适合小容器），服务端不存在则创建节点 UniformProbabilityClientStatisticsNode
+        /// </summary>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum value of 8, a maximum value of 20, and a default value of 12 to match data at the millions level. Different data magnitudes should call the AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetDefaultIndexBits(int) method to obtain the number of matching bits.
+        /// 索引二进制位数量，必须为偶数，最小值为 8，最大值为 20，默认值为 12 匹配百万级别数据。不同的数据量级应该调用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetDefaultIndexBits(int) 方法获取匹配的位数量。</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">Default to false said persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the anomalies have been restored and restart the server; If set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+        /// 默认为 false 表示服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端；设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <returns>Client node
+        /// 客户端节点</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IUniformProbabilityClientStatisticsNodeClientNode>> GetOrCreateUniformProbabilityClientStatisticsNode(string key, byte indexBits = 12, bool isPersistenceCallbackExceptionRenewNode = false)
+        {
+            return GetOrCreateNode<IUniformProbabilityClientStatisticsNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateUniformProbabilityClientStatisticsNode(index, nodeKey, nodeInfo, indexBits), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
+        /// Get the total statistical nodes based on uniform probability (similar to HyperLogLog). If the server does not exist, create node UniformProbabilityTotalStatisticsNode
+        /// 获取基于均匀概率的总量统计节点（类似布隆过滤器），服务端不存在则创建节点 UniformProbabilityTotalStatisticsNode
+        /// </summary>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum value of 8, a maximum value of 20, and a default value of 12 to match data at the millions level. Different data magnitudes should call the AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetDefaultIndexBits(int) method to obtain the number of matching bits.
+        /// 索引二进制位数量，必须为偶数，最小值为 8，最大值为 20，默认值为 12 匹配百万级别数据。不同的数据量级应该调用 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetDefaultIndexBits(int) 方法获取匹配的位数量。</param>
+        /// <param name="isPersistenceCallbackExceptionRenewNode">Default to false said persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the anomalies have been restored and restart the server; If set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+        /// 默认为 false 表示服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端；设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        /// <returns>Client node
+        /// 客户端节点</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public Task<ResponseResult<IUniformProbabilityTotalStatisticsNodeClientNode>> GetOrCreateUniformProbabilityTotalStatisticsNode(string key, byte indexBits = 12, bool isPersistenceCallbackExceptionRenewNode = false)
+        {
+            return GetOrCreateNode<IUniformProbabilityTotalStatisticsNodeClientNode>(key, (index, nodeKey, nodeInfo) => ClientNode.CreateUniformProbabilityTotalStatisticsNode(index, nodeKey, nodeInfo, indexBits), isPersistenceCallbackExceptionRenewNode);
+        }
+        /// <summary>
         /// Get the dictionary client node. If the server does not exist, create node HashBytesFragmentDictionaryNode
         /// 获取字典客户端节点，服务端不存在则创建节点 HashBytesFragmentDictionaryNode
         /// </summary>

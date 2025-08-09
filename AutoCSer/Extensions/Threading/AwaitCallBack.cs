@@ -45,8 +45,8 @@ namespace AutoCSer.Threading
             await this;
         }
         /// <summary>
-        /// await support
-        /// await 支持
+        /// Only for supporting await
+        /// 仅用于支持 await
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -132,8 +132,8 @@ namespace AutoCSer.Threading
             return await this;
         }
         /// <summary>
-        /// await support
-        /// await 支持
+        /// Only for supporting await
+        /// 仅用于支持 await
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

@@ -123,6 +123,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Task<ResponseResult> DisposedTask = Task.FromResult(new ResponseResult(CallStateEnum.Disposed));
         /// <summary>
+        /// The client initialization loading has not been completed
+        /// 客户端初始化加载未完成
+        /// </summary>
+        internal static readonly Task<ResponseResult> ClientLoadUnfinishedTask = Task.FromResult(new ResponseResult(CallStateEnum.ClientLoadUnfinished));
+        /// <summary>
         /// false
         /// </summary>
         internal static readonly Task<ResponseResult<bool>> FalseTask = Task.FromResult((ResponseResult<bool>)false);

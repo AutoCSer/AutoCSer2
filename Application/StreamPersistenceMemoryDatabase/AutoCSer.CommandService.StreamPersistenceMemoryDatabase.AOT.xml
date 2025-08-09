@@ -412,6 +412,12 @@
             未知的持久化类型
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.ClientLoadUnfinished">
+            <summary>
+            The client initialization loading has not been completed
+            客户端初始化加载未完成
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.Callbacked">
             <summary>
             Callback already (available for counting)
@@ -1289,6 +1295,22 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Memory.Unmanaged">
+            <summary>
+            非托管内存
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Memory.Unmanaged.AutoCSerStatic">
+            <summary>
+            AutoCSer 使用静态内存段，防止碎片化
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Memory.Unmanaged.GetPowerReciprocal">
+            <summary>
+            基于均匀概率的总量统计的二进制位数量的倒数
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ArrayNode`1">
             <summary>
@@ -6498,6 +6520,372 @@
             <returns>If there is no pop-up data, no data will be returned
             没有可弹出数据则返回无数据</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode">
+            <summary>
+            Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers)
+            基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器）
+            </summary>
+            <summary>
+            Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+                       基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.SnapshotSet(System.Byte[])">
+            <summary>
+            Add snapshot data
+            添加快照数据
+            </summary>
+            <param name="bitCountArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.GetBitArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Byte[]})">
+            <summary>
+            Get the array of binary bits
+            获取二进制位数量的数组
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.GetIndexBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
+            <summary>
+            Get the newly set data
+            获取新设置的数据
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.SetIndexBitLoadPersistence(System.Int32,System.Byte)">
+            <summary>
+            Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data)
+            尝试修改指定索引位置的二进制位数量（初始化加载持久化数据）
+            </summary>
+            <param name="index">Index position
+            索引位置</param>
+            <param name="bits">The number of the last consecutive binary bits 1
+            最后连续的二进制位 1 的数量</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.SetIndexBit(System.Int32,System.Byte)">
+            <summary>
+            Try to modify the number of binary bits at the specified index position
+            尝试修改指定索引位置的二进制位数量
+            </summary>
+            <param name="index">Index position
+            索引位置</param>
+            <param name="bits">The number of the last consecutive binary bits 1
+            最后连续的二进制位 1 的数量</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode">
+            <summary>
+            Total statistics node interface based on uniform probability (similar to HyperLogLog)
+            基于均匀概率的总量统计节点接口（类似 HyperLogLog）
+            </summary>
+            <summary>
+            Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+                       基于均匀概率的总量统计节点接口（类似 HyperLogLog）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode.SnapshotSet(System.Byte[])">
+            <summary>
+            Add snapshot data
+            添加快照数据
+            </summary>
+            <param name="bitCountArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode.GetIndexBits">
+            <summary>
+            Get the number of index binary bits
+            获取索引二进制位数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode.Append(System.UInt64)">
+            <summary>
+            Add statistical data
+            添加统计数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode.Count">
+            <summary>
+            Get the statistical quantity
+            获取统计数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode">
+            <summary>
+            基于均匀概率的客户端同步总量统计节点（类似 HyperLogLog，适合小容器）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.bitCountArray">
+            <summary>
+            最后连续 1 的数量的集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.callbacks">
+            <summary>
+            获取新设置的数据的委托集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.callbackTimeouts">
+            <summary>
+            获取新设置的数据的回调委托的超时信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.indexCount">
+            <summary>
+            索引数组大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.indexBits">
+            <summary>
+            索引二进制位数量
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.#ctor(System.Byte)">
+            <summary>
+            基于均匀概率的客户端同步总量统计节点（类似 HyperLogLog，适合小容器）
+            </summary>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.GetSnapshotCapacity(System.Object@)">
+            <summary>
+            Get the snapshot data collection container size for pre-applying snapshot data containers
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">Custom objects for pre-generating auxiliary data
+            自定义对象，用于预生成辅助数据</param>
+            <returns>The size of the snapshot data collection container
+            快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.GetSnapshotResult(System.Byte[][],System.Object)">
+            <summary>
+            Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">Pre-applied snapshot data container
+            预申请的快照数据容器</param>
+            <param name="customObject">Custom objects for pre-generating auxiliary data
+            自定义对象，用于预生成辅助数据</param>
+            <returns>Snapshot data
+            快照数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.SetSnapshotResult(AutoCSer.LeftArray{System.Byte[]}@,AutoCSer.LeftArray{System.Byte[]}@)">
+            <summary>
+            Reorganize the snapshot data before persistence
+            持久化之前重组快照数据
+            </summary>
+            <param name="array">Pre-applied snapshot data container
+            预申请的快照数据容器</param>
+            <param name="newArray">Snapshot data collection that exceed the pre-application scope
+            超出预申请范围的快照数据集合</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.SnapshotSet(System.Byte[])">
+            <summary>
+            Add snapshot data
+            添加快照数据
+            </summary>
+            <param name="bitCountArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.GetBitArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Byte[]})">
+            <summary>
+            Get the array of binary bits
+            获取二进制位数量的数组
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.GetIndexBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
+            <summary>
+            Get the newly set data
+            获取新设置的数据
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.SetIndexBitLoadPersistence(System.Int32,System.Byte)">
+            <summary>
+            Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data)
+            尝试修改指定索引位置的二进制位数量（初始化加载持久化数据）
+            </summary>
+            <param name="index">Index position
+            索引位置</param>
+            <param name="bits">The number of the last consecutive binary bits 1
+            最后连续的二进制位 1 的数量</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.SetIndexBit(System.Int32,System.Byte)">
+            <summary>
+            Try to modify the number of binary bits at the specified index position
+            尝试修改指定索引位置的二进制位数量
+            </summary>
+            <param name="index">Index position
+            索引位置</param>
+            <param name="bits">The number of the last consecutive binary bits 1
+            最后连续的二进制位 1 的数量</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode">
+            <summary>
+            基于均匀概率的总量统计节点（类似 HyperLogLog）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.MinIndexBits">
+            <summary>
+            索引二进制位最小数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.bitCountArray">
+            <summary>
+            最后连续 1 的数量的集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.indexLow">
+            <summary>
+            获取索引的二进制位的低位
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.indexHigh">
+            <summary>
+            获取索引的二进制位的高位
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.valueMark">
+            <summary>
+            数据的二进制位
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.indexLowBits">
+            <summary>
+            获取索引的二进制位的低位的数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.indexShiftBits">
+            <summary>
+            获取索引的二进制位的高位需要右移位的数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.indexBits">
+            <summary>
+            索引二进制位数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.maxBits">
+            <summary>
+            当前最大连续数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.indexCount">
+            <summary>
+            索引数组大小
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.powerReciprocalSum">
+            <summary>
+            当前倒数和
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.#ctor(System.Byte)">
+            <summary>
+            基于均匀概率的总量统计节点（类似 HyperLogLog）
+            </summary>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.StreamPersistenceMemoryDatabaseServiceLoaded">
+            <summary>
+            Initialization loading is completed and processed
+            初始化加载完毕处理
+            </summary>
+            <returns>The new node that has been loaded and replaced
+            加载完毕替换的新节点</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetSnapshotCapacity(System.Object@)">
+            <summary>
+            Get the snapshot data collection container size for pre-applying snapshot data containers
+            获取快照数据集合容器大小，用于预申请快照数据容器
+            </summary>
+            <param name="customObject">Custom objects for pre-generating auxiliary data
+            自定义对象，用于预生成辅助数据</param>
+            <returns>The size of the snapshot data collection container
+            快照数据集合容器大小</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetSnapshotResult(System.Byte[][],System.Object)">
+            <summary>
+            Get the snapshot data collection. If the data object may be modified, the cloned data object should be returned to prevent the data from being modified during the snapshot establishment
+            获取快照数据集合，如果数据对象可能被修改则应该返回克隆数据对象防止建立快照期间数据被修改
+            </summary>
+            <param name="snapshotArray">Pre-applied snapshot data container
+            预申请的快照数据容器</param>
+            <param name="customObject">Custom objects for pre-generating auxiliary data
+            自定义对象，用于预生成辅助数据</param>
+            <returns>Snapshot data
+            快照数据</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.SnapshotSet(System.Byte[])">
+            <summary>
+            Add snapshot data
+            添加快照数据
+            </summary>
+            <param name="bitCountArray"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetIndexBits">
+            <summary>
+            Get the number of index binary bits
+            获取索引二进制位数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.Append(System.UInt64)">
+            <summary>
+            Add statistical data
+            添加统计数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.set(System.Int32,System.Byte)">
+            <summary>
+            设置最后连续 1 的数量
+            </summary>
+            <param name="index"></param>
+            <param name="bits"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.setMaxBits(System.Byte,System.Int32*)">
+            <summary>
+            重新计算倒数和
+            </summary>
+            <param name="bits"></param>
+            <param name="counts"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.Count">
+            <summary>
+            Get the statistical quantity
+            获取统计数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.GetDefaultIndexBits(System.Int32)">
+            <summary>
+            获取默认匹配的索引二进制位数量（非精确的最小统计误差）
+            </summary>
+            <param name="count">预计统计总数量（二进制位限制在 8 - 20 位之间，支持 10W - 10Y 级别的数量统计）</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.CountIncrement(System.Int32,System.Byte)">
+            <summary>
+            增加计数
+            </summary>
+            <param name="count"></param>
+            <param name="bits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.CountDecrement(System.Int32,System.Byte)">
+            <summary>
+            减少计数
+            </summary>
+            <param name="count"></param>
+            <param name="bits"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.BitReciprocal">
+            <summary>
+            基于均匀概率的总量统计的二进制位数量的倒数
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameterSerializer">
             <summary>
             请求参数序列化
@@ -10227,6 +10615,38 @@
             <returns>Node identifier, there have been a node is returned directly
             节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode
+            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            </summary>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="key">Node global keyword
+            节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information
+            服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly
+            节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode
+            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            </summary>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="key">Node global keyword
+            节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information
+            服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly
+            节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
             <summary>
             Create a 64-bit auto-increment identity node IIdentityGeneratorNode
@@ -10258,6 +10678,44 @@
             二进制位数量</param>
             <returns>Node identifier, there have been a node is returned directly
             节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1">
+            <summary>
+            保持回调超时信息
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.callback">
+            <summary>
+            回调包装
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.timeoutSeconds">
+            <summary>
+            超时秒计数
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{`0},System.Int32)">
+            <summary>
+            保持回调超时信息
+            </summary>
+            <param name="callback"></param>
+            <param name="timeoutSeconds"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.get(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+             获取匹配的保持回调
+            </summary>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.GetCallback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout{`0}}@,AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            获取匹配的保持回调
+            </summary>
+            <param name="callbacks"></param>
+            <param name="socket"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CheckSnapshotCloneObject`1">
             <summary>
@@ -14381,8 +14839,8 @@
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode`1.GetResult">
             <summary>
-            await support
-            await 支持
+            Only for supporting await
+            仅用于支持 await
             </summary>
             <returns></returns>
         </member>
@@ -14528,7 +14986,7 @@
             </summary>
             <typeparam name="T">返回数据类型</typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.callback">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.CommandServerCallback">
             <summary>
             服务接口回调委托
             </summary>
@@ -14748,7 +15206,7 @@
             </summary>
             <typeparam name="T">返回数据类型</typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.callback">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.CommandServerKeepCallback">
             <summary>
             服务接口回调委托
             </summary>
@@ -16708,6 +17166,38 @@
             <returns>Node identifier, there have been a node is returned directly
             节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode
+            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            </summary>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="key">Node global keyword
+            节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information
+            服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly
+            节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode
+            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            </summary>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="key">Node global keyword
+            节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information
+            服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly
+            节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNode.CreateIdentityGeneratorNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Int64)">
             <summary>
             Create a 64-bit auto-increment identity node IIdentityGeneratorNode
@@ -17760,6 +18250,38 @@
             <returns>Node identifier, there have been a node is returned directly 
                        节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode.CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient">
             <summary>
             Service basic operation interface 
@@ -18018,6 +18540,55 @@
             二进制序列化代码生成调用激活 AOT 反射
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__)">
+            <summary>
+            Binary serialization
+            二进制序列化
+            </summary>
+            <param name="serializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.binarySerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            Binary serialization
+            二进制序列化
+            </summary>
+            <param name="__serializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__@)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.BinarySerializeMemberTypes">
+            <summary>
+            Get the binary serialization type information
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IServiceNodeLocalClientNode#CreateBitmapNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.UInt32)">
             <summary>
             Create a bitmap node IBitmapNode 
@@ -18102,7 +18673,357 @@
             <returns>Node identifier, there have been a node is returned directly 
                        节点标识，已经存在节点则直接返回</returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IServiceNodeLocalClientNode#CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IServiceNodeLocalClientNode#CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,System.Byte)">
+            <summary>
+            Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            </summary>
+            <param name="index">Node index information 
+                       节点索引信息</param>
+            <param name="key">Node global keyword 
+                       节点全局关键字</param>
+            <param name="nodeInfo">Server-side node information 
+                       服务端节点信息</param>
+            <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            <returns>Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回</returns>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.LocalClientNode">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode">
+            <summary>
+            Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+                       基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） local client node interface
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode.GetBitArray(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Byte[]}})">
+            <summary>
+            Get the array of binary bits 
+                       获取二进制位数量的数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode.GetIndexBit(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
+            <summary>
+            Get the newly set data 
+                       获取新设置的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode.SetIndexBit(System.Int32,System.Byte)">
+            <summary>
+            Try to modify the number of binary bits at the specified index position 
+                       尝试修改指定索引位置的二进制位数量
+            </summary>
+            <param name="index">Index position 
+                       索引位置</param>
+            <param name="bits">The number of the last consecutive binary bits 1 
+                       最后连续的二进制位 1 的数量</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient">
+            <summary>
+            Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+                       基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） local client node
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.#ctor(System.String,System.Func{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}}},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Boolean)">
+            <summary>
+            Local client node
+            本地客户端节点
+            </summary>
+            <param name="key">Node global keyword
+            节点全局关键字</param>
+            <param name="creator">A delegate to create a node operation object
+            创建节点操作对象委托</param>
+            <param name="client">Log stream persistence in-memory database local client
+            日志流持久化内存数据库本地客户端</param>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="isPersistenceCallbackExceptionRenewNode">Persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the exception is repair and restart the server, If this parameter is set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+            服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__@,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__@,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityClientStatisticsNodeLocalClientNode#GetBitArray(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Byte[]}})">
+            <summary>
+            Get the array of binary bits 
+                       获取二进制位数量的数组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityClientStatisticsNodeLocalClientNode#GetIndexBit(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
+            <summary>
+            Get the newly set data 
+                       获取新设置的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityClientStatisticsNodeLocalClientNode#SetIndexBit(System.Int32,System.Byte)">
+            <summary>
+            Try to modify the number of binary bits at the specified index position 
+                       尝试修改指定索引位置的二进制位数量
+            </summary>
+            <param name="index">Index position 
+                       索引位置</param>
+            <param name="bits">The number of the last consecutive binary bits 1 
+                       最后连续的二进制位 1 的数量</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.LocalClientNode">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeLocalClientNode">
+            <summary>
+            Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+                       基于均匀概率的总量统计节点接口（类似 HyperLogLog） local client node interface
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeLocalClientNode.Append(System.UInt64)">
+            <summary>
+            Add statistical data 
+                       添加统计数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeLocalClientNode.Count">
+            <summary>
+            Get the statistical quantity 
+                       获取统计数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeLocalClientNode.GetIndexBits">
+            <summary>
+            Get the number of index binary bits 
+                       获取索引二进制位数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient">
+            <summary>
+            Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+                       基于均匀概率的总量统计节点接口（类似 HyperLogLog） local client node
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.#ctor(System.String,System.Func{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}}},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Boolean)">
+            <summary>
+            Local client node
+            本地客户端节点
+            </summary>
+            <param name="key">Node global keyword
+            节点全局关键字</param>
+            <param name="creator">A delegate to create a node operation object
+            创建节点操作对象委托</param>
+            <param name="client">Log stream persistence in-memory database local client
+            日志流持久化内存数据库本地客户端</param>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="isPersistenceCallbackExceptionRenewNode">Persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the exception is repair and restart the server, If this parameter is set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
+            服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__@,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__@,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityTotalStatisticsNodeLocalClientNode#Append(System.UInt64)">
+            <summary>
+            Add statistical data 
+                       添加统计数据
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityTotalStatisticsNodeLocalClientNode#Count">
+            <summary>
+            Get the statistical quantity 
+                       获取统计数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityTotalStatisticsNodeLocalClientNode#GetIndexBits">
+            <summary>
+            Get the number of index binary bits 
+                       获取索引二进制位数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.LocalClientNode">
             <summary>
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
@@ -18630,6 +19551,38 @@
                        节点标识，已经存在节点则直接返回
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeMethodEnum.CreateUniformProbabilityClientStatisticsNode">
+            <summary>
+            [6] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeMethodEnum.CreateUniformProbabilityTotalStatisticsNode">
+            <summary>
+            [7] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+                       节点索引信息
+            string key Node global keyword 
+                       节点全局关键字
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+                       服务端节点信息
+            byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+                       索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+                       节点标识，已经存在节点则直接返回
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode_CreateBitmapNode_0">
             <summary>
             Create a bitmap node IBitmapNode 
@@ -18666,6 +19619,18 @@
                        创建多哈希位图过滤节点 IManyHashBitMapFilterNode server node method
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode_CreateUniformProbabilityClientStatisticsNode_6">
+            <summary>
+            Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+                       创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode_CreateUniformProbabilityTotalStatisticsNode_7">
+            <summary>
+            Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+                       创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode server node method
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodParameterCreator">
             <summary>
             Service basic operation interface 
@@ -18673,6 +19638,165 @@
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeMethodParameterCreator.GetServerNodeCreatorMethod">
+            <summary>
+            Get the method information of generate server-side node
+            获取生成服务端节点方法信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum">
+            <summary>
+            Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+                       基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） (node method sequence number mapping enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.GetBitArray">
+            <summary>
+            [0] Get the array of binary bits 
+                       获取二进制位数量的数组
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.GetIndexBit">
+            <summary>
+            [1] Get the newly set data 
+                       获取新设置的数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.SetIndexBit">
+            <summary>
+            [2] Try to modify the number of binary bits at the specified index position 
+                       尝试修改指定索引位置的二进制位数量
+            int index Index position 
+                       索引位置
+            byte bits The number of the last consecutive binary bits 1 
+                       最后连续的二进制位 1 的数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.SetIndexBitLoadPersistence">
+            <summary>
+            [3] Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data) 
+                       尝试修改指定索引位置的二进制位数量（初始化加载持久化数据）
+            int index Index position 
+                       索引位置
+            byte bits The number of the last consecutive binary bits 1 
+                       最后连续的二进制位 1 的数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.SnapshotSet">
+            <summary>
+            [4] Add snapshot data 
+                       添加快照数据
+            byte[] bitCountArray 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_GetBitArray_0">
+            <summary>
+            Get the array of binary bits 
+                       获取二进制位数量的数组 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_GetIndexBit_1">
+            <summary>
+            Get the newly set data 
+                       获取新设置的数据 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_SetIndexBit_2">
+            <summary>
+            Try to modify the number of binary bits at the specified index position 
+                       尝试修改指定索引位置的二进制位数量 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_SetIndexBitLoadPersistence_3">
+            <summary>
+            Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data) 
+                       尝试修改指定索引位置的二进制位数量（初始化加载持久化数据） server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_SnapshotSet_4">
+            <summary>
+            Add snapshot data 
+                       添加快照数据 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeMethodParameterCreator">
+            <summary>
+            Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
+                       基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） (Create the calling method and parameter information)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeMethodParameterCreator.GetServerNodeCreatorMethod">
+            <summary>
+            Get the method information of generate server-side node
+            获取生成服务端节点方法信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeMethodEnum">
+            <summary>
+            Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+                       基于均匀概率的总量统计节点接口（类似 HyperLogLog） (node method sequence number mapping enumeration type)
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeMethodEnum.Append">
+            <summary>
+            [0] Add statistical data 
+                       添加统计数据
+            ulong value 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeMethodEnum.Count">
+            <summary>
+            [1] Get the statistical quantity 
+                       获取统计数量
+            Return value : double 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeMethodEnum.GetIndexBits">
+            <summary>
+            [2] Get the number of index binary bits 
+                       获取索引二进制位数量
+            Return value : byte 
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeMethodEnum.SnapshotSet">
+            <summary>
+            [3] Add snapshot data 
+                       添加快照数据
+            byte[] bitCountArray 
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode_Append_0">
+            <summary>
+            Add statistical data 
+                       添加统计数据 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode_Count_1">
+            <summary>
+            Get the statistical quantity 
+                       获取统计数量 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode_GetIndexBits_2">
+            <summary>
+            Get the number of index binary bits 
+                       获取索引二进制位数量 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNode_SnapshotSet_3">
+            <summary>
+            Add snapshot data 
+                       添加快照数据 server node method
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeMethodParameterCreator">
+            <summary>
+            Total statistics node interface based on uniform probability (similar to HyperLogLog) 
+                       基于均匀概率的总量统计节点接口（类似 HyperLogLog） (Create the calling method and parameter information)
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeMethodParameterCreator.GetServerNodeCreatorMethod">
             <summary>
             Get the method information of generate server-side node
             获取生成服务端节点方法信息

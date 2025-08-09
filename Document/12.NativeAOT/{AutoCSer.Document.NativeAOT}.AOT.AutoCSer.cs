@@ -1426,6 +1426,97 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             }
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip6__
+            {
+                internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
+                internal string key;
+                internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
+                internal byte indexBits;
+                
+            /// <summary>
+            /// Binary serialization
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="serializer"></param>
+            /// <param name="value"></param>
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__ value)
+            {
+                if (serializer.WriteMemberCountVerify(8, 1073741828)) value.binarySerialize(serializer);
+            }
+            /// <summary>
+            /// Binary serialization
+            /// 二进制序列化
+            /// </summary>
+            /// <param name="__serializer__"></param>
+            private void binarySerialize(AutoCSer.BinarySerializer __serializer__)
+            {
+                __serializer__.BinarySerialize(indexBits);
+                __serializer__.FixedFillSize(3);
+                __serializer__.Simple(index);
+                __serializer__.BinarySerialize(key);
+                __serializer__.Json(nodeInfo);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.indexBits);
+                __deserializer__.FixedFillSize(3);
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.Simple(ref this.index);
+                __deserializer__.BinaryDeserialize(ref this.key);
+                __deserializer__.Json(ref this.nodeInfo);
+            }
+            /// <summary>
+            /// Get the binary serialization type information
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 4, 1073741828);
+                typeInfo.Add(typeof(byte));
+                typeInfo.Add(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex));
+                typeInfo.Add(typeof(string));
+                typeInfo.Add(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo));
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__ value = default(AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__);
+                BinarySerialize(null, value);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip256__
             {
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
@@ -1666,6 +1757,62 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                         key = key,
                         nodeInfo = nodeInfo,
                         size = size,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+///            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode/**/.CreateUniformProbabilityClientStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte indexBits)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip6__>(this, 6
+                    , new __ip6__
+                    {
+                        index = index,
+                        key = key,
+                        nodeInfo = nodeInfo,
+                        indexBits = indexBits,
+                    }
+                    );
+            }
+
+            /// <summary>
+            /// Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+///            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            /// </summary>
+            /// <param name="index">Node index information 
+///            节点索引信息</param>
+            /// <param name="key">Node global keyword 
+///            节点全局关键字</param>
+            /// <param name="nodeInfo">Server-side node information 
+///            服务端节点信息</param>
+            /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+            /// <returns>Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回</returns>
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>> AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNodeLocalClientNode/**/.CreateUniformProbabilityTotalStatisticsNode(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, string key, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo, byte indexBits)
+            {
+                
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip6__>(this, 7
+                    , new __ip6__
+                    {
+                        index = index,
+                        key = key,
+                        nodeInfo = nodeInfo,
+                        indexBits = indexBits,
                     }
                     );
             }
@@ -2606,6 +2753,36 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             /// </summary>
             CreateManyHashBitMapFilterNode = 5,
             /// <summary>
+            /// [6] Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+///            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+///            节点索引信息
+            /// string key Node global keyword 
+///            节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+///            服务端节点信息
+            /// byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            /// Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateUniformProbabilityClientStatisticsNode = 6,
+            /// <summary>
+            /// [7] Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+///            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+///            节点索引信息
+            /// string key Node global keyword 
+///            节点全局关键字
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo Server-side node information 
+///            服务端节点信息
+            /// byte indexBits The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20 
+///            索引二进制位数量，必须为偶数，最小值为 8，最大值为 20
+            /// Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex Node identifier, there have been a node is returned directly 
+///            节点标识，已经存在节点则直接返回
+            /// </summary>
+            CreateUniformProbabilityTotalStatisticsNode = 7,
+            /// <summary>
             /// [256] Create dictionary generics to expand custom node IStringDictionaryNode 
 ///            创建字典泛型展开自定义节点 IStringDictionaryNode
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
@@ -2702,6 +2879,32 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             }
         }
         /// <summary>
+        /// Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode 
+///            创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode server node method
+        /// </summary>
+        internal sealed class ICustomServiceNode_CreateUniformProbabilityClientStatisticsNode_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__>
+        {
+            internal ICustomServiceNode_CreateUniformProbabilityClientStatisticsNode_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)3) { }
+            public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.Callback(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<ICustomServiceNode>(methodParameter).CreateUniformProbabilityClientStatisticsNode(parameter.index, parameter.key, parameter.nodeInfo, parameter.indexBits));
+            }
+        }
+        /// <summary>
+        /// Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode 
+///            创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode server node method
+        /// </summary>
+        internal sealed class ICustomServiceNode_CreateUniformProbabilityTotalStatisticsNode_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__>
+        {
+            internal ICustomServiceNode_CreateUniformProbabilityTotalStatisticsNode_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)3) { }
+            public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
+            {
+                AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter.Callback(methodParameter, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<ICustomServiceNode>(methodParameter).CreateUniformProbabilityTotalStatisticsNode(parameter.index, parameter.key, parameter.nodeInfo, parameter.indexBits));
+            }
+        }
+        /// <summary>
         /// Create dictionary generics to expand custom node IStringDictionaryNode 
 ///            创建字典泛型展开自定义节点 IStringDictionaryNode server node method
         /// </summary>
@@ -2735,8 +2938,8 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                         new ICustomServiceNode_RemoveNodeByKey_3(),
                         new ICustomServiceNode_CreateManyHashBitMapClientFilterNode_4(),
                         new ICustomServiceNode_CreateManyHashBitMapFilterNode_5(),
-                        null,
-                        null,
+                        new ICustomServiceNode_CreateUniformProbabilityClientStatisticsNode_6(),
+                        new ICustomServiceNode_CreateUniformProbabilityTotalStatisticsNode_7(),
                         null,
                         null,
                         null,
@@ -2994,8 +3197,8 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
-                        null,
-                        null,
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         null,
                         null,
                         null,
@@ -3593,6 +3796,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                     AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip2__.BinarySerialize();
                     AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip3__.SimpleSerialize();
                     AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip4__.BinarySerialize();
+                    AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip6__.BinarySerialize();
                     AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.__ip256__.BinarySerialize();
                     AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.CustomServiceNodeLocalClient.LocalClientNode();
                     AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__.SimpleSerialize();
@@ -3618,6 +3822,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>));
                     AutoCSer.BinarySerializer.Json<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo>(null, default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<byte>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.ReusableDictionaryGroupTypeEnum>));
                     AutoCSer.BinarySerializer.EnumByte<AutoCSer.ReusableDictionaryGroupTypeEnum>(null, default(AutoCSer.ReusableDictionaryGroupTypeEnum));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<string[]>));

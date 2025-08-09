@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AOT</AssemblyName>
-    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabase</RootNamespace>
+    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon</RootNamespace>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -74,7 +74,7 @@
     <Compile Include="StringDictionaryNode.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="TestClassMessage.cs" />
-    <Compile Include="{AutoCSer.TestCase.StreamPersistenceMemoryDatabase}.AOT.AutoCSer.cs" />
+    <Compile Include="{AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon}.AOT.AutoCSer.cs" />
   </ItemGroup>
 
   <ItemGroup>

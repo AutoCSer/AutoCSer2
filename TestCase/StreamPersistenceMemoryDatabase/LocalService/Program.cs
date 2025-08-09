@@ -104,7 +104,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService
                 Console.ReadLine();
             }
 #if AOT
-            AutoCSer.TestCase.StreamPersistenceMemoryDatabase.AotMethod.Call();
+            AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon.AotMethod.Call();
 #endif
         }
         internal static bool Breakpoint(LocalResult result, [CallerMemberName] string callerMemberName = null, [CallerFilePath] string callerFilePath = null, [CallerLineNumber] int callerLineNumber = 0)

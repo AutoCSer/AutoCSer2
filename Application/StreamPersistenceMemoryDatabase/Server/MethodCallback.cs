@@ -15,9 +15,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 服务接口回调委托
         /// </summary>
 #if NetStandard21
-        private readonly CommandServerCallback<ResponseParameter>? callback;
+        internal readonly CommandServerCallback<ResponseParameter>? CommandServerCallback;
 #else
-        private readonly CommandServerCallback<ResponseParameter> callback;
+        internal readonly CommandServerCallback<ResponseParameter> CommandServerCallback;
 #endif
         /// <summary>
         /// 保留
@@ -47,7 +47,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="flag">服务端节点方法标记</param>
         internal MethodCallback(CommandServerCallback<ResponseParameter> callback, MethodFlagsEnum flag)
         {
-            this.callback = callback;
+            this.CommandServerCallback = callback;
             this.flag = flag;
             isResponseParameter = typeof(T) == typeof(ResponseParameter);
         }
@@ -58,14 +58,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool Callback(ResponseParameter value)
         {
-            if (callback != null)
+            if (CommandServerCallback != null)
             {
                 if (isResponseParameter)
                 {
                     if (!isCallback)
                     {
                         isCallback = true;
-                        return callback.Callback(value);
+                        return CommandServerCallback.Callback(value);
                     }
                     return false;
                 }
@@ -80,7 +80,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool Callback(T value)
         {
-            if (callback != null)
+            if (CommandServerCallback != null)
             {
                 if (!this.isCallback)
                 {
@@ -93,10 +93,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             responseParameter = ResponseParameter.Create(value, flag);
                         }
-                        finally { isCallback = callback.Callback(responseParameter); }
+                        finally { isCallback = CommandServerCallback.Callback(responseParameter); }
                         return isCallback;
                     }
-                    return callback.Callback(value.notNullCastType<ResponseParameter>());
+                    return CommandServerCallback.Callback(value.notNullCastType<ResponseParameter>());
                 }
                 return false;
             }
@@ -109,7 +109,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool SynchronousCallback(T value)
         {
-            if (callback != null)
+            if (CommandServerCallback != null)
             {
                 if (!this.isCallback)
                 {
@@ -120,7 +120,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     {
                         responseParameter = ResponseParameter.Create(value, flag);
                     }
-                    finally { isCallback = callback.SynchronousCallback(responseParameter); }
+                    finally { isCallback = CommandServerCallback.SynchronousCallback(responseParameter); }
                     return isCallback;
                 }
                 return false;
@@ -135,11 +135,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public bool Callback(CallStateEnum state)
         {
-            if (callback == null) return true;
+            if (CommandServerCallback == null) return true;
             if (!isCallback)
             {
                 isCallback = true;
-                return callback.Callback(ResponseParameter.CallStates[(byte)state]);
+                return CommandServerCallback.Callback(ResponseParameter.CallStates[(byte)state]);
             }
             return false;
         }
@@ -151,11 +151,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         internal bool SynchronousCallback(CallStateEnum state)
         {
-            if (callback == null) return true;
+            if (CommandServerCallback == null) return true;
             if (!isCallback)
             {
                 isCallback = true;
-                return callback.SynchronousCallback(ResponseParameter.CallStates[(byte)state]);
+                return CommandServerCallback.SynchronousCallback(ResponseParameter.CallStates[(byte)state]);
             }
             return false;
         }
@@ -171,7 +171,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public static CommandServerCallback<ResponseParameter> GetCallback(MethodCallback<T> callback)
 #endif
         {
-            return callback.callback;
+            return callback.CommandServerCallback;
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// Multi-hash bitmap client synchronization filter node Interface (similar to Bloom filter, suitable for small containers)
     /// 多哈希位图客户端同步过滤节点接口（类似布隆过滤器，适合小容器）
     /// </summary>
-    [ServerNode(IsLocalClient = true)]
+    [ServerNode]
     public partial interface IManyHashBitMapClientFilterNode
     {
         /// <summary>

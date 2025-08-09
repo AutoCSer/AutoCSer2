@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
     /// Customize the basic service node interface
     /// 自定义基础服务节点接口
     /// </summary>
-    [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode]
+    [AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode(IsLocalClient = true)]
     public partial interface ICustomServiceNode : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IServiceNode
     {
         /// <summary>

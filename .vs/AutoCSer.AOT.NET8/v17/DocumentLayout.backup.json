@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\AutoCSer2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|c:\\autocser2\\document\\12.nativeaot\\12.nativeaot.eng.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|solutionrelative:document\\12.nativeaot\\12.nativeaot.eng.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|c:\\autocser2\\document\\12.nativeaot\\12.nativeaot.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{5CEA6F21-BB7A-3E4C-519B-52664117ED8F}|Document\\12.NativeAOT\\12.NativeAOT.csproj|solutionrelative:document\\12.nativeaot\\12.nativeaot.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+      "AbsoluteMoniker": "D:0:0:{C3A141AC-E046-933E-C5FD-798E365E1AB9}|TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT.csproj|c:\\autocser2\\testcase\\streampersistencememorydatabase\\localservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3A141AC-E046-933E-C5FD-798E365E1AB9}|TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\AutoCSer.TestCase.StreamPersistenceMemoryDatabaseLocalService.AOT.csproj|solutionrelative:testcase\\streampersistencememorydatabase\\localservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "12.NativeAOT.Eng.md",
-              "DocumentMoniker": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
-              "RelativeDocumentMoniker": "Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
-              "ToolTip": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
-              "RelativeToolTip": "Document\\12.NativeAOT\\12.NativeAOT.Eng.md",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAgwHYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-08-07T07:17:15.638Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "12.NativeAOT.md",
-              "DocumentMoniker": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.md",
-              "RelativeDocumentMoniker": "Document\\12.NativeAOT\\12.NativeAOT.md",
-              "ToolTip": "C:\\AutoCSer2\\Document\\12.NativeAOT\\12.NativeAOT.md",
-              "RelativeToolTip": "Document\\12.NativeAOT\\12.NativeAOT.md",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAAAHUAAABqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-08-07T07:16:56.98Z",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\AutoCSer2\\TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\Program.cs",
+              "RelativeDocumentMoniker": "TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\Program.cs",
+              "ToolTip": "C:\\AutoCSer2\\TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\Program.cs*",
+              "RelativeToolTip": "TestCase\\StreamPersistenceMemoryDatabase\\LocalService\\Program.cs*",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAhwGoAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T07:09:36.521Z",
               "EditorCaption": ""
             }
           ]

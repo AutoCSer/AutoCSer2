@@ -37,8 +37,8 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// Gets the result of the task execution
-        /// 获取任务执行返回结果
+        /// Gets the result of the task execution, return null before the result is returned (Only for supporting await)
+        /// 获取任务执行返回结果，结果未返回之前则返回 null（仅用于支持 await）
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -104,8 +104,8 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// Gets the result of the task execution
-        /// 获取任务执行返回结果
+        /// Gets the result of the task execution, return the default value before the result is returned (Only for supporting await)
+        /// 获取任务执行返回结果，结果未返回之前则返回默认值（仅用于支持 await）
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]

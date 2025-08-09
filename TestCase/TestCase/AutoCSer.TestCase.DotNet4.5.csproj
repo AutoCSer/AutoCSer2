@@ -154,6 +154,7 @@
     <Compile Include="StreamPersistenceMemoryDatabase\Client\SortedListNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\SortedSetNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\StackNode.cs" />
+    <Compile Include="StreamPersistenceMemoryDatabase\Client\UniformProbabilityTotalStatisticsNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Data\TestClass.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\ServiceConfig.cs" />
     <Compile Include="Xml.cs" />

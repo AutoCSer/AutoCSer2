@@ -22,8 +22,8 @@ namespace AutoCSer.CommandService.DiskBlock
             setCompleted();
         }
         /// <summary>
-        /// await support
-        /// await 支持
+        /// Only for supporting await
+        /// 仅用于支持 await
         /// </summary>
         /// <returns></returns>
         public override ReadResult<T> GetResult()

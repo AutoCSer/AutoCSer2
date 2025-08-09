@@ -78,13 +78,14 @@
     <Compile Include="Extensions\ResponseResultExtension.cs" />
     <Compile Include="Extensions\SearchTreeDictionaryNodeClientNodeExtension.cs" />
     <Compile Include="Extensions\LocalKeepCallbackExtension.cs" />
-    <Compile Include="Extensions\SearchTreeDictionaryNodeLocalClientNodeExtension.cs" />
     <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
+    <Compile Include="Extensions\UniformProbabilityTotalStatisticsClientNodeExtension.cs" />
     <Compile Include="JsonResponseParameterAwaiter.cs" />
     <Compile Include="KeepCallbackResponseDeserializeValue.cs" />
     <Compile Include="KeepCallbackResponseParameter.cs" />
     <Compile Include="KeepCallbackResponseParameterBinarySerializer.cs" />
     <Compile Include="KeepCallbackResponseParameterSimpleSerializer.cs" />
+    <Compile Include="Memory\Unmanaged.cs" />
     <Compile Include="Metadata\GenericType\ComparableGenericType.cs" />
     <Compile Include="Metadata\GenericType\ComparableGenericType2.cs" />
     <Compile Include="Metadata\GenericType\EquatableGenericType.cs" />
@@ -246,6 +247,12 @@
     <Compile Include="Node\SortedListNode.cs" />
     <Compile Include="Node\SortedSetNode.cs" />
     <Compile Include="Node\StackNode.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\IUniformProbabilityClientStatisticsNode.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\IUniformProbabilityTotalStatisticsNode.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityClientStatistics.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityClientStatisticsCallback.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityClientStatisticsNode.cs" />
+    <Compile Include="Node\UniformProbabilityTotalStatistics\UniformProbabilityTotalStatisticsNode.cs" />
     <Compile Include="NullResponseParameterSerializer.cs" />
     <Compile Include="PageArray.cs" />
     <Compile Include="PageParameter.cs" />
@@ -327,6 +334,7 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNodeCallback.cs" />
+    <Compile Include="Server\MethodKeepCallbackTimeout.cs" />
     <Compile Include="Server\PersistenceFile.cs" />
     <Compile Include="Server\PersistenceTypeEnum.cs" />
     <Compile Include="Server\ScanPersistenceServiceLoader.cs" />

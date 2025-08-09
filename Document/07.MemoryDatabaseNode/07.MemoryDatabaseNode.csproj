@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Client\UniformProbabilityClientStatisticsNode.cs" />
+    <Compile Include="Client\UniformProbabilityTotalStatisticsNode.cs" />
     <Compile Include="Client\OnlyPersistenceNode.cs" />
     <Compile Include="Client\ManyHashBitMapFilterNode.cs" />
     <Compile Include="Client\ManyHashBitMapClientFilterNode.cs" />

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon</AssemblyName>
-    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabase</RootNamespace>
+    <RootNamespace>AutoCSer.TestCase.StreamPersistenceMemoryDatabaseCommon</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

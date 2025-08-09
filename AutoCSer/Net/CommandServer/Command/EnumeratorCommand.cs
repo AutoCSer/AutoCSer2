@@ -137,8 +137,8 @@ namespace AutoCSer.Net
             return await this;
         }
         /// <summary>
-        /// Get the collection enumeration command
-        /// 获取集合枚举命令
+        /// Get the collection enumeration command, return null before the result is returned (Only for supporting await)
+        /// 获取集合枚举命令，结果未返回之前则返回 null（仅用于支持 await）
         /// </summary>
         /// <returns>The operation of adding to the output queue failed and returned null
         /// 添加到输出队列操作失败返回 null</returns>

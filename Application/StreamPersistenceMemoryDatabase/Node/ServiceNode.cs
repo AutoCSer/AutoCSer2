@@ -1014,6 +1014,42 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return CreateSnapshotNode<IManyHashBitMapFilterNode>(index, key, nodeInfo, () => new ManyHashBitMapFilterNode(size));
         }
         /// <summary>
+        /// Create a client synchronization total statistics node based on uniform probability IUniformProbabilityClientStatisticsNode
+        /// 创建基于均匀概率的客户端同步总量统计节点 IUniformProbabilityClientStatisticsNode
+        /// </summary>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+        /// 索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateUniformProbabilityClientStatisticsNode(NodeIndex index, string key, NodeInfo nodeInfo, byte indexBits)
+        {
+            return CreateSnapshotNode<IUniformProbabilityClientStatisticsNode>(index, key, nodeInfo, () => new UniformProbabilityClientStatisticsNode(indexBits));
+        }
+        /// <summary>
+        /// Create a total statistics node based on uniform probability IUniformProbabilityTotalStatisticsNode
+        /// 创建基于均匀概率的总量统计节点 IUniformProbabilityTotalStatisticsNode
+        /// </summary>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="key">Node global keyword
+        /// 节点全局关键字</param>
+        /// <param name="nodeInfo">Server-side node information
+        /// 服务端节点信息</param>
+        /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
+        /// 索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
+        /// <returns>Node identifier, there have been a node is returned directly
+        /// 节点标识，已经存在节点则直接返回</returns>
+        public virtual NodeIndex CreateUniformProbabilityTotalStatisticsNode(NodeIndex index, string key, NodeInfo nodeInfo, byte indexBits)
+        {
+            return CreateSnapshotNode<IUniformProbabilityTotalStatisticsNode>(index, key, nodeInfo, () => new UniformProbabilityTotalStatisticsNode(indexBits));
+        }
+        /// <summary>
         /// Create a 64-bit auto-increment identity node IIdentityGeneratorNode
         /// 创建 64 位自增ID 节点 IIdentityGeneratorNode
         /// </summary>

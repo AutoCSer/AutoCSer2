@@ -85,6 +85,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
 
             Task<bool> manyHashBitMapClientFilterNodeTask = ManyHashBitMapClientFilterNode.Test();
             Task<bool> manyHashBitMapFilterNodeTask = ManyHashBitMapFilterNode.Test();
+            Task<bool> uniformProbabilityTotalStatisticsNodeTask = UniformProbabilityTotalStatisticsNode.Test();
             Task<bool> sortedDictionaryNodeTask = SortedDictionaryNode.Test();
             Task<bool> sortedSetNodeTask = SortedSetNode.Test();
             Task<bool> searchTreeDictionaryNodeTask = SearchTreeDictionaryNode.Test();
@@ -100,7 +101,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
             Task<bool> leftArrayNodeTask = LeftArrayNode.Test();
             Task<bool> sortedListNodeTask = SortedListNode.Test();
             Task<bool> bitmapNodeTask = BitmapNode.Test();
-
 
             if (!await dictionaryNodeTask)
             {
@@ -132,6 +132,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (!await manyHashBitMapFilterNodeTask)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await uniformProbabilityTotalStatisticsNodeTask)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

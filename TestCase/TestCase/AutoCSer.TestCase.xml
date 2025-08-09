@@ -1413,6 +1413,38 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.UniformProbabilityTotalStatisticsNode">
+            <summary>
+            A client example of a total statistics node based on uniform probability
+            基于均匀概率的总量统计节点客户端示例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.UniformProbabilityTotalStatisticsNode.nodeCache">
+            <summary>
+            Client node singleton
+            客户端节点单例
+            </summary>
+        </member>
+        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.UniformProbabilityTotalStatisticsNode.readWriteQueueNodeCache">
+            <summary>
+            Client node singleton (supporting concurrent read operations)
+            客户端节点单例（支持并发读取操作）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.UniformProbabilityTotalStatisticsNode.Test">
+            <summary>
+            A client example of a total statistics node based on uniform probability
+            基于均匀概率的总量统计节点客户端示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.UniformProbabilityTotalStatisticsNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityTotalStatisticsNodeClientNode})">
+            <summary>
+            A client example of a total statistics node based on uniform probability
+            基于均匀概率的总量统计节点客户端示例
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapFilterNode">
             <summary>
             Multi-hash bitmap filtering node client example

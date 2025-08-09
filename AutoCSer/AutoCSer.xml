@@ -28360,8 +28360,8 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandResult`1.GetResult">
             <summary>
-            Get the result of the command call
-            获取命令调用结果
+            Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+            获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
             </summary>
             <returns></returns>
         </member>
@@ -42164,8 +42164,8 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueExceptionTask.GetResult">
             <summary>
-            Gets the result of the task execution
-            获取任务执行返回结果
+            Gets the result of the task execution, return null before the result is returned (Only for supporting await)
+            获取任务执行返回结果，结果未返回之前则返回 null（仅用于支持 await）
             </summary>
             <returns></returns>
         </member>
@@ -42211,8 +42211,8 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueExceptionTask`1.GetResult">
             <summary>
-            Gets the result of the task execution
-            获取任务执行返回结果
+            Gets the result of the task execution, return the default value before the result is returned (Only for supporting await)
+            获取任务执行返回结果，结果未返回之前则返回默认值（仅用于支持 await）
             </summary>
             <returns></returns>
         </member>
@@ -42257,8 +42257,8 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueCustomTask.GetResult">
             <summary>
-            Gets the result of the task execution
-            获取任务执行返回结果
+            Gets the result of the task execution (Only for supporting await)
+            获取任务执行返回结果（仅用于支持 await）
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueCustomTask.System#Runtime#CompilerServices#INotifyCompletion#OnCompleted(System.Action)">
@@ -42303,8 +42303,8 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueCustomTask`1.GetResult">
             <summary>
-            Gets the result of the task execution
-            获取任务执行返回结果
+            Gets the result of the task execution, return the default value before the result is returned (Only for supporting await)
+            获取任务执行返回结果，结果未返回之前则返回默认值（仅用于支持 await）
             </summary>
             <returns></returns>
         </member>
@@ -44019,8 +44019,8 @@
         </member>
         <member name="M:AutoCSer.Net.EnumeratorCommand.GetResult">
             <summary>
-            Get the collection enumeration command
-            获取集合枚举命令
+            Get the collection enumeration command, return null before the result is returned (Only for supporting await)
+            获取集合枚举命令，结果未返回之前则返回 null（仅用于支持 await）
             </summary>
             <returns>The operation of adding to the output queue failed and returned null
             添加到输出队列操作失败返回 null</returns>
@@ -44591,8 +44591,8 @@
         </member>
         <member name="M:AutoCSer.Net.ReturnCommand.GetResult">
             <summary>
-            Get the result of the command call
-            获取命令调用结果
+            Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+            获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
             </summary>
             <returns></returns>
         </member>
@@ -44659,8 +44659,8 @@
         </member>
         <member name="M:AutoCSer.Net.ReturnCommand`1.GetResult">
             <summary>
-            Get the result of the command call
-            获取命令调用结果
+            Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+            获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
             </summary>
             <returns></returns>
         </member>
@@ -54580,8 +54580,8 @@
         </member>
         <member name="M:AutoCSer.Threading.SwitchAwaiter.GetResult">
             <summary>
-            await support
-            await 支持
+            Only for supporting await
+            仅用于支持 await
             </summary>
             <returns></returns>
         </member>
@@ -54653,8 +54653,8 @@
         </member>
         <member name="M:AutoCSer.Threading.TaskCastAwaiter`1.GetResult">
             <summary>
-            await support
-            await 支持
+            Only for supporting await
+            仅用于支持 await
             </summary>
             <returns></returns>
         </member>
