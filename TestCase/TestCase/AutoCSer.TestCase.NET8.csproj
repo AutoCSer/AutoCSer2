@@ -112,7 +112,6 @@
     <Compile Include="ShortLinkCommandServer.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\UniformProbabilityTotalStatisticsNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ManyHashBitMapFilterNode.cs" />
-    <Compile Include="StreamPersistenceMemoryDatabase\Client\ManyHashBitMapClientFilterNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ArrayNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\BitmapNode.cs" />
     <Compile Include="StreamPersistenceMemoryDatabase\Client\ByteArrayDictionaryNode.cs" />

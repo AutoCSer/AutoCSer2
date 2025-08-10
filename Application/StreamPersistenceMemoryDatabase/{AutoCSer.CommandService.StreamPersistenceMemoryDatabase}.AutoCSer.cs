@@ -1833,7 +1833,7 @@ namespace AutoCSer.CommandService
 ///            获取当前位图数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap> GetData();
+            AutoCSer.Net.CallbackCommand GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> callback);
             /// <summary>
             /// Set bit 
 ///            设置位
@@ -7099,7 +7099,6 @@ namespace AutoCSer.CommandService
             /// <summary>
             /// [1] Get the current bitmap data 
 ///            获取当前位图数据
-            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap 
             /// </summary>
             GetData = 1,
             /// <summary>

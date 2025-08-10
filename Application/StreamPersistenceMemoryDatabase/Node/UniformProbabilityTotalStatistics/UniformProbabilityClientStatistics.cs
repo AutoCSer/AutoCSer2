@@ -104,7 +104,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public double Count()
         {
-            return callback != null ? callback.Count() : double.MinValue;
+            return callback != null ? callback.TotalCount : double.MinValue;
         }
     }
 }

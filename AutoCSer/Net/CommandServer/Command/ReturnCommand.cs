@@ -154,9 +154,9 @@ namespace AutoCSer.Net
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public CommandResult<T> GetCommandResult()
+        public CommandReturnValue<T> GetCommandReturnValue()
         {
-            return new CommandResult<T>(this);
+            return new CommandReturnValue<T>(this);
         }
 
         /// <summary>

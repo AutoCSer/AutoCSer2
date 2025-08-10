@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.68</Version>
+    <Version>2.0.69</Version>
     <PackageId>AutoCSer2</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.0]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -331,7 +331,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\CallbackCommand\CallbackQueueOutputCommand.cs" />
     <Compile Include="Net\CommandServer\Command\Command.cs" />
     <Compile Include="Net\CommandServer\Command\CommandKeepCallback.cs" />
-    <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
+    <Compile Include="Net\CommandServer\Command\CommandReturnValue.cs" />
     <Compile Include="Net\CommandServer\Command\CommandPool\CommandPool.cs" />
     <Compile Include="Net\CommandServer\Command\CommandPool\CommandPoolGetStateEnum.cs" />
     <Compile Include="Net\CommandServer\Command\CommandPool\CommandPoolLink.cs" />

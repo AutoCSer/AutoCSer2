@@ -191,5 +191,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             onCompleted();
         }
+        /// <summary>
+        /// Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
+        /// 获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ResponseReturnValue<T> GetResponseReturnValue()
+        {
+            return new ResponseReturnValue<T>(this);
+        }
     }
 }

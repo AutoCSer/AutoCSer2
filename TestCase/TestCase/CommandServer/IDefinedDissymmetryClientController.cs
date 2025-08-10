@@ -63,7 +63,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            Data.ORM.ModelGeneric result = await client.DefinedDissymmetryClientController.GetSocketTask().GetCommandResult();
+            Data.ORM.ModelGeneric result = await client.DefinedDissymmetryClientController.GetSocketTask().GetCommandReturnValue();
             if (!ServerSynchronousController.SessionObject.Check(result))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

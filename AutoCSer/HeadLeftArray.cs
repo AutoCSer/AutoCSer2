@@ -96,7 +96,7 @@ namespace AutoCSer
         internal void ArrayToHead(int index)
         {
             head = Array.Array[index];
-            Array.RemoveToEnd(index);
+            Array.UnsafeRemoveAtToEnd(index);
         }
     }
 }

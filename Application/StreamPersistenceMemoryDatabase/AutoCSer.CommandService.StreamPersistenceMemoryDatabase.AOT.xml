@@ -3908,12 +3908,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetData">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap})">
             <summary>
             Get the current bitmap data
             获取当前位图数据
             </summary>
-            <returns></returns>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.SetBitBeforePersistence(System.Int32)">
             <summary>
@@ -4158,6 +4158,11 @@
             设置新位回调委托集合
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.callbackTimeouts">
+            <summary>
+            获取新设置的数据的回调委托的超时信息
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.#ctor(System.Int32)">
             <summary>
             Multi-hash bitmap client synchronization filter node (similar to Bloom filter, suitable for small containers)
@@ -4188,12 +4193,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetData">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap})">
             <summary>
             Get the current bitmap data
             获取当前位图数据
             </summary>
-            <returns></returns>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.SetBitBeforePersistence(System.Int32)">
             <summary>
@@ -6774,9 +6779,19 @@
             索引数组大小
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.powerReciprocalSum">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.bitReciprocalSum">
             <summary>
             当前倒数和
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.sumCount">
+            <summary>
+            倒数和的倒数数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.totalCount">
+            <summary>
+            统计数量
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.#ctor(System.Byte)">
@@ -6843,6 +6858,12 @@
             </summary>
             <param name="index"></param>
             <param name="bits"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.setSum(System.Double)">
+            <summary>
+            设置倒数和
+            </summary>
+            <param name="bitReciprocalSum"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.setMaxBits(System.Byte,System.Int32*)">
             <summary>
@@ -17798,7 +17819,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetData">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}})">
             <summary>
             Get the current bitmap data 
                        获取当前位图数据
@@ -17938,7 +17959,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IManyHashBitMapClientFilterNodeLocalClientNode#GetData">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IManyHashBitMapClientFilterNodeLocalClientNode#GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}})">
             <summary>
             Get the current bitmap data 
                        获取当前位图数据
@@ -19276,7 +19297,6 @@
             <summary>
             [1] Get the current bitmap data 
                        获取当前位图数据
-            Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.GetSize">

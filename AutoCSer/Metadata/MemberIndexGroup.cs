@@ -182,7 +182,7 @@ namespace AutoCSer.Metadata
                             if (anonymousFieldName.Key == property.Name)
                             {
                                 anonymousField = anonymousFieldName.Value;
-                                anonymousFields.RemoveToEnd(anonymousFieldIndex);
+                                anonymousFields.UnsafeRemoveAtToEnd(anonymousFieldIndex);
                                 break;
                             }
                             ++anonymousFieldIndex;
@@ -216,7 +216,7 @@ namespace AutoCSer.Metadata
                             if (anonymousFieldName.Key == property.Name)
                             {
                                 anonymousField = anonymousFieldName.Value;
-                                anonymousFields.RemoveToEnd(anonymousFieldIndex);
+                                anonymousFields.UnsafeRemoveAtToEnd(anonymousFieldIndex);
                                 break;
                             }
                             ++anonymousFieldIndex;

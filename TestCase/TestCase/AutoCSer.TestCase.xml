@@ -1483,38 +1483,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode">
-            <summary>
-            An example of the multi-hash bitmap client synchronously filtering node client
-            多哈希位图客户端同步过滤节点 客户端示例
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.client">
-            <summary>
-            Client node singleton
-            客户端节点单例
-            </summary>
-        </member>
-        <member name="F:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.readWriteQueueClient">
-            <summary>
-            Client node singleton (supporting concurrent read operations)
-            客户端节点单例（支持并发读取操作）
-            </summary>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.Test">
-            <summary>
-            An example of the multi-hash bitmap client synchronously filtering node client
-            多哈希位图客户端同步过滤节点 客户端示例
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ManyHashBitMapClientFilterNode.test(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter{System.String})">
-            <summary>
-            An example of the multi-hash bitmap client synchronously filtering node client
-            多哈希位图客户端同步过滤节点 客户端示例
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Client.ArrayNode">
             <summary>
             Example of an array node client

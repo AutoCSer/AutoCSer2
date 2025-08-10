@@ -28731,80 +28731,80 @@
             <param name="head"></param>
             <param name="returnType"></param>
         </member>
-        <member name="T:AutoCSer.Net.CommandServer.CommandResult`1">
+        <member name="T:AutoCSer.Net.CommandServer.CommandReturnValue`1">
             <summary>
             命令返回值 await T
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.CommandResult`1.Command">
+        <member name="F:AutoCSer.Net.CommandServer.CommandReturnValue`1.Command">
             <summary>
             The return value command
             返回值命令
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.CommandResult`1.continuation">
+        <member name="F:AutoCSer.Net.CommandServer.CommandReturnValue`1.continuation">
             <summary>
             Asynchronous callback
             异步回调
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandServer.CommandResult`1.IsCompleted">
+        <member name="P:AutoCSer.Net.CommandServer.CommandReturnValue`1.IsCompleted">
             <summary>
             Completed status
             完成状态
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandServer.CommandResult`1.ReturnType">
+        <member name="P:AutoCSer.Net.CommandServer.CommandReturnValue`1.ReturnType">
             <summary>
             The return type of the call
             调用返回类型
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandServer.CommandResult`1.ErrorMessage">
+        <member name="P:AutoCSer.Net.CommandServer.CommandReturnValue`1.ErrorMessage">
             <summary>
             Error message
             </summary>
         </member>
-        <member name="P:AutoCSer.Net.CommandServer.CommandResult`1.ReturnValue">
+        <member name="P:AutoCSer.Net.CommandServer.CommandReturnValue`1.ReturnValue">
             <summary>
             Return value
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.CommandResult`1.#ctor(AutoCSer.Net.ReturnCommand{`0})">
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.#ctor(AutoCSer.Net.ReturnCommand{`0})">
             <summary>
             命令返回值
             </summary>
             <param name="command">The return value command
             返回值命令</param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.CommandResult`1.onCompleted">
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.onCompleted">
             <summary>
             完成回调操作
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.CommandResult`1.OnCompleted(System.Action)">
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.OnCompleted(System.Action)">
             <summary>
             Set asynchronous callback
             设置异步回调
             </summary>
             <param name="continuation"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.CommandResult`1.Wait">
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.Wait">
             <summary>
             Wait for the command call to return the result
             等待命令调用返回结果
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.CommandResult`1.GetResult">
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.GetResult">
             <summary>
             Get the result of the command call, return an error message before the result is returned (Only for supporting await)
             获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.CommandResult`1.GetAwaiter">
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.GetAwaiter">
             <summary>
             Get the awaiter object
             </summary>
@@ -47920,7 +47920,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.ReturnCommand`1.GetCommandResult">
+        <member name="M:AutoCSer.Net.ReturnCommand`1.GetCommandReturnValue">
             <summary>
             Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
             获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
@@ -53936,7 +53936,7 @@
             </summary>
             <param name="index"></param>
         </member>
-        <member name="M:AutoCSer.LeftArray`1.RemoveToEnd(System.Int32)">
+        <member name="M:AutoCSer.LeftArray`1.UnsafeRemoveAtToEnd(System.Int32)">
             <summary>
             Move the last data to the position where the deleted data was located
             将最后一个数据移动到被删除数据位置

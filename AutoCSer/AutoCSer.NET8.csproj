@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.68</Version>
+    <Version>2.0.69</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a full-duplex RPC component based on TCP long connections, featuring high concurrency, high throughput and other high-performance characteristics.
@@ -188,7 +188,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CommandServerSocketBuildOutputThreadEnum.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\RemoteMetadataCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\RemoteMetadataCallbackCommand.cs" />
-    <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
+    <Compile Include="Net\CommandServer\Command\CommandReturnValue.cs" />
     <Compile Include="Net\CommandServer\Command\CompletedReturnCommand.cs" />
     <Compile Include="Net\CommandServer\Command\IEnumeratorCommand.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputRemoteMetadata.cs" />

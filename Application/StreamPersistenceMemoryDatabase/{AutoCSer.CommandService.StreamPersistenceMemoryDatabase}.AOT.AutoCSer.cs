@@ -1359,7 +1359,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 ///            获取当前位图数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> GetData();
+            void GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> __callback__);
             /// <summary>
             /// Get the bitmap size (number of bits) 
 ///            获取位图大小（位数量）
@@ -1560,11 +1560,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 ///            获取当前位图数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> IManyHashBitMapClientFilterNodeLocalClientNode/**/.GetData()
+            void IManyHashBitMapClientFilterNodeLocalClientNode/**/.GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> __callback__)
             {
-                
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallOutputNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>/**/.Create(this, 1
-                    , true
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>/**/.Create(this, 1
+                    , __callback__
+                    , false
                     );
             }
 
@@ -3662,7 +3662,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <summary>
             /// [1] Get the current bitmap data 
 ///            获取当前位图数据
-            /// Return value : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap 
             /// </summary>
             GetData = 1,
             /// <summary>
@@ -3713,10 +3712,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IManyHashBitMapClientFilterNode_GetData_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
         {
-            internal IManyHashBitMapClientFilterNode_GetData_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)2) { }
+            internal IManyHashBitMapClientFilterNode_GetData_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)7, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)130) { }
             public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>)node).GetData(), ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)2);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>)node).GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)130));
             }
         }
         /// <summary>

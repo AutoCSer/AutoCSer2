@@ -223,7 +223,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                             else isClone = true;
                             socket.AppendOutput(output);
                         }
-                        else sockets.RemoveToEnd(index);
+                        else sockets.UnsafeRemoveAtToEnd(index);
                     }
                 }
                 finally { Monitor.Exit(socketLock); }

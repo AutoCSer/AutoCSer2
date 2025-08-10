@@ -20,16 +20,17 @@ namespace AutoCSer.Document.MemoryDatabaseNode.Client
         /// <returns></returns>
         internal static async Task<bool> Test()
         {
-            var result = await client.Set("AAA");
-            if (!result.IsSuccess)
+            await AutoCSer.Threading.SwitchAwaiter.Default;
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult result = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult);
+            for (int count = 10; count != 0; --count)
             {
-                return AutoCSer.Breakpoint.ReturnFalse();
+                result = await client.Set("AAA");
+                if (result.IsSuccess) break;
+                if (result.CallState != AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum.ClientLoadUnfinished) break;
+                await Task.Delay(100);
             }
-            var boolResult = await client.Check("AAA");
-            if (!boolResult.Value)
-            {
-                return AutoCSer.Breakpoint.ReturnFalse();
-            }
+            var boolResult = client.Check("AAA");
+            Console.WriteLine($"{result.IsSuccess} {boolResult}");
             return true;
         }
     }

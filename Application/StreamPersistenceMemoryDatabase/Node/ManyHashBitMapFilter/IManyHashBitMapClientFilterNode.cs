@@ -35,9 +35,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Get the current bitmap data
         /// 获取当前位图数据
         /// </summary>
-        /// <returns></returns>
-        [ServerMethod(IsPersistence = false)]
-        ManyHashBitMap GetData();
+        /// <param name="callback"></param>
+        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
+        void GetData(MethodCallback<ManyHashBitMap> callback);
         /// <summary>
         /// Set bit (Check the input parameters before the persistence operation)
         /// 设置位（持久化操作之前检查输入参数）

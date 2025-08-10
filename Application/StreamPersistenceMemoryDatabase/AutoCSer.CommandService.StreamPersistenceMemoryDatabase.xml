@@ -2684,6 +2684,90 @@
             <returns>Error paging data
             错误分页数据</returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1">
+            <summary>
+            返回值 await T
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.Response">
+            <summary>
+            返回参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.continuation">
+            <summary>
+            Asynchronous callback
+            异步回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.IsCompleted">
+            <summary>
+            Completed status
+            完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.ReturnType">
+            <summary>
+            The return type of the call
+            调用返回类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.State">
+            <summary>
+            Call status
+            调用状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.ReturnValue">
+            <summary>
+            Return value
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter{`0})">
+            <summary>
+            命令返回值
+            </summary>
+            <param name="response">The return value command
+            返回值命令</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.onCompleted">
+            <summary>
+            完成回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.OnCompleted(System.Action)">
+            <summary>
+            Set asynchronous callback
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.Wait">
+            <summary>
+            Wait for the command call to return the result
+            等待命令调用返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.GetResult">
+            <summary>
+            Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+            获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.GetAwaiter">
+            <summary>
+            Get the awaiter object
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CreateNodeIndex">
             <summary>
             Create node index information
@@ -2711,6 +2795,107 @@
             基于均匀概率的总量统计的二进制位数量的倒数
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1">
+            <summary>
+            多哈希位图过滤节点客户端实例
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.client">
+            <summary>
+            Multi-hash bitmap filtering node client
+            多哈希位图过滤节点客户端
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.keepCallback">
+            <summary>
+            获取设置新数据保持回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.map">
+            <summary>
+            Multi-hash bitmap data
+            多哈希位图数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.setBits">
+            <summary>
+            新设置的位集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.setBitLock">
+            <summary>
+            新设置的位集合访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.restartLock">
+            <summary>
+            重建实例访问锁
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.isCancel">
+            <summary>
+            是否已经取消回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter{`0})">
+            <summary>
+            多哈希位图过滤节点客户端实例
+            </summary>
+            <param name="client">Multi-hash bitmap filtering node client
+            多哈希位图过滤节点客户端</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.Start">
+            <summary>
+            开始获取数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.Cancel">
+            <summary>
+            取消回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.getData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap})">
+            <summary>
+            Set the multi-Hash bitmap data
+            设置多哈希位图数据
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.getBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{System.Int32},AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Get the operation of setting a new bit
+            获取设置新位操作
+            </summary>
+            <param name="result"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.Set(`0)">
+            <summary>
+            Set the bitmap data
+            设置位图数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.set(`0)">
+            <summary>
+            Set the bitmap data
+            设置位图数据
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback`1.Check(`0)">
+            <summary>
+            Check the bitmap data
+            检查位图数据
+            </summary>
+            <param name="value"></param>
+            <returns>Returning false indicates that the data does not exist
+            返回 false 表示数据不存在</returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.OnlyPersistenceNode`1">
             <summary>
@@ -3057,9 +3242,19 @@
             索引数组大小
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.powerReciprocalSum">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.bitReciprocalSum">
             <summary>
             当前倒数和
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.TotalCount">
+            <summary>
+            统计数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.sumCount">
+            <summary>
+            倒数和的倒数数量
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.restartLock">
@@ -3106,12 +3301,11 @@
             <param name="result"></param>
             <param name="command"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.Count">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.setSum(System.Double)">
             <summary>
-            Get the statistical quantity
-            获取统计数量
+            设置倒数和
             </summary>
-            <returns></returns>
+            <param name="bitReciprocalSum"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsCallback.Append(System.UInt64)">
             <summary>
@@ -3294,9 +3488,19 @@
             索引数组大小
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.powerReciprocalSum">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.bitReciprocalSum">
             <summary>
             当前倒数和
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.sumCount">
+            <summary>
+            倒数和的倒数数量
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.totalCount">
+            <summary>
+            统计数量
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.#ctor(System.Byte)">
@@ -3363,6 +3567,12 @@
             </summary>
             <param name="index"></param>
             <param name="bits"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.setSum(System.Double)">
+            <summary>
+            设置倒数和
+            </summary>
+            <param name="bitReciprocalSum"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNode.setMaxBits(System.Byte,System.Int32*)">
             <summary>
@@ -7708,12 +7918,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetData">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap})">
             <summary>
             Get the current bitmap data
             获取当前位图数据
             </summary>
-            <returns></returns>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.SetBitBeforePersistence(System.Int32)">
             <summary>
@@ -8008,31 +8218,7 @@
             多哈希位图过滤节点客户端
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.map">
-            <summary>
-            Multi-hash bitmap data
-            多哈希位图数据
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.mapLock">
-            <summary>
-            Multi-hash bitmap data access lock
-            多哈希位图数据访问锁
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.keepCallback">
-            <summary>
-            Keep callback for get the operation of setting a new bit 
-            获取设置新位操作保持回调
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.getBits">
-            <summary>
-            A collection of unprocessed new locations
-            未处理新位置集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.isDispose">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.IsDispose">
             <summary>
             Whether to release resources
             是否释放资源
@@ -8044,41 +8230,6 @@
             多哈希位图过滤节点客户端
             </summary>
             <param name="nodeCache"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.Dispose">
-            <summary>
-            Release resources
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.getMap">
-            <summary>
-            Initialize to get the multi-Hash bitmap data
-            初始化获取多哈希位图数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.getData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeClientNode)">
-            <summary>
-            Initialize to get the multi-Hash bitmap data
-            初始化获取多哈希位图数据
-            </summary>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap)">
-            <summary>
-            Set the multi-Hash bitmap data
-            设置多哈希位图数据
-            </summary>
-            <param name="map"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.getBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{System.Int32},AutoCSer.Net.KeepCallbackCommand)">
-            <summary>
-            Get the operation of setting a new bit
-            获取设置新位操作
-            </summary>
-            <param name="result"></param>
-            <param name="command"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter.GetHashCode2(System.String)">
             <summary>
@@ -8111,10 +8262,16 @@
             </summary>
             <typeparam name="T">Data type</typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.getHashCodes">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.GetHashCodes">
             <summary>
             Hash calculation
             哈希计算
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.callback">
+            <summary>
+            Current instance
+            当前实例
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabaseClientNodeCache{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeClientNode},System.Func{`0,System.Collections.Generic.IEnumerable{System.UInt32}})">
@@ -8126,32 +8283,19 @@
             <param name="getHashCodes">Hash calculation must adopt a stable hash algorithm to ensure that the calculation results of different machines or processes are consistent
             哈希计算委托集合，必须采用稳定哈希算法保证不同机器或者进程计算结果一致</param>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.Dispose">
+            <summary>
+            Release resources
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.Set(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterCallback{`0})">
+            <summary>
+            Set the current instance
+            设置当前实例
+            </summary>
+            <param name="callback"></param>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.Set(`0)">
-            <summary>
-            Set the bitmap data
-            设置位图数据
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.set(`0)">
-            <summary>
-            Set the bitmap data
-            设置位图数据
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.set(`0,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeClientNode)">
-            <summary>
-            Set the bitmap data
-            设置位图数据
-            </summary>
-            <param name="value"></param>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.setMap(`0)">
             <summary>
             Set the bitmap data
             设置位图数据
@@ -8167,14 +8311,6 @@
             <param name="value"></param>
             <returns>Returning false indicates that the data does not exist
             返回 false 表示数据不存在</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilter`1.check(`0)">
-            <summary>
-            Check the bitmap data
-            检查位图数据
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNode">
             <summary>
@@ -8275,6 +8411,11 @@
             设置新位回调委托集合
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.callbackTimeouts">
+            <summary>
+            获取新设置的数据的回调委托的超时信息
+            </summary>
+        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.#ctor(System.Int32)">
             <summary>
             Multi-hash bitmap client synchronization filter node (similar to Bloom filter, suitable for small containers)
@@ -8305,12 +8446,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetData">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap})">
             <summary>
             Get the current bitmap data
             获取当前位图数据
             </summary>
-            <returns></returns>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.SetBitBeforePersistence(System.Int32)">
             <summary>
@@ -21708,6 +21849,13 @@
             返回值命令完成回调
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter`1.GetResponseReturnValue">
+            <summary>
+            Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
+            获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterBinarySerializer`1">
             <summary>
             Return parameter binary serialization
@@ -32444,7 +32592,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeClientNode.GetData">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeClientNode.GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}})">
             <summary>
             Get the current bitmap data 
                        获取当前位图数据
@@ -36192,7 +36340,6 @@
             <summary>
             [1] Get the current bitmap data 
                        获取当前位图数据
-            返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.SetBit">

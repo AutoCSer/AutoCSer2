@@ -636,7 +636,7 @@ namespace AutoCSer.CommandService
             else
             {
                 int removeIndex = freeIndexs.IndexOf(index.Index);
-                if (removeIndex >= 0) freeIndexs.RemoveToEnd(removeIndex);
+                if (removeIndex >= 0) freeIndexs.UnsafeRemoveAtToEnd(removeIndex);
             }
             if (Nodes[index.Index].SetFreeIdentity(index.Identity)) CreateNodes.Add(key, new CreatingNodeInfo(index.Index, nodeInfo));
         }

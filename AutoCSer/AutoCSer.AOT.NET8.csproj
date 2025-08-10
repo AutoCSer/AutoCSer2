@@ -329,7 +329,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\CustomDataCommand.cs" />
     <Compile Include="Net\CommandServer\Command\BaseCommand\MergeCallbackCommand.cs" />
-    <Compile Include="Net\CommandServer\Command\CommandResult.cs" />
+    <Compile Include="Net\CommandServer\Command\CommandReturnValue.cs" />
     <Compile Include="Net\CommandServer\Command\SendOnlyCommand.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientMethodTypeEnum.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterface.cs" />

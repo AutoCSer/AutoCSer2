@@ -54,13 +54,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 当前倒数和
         /// </summary>
-        private double powerReciprocalSum;
+        private double bitReciprocalSum;
+        /// <summary>
+        /// 倒数和的倒数数量
+        /// </summary>
+        private double sumCount;
+        /// <summary>
+        /// 统计数量
+        /// </summary>
+        private double totalCount;
         /// <summary>
         /// 基于均匀概率的总量统计节点（类似 HyperLogLog）
         /// </summary>
         /// <param name="indexBits">The number of binary bits in the index must be even, with a minimum of 8 and a maximum of 20
         /// 索引二进制位数量，必须为偶数，最小值为 8，最大值为 20</param>
-        internal UniformProbabilityTotalStatisticsNode(byte indexBits)
+        public UniformProbabilityTotalStatisticsNode(byte indexBits)
         {
             if (indexBits <= 20)
             {
@@ -91,16 +99,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             fixed (byte* bitFixed = bitCountArray)
             {
                 int* counts = (int*)(bitFixed + indexCount);
-                byte bits = 64 - MinIndexBits;
+                byte bits = 64 - MinIndexBits, maxBits = 0;
                 do
                 {
-                    if (counts[bits] != 0)
+                    int count = counts[bits];
+                    if (count != 0)
                     {
-                        setMaxBits(bits, counts);
-                        break;
+                        if (maxBits == 0) maxBits = bits;
+                        sumCount += (count >> 8) * bits + (count & 0xff);
                     }
                 }
                 while (--bits != 0);
+                if (maxBits != 0) setMaxBits(maxBits, counts);
             }
             return this;
         }
@@ -138,7 +148,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 添加快照数据
         /// </summary>
         /// <param name="bitCountArray"></param>
-        public void SnapshotSet(byte[] bitCountArray)
+        public unsafe void SnapshotSet(byte[] bitCountArray)
         {
             this.bitCountArray = bitCountArray;
         }
@@ -160,10 +170,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             //value += AutoCSer.Memory.Common.AddHashCode;
             int index = (int)(((uint)value & indexLow) | ((uint)(value >> indexShiftBits) & indexHigh));
-            value >>= indexLowBits;
-            ulong markValue = (1UL << bitCountArray[index]) - 1;
+            value = (value >> indexLowBits) & valueMark;
+            ulong markValue = (1UL << (bitCountArray[index] + 1)) - 1;
             if ((value & markValue) != markValue) return;
-            value = value & valueMark;
             //计算最后连续 1 的数量
             value ^= value + 1;
             if ((uint)value != uint.MaxValue) set(index, (byte)(((uint)value + 1).deBruijnLog2() - 1));
@@ -182,14 +191,29 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 int* counts = (int*)(bitFixed + indexCount);
                 byte lastBits = bitFixed[index];
-                bool isLoaded = base.StreamPersistenceMemoryDatabaseService.IsLoaded;
+                bool isLoaded = StreamPersistenceMemoryDatabaseService == null || StreamPersistenceMemoryDatabaseService.IsLoaded;
+                //bool isLoaded = StreamPersistenceMemoryDatabaseService.IsLoaded;
                 int* incrementCount = counts + bits, decrementCount = counts + lastBits;
                 bitFixed[index] = bits;
-                if (isLoaded) powerReciprocalSum += reciprocal[bits] - reciprocal[lastBits];
                 *incrementCount = CountIncrement(*incrementCount, bits);
                 *decrementCount = CountDecrement(*decrementCount, lastBits);
-                if (bits > maxBits && isLoaded) setMaxBits(bits, counts);
+                if (isLoaded)
+                {
+                    if (lastBits == 0) ++sumCount;
+                    if (bits > maxBits) setMaxBits(bits, counts);
+                    else setSum(bitReciprocalSum + reciprocal[bits] - reciprocal[lastBits]);
+                }
             }
+        }
+        /// <summary>
+        /// 设置倒数和
+        /// </summary>
+        /// <param name="bitReciprocalSum"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private void setSum(double bitReciprocalSum)
+        {
+            this.bitReciprocalSum = bitReciprocalSum;
+            totalCount = Math.Pow(2, sumCount / bitReciprocalSum) * sumCount;
         }
         /// <summary>
         /// 重新计算倒数和
@@ -199,12 +223,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private unsafe void setMaxBits(byte bits, int* counts)
         {
             maxBits = bits;
-            double* reciprocal = (double*)BitReciprocal.Data;
-            for (powerReciprocalSum = counts[1] >> 8; bits != 1; --bits)
+            double sum = counts[1] >> 8;
+            for (double* reciprocal = (double*)BitReciprocal.Data; bits != 1; --bits)
             {
                 int count = counts[bits];
-                powerReciprocalSum += (count >> 8) + (byte)count * reciprocal[bits];
+                sum += (count >> 8) + (byte)count * reciprocal[bits];
             }
+            setSum(sum);
         }
         /// <summary>
         /// Get the statistical quantity
@@ -213,7 +238,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         public double Count()
         {
-            return Math.Pow(2, indexCount / powerReciprocalSum) * indexCount;
+            return totalCount;
         }
 
         /// <summary>

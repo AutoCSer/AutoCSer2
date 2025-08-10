@@ -574,7 +574,7 @@ namespace AutoCSer.CommandService.DiskBlock
                                 else
                                 {
                                     int removeIndex = indexs.Array.IndexOf(index);
-                                    if (removeIndex >= 0) indexs.Array.RemoveToEnd(removeIndex);
+                                    if (removeIndex >= 0) indexs.Array.UnsafeRemoveAtToEnd(removeIndex);
                                     isCache = true;
                                 }
                             }
@@ -674,7 +674,7 @@ namespace AutoCSer.CommandService.DiskBlock
                     try
                     {
                         int index = blocks.IndexOf(p => p.StartIndex == startIndex);
-                        if (index > 0) blocks.RemoveToEnd(index);
+                        if (index > 0) blocks.UnsafeRemoveAtToEnd(index);
                     }
                     finally { Monitor.Exit(blockLock); }
                 }

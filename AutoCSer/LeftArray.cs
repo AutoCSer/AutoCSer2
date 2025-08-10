@@ -630,7 +630,7 @@ namespace AutoCSer
             int index = IndexOf(value);
             if (index >= 0)
             {
-                RemoveToEnd(index);
+                UnsafeRemoveAtToEnd(index);
                 return true;
             }
             return false;
@@ -744,7 +744,7 @@ namespace AutoCSer
         /// </summary>
         /// <param name="index"></param>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal void RemoveToEnd(int index)
+        internal void UnsafeRemoveAtToEnd(int index)
         {
             if (index != --Length) Array[index] = Array[Length];
             Array.setDefault(Length);
@@ -756,7 +756,7 @@ namespace AutoCSer
         /// <param name="index"></param>
         public void RemoveAtToEnd(int index)
         {
-            if ((uint)index < (uint)Length) RemoveToEnd(index);
+            if ((uint)index < (uint)Length) UnsafeRemoveAtToEnd(index);
             else throw new IndexOutOfRangeException("index[" + index.toString() + "] >= Length[" + Length.toString() + "]");
         }
         /// <summary>

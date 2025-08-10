@@ -188,6 +188,7 @@
     <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMap.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapFilter.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilter.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilterCallback.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapFilterNode.cs" />
     <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilterNode.cs" />
     <Compile Include="Node\Message\LocalServiceBinaryMessageConsumer.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="RequestParameterSerializer.cs" />
     <Compile Include="RequestParameterSimpleSerializer.cs" />
     <Compile Include="ResponseParameter.cs" />
+    <Compile Include="ResponseReturnValue.cs" />
     <Compile Include="Method\CallInputMethod.cs" />
     <Compile Include="Method\SendOnlyMethodParameter.cs" />
     <Compile Include="Method\CallInputMethodParameter.cs" />

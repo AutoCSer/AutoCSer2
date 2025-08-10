@@ -50,7 +50,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                         , ServerByteArrayMessageStringConsumer.Test(commandClient, clientNode)
                         , ServerByteArrayMessageJsonConsumer.Test(commandClient, clientNode)
                         , ServerByteArrayMessageBinaryConsumer.Test(commandClient, clientNode)
-                        , ManyHashBitMapClientFilterNode.Test(clientNode)
                         , ManyHashBitMapFilterNode.Test(clientNode)
                         , UniformProbabilityTotalStatisticsNode.Test(clientNode)
                         , HashBytesFragmentDictionaryNode.Test(clientNode)

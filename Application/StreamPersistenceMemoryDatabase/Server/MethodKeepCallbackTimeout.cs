@@ -69,7 +69,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     var callback = callbackArray[--count].get(socket);
                     if (callback != null)
                     {
-                        callbacks.RemoveToEnd(count);
+                        callbacks.UnsafeRemoveAtToEnd(count);
                         if (callback.CommandServerKeepCallback != null) return callback;
                     }
                 }

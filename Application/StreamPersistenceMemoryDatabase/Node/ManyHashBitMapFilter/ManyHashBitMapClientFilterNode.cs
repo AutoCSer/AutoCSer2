@@ -24,6 +24,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private LeftArray<MethodKeepCallback<int>> callbacks;
         /// <summary>
+        /// 获取新设置的数据的回调委托的超时信息
+        /// </summary>
+        private LeftArray<MethodKeepCallbackTimeout<int>> callbackTimeouts;
+        /// <summary>
         /// Multi-hash bitmap client synchronization filter node (similar to Bloom filter, suitable for small containers)
         /// 多哈希位图客户端同步过滤节点（类似布隆过滤器，适合小容器）
         /// </summary>
@@ -33,6 +37,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             map.Set(size);
             callbacks.SetEmpty();
+            callbackTimeouts.SetEmpty();
         }
         /// <summary>
         /// Add snapshot data
@@ -51,7 +56,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="callback"></param>
         public void GetBit(MethodKeepCallback<int> callback)
         {
-            callbacks.Add(callback);
+            callbackTimeouts.Add(new MethodKeepCallbackTimeout<int>(callback));
         }
         /// <summary>
         /// Get the bitmap size (number of bits)
@@ -66,10 +71,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Get the current bitmap data
         /// 获取当前位图数据
         /// </summary>
-        /// <returns></returns>
-        public ManyHashBitMap GetData()
+        /// <param name="callback"></param>
+        public void GetData(MethodCallback<ManyHashBitMap> callback)
         {
-            return map;
+            var socket = callback.CommandServerCallback?.Socket;
+            if (socket != null && callback.Callback(map))
+            {
+                var keepCallback = MethodKeepCallbackTimeout<int>.GetCallback(ref callbackTimeouts, socket);
+                if (keepCallback != null) callbacks.Add(keepCallback);
+            }
         }
         /// <summary>
         /// Set bit (Check the input parameters before the persistence operation)

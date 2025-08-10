@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
@@ -66,7 +67,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <summary>
         /// 当前倒数和
         /// </summary>
-        private double powerReciprocalSum;
+        private double bitReciprocalSum;
+        /// <summary>
+        /// 统计数量
+        /// </summary>
+        internal double TotalCount;
+        /// <summary>
+        /// 倒数和的倒数数量
+        /// </summary>
+        private int sumCount;
         /// <summary>
         /// 重建实例访问锁
         /// </summary>
@@ -146,10 +155,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     start = bitFixed;
                     do
                     {
-                        bits = *start;
-                        int* incrementCount = counts + bits;
-                        if (bits > maxBits) maxBits = bits;
-                        *incrementCount = UniformProbabilityTotalStatisticsNode.CountIncrement(*incrementCount, bits);
+                        if ((bits = *start) != 0)
+                        {
+                            ++sumCount;
+                            int* incrementCount = counts + bits;
+                            if (bits > maxBits) maxBits = bits;
+                            *incrementCount = UniformProbabilityTotalStatisticsNode.CountIncrement(*incrementCount, bits);
+                        }
                     }
                     while (++start != counts);
                     if (maxBits != 0) setMaxBits(maxBits, counts);
@@ -165,12 +177,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         private unsafe void setMaxBits(byte bits, int* counts)
         {
             maxBits = bits;
-            double* reciprocal = (double*)UniformProbabilityTotalStatisticsNode.BitReciprocal.Data;
-            for (powerReciprocalSum = counts[1] >> 8; bits != 1; --bits)
+            double sum = counts[1] >> 8;
+            for (double* reciprocal = (double*)UniformProbabilityTotalStatisticsNode.BitReciprocal.Data; bits != 1; --bits)
             {
                 int count = counts[bits];
-                powerReciprocalSum += (count >> 8) + (byte)count * reciprocal[bits];
+                sum += (count >> 8) + (byte)count * reciprocal[bits];
             }
+            setSum(sum);
         }
         /// <summary>
         /// Get the newly set data
@@ -190,24 +203,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     int* counts = (int*)(bitFixed + indexCount);
                     lastBits = bitFixed[index];
-                    powerReciprocalSum += reciprocal[bits] - reciprocal[lastBits];
                     int* incrementCount = counts + bits, decrementCount = counts + lastBits;
+                    bitFixed[index] = bits;
                     *incrementCount = UniformProbabilityTotalStatisticsNode.CountIncrement(*incrementCount, bits);
                     *decrementCount = UniformProbabilityTotalStatisticsNode.CountDecrement(*decrementCount, lastBits);
-                    bitFixed[index] = bits;
+                    if (lastBits == 0) ++sumCount;
                     if (bits > maxBits) setMaxBits(bits, counts);
+                    else setSum(bitReciprocalSum + reciprocal[bits] - reciprocal[lastBits]);
                 }
             }
             else Cancel();
         }
         /// <summary>
-        /// Get the statistical quantity
-        /// 获取统计数量
+        /// 设置倒数和
         /// </summary>
-        /// <returns></returns>
-        internal double Count()
+        /// <param name="bitReciprocalSum"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private void setSum(double bitReciprocalSum)
         {
-            return Math.Pow(2, indexCount / powerReciprocalSum) * indexCount;
+            this.bitReciprocalSum = bitReciprocalSum;
+            TotalCount = Math.Pow(2, sumCount / bitReciprocalSum) * sumCount;
         }
         /// <summary>
         /// Add statistical data
@@ -220,10 +235,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (!client.IsDispose)
             {
                 int index = (int)(((uint)value & indexLow) | ((uint)(value >> indexShiftBits) & indexHigh));
-                value >>= indexLowBits;
-                ulong markValue = (1UL << bitCountArray[index]) - 1;
+                value = (value >> indexLowBits) & valueMark;
+                ulong markValue = (1UL << (bitCountArray[index] + 1)) - 1;
                 if ((value & markValue) != markValue) return ResponseResult.SuccessTask;
-                value = value & valueMark;
                 //计算最后连续 1 的数量
                 value ^= value + 1;
                 if ((uint)value != uint.MaxValue) return set(index, (byte)(((uint)value + 1).deBruijnLog2() - 1));

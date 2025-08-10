@@ -252,7 +252,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 MethodKeepCallback<T>[] callbackArray = callbacks.Array;
                 do
                 {
-                    if (!callbackArray[--count].Callback(value)) callbacks.RemoveToEnd(count);
+                    if (!callbackArray[--count].Callback(value)) callbacks.UnsafeRemoveAtToEnd(count);
                 }
                 while (count != 0);
             }

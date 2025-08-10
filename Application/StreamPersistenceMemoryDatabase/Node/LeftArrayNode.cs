@@ -436,7 +436,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if ((uint)index < (uint)array.Length)
             {
-                array.RemoveToEnd(index);
+                array.UnsafeRemoveAtToEnd(index);
                 return true;
             }
             return false;
@@ -453,7 +453,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if ((uint)index < (uint)array.Length)
             {
                 T value = array.Array[index];
-                array.RemoveToEnd(index);
+                array.UnsafeRemoveAtToEnd(index);
                 return value;
             }
             return default(ValueResult<T>);

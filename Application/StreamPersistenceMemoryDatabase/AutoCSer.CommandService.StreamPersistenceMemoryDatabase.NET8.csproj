@@ -59,10 +59,12 @@
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseClientNodeCache.cs" />
     <Compile Include="Client\StreamPersistenceMemoryDatabaseLocalClientNodeCache.cs" />
+    <Compile Include="ResponseReturnValue.cs" />
     <Compile Include="CreateNodeIndex.cs" />
     <Compile Include="Extensions\UniformProbabilityTotalStatisticsClientNodeExtension.cs" />
     <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
     <Compile Include="Memory\Unmanaged.cs" />
+    <Compile Include="Node\ManyHashBitMapFilter\ManyHashBitMapClientFilterCallback.cs" />
     <Compile Include="Node\OnlyPersistenceNode.cs" />
     <Compile Include="Node\IOnlyPersistenceNode.cs" />
     <Compile Include="Node\ProcessGuard\CommandListenerSwitchProcess.cs" />

@@ -107,7 +107,7 @@ namespace AutoCSer.Memory
         {
             ByteArray byteArray = buffers.Array[0];
             buffer.Set(byteArray, byteArray.Indexs.PopInt());
-            if (byteArray.Indexs.CurrentIndex == 0) buffers.RemoveToEnd(0);
+            if (byteArray.Indexs.CurrentIndex == 0) buffers.UnsafeRemoveAtToEnd(0);
         }
         /// <summary>
         /// 释放字节数组缓冲区

@@ -8,7 +8,7 @@ namespace AutoCSer.Net.CommandServer
     /// 命令返回值 await T
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class CommandResult<T> : INotifyCompletion
+    public sealed class CommandReturnValue<T> : INotifyCompletion
     {
         /// <summary>
         /// The return value command
@@ -51,7 +51,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         /// <param name="command">The return value command
         /// 返回值命令</param>
-        internal CommandResult(ReturnCommand<T> command)
+        internal CommandReturnValue(ReturnCommand<T> command)
         {
             Command = command;
             if (!command.IsCompleted) command.OnCompleted(onCompleted);
@@ -107,7 +107,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public CommandResult<T> GetAwaiter()
+        public CommandReturnValue<T> GetAwaiter()
         {
             return this;
         }
