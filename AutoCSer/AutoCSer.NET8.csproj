@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.69</Version>
+    <Version>2.0.70</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a full-duplex RPC component based on TCP long connections, featuring high concurrency, high throughput and other high-performance characteristics.
@@ -162,6 +162,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\CommandClientSocketEventTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerCallbackRunTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerCallbackTask.cs" />
+    <Compile Include="Net\CommandServer\CommandServerCall\CommandServerTwoStage‌Callback.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueue.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueueNode.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadWriteQueue.cs" />
@@ -191,7 +192,9 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\CommandReturnValue.cs" />
     <Compile Include="Net\CommandServer\Command\CompletedReturnCommand.cs" />
     <Compile Include="Net\CommandServer\Command\IEnumeratorCommand.cs" />
+    <Compile Include="Net\CommandServer\Command\KeepCallbackCommand\TwoStage‌CallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputRemoteMetadata.cs" />
+    <Compile Include="Net\CommandServer\Output\ServerOutputTwoStage‌.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\CallDelegate.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ClientMetadata.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameter.cs" />

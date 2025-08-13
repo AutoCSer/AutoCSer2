@@ -212,6 +212,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private void setSum(double bitReciprocalSum)
         {
+            //调和平均数中较小的数权重过高，待改进
             this.bitReciprocalSum = bitReciprocalSum;
             totalCount = Math.Pow(2, sumCount / bitReciprocalSum) * sumCount;
         }

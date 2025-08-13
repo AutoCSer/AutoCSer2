@@ -213,6 +213,21 @@ namespace AutoCSer.Net.CommandServer
         /// 队列枚举返回值
         /// </summary>
         internal static readonly MethodInfo CommandClientControllerEnumeratorQueueOutputReturnValueMethod;
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientControllerTwoStage‌CallbackMethod;
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientControllerTwoStage‌CallbackOutputMethod;
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientControllerTwoStage‌CallbackOutputReturnValueMethod;
 
         /// <summary>
         /// 客户端默认初始化控制器构造函数参数类型集合
@@ -363,6 +378,16 @@ namespace AutoCSer.Net.CommandServer
         /// 集合枚举队列命令
         /// </summary>
         internal static readonly MethodInfo CommandClientDefaultControllerEnumeratorQueueMethod;
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerTwoStage‌CallbackMethod;
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        internal static readonly MethodInfo CommandClientDefaultControllerTwoStage‌CallbackActionMethod;
 
 #pragma warning disable CS8618
         static ClientInterfaceController()
@@ -386,6 +411,7 @@ namespace AutoCSer.Net.CommandServer
                     case 16 - 13:
                         if (method.Name == nameof(CommandClientController.SynchronousInput)) CommandClientControllerSynchronousInputMethod = method;
                         else if (method.Name == nameof(CommandClientController.EnumeratorOutput)) CommandClientControllerEnumeratorOutputMethod = method;
+                        else if (method.Name == nameof(CommandClientController.TwoStage‌Callback)) CommandClientControllerTwoStage‌CallbackMethod = method;
                         break;
                     case 17 - 13:
                         if (method.Name == nameof(CommandClientController.SynchronousOutput)) CommandClientControllerSynchronousOutputMethod = method;
@@ -410,6 +436,7 @@ namespace AutoCSer.Net.CommandServer
                         if (method.Name == nameof(CommandClientController.SynchronousInputOutput)) CommandClientControllerSynchronousInputOutputMethod = method;
                         else if (method.Name == nameof(CommandClientController.KeepCallbackQueueInput)) CommandClientControllerKeepCallbackQueueInputMethod = method;
                         else if (method.Name == nameof(CommandClientController.ReturnValueQueueOutput)) CommandClientControllerReturnValueQueueOutputMethod = method;
+                        else if (method.Name == nameof(CommandClientController.TwoStage‌CallbackOutput)) CommandClientControllerTwoStage‌CallbackOutputMethod = method;
                         break;
                     case 23 - 13:
                         if (method.Name == nameof(CommandClientController.KeepCallbackQueueOutput)) CommandClientControllerKeepCallbackQueueOutputMethod = method;
@@ -434,6 +461,7 @@ namespace AutoCSer.Net.CommandServer
                         break;
                     case 33 - 13:
                         if (method.Name == nameof(CommandClientController.ReturnValueQueueOutputReturnValue)) CommandClientControllerReturnValueQueueOutputReturnValueMethod = method;
+                        else if (method.Name == nameof(CommandClientController.TwoStage‌CallbackOutputReturnValue)) CommandClientControllerTwoStage‌CallbackOutputReturnValueMethod = method;
                         break;
                     case 34 - 13:
                         if (method.Name == nameof(CommandClientController.KeepCallbackQueueOutputReturnValue)) CommandClientControllerKeepCallbackQueueOutputReturnValueMethod = method;
@@ -468,6 +496,7 @@ namespace AutoCSer.Net.CommandServer
                         break;
                     case 23 - 15:
                         if (method.Name == nameof(CommandClientDefaultController.DefaultReturnValueQueue)) CommandClientDefaultControllerReturnValueQueueMethod = method;
+                        else if (method.Name == nameof(CommandClientDefaultController.DefaultTwoStage‌Callback)) CommandClientDefaultControllerTwoStage‌CallbackMethod = method;
                         break;
                     case 24 - 15:
                         if (method.Name == nameof(CommandClientDefaultController.DefaultKeepCallbackQueue)) CommandClientDefaultControllerKeepCallbackQueueMethod = method;
@@ -477,6 +506,9 @@ namespace AutoCSer.Net.CommandServer
                         break;
                     case 26 - 15:
                         if (method.Name == nameof(CommandClientDefaultController.DefaultCallbackActionQueue)) CommandClientDefaultControllerCallbackActionQueueMethod = method;
+                        break;
+                    case 29 - 15:
+                        if (method.Name == nameof(CommandClientDefaultController.DefaultTwoStage‌CallbackAction)) CommandClientDefaultControllerTwoStage‌CallbackActionMethod = method;
                         break;
                     case 30 - 15:
                         if (method.Name == nameof(CommandClientDefaultController.DefaultKeepCallbackActionQueue)) CommandClientDefaultControllerKeepCallbackActionQueueMethod = method;
@@ -628,6 +660,16 @@ namespace AutoCSer.Net.CommandServer
                                     methodGenerator.call(controllerMethod.MakeGenericMethod(method.ReturnValueType));
                                 }
                                 #endregion
+                                break;
+                            case ClientMethodTypeEnum.TwoStage‌Callback:
+                                methodGenerator.ldarg(method.Parameters.Length - 1);
+                                methodGenerator.ldarg(method.Parameters.Length);
+                                {
+                                    MethodInfo controllerMethod;
+                                    if (method.IsCallbackAction) controllerMethod = ClientInterfaceController.CommandClientDefaultControllerTwoStage‌CallbackActionMethod;
+                                    else controllerMethod = ClientInterfaceController.CommandClientDefaultControllerTwoStage‌CallbackMethod;
+                                    methodGenerator.call(controllerMethod.MakeGenericMethod(method.TwoStage‌ReturnValueType, method.ReturnValueType));
+                                }
                                 break;
                             case ClientMethodTypeEnum.CallbackQueue:
                                 #region return CallbackQueue(this, callback);
@@ -901,11 +943,12 @@ namespace AutoCSer.Net.CommandServer
                         #endregion
                         #region SynchronousOutputParameter outputParameter = new SynchronousOutputParameter();
                         var returnValueGenericType = default(GenericType);
-                        var outputParameterLocalBuilder = method.GetOutputParameterLocalBuilder(methodGenerator, out returnValueGenericType);
+                        var twoStage‌CallbackReturnValueGenericType = default(GenericType);
+                        var outputParameterLocalBuilder = method.GetOutputParameterLocalBuilder(methodGenerator, out returnValueGenericType, out twoStage‌CallbackReturnValueGenericType);
                         #endregion
                         methodGenerator.Emit(OpCodes.Ldarg_0);
                         methodGenerator.int32(methodIndex);
-                        method.CallbackParameter(methodGenerator, returnValueGenericType);
+                        method.CallbackParameter(methodGenerator, returnValueGenericType, twoStage‌CallbackReturnValueGenericType);
                         if (method.InputParameterType != null) methodGenerator.Emit(OpCodes.Ldloca, inputParameterLocalBuilder.notNull());
                         if (outputParameterLocalBuilder != null) methodGenerator.Emit(OpCodes.Ldloca, outputParameterLocalBuilder);
                         method.CallController(methodGenerator, returnValueGenericType, outputParameterLocalBuilder);

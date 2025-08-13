@@ -126,6 +126,8 @@ namespace AutoCSer.Net
                     break;
                 case ServerMethodTypeEnum.KeepCallbackQueue:
                 case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
                     Socket.CancelKeepCallback(CallbackIdentity, CommandClientReturnTypeEnum.ServerException, exception);
                     checkOfflineCount();
                     break;

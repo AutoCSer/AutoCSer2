@@ -225,6 +225,7 @@
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerKeepCallbackRunTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerRunTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerSendOnlyRunTask.cs" />
+    <Compile Include="Net\CommandServer\CommandServerCall\CommandServerTwoStage‌Callback.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerVerifyStateRunTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueue.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueueNode.cs" />
@@ -319,6 +320,7 @@
     <Compile Include="Net\CommandServer\Command\KeepCallbackCommand\KeepCallbackOutputCommand.cs" />
     <Compile Include="Net\CommandServer\Command\CallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\KeepCallbackCommand.cs" />
+    <Compile Include="Net\CommandServer\Command\KeepCallbackCommand\TwoStage‌CallbackCommand.cs" />
     <Compile Include="Net\CommandServer\Command\KeepCommand.cs" />
     <Compile Include="Net\CommandServer\Command\ReturnCommand.cs" />
     <Compile Include="Net\CommandServer\Command\ReturnCommandQueueNode.cs" />
@@ -380,6 +382,7 @@
     <Compile Include="Net\CommandServer\Output\ServerOutputRemoteMetadata.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputReturnTypeKeepCallbackCount.cs" />
     <Compile Include="Net\CommandServer\CommandServerInterfaceControllerCreator.cs" />
+    <Compile Include="Net\CommandServer\Output\ServerOutputTwoStage‌.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\CallDelegate.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ClientMetadata.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameter.cs" />

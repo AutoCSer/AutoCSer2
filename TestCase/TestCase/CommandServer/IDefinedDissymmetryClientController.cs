@@ -12,7 +12,7 @@ namespace AutoCSer.TestCase
     [AutoCSer.CodeGenerator.CommandClientController(typeof(void), true)]
 #endif
     [AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute(typeof(IDefinedDissymmetryServerControllerMethodEnum))]
-    [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false)]
+    [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false, IsCodeGeneratorControllerAttribute = false)]
     public partial interface IDefinedDissymmetryClientController
     {
         /// <summary>

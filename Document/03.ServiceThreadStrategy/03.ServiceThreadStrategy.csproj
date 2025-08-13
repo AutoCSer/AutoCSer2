@@ -23,6 +23,7 @@
     <Compile Include="Client\ICommandClientReturnValueController.cs" />
     <Compile Include="Client\IEnumeratorCommandController.cs" />
     <Compile Include="Client\IEnumeratorQueueCommandController.cs" />
+    <Compile Include="Client\ITwoStageCallbackController.cs" />
     <Compile Include="Client\IKeepCallbackController.cs" />
     <Compile Include="Client\IKeepCallbackQueueController.cs" />
     <Compile Include="Client\IReturnCommandController.cs" />
@@ -33,6 +34,7 @@
     <Compile Include="Client\TaskQueue\ICommandClientReturnValueController.cs" />
     <Compile Include="Client\TaskQueue\IEnumeratorCommandController.cs" />
     <Compile Include="Client\TaskQueue\IEnumeratorQueueCommandController.cs" />
+    <Compile Include="Client\TaskQueue\ITwoStageCallbackController.cs" />
     <Compile Include="Client\TaskQueue\IKeepCallbackController.cs" />
     <Compile Include="Client\TaskQueue\IKeepCallbackQueueController.cs" />
     <Compile Include="Client\TaskQueue\IReturnCommandController.cs" />
@@ -40,10 +42,13 @@
     <Compile Include="Client\TaskQueue\ISendOnlyCommandController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Server\ConcurrencyReadQueue\ICallbackController.cs" />
+    <Compile Include="Server\ConcurrencyReadQueue\ITwoStage‌CallbackController.cs" />
     <Compile Include="Server\ConcurrencyReadQueue\IKeepCallbackController.cs" />
     <Compile Include="Server\ConcurrencyReadQueue\ISendOnlyController.cs" />
     <Compile Include="Server\ConcurrencyReadQueue\ISynchronousController.cs" />
+    <Compile Include="Server\Queue\ITwoStage‌CallbackController.cs" />
     <Compile Include="Server\ReadWriteQueue\ICallbackController.cs" />
+    <Compile Include="Server\ReadWriteQueue\ITwoStage‌CallbackController.cs" />
     <Compile Include="Server\ReadWriteQueue\IKeepCallbackController.cs" />
     <Compile Include="Server\ReadWriteQueue\ISendOnlyController.cs" />
     <Compile Include="Server\ReadWriteQueue\ISynchronousController.cs" />
@@ -52,6 +57,7 @@
     <Compile Include="Server\Queue\ISendOnlyController.cs" />
     <Compile Include="Server\Queue\ISynchronousController.cs" />
     <Compile Include="Server\Synchronous\ICallbackController.cs" />
+    <Compile Include="Server\Synchronous\ITwoStage‌CallbackController.cs" />
     <Compile Include="Server\Synchronous\IKeepCallbackController.cs" />
     <Compile Include="Server\Synchronous\ISendOnlyController.cs" />
     <Compile Include="Server\Synchronous\ISynchronousController.cs" />
@@ -59,15 +65,19 @@
     <Compile Include="Server\TaskQueueController\ISendOnlyController.cs" />
     <Compile Include="Server\TaskQueueController\ICallbackController.cs" />
     <Compile Include="Server\TaskQueueController\ISynchronousController.cs" />
+    <Compile Include="Server\TaskQueue\ITwoStage‌CallbackController.cs" />
     <Compile Include="Server\TaskQueue\IKeepCallbackController.cs" />
     <Compile Include="Server\TaskQueue\ISendOnlyController.cs" />
     <Compile Include="Server\TaskQueue\ICallbackController.cs" />
     <Compile Include="Server\TaskQueue\ISynchronousController.cs" />
     <Compile Include="Server\TaskQueue\ITaskQueueController.cs" />
+    <Compile Include="Server\Task\ITwoStage‌CallbackController.cs" />
     <Compile Include="Server\Task\IKeepCallbackController.cs" />
     <Compile Include="Server\Task\ISendOnlyController.cs" />
     <Compile Include="Server\Task\ICallbackController.cs" />
     <Compile Include="Server\Task\ISynchronousController.cs" />
+    <Compile Include="TwoStageCallback.cs" />
+    <Compile Include="TwoStageCallbackParameter.cs" />
     <Compile Include="{AutoCSer.Document.ServiceThreadStrategy}.AutoCSer.cs" />
   </ItemGroup>
 

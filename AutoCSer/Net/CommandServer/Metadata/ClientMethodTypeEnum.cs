@@ -34,6 +34,11 @@ namespace AutoCSer.Net.CommandServer
         /// 保持回调返回数据
         /// </summary>
         KeepCallback,
+        /// <summary>
+        /// Two-stage callback returns data
+        /// 两阶段回调返回数据
+        /// </summary>
+        TwoStage‌Callback,
 
         /// <summary>
         /// The queue task callback return data (because it is queue thread synchronization trigger callback, It can ensure the serial execution of callback operations, but cannot guarantee the serial execution of subsequent await operations. No synchronous blocking operations are allowed after the callback; otherwise, it will seriously affect the throughput performance of the callback queue and may even cause a queue scheduling deadlock in complex dependency scenarios)

@@ -31,6 +31,19 @@ namespace AutoCSer.Net
         /// 默认为 true 表示代码生成器生成客户端控制器接口
         /// </summary>
         public bool IsCodeGeneratorClientInterface = true;
+#if AOT
+        /// <summary>
+        /// A default value of true indicates that the default client controller configuration is generated
+        /// 默认为 true 表示生成默认客户端控制器配置
+        /// </summary>
+        public bool IsCodeGeneratorControllerAttribute = true;
+#else
+        /// <summary>
+        /// Reserved, only for AOT code generation
+        /// 保留，仅用于 AOT 代码生成
+        /// </summary>
+        public bool IsCodeGeneratorControllerAttribute;
+#endif
         /// <summary>
         /// The default value true indicates that input parameters are preferred for simple serialization operations
         /// 默认为 true 表示输入参数优先适配简单序列化操作

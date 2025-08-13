@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.Net.CommandServer
 {
@@ -107,6 +108,15 @@ namespace AutoCSer.Net.CommandServer
             callback.Error(returnType, null, this);
         }
         /// <summary>
+        /// 接收数据错误处理
+        /// </summary>
+        /// <param name="returnType"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void onReceiveError(CommandClientReturnTypeEnum returnType)
+        {
+            callback.Error(returnType, Controller.Socket.ReceiveErrorMessage, this);
+        }
+        /// <summary>
         /// Process the response data
         /// 处理响应数据
         /// </summary>
@@ -117,7 +127,7 @@ namespace AutoCSer.Net.CommandServer
         {
             if (data.Length == int.MinValue)
             {
-                callback.Error((CommandClientReturnTypeEnum)(byte)data.Start, Controller.Socket.ReceiveErrorMessage, this);
+                onReceiveError((CommandClientReturnTypeEnum)(byte)data.Start);
                 return ClientReceiveErrorTypeEnum.Success;
             }
             CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;

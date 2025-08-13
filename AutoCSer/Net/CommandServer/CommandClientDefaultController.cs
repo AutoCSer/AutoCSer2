@@ -427,6 +427,44 @@ namespace AutoCSer.Net
             callback(new CommandClientReturnValue<T>(DefaultControllerReturnType, null), callQueue, command);
             return command;
         }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        public AutoCSer.Net.KeepCallbackCommand DefaultTwoStage‌Callback<T, KT>(CommandClientCallback<T> callback, CommandClientKeepCallback<KT> keepCallback)
+        {
+            KeepCallbackCommand command = new AutoCSer.Net.CommandServer.KeepCallbackCommand(this);
+            try
+            {
+                callback.Callback(DefaultControllerReturnType, null);
+            }
+            finally { keepCallback.Error(DefaultControllerReturnType, null, command); }
+            return command;
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        public AutoCSer.Net.KeepCallbackCommand DefaultTwoStage‌CallbackAction<T, KT>(Action<CommandClientReturnValue<T>> callback, Action<CommandClientReturnValue<KT>, AutoCSer.Net.KeepCallbackCommand> keepCallback)
+        {
+            KeepCallbackCommand command = new AutoCSer.Net.CommandServer.KeepCallbackCommand(this);
+            try
+            {
+                callback(new CommandClientReturnValue<T>(DefaultControllerReturnType, null));
+            }
+            finally { keepCallback(new CommandClientReturnValue<KT>(DefaultControllerReturnType, null), command); }
+            return command;
+        }
 #if AOT
         /// <summary>
         /// Return value command
@@ -598,7 +636,7 @@ namespace AutoCSer.Net
 #if AOT
         /// <summary>
         /// AOT code generation template
-        /// AOT 代码生成模板
+        /// AOT 代码生成模板（历史方法）
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="callback"></param>
@@ -607,7 +645,18 @@ namespace AutoCSer.Net
         {
             return AutoCSer.Common.EmptyObject;
         }
-
+        /// <summary>
+        /// AOT code generation template
+        /// AOT 代码生成模板
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="callbacks"></param>
+        /// <returns></returns>
+        internal object DefaultControllerCallMethodName<T, KT>(params object[] callbacks)
+        {
+            return AutoCSer.Common.EmptyObject;
+        }
 #endif
     }
 }

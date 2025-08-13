@@ -44,6 +44,16 @@ namespace AutoCSer.Net.CommandServer
         /// IO 线程同步调用，保持回调计数返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
         /// </summary>
         KeepCallbackCount,
+        /// <summary>
+        /// Synchronous calls of IO threads, two-stage callback returns data, automatic release of callbacks is not supported (Note that since it is a data receiving IO thread synchronous call, it is not suitable for tasks with blocking).
+        /// IO 线程同步调用，二阶段回调返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
+        /// </summary>
+        TwoStage‌Callback,
+        /// <summary>
+        /// Synchronous calls of IO threads, two-stage callback count returns data, automatic release of callbacks is not supported (Note that since it is a data receiving IO thread synchronous call, it is not suitable for tasks with blocking).
+        /// IO 线程同步调用，二阶段回调计数返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
+        /// </summary>
+        TwoStage‌CallbackCount,
 
         /// <summary>
         /// Queue task call, synchronously return data
@@ -70,6 +80,16 @@ namespace AutoCSer.Net.CommandServer
         /// 队列任务调用，保持回调计数返回数据，不支持自动释放回调
         /// </summary>
         KeepCallbackCountQueue,
+        /// <summary>
+        /// Queue task calls, two-stage callback returns data, automatic release of callbacks is not supported
+        /// 队列任务调用，二阶段回调返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackQueue,
+        /// <summary>
+        /// Queue task calls, two-stage callback count returns data, automatic release of callbacks is not supported
+        /// 队列任务调用，二阶段回调计数返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackCountQueue,
 
         /// <summary>
         /// Queue task calls that support concurrent reading and synchronously return data
@@ -96,6 +116,16 @@ namespace AutoCSer.Net.CommandServer
         /// 支持并发读的队列任务调用，保持回调计数返回数据，不支持自动释放回调
         /// </summary>
         KeepCallbackCountConcurrencyReadQueue,
+        /// <summary>
+        /// Queue task calls that support concurrent reading, two-stage callback returns data, automatic release of callbacks is not supported
+        /// 支持并发读的队列任务调用，二阶段回调返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackConcurrencyReadQueue,
+        /// <summary>
+        /// Queue task calls that support concurrent reading, two-stage callback count returns data, automatic release of callbacks is not supported
+        /// 支持并发读的队列任务调用，二阶段回调计数返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackCountConcurrencyReadQueue,
 
         /// <summary>
         /// Read/write queue task calls, synchronous return data
@@ -122,6 +152,16 @@ namespace AutoCSer.Net.CommandServer
         /// 读写队列任务调用，保持回调计数返回数据，不支持自动释放回调
         /// </summary>
         KeepCallbackCountReadWriteQueue,
+        /// <summary>
+        /// Read/write queue task calls, two-stage callback returns data, automatic release of callbacks is not supported
+        /// 读写队列任务调用，二阶段回调返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackReadWriteQueue,
+        /// <summary>
+        /// Read/write queue task calls, two-stage callback count returns data, automatic release of callbacks is not supported
+        /// 读写队列任务调用，二阶段回调计数返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackCountReadWriteQueue,
 
         /// <summary>
         /// await Task calls (Note that since it is a synchronous call by the IO thread receiving data, it is not suitable for tasks where there is blocking before the first asynchronous await. For complex tasks, Socket.IsClose should be judged before core computing to avoid unnecessary overhead)
@@ -153,6 +193,16 @@ namespace AutoCSer.Net.CommandServer
         /// .NET Satndard 2.0 中集合自动转 KeepCallbackCountTask（注意，由于是接收数据 IO 线程同步调用，不适合第一个异步 await 之前存在阻塞的任务。对于复杂任务，在核心计算之前应判断 Socket.IsClose 以避免不必要开销）
         /// </summary>
         EnumerableKeepCallbackCountTask,
+        /// <summary>
+        /// The two-stage callback returns data and does not support automatic release of the callback (Note that since it is a synchronous call by the IO thread receiving data, it is not suitable for tasks where there is blocking before the first asynchronous await. For complex tasks, Socket.IsClose should be judged before core computing to avoid unnecessary overhead)
+        /// 二阶段回调返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合第一个异步 await 之前存在阻塞的任务。对于复杂任务，在核心计算之前应判断 Socket.IsClose 以避免不必要开销）
+        /// </summary>
+        TwoStage‌CallbackTask,
+        /// <summary>
+        /// The two-stage callback count returns data and does not support the automatic release of callbacks (Note that since it is a synchronous call by the IO thread receiving data, it is not suitable for tasks where there is blocking before the first asynchronous await. For complex tasks, Socket.IsClose should be judged before core computing to avoid unnecessary overhead)
+        /// 二阶段回调计数返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合第一个异步 await 之前存在阻塞的任务。对于复杂任务，在核心计算之前应判断 Socket.IsClose 以避免不必要开销）
+        /// </summary>
+        TwoStage‌CallbackCountTask,
 
         /// <summary>
         /// await Task queue calls
@@ -184,6 +234,16 @@ namespace AutoCSer.Net.CommandServer
         /// .NET Satndard 2.0 中集合自动转 KeepCallbackCountTaskQueue
         /// </summary>
         EnumerableKeepCallbackCountTaskQueue,
+        /// <summary>
+        /// The two-stage callback returns data and does not support automatic release of the callback
+        /// 二阶段回调返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackTaskQueue,
+        /// <summary>
+        /// The two-stage callback count returns data and does not support the automatic release of callbacks
+        /// 二阶段回调计数返回数据，不支持自动释放回调
+        /// </summary>
+        TwoStage‌CallbackCountTaskQueue,
 
 #if NetStandard21
         /// <summary>

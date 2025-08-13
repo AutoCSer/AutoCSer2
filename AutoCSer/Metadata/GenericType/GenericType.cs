@@ -282,6 +282,11 @@ namespace AutoCSer.Metadata
         /// Create an asynchronous callback object
         /// 创建异步回调对象
         /// </summary>
+        internal abstract Delegate CreateCommandServerTwoStage‌CallbackDelegate { get; }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackCountDelegate { get; }
         /// <summary>
         /// Create an asynchronous callback object
@@ -292,12 +297,27 @@ namespace AutoCSer.Metadata
         /// Create an asynchronous callback object
         /// 创建异步回调对象
         /// </summary>
+        internal abstract Delegate CreateCommandServerTwoStage‌CallbackQueueNodeDelegate { get; }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackReadWriteQueueNodeDelegate { get; }
         /// <summary>
         /// Create an asynchronous callback object
         /// 创建异步回调对象
         /// </summary>
+        internal abstract Delegate CreateCommandServerTwoStage‌CallbackReadWriteQueueNodeDelegate { get; }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
         internal abstract Delegate CreateCommandServerKeepCallbackConcurrencyReadQueueNodeDelegate { get; }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
+        internal abstract Delegate CreateCommandServerTwoStage‌CallbackConcurrencyReadQueueNodeDelegate { get; }
         /// <summary>
         /// Create an asynchronous callback object
         /// 创建异步回调对象
@@ -930,6 +950,11 @@ namespace AutoCSer.Metadata
         /// Create an asynchronous callback object
         /// 创建异步回调对象
         /// </summary>
+        internal override Delegate CreateCommandServerTwoStage‌CallbackDelegate { get { return (Func<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerCallback<T>>)AutoCSer.Net.CommandServerCallback<T>.CreateServerTwoStage‌Callback; } }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackCountDelegate { get { return (Func<AutoCSer.Net.CommandServerSocket, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallbackCount<T>>)AutoCSer.Net.CommandServerKeepCallbackCount<T>.CreateServerKeepCallback; } }
         /// <summary>
         /// Create an asynchronous callback object
@@ -940,12 +965,27 @@ namespace AutoCSer.Metadata
         /// Create an asynchronous callback object
         /// 创建异步回调对象
         /// </summary>
+        internal override Delegate CreateCommandServerTwoStage‌CallbackQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerCallback<T>>)AutoCSer.Net.CommandServerCallback<T>.CreateServerTwoStage‌Callback; } }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackReadWriteQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallReadWriteQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallback<T>>)AutoCSer.Net.CommandServerKeepCallback<T>.CreateServerKeepCallback; } }
         /// <summary>
         /// Create an asynchronous callback object
         /// 创建异步回调对象
         /// </summary>
+        internal override Delegate CreateCommandServerTwoStage‌CallbackReadWriteQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallReadWriteQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerCallback<T>>)AutoCSer.Net.CommandServerCallback<T>.CreateServerTwoStage‌Callback; } }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
         internal override Delegate CreateCommandServerKeepCallbackConcurrencyReadQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerKeepCallback<T>>)AutoCSer.Net.CommandServerKeepCallback<T>.CreateServerKeepCallback; } }
+        /// <summary>
+        /// Create an asynchronous callback object
+        /// 创建异步回调对象
+        /// </summary>
+        internal override Delegate CreateCommandServerTwoStage‌CallbackConcurrencyReadQueueNodeDelegate { get { return (Func<AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode, AutoCSer.Net.CommandServer.ServerInterfaceMethod, AutoCSer.Net.CommandServerCallback<T>>)AutoCSer.Net.CommandServerCallback<T>.CreateServerTwoStage‌Callback; } }
         /// <summary>
         /// Create an asynchronous callback object
         /// 创建异步回调对象

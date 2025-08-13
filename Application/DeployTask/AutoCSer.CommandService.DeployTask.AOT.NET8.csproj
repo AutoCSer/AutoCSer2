@@ -33,7 +33,6 @@
     <Compile Include="DatabaseBackup\DatabaseBackupDownloadBuffer.cs" />
     <Compile Include="DatabaseBackup\IDatabaseBackupClientSocketEvent.cs" />
     <Compile Include="DatabaseBackup\IDatabaseBackupService.cs" />
-    <Compile Include="DatabaseBackup\IDatabaseBackupServiceClientController.cs" />
     <Compile Include="DirectoryName.cs" />
     <Compile Include="FileSynchronousClient.cs" />
     <Compile Include="PullFile\IPullFileClientSocketEvent.cs" />
@@ -47,7 +46,6 @@
     <Compile Include="SynchronousFileInfo.cs" />
     <Compile Include="UploadFile\IUploadFileClientSocketEvent.cs" />
     <Compile Include="UploadFile\IUploadFileService.cs" />
-    <Compile Include="UploadFile\IUploadFileServiceClientController.cs" />
     <Compile Include="UploadFile\UploaderInfo.cs" />
     <Compile Include="UploadFile\UploadFile.cs" />
     <Compile Include="UploadFile\UploadFileBuffer.cs" />

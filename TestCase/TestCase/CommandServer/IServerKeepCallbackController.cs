@@ -48,6 +48,24 @@ namespace AutoCSer.TestCase
         void KeepCallbackCountQueue(CommandServerCallQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback);
         void KeepCallbackCountQueueReturn(CommandServerCallQueue queue, CommandServerKeepCallbackCount<string> Callback);
         void KeepCallbackCountQueue(CommandServerCallLowPriorityQueue queue, CommandServerKeepCallbackCount Callback);
+
+        void KeepCallbackReadWriteQueueReturn(CommandServerCallReadQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback);
+        void KeepCallbackReadWriteQueue(CommandServerCallWriteQueue queue, int Value, int Ref, CommandServerKeepCallback Callback);
+        void KeepCallbackReadWriteQueueReturn(CommandServerCallWriteQueue queue, CommandServerKeepCallback<string> Callback);
+        void KeepCallbackReadWriteQueue(CommandServerCallReadQueue queue, CommandServerKeepCallback Callback);
+        void KeepCallbackCountReadWriteQueueReturn(CommandServerCallWriteQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback);
+        void KeepCallbackCountReadWriteQueue(CommandServerCallReadQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback);
+        void KeepCallbackCountReadWriteQueueReturn(CommandServerCallReadQueue queue, CommandServerKeepCallbackCount<string> Callback);
+        void KeepCallbackCountReadWriteQueue(CommandServerCallWriteQueue queue, CommandServerKeepCallbackCount Callback);
+
+        void KeepCallbackConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback);
+        void KeepCallbackConcurrencyReadQueue(CommandServerCallConcurrencyReadWriteQueue queue, int Value, int Ref, CommandServerKeepCallback Callback);
+        void KeepCallbackConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadWriteQueue queue, CommandServerKeepCallback<string> Callback);
+        void KeepCallbackConcurrencyReadQueue(CommandServerCallConcurrencyReadQueue queue, CommandServerKeepCallback Callback);
+        void KeepCallbackCountConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadWriteQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback);
+        void KeepCallbackCountConcurrencyReadQueue(CommandServerCallConcurrencyReadQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback);
+        void KeepCallbackCountConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadQueue queue, CommandServerKeepCallbackCount<string> Callback);
+        void KeepCallbackCountConcurrencyReadQueue(CommandServerCallConcurrencyReadWriteQueue queue, CommandServerKeepCallbackCount Callback);
     }
     /// <summary>
     /// 服务端测试接口
@@ -238,6 +256,76 @@ namespace AutoCSer.TestCase
             KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback).AutoCSerExtensions().Catch();
         }
         void IServerKeepCallbackController.KeepCallbackCountQueue(CommandServerCallLowPriorityQueue queue, CommandServerKeepCallbackCount Callback)
+        {
+            KeepCallback(Callback).AutoCSerExtensions().Catch();
+        }
+
+        void IServerKeepCallbackController.KeepCallbackReadWriteQueueReturn(CommandServerCallReadQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
+        {
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackReadWriteQueue(CommandServerCallWriteQueue queue, int Value, int Ref, CommandServerKeepCallback Callback)
+        {
+            ServerSynchronousController.SessionObject.Xor(Value, Ref);
+            AutoKeepCallback(Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackReadWriteQueueReturn(CommandServerCallWriteQueue queue, CommandServerKeepCallback<string> Callback)
+        {
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackReadWriteQueue(CommandServerCallReadQueue queue, CommandServerKeepCallback Callback)
+        {
+            AutoKeepCallback(Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackCountReadWriteQueueReturn(CommandServerCallWriteQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
+        {
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback).AutoCSerExtensions().Catch();
+        }
+        void IServerKeepCallbackController.KeepCallbackCountReadWriteQueue(CommandServerCallReadQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
+        {
+            ServerSynchronousController.SessionObject.Xor(Value, Ref);
+            KeepCallback(Callback).AutoCSerExtensions().Catch();
+        }
+        void IServerKeepCallbackController.KeepCallbackCountReadWriteQueueReturn(CommandServerCallReadQueue queue, CommandServerKeepCallbackCount<string> Callback)
+        {
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback).AutoCSerExtensions().Catch();
+        }
+        void IServerKeepCallbackController.KeepCallbackCountReadWriteQueue(CommandServerCallWriteQueue queue, CommandServerKeepCallbackCount Callback)
+        {
+            KeepCallback(Callback).AutoCSerExtensions().Catch();
+        }
+
+        void IServerKeepCallbackController.KeepCallbackConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadQueue queue, int Value, int Ref, CommandServerKeepCallback<string> Callback)
+        {
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackConcurrencyReadQueue(CommandServerCallConcurrencyReadWriteQueue queue, int Value, int Ref, CommandServerKeepCallback Callback)
+        {
+            ServerSynchronousController.SessionObject.Xor(Value, Ref);
+            AutoKeepCallback(Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadWriteQueue queue, CommandServerKeepCallback<string> Callback)
+        {
+            AutoKeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackConcurrencyReadQueue(CommandServerCallConcurrencyReadQueue queue, CommandServerKeepCallback Callback)
+        {
+            AutoKeepCallback(Callback);
+        }
+        void IServerKeepCallbackController.KeepCallbackCountConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadWriteQueue queue, int Value, int Ref, CommandServerKeepCallbackCount<string> Callback)
+        {
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(Value, Ref), Callback).AutoCSerExtensions().Catch();
+        }
+        void IServerKeepCallbackController.KeepCallbackCountConcurrencyReadQueue(CommandServerCallConcurrencyReadQueue queue, int Value, int Ref, CommandServerKeepCallbackCount Callback)
+        {
+            ServerSynchronousController.SessionObject.Xor(Value, Ref);
+            KeepCallback(Callback).AutoCSerExtensions().Catch();
+        }
+        void IServerKeepCallbackController.KeepCallbackCountConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadQueue queue, CommandServerKeepCallbackCount<string> Callback)
+        {
+            KeepCallback(ServerSynchronousController.SessionObject.Xor(), Callback).AutoCSerExtensions().Catch();
+        }
+        void IServerKeepCallbackController.KeepCallbackCountConcurrencyReadQueue(CommandServerCallConcurrencyReadWriteQueue queue, CommandServerKeepCallbackCount Callback)
         {
             KeepCallback(Callback).AutoCSerExtensions().Catch();
         }

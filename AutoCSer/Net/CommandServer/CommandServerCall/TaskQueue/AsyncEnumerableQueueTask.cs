@@ -102,7 +102,7 @@ namespace AutoCSer.Net
         internal static CommandServerSocket GetSocket(AsyncEnumerableQueueTask<T> task, ServerInterfaceMethod method, out CommandServerCallTaskQueue queue)
         {
             task.keepCallback = CommandServerKeepCallbackCount<T>.CreateServerKeepCallback(task, method);
-            return task.GetSocket(out queue);
+            return task.GetSocketQueue(out queue);
         }
         /// <summary>
         /// 获取命令服务 Task 队列

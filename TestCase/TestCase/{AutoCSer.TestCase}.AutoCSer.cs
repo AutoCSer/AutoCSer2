@@ -10,6 +10,305 @@ using AutoCSer;
 namespace AutoCSer.TestCase
 {
         /// <summary>
+        /// 服务端测试接口 client interface
+        /// </summary>
+        public partial interface IServerCodeGeneratorControllerClientController
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand CallbackSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.ReturnCommand CallbackSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> CallbackSocketInputReturn(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> CallbackSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackCountSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackCountSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountSocketInputReturn(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackCountTaskSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackCountTaskSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskSocketInputReturn(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackSocketInputReturn(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackTaskSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.EnumeratorCommand KeepCallbackTaskSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskSocketInputReturn(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand QueueSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            AutoCSer.Net.ReturnCommand QueueSocketInput(int Value);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> QueueSocketInputReturn(int Value);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> QueueSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.SendOnlyCommand SendOnlySocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.SendOnlyCommand SendOnlySocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.SendOnlyCommand SendOnlyTaskSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.SendOnlyCommand SendOnlyTaskSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand SynchronousSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            AutoCSer.Net.ReturnCommand SynchronousSocketInput(int Value);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> SynchronousSocketInputReturn(int Value);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> SynchronousSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand TaskCallbackSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.ReturnCommand TaskCallbackSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskCallbackSocketInputReturn(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskCallbackSocketReturn();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey">Queue keyword</param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskQueueReturnSocket(int queueKey, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey">Queue keyword</param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.ReturnCommand TaskQueueSocket(int queueKey, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskReturnSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<string> TaskReturnSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            AutoCSer.Net.ReturnCommand TaskSocket();
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            AutoCSer.Net.ReturnCommand TaskSocketInput(int Value, int Ref);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketInputReturn(int Value, int Ref, Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketReturn(Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketInputReturn(int Value, int Ref, Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketReturn(Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketInputReturn(int Value, int Ref, Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketReturn(Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketInputReturn(int Value, int Ref, Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="callback"></param>
+            /// <param name="keepCallback"></param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketReturn(Action<AutoCSer.Net.CommandClientReturnValue<long>> callback, Action<AutoCSer.Net.CommandClientReturnValue<string>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
+        }
+}namespace AutoCSer.TestCase
+{
+        /// <summary>
         /// 远程表达式委托服务端测试接口 client interface
         /// </summary>
         public partial interface IServerRemoteExpressionDelegateControllerClientController
@@ -309,6 +608,388 @@ namespace AutoCSer.TestCase
             /// AutoCSer.TestCase.Data.ORM.BusinessModel value 
             /// </summary>
             SetSocketTask = 3,
+        }
+}namespace AutoCSer.TestCase
+{
+        /// <summary>
+        /// 服务端测试接口
+        /// </summary>
+        [AutoCSer.Net.CommandServer.ServerControllerInterface(typeof(IServerCodeGeneratorControllerMethodEnum))]
+        public partial interface IServerCodeGeneratorController { }
+        /// <summary>
+        /// 服务端测试接口 (The method sequence number maps the enumeration type)
+        /// </summary>
+        public enum IServerCodeGeneratorControllerMethodEnum
+        {
+            /// <summary>
+            /// [0] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback Callback 
+            /// </summary>
+            CallbackSocket = 0,
+            /// <summary>
+            /// [1] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback Callback 
+            /// </summary>
+            CallbackSocketInput = 1,
+            /// <summary>
+            /// [2] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            CallbackSocketInputReturn = 2,
+            /// <summary>
+            /// [3] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            CallbackSocketReturn = 3,
+            /// <summary>
+            /// [4] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount Callback 
+            /// </summary>
+            KeepCallbackCountSocket = 4,
+            /// <summary>
+            /// [5] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount Callback 
+            /// </summary>
+            KeepCallbackCountSocketInput = 5,
+            /// <summary>
+            /// [6] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackCountSocketInputReturn = 6,
+            /// <summary>
+            /// [7] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackCountSocketReturn = 7,
+            /// <summary>
+            /// [8] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount Callback 
+            /// </summary>
+            KeepCallbackCountTaskSocket = 8,
+            /// <summary>
+            /// [9] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount Callback 
+            /// </summary>
+            KeepCallbackCountTaskSocketInput = 9,
+            /// <summary>
+            /// [10] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackCountTaskSocketInputReturn = 10,
+            /// <summary>
+            /// [11] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackCountTaskSocketReturn = 11,
+            /// <summary>
+            /// [12] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallback Callback 
+            /// </summary>
+            KeepCallbackSocket = 12,
+            /// <summary>
+            /// [13] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallback Callback 
+            /// </summary>
+            KeepCallbackSocketInput = 13,
+            /// <summary>
+            /// [14] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackSocketInputReturn = 14,
+            /// <summary>
+            /// [15] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackSocketReturn = 15,
+            /// <summary>
+            /// [16] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallback Callback 
+            /// </summary>
+            KeepCallbackTaskSocket = 16,
+            /// <summary>
+            /// [17] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallback Callback 
+            /// </summary>
+            KeepCallbackTaskSocketInput = 17,
+            /// <summary>
+            /// [18] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackTaskSocketInputReturn = 18,
+            /// <summary>
+            /// [19] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            KeepCallbackTaskSocketReturn = 19,
+            /// <summary>
+            /// [20] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallLowPriorityQueue queue 
+            /// </summary>
+            QueueSocket = 20,
+            /// <summary>
+            /// [21] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallLowPriorityQueue queue 
+            /// int Value 
+            /// </summary>
+            QueueSocketInput = 21,
+            /// <summary>
+            /// [22] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallLowPriorityQueue queue 
+            /// int Value 
+            /// 返回值 string 
+            /// </summary>
+            QueueSocketInputReturn = 22,
+            /// <summary>
+            /// [23] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallQueue queue 
+            /// 返回值 string 
+            /// </summary>
+            QueueSocketReturn = 23,
+            /// <summary>
+            /// [24] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// </summary>
+            SendOnlySocket = 24,
+            /// <summary>
+            /// [25] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// </summary>
+            SendOnlySocketInput = 25,
+            /// <summary>
+            /// [26] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// </summary>
+            SendOnlyTaskSocket = 26,
+            /// <summary>
+            /// [27] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// </summary>
+            SendOnlyTaskSocketInput = 27,
+            /// <summary>
+            /// [28] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// </summary>
+            SynchronousSocket = 28,
+            /// <summary>
+            /// [29] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// </summary>
+            SynchronousSocketInput = 29,
+            /// <summary>
+            /// [30] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// 返回值 string 
+            /// </summary>
+            SynchronousSocketInputReturn = 30,
+            /// <summary>
+            /// [31] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// 返回值 string 
+            /// </summary>
+            SynchronousSocketReturn = 31,
+            /// <summary>
+            /// [32] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback Callback 
+            /// </summary>
+            TaskCallbackSocket = 32,
+            /// <summary>
+            /// [33] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback Callback 
+            /// </summary>
+            TaskCallbackSocketInput = 33,
+            /// <summary>
+            /// [34] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            TaskCallbackSocketInputReturn = 34,
+            /// <summary>
+            /// [35] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback{string} Callback 
+            /// 返回值 string 
+            /// </summary>
+            TaskCallbackSocketReturn = 35,
+            /// <summary>
+            /// [36] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallTaskQueue{int} queue 
+            /// int Ref 
+            /// 返回值 string 
+            /// </summary>
+            TaskQueueReturnSocket = 36,
+            /// <summary>
+            /// [37] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallTaskLowPriorityQueue{int} queue 
+            /// int Ref 
+            /// </summary>
+            TaskQueueSocket = 37,
+            /// <summary>
+            /// [38] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// 返回值 string 
+            /// </summary>
+            TaskReturnSocket = 38,
+            /// <summary>
+            /// [39] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// 返回值 string 
+            /// </summary>
+            TaskReturnSocketInput = 39,
+            /// <summary>
+            /// [40] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// </summary>
+            TaskSocket = 40,
+            /// <summary>
+            /// [41] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// </summary>
+            TaskSocketInput = 41,
+            /// <summary>
+            /// [42] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackCountSocketInputReturn = 42,
+            /// <summary>
+            /// [43] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackCountSocketReturn = 43,
+            /// <summary>
+            /// [44] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackCountTaskSocketInputReturn = 44,
+            /// <summary>
+            /// [45] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallbackCount{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackCountTaskSocketReturn = 45,
+            /// <summary>
+            /// [46] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackSocketInputReturn = 46,
+            /// <summary>
+            /// [47] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackSocketReturn = 47,
+            /// <summary>
+            /// [48] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// int Value 
+            /// int Ref 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackTaskSocketInputReturn = 48,
+            /// <summary>
+            /// [49] 
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallback{long} Callback 
+            /// AutoCSer.Net.CommandServerKeepCallback{string} KeepCallback 
+            /// 返回值 string 
+            /// </summary>
+            TwoStageCallbackTaskSocketReturn = 49,
         }
 }namespace AutoCSer.TestCase
 {

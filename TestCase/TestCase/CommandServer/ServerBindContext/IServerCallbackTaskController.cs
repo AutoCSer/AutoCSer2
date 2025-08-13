@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsAutoMethodIndex = true, TaskQueueMaxConcurrent = 1, IsCodeGeneratorClientInterface = false)]
+    [AutoCSer.Net.CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsAutoMethodIndex = true, TaskQueueMaxConcurrent = 1, IsCodeGeneratorClientInterface = false, IsCodeGeneratorControllerAttribute = false)]
     public interface IServerCallbackTaskController
     {
         Task CallbackReturn(int Value, int Ref, CommandServerCallback<string> Callback);

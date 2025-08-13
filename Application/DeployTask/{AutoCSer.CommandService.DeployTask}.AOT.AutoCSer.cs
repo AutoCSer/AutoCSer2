@@ -640,10 +640,10 @@ namespace AutoCSer.CommandService.DeployTask
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(4);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "Backup", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "Download", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "GetDatabase", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "GetTableName", 3, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "Backup", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "Download", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "GetDatabase", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDatabaseBackupServiceClientController), "GetTableName", 3, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
                 return methods;
             }
             /// <summary>
@@ -1079,11 +1079,11 @@ namespace AutoCSer.CommandService.DeployTask
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(5);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFileData", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetDirectoryNames", 0, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFile", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFileData", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFiles", 3, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFileData", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetDirectoryNames", 0, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFile", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFileData", 2, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IPullFileServiceClientController), "GetFiles", 3, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
                 return methods;
             }
             /// <summary>
@@ -2527,24 +2527,24 @@ namespace AutoCSer.CommandService.DeployTask
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(18);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendCompletedFile", 0, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendDeleteDirectory", 1, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendDeleteFile", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CombinePath", 3, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CombinePathArray", 4, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "Completed", 5, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateDirectory", 6, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateFile", 7, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateUploader", 8, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetCompletedFileName", 9, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetDirectoryNames", 10, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetFile", 11, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetFiles", 12, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetPath", 13, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetSwitchProcessPathFileInfo", 14, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "RemoveFile", 15, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "RemoveUploader", 16, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "UploadFileData", 17, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendCompletedFile", 0, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendDeleteDirectory", 1, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "AppendDeleteFile", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CombinePath", 3, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CombinePathArray", 4, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "Completed", 5, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateDirectory", 6, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateFile", 7, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "CreateUploader", 8, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetCompletedFileName", 9, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetDirectoryNames", 10, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetFile", 11, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetFiles", 12, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetPath", 13, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "GetSwitchProcessPathFileInfo", 14, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "RemoveFile", 15, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "RemoveUploader", 16, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IUploadFileServiceClientController), "UploadFileData", 17, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
                 return methods;
             }
             /// <summary>
@@ -2564,6 +2564,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 数据库备份服务接口 client interface
         /// </summary>
+        [AutoCSer.CodeGenerator.CommandClientController(typeof(AutoCSer.CommandService.DeployTask.IDatabaseBackupService))]
         public partial interface IDatabaseBackupServiceClientController
         {
             /// <summary>
@@ -2596,6 +2597,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 文件拉取服务接口 client interface
         /// </summary>
+        [AutoCSer.CodeGenerator.CommandClientController(typeof(AutoCSer.CommandService.DeployTask.IPullFileService))]
         public partial interface IPullFileServiceClientController
         {
             /// <summary>
@@ -2628,6 +2630,7 @@ namespace AutoCSer.CommandService.DeployTask
         /// <summary>
         /// 文件上传服务接口 client interface
         /// </summary>
+        [AutoCSer.CodeGenerator.CommandClientController(typeof(AutoCSer.CommandService.DeployTask.IUploadFileService))]
         public partial interface IUploadFileServiceClientController
         {
             /// <summary>

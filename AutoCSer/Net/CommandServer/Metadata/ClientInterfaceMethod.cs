@@ -41,6 +41,10 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal override string MatchMethodName { get { return MethodAttribute.MatchMethodName ?? base.MatchMethodName; } }
         /// <summary>
+        /// 二阶段回调的第一阶段的返回数据类型
+        /// </summary>
+        internal readonly Type TwoStage‌ReturnValueType;
+        /// <summary>
         /// 返回值输出参数索引
         /// </summary>
         internal int ReturnValueParameterIndex = -1;
@@ -75,6 +79,11 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal readonly bool IsLowPriorityQueue;
         /// <summary>
+        /// Whether to simply serialize the return value of the first stage of the two-stage callback
+        /// 是否简单序列化二阶段回调的第一阶段的返回值
+        /// </summary>
+        internal bool IsSimpleSerializeTwoStage‌ReturnValue;
+        /// <summary>
         /// Whether deserialization failed
         /// 是否反序列化失败
         /// </summary>
@@ -87,6 +96,7 @@ namespace AutoCSer.Net.CommandServer
         {
             MethodIndex = int.MinValue;
             MethodAttribute = CommandClientMethodAttribute.Defafult;
+            TwoStage‌ReturnValueType = typeof(void);
         }
         /// <summary>
         /// Client interface method information
@@ -109,6 +119,7 @@ namespace AutoCSer.Net.CommandServer
             Parameters = method.GetParameters();
             ParameterEndIndex = Parameters.Length;
             ReturnValueType = method.ReturnType;
+            TwoStage‌ReturnValueType = typeof(void);
             if (ReturnValueType.IsGenericType)
             {
                 Type genericType = ReturnValueType.GetGenericTypeDefinition();
@@ -236,7 +247,7 @@ namespace AutoCSer.Net.CommandServer
                     }
                     break;
                 case ClientMethodTypeEnum.KeepCallback:
-                    isCallback = false;
+                    bool checkTwoStage‌ = isCallback = false;
                     if (ParameterEndIndex > ParameterStartIndex)
                     {
                         Type parameterType = Parameters[ParameterEndIndex - 1].ParameterType;
@@ -253,7 +264,7 @@ namespace AutoCSer.Net.CommandServer
                                     {
                                         if (actionParamererType.GetGenericTypeDefinition() == typeof(CommandClientReturnValue<>))
                                         {
-                                            IsCallbackAction = isCallback = true;
+                                            IsCallbackAction = isCallback = checkTwoStage‌ = true;
                                             ReturnValueType = actionParamererType.GetGenericArguments()[0];
                                         }
                                     }
@@ -284,7 +295,7 @@ namespace AutoCSer.Net.CommandServer
                             }
                             else if (genericType == typeof(AutoCSer.Net.CommandClientKeepCallback<>))
                             {
-                                isCallback = true;
+                                isCallback = checkTwoStage‌ = true;
                                 ReturnValueType = parameterType.GetGenericArguments()[0];
                             }
                             else if (genericType == typeof(AutoCSer.Net.CommandClientKeepCallbackQueue<>))
@@ -309,6 +320,33 @@ namespace AutoCSer.Net.CommandServer
                     {
                         SetError($"回调方法{type.fullName()}.{method.Name} 缺少回调委托参数");
                         return;
+                    }
+                    if (checkTwoStage‌ && ParameterEndIndex > ParameterStartIndex)
+                    {
+                        Type parameterType = Parameters[ParameterEndIndex - 1].ParameterType;
+                        if (parameterType.IsGenericType)
+                        {
+                            Type genericType = parameterType.GetGenericTypeDefinition();
+                            if (IsCallbackAction)
+                            {
+                                if (genericType == typeof(Action<>))
+                                {
+                                    Type actionParamererType = parameterType.GetGenericArguments()[0];
+                                    if (actionParamererType.IsGenericType && actionParamererType.GetGenericTypeDefinition() == typeof(CommandClientReturnValue<>))
+                                    {
+                                        TwoStage‌ReturnValueType = actionParamererType.GetGenericArguments()[0];
+                                        --ParameterEndIndex;
+                                        MethodType = ClientMethodTypeEnum.TwoStage‌Callback;
+                                    }
+                                }
+                            }
+                            else if (genericType == typeof(AutoCSer.Net.CommandClientCallback<>))
+                            {
+                                TwoStage‌ReturnValueType = parameterType.GetGenericArguments()[0];
+                                --ParameterEndIndex;
+                                MethodType = ClientMethodTypeEnum.TwoStage‌Callback;
+                            }
+                        }
                     }
                     break;
             }
@@ -425,9 +463,8 @@ namespace AutoCSer.Net.CommandServer
 #endif
                     if (CallbackType == ClientCallbackTypeEnum.CheckRunTask) CallbackType = ClientCallbackTypeEnum.Synchronous;
                     break;
-                default:
-                    TimeoutSeconds = MethodAttribute.TimeoutSeconds;
-                    break;
+                case ClientMethodTypeEnum.TwoStage‌Callback: CallbackType = ClientCallbackTypeEnum.Synchronous; break;
+                default: TimeoutSeconds = MethodAttribute.TimeoutSeconds; break;
             }
             QueueIndex = MethodAttribute.QueueIndex;
             IsLowPriorityQueue = MethodAttribute.IsLowPriorityQueue;
@@ -551,6 +588,24 @@ namespace AutoCSer.Net.CommandServer
                                 return true;
                         }
                         break;
+                    case ClientMethodTypeEnum.TwoStage‌Callback:
+                        switch (serverMethod.MethodType)
+                        {
+                            case ServerMethodTypeEnum.TwoStage‌Callback:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCount:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
+                                return true;
+                        }
+                        break;
                 }
                 SetError($"{Type.fullName()} 客户端方法 {Method.Name} 调用类型 {MethodType} 与服务端方法调用类型 {serverMethod.MethodType} 不匹配");
             }
@@ -567,6 +622,7 @@ namespace AutoCSer.Net.CommandServer
             MethodIndex = serverMethod.MethodIndex;
             IsSimpleDeserializeParamter = serverMethod.IsSimpleSerializeParamter;
             IsSimpleSerializeParamter = serverMethod.IsSimpleDeserializeParamter;
+            IsSimpleSerializeTwoStage‌ReturnValue = serverMethod.IsSimpleSerializeTwoStage‌ReturnValue;
         }
 #if !AOT
         /// <summary>
@@ -598,14 +654,16 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         /// <param name="methodGenerator"></param>
         /// <param name="returnValueGenericType"></param>
+        /// <param name="twoStage‌CallbackReturnValueGenericType"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal LocalBuilder? GetOutputParameterLocalBuilder(ILGenerator methodGenerator, out GenericType? returnValueGenericType)
+        internal LocalBuilder? GetOutputParameterLocalBuilder(ILGenerator methodGenerator, out GenericType? returnValueGenericType, out GenericType? twoStage‌CallbackReturnValueGenericType)
 #else
-        internal LocalBuilder GetOutputParameterLocalBuilder(ILGenerator methodGenerator, out GenericType returnValueGenericType)
+        internal LocalBuilder GetOutputParameterLocalBuilder(ILGenerator methodGenerator, out GenericType returnValueGenericType, out GenericType twoStage‌CallbackReturnValueGenericType)
 #endif
         {
             returnValueGenericType = ReturnValueType != typeof(void) ? GenericType.Get(ReturnValueType) : null;
+            twoStage‌CallbackReturnValueGenericType = TwoStage‌ReturnValueType != typeof(void) ? GenericType.Get(TwoStage‌ReturnValueType) : null;
             if (OutputParameterType != null)
             {
                 LocalBuilder outputParameterLocalBuilder = methodGenerator.DeclareLocal(OutputParameterType.Type);
@@ -661,10 +719,11 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         /// <param name="methodGenerator"></param>
         /// <param name="returnValueGenericType"></param>
+        /// <param name="twoStage‌CallbackReturnValueGenericType"></param>
 #if NetStandard21
-        internal void CallbackParameter(ILGenerator methodGenerator, GenericType? returnValueGenericType)
+        internal void CallbackParameter(ILGenerator methodGenerator, GenericType? returnValueGenericType, GenericType? twoStage‌CallbackReturnValueGenericType)
 #else
-        internal void CallbackParameter(ILGenerator methodGenerator, GenericType returnValueGenericType)
+        internal void CallbackParameter(ILGenerator methodGenerator, GenericType returnValueGenericType, GenericType twoStage‌CallbackReturnValueGenericType)
 #endif
         {
             switch (MethodType)
@@ -715,6 +774,12 @@ namespace AutoCSer.Net.CommandServer
                         }
                         methodGenerator.call(getCallbackMethod.notNull());
                     }
+                    break;
+                case ClientMethodTypeEnum.TwoStage‌Callback:
+                    methodGenerator.ldarg(ParameterEndIndex + 1);
+                    if (IsCallbackAction) methodGenerator.call(returnValueGenericType.notNull().GetCommandClientCallbackDelegate.Method);
+                    methodGenerator.ldarg(ParameterEndIndex + 2);
+                    if (IsCallbackAction) methodGenerator.call(returnValueGenericType.notNull().GetCommandClientKeepCallbackDelegate.Method);
                     break;
             }
         }
@@ -903,6 +968,25 @@ namespace AutoCSer.Net.CommandServer
                                 controllerMethod = ClientInterfaceController.CommandClientControllerKeepCallbackOutputReturnValueMethod.MakeGenericMethod(InputParameterType.Type, ReturnValueType);
                                 methodGenerator.Emit(OpCodes.Ldarga, ReturnValueParameterIndex + 1);
                             }
+                        }
+                    }
+                    methodGenerator.call(controllerMethod);
+                    break;
+                case ClientMethodTypeEnum.TwoStage‌Callback:
+                    if (InputParameterType == null)
+                    {
+                        controllerMethod = ClientInterfaceController.CommandClientControllerTwoStage‌CallbackMethod.MakeGenericMethod(TwoStage‌ReturnValueType, ReturnValueType);
+                    }
+                    else
+                    {
+                        if (ReturnValueParameterIndex < 0)
+                        {
+                            controllerMethod = ClientInterfaceController.CommandClientControllerTwoStage‌CallbackOutputMethod.MakeGenericMethod(InputParameterType.Type, TwoStage‌ReturnValueType, ReturnValueType);
+                        }
+                        else
+                        {
+                            controllerMethod = ClientInterfaceController.CommandClientControllerTwoStage‌CallbackOutputReturnValueMethod.MakeGenericMethod(InputParameterType.Type, TwoStage‌ReturnValueType, ReturnValueType);
+                            methodGenerator.Emit(OpCodes.Ldarga, ReturnValueParameterIndex + 1);
                         }
                     }
                     methodGenerator.call(controllerMethod);

@@ -48,10 +48,12 @@ namespace AutoCSer.CodeGenerator.Template
         public partial class MemberType : Pub { }
         public partial class MethodReturnType : Pub { }
         public partial class ReturnValueType : Pub { }
+        public partial class TwoStageReturnValueType : Pub { }
         public partial class ParameterType : Pub { }
         public partial class ServerType : Pub { }
         public partial class ClientType : Pub { }
         public partial class CallbackType : Pub { }
+        public partial class TwoStageCallbackType : Pub { }
         public partial class EnumType : Pub { }
         public partial class SnapshotType : Pub { }
         public interface InterfaceTypeName

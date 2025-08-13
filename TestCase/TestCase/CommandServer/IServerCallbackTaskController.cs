@@ -8,7 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端测试接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsAutoMethodIndex = true, TaskQueueMaxConcurrent = 1, IsCodeGeneratorClientInterface = false)]
+    [AutoCSer.Net.CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsAutoMethodIndex = true, TaskQueueMaxConcurrent = 1, IsCodeGeneratorClientInterface = false, IsCodeGeneratorControllerAttribute = false)]
     public interface IServerCallbackTaskController
     {
         [CommandServerMethod(IsSynchronousCallTask = true)]

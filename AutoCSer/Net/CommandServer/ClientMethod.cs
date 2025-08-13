@@ -56,6 +56,11 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal readonly bool IsLowPriorityQueue;
         /// <summary>
+        /// Whether to simply serialize the return value of the first stage of the two-stage callback
+        /// 是否简单序列化二阶段回调的第一阶段的返回值
+        /// </summary>
+        internal readonly bool IsSimpleSerializeTwoStage‌ReturnValue;
+        /// <summary>
         /// Whether deserialization failed
         /// 是否反序列化失败
         /// </summary>
@@ -82,7 +87,8 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="queueIndex"></param>
         /// <param name="isLowPriorityQueue"></param>
         /// <param name="timeoutSeconds"></param>
-        public ClientMethod(Type type, string name, int methodIndex, byte isSimpleSerialize, byte isSimpleDeserialize, ClientCallbackTypeEnum callbackType, byte queueIndex, byte isLowPriorityQueue, ushort timeoutSeconds)
+        /// <param name="isSimpleSerializeTwoStage‌ReturnValue"></param>
+        public ClientMethod(Type type, string name, int methodIndex, byte isSimpleSerialize, byte isSimpleDeserialize, ClientCallbackTypeEnum callbackType, byte queueIndex, byte isLowPriorityQueue, ushort timeoutSeconds, byte isSimpleSerializeTwoStage‌ReturnValue = 0)
         {
             this.type = type;
             MethodIndex = methodIndex;
@@ -93,6 +99,7 @@ namespace AutoCSer.Net.CommandServer
             MatchMethodName = name;
             TimeoutSeconds = timeoutSeconds;
             IsLowPriorityQueue = isLowPriorityQueue != 0;
+            IsSimpleSerializeTwoStageReturnValue = isSimpleSerializeTwoStage‌ReturnValue != 0;
         }
         /// <summary>
         /// Get the collection of server-side method numbers

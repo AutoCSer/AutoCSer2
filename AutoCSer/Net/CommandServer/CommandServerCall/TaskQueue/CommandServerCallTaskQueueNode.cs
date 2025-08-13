@@ -127,6 +127,8 @@ namespace AutoCSer.Net
 #if NetStandard21
                     case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
+                    case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                    case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                         Socket.CancelKeepCallback(CallbackIdentity, CommandClientReturnTypeEnum.ServerException, exception);
                         checkOfflineCount();
                         break;
@@ -197,7 +199,7 @@ namespace AutoCSer.Net
         /// <param name="queue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal CommandServerSocket GetSocket(out CommandServerCallTaskQueue queue)
+        internal CommandServerSocket GetSocketQueue(out CommandServerCallTaskQueue queue)
         {
             queue = Queue;
             return Socket;
@@ -210,9 +212,20 @@ namespace AutoCSer.Net
         /// <param name="queue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static CommandServerSocket GetSocket(CommandServerCallTaskQueueNode task, out CommandServerCallTaskQueue queue)
+        internal static CommandServerSocket GetSocketQueue(CommandServerCallTaskQueueNode task, out CommandServerCallTaskQueue queue)
         {
-            return task.GetSocket(out queue);
+            return task.GetSocketQueue(out queue);
+        }
+        /// <summary>
+        /// Get the command service socket
+        /// 获取命令服务套接字
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerSocket GetSocket(CommandServerCallTaskQueueNode task)
+        {
+            return task.Socket;
         }
         ///// <summary>
         ///// 输出异常信息

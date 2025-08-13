@@ -71,11 +71,19 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
+                if (!await ClientTwoStage‌CallbackController.TestCase(client, clientSessionObject))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
                 if (!await ClientTaskController.TestCase(client, clientSessionObject))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
                 if (!await ClientKeepCallbackTaskController.TestCase(client, clientSessionObject))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                if (!await ClientTwoStage‌CallbackTaskController.TestCase(client, clientSessionObject))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
@@ -159,6 +167,10 @@ namespace AutoCSer.TestCase
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
 #endif
+                if (!await ClientCodeGeneratorController.TestCase(client, clientSessionObject))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
             }
             return true;
         }
@@ -180,6 +192,7 @@ namespace AutoCSer.TestCase
                 IsShortLink = isShortLink,
                 IsRemoteExpression = !isShortLink
             };
+            //由于存在短连接测试，客户端与服务端的控制器定义顺序必须保持一致
             CommandListenerBuilder builder = new CommandListenerBuilder(32)
                     .Append<IServerSynchronousController>(new ServerSynchronousController())
                     .Append<IServerSendOnlyController>(new ServerSendOnlyController())
@@ -189,8 +202,10 @@ namespace AutoCSer.TestCase
                     .Append<IServerCallbackController>(new ServerCallbackController())
                     .Append<IServerCallbackTaskController>(new ServerCallbackTaskController())
                     .Append<IServerKeepCallbackController>(new ServerKeepCallbackController())
+                    .Append<IServerTwoStage‌CallbackController>(new ServerTwoStage‌CallbackController())
                     .Append<IServerTaskController>(new ServerTaskController())
                     .Append<IServerKeepCallbackTaskController>(new ServerKeepCallbackTaskController())
+                    .Append<IServerTwoStage‌CallbackTaskController>(new ServerTwoStage‌CallbackTaskController())
                     .Append<IDefinedSymmetryController>(new DefinedSymmetryServerController())
                     .Append<IDefinedDissymmetryServerController>(string.Empty, new DefinedDissymmetryServerController());
             if (!CommandServer.IsAotClient)
@@ -215,6 +230,7 @@ namespace AutoCSer.TestCase
                 builder = builder.Append<ServerBindContext.IServerTaskQueueController>(server => new ServerBindContext.ServerTaskQueueController());
             }
             return builder.Append<IServerRemoteExpressionDelegateController>(new ServerRemoteExpressionDelegateController())
+                .Append<IServerCodeGeneratorController>(new ServerCodeGeneratorController())
                 .CreateCommandListener(commandServerConfig);
         }
 #endif

@@ -161,8 +161,503 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
 }namespace AutoCSer.CommandService
 {
         /// <summary>
+        /// 接口实时调用监视服务接口 客户端接口
+        /// </summary>
+        [AutoCSer.Net.CommandClientControllerType(typeof(InterfaceRealTimeCallMonitorServiceClientController))]
+        public partial interface IInterfaceRealTimeCallMonitorServiceClientController { }
+        /// <summary>
+        /// 接口实时调用监视服务接口 客户端接口 client controller
+        /// </summary>
+        internal unsafe partial class InterfaceRealTimeCallMonitorServiceClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController, AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService>, IInterfaceRealTimeCallMonitorServiceClientController
+        {
+            private InterfaceRealTimeCallMonitorServiceClientController(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames) : base(socket, controllerName, startMethodIndex, serverMethodNames, -2147483648) { }
+            internal static AutoCSer.Net.CommandClientController __CommandClientControllerConstructor__(AutoCSer.Net.CommandClientSocket socket, string controllerName, int startMethodIndex, string?[]? serverMethodNames)
+            {
+                return new InterfaceRealTimeCallMonitorServiceClientController(socket, controllerName, startMethodIndex, serverMethodNames);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op3__
+            {
+                internal AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp ReturnValue;
+                private static AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp getReturnValue(__op3__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op3__, AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="deserializer"></param>
+            /// <param name="value"></param>
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__ value)
+            {
+                value.binaryDeserialize(deserializer);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                binaryFieldDeserialize(__deserializer__);
+            }
+            /// <summary>
+            /// Binary deserialization
+            /// 二进制反序列化
+            /// </summary>
+            /// <param name="__deserializer__"></param>
+            private void binaryFieldDeserialize(AutoCSer.BinaryDeserializer __deserializer__)
+            {
+                __deserializer__.BinaryDeserialize(ref this.ReturnValue);
+            }
+            /// <summary>
+            /// Get the binary serialization type information
+            /// 获取二进制序列化类型信息
+            /// </summary>
+            /// <returns></returns>
+            internal static AutoCSer.BinarySerialize.TypeInfo BinarySerializeMemberTypes()
+            {
+                AutoCSer.BinarySerialize.TypeInfo typeInfo = new AutoCSer.BinarySerialize.TypeInfo(false, 0, 1073741825);
+                return typeInfo;
+            }
+            /// <summary>
+            /// 二进制序列化代码生成调用激活 AOT 反射
+            /// </summary>
+            internal static void BinarySerialize()
+            {
+                AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__ value = default(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__);
+                BinaryDeserialize(null, ref value);
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__));
+                BinarySerializeMemberTypes();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__>();
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip1__
+            {
+                internal long callIdentity;
+                internal bool isException;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(12))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.callIdentity);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.isException);
+                    __stream__.TryMoveSize(3);
+                }
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__ value = default(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __op2__
+            {
+                internal int ReturnValue;
+                private static int getReturnValue(__op2__ parameter)
+                {
+                    return parameter.ReturnValue;
+                }
+                internal static readonly Func<__op2__, int> GetReturnValue = getReturnValue;
+                
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.ReturnValue);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__ value = default(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip5__
+            {
+                internal int count;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.count);
+                }
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__ value = default(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip7__
+            {
+                internal long callIdentity;
+                internal int step;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(12))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.callIdentity);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.step);
+                }
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__ value = default(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__));
+            }
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip8__
+            {
+                internal long callIdentity;
+                internal string callType;
+                internal string callName;
+                internal int timeoutMilliseconds;
+                internal ushort type;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(24))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.callIdentity);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.timeoutMilliseconds);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.type);
+                    __stream__.TryMoveSize(2);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.callName);
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.callType);
+                }
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__ value = default(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__);
+                SimpleSerialize(null, ref value);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__));
+            }
+            }
+            /// <summary>
+            /// 接口监视服务在线检查
+            /// </summary>
+            /// <param name="callback">在线检查回调</param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.Check(System.Action<AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand> callback)
+            {
+                var __returnValue__ = base.KeepCallback(0
+                    , AutoCSer.Net.CommandClientKeepCallback/**/.Get(callback)
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取异常调用数据
+            /// </summary>
+            /// <param name="callback">实时调用时间戳信息回调</param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.GetException(System.Action<AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp>,AutoCSer.Net.KeepCallbackCommand> callback)
+            {
+                var __returnValue__ = base.KeepCallback<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp, __op3__>(1
+                    , AutoCSer.Net.CommandClientKeepCallback<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp>/**/.Get(callback)
+                    , __op3__/**/.GetReturnValue
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取超时调用数据
+            /// </summary>
+            /// <param name="callback">实时调用时间戳信息回调</param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.GetTimeout(System.Action<AutoCSer.Net.CommandClientReturnValue<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp>,AutoCSer.Net.KeepCallbackCommand> callback)
+            {
+                var __returnValue__ = base.KeepCallback<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp, __op3__>(2
+                    , AutoCSer.Net.CommandClientKeepCallback<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp>/**/.Get(callback)
+                    , __op3__/**/.GetReturnValue
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 接口监视服务在线检查
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.EnumeratorCommand AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.Check()
+            {
+                var __returnValue__ = base.Enumerator(3
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 调用完成
+            /// </summary>
+            /// <param name="callIdentity">调用标识</param>
+            /// <param name="isException">接口是否执行异常</param>
+            /// <returns></returns>
+            AutoCSer.Net.SendOnlyCommand AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.Completed(long callIdentity, bool isException)
+            {
+                __ip1__ __inputParameter__ = new __ip1__
+                {
+                    callIdentity = callIdentity,
+                    isException = isException,
+                };
+                var __returnValue__ = base.SendOnlyInput<__ip1__>(4
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取未完成调用数量
+            /// </summary>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.GetCount()
+            {
+                var __returnValue__ = base.ReturnValue<int, __op2__>(5
+                    , __op2__/**/.GetReturnValue
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取异常调用数据
+            /// </summary>
+            /// <returns>实时调用时间戳信息回调</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp> AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.GetException()
+            {
+                var __returnValue__ = base.Enumerator<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp, __op3__>(6
+                    , __op3__/**/.GetReturnValue
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取超时调用数据
+            /// </summary>
+            /// <returns>实时调用时间戳信息回调</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp> AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.GetTimeout()
+            {
+                var __returnValue__ = base.Enumerator<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp, __op3__>(7
+                    , __op3__/**/.GetReturnValue
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取指定数量的超时调用
+            /// </summary>
+            /// <param name="count">Get the quantity of data  
+///                       获取数据数量</param>
+            /// <returns>超时调用回调</returns>
+            AutoCSer.Net.EnumeratorCommand<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp> AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.GetTimeoutCalls(int count)
+            {
+                __ip5__ __inputParameter__ = new __ip5__
+                {
+                    count = count,
+                };
+                var __returnValue__ = base.EnumeratorOutput<__ip5__, AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp, __op3__>(8
+                    , __op3__/**/.GetReturnValue
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取超时调用数量
+            /// </summary>
+            /// <returns>超时调用数量</returns>
+            AutoCSer.Net.ReturnCommand<int> AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.GetTimeoutCount()
+            {
+                var __returnValue__ = base.ReturnValue<int, __op2__>(9
+                    , __op2__/**/.GetReturnValue
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 设置自定义调用步骤
+            /// </summary>
+            /// <param name="callIdentity">调用标识</param>
+            /// <param name="step">自定义调用步骤</param>
+            /// <returns></returns>
+            AutoCSer.Net.SendOnlyCommand AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.SetStep(long callIdentity, int step)
+            {
+                __ip7__ __inputParameter__ = new __ip7__
+                {
+                    callIdentity = callIdentity,
+                    step = step,
+                };
+                var __returnValue__ = base.SendOnlyInput<__ip7__>(10
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 新增一个实时调用信息
+            /// </summary>
+            /// <param name="callIdentity">调用标识</param>
+            /// <param name="callType">Call interface type  
+///                       调用接口类型</param>
+            /// <param name="callName">The name of the interface method to be called  
+///                       调用接口方法名称</param>
+            /// <param name="timeoutMilliseconds">超时毫秒数</param>
+            /// <param name="type">调用类型</param>
+            /// <returns></returns>
+            AutoCSer.Net.SendOnlyCommand AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceClientController/**/.Start(long callIdentity, string callType, string callName, int timeoutMilliseconds, ushort type)
+            {
+                __ip8__ __inputParameter__ = new __ip8__
+                {
+                    callIdentity = callIdentity,
+                    callType = callType,
+                    callName = callName,
+                    timeoutMilliseconds = timeoutMilliseconds,
+                    type = type,
+                };
+                var __returnValue__ = base.SendOnlyInput<__ip8__>(11
+                    , ref __inputParameter__
+                    );
+                return __returnValue__;
+            }
+            /// <summary>
+            /// 获取客户端接口方法信息集合
+            /// </summary>
+            internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
+            {
+                AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(12);
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "Check", 0, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "GetException", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "GetTimeout", 4, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "Check", 0, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "Completed", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "GetCount", 2, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "GetException", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "GetTimeout", 4, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "GetTimeoutCalls", 5, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "GetTimeoutCount", 6, 0, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "SetStep", 7, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IInterfaceRealTimeCallMonitorServiceClientController), "Start", 8, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                return methods;
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal static void __CommandClientControllerConstructor__()
+            {
+                __CommandClientControllerConstructor__(null, null, 0, null);
+                AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum));
+                __CommandClientControllerMethods__();
+                AutoCSer.AotReflection.Interfaces(typeof(InterfaceRealTimeCallMonitorServiceClientController));
+            }
+        }
+}namespace AutoCSer.CommandService
+{
+        /// <summary>
         /// 接口实时调用监视服务接口 client interface
         /// </summary>
+        [AutoCSer.CodeGenerator.CommandClientController(typeof(AutoCSer.CommandService.IInterfaceRealTimeCallMonitorService))]
         public partial interface IInterfaceRealTimeCallMonitorServiceClientController
         {
             /// <summary>
@@ -323,9 +818,17 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             {
                 if (AutoCSer.Date.StartTimestamp == long.MinValue)
                 {
+                    AutoCSer.AotMethod.Call();
                     AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData/**/.BinarySerialize();
                     AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData/**/.DefaultConstructorReflection();
                     AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp/**/.BinarySerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__.BinarySerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__.SimpleSerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__.SimpleSerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__.SimpleSerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__.SimpleSerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__.SimpleSerialize();
+                    AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__CommandClientControllerConstructor__();
 
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<long>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<int>));
@@ -335,6 +838,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallData>));
                     AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.Diagnostics.ServerTimestamp>));
                     AutoCSer.BinarySerializer.Simple<AutoCSer.Diagnostics.ServerTimestamp>(null, default(AutoCSer.Diagnostics.ServerTimestamp));
+                    AutoCSer.AotReflection.NonPublicFields(typeof(AutoCSer.BinarySerialize.TypeSerializer<AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp>));
                     binaryDeserializeMemberTypes();
 
 

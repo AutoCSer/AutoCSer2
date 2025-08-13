@@ -52,8 +52,8 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsLowPriorityTaskQueue;
         /// <summary>
-        /// The default is true, indicating that the hold callback is automatically cancelled when the API call is completed. Otherwise, the CancelKeep callback needs to be manually called to cancel, which is used in asynchronous call scenarios
-        /// 默认为 true 表示在 API 调用完成时自动取消保持回调，否则需要手动调用 CancelKeep 取消用于异步调用场景
+        /// The default value of true indicates that the hold callback is automatically cancelled when the API call is completed, so all data output operations must be completed within the API. Otherwise, CancelKeep needs to be manually called to cancel for asynchronous call scenarios
+        /// 默认为 true 表示在 API 调用完成时自动取消保持回调，所以要求数据输出操作都在 API 中完成；否则需要手动调用 CancelKeep 取消用于异步调用场景
         /// </summary>
         public bool AutoCancelKeep = true;
         /// <summary>

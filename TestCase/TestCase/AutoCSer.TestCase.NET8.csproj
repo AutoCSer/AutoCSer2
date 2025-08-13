@@ -32,9 +32,12 @@
     <Compile Include="CommandReverseServer.cs" />
     <Compile Include="CommandServer.cs" />
     <Compile Include="CommandClientDefaultController.cs" />
+    <Compile Include="CommandServer\ClientCodeGeneratorController.cs" />
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
     <Compile Include="CommandServer\IClientCallbackTaskController.cs" />
     <Compile Include="CommandServer\IClientCallbackController.cs" />
+    <Compile Include="CommandServer\IClientTwoStage‌CallbackTaskController.cs" />
+    <Compile Include="CommandServer\IClientTwoStage‌CallbackController.cs" />
     <Compile Include="CommandServer\IClientKeepCallbackController.cs" />
     <Compile Include="CommandServer\IClientKeepCallbackTaskController.cs" />
     <Compile Include="CommandServer\IClientConcurrencyReadQueueController.cs" />
@@ -49,6 +52,9 @@
     <Compile Include="CommandServer\IDefinedDissymmetryClientController.cs" />
     <Compile Include="CommandServer\IDefinedDissymmetryServerController.cs" />
     <Compile Include="CommandServer\IDefinedSymmetryController.cs" />
+    <Compile Include="CommandServer\IServerCodeGeneratorController.cs" />
+    <Compile Include="CommandServer\IServerTwoStage‌CallbackTaskController.cs" />
+    <Compile Include="CommandServer\IServerTwoStage‌CallbackController.cs" />
     <Compile Include="CommandServer\IServerRemoteExpressionDelegateController.cs" />
     <Compile Include="CommandServer\IServerCallbackTaskController.cs" />
     <Compile Include="CommandServer\IServerCallbackController.cs" />

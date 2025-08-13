@@ -570,14 +570,14 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
 }namespace AutoCSer.Document.NativeAOT.Service
 {
         /// <summary>
-        /// Example of service controller client interface  
-///            服务控制器客户端接口示例
+        /// Example of service controller client interface            
+///                                                                                                                          服务控制器客户端接口示例
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(ServiceControllerClientController))]
         public partial interface IServiceControllerClientController { }
         /// <summary>
-        /// Example of service controller client interface  
-///            服务控制器客户端接口示例 client controller
+        /// Example of service controller client interface            
+///                                                                                                                          服务控制器客户端接口示例 client controller
         /// </summary>
         internal unsafe partial class ServiceControllerClientController : AutoCSer.Net.CommandClientController<AutoCSer.Document.NativeAOT.Service.IServiceControllerClientController, AutoCSer.Document.NativeAOT.Service.IServiceController>, IServiceControllerClientController
         {
@@ -697,7 +697,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(1);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IServiceControllerClientController), "Add", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IServiceControllerClientController), "Add", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
                 return methods;
             }
             /// <summary>
@@ -718,6 +718,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
         /// Example of service controller interface 
 ///            服务控制器接口示例 client interface
         /// </summary>
+        [AutoCSer.CodeGenerator.CommandClientController(typeof(AutoCSer.Document.NativeAOT.Service.IServiceController))]
         public partial interface IServiceControllerClientController
         {
             /// <summary>

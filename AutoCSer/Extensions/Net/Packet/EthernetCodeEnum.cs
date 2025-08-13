@@ -11,6 +11,6 @@ namespace AutoCSer.Net.Packet
         ActiveDiscoveryInitiation = 9,
         ActiveDiscoveryOffer = 7,
         ActiveDiscoveryTerminate = 0xA7,
-        SessionStage = 0
+        SessionStage‌ = 0
     }
 }

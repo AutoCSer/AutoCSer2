@@ -10,11 +10,22 @@ namespace AutoCSer.Document.NativeAOT.Service
     public partial interface IServiceController
     {
         /// <summary>
-        /// Test API
+        /// One-time response API example
+        /// 一次性响应 API 示例
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        int Add(int left, int right);
+        int OneTimeResponse(int left, int right);
+        /// <summary>
+        /// Two-stage response API example
+        /// 二阶段响应 API 示例
+        /// </summary>
+        /// <param name="callback">For the callback wrapper in the first stage, the type of the penultimate parameter must be AutoCSer.Net.CommandServerCallback{T}
+        /// 第一阶段的回调委托包装，倒数第二个参数类型必须是 AutoCSer.Net.CommandServerCallback{T}</param>
+        /// <param name="keepCallback">For the callback delegate wrapper of the second stage of continuous response, the last parameter type must be AutoCSer.Net.CommandServerKeepCallback{T} or AutoCSer.Net.CommandServerKeepCallbackCount{T}
+        /// 第二阶段持续响应的回调委托包装，最后一个参数类型必须是 AutoCSer.Net.CommandServerKeepCallback{T} 或者 AutoCSer.Net.CommandServerKeepCallbackCount{T}</param>
+        /// <returns>The return value type must be void</returns>
+        void TwoStageResponse(AutoCSer.Net.CommandServerCallback<string> callback, AutoCSer.Net.CommandServerKeepCallback<int> keepCallback);
     }
 }

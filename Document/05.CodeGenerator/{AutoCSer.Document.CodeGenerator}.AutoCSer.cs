@@ -16,12 +16,23 @@ namespace AutoCSer.Document.NativeAOT.Service
         public partial interface IServiceControllerClientController
         {
             /// <summary>
-            /// Test API
+            /// One-time response API example 
+///            一次性响应 API 示例
             /// </summary>
             /// <param name="left"></param>
             /// <param name="right"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Add(int left, int right);
+            AutoCSer.Net.ReturnCommand<int> OneTimeResponse(int left, int right);
+            /// <summary>
+            /// Two-stage response API example 
+///            二阶段响应 API 示例
+            /// </summary>
+            /// <param name="callback">For the callback wrapper in the first stage, the type of the penultimate parameter must be AutoCSer.Net.CommandServerCallback{T} 
+///            第一阶段的回调委托包装，倒数第二个参数类型必须是 AutoCSer.Net.CommandServerCallback{T}</param>
+            /// <param name="keepCallback">For the callback delegate wrapper of the second stage of continuous response, the last parameter type must be AutoCSer.Net.CommandServerKeepCallback{T} or AutoCSer.Net.CommandServerKeepCallbackCount{T} 
+///            第二阶段持续响应的回调委托包装，最后一个参数类型必须是 AutoCSer.Net.CommandServerKeepCallback{T} 或者 AutoCSer.Net.CommandServerKeepCallbackCount{T}</param>
+            /// <returns></returns>
+            AutoCSer.Net.KeepCallbackCommand TwoStageResponse(Action<AutoCSer.Net.CommandClientReturnValue<string>> callback, Action<AutoCSer.Net.CommandClientReturnValue<int>, AutoCSer.Net.KeepCallbackCommand> keepCallback);
         }
 }namespace AutoCSer.Document.NativeAOT.Service
 {
@@ -38,12 +49,23 @@ namespace AutoCSer.Document.NativeAOT.Service
         public enum IServiceControllerMethodEnum
         {
             /// <summary>
-            /// [0] Test API
+            /// [0] One-time response API example 
+///            一次性响应 API 示例
             /// int left 
             /// int right 
             /// 返回值 int 
             /// </summary>
-            Add = 0,
+            OneTimeResponse = 0,
+            /// <summary>
+            /// [1] Two-stage response API example 
+///            二阶段响应 API 示例
+            /// AutoCSer.Net.CommandServerCallback{string} callback For the callback wrapper in the first stage, the type of the penultimate parameter must be AutoCSer.Net.CommandServerCallback{T} 
+///            第一阶段的回调委托包装，倒数第二个参数类型必须是 AutoCSer.Net.CommandServerCallback{T}
+            /// AutoCSer.Net.CommandServerKeepCallback{int} keepCallback For the callback delegate wrapper of the second stage of continuous response, the last parameter type must be AutoCSer.Net.CommandServerKeepCallback{T} or AutoCSer.Net.CommandServerKeepCallbackCount{T} 
+///            第二阶段持续响应的回调委托包装，最后一个参数类型必须是 AutoCSer.Net.CommandServerKeepCallback{T} 或者 AutoCSer.Net.CommandServerKeepCallbackCount{T}
+            /// 返回值 int 
+            /// </summary>
+            TwoStageResponse = 1,
         }
 }namespace AutoCSer.Document.CodeGenerator.MemoryDatabase
 {

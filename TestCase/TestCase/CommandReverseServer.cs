@@ -48,12 +48,15 @@ namespace AutoCSer.TestCase
                         .Append<IServerCallbackController>(new ServerCallbackController())
                         .Append<IServerCallbackTaskController>(new ServerCallbackTaskController())
                         .Append<IServerKeepCallbackController>(new ServerKeepCallbackController())
+                        .Append<IServerTwoStage‌CallbackController>(new ServerTwoStage‌CallbackController())
                         .Append<IServerTaskController>(new ServerTaskController())
                         .Append<IServerKeepCallbackTaskController>(new ServerKeepCallbackTaskController())
+                        .Append<IServerTwoStage‌CallbackTaskController>(new ServerTwoStage‌CallbackTaskController())
                         .Append<IServerTaskQueueController>(new ServerTaskQueueController())
                         .Append<IServerTaskQueueContextController, int>((task, key) => new ServerTaskQueueContextController(task, key))
                         .Append<IDefinedSymmetryController>(new DefinedSymmetryServerController())
                         .Append<IDefinedDissymmetryServerController>(string.Empty, new DefinedDissymmetryServerController())
+                        .Append<IServerCodeGeneratorController>(new ServerCodeGeneratorController())
 
                         .Append<ServerBindContext.IServerSynchronousController>(server => new ServerBindContext.ServerSynchronousController())
                         .Append<ServerBindContext.IServerSendOnlyController>(server => new ServerBindContext.ServerSendOnlyController())
@@ -109,11 +112,19 @@ namespace AutoCSer.TestCase
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
+                        if (!await ClientTwoStage‌CallbackController.TestCase(client, clientSessionObject))
+                        {
+                            return AutoCSer.Breakpoint.ReturnFalse();
+                        }
                         if (!await ClientTaskController.TestCase(client, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ClientKeepCallbackTaskController.TestCase(client, clientSessionObject))
+                        {
+                            return AutoCSer.Breakpoint.ReturnFalse();
+                        }
+                        if (!await ClientTwoStage‌CallbackTaskController.TestCase(client, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
@@ -183,6 +194,11 @@ namespace AutoCSer.TestCase
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }
                         if (!await ServerBindContext.DefinedDissymmetryClientController.TestCase(client, clientSessionObject))
+                        {
+                            return AutoCSer.Breakpoint.ReturnFalse();
+                        }
+
+                        if (!await ClientCodeGeneratorController.TestCase(client, clientSessionObject))
                         {
                             return AutoCSer.Breakpoint.ReturnFalse();
                         }

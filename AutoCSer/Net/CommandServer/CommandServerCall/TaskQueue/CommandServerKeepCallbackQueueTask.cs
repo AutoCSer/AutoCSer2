@@ -103,7 +103,7 @@ namespace AutoCSer.Net
         internal static CommandServerSocket GetSocket(CommandServerKeepCallbackQueueTask task, CommandServerKeepCallback keepCallback, out CommandServerCallTaskQueue queue)
         {
             task.keepCallback = keepCallback;
-            return task.GetSocket(out queue);
+            return task.GetSocketQueue(out queue);
         }
         /// <summary>
         /// 获取命令服务 Task 队列
@@ -298,7 +298,7 @@ namespace AutoCSer.Net
         internal static CommandServerSocket GetSocket(CommandServerKeepCallbackQueueTask<T> task, ServerInterfaceMethod method, out CommandServerCallTaskQueue queue)
         {
             task.keepCallback = CommandServerKeepCallbackCount<T>.CreateServerKeepCallback(task, method);
-            return task.GetSocket(out queue);
+            return task.GetSocketQueue(out queue);
         }
         /// <summary>
         /// 获取命令服务 Task 队列

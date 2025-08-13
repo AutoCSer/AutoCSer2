@@ -71,6 +71,10 @@ namespace AutoCSer.Net.CommandServer
 #endif
         internal Type AsynchronousType;
         /// <summary>
+        /// 二阶段回调的第一阶段的返回值类型
+        /// </summary>
+        internal Type TwoStage‌ReturnValueType;
+        /// <summary>
         /// 保持回调输出计数
         /// </summary>
         internal int KeepCallbackOutputCount
@@ -123,6 +127,11 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal readonly bool IsParameterSocket;
         /// <summary>
+        /// Whether to simply serialize the return value of the first stage of the two-stage callback
+        /// 是否简单序列化二阶段回调的第一阶段的返回值
+        /// </summary>
+        internal readonly bool IsSimpleSerializeTwoStage‌ReturnValue;
+        /// <summary>
         /// 默认空服务端接口方法信息
         /// </summary>
         internal unsafe ServerInterfaceMethod()
@@ -130,6 +139,7 @@ namespace AutoCSer.Net.CommandServer
             MethodAttribute = new CommandServerMethodAttribute();
             IsOutputPool = MethodAttribute.IsOutputPool;
             IsSimpleSerializeParamter = true;
+            TwoStage‌ReturnValueType = typeof(void);
         }
         /// <summary>
         /// Server interface method information
@@ -147,6 +157,7 @@ namespace AutoCSer.Net.CommandServer
 #endif
         {
             MethodAttribute = method.GetCustomAttribute<CommandServerMethodAttribute>(false) ?? CommandServerMethodAttribute.Default;
+            TwoStage‌ReturnValueType = typeof(void);
             MethodIndex = MethodAttribute.MethodIndex;
             if (MethodAttribute.IsExpired)
             {
@@ -165,6 +176,7 @@ namespace AutoCSer.Net.CommandServer
             ReturnValueType = method.ReturnType;
             var genericTypeDefinition = ReturnValueType.IsGenericType ? ReturnValueType.GetGenericTypeDefinition() : null;
             ServerQueueTypeEnum serverQueueType = ServerQueueTypeEnum.None;
+            bool checkTwoStage‌ = false;
             if (genericTypeDefinition == typeof(Task<>) || ReturnValueType == typeof(Task)
 #if NetStandard21
                 || genericTypeDefinition == typeof(IAsyncEnumerable<>)
@@ -233,14 +245,14 @@ namespace AutoCSer.Net.CommandServer
                                 ReturnValueType = parameterType.GetGenericArguments()[0];
                                 ReturnParameter = parameter;
                                 MethodType = serverQueueType == ServerQueueTypeEnum.TaskQueue ? ServerMethodTypeEnum.KeepCallbackTaskQueue : ServerMethodTypeEnum.KeepCallbackTask;
-                                isKeepCallback = true;
+                                isKeepCallback = checkTwoStage‌ = true;
                             }
                             else if (genericType == typeof(CommandServerKeepCallbackCount<>))
                             {
                                 ReturnValueType = parameterType.GetGenericArguments()[0];
                                 ReturnParameter = parameter;
                                 MethodType = serverQueueType == ServerQueueTypeEnum.TaskQueue ? ServerMethodTypeEnum.KeepCallbackCountTaskQueue : ServerMethodTypeEnum.KeepCallbackCountTask;
-                                isKeepCallback = true;
+                                isKeepCallback = checkTwoStage‌ = true;
                             }
                         }
                         else if (parameterType == typeof(CommandServerCallback))
@@ -340,6 +352,7 @@ namespace AutoCSer.Net.CommandServer
                                     default: MethodType = ServerMethodTypeEnum.KeepCallback; break;
                                 }
                                 --ParameterEndIndex;
+                                checkTwoStage‌ = true;
                             }
                             else if (genericType == typeof(CommandServerKeepCallbackCount<>))
                             {
@@ -353,6 +366,7 @@ namespace AutoCSer.Net.CommandServer
                                     default: MethodType = ServerMethodTypeEnum.KeepCallbackCount; break;
                                 }
                                 --ParameterEndIndex;
+                                checkTwoStage‌ = true;
                             }
                         }
                         else if (parameterType == typeof(CommandServerCallback))
@@ -437,6 +451,31 @@ namespace AutoCSer.Net.CommandServer
                     }
                 }
             }
+            if (checkTwoStage‌ && ParameterStartIndex < ParameterEndIndex)
+            {
+                ParameterInfo parameter = Parameters[ParameterEndIndex - 1];
+                Type parameterType = parameter.ParameterType;
+                if (parameterType.IsGenericType && parameterType.GetGenericTypeDefinition() == typeof(CommandServerCallback<>))
+                {
+                    switch (MethodType)
+                    {
+                        case ServerMethodTypeEnum.KeepCallback: MethodType = ServerMethodTypeEnum.TwoStage‌Callback; break;
+                        case ServerMethodTypeEnum.KeepCallbackCount: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackCount; break;
+                        case ServerMethodTypeEnum.KeepCallbackQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackQueue; break;
+                        case ServerMethodTypeEnum.KeepCallbackCountQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackCountQueue; break;
+                        case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue; break;
+                        case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue; break;
+                        case ServerMethodTypeEnum.KeepCallbackReadWriteQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue; break;
+                        case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue; break;
+                        case ServerMethodTypeEnum.KeepCallbackTask: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackTask; break;
+                        case ServerMethodTypeEnum.KeepCallbackCountTask: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackCountTask; break;
+                        case ServerMethodTypeEnum.KeepCallbackTaskQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue; break;
+                        case ServerMethodTypeEnum.KeepCallbackCountTaskQueue: MethodType = ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue; break;
+                    }
+                    TwoStage‌ReturnValueType = parameterType.GetGenericArguments()[0];
+                    --ParameterEndIndex;
+                }
+            }
             switch (MethodType)
             {
                 case ServerMethodTypeEnum.Queue:
@@ -490,6 +529,11 @@ namespace AutoCSer.Net.CommandServer
                 IsOutputInfo = true;
             }
             if (IsOutputInfo) IsOutputPool = MethodAttribute.IsOutputPool;
+            if (TwoStage‌ReturnValueType != typeof(void))
+            {
+                IsOutputInfo = true;
+                IsSimpleSerializeTwoStage‌ReturnValue = controllerAttribute.IsSimpleSerializeOutputParameter && SimpleSerialize.Serializer.IsType(TwoStage‌ReturnValueType);
+            }
             runTaskCount = (isSynchronousCallTask = MethodAttribute.IsSynchronousCallTask) ? 0 : 1;
         }
         /// <summary>
@@ -690,6 +734,16 @@ namespace AutoCSer.Net.CommandServer
             #endregion
         }
         /// <summary>
+        /// 创建二阶段回调的第一阶段回调
+        /// </summary>
+        /// <param name="doCommandGenerator"></param>
+        internal void CreateTwoStage‌Callback(ILGenerator doCommandGenerator)
+        {
+            doCommandGenerator.Emit(OpCodes.Ldarg_1);
+            doCommandGenerator.Emit(OpCodes.Ldsfld, MethodFieldBuilder);
+            doCommandGenerator.call(GenericType.Get(TwoStage‌ReturnValueType).CreateCommandServerTwoStage‌CallbackDelegate.Method);
+        }
+        /// <summary>
         /// 调用方法
         /// </summary>
         /// <param name="doCommandGenerator"></param>
@@ -717,12 +771,18 @@ namespace AutoCSer.Net.CommandServer
                         case ServerMethodTypeEnum.CallbackQueue:
                         case ServerMethodTypeEnum.KeepCallbackQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
                         case ServerMethodTypeEnum.CallbackConcurrencyReadQueue:
                         case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
                         case ServerMethodTypeEnum.CallbackReadWriteQueue:
                         case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
                             break;
                         default:
                             if (outputParameterLocalBuilder == null) outputParameterLocalBuilder = doCommandGenerator.DeclareLocal(ReturnValueType);
@@ -960,6 +1020,8 @@ namespace AutoCSer.Net.CommandServer
                 case ServerMethodTypeEnum.CallbackTask:
                 case ServerMethodTypeEnum.KeepCallbackTask:
                 case ServerMethodTypeEnum.KeepCallbackCountTask:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
                 case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
                     #region if (ServerInterfaceMethod.IsSynchronousCallTask(Method0))
                     doCommandGenerator.Emit(OpCodes.Ldsfld, MethodFieldBuilder);
@@ -976,16 +1038,22 @@ namespace AutoCSer.Net.CommandServer
                 case ServerMethodTypeEnum.SendOnlyQueue:
                 case ServerMethodTypeEnum.KeepCallbackQueue:
                 case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
                 case ServerMethodTypeEnum.CallbackQueue:
                 case ServerMethodTypeEnum.ConcurrencyReadQueue:
                 case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
                 case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
                 case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
                 case ServerMethodTypeEnum.CallbackConcurrencyReadQueue:
                 case ServerMethodTypeEnum.ReadWriteQueue:
                 case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
                 case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
                 case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
                 case ServerMethodTypeEnum.CallbackReadWriteQueue:
                     return null;
             }
@@ -1024,6 +1092,8 @@ namespace AutoCSer.Net.CommandServer
             {
                 case ServerMethodTypeEnum.KeepCallbackTaskQueue:
                 case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                     return typeof(CommandServerKeepCallbackQueueTask);
                 case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
                     return returnGenericType.notNull().CommandServerKeepCallbackQueueTaskType;
@@ -1063,6 +1133,12 @@ namespace AutoCSer.Net.CommandServer
                 case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
                     asynchronousConstructorGenerator.int32((byte)MethodType);
                     asynchronousConstructorGenerator.int32(MethodAttribute.AutoCancelKeep);
+                    asynchronousConstructorGenerator.Emit(OpCodes.Call, ServerInterfaceController.ServerKeepCallbackQueueTaskConstructor);
+                    break;
+                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
+                    asynchronousConstructorGenerator.int32((byte)MethodType);
+                    asynchronousConstructorGenerator.int32(0);
                     asynchronousConstructorGenerator.Emit(OpCodes.Call, ServerInterfaceController.ServerKeepCallbackQueueTaskConstructor);
                     break;
                 case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
@@ -1141,6 +1217,7 @@ namespace AutoCSer.Net.CommandServer
             switch (MethodType)
             {
                 case ServerMethodTypeEnum.KeepCallbackTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
                     keepCallbackLocalBuilder = asynchronousMethodGenerator.DeclareLocal(typeof(CommandServerKeepCallback));
                     asynchronousMethodGenerator.Emit(OpCodes.Ldarg_0);
                     if (ReturnValueType == typeof(void)) asynchronousMethodGenerator.call(ServerInterfaceController.CreateCommandServerKeepCallbackTaskQueueDelegate.Method);
@@ -1152,6 +1229,7 @@ namespace AutoCSer.Net.CommandServer
                     asynchronousMethodGenerator.Emit(OpCodes.Stloc, keepCallbackLocalBuilder);
                     break;
                 case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                     keepCallbackLocalBuilder = asynchronousMethodGenerator.DeclareLocal(typeof(CommandServerKeepCallbackCount));
                     asynchronousMethodGenerator.Emit(OpCodes.Ldarg_0);
                     if (ReturnValueType == typeof(void))
@@ -1200,6 +1278,8 @@ namespace AutoCSer.Net.CommandServer
             {
                 case ServerMethodTypeEnum.KeepCallbackTaskQueue:
                 case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                     asynchronousMethodGenerator.call(ServerInterfaceController.CommandServerKeepCallbackQueueTaskCheckCallTask.Method);
                     break;
                 case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:

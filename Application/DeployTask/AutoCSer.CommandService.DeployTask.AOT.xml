@@ -347,45 +347,6 @@
             <param name="database">数据库名称</param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController">
-            <summary>
-            数据库备份服务接口 客户端接口
-            </summary>
-            <summary>
-            数据库备份服务接口 客户端接口
-            </summary>
-            <summary>
-            数据库备份服务接口 client interface
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Backup(System.String)">
-            <summary>
-            备份数据库并返回文件名称
-            </summary>
-            <param name="database">数据库名称</param>
-            <returns>重写必须保证回调执行，返回空字符串表示没有找到数据库</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Download(System.String,System.Int64)">
-            <summary>
-            下载备份文件
-            </summary>
-            <param name="backupFullName">备份文件名称</param>
-            <param name="startIndex">读取文件起始位置</param>
-            <returns>下载文件数据回调委托</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.GetDatabase">
-            <summary>
-            获取可备份数据库名称集合
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.GetTableName(System.String)">
-            <summary>
-            获取可备份数据库表格名称集合
-            </summary>
-            <param name="database">数据库名称</param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.CommandService.DeployTask.DirectoryName">
             <summary>
             目录名称
@@ -1349,158 +1310,6 @@
             <param name="fileName">切换进程文件相对路径</param>
             <returns></returns>
         </member>
-        <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController">
-            <summary>
-            文件上传服务接口 客户端接口
-            </summary>
-            <summary>
-            文件上传服务接口 客户端接口
-            </summary>
-            <summary>
-            文件上传服务接口 client interface
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
-            <summary>
-            添加上传完成文件
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileInfo">对比文件信息</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendDeleteDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
-            <summary>
-            添加待删除目录
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <returns>返回 false 表示没有找到文件上传操作对象</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendDeleteFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
-            <summary>
-            添加待删除文件
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileName">相对路径文件名称</param>
-            <returns>返回 false 表示没有找到文件上传操作对象</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CombinePath(System.String,System.String)">
-            <summary>
-            拼接路径
-            </summary>
-            <param name="left"></param>
-            <param name="right"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CombinePathArray(System.String[])">
-            <summary>
-            拼接路径
-            </summary>
-            <param name="pathArray"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.Completed(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
-            <summary>
-            上传完成最后移动文件操作
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <returns>返回 false 表示没有找到文件上传操作对象，或者上传未结束</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String,System.String)">
-            <summary>
-            创建目录
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <param name="directoryName">目录名称</param>
-            <returns>返回 null 表示失败</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo,System.Int64)">
-            <summary>
-            创建上传文件
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileInfo">文件信息</param>
-            <param name="serverFileLength">服务端文件匹配长度</param>
-            <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateUploader(System.String,System.String,System.String[],System.Boolean)">
-            <summary>
-            创建文件上传操作对象
-            </summary>
-            <param name="path">上传根目录</param>
-            <param name="backupPath">备份文件根目录</param>
-            <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
-            <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
-            <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetCompletedFileName(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
-            <summary>
-            将上传完成操作数据写入文件并返回文件名称
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <returns>返回空字符串表示没有找到文件上传操作对象，或者上传未结束</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetDirectoryNames(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
-            <summary>
-            获取指定路径下的目录名称集合
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <returns>获取目录名称集合回调委托</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
-            <summary>
-            获取指定文件信息集合
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="fileName">相对路径</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetFiles(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
-            <summary>
-            获取指定路径下的文件信息集合
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-            <param name="path">相对路径</param>
-            <returns>获取文件信息集合回调委托</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetPath(System.String)">
-            <summary>
-            根据上传类型获取文件上传路径
-            </summary>
-            <param name="type">上传类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetSwitchProcessPathFileInfo(System.String,System.String,System.String)">
-            <summary>
-            获取切换进程的上传目录与文件信息
-            </summary>
-            <param name="path">默认上传目录</param>
-            <param name="switchPath">默认切换进程上传目录</param>
-            <param name="fileName">切换进程文件相对路径</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.RemoveFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
-            <summary>
-            移除文件
-            </summary>
-            <param name="uploaderIndex">文件上传索引信息</param>
-            <param name="fileIndex">上传文件索引信息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.RemoveUploader(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
-            <summary>
-            移除文件上传实例
-            </summary>
-            <param name="uploaderIndex">上传文件索引信息</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.UploadFileData(AutoCSer.CommandService.DeployTask.UploadFileBuffer)">
-            <summary>
-            上传文件写入数据
-            </summary>
-            <param name="buffer"></param>
-            <returns></returns>
-        </member>
         <member name="T:AutoCSer.CommandService.DeployTask.UploaderInfo">
             <summary>
             上传索引与路径信息
@@ -2043,6 +1852,42 @@
             服务端执行异常
             </summary>
         </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController">
+            <summary>
+            数据库备份服务接口 客户端接口
+            </summary>
+            <summary>
+            数据库备份服务接口 client interface
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Backup(System.String)">
+            <summary>
+            备份数据库并返回文件名称
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns>重写必须保证回调执行，返回空字符串表示没有找到数据库</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.Download(System.String,System.Int64)">
+            <summary>
+            下载备份文件
+            </summary>
+            <param name="backupFullName">备份文件名称</param>
+            <param name="startIndex">读取文件起始位置</param>
+            <returns>下载文件数据回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.GetDatabase">
+            <summary>
+            获取可备份数据库名称集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController.GetTableName(System.String)">
+            <summary>
+            获取可备份数据库表格名称集合
+            </summary>
+            <param name="database">数据库名称</param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController">
             <summary>
             数据库备份服务接口 客户端接口 client controller
@@ -2445,6 +2290,155 @@
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
+        </member>
+        <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController">
+            <summary>
+            文件上传服务接口 客户端接口
+            </summary>
+            <summary>
+            文件上传服务接口 client interface
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendCompletedFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo)">
+            <summary>
+            添加上传完成文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">对比文件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendDeleteDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.AppendDeleteFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            添加待删除文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径文件名称</param>
+            <returns>返回 false 表示没有找到文件上传操作对象</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CombinePath(System.String,System.String)">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CombinePathArray(System.String[])">
+            <summary>
+            拼接路径
+            </summary>
+            <param name="pathArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.Completed(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            上传完成最后移动文件操作
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回 false 表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateDirectory(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String,System.String)">
+            <summary>
+            创建目录
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <param name="directoryName">目录名称</param>
+            <returns>返回 null 表示失败</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.SynchronousFileInfo,System.Int64)">
+            <summary>
+            创建上传文件
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileInfo">文件信息</param>
+            <param name="serverFileLength">服务端文件匹配长度</param>
+            <returns>上传文件索引信息，Index 为负数表示错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.CreateUploader(System.String,System.String,System.String[],System.Boolean)">
+            <summary>
+            创建文件上传操作对象
+            </summary>
+            <param name="path">上传根目录</param>
+            <param name="backupPath">备份文件根目录</param>
+            <param name="extensions">扩展名称集合，扩展名称包括小数点，比如 .txt</param>
+            <param name="isCaseExtension">扩展名匹配是否区分大小写</param>
+            <returns>上传索引与路径信息，Index 为负数表示调用错误状态 UploadFileStateEnum</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetCompletedFileName(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            将上传完成操作数据写入文件并返回文件名称
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <returns>返回空字符串表示没有找到文件上传操作对象，或者上传未结束</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetDirectoryNames(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的目录名称集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取目录名称集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="fileName">相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetFiles(AutoCSer.CommandService.DeployTask.UploadFileIndex,System.String)">
+            <summary>
+            获取指定路径下的文件信息集合
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+            <param name="path">相对路径</param>
+            <returns>获取文件信息集合回调委托</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetPath(System.String)">
+            <summary>
+            根据上传类型获取文件上传路径
+            </summary>
+            <param name="type">上传类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.GetSwitchProcessPathFileInfo(System.String,System.String,System.String)">
+            <summary>
+            获取切换进程的上传目录与文件信息
+            </summary>
+            <param name="path">默认上传目录</param>
+            <param name="switchPath">默认切换进程上传目录</param>
+            <param name="fileName">切换进程文件相对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.RemoveFile(AutoCSer.CommandService.DeployTask.UploadFileIndex,AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件
+            </summary>
+            <param name="uploaderIndex">文件上传索引信息</param>
+            <param name="fileIndex">上传文件索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.RemoveUploader(AutoCSer.CommandService.DeployTask.UploadFileIndex)">
+            <summary>
+            移除文件上传实例
+            </summary>
+            <param name="uploaderIndex">上传文件索引信息</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController.UploadFileData(AutoCSer.CommandService.DeployTask.UploadFileBuffer)">
+            <summary>
+            上传文件写入数据
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController">
             <summary>

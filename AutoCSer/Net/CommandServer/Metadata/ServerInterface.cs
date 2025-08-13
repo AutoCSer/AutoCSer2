@@ -182,6 +182,8 @@ namespace AutoCSer.Net.CommandServer
                             case ServerMethodTypeEnum.CallbackQueue:
                             case ServerMethodTypeEnum.KeepCallbackQueue:
                             case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
                                 byte queueIndex = method.MethodAttribute.QueueIndex;
                                 if (queueIndex == 0)
                                 {
@@ -201,6 +203,8 @@ namespace AutoCSer.Net.CommandServer
                             case ServerMethodTypeEnum.CallbackConcurrencyReadQueue:
                             case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
                             case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
                                 if (method.MethodAttribute.IsControllerConcurrencyReadQueue) ControllerConcurrencyReadQueue = true;
                                 else IsConcurrencyReadQueue = true;
                                 break;
@@ -209,6 +213,8 @@ namespace AutoCSer.Net.CommandServer
                             case ServerMethodTypeEnum.CallbackReadWriteQueue:
                             case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
                             case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
                                 if (method.MethodAttribute.IsControllerReadWriteQueue) ControllerReadWriteQueue = true;
                                 else IsReadWriteQueue = true;
                                 break;
@@ -217,6 +223,8 @@ namespace AutoCSer.Net.CommandServer
                             case ServerMethodTypeEnum.SendOnlyTaskQueue:
                             case ServerMethodTypeEnum.KeepCallbackTaskQueue:
                             case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                            case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                             case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
 #if NetStandard21
                             case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:

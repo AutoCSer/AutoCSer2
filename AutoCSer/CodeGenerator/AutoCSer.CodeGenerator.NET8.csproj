@@ -37,6 +37,7 @@
     <Compile Include="CombinationTemplate\CombinationTemplate.cs" />
     <Compile Include="CombinationTemplate\CombinationTemplateHeaderEnumerable.cs" />
     <Compile Include="CombinationTemplate\CombinationTemplateLink.cs" />
+    <Compile Include="CommandClientControllerAttribute.cs" />
     <Compile Include="CSharper.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />

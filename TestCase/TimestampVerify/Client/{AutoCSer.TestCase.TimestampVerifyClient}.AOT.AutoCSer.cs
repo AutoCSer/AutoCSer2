@@ -257,8 +257,8 @@ namespace AutoCSer.TestCase.TimestampVerifyClient
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(2);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ITimestampVerifyClient), "Add", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ITimestampVerifyClient), "Verify", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ITimestampVerifyClient), "Add", 1, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ITimestampVerifyClient), "Verify", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
                 return methods;
             }
             /// <summary>

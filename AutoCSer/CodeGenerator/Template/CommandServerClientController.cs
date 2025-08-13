@@ -73,6 +73,19 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion PUSH OutputParameterType
                 #endregion IF IsOutputParameter
                 var __returnValue__ = base.@CallMethodName/*IF:GenericTypeName*/<@GenericTypeName/*NOTE*/, ParameterTypeName, ParameterTypeName/*NOTE*/>/*IF:GenericTypeName*/(@MethodArrayIndex
+                #region IF TwoStageCallbackParameterName
+                #region IF CallbackType
+                    , @TwoStageCallbackType.FullName/**/.Get(@TwoStageCallbackParameterName)
+                #endregion IF CallbackType
+                #region NOT CallbackType
+                    , @TwoStageCallbackParameterName
+                #endregion NOT CallbackType
+                #endregion IF TwoStageCallbackParameterName
+                #region PUSH TwoStageOutputParameterType
+                #region IF IsGetReturnValue
+                    , @ParameterTypeName/**/.GetReturnValue
+                #endregion IF IsGetReturnValue
+                #endregion PUSH TwoStageOutputParameterType
                 #region IF CallbackParameterName
                 #region IF CallbackType
                     , @CallbackType.FullName/**/.Get(@CallbackParameterName)
@@ -144,7 +157,7 @@ namespace AutoCSer.CodeGenerator.Template
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(@MethodCount);
                 #region LOOP Methods
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(@InterfaceTypeName), "@MatchMethodName", @MethodIndex, @IsSimpleSerializeParamter, @IsSimpleDeserializeParamter, @CallbackTypeString, @QueueIndex, @IsLowPriorityQueue, @TimeoutSeconds));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(@InterfaceTypeName), "@MatchMethodName", @MethodIndex, @IsSimpleSerializeParamter, @IsSimpleDeserializeParamter, @CallbackTypeString, @QueueIndex, @IsLowPriorityQueue, @TimeoutSeconds, @IsSimpleSerializeTwoStageReturnValue));
                 #endregion LOOP Methods
                 return methods;
             }
@@ -198,7 +211,7 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF IsOut
                 #endregion LOOP Method.Parameters
                 /*IF:IsMethodReturn*/
-                return /*IF:IsMethodReturn*//*NOTE*/(MethodReturnType.FullName)/*NOTE*/base.@DefaultControllerCallMethodName/*IF:ReturnValueType*/<@ReturnValueType.FullName>/*IF:ReturnValueType*/(@CallbackParameterName);
+                return /*IF:IsMethodReturn*//*NOTE*/(MethodReturnType.FullName)/*NOTE*/base.@DefaultControllerCallMethodName/*IF:ReturnValueType*/</*IF:TwoStageReturnValueType*/@TwoStageReturnValueType.FullName, /*IF:TwoStageReturnValueType*/@ReturnValueType.FullName>/*IF:ReturnValueType*/(/*IF:TwoStageCallbackParameterName*/@TwoStageCallbackParameterName, /*IF:TwoStageCallbackParameterName*/@CallbackParameterName);
                 #endregion IF DefaultControllerCallMethodName
                 #region NOT DefaultControllerCallMethodName
                 throw new Exception(DefaultControllerReturnType.ToString());
@@ -219,8 +232,10 @@ namespace AutoCSer.CodeGenerator.Template
         private const byte IsSimpleDeserializeParamter = 0;
         private const byte QueueIndex = 0;
         private const string CallbackParameterName = null;
+        private const string TwoStageCallbackParameterName = null;
         private const byte IsLowPriorityQueue = 0;
         private const ushort TimeoutSeconds = 0;
+        private const byte IsSimpleSerializeTwoStageReturnValue = 0;
         private const AutoCSer.Net.CommandServer.ClientCallbackTypeEnum CallbackTypeString = AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.RunTask;
         private static ParameterType.FullName ReturnValueParameterName = null;
         private static ParameterType.FullName ParameterName = null;

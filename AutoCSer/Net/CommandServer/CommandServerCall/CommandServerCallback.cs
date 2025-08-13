@@ -43,13 +43,34 @@ namespace AutoCSer.Net
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
+        /// <param name="offlineCount"></param>
+        protected CommandServerCallback(CommandServerCallQueueNode node, OfflineCount offlineCount) : base(node.Socket, node.CallbackIdentity, offlineCount) { }
+        /// <summary>
+        /// TCP server-side asynchronous callback
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
         protected CommandServerCallback(CommandServerCallReadWriteQueueNode node) : base(node.Socket, node.CallbackIdentity, node.OfflineCount) { }
         /// <summary>
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
+        /// <param name="offlineCount"></param>
+        protected CommandServerCallback(CommandServerCallReadWriteQueueNode node, OfflineCount offlineCount) : base(node.Socket, node.CallbackIdentity, offlineCount) { }
+        /// <summary>
+        /// TCP server-side asynchronous callback
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
         protected CommandServerCallback(CommandServerCallConcurrencyReadQueueNode node) : base(node.Socket, node.CallbackIdentity, node.OfflineCount) { }
+        /// <summary>
+        /// TCP server-side asynchronous callback
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="offlineCount"></param>
+        protected CommandServerCallback(CommandServerCallConcurrencyReadQueueNode node, OfflineCount offlineCount) : base(node.Socket, node.CallbackIdentity, offlineCount) { }
         /// <summary>
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
@@ -193,8 +214,24 @@ namespace AutoCSer.Net
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
         /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="offlineCount"></param>
+        internal CommandServerCallback(CommandServerSocket socket, OfflineCount offlineCount) : base(socket, offlineCount)
+        {
+        }
+        /// <summary>
+        /// TCP server-side asynchronous callback
+        /// TCP 服务器端异步回调
+        /// </summary>
         /// <param name="node"></param>
         internal CommandServerCallback(CommandServerCallQueueNode node) : base(node) { }
+        /// <summary>
+        /// TCP server-side asynchronous callback
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="offlineCount"></param>
+        internal CommandServerCallback(CommandServerCallQueueNode node, OfflineCount offlineCount) : base(node, offlineCount) { }
         /// <summary>
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
@@ -206,7 +243,22 @@ namespace AutoCSer.Net
         /// TCP 服务器端异步回调
         /// </summary>
         /// <param name="node"></param>
+        /// <param name="offlineCount"></param>
+        internal CommandServerCallback(CommandServerCallReadWriteQueueNode node, OfflineCount offlineCount) : base(node, offlineCount) { }
+        /// <summary>
+        /// TCP server-side asynchronous callback
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
         internal CommandServerCallback(CommandServerCallConcurrencyReadQueueNode node) : base(node) { }
+        /// <summary>
+        /// TCP server-side asynchronous callback
+        /// TCP 服务器端异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="offlineCount"></param>
+        internal CommandServerCallback(CommandServerCallConcurrencyReadQueueNode node, OfflineCount offlineCount) : base(node, offlineCount) { }
+        
         /// <summary>
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
@@ -228,6 +280,7 @@ namespace AutoCSer.Net
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
+        /// <returns></returns>
         public abstract bool Callback(T returnValue);
         /// <summary>
         /// Queue synchronization callback
@@ -245,6 +298,8 @@ namespace AutoCSer.Net
         /// </summary>
         /// <param name="method"></param>
         /// <param name="returnValue"></param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private bool callback(ServerInterfaceMethod method, T returnValue)
         {
@@ -263,6 +318,32 @@ namespace AutoCSer.Net
         internal static bool Callback(CommandServerCallback<T> serverCallback, ServerInterfaceMethod method, T returnValue)
         {
             return serverCallback.callback(method, returnValue);
+        }
+        /// <summary>
+        /// Return value callback
+        /// 返回值回调
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="returnValue"></param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        private bool twoStage‌Callback(ServerInterfaceMethod method, T returnValue)
+        {
+            return Socket.TwoStage‌Send(CallbackIdentity, method, returnValue);
+        }
+        /// <summary>
+        /// Return value callback
+        /// 返回值回调
+        /// </summary>
+        /// <param name="serverCallback"></param>
+        /// <param name="method"></param>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static bool TwoStage‌Callback(CommandServerCallback<T> serverCallback, ServerInterfaceMethod method, T returnValue)
+        {
+            return serverCallback.twoStage‌Callback(method, returnValue);
         }
         /// <summary>
         /// Return value callback
@@ -292,6 +373,55 @@ namespace AutoCSer.Net
         {
             serverCallback.synchronousCallback(queue, method, returnValue);
             return true;
+        }
+
+        /// <summary>
+        /// Create asynchronous callbacks
+        /// 创建异步回调
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerCallback<T> CreateServerTwoStage‌Callback(CommandServerSocket socket, ServerInterfaceMethod method)
+        {
+            return new CommandServerTwoStage‌Callback<T>(socket, method);
+        }
+        /// <summary>
+        /// Create asynchronous callbacks
+        /// 创建异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerCallback<T> CreateServerTwoStage‌Callback(CommandServerCallQueueNode node, ServerInterfaceMethod method)
+        {
+            return new CommandServerTwoStage‌Callback<T>(node, method);
+        }
+        /// <summary>
+        /// Create asynchronous callbacks
+        /// 创建异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerCallback<T> CreateServerTwoStage‌Callback(CommandServerCallReadWriteQueueNode node, ServerInterfaceMethod method)
+        {
+            return new CommandServerTwoStage‌Callback<T>(node, method);
+        }
+        /// <summary>
+        /// Create asynchronous callbacks
+        /// 创建异步回调
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static CommandServerCallback<T> CreateServerTwoStage‌Callback(CommandServerCallConcurrencyReadQueueNode node, ServerInterfaceMethod method)
+        {
+            return new CommandServerTwoStage‌Callback<T>(node, method);
         }
 
         /// <summary>

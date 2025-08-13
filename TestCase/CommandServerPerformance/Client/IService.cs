@@ -7,7 +7,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
     /// <summary>
     /// 命令服务性能测试服务端接口
     /// </summary>
-    [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 16, IsCodeGeneratorClientInterface = false)]
+    [AutoCSer.Net.CommandServerControllerInterface(TaskQueueMaxConcurrent = 16, IsCodeGeneratorClientInterface = false, IsCodeGeneratorControllerAttribute = false)]
     public partial interface IService
     {
         /// <summary>

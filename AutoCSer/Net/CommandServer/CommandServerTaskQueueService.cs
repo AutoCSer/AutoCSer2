@@ -26,7 +26,7 @@ namespace AutoCSer.Net
         /// <param name="task"></param>
         protected CommandServerTaskQueueService(CommandServerCallTaskQueueNode task)
         {
-            Socket = task.GetSocket(out Queue);
+            Socket = task.GetSocketQueue(out Queue);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// 服务端定义非对称测试接口（套接字上下文绑定服务端）
     /// </summary>
     [AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute(typeof(IDefinedDissymmetryServerControllerMethodEnum))]
-    [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false)]
+    [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false, IsCodeGeneratorControllerAttribute = false)]
     public interface IDefinedDissymmetryServerController
     {
         void SetSocket(Data.ORM.BusinessModel value);

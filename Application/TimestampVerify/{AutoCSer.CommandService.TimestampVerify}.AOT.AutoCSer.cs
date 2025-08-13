@@ -150,7 +150,7 @@ namespace AutoCSer.CommandService
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(1);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ITimestampVerifyClient), "Verify", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(ITimestampVerifyClient), "Verify", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
                 return methods;
             }
             /// <summary>

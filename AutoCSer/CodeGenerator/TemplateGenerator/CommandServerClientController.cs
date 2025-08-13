@@ -81,6 +81,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 }
             }
             /// <summary>
+            /// 参数字段信息
+            /// </summary>
+            /// <param name="field"></param>
+            internal ParameterField(FieldInfo field)
+            {
+                this.field = field;
+                ParameterType = field.FieldType;
+                IsReturnValue = true;
+            }
+            /// <summary>
             /// 是否返回值参数
             /// </summary>
             /// <param name="method"></param>
@@ -168,6 +178,20 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (Parameters.Length == 1) Parameters[0].CheckIsReturnValue(method);
             }
             /// <summary>
+            /// 参数类型
+            /// </summary>
+            /// <param name="typeNamePrefix">类型名称前缀</param>
+            /// <param name="parameter">命令服务参数类型</param>
+            /// <param name="method"></param>
+            internal ParameterType(string typeNamePrefix, ServerMethodParameter parameter, ControllerMethod method)
+            {
+                this.parameter = parameter;
+                ParameterTypeName = "__sp" + (method.MethodIndex).toString() + "__";
+                ParameterTypeFullName = typeNamePrefix + ParameterTypeName;
+                Parameters = new ParameterField[] { new ParameterField(parameter.Fields[0]) }; 
+                SetSerialize(method.ClientInterfaceMethod, false);
+            }
+            /// <summary>
             /// 复制参数类型
             /// </summary>
             /// <param name="parameterType"></param>
@@ -193,6 +217,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     }
                 }
                 if (Parameters.Length == 1) Parameters[0].CheckIsReturnValue(method);
+            }
+            /// <summary>
+            /// 复制参数类型
+            /// </summary>
+            /// <param name="parameterType"></param>
+            /// <param name="method"></param>
+            internal ParameterType(ParameterType parameterType, ControllerMethod method)
+            {
+                parameter = parameterType.parameter;
+                ParameterTypeName = parameterType.ParameterTypeName;
+                ParameterTypeFullName = parameterType.ParameterTypeName;
+                Parameters = new ParameterField[] { new ParameterField(parameter.Fields[0]) };
             }
             /// <summary>
             /// 设置序列化方式
@@ -353,6 +389,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public readonly ParameterType OutputParameterType;
             /// <summary>
+            /// 二阶段回调的第一阶段的输出参数类型
+            /// </summary>
+            public readonly ParameterType TwoStageOutputParameterType;
+            /// <summary>
             /// 返回值绑定参数名称
             /// </summary>
             public readonly string ReturnValueParameterName;
@@ -388,6 +428,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// 是否简单反序列化输入数据
             /// </summary>
             public int IsSimpleDeserializeParamter { get { return ClientInterfaceMethod.IsSimpleDeserializeParamter ? 1 : 0; } }
+            /// <summary>
+            /// Whether to simply serialize the return value of the first stage of the two-stage callback
+            /// 是否简单序列化二阶段回调的第一阶段的返回值
+            /// </summary>
+            public int IsSimpleSerializeTwoStageReturnValue { get { return ClientInterfaceMethod.IsSimpleSerializeTwoStageReturnValue ? 1 : 0; } }
             /// <summary>
             /// The client's await awaits the return value callback thread mode
             /// 客户端 await 等待返回值回调线程模式
@@ -425,13 +470,25 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public readonly string CallbackParameterName;
             /// <summary>
+            /// 二阶段回调的第一阶段的回调参数名称
+            /// </summary>
+            public readonly string TwoStageCallbackParameterName;
+            /// <summary>
             /// 回调参数处理类型
             /// </summary>
             public readonly ExtensionType CallbackType;
             /// <summary>
+            /// 二阶段回调的第一阶段的回调参数处理类型
+            /// </summary>
+            public readonly ExtensionType TwoStageCallbackType;
+            /// <summary>
             /// 返回值类型
             /// </summary>
             public readonly ExtensionType ReturnValueType;
+            /// <summary>
+            /// 二阶段回调的第一阶段的返回值类型
+            /// </summary>
+            public readonly ExtensionType TwoStageReturnValueType;
             /// <summary>
             /// 输出参数是否需要传参
             /// </summary>
@@ -511,6 +568,22 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             }
                         }
                         break;
+                    case ClientMethodTypeEnum.TwoStageCallback:
+                        CallbackParameterName = method.Parameters[method.ParameterEndIndex + 1].Name;
+                        CallbackType = typeof(AutoCSer.Net.CommandClientKeepCallback<>).MakeGenericType(method.ReturnValueType);
+
+                        TwoStageCallbackParameterName = method.Parameters[method.ParameterEndIndex].Name;
+                        TwoStageCallbackType = typeof(AutoCSer.Net.CommandClientCallback<>).MakeGenericType(method.TwoStageReturnValueType);
+                        TwoStageReturnValueType = method.TwoStageReturnValueType;
+
+                        var outputParameterType = ServerMethodParameter.GetOrCreate(0, EmptyArray<ParameterInfo>.Array, method.TwoStageReturnValueType);
+                        if (paramterTypes.TryGetValue(outputParameterType.Type, out TwoStageOutputParameterType))
+                        {
+                            TwoStageOutputParameterType.SetSerialize(method, false);
+                            TwoStageOutputParameterType = new ParameterType(TwoStageOutputParameterType, this);
+                        }
+                        else paramterTypes.Add(outputParameterType.Type, TwoStageOutputParameterType = new ParameterType(typeNamePrefix, outputParameterType, this));
+                        break;
                 }
                 switch (method.MethodType)
                 {
@@ -532,6 +605,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         {
                             if (method.ReturnValueType == typeof(void)) GenericTypeName = InputParameterType.ParameterTypeName;
                             else GenericTypeName = $"{InputParameterType.ParameterTypeName}, {method.ReturnValueType.fullName()}, {OutputParameterType.ParameterTypeName}";
+                        }
+                        break;
+                    case ClientMethodTypeEnum.TwoStageCallback:
+                        if (InputParameterType == null)
+                        {
+                            GenericTypeName = $"{method.TwoStageReturnValueType.fullName()}, {TwoStageOutputParameterType.ParameterTypeName}, {method.ReturnValueType.fullName()}, {OutputParameterType.ParameterTypeName}";
+                        }
+                        else
+                        {
+                            GenericTypeName = $"{InputParameterType.ParameterTypeName}, {method.TwoStageReturnValueType.fullName()}, {TwoStageOutputParameterType.ParameterTypeName}, {method.ReturnValueType.fullName()}, {OutputParameterType.ParameterTypeName}";
                         }
                         break;
                 }
@@ -603,6 +686,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.KeepCallbackInput);
                         else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.KeepCallbackOutput);
                         else CallMethodName = nameof(CommandClientController.KeepCallbackOutputReturnValue);
+                        break;
+                    case ClientMethodTypeEnum.TwoStageCallback:
+                        if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.TwoStageCallback);
+                        else
+                        {
+                            if (method.IsCallbackAction) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultTwoStageCallbackAction);
+                            else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultTwoStageCallback);
+                        }
+
+                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.TwoStageCallback);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.TwoStageCallbackOutput);
+                        else CallMethodName = nameof(CommandClientController.TwoStageCallbackOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.CallbackQueue:
                         if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.CallbackQueue);

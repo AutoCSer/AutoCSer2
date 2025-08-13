@@ -59,11 +59,19 @@ namespace AutoCSer.TestCase
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
+                if (!await ClientTwoStage‌CallbackController.DefaultControllerTestCase(client))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
                 if (!await ClientTaskController.DefaultControllerTestCase(client))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }
                 if (!await ClientKeepCallbackTaskController.DefaultControllerTestCase(client))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+                if (!await ClientTwoStage‌CallbackTaskController.DefaultControllerTestCase(client))
                 {
                     return AutoCSer.Breakpoint.ReturnFalse();
                 }

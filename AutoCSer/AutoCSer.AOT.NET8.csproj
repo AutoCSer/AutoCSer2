@@ -180,6 +180,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\SetClientControllerMethod.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerCallbackRunTask.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerCallbackTask.cs" />
+    <Compile Include="Net\CommandServer\CommandServerCall\CommandServerTwoStage‌Callback.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueue.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueueNode.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadWriteQueue.cs" />
@@ -206,9 +207,11 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CommandServerSocketBuildOutputThreadEnum.cs" />
     <Compile Include="Net\CommandServer\Command\CompletedReturnCommand.cs" />
     <Compile Include="Net\CommandServer\Command\IEnumeratorCommand.cs" />
+    <Compile Include="Net\CommandServer\Command\KeepCallbackCommand\TwoStage‌CallbackCommand.cs" />
     <Compile Include="Net\CommandServer\HostEndPoint.cs" />
     <Compile Include="Net\CommandServer\ICommandClient.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerQueueTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\Output\ServerOutputTwoStage‌.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseClient.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseClientConfig.cs" />
     <Compile Include="Net\CommandServer\ReverseServer\CommandReverseListener.cs" />

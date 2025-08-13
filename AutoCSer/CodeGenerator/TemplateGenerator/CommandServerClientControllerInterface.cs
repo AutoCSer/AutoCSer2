@@ -55,13 +55,52 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
                 get
                 {
-                    return interfaceMethod.ReturnParameter == null ? Method.CodeGeneratorReturnXmlDocument : XmlDocument.CodeGeneratorFormat(XmlDocument.Get(Method.Method, interfaceMethod.ReturnParameter));
+                    if (TwoStageReturnValueType == null)
+                    {
+                        return interfaceMethod.ReturnParameter == null ? Method.CodeGeneratorReturnXmlDocument : XmlDocument.CodeGeneratorFormat(XmlDocument.Get(Method.Method, interfaceMethod.ReturnParameter));
+                    }
+                    return string.Empty;
                 }
             }
             /// <summary>
             /// 队列关键字类型
             /// </summary>
             public ExtensionType TaskQueueKeyType;
+            /// <summary>
+            /// 返回值类型
+            /// </summary>
+            public ExtensionType ReturnValueType;
+            /// <summary>
+            /// 二阶段回调的第一阶段返回值类型
+            /// </summary>
+            public ExtensionType TwoStageReturnValueType;
+            /// <summary>
+            /// 二阶段回调的第一阶段回调的 XML 文档注释
+            /// </summary>
+            public string CallbackCodeGeneratorXmlDocument
+            {
+                get
+                {
+                    return XmlDocument.CodeGeneratorFormat(XmlDocument.Get(Method.Method, interfaceMethod.Parameters[interfaceMethod.Parameters.Length - 2]));
+                }
+            }
+            /// <summary>
+            /// 二阶段回调的第二阶段回调的 XML 文档注释
+            /// </summary>
+            public string KeepCallbackCodeGeneratorXmlDocument
+            {
+                get
+                {
+                    return XmlDocument.CodeGeneratorFormat(XmlDocument.Get(Method.Method, interfaceMethod.Parameters[interfaceMethod.Parameters.Length - 1]));
+                }
+            }
+            /// <summary>
+            /// 二阶段回调参数之前是否存在其它数据参数
+            /// </summary>
+            public bool IsTwoStageInputParameter
+            {
+                get { return TaskQueueKeyType != null || Method.ParameterCount != 0; }
+            }
             /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
@@ -94,6 +133,22 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
                             MethodReturnType = interfaceMethod.ReturnValueType != typeof(void) ? typeof(AutoCSer.Net.EnumeratorCommand<>).MakeGenericType(interfaceMethod.ReturnValueType) : typeof(AutoCSer.Net.EnumeratorCommand);
+                            break;
+                        case ServerMethodTypeEnum.TwoStage‌Callback:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCount:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
+                            TwoStageReturnValueType = interfaceMethod.TwoStageReturnValueType;
+                            ReturnValueType = interfaceMethod.ReturnValueType;
+                            MethodReturnType = typeof(AutoCSer.Net.KeepCallbackCommand);
                             break;
                         case ServerMethodTypeEnum.SendOnly:
                         case ServerMethodTypeEnum.SendOnlyQueue:
@@ -128,6 +183,15 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// 控制器方法集合
         /// </summary>
         public ControllerMethod[] Methods;
+        /// <summary>
+        /// A default value of true indicates that the default client controller configuration is generated
+        /// 默认为 true 表示生成默认客户端控制器配置
+        /// </summary>
+#if AOT
+        public bool IsCodeGeneratorControllerAttribute { get { return CurrentAttribute.IsCodeGeneratorControllerAttribute; } }
+#else
+        public bool IsCodeGeneratorControllerAttribute { get { return false; } }
+#endif
 
         /// <summary>
         /// 安装下一个类型

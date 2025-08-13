@@ -949,25 +949,25 @@ namespace AutoCSer.CommandService.DiskBlock
             internal static AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> __CommandClientControllerMethods__()
             {
                 AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod> methods = new AutoCSer.LeftArray<AutoCSer.Net.CommandServer.ClientMethod>(19);
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetPosition", 2, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetPosition", 2, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
-                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetPosition", 2, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetPosition", 2, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.Synchronous, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Write", 5, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "Read", 3, 0, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "GetBlocks", 1, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "SwitchBlock", 4, 1, 0, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
+                methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(IDiskBlockClient), "DeleteBlock", 0, 1, 1, AutoCSer.Net.CommandServer.ClientCallbackTypeEnum.CheckRunTask, 0, 0, 0, 0));
                 return methods;
             }
             /// <summary>

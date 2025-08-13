@@ -24685,6 +24685,12 @@
             创建异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerTwoStageCallbackDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerKeepCallbackCountDelegate">
             <summary>
             Create an asynchronous callback object
@@ -24697,13 +24703,31 @@
             创建异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerTwoStageCallbackQueueNodeDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerKeepCallbackReadWriteQueueNodeDelegate">
             <summary>
             Create an asynchronous callback object
             创建异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerTwoStageCallbackReadWriteQueueNodeDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerKeepCallbackConcurrencyReadQueueNodeDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType.CreateCommandServerTwoStageCallbackConcurrencyReadQueueNodeDelegate">
             <summary>
             Create an asynchronous callback object
             创建异步回调对象
@@ -25325,6 +25349,12 @@
             创建异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerTwoStageCallbackDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerKeepCallbackCountDelegate">
             <summary>
             Create an asynchronous callback object
@@ -25337,13 +25367,31 @@
             创建异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerTwoStageCallbackQueueNodeDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerKeepCallbackReadWriteQueueNodeDelegate">
             <summary>
             Create an asynchronous callback object
             创建异步回调对象
             </summary>
         </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerTwoStageCallbackReadWriteQueueNodeDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
         <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerKeepCallbackConcurrencyReadQueueNodeDelegate">
+            <summary>
+            Create an asynchronous callback object
+            创建异步回调对象
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Metadata.GenericType`1.CreateCommandServerTwoStageCallbackConcurrencyReadQueueNodeDelegate">
             <summary>
             Create an asynchronous callback object
             创建异步回调对象
@@ -27270,6 +27318,28 @@
             <param name="callback"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultTwoStageCallback``2(AutoCSer.Net.CommandClientCallback{``0},AutoCSer.Net.CommandClientKeepCallback{``1})">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultTwoStageCallbackAction``2(System.Action{AutoCSer.Net.CommandClientReturnValue{``0}},System.Action{AutoCSer.Net.CommandClientReturnValue{``1},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientDefaultController.ReturnType(AutoCSer.Net.CommandClientDefaultController)">
             <summary>
             Return value command
@@ -27700,272 +27770,52 @@
             <param name="callbackTask"></param>
             <param name="task"></param>
         </member>
-        <member name="T:AutoCSer.Net.CommandServerCallConcurrencyReadQueue">
+        <member name="T:AutoCSer.Net.CommandServer.CommandServerTwoStageCallback`1">
             <summary>
-            A synchronous queue on the server side that supports parallel reading (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data)
-            服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
+            二阶段回调的第一阶段回调
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandServerTwoStageCallback`1.method">
+            <summary>
+            Server interface method information
+            服务端接口方法信息
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueue.#ctor">
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerTwoStageCallback`1.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
-            Empty queue
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueue.#ctor(AutoCSer.Net.CommandListener,AutoCSer.Net.CommandServerController)">
-            <summary>
-            A synchronous queue on the server side that supports parallel reading (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data)
-            服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
-            </summary>
-            <param name="server"></param>
-            <param name="controller"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueue.Null">
-            <summary>
-            Empty queue
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode">
-            <summary>
-            Synchronous queue nodes that support parallel reading on the server side
-            服务端支持并行读的同步队列节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.Socket">
-            <summary>
-            Command server socket
-            命令服务套接字
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.OfflineCount">
-            <summary>
-            The server side goes offline to count the object
-            服务端下线计数对象
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.CallbackIdentity">
-            <summary>
-            Current session callback identity
-            当前会话回调标识
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.#ctor">
-            <summary>
-            Synchronous queue nodes that support parallel reading on the server side
-            服务端支持并行读的同步队列节点
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerMethodTypeEnum)">
-            <summary>
-            Synchronous queue nodes that support parallel reading on the server side
-            服务端支持并行读的同步队列节点
+            二阶段回调的第一阶段回调
             </summary>
             <param name="socket"></param>
-            <param name="methodType"></param>
+            <param name="method"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.checkOfflineCount">
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerTwoStageCallback`1.#ctor(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
-            Offline counting processing
-            下线计数处理
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.CheckOfflineCount(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
-            <summary>
-            Offline counting processing
-            下线计数处理
+            二阶段回调的第一阶段回调
             </summary>
             <param name="node"></param>
+            <param name="method"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.OnException(AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue,System.Exception)">
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerTwoStageCallback`1.#ctor(AutoCSer.Net.CommandServerCallReadWriteQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
-            Queue task execution exception
-            队列任务执行异常
-            </summary>
-            <param name="queue"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SocketIsClose(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
-            <summary>
-            Determine whether the socket has been closed
-            判断套接字是否已经关闭
+            二阶段回调的第一阶段回调
             </summary>
             <param name="node"></param>
-            <returns></returns>
+            <param name="method"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SetIsDeserialize(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerTwoStageCallback`1.#ctor(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
-            Set whether the parameter deserialization is successful
-            设置参数反序列化是否成功
+            二阶段回调的第一阶段回调
             </summary>
             <param name="node"></param>
-            <param name="isDeserialize"></param>
-            <returns></returns>
+            <param name="method"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.GetSocket(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
+        <member name="M:AutoCSer.Net.CommandServer.CommandServerTwoStageCallback`1.Callback(`0)">
             <summary>
-            Get the command service socket
-            获取命令服务套接字
+            Return value callback
+            返回值回调
             </summary>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.CloseShortLink(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
-            <summary>
-            Close the short connection
-            关闭短连接
-            </summary>
-            <param name="node"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.send">
-            <summary>
-            Send the return type successfully
-            发送成功返回类型
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.Send(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
-            <summary>
-            Send the return type successfully
-            发送成功返回类型
-            </summary>
-            <param name="node"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.send``1(AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
-            <summary>
-            Send data
-            </summary>
-            <typeparam name="T">Output data type</typeparam>
-            <param name="method">Server interface method information
-            服务端接口方法信息</param>
-            <param name="outputParameter">Return value output parameters</param>
-            <returns>Whether the addition to the output queue was successful
-            添加到输出队列是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.Send``1(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
-            <summary>
-            Send data
-            </summary>
-            <typeparam name="T">Output data type</typeparam>
-            <param name="node"></param>
-            <param name="method">Server interface method information
-            服务端接口方法信息</param>
-            <param name="outputParameter">Return value output parameters</param>
-            <returns>Whether the addition to the output queue was successful
-            添加到输出队列是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.sendReturnValue``1(AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
-            <summary>
-            Send data
-            </summary>
-            <typeparam name="T">Output data type</typeparam>
-            <param name="method">Server interface method information
-            服务端接口方法信息</param>
-            <param name="outputParameter">Return value output parameters</param>
-            <returns>Whether the addition to the output queue was successful
-            添加到输出队列是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SendReturnValue``1(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
-            <summary>
-            The server queue task sends data
-            服务端执行队列任务发送数据
-            </summary>
-            <typeparam name="T">Output data type</typeparam>
-            <param name="node"></param>
-            <param name="method">Server interface method information
-            服务端接口方法信息</param>
-            <param name="outputParameter">Return value output parameters</param>
-            <returns>Whether the addition to the output queue was successful
-            添加到输出队列是否成功</returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SetVerifyState(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServerVerifyStateEnum)">
-            <summary>
-            Set the status of the verification result of the command service
-            设置命令服务验证结果状态
-            </summary>
-            <param name="node"></param>
-            <param name="verifyState"></param>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue">
-            <summary>
-            A synchronous queue for write operations supported by parallel reads on the server side (mainly used in scenarios where in-memory database nodes support parallel reads when obtaining persistent data)
-            服务端支持并行读的写操作同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.ConcurrencyReadThread">
-            <summary>
-            Concurrent read operation thread
-            并发读操作线程
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.currentTask">
-            <summary>
-            The current task execution node
-            当前执行任务节点
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.runSeconds">
-            <summary>
-            The time of the last task run
-            最后一次运行任务时间
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.isConcurrencyRead">
-            <summary>
-            The current status of concurrent read operations allows concurrent reads without being restricted by write operations
-            当前并发读操作状态，允许并发读取不受写操作限制
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.IsClose">
-            <summary>
-            Has the queue been closed
-            是否已经关闭队列
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.#ctor">
-            <summary>
-            Empty queue
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.#ctor(AutoCSer.Net.CommandListener,AutoCSer.Net.CommandServerController)">
-            <summary>
-            A synchronous queue for write operations supported by parallel reads on the server side (mainly used in scenarios where in-memory database nodes support parallel reads when obtaining persistent data)
-            服务端支持并行读的写操作同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
-            </summary>
-            <param name="server"></param>
-            <param name="controller"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.Close">
-            <summary>
-            Close the queue
-            关闭队列
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.run">
-            <summary>
-            Task allocation thread
-            任务分配线程
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.Free(AutoCSer.Net.CommandServer.ConcurrencyReadQueueThread)">
-            <summary>
-            The concurrent read operation task processing has been completed
-            并发读操作任务处理结束
-            </summary>
-            <param name="thread"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.CloseReadThread">
-            <summary>
-            Close the read operation thread
-            关闭读取操作线程
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.OnTimerAsync">
-            <summary>
-            Timeout check
-            超时检查
-            </summary>
+            <param name="returnValue"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ConcurrencyReadQueueThread">
@@ -28371,6 +28221,117 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T">第一阶段返回数据类型</typeparam>
+            <typeparam name="KT">保持回调阶段返回数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.callback">
+            <summary>
+            The client callback delegate
+            客户端回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{`0},AutoCSer.Net.CommandClientKeepCallback{`1})">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{`0},AutoCSer.Net.CommandClientKeepCallback{`1},`1@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.OnBuildError(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            Error handling for generating the input data of the request command
+            生成请求命令输入数据错误处理
+            </summary>
+            <param name="returnType"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.onReceiveError(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            接收数据错误处理
+            </summary>
+            <param name="returnType"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.OnReceive(AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            Process the response data
+            处理响应数据
+            </summary>
+            <param name="data">Response data
+            响应数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.CancelKeepCallback(AutoCSer.Net.CommandClientReturnTypeEnum,System.String)">
+            <summary>
+            Cancel the hold callback (Note that since it is a synchronous call by the IO thread receiving data, if there is a blockage, please open a new thread task to handle it)
+            取消保持回调（注意，由于是接收数据 IO 线程同步调用，如果存在阻塞请新开线程任务处理）
+            </summary>
+            <param name="returnType"></param>
+            <param name="errorMessage"></param>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T">输入参数类型</typeparam>
+            <typeparam name="RT">第一阶段返回数据类型</typeparam>
+            <typeparam name="KT">保持回调阶段返回数据类型</typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3.inputParameter">
+            <summary>
+            Input parameters
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{`1},AutoCSer.Net.CommandClientKeepCallback{`2},`0@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{`1},AutoCSer.Net.CommandClientKeepCallback{`2},`0@,`2@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3.Build(AutoCSer.Net.CommandServer.ClientBuildInfo@)">
+            <summary>
+            Generate the input data of the request command
+            生成请求命令输入数据
+            </summary>
+            <param name="buildInfo"></param>
+            <returns>The next request command
+            下一个请求命令</returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerOutputRemoteMetadata">
             <summary>
             远程元数据输出
@@ -28406,6 +28367,43 @@
             <summary>
             复制输出信息
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.ServerOutputTwoStage`1">
+            <summary>
+            返回值数据输出
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerOutputTwoStage`1.callbackIdentity">
+            <summary>
+            会话标识
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerOutputTwoStage`1.method">
+            <summary>
+            服务端输出信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerOutputTwoStage`1.returnValue">
+            <summary>
+            返回值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerOutputTwoStage`1.#ctor(AutoCSer.Net.CommandServer.CallbackIdentity,AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
+            <summary>
+            返回值数据输出
+            </summary>
+            <param name="callbackIdentity"></param>
+            <param name="method"></param>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerOutputTwoStage`1.Build(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerBuildInfo@)">
+            <summary>
+            创建输出信息
+            </summary>
+            <param name="socket"></param>
+            <param name="buildInfo"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.CallDelegate">
@@ -31095,6 +31093,24 @@
             队列枚举返回值
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackOutputMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackOutputReturnValueMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandDefaultControllerConstructorParameterTypes">
             <summary>
             客户端默认初始化控制器构造函数参数类型集合
@@ -31271,6 +31287,18 @@
             <summary>
             Collection enumeration queue command
             集合枚举队列命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerTwoStageCallbackMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerTwoStageCallbackActionMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientInterfaceController`1">
@@ -32647,6 +32675,12 @@
             </summary>
             <param name="returnType"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.KeepCallbackOutputCommand`1.onReceiveError(AutoCSer.Net.CommandClientReturnTypeEnum)">
+            <summary>
+            接收数据错误处理
+            </summary>
+            <param name="returnType"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.KeepCallbackOutputCommand`1.OnReceive(AutoCSer.SubArray{System.Byte}@)">
             <summary>
             Process the response data
@@ -32752,6 +32786,12 @@
             <summary>
             Whether resources have been released
             是否已经释放资源
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.KeepCommand.IsReceiveKeepData">
+            <summary>
+            Whether the two-stage callback command is receiving the keep callback response data
+            二阶段回调命令是否正在接收保持回调响应数据
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.KeepCommand.#ctor(AutoCSer.Net.CommandClientController,System.Int32)">
@@ -33706,6 +33746,11 @@
             匹配方法名称
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.TwoStageReturnValueType">
+            <summary>
+            二阶段回调的第一阶段的返回数据类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.ReturnValueParameterIndex">
             <summary>
             返回值输出参数索引
@@ -33744,6 +33789,12 @@
             <summary>
             Whether it is a low-priority queue
             是否低优先级队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.IsSimpleSerializeTwoStageReturnValue">
+            <summary>
+            Whether to simply serialize the return value of the first stage of the two-stage callback
+            是否简单序列化二阶段回调的第一阶段的返回值
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.isDeserializeError">
@@ -33803,12 +33854,13 @@
             <param name="newInputParameterLocalBuilder"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetOutputParameterLocalBuilder(System.Reflection.Emit.ILGenerator,AutoCSer.Metadata.GenericType@)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetOutputParameterLocalBuilder(System.Reflection.Emit.ILGenerator,AutoCSer.Metadata.GenericType@,AutoCSer.Metadata.GenericType@)">
             <summary>
             获取输出参数临时变量定义
             </summary>
             <param name="methodGenerator"></param>
             <param name="returnValueGenericType"></param>
+            <param name="twoStage‌CallbackReturnValueGenericType"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetOutputParameterIndex(System.Reflection.ParameterInfo)">
@@ -33818,12 +33870,13 @@
             <param name="outputParameter"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.CallbackParameter(System.Reflection.Emit.ILGenerator,AutoCSer.Metadata.GenericType)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.CallbackParameter(System.Reflection.Emit.ILGenerator,AutoCSer.Metadata.GenericType,AutoCSer.Metadata.GenericType)">
             <summary>
             回调委托参数
             </summary>
             <param name="methodGenerator"></param>
             <param name="returnValueGenericType"></param>
+            <param name="twoStage‌CallbackReturnValueGenericType"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.CallController(System.Reflection.Emit.ILGenerator,AutoCSer.Metadata.GenericType,System.Reflection.Emit.LocalBuilder)">
             <summary>
@@ -34534,6 +34587,12 @@
             <summary>
             Keep the callback returns data
             保持回调返回数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientMethodTypeEnum.TwoStageCallback">
+            <summary>
+            Two-stage callback returns data
+            两阶段回调返回数据
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientMethodTypeEnum.CallbackQueue">
@@ -35638,7 +35697,7 @@
             <param name="queue"></param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCallTaskQueueTaskNodeGetSocket">
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceController.CommandServerCallTaskQueueTaskNodeGetSocketQueue">
             <summary>
             Get the command service socket
             获取命令服务套接字
@@ -36243,6 +36302,11 @@
             异步回调类型
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.TwoStageReturnValueType">
+            <summary>
+            二阶段回调的第一阶段的返回值类型
+            </summary>
+        </member>
         <member name="P:AutoCSer.Net.CommandServer.ServerInterfaceMethod.KeepCallbackOutputCount">
             <summary>
             保持回调输出计数
@@ -36302,6 +36366,12 @@
         <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.IsParameterSocket">
             <summary>
             是否存在 AutoCSer.Net.CommandServerSocket 参数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerInterfaceMethod.IsSimpleSerializeTwoStageReturnValue">
+            <summary>
+            Whether to simply serialize the return value of the first stage of the two-stage callback
+            是否简单序列化二阶段回调的第一阶段的返回值
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.#ctor">
@@ -36390,6 +36460,12 @@
             </summary>
             <param name="doCommandGenerator"></param>
             <param name="asynchronousConstructorBuilder"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CreateTwoStageCallback(System.Reflection.Emit.ILGenerator)">
+            <summary>
+            创建二阶段回调的第一阶段回调
+            </summary>
+            <param name="doCommandGenerator"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CallMethod(System.Reflection.Emit.ILGenerator,System.Type,System.Reflection.Emit.FieldBuilder,System.Reflection.Emit.LocalBuilder@)">
             <summary>
@@ -36578,6 +36654,18 @@
             IO 线程同步调用，保持回调计数返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallback">
+            <summary>
+            Synchronous calls of IO threads, two-stage callback returns data, automatic release of callbacks is not supported (Note that since it is a data receiving IO thread synchronous call, it is not suitable for tasks with blocking).
+            IO 线程同步调用，二阶段回调返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackCount">
+            <summary>
+            Synchronous calls of IO threads, two-stage callback count returns data, automatic release of callbacks is not supported (Note that since it is a data receiving IO thread synchronous call, it is not suitable for tasks with blocking).
+            IO 线程同步调用，二阶段回调计数返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合存在阻塞的任务）
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.Queue">
             <summary>
             Queue task call, synchronously return data
@@ -36606,6 +36694,18 @@
             <summary>
             Queue task calls, keep the callback count to return data, automatic release of callbacks is not supported
             队列任务调用，保持回调计数返回数据，不支持自动释放回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackQueue">
+            <summary>
+            Queue task calls, two-stage callback returns data, automatic release of callbacks is not supported
+            队列任务调用，二阶段回调返回数据，不支持自动释放回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackCountQueue">
+            <summary>
+            Queue task calls, two-stage callback count returns data, automatic release of callbacks is not supported
+            队列任务调用，二阶段回调计数返回数据，不支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.ConcurrencyReadQueue">
@@ -36638,6 +36738,18 @@
             支持并发读的队列任务调用，保持回调计数返回数据，不支持自动释放回调
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackConcurrencyReadQueue">
+            <summary>
+            Queue task calls that support concurrent reading, two-stage callback returns data, automatic release of callbacks is not supported
+            支持并发读的队列任务调用，二阶段回调返回数据，不支持自动释放回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackCountConcurrencyReadQueue">
+            <summary>
+            Queue task calls that support concurrent reading, two-stage callback count returns data, automatic release of callbacks is not supported
+            支持并发读的队列任务调用，二阶段回调计数返回数据，不支持自动释放回调
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.ReadWriteQueue">
             <summary>
             Read/write queue task calls, synchronous return data
@@ -36666,6 +36778,18 @@
             <summary>
             Read/write queue task calls, keep the callback count to return data, automatic release of callbacks is not supported
             读写队列任务调用，保持回调计数返回数据，不支持自动释放回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackReadWriteQueue">
+            <summary>
+            Read/write queue task calls, two-stage callback returns data, automatic release of callbacks is not supported
+            读写队列任务调用，二阶段回调返回数据，不支持自动释放回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackCountReadWriteQueue">
+            <summary>
+            Read/write queue task calls, two-stage callback count returns data, automatic release of callbacks is not supported
+            读写队列任务调用，二阶段回调计数返回数据，不支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.Task">
@@ -36704,6 +36828,18 @@
             .NET Satndard 2.0 中集合自动转 KeepCallbackCountTask（注意，由于是接收数据 IO 线程同步调用，不适合第一个异步 await 之前存在阻塞的任务。对于复杂任务，在核心计算之前应判断 Socket.IsClose 以避免不必要开销）
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackTask">
+            <summary>
+            The two-stage callback returns data and does not support automatic release of the callback (Note that since it is a synchronous call by the IO thread receiving data, it is not suitable for tasks where there is blocking before the first asynchronous await. For complex tasks, Socket.IsClose should be judged before core computing to avoid unnecessary overhead)
+            二阶段回调返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合第一个异步 await 之前存在阻塞的任务。对于复杂任务，在核心计算之前应判断 Socket.IsClose 以避免不必要开销）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackCountTask">
+            <summary>
+            The two-stage callback count returns data and does not support the automatic release of callbacks (Note that since it is a synchronous call by the IO thread receiving data, it is not suitable for tasks where there is blocking before the first asynchronous await. For complex tasks, Socket.IsClose should be judged before core computing to avoid unnecessary overhead)
+            二阶段回调计数返回数据，不支持自动释放回调（注意，由于是接收数据 IO 线程同步调用，不适合第一个异步 await 之前存在阻塞的任务。对于复杂任务，在核心计算之前应判断 Socket.IsClose 以避免不必要开销）
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TaskQueue">
             <summary>
             await Task queue calls
@@ -36738,6 +36874,18 @@
             <summary>
             In.NET Satndard 2.0, collections automatically convert to KeepCallbackCountTaskQueue
             .NET Satndard 2.0 中集合自动转 KeepCallbackCountTaskQueue
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackTaskQueue">
+            <summary>
+            The two-stage callback returns data and does not support automatic release of the callback
+            二阶段回调返回数据，不支持自动释放回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.TwoStageCallbackCountTaskQueue">
+            <summary>
+            The two-stage callback count returns data and does not support the automatic release of callbacks
+            二阶段回调计数返回数据，不支持自动释放回调
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ServerMethodTypeEnum.AsyncEnumerableTask">
@@ -37224,6 +37372,12 @@
             获取命令服务 Task 队列
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.ServerTaskQueueInterfaceController.CommandServerCallTaskQueueTaskNodeGetSocket">
+            <summary>
+            Get the command service socket
+            获取命令服务套接字
+            </summary>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerTaskQueueInterfaceController`2">
             <summary>
             Task 队列控制器接口信息
@@ -37319,6 +37473,274 @@
             创建客户端控制器
             </summary>
             <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServerCallConcurrencyReadQueue">
+            <summary>
+            A synchronous queue on the server side that supports parallel reading (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data)
+            服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueue.#ctor">
+            <summary>
+            Empty queue
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueue.#ctor(AutoCSer.Net.CommandListener,AutoCSer.Net.CommandServerController)">
+            <summary>
+            A synchronous queue on the server side that supports parallel reading (mainly used in scenarios where in-memory database nodes support parallel reading when obtaining persistent data)
+            服务端支持并行读的同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
+            </summary>
+            <param name="server"></param>
+            <param name="controller"></param>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueue.Null">
+            <summary>
+            Empty queue
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode">
+            <summary>
+            Synchronous queue nodes that support parallel reading on the server side
+            服务端支持并行读的同步队列节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.Socket">
+            <summary>
+            Command server socket
+            命令服务套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.OfflineCount">
+            <summary>
+            The server side goes offline to count the object
+            服务端下线计数对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.CallbackIdentity">
+            <summary>
+            Current session callback identity
+            当前会话回调标识
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.#ctor">
+            <summary>
+            Synchronous queue nodes that support parallel reading on the server side
+            服务端支持并行读的同步队列节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerMethodTypeEnum)">
+            <summary>
+            Synchronous queue nodes that support parallel reading on the server side
+            服务端支持并行读的同步队列节点
+            </summary>
+            <param name="socket"></param>
+            <param name="methodType"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.checkOfflineCount">
+            <summary>
+            Offline counting processing
+            下线计数处理
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.CheckOfflineCount(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
+            <summary>
+            Offline counting processing
+            下线计数处理
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.OnException(AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue,System.Exception)">
+            <summary>
+            Queue task execution exception
+            队列任务执行异常
+            </summary>
+            <param name="queue"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SocketIsClose(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
+            <summary>
+            Determine whether the socket has been closed
+            判断套接字是否已经关闭
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SetIsDeserialize(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,System.Boolean)">
+            <summary>
+            Set whether the parameter deserialization is successful
+            设置参数反序列化是否成功
+            </summary>
+            <param name="node"></param>
+            <param name="isDeserialize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.GetSocket(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
+            <summary>
+            Get the command service socket
+            获取命令服务套接字
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.CloseShortLink(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
+            <summary>
+            Close the short connection
+            关闭短连接
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.send">
+            <summary>
+            Send the return type successfully
+            发送成功返回类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.Send(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
+            <summary>
+            Send the return type successfully
+            发送成功返回类型
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.send``1(AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
+            <summary>
+            Send data
+            </summary>
+            <typeparam name="T">Output data type</typeparam>
+            <param name="method">Server interface method information
+            服务端接口方法信息</param>
+            <param name="outputParameter">Return value output parameters</param>
+            <returns>Whether the addition to the output queue was successful
+            添加到输出队列是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.Send``1(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0@)">
+            <summary>
+            Send data
+            </summary>
+            <typeparam name="T">Output data type</typeparam>
+            <param name="node"></param>
+            <param name="method">Server interface method information
+            服务端接口方法信息</param>
+            <param name="outputParameter">Return value output parameters</param>
+            <returns>Whether the addition to the output queue was successful
+            添加到输出队列是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.sendReturnValue``1(AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
+            <summary>
+            Send data
+            </summary>
+            <typeparam name="T">Output data type</typeparam>
+            <param name="method">Server interface method information
+            服务端接口方法信息</param>
+            <param name="outputParameter">Return value output parameters</param>
+            <returns>Whether the addition to the output queue was successful
+            添加到输出队列是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SendReturnValue``1(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
+            <summary>
+            The server queue task sends data
+            服务端执行队列任务发送数据
+            </summary>
+            <typeparam name="T">Output data type</typeparam>
+            <param name="node"></param>
+            <param name="method">Server interface method information
+            服务端接口方法信息</param>
+            <param name="outputParameter">Return value output parameters</param>
+            <returns>Whether the addition to the output queue was successful
+            添加到输出队列是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode.SetVerifyState(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServerVerifyStateEnum)">
+            <summary>
+            Set the status of the verification result of the command service
+            设置命令服务验证结果状态
+            </summary>
+            <param name="node"></param>
+            <param name="verifyState"></param>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue">
+            <summary>
+            A synchronous queue for write operations supported by parallel reads on the server side (mainly used in scenarios where in-memory database nodes support parallel reads when obtaining persistent data)
+            服务端支持并行读的写操作同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.ConcurrencyReadThread">
+            <summary>
+            Concurrent read operation thread
+            并发读操作线程
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.currentTask">
+            <summary>
+            The current task execution node
+            当前执行任务节点
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.runSeconds">
+            <summary>
+            The time of the last task run
+            最后一次运行任务时间
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.isConcurrencyRead">
+            <summary>
+            The current status of concurrent read operations allows concurrent reads without being restricted by write operations
+            当前并发读操作状态，允许并发读取不受写操作限制
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.IsClose">
+            <summary>
+            Has the queue been closed
+            是否已经关闭队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.#ctor">
+            <summary>
+            Empty queue
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.#ctor(AutoCSer.Net.CommandListener,AutoCSer.Net.CommandServerController)">
+            <summary>
+            A synchronous queue for write operations supported by parallel reads on the server side (mainly used in scenarios where in-memory database nodes support parallel reads when obtaining persistent data)
+            服务端支持并行读的写操作同步队列（主要用于支持内存数据库节点获取持久化数据时支持并行读取的场景）
+            </summary>
+            <param name="server"></param>
+            <param name="controller"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.Close">
+            <summary>
+            Close the queue
+            关闭队列
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.run">
+            <summary>
+            Task allocation thread
+            任务分配线程
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.Free(AutoCSer.Net.CommandServer.ConcurrencyReadQueueThread)">
+            <summary>
+            The concurrent read operation task processing has been completed
+            并发读操作任务处理结束
+            </summary>
+            <param name="thread"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.CloseReadThread">
+            <summary>
+            Close the read operation thread
+            关闭读取操作线程
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue.OnTimerAsync">
+            <summary>
+            Timeout check
+            超时检查
+            </summary>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServerCallReadQueue">
@@ -42564,7 +42986,7 @@
             <param name="seconds"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.GetSocket(AutoCSer.Net.CommandServerCallTaskQueue@)">
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.GetSocketQueue(AutoCSer.Net.CommandServerCallTaskQueue@)">
             <summary>
             Get the command service socket
             获取命令服务套接字
@@ -42572,13 +42994,21 @@
             <param name="queue"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.GetSocket(AutoCSer.Net.CommandServerCallTaskQueueNode,AutoCSer.Net.CommandServerCallTaskQueue@)">
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.GetSocketQueue(AutoCSer.Net.CommandServerCallTaskQueueNode,AutoCSer.Net.CommandServerCallTaskQueue@)">
             <summary>
             Get the command service socket
             获取命令服务套接字
             </summary>
             <param name="task"></param>
             <param name="queue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.GetSocket(AutoCSer.Net.CommandServerCallTaskQueueNode)">
+            <summary>
+            Get the command service socket
+            获取命令服务套接字
+            </summary>
+            <param name="task"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallTaskQueueNode.getTaskQueue">
@@ -45479,6 +45909,47 @@
             <param name="inputParameter"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallback``2(System.Int32,AutoCSer.Net.CommandClientCallback{``0},AutoCSer.Net.CommandClientKeepCallback{``1})">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackOutput``3(System.Int32,AutoCSer.Net.CommandClientCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="RT"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackOutputReturnValue``3(System.Int32,AutoCSer.Net.CommandClientCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@,``2@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="RT"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientController.AppendQueue(AutoCSer.Net.CommandServer.ClientInterfaceMethod,AutoCSer.Net.CommandClientCallQueueNode)">
             <summary>
             Add to the callback queue
@@ -46886,6 +47357,12 @@
             默认为 true 表示代码生成器生成客户端控制器接口
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsCodeGeneratorControllerAttribute">
+            <summary>
+            Reserved, only for AOT code generation
+            保留，仅用于 AOT 代码生成
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerControllerInterfaceAttribute.IsSimpleSerializeInputParameter">
             <summary>
             The default value true indicates that input parameters are preferred for simple serialization operations
@@ -48261,8 +48738,8 @@
         </member>
         <member name="F:AutoCSer.Net.CommandServerMethodAttribute.AutoCancelKeep">
             <summary>
-            The default is true, indicating that the hold callback is automatically cancelled when the API call is completed. Otherwise, the CancelKeep callback needs to be manually called to cancel, which is used in asynchronous call scenarios
-            默认为 true 表示在 API 调用完成时自动取消保持回调，否则需要手动调用 CancelKeep 取消用于异步调用场景
+            The default value of true indicates that the hold callback is automatically cancelled when the API call is completed, so all data output operations must be completed within the API. Otherwise, CancelKeep needs to be manually called to cancel for asynchronous call scenarios
+            默认为 true 表示在 API 调用完成时自动取消保持回调，所以要求数据输出操作都在 API 中完成；否则需要手动调用 CancelKeep 取消用于异步调用场景
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerMethodAttribute.IsOfflineCount">
@@ -48618,6 +49095,14 @@
             </summary>
             <param name="node"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback.#ctor(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP server-side asynchronous callback
+            TCP 服务器端异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="offlineCount"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback.#ctor(AutoCSer.Net.CommandServerCallReadWriteQueueNode)">
             <summary>
             TCP server-side asynchronous callback
@@ -48625,12 +49110,28 @@
             </summary>
             <param name="node"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback.#ctor(AutoCSer.Net.CommandServerCallReadWriteQueueNode,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP server-side asynchronous callback
+            TCP 服务器端异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="offlineCount"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback.#ctor(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
             <summary>
             TCP server-side asynchronous callback
             TCP 服务器端异步回调
             </summary>
             <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback.#ctor(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP server-side asynchronous callback
+            TCP 服务器端异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="offlineCount"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallback.#ctor(AutoCSer.Net.CommandServerCallTaskQueueNode)">
             <summary>
@@ -48734,12 +49235,28 @@
             </summary>
             <param name="socket"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP server-side asynchronous callback
+            TCP 服务器端异步回调
+            </summary>
+            <param name="socket"></param>
+            <param name="offlineCount"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerCallQueueNode)">
             <summary>
             TCP server-side asynchronous callback
             TCP 服务器端异步回调
             </summary>
             <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP server-side asynchronous callback
+            TCP 服务器端异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="offlineCount"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerCallReadWriteQueueNode)">
             <summary>
@@ -48748,12 +49265,28 @@
             </summary>
             <param name="node"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerCallReadWriteQueueNode,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP server-side asynchronous callback
+            TCP 服务器端异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="offlineCount"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode)">
             <summary>
             TCP server-side asynchronous callback
             TCP 服务器端异步回调
             </summary>
             <param name="node"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.OfflineCount)">
+            <summary>
+            TCP server-side asynchronous callback
+            TCP 服务器端异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="offlineCount"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.#ctor(AutoCSer.Net.CommandServerCallTaskQueueNode)">
             <summary>
@@ -48775,6 +49308,7 @@
             返回值回调
             </summary>
             <param name="returnValue"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.SynchronousCallback(`0)">
             <summary>
@@ -48791,8 +49325,30 @@
             </summary>
             <param name="method"></param>
             <param name="returnValue"></param>
+            <returns>Whether the addition to the output queue was successful
+            添加到输出队列是否成功</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.Callback(AutoCSer.Net.CommandServerCallback{`0},AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
+            <summary>
+            Return value callback
+            返回值回调
+            </summary>
+            <param name="serverCallback"></param>
+            <param name="method"></param>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.twoStageCallback(AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
+            <summary>
+            Return value callback
+            返回值回调
+            </summary>
+            <param name="method"></param>
+            <param name="returnValue"></param>
+            <returns>Whether the addition to the output queue was successful
+            添加到输出队列是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.TwoStageCallback(AutoCSer.Net.CommandServerCallback{`0},AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
             <summary>
             Return value callback
             返回值回调
@@ -48820,6 +49376,42 @@
             <param name="serverCallback"></param>
             <param name="method"></param>
             <param name="returnValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.CreateServerTwoStageCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
+            <summary>
+            Create asynchronous callbacks
+            创建异步回调
+            </summary>
+            <param name="socket"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.CreateServerTwoStageCallback(AutoCSer.Net.CommandServerCallQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
+            <summary>
+            Create asynchronous callbacks
+            创建异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.CreateServerTwoStageCallback(AutoCSer.Net.CommandServerCallReadWriteQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
+            <summary>
+            Create asynchronous callbacks
+            创建异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.CreateServerTwoStageCallback(AutoCSer.Net.CommandServerCallConcurrencyReadQueueNode,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
+            <summary>
+            Create asynchronous callbacks
+            创建异步回调
+            </summary>
+            <param name="node"></param>
+            <param name="method"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServerCallback`1.Link">
@@ -51148,6 +51740,19 @@
             <param name="method">Server interface method information
             服务端接口方法信息</param>
             <param name="outputParameter">Return value output parameters</param>
+            <returns>Whether the addition to the output queue was successful
+            添加到输出队列是否成功</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerSocket.TwoStageSend``1(AutoCSer.Net.CommandServer.CallbackIdentity,AutoCSer.Net.CommandServer.ServerInterfaceMethod,``0)">
+            <summary>
+            Send data
+            </summary>
+            <typeparam name="T">Output data type</typeparam>
+            <param name="callbackIdentity">Session callback identifier
+            会话回调标识</param>
+            <param name="method">Server interface method information
+            服务端接口方法信息</param>
+            <param name="returnValue"></param>
             <returns>Whether the addition to the output queue was successful
             添加到输出队列是否成功</returns>
         </member>

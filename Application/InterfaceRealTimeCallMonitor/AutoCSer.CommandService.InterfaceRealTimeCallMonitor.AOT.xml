@@ -336,6 +336,9 @@
             接口实时调用监视服务接口 客户端接口
             </summary>
             <summary>
+            接口实时调用监视服务接口 客户端接口
+            </summary>
+            <summary>
             接口实时调用监视服务接口 client interface
             </summary>
         </member>
@@ -422,6 +425,253 @@
                        调用接口方法名称</param>
             <param name="timeoutMilliseconds">超时毫秒数</param>
             <param name="type">调用类型</param>
+        </member>
+        <member name="T:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController">
+            <summary>
+            接口实时调用监视服务接口 客户端接口 client controller
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__@)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="deserializer"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            Binary deserialization
+            二进制反序列化
+            </summary>
+            <param name="__deserializer__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__.BinarySerializeMemberTypes">
+            <summary>
+            Get the binary serialization type information
+            获取二进制序列化类型信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op3__.BinarySerialize">
+            <summary>
+            二进制序列化代码生成调用激活 AOT 反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip1__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__@,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__op2__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip5__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip7__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__ip8__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#Check(System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            接口监视服务在线检查
+            </summary>
+            <param name="callback">在线检查回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#GetException(System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            获取异常调用数据
+            </summary>
+            <param name="callback">实时调用时间戳信息回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#GetTimeout(System.Action{AutoCSer.Net.CommandClientReturnValue{AutoCSer.CommandService.InterfaceRealTimeCallMonitor.CallTimestamp},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            获取超时调用数据
+            </summary>
+            <param name="callback">实时调用时间戳信息回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#Check">
+            <summary>
+            接口监视服务在线检查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#Completed(System.Int64,System.Boolean)">
+            <summary>
+            调用完成
+            </summary>
+            <param name="callIdentity">调用标识</param>
+            <param name="isException">接口是否执行异常</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#GetCount">
+            <summary>
+            获取未完成调用数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#GetException">
+            <summary>
+            获取异常调用数据
+            </summary>
+            <returns>实时调用时间戳信息回调</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#GetTimeout">
+            <summary>
+            获取超时调用数据
+            </summary>
+            <returns>实时调用时间戳信息回调</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#GetTimeoutCalls(System.Int32)">
+            <summary>
+            获取指定数量的超时调用
+            </summary>
+            <param name="count">Get the quantity of data  
+                                  获取数据数量</param>
+            <returns>超时调用回调</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#GetTimeoutCount">
+            <summary>
+            获取超时调用数量
+            </summary>
+            <returns>超时调用数量</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#SetStep(System.Int64,System.Int32)">
+            <summary>
+            设置自定义调用步骤
+            </summary>
+            <param name="callIdentity">调用标识</param>
+            <param name="step">自定义调用步骤</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.AutoCSer#CommandService#IInterfaceRealTimeCallMonitorServiceClientController#Start(System.Int64,System.String,System.String,System.Int32,System.UInt16)">
+            <summary>
+            新增一个实时调用信息
+            </summary>
+            <param name="callIdentity">调用标识</param>
+            <param name="callType">Call interface type  
+                                  调用接口类型</param>
+            <param name="callName">The name of the interface method to be called  
+                                  调用接口方法名称</param>
+            <param name="timeoutMilliseconds">超时毫秒数</param>
+            <param name="type">调用类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__CommandClientControllerMethods__">
+            <summary>
+            获取客户端接口方法信息集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.InterfaceRealTimeCallMonitorServiceClientController.__CommandClientControllerConstructor__">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
         </member>
         <member name="T:AutoCSer.CommandService.IInterfaceRealTimeCallMonitorServiceMethodEnum">
             <summary>

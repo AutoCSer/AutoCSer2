@@ -140,12 +140,13 @@ namespace AutoCSer.Net.CommandServer
                         #endregion
                         #region SynchronousOutputParameter outputParameter = new SynchronousOutputParameter();
                         var returnValueGenericType = default(GenericType);
-                        var outputParameterLocalBuilder = method.GetOutputParameterLocalBuilder(methodGenerator, out returnValueGenericType);
+                        var twoStage‌CallbackReturnValueGenericType = default(GenericType);
+                        var outputParameterLocalBuilder = method.GetOutputParameterLocalBuilder(methodGenerator, out returnValueGenericType, out twoStage‌CallbackReturnValueGenericType);
                         #endregion
                         methodGenerator.Emit(OpCodes.Ldarg_0);
                         methodGenerator.call(commandClientTaskQueueControllerGetController.Method);
                         methodGenerator.int32(methodIndex);
-                        method.CallbackParameter(methodGenerator, returnValueGenericType);
+                        method.CallbackParameter(methodGenerator, returnValueGenericType, twoStage‌CallbackReturnValueGenericType);
                         if (method.InputParameterType != null) methodGenerator.Emit(OpCodes.Ldloca, inputParameterLocalBuilder);
                         if (outputParameterLocalBuilder != null) methodGenerator.Emit(OpCodes.Ldloca, outputParameterLocalBuilder);
                         method.CallController(methodGenerator, returnValueGenericType, outputParameterLocalBuilder);

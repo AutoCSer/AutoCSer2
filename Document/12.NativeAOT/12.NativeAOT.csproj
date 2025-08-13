@@ -32,7 +32,6 @@
     <Compile Include="Program.AOT.cs" />
     <Compile Include="Service\CommandClientSocketEvent.cs" />
     <Compile Include="Service\IServiceController.cs" />
-    <Compile Include="Service\IServiceControllerClientController.cs" />
     <Compile Include="{AutoCSer.Document.NativeAOT}.AOT.AutoCSer.cs" />
   </ItemGroup>
 

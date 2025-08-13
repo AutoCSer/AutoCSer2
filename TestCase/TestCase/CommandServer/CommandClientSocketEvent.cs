@@ -45,6 +45,10 @@ namespace AutoCSer.TestCase
         /// </summary>
         public IClientKeepCallbackController ClientKeepCallbackController { get; private set; }
         /// <summary>
+        /// 二阶段回调接口测试
+        /// </summary>
+        public IClientTwoStage‌CallbackController ClientTwoStage‌CallbackController { get; private set; }
+        /// <summary>
         /// 异步任务接口测试
         /// </summary>
         public IClientTaskController ClientTaskController { get; private set; }
@@ -52,6 +56,10 @@ namespace AutoCSer.TestCase
         /// 保持回调异步任务接口测试
         /// </summary>
         public IClientKeepCallbackTaskController ClientKeepCallbackTaskController { get; private set; }
+        /// <summary>
+        /// 二阶段回调异步任务接口测试
+        /// </summary>
+        public IClientTwoStage‌CallbackTaskController ClientTwoStage‌CallbackTaskController { get; private set; }
         /// <summary>
         /// 定义对称接口测试
         /// </summary>
@@ -130,6 +138,10 @@ namespace AutoCSer.TestCase
         public IServerRemoteExpressionDelegateControllerClientController ClientRemoteExpressionDelegateController { get; private set; }
 #endif
         /// <summary>
+        /// 代码生成客户端接口测试
+        /// </summary>
+        public IServerCodeGeneratorControllerClientController ClientCodeGeneratorController { get; private set; }
+        /// <summary>
         /// The set of parameters for creating the client controller is used to create the client controller object during the initialization of the client socket, and also to automatically bind the controller properties based on the interface type of the client controller after the client socket passes the service authentication API
         /// 客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
         /// </summary>
@@ -137,6 +149,7 @@ namespace AutoCSer.TestCase
         {
             get
             {
+                //由于存在短连接测试，客户端与服务端的控制器定义顺序必须保持一致
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerSynchronousController), typeof(IClientSynchronousController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerSendOnlyController), typeof(IClientSendOnlyController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerQueueController), typeof(IClientQueueController));
@@ -145,8 +158,10 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerCallbackController), typeof(IClientCallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerCallbackTaskController), typeof(IClientCallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackController), typeof(IClientKeepCallbackController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerTwoStage‌CallbackController), typeof(IClientTwoStage‌CallbackController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerTaskController), typeof(IClientTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IServerKeepCallbackTaskController), typeof(IClientKeepCallbackTaskController));
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerTwoStage‌CallbackTaskController), typeof(IClientTwoStage‌CallbackTaskController));
                 yield return new CommandClientControllerCreatorParameter(typeof(IDefinedSymmetryController), typeof(IDefinedSymmetryController));
                 yield return new CommandClientControllerCreatorParameter(string.Empty, typeof(IDefinedDissymmetryClientController));
 #if !AOT
@@ -170,6 +185,7 @@ namespace AutoCSer.TestCase
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerBindContext.IServerTaskQueueController), typeof(ServerBindContext.IServerTaskQueueControllerClientController));
                 if ((bool)customParameter) yield return new CommandClientControllerCreatorParameter(typeof(IServerRemoteExpressionDelegateController), typeof(IServerRemoteExpressionDelegateControllerClientController));
 #endif
+                yield return new CommandClientControllerCreatorParameter(typeof(IServerCodeGeneratorController), typeof(IServerCodeGeneratorControllerClientController));
             }
         }
         /// <summary>

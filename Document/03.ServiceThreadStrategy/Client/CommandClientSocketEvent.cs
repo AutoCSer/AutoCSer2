@@ -139,6 +139,43 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Client
         public IEnumeratorCommandController ServerSynchronous_EnumeratorCommandController { get; private set; }
 
         /// <summary>
+        /// Keep response API client await API sample interface(Server-side Task asynchronous two-stage response API sample interface)
+        /// 二阶段响应 API 客户端 await API 示例接口（服务端 Task 异步 二阶段响应 API 示例接口）
+        /// </summary>
+        [AllowNull]
+        public ITwoStageCallbackController ServerTask_TwoStageCallbackController { get; private set; }
+        /// <summary>
+        /// Keep response API client await API sample interface(The server-side Task asynchronous read and write queue two-stage response API sample interface)
+        /// 二阶段响应 API 客户端 await API 示例接口（服务端 Task 异步读写队列 二阶段响应 API 示例接口）
+        /// </summary>
+        [AllowNull]
+        public TaskQueue.ITwoStageCallbackController ServerTaskQueue_TwoStageCallbackController { get; private set; }
+        /// <summary>
+        /// Keep response API client await API sample interface(The server-side synchronization queue thread two-stage response API sample interface)
+        /// 二阶段响应 API 客户端 await API 示例接口（服务端 同步队列线程 二阶段响应 API 示例接口）
+        /// </summary>
+        [AllowNull]
+        public ITwoStageCallbackController ServerQueue_TwoStageCallbackController { get; private set; }
+        /// <summary>
+        /// Keep response API client await API sample interface(The server side supports a synchronous queue for parallel reading and two-stage response API sample interface)
+        /// 二阶段响应 API 客户端 await API 示例接口（服务端 支持并行读的同步队列 二阶段响应 API 示例接口）
+        /// </summary>
+        [AllowNull]
+        public ITwoStageCallbackController ServerConcurrencyReadQueue_TwoStageCallbackController { get; private set; }
+        /// <summary>
+        /// Keep response API client await API sample interface(The server-side read and write queue two-stage response API sample interface)
+        /// 二阶段响应 API 客户端 await API 示例接口（服务端 读写队列 二阶段响应 API 示例接口）
+        /// </summary>
+        [AllowNull]
+        public ITwoStageCallbackController ServerReadWriteQueue_TwoStageCallbackController { get; private set; }
+        /// <summary>
+        /// Keep response API client await API sample interface(The server-side IO thread synchronizes and two-stage response API sample interface)
+        /// 二阶段响应 API 客户端 await API 示例接口（服务端 IO 线程同步 二阶段响应 API 示例接口）
+        /// </summary>
+        [AllowNull]
+        public ITwoStageCallbackController ServerSynchronous_TwoStageCallbackController { get; private set; }
+
+        /// <summary>
         /// Unresponsive API client sample interface(Server Task asynchronous unresponsive API sample interface)
         /// 无响应 API 客户端示例接口（服务端 Task 异步 无响应 API 示例接口）
         /// </summary>
@@ -218,6 +255,13 @@ namespace AutoCSer.Document.ServiceThreadStrategy.Client
                 yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.ConcurrencyReadQueue.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerConcurrencyReadQueue_EnumeratorCommandController));
                 yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.ReadWriteQueue.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerReadWriteQueue_EnumeratorCommandController));
                 yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Synchronous.IKeepCallbackController), typeof(IEnumeratorCommandController), null, nameof(ServerSynchronous_EnumeratorCommandController));
+
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Task.ITwoStage‌CallbackController), typeof(ITwoStageCallbackController), null, nameof(ServerTask_TwoStageCallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ITwoStage‌CallbackController), typeof(TaskQueue.ITwoStageCallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Queue.ITwoStage‌CallbackController), typeof(ITwoStageCallbackController), null, nameof(ServerQueue_TwoStageCallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.ConcurrencyReadQueue.ITwoStage‌CallbackController), typeof(ITwoStageCallbackController), null, nameof(ServerConcurrencyReadQueue_TwoStageCallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.ReadWriteQueue.ITwoStage‌CallbackController), typeof(ITwoStageCallbackController), null, nameof(ServerReadWriteQueue_TwoStageCallbackController));
+                yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Synchronous.ITwoStage‌CallbackController), typeof(ITwoStageCallbackController), null, nameof(ServerSynchronous_TwoStageCallbackController));
 
                 yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.Task.ISendOnlyController), typeof(ISendOnlyCommandController), null, nameof(ServerTask_SendOnlyCommandController));
                 yield return new AutoCSer.Net.CommandClientControllerCreatorParameter(typeof(Server.TaskQueue.ISendOnlyController), typeof(TaskQueue.ISendOnlyCommandController));

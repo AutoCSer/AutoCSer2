@@ -1990,6 +1990,18 @@ namespace AutoCSer.Net
                                 case ServerMethodTypeEnum.AsyncEnumerableTask:
                                 case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
+                                case ServerMethodTypeEnum.TwoStage‌Callback:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCount:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                                     CancelKeepCallback(returnType, exception);
                                     break;
                                 case ServerMethodTypeEnum.Task:
@@ -2013,26 +2025,36 @@ namespace AutoCSer.Net
                         case ServerMethodTypeEnum.CallbackQueue:
                         case ServerMethodTypeEnum.KeepCallbackQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
                         case ServerMethodTypeEnum.ConcurrencyReadQueue:
                         case ServerMethodTypeEnum.SendOnlyConcurrencyReadQueue:
                         case ServerMethodTypeEnum.CallbackConcurrencyReadQueue:
                         case ServerMethodTypeEnum.KeepCallbackConcurrencyReadQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
                         case ServerMethodTypeEnum.ReadWriteQueue:
                         case ServerMethodTypeEnum.SendOnlyReadWriteQueue:
                         case ServerMethodTypeEnum.CallbackReadWriteQueue:
                         case ServerMethodTypeEnum.KeepCallbackReadWriteQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
                         case ServerMethodTypeEnum.Task:
                         case ServerMethodTypeEnum.SendOnlyTask:
                         case ServerMethodTypeEnum.KeepCallbackTask:
                         case ServerMethodTypeEnum.KeepCallbackCountTask:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
                         case ServerMethodTypeEnum.EnumerableKeepCallbackCountTask:
                         case ServerMethodTypeEnum.TaskQueue:
                         case ServerMethodTypeEnum.CallbackTaskQueue:
                         case ServerMethodTypeEnum.SendOnlyTaskQueue:
                         case ServerMethodTypeEnum.KeepCallbackTaskQueue:
                         case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                         case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
 #if NetStandard21
                         case ServerMethodTypeEnum.AsyncEnumerableTask:
@@ -2105,6 +2127,18 @@ namespace AutoCSer.Net
                                 case ServerMethodTypeEnum.AsyncEnumerableTask:
                                 case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
+                                case ServerMethodTypeEnum.TwoStage‌Callback:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCount:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                                     shortLinkKeepCallback?.CancelKeep(returnType, exception);
                                     break;
                                 default: Send(CallbackIdentity, returnType, exception); break;
@@ -2173,6 +2207,18 @@ namespace AutoCSer.Net
                         case ServerMethodTypeEnum.AsyncEnumerableTask:
                         case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
+                        case ServerMethodTypeEnum.TwoStage‌Callback:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCount:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                             CancelKeepCallback(returnType, exception);
                             break;
                         case ServerMethodTypeEnum.Task:
@@ -2433,6 +2479,18 @@ namespace AutoCSer.Net
                 case ServerMethodTypeEnum.AsyncEnumerableTask:
                 case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
+                case ServerMethodTypeEnum.TwoStage‌Callback:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCount:
+                case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                     isCloseShortLink = false;
                     switch (buildOutputThreadEnum)
                     {
@@ -2841,6 +2899,18 @@ namespace AutoCSer.Net
                 case ServerMethodTypeEnum.AsyncEnumerableTask:
                 case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
 #endif
+                case ServerMethodTypeEnum.TwoStage‌Callback:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCount:
+                case ServerMethodTypeEnum.TwoStage‌CallbackQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackConcurrencyReadQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountConcurrencyReadQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackReadWriteQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountReadWriteQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTask:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTask:
+                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                     if (IsCancelKeepCallback) close();
                     return;
                 default: close(); return;
@@ -3413,6 +3483,34 @@ namespace AutoCSer.Net
         internal static bool SendReturnValue<T>(CommandServerSocket socket, ServerInterfaceMethod method, T outputParameter)
         {
             return socket.send(method, new ServerReturnValue<T>(outputParameter));
+        }
+        /// <summary>
+        /// Send data
+        /// </summary>
+        /// <typeparam name="T">Output data type</typeparam>
+        /// <param name="callbackIdentity">Session callback identifier
+        /// 会话回调标识</param>
+        /// <param name="method">Server interface method information
+        /// 服务端接口方法信息</param>
+        /// <param name="returnValue"></param>
+        /// <returns>Whether the addition to the output queue was successful
+        /// 添加到输出队列是否成功</returns>
+        internal bool TwoStage‌Send<T>(CallbackIdentity callbackIdentity, ServerInterfaceMethod method, T returnValue)
+        {
+            if (closeLock == 0)
+            {
+                var output = default(ServerOutput);
+                try
+                {
+                    Push(output = new ServerOutputTwoStage‌<T>(callbackIdentity, method, returnValue));
+                }
+                finally
+                {
+                    if (output == null) DisposeSocket();
+                }
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// Send custom data synchronously (in asynchronous mode, you need to wait for the next synchronous sending call to be triggered)

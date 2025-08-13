@@ -51,6 +51,11 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal bool IsDisposed;
         /// <summary>
+        /// Whether the two-stage callback command is receiving the keep callback response data
+        /// 二阶段回调命令是否正在接收保持回调响应数据
+        /// </summary>
+        internal bool IsReceiveKeepData;
+        /// <summary>
         /// Keep callback command
         /// 保持回调命令
         /// </summary>

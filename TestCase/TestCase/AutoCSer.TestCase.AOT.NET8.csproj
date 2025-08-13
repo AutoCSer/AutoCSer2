@@ -34,6 +34,7 @@
     <Compile Include="BinarySerializeCustomConfig.cs" />
     <Compile Include="CommandClientDefaultController.cs" />
     <Compile Include="CommandServer.cs" />
+    <Compile Include="CommandServer\ClientCodeGeneratorController.cs" />
     <Compile Include="CommandServer\CommandClientSocketEvent.cs" />
     <Compile Include="CommandServer\CommandServerSessionObject.cs" />
     <Compile Include="CommandServer\IClientCallbackController.cs" />
@@ -46,11 +47,15 @@
     <Compile Include="CommandServer\IClientSendOnlyController.cs" />
     <Compile Include="CommandServer\IClientSynchronousController.cs" />
     <Compile Include="CommandServer\IClientTaskController.cs" />
+    <Compile Include="CommandServer\IClientTwoStage‌CallbackController.cs" />
+    <Compile Include="CommandServer\IClientTwoStage‌CallbackTaskController.cs" />
     <Compile Include="CommandServer\IDefinedDissymmetryClientController.cs" />
     <Compile Include="CommandServer\IDefinedDissymmetryServerController.cs" />
     <Compile Include="CommandServer\IDefinedSymmetryController.cs" />
     <Compile Include="CommandServer\IServerCallbackController.cs" />
     <Compile Include="CommandServer\IServerCallbackTaskController.cs" />
+    <Compile Include="CommandServer\IServerCodeGeneratorController.cs" />
+    <Compile Include="CommandServer\IServerCodeGeneratorControllerClientController.cs" />
     <Compile Include="CommandServer\IServerConcurrencyReadQueueController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackController.cs" />
     <Compile Include="CommandServer\IServerKeepCallbackTaskController.cs" />
@@ -59,6 +64,8 @@
     <Compile Include="CommandServer\IServerSendOnlyController.cs" />
     <Compile Include="CommandServer\IServerSynchronousController.cs" />
     <Compile Include="CommandServer\IServerTaskController.cs" />
+    <Compile Include="CommandServer\IServerTwoStage‌CallbackController.cs" />
+    <Compile Include="CommandServer\IServerTwoStage‌CallbackTaskController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IClientCallbackController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IClientCallbackTaskController.cs" />
     <Compile Include="CommandServer\ServerBindContext\IClientConcurrencyReadQueueController.cs" />

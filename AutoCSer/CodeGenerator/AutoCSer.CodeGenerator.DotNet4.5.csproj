@@ -37,6 +37,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandClientControllerAttribute.cs" />
     <Compile Include="Metadata\FieldIndex.cs" />
     <Compile Include="Metadata\PropertyIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

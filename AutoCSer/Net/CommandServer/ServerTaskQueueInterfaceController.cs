@@ -33,6 +33,11 @@ namespace AutoCSer.Net.CommandServer
 #else
         internal static readonly Func<CommandServerKeepCallbackQueueTask, CommandServerKeepCallback, CommandServerTaskQueueService> CommandServerKeepCallbackQueueTaskGetTaskQueue = CommandServerKeepCallbackQueueTask.GetTaskQueue;
 #endif
+        /// <summary>
+        /// Get the command service socket
+        /// 获取命令服务套接字
+        /// </summary>
+        internal static readonly Func<CommandServerCallTaskQueueNode, CommandServerSocket> CommandServerCallTaskQueueTaskNodeGetSocket = CommandServerCallTaskQueueNode.GetSocket;
     }
     /// <summary>
     /// Task 队列控制器接口信息
@@ -277,6 +282,8 @@ namespace AutoCSer.Net.CommandServer
                                 case ServerMethodTypeEnum.SendOnlyTaskQueue:
                                 case ServerMethodTypeEnum.KeepCallbackTaskQueue:
                                 case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                                case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                                 case ServerMethodTypeEnum.EnumerableKeepCallbackCountTaskQueue:
 #if NetStandard21
                                 case ServerMethodTypeEnum.AsyncEnumerableTaskQueue:
@@ -317,6 +324,8 @@ namespace AutoCSer.Net.CommandServer
                                     {
                                         case ServerMethodTypeEnum.KeepCallbackTaskQueue:
                                         case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                                        case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
                                             asynchronousMethodGenerator.Emit(OpCodes.Ldloc, keepCallbackLocalBuilder.notNull());
                                             asynchronousMethodGenerator.call(ServerTaskQueueInterfaceController.CommandServerKeepCallbackQueueTaskGetTaskQueue.Method);
                                             break;
@@ -359,6 +368,14 @@ namespace AutoCSer.Net.CommandServer
                                     {
                                         case ServerMethodTypeEnum.KeepCallbackTaskQueue:
                                         case ServerMethodTypeEnum.KeepCallbackCountTaskQueue:
+                                            asynchronousMethodGenerator.Emit(OpCodes.Ldloc, keepCallbackLocalBuilder.notNull());
+                                            break;
+                                        case ServerMethodTypeEnum.TwoStage‌CallbackTaskQueue:
+                                        case ServerMethodTypeEnum.TwoStage‌CallbackCountTaskQueue:
+                                            asynchronousMethodGenerator.Emit(OpCodes.Ldarg_0);
+                                            asynchronousMethodGenerator.Emit(OpCodes.Ldloc, ServerTaskQueueInterfaceController.CommandServerCallTaskQueueTaskNodeGetSocket.Method);
+                                            asynchronousMethodGenerator.Emit(OpCodes.Ldsfld, method.MethodFieldBuilder);
+                                            asynchronousMethodGenerator.call(GenericType.Get(method.TwoStage‌ReturnValueType).CreateCommandServerTwoStage‌CallbackDelegate.Method);
                                             asynchronousMethodGenerator.Emit(OpCodes.Ldloc, keepCallbackLocalBuilder.notNull());
                                             break;
                                         case ServerMethodTypeEnum.CallbackTaskQueue:

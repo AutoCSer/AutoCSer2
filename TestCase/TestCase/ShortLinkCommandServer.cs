@@ -39,11 +39,19 @@ namespace AutoCSer.TestCase
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
+            if (!await ClientTwoStage‌CallbackController.ShortLinkTestCase())
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
             if (!await ClientTaskController.ShortLinkTestCase())
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
             if (!await ClientKeepCallbackTaskController.ShortLinkTestCase())
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+            if (!await ClientTwoStage‌CallbackTaskController.ShortLinkTestCase())
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

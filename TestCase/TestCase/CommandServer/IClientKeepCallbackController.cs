@@ -48,6 +48,24 @@ namespace AutoCSer.TestCase
         KeepCallbackCommand KeepCallbackCountQueue(int Value, int Ref, Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
         KeepCallbackCommand KeepCallbackCountQueueReturn(Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
         KeepCallbackCommand KeepCallbackCountQueue(Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+
+        KeepCallbackCommand KeepCallbackReadWriteQueueReturn(int Value, int Ref, Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackReadWriteQueue(int Value, int Ref, Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackReadWriteQueueReturn(Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackReadWriteQueue(Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountReadWriteQueueReturn(int Value, int Ref, Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountReadWriteQueue(int Value, int Ref, Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountReadWriteQueueReturn(Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountReadWriteQueue(Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+
+        KeepCallbackCommand KeepCallbackConcurrencyReadQueueReturn(int Value, int Ref, Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackConcurrencyReadQueue(int Value, int Ref, Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackConcurrencyReadQueueReturn(Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackConcurrencyReadQueue(Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountConcurrencyReadQueueReturn(int Value, int Ref, Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountConcurrencyReadQueue(int Value, int Ref, Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountConcurrencyReadQueueReturn(Action<CommandClientReturnValue<string>, KeepCallbackCommand> Callback);
+        KeepCallbackCommand KeepCallbackCountConcurrencyReadQueue(Action<CommandClientReturnValue, KeepCallbackCommand> Callback);
     }
     /// <summary>
     /// 命令客户端测试
@@ -492,6 +510,152 @@ namespace AutoCSer.TestCase
                 }
             }
 
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackReadWriteQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackReadWriteQueue(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackReadWriteQueueReturn(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackReadWriteQueue(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountReadWriteQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountReadWriteQueue(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountReadWriteQueueReturn(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountReadWriteQueue(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackConcurrencyReadQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackConcurrencyReadQueue(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackConcurrencyReadQueueReturn(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackConcurrencyReadQueue(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountConcurrencyReadQueueReturn(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            clientSessionObject.Value = AutoCSer.Random.Default.Next();
+            clientSessionObject.Ref = AutoCSer.Random.Default.Next();
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountConcurrencyReadQueue(clientSessionObject.Value, clientSessionObject.Ref, Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountConcurrencyReadQueueReturn(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
+            using (CommandKeepCallback commandKeepCallback = await client.ClientKeepCallbackController.KeepCallbackCountConcurrencyReadQueue(Callback))
+            {
+                if (!await WaitKeepCallback(commandKeepCallback))
+                {
+                    return AutoCSer.Breakpoint.ReturnFalse();
+                }
+            }
+
             return true;
         }
         internal static void DefaultControllerCallback(CommandClientReturnValue<string> value, KeepCallbackCommand keepCallbackCommand)
@@ -516,8 +680,8 @@ namespace AutoCSer.TestCase
         internal static async Task<bool> DefaultControllerTestCase(CommandClientSocketEvent client)
         {
             KeepCallbackCommand command = client.ClientKeepCallbackController.KeepCallbackSocketReturn(0, 0, DefaultControllerCallback);
-            var k = await command;
-            if (k != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
+            var keepCallback = await command;
+            if (keepCallback != null || command.ReturnType != CommandClientReturnTypeEnum.NoSocketCreated)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
