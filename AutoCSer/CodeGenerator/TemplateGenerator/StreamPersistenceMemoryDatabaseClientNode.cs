@@ -57,6 +57,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public ExtensionType CallbackType;
             /// <summary>
+            /// 回调委托类型
+            /// </summary>
+            public ExtensionType KeepCallbackType;
+            /// <summary>
+            /// 回调委托参数之前是否存在其它参数
+            /// </summary>
+            public bool IsJoinCallback { get { return ReturnRequestParameterType != null || Method.Parameters.Length != 0; } }
+            /// <summary>
+            /// 回调委托参数之前是否存在其它参数
+            /// </summary>
+            public bool IsJoinKeepCallback { get { return IsJoinCallback || CallbackType != null; } }
+            /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
             /// <param name="nodeAttribute"></param>
@@ -80,7 +92,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputEnumerable:
                             if (interfaceMethod.MethodAttribute.IsCallbackClient)
                             {
-                                CallbackType = typeof(Action<,>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType), typeof(AutoCSer.Net.KeepCallbackCommand));
+                                KeepCallbackType = typeof(Action<,>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType), typeof(AutoCSer.Net.KeepCallbackCommand));
                                 MethodReturnType = typeof(AutoCSer.Net.KeepCallbackCommand);
                             }
                             else
@@ -88,6 +100,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                                 MethodReturnType = typeof(Task<>).MakeGenericType(typeof(KeepCallbackResponse<>).MakeGenericType(interfaceMethod.ReturnValueType));
                             }
                             if (interfaceMethod.ReturnValueType == typeof(ResponseParameterSerializer)) ReturnRequestParameterType = typeof(ResponseParameterSerializer);
+                            break;
+                        case CallTypeEnum.TwoStageCallback:
+                        case CallTypeEnum.InputTwoStageCallback:
+                            CallbackType = typeof(Action<>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.TwoStageReturnValueType));
+                            KeepCallbackType = typeof(Action<,>).MakeGenericType(typeof(ResponseResult<>).MakeGenericType(interfaceMethod.ReturnValueType), typeof(AutoCSer.Net.KeepCallbackCommand));
+                            MethodReturnType = typeof(AutoCSer.Net.KeepCallbackCommand);
                             break;
                         case CallTypeEnum.Call:
                         case CallTypeEnum.CallInput:

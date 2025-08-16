@@ -129,6 +129,7 @@ namespace AutoCSer.Net.CommandServer
             Parameters = EmptyArray<ParameterInfo>.Array;
             InputParameterFields = EmptyArray<FieldInfo>.Array;
         }
+#if !AOT
         /// <summary>
         /// 设置输入数据
         /// </summary>
@@ -167,7 +168,7 @@ namespace AutoCSer.Net.CommandServer
                 ++parameterIndex;
             }
         }
-
+#endif
         /// <summary>
         /// 检查方法编号
         /// </summary>

@@ -33,7 +33,11 @@ namespace AutoCSer.Net
 #if NetStandard21
         [AllowNull]
 #endif
+#if AOT
+        internal readonly CommandListener Server;
+#else
         public readonly CommandListener Server;
+#endif
         /// <summary>
         /// Command service controller
         /// 命令服务控制器

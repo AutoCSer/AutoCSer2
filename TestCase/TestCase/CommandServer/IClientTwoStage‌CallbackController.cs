@@ -23,8 +23,8 @@ namespace AutoCSer.TestCase
         KeepCallbackCommand TwoStage‌CallbackCountReturn(int Value, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
         KeepCallbackCommand TwoStage‌CallbackCountReturn(Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
 
-        KeepCallbackCommand TwoStage‌CallbackQueueSocketReturn(int Value, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
-        KeepCallbackCommand TwoStage‌CallbackQueueSocketReturn(Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
+        KeepCallbackCommand TwoStage‌CallbackQueueSocketReturn(int Value, int Ref, CommandClientReturnValueParameterCallback<long> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
+        KeepCallbackCommand TwoStage‌CallbackQueueSocketReturn(CommandClientReturnValueParameterCallback<long> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
         KeepCallbackCommand TwoStage‌CallbackQueueReturn(int Value, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
         KeepCallbackCommand TwoStage‌CallbackQueueReturn(Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
 
@@ -207,7 +207,7 @@ namespace AutoCSer.TestCase
             }
 
             callback = new Stage‌Callback(clientSessionObject, true);
-            using (CommandKeepCallback commandKeepCallback = await client.ClientTwoStage‌CallbackController.TwoStage‌CallbackQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, callback.Callback, callback.KeepCallback))
+            using (CommandKeepCallback commandKeepCallback = await client.ClientTwoStage‌CallbackController.TwoStage‌CallbackQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, new CommandClientReturnValueParameterCallback<long>(callback.Callback, 0), callback.KeepCallback))
             {
                 if (!await callback.Wait(commandKeepCallback))
                 {
@@ -216,7 +216,7 @@ namespace AutoCSer.TestCase
             }
 
             callback = new Stage‌Callback(clientSessionObject, false);
-            using (CommandKeepCallback commandKeepCallback = await client.ClientTwoStage‌CallbackController.TwoStage‌CallbackQueueSocketReturn(callback.Callback, callback.KeepCallback))
+            using (CommandKeepCallback commandKeepCallback = await client.ClientTwoStage‌CallbackController.TwoStage‌CallbackQueueSocketReturn(new CommandClientReturnValueParameterCallback<long>(callback.Callback, 0), callback.KeepCallback))
             {
                 if (!await callback.Wait(commandKeepCallback))
                 {

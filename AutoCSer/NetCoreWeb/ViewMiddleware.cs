@@ -537,7 +537,7 @@ namespace AutoCSer.NetCoreWeb
                                             if (method.Parameters.Length != 0 && IsAccessTokenParameter(method.Parameters[0])) flags |= JsonApiFlags.IsAccessTokenParameter;
                                             constructorGenerator.int32((byte)flags);
                                             constructorGenerator.Emit(OpCodes.Call, parentType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, jsonApiRequestConstructorTypes, null).notNull());
-                                            constructorGenerator.Emit(OpCodes.Ret);
+                                            constructorGenerator.ret();
                                             #endregion
                                             #endregion
                                             var parameterType = default(AutoCSer.Net.CommandServer.ServerMethodParameter);
@@ -559,7 +559,7 @@ namespace AutoCSer.NetCoreWeb
                                                 generator.Emit(OpCodes.Ldfld, parameterType.notNull().GetField(parameter.Name.notNull()).notNull());
                                             }
                                             generator.call(method.Method);
-                                            generator.Emit(OpCodes.Ret);
+                                            generator.ret();
                                             #endregion
                                             #endregion
                                             if ((flags & JsonApiFlags.IsPostParameter) != 0)
@@ -573,7 +573,7 @@ namespace AutoCSer.NetCoreWeb
                                                 generator.Emit(OpCodes.Ldflda, parameterField.notNull());
                                                 generator.call(jsonApiRequestJsonDeserializeParameterMethod.MakeGenericMethod(parameterType.notNull().Type));
                                                 #endregion
-                                                generator.Emit(OpCodes.Ret);
+                                                generator.ret();
                                                 #endregion
                                             }
                                             if ((flags & JsonApiFlags.IsCheckParameter) != 0)
@@ -611,7 +611,7 @@ namespace AutoCSer.NetCoreWeb
                                                 #endregion
                                                 generator.Emit(OpCodes.Pop);
                                                 generator.MarkLabel(end);
-                                                generator.Emit(OpCodes.Ret);
+                                                generator.ret();
                                                 #endregion
                                             }
                                             if ((flags & JsonApiFlags.IsAccessTokenParameter) != 0)
@@ -626,7 +626,7 @@ namespace AutoCSer.NetCoreWeb
                                                 generator.Emit(OpCodes.Ldflda, parameterField.notNull());
                                                 generator.Emit(OpCodes.Ldfld, parameterType.notNull().GetField(method.Parameters[0].Name.notNull()).notNull());
                                                 generator.call(GenericType.Get(method.Parameters[0].ParameterType).CheckAccessTokenParameterDelegate.Method);
-                                                generator.Emit(OpCodes.Ret);
+                                                generator.ret();
                                                 #endregion
                                                 #endregion
                                             }
@@ -656,7 +656,7 @@ namespace AutoCSer.NetCoreWeb
                                                 }
                                                 generator.Emit(OpCodes.Pop);
                                                 generator.MarkLabel(end);
-                                                generator.Emit(OpCodes.Ret);
+                                                generator.ret();
                                                 #endregion
                                             }
                                             if (createController == null)
@@ -664,7 +664,7 @@ namespace AutoCSer.NetCoreWeb
                                                 DynamicMethod dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + ".NetCoreWeb.JsonApiControllerConstructor", type, EmptyArray<Type>.Array, type, true);
                                                 generator = dynamicMethod.GetILGenerator();
                                                 generator.Emit(OpCodes.Newobj, constructor);
-                                                generator.Emit(OpCodes.Ret);
+                                                generator.ret();
                                                 createController = (Func<JsonApiController>)dynamicMethod.CreateDelegate(typeof(Func<JsonApiController>));
                                             }
                                             JsonApiRequest jsonApiRequest = (JsonApiRequest)typeBuilder.CreateType().notNull().GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, jsonApiConstructorTypes, null)

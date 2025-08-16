@@ -38,8 +38,12 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 定义对称测试接口实例（套接字上下文绑定服务端）
     /// </summary>
-    internal partial class DefinedSymmetryServerController : CommandServerBindContextController, IDefinedSymmetryController
+    internal partial class DefinedSymmetryServerController
+#if !AOT
+        : CommandServerBindContextController, IDefinedSymmetryController
+#endif
     {
+#if !AOT
         string IDefinedSymmetryController.SynchronousReturn(int Value, ref int Ref, out long Out)
         {
             return AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(Value, ref Ref, out Out).ToString();
@@ -122,6 +126,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         {
             return AutoCSer.Common.CompletedTask;
         }
+#endif
 
         /// <summary>
         /// 命令客户端测试

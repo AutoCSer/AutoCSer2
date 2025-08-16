@@ -31,8 +31,7 @@
             基于递增登录时间戳验证的服务认证客户端接口
             </summary>
             <summary>
-            Service authentication client interface based on incremental login timestamp verification 
-                       基于递增登录时间戳验证的服务认证客户端接口
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.ITimestampVerifyClient.Verify(System.UInt64,System.Byte[],System.Int64@)">

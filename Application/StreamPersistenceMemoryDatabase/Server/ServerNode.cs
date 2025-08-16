@@ -402,6 +402,67 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return CallStateEnum.NotFoundMethod;
         }
         /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+#if NetStandard21
+        internal CallStateEnum TwoStageCallback(int methodIndex, CommandServerCallback<ResponseParameter> callback, [MaybeNull] ref CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+#else
+        internal CallStateEnum TwoStageCallback(int methodIndex, CommandServerCallback<ResponseParameter> callback, ref CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+#endif
+        {
+            if ((uint)methodIndex < (uint)NodeCreator.Methods.Length)
+            {
+                var method = NodeCreator.Methods[methodIndex];
+                if (method != null)
+                {
+                    if(method.CallType == CallTypeEnum.TwoStageCallback)
+                    {
+                        TwoStageCallbackMethod twoStageCallbackMethod = (TwoStageCallbackMethod)method;
+                        if (method.IsClientCall)
+                        {
+                            StreamPersistenceMemoryDatabaseServiceBase service = NodeCreator.Service;
+                            if (method.IsPersistence)
+                            {
+                                if (CallState != CallStateEnum.Success) return CallState;
+                                if (IsPersistence && !service.IsMaster) return CallStateEnum.OnlyMaster;
+                                var twoStageCallbackMethodParameter = default(TwoStageCallbackMethodParameter);
+                                if (method.BeforePersistenceMethodIndex >= 0)
+                                {
+                                    service.CurrentMethodParameter = twoStageCallbackMethodParameter = new BeforePersistenceTwoStageCallbackMethodParameter(this, twoStageCallbackMethod, callback, keepCallback);
+                                    ValueResult<ResponseParameter> value = ((CallOutputMethod)NodeCreator.Methods[method.BeforePersistenceMethodIndex].notNull()).CallOutputBeforePersistence(this);
+                                    if (value.IsValue)
+                                    {
+                                        keepCallback?.VirtualCallbackCancelKeep(value.Value.CreateKeepCallback());
+                                        keepCallback = null;
+                                        return CallStateEnum.Success;
+                                    }
+                                }
+                                if (twoStageCallbackMethodParameter == null) twoStageCallbackMethodParameter = new TwoStageCallbackMethodParameter(this, twoStageCallbackMethod, callback, keepCallback);
+                                if (IsPersistence) service.PushPersistenceMethodParameter(twoStageCallbackMethodParameter, ref keepCallback);
+                                else
+                                {
+                                    service.CommandServerCallQueue.AppendWriteOnly(new MethodParameterPersistenceCallback(twoStageCallbackMethodParameter));
+                                    keepCallback = null;
+                                }
+                                return CallStateEnum.Success;
+                            }
+                            service.CurrentCallIsPersistence = false;
+                            twoStageCallbackMethod.TwoStageCallback(this, callback, ref keepCallback);
+                            return CallStateEnum.Success;
+                        }
+                        return CallStateEnum.NotAllowClientCall;
+                    }
+                    return CallStateEnum.CallTypeNotMatch;
+                }
+            }
+            return CallStateEnum.NotFoundMethod;
+        }
+        /// <summary>
         /// 关闭重建
         /// </summary>
         internal virtual void CloseRebuild() { Rebuilding = false; }

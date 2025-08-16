@@ -25,8 +25,8 @@ namespace AutoCSer.TestCase.SearchQueryService
 
             trieGraphNode().AutoCSerNotWait();
 
-            userNameIndexNode().AutoCSerNotWait();
-            userRemarkIndexNode().AutoCSerNotWait();
+            await userNameIndexNode();
+            await userRemarkIndexNode();
             searchUserNodeCache().AutoCSerNotWait();
 
             userNameWordIdentityNode().AutoCSerNotWait();

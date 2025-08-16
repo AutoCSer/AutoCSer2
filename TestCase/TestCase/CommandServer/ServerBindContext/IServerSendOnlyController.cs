@@ -22,6 +22,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         Task<CommandServerSendOnly> SendOnlyTaskQueue(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -67,4 +68,5 @@ namespace AutoCSer.TestCase.ServerBindContext
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
     }
+#endif
 }

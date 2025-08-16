@@ -190,6 +190,27 @@ namespace AutoCSer.CodeGenerator.Template
             }
         }
         #endregion IF IsInputKeepCallback
+        #region IF IsTwoStageCallback
+        internal sealed class @TwoStageCallbackMethodTypeName : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod
+        {
+            internal @TwoStageCallbackMethodTypeName() : base(@MethodIndex, @PersistenceMethodIndex, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)@MethodFlags) { }
+            public override void TwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> keepCallback)
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<@InterfaceTypeName>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<@InterfaceTypeName>)node).@MethodName(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<@TwoStageReturnValueType.FullName>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)@TwoStageMethodFlags), AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<@MethodReturnType.FullName>.Create(ref keepCallback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)@MethodFlags));
+            }
+        }
+        #endregion IF IsTwoStageCallback
+        #region IF IsInputTwoStageCallback
+        internal sealed class @InputTwoStageCallbackMethodTypeName : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod<@ParameterTypeFullName>
+        {
+            internal @InputTwoStageCallbackMethodTypeName() : base(@MethodIndex, @PersistenceMethodIndex, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)@MethodFlags) { }
+            public override void InputTwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter methodParameter)
+            {
+                @ParameterTypeFullName parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter<@ParameterTypeFullName>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter<@ParameterTypeFullName>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<@InterfaceTypeName>(methodParameter).@MethodName(/*LOOP:Method.Parameters*/parameter.@ParameterJoinName/*LOOP:Method.Parameters*/, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<@TwoStageReturnValueType.FullName>.Create(methodParameter), AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<@MethodReturnType.FullName>.Create(methodParameter));
+            }
+        }
+        #endregion IF IsInputTwoStageCallback
         #endregion IF Method
         #endregion LOOP Methods
         /// <summary>
@@ -303,6 +324,7 @@ namespace AutoCSer.CodeGenerator.Template
         internal const int PersistenceMethodIndex = 0;
         internal const int CallTypeValue = 0;
         internal const int MethodFlags = 0;
+        internal const int TwoStageMethodFlags = 0;
         internal const int LoadPersistenceMethodIndex = 0;
         private const string CallbackParameterName = null;
         private static readonly ParameterType.FullName ParameterName = null;

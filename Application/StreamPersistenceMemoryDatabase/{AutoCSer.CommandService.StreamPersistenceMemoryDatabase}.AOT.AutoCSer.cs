@@ -1349,17 +1349,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public partial interface IManyHashBitMapClientFilterNodeLocalClientNode
         {
             /// <summary>
-            /// Get the operation of setting a new bit 
-///            获取设置新位操作
+            /// Get data 
+///            获取数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __callback__);
-            /// <summary>
-            /// Get the current bitmap data 
-///            获取当前位图数据
-            /// </summary>
-            /// <returns></returns>
-            void GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> __callback__);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> __callback__, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __keepCallback__);
             /// <summary>
             /// Get the bitmap size (number of bits) 
 ///            获取位图大小（位数量）
@@ -1401,7 +1395,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return new ManyHashBitMapClientFilterNodeLocalClient(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-            internal struct __ip3__
+            internal struct __ip2__
             {
                 internal int bit;
                 
@@ -1411,7 +1405,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="stream"></param>
             /// <param name="value"></param>
-            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__ value)
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__ value)
             {
                 value.simpleSerialize(stream);
             }
@@ -1435,7 +1429,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// <param name="value"></param>
             /// <param name="end"></param>
             /// <returns></returns>
-            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__ value, byte* end)
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__ value, byte* end)
             {
                 return value.simpleDeserialize(start, end);
             }
@@ -1458,14 +1452,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             internal unsafe static void SimpleSerialize()
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__);
                 SimpleSerialize(null, ref value);
                 SimpleDeserialize(null, ref value, null);
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__));
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__));
             }
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-            internal struct __ip5__
+            internal struct __ip4__
             {
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap map;
                 
@@ -1475,7 +1469,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="serializer"></param>
             /// <param name="value"></param>
-            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__ value)
+            internal static void BinarySerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__ value)
             {
                 if (serializer.WriteMemberCountVerify(4, 1073741825)) value.binarySerialize(serializer);
             }
@@ -1494,7 +1488,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             /// <param name="deserializer"></param>
             /// <param name="value"></param>
-            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__ value)
+            internal static void BinaryDeserialize(AutoCSer.BinaryDeserializer deserializer, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__ value)
             {
                 value.binaryDeserialize(deserializer);
             }
@@ -1532,38 +1526,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             /// </summary>
             internal static void BinarySerialize()
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__);
                 BinarySerialize(null, value);
                 BinaryDeserialize(null, ref value);
-                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__));
+                AutoCSer.AotReflection.ConstructorNonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__));
                 BinarySerializeMemberTypes();
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__));
-                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__>();
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__));
+                AutoCSer.Metadata.DefaultConstructor.GetIsSerializeConstructor<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__>();
             }
             }
             /// <summary>
-            /// Get the operation of setting a new bit 
-///            获取设置新位操作
+            /// Get data 
+///            获取数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> IManyHashBitMapClientFilterNodeLocalClientNode/**/.GetBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __callback__)
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> IManyHashBitMapClientFilterNodeLocalClientNode/**/.GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> __callback__, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __keepCallback__)
             {
                 
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNode<int>/**/.Create(this, 0
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap, int>(this, 0
                     , __callback__
-                    , false
-                    );
-            }
-
-            /// <summary>
-            /// Get the current bitmap data 
-///            获取当前位图数据
-            /// </summary>
-            /// <returns></returns>
-            void IManyHashBitMapClientFilterNodeLocalClientNode/**/.GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> __callback__)
-            {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>/**/.Create(this, 1
-                    , __callback__
+                    , __keepCallback__
                     , false
                     );
             }
@@ -1576,7 +1558,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> IManyHashBitMapClientFilterNodeLocalClientNode/**/.GetSize()
             {
                 
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallOutputNode<int>/**/.Create(this, 2
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallOutputNode<int>/**/.Create(this, 1
                     , true
                     );
             }
@@ -1590,8 +1572,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult> IManyHashBitMapClientFilterNodeLocalClientNode/**/.SetBit(int bit)
             {
                 
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode/**/.Create(this, 3
-                    , new __ip3__
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode/**/.Create(this, 2
+                    , new __ip2__
                     {
                         bit = bit,
                     }
@@ -2772,17 +2754,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public partial interface IUniformProbabilityClientStatisticsNodeLocalClientNode
         {
             /// <summary>
-            /// Get the array of binary bits 
-///            获取二进制位数量的数组
+            /// Get data 
+///            获取数据
             /// </summary>
             /// <returns></returns>
-            void GetBitArray(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte[]>> __callback__);
-            /// <summary>
-            /// Get the newly set data 
-///            获取新设置的数据
-            /// </summary>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetIndexBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __callback__);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte[]>> __callback__, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __keepCallback__);
             /// <summary>
             /// Try to modify the number of binary bits at the specified index position 
 ///            尝试修改指定索引位置的二进制位数量
@@ -2818,6 +2794,70 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             internal static IUniformProbabilityClientStatisticsNodeLocalClientNode LocalClientNodeConstructor(string key, Func<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, string, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex>>> creator, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClient client, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index, bool isPersistenceCallbackExceptionRenewNode)
             {
                 return new UniformProbabilityClientStatisticsNodeLocalClient(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
+            }
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+            internal struct __ip1__
+            {
+                internal byte[] bitCountArray;
+                
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="stream"></param>
+            /// <param name="value"></param>
+            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__ value)
+            {
+                value.simpleSerialize(stream);
+            }
+            /// <summary>
+            /// Simple binary serialization
+            /// 简单二进制序列化
+            /// </summary>
+            /// <param name="__stream__"></param>
+            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
+            {
+                if (__stream__.TryPrepSize(4))
+                {
+                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.bitCountArray);
+                }
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="value"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
+            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__ value, byte* end)
+            {
+                return value.simpleDeserialize(start, end);
+            }
+            /// <summary>
+            /// Simple binary deserialization
+            /// 简单二进制反序列化
+            /// </summary>
+            /// <param name="__start__"></param>
+            /// <param name="__end__"></param>
+            /// <returns></returns>
+            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
+            {
+                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.bitCountArray, __end__);
+                if (__start__ == null || __start__ > __end__) return null;
+                return __start__;
+            }
+            /// <summary>
+            /// AOT code generation call activation reflection
+            /// AOT 代码生成调用激活反射
+            /// </summary>
+            internal unsafe static void SimpleSerialize()
+            {
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__);
+                SimpleSerialize(null, ref value);
+                SimpleDeserialize(null, ref value, null);
+                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__));
+            }
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip2__
@@ -2888,93 +2928,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__));
             }
             }
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-            internal struct __ip4__
-            {
-                internal byte[] bitCountArray;
-                
             /// <summary>
-            /// Simple binary serialization
-            /// 简单二进制序列化
-            /// </summary>
-            /// <param name="stream"></param>
-            /// <param name="value"></param>
-            internal static void SimpleSerialize(AutoCSer.Memory.UnmanagedStream stream, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ value)
-            {
-                value.simpleSerialize(stream);
-            }
-            /// <summary>
-            /// Simple binary serialization
-            /// 简单二进制序列化
-            /// </summary>
-            /// <param name="__stream__"></param>
-            private void simpleSerialize(AutoCSer.Memory.UnmanagedStream __stream__)
-            {
-                if (__stream__.TryPrepSize(4))
-                {
-                    AutoCSer.SimpleSerialize.Serializer.Serialize(__stream__, this.bitCountArray);
-                }
-            }
-            /// <summary>
-            /// Simple binary deserialization
-            /// 简单二进制反序列化
-            /// </summary>
-            /// <param name="start"></param>
-            /// <param name="value"></param>
-            /// <param name="end"></param>
-            /// <returns></returns>
-            internal unsafe static byte* SimpleDeserialize(byte* start, ref AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ value, byte* end)
-            {
-                return value.simpleDeserialize(start, end);
-            }
-            /// <summary>
-            /// Simple binary deserialization
-            /// 简单二进制反序列化
-            /// </summary>
-            /// <param name="__start__"></param>
-            /// <param name="__end__"></param>
-            /// <returns></returns>
-            private unsafe byte* simpleDeserialize(byte* __start__, byte* __end__)
-            {
-                __start__ = AutoCSer.SimpleSerialize.Deserializer.Deserialize(__start__, ref this.bitCountArray, __end__);
-                if (__start__ == null || __start__ > __end__) return null;
-                return __start__;
-            }
-            /// <summary>
-            /// AOT code generation call activation reflection
-            /// AOT 代码生成调用激活反射
-            /// </summary>
-            internal unsafe static void SimpleSerialize()
-            {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ value = default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__);
-                SimpleSerialize(null, ref value);
-                SimpleDeserialize(null, ref value, null);
-                AutoCSer.AotReflection.NonPublicMethods(typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__));
-            }
-            }
-            /// <summary>
-            /// Get the array of binary bits 
-///            获取二进制位数量的数组
+            /// Get data 
+///            获取数据
             /// </summary>
             /// <returns></returns>
-            void IUniformProbabilityClientStatisticsNodeLocalClientNode/**/.GetBitArray(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte[]>> __callback__)
-            {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallbackOutputNode<byte[]>/**/.Create(this, 0
-                    , __callback__
-                    , false
-                    );
-            }
-
-            /// <summary>
-            /// Get the newly set data 
-///            获取新设置的数据
-            /// </summary>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> IUniformProbabilityClientStatisticsNodeLocalClientNode/**/.GetIndexBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __callback__)
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> IUniformProbabilityClientStatisticsNodeLocalClientNode/**/.GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<byte[]>> __callback__, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<int>> __keepCallback__)
             {
                 
-                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNode<int>/**/.Create(this, 1
+                return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode/**/.Create<byte[], int>(this, 0
                     , __callback__
+                    , __keepCallback__
                     , false
                     );
             }
@@ -3348,7 +3312,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IBitmapNode_ClearBit_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>
         {
-            internal IBitmapNode_ClearBit_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IBitmapNode_ClearBit_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>)methodParameter);
@@ -3387,7 +3351,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IBitmapNode_GetBitClearBit_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>
         {
-            internal IBitmapNode_GetBitClearBit_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IBitmapNode_GetBitClearBit_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>)methodParameter);
@@ -3400,7 +3364,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IBitmapNode_GetBitInvertBit_4 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>
         {
-            internal IBitmapNode_GetBitInvertBit_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IBitmapNode_GetBitInvertBit_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>)methodParameter);
@@ -3413,7 +3377,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IBitmapNode_GetBitSetBit_5 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>
         {
-            internal IBitmapNode_GetBitSetBit_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IBitmapNode_GetBitSetBit_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>)methodParameter);
@@ -3438,7 +3402,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IBitmapNode_InvertBit_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>
         {
-            internal IBitmapNode_InvertBit_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IBitmapNode_InvertBit_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>)methodParameter);
@@ -3451,7 +3415,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IBitmapNode_SetBit_8 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>
         {
-            internal IBitmapNode_SetBit_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IBitmapNode_SetBit_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BitmapNodeLocalClient.__ip0__>)methodParameter);
@@ -3655,76 +3619,59 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public enum IManyHashBitMapClientFilterNodeMethodEnum
         {
             /// <summary>
-            /// [0] Get the operation of setting a new bit 
-///            获取设置新位操作
+            /// [0] Get data 
+///            获取数据
             /// </summary>
-            GetBit = 0,
+            GetData = 0,
             /// <summary>
-            /// [1] Get the current bitmap data 
-///            获取当前位图数据
-            /// </summary>
-            GetData = 1,
-            /// <summary>
-            /// [2] Get the bitmap size (number of bits) 
+            /// [1] Get the bitmap size (number of bits) 
 ///            获取位图大小（位数量）
             /// Return value : int 
             /// </summary>
-            GetSize = 2,
+            GetSize = 1,
             /// <summary>
-            /// [3] Set bit 
+            /// [2] Set bit 
 ///            设置位
             /// int bit The set binary bit 
 ///            设置的二进制位
             /// </summary>
-            SetBit = 3,
+            SetBit = 2,
             /// <summary>
-            /// [4] Set bit (Check the input parameters before the persistence operation) 
+            /// [3] Set bit (Check the input parameters before the persistence operation) 
 ///            设置位（持久化操作之前检查输入参数）
             /// int bit The set binary bit 
 ///            设置的二进制位
             /// Return value : bool Returning true indicates that a persistence operation is required 
 ///            返回 true 表示需要持久化操作
             /// </summary>
-            SetBitBeforePersistence = 4,
+            SetBitBeforePersistence = 3,
             /// <summary>
-            /// [5] Add snapshot data 
+            /// [4] Add snapshot data 
 ///            添加快照数据
             /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap map Multi-hash bitmap data 
 ///            多哈希位图数据
             /// </summary>
-            SnapshotSet = 5,
+            SnapshotSet = 4,
         }
         /// <summary>
-        /// Get the operation of setting a new bit 
-///            获取设置新位操作 server node method
+        /// Get data 
+///            获取数据 server node method
         /// </summary>
-        internal sealed class IManyHashBitMapClientFilterNode_GetBit_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod
+        internal sealed class IManyHashBitMapClientFilterNode_GetData_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod
         {
-            internal IManyHashBitMapClientFilterNode_GetBit_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
-            public override void KeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> callback)
+            internal IManyHashBitMapClientFilterNode_GetData_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
+            public override void TwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> keepCallback)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>)node).GetBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134));
-            }
-        }
-        /// <summary>
-        /// Get the current bitmap data 
-///            获取当前位图数据 server node method
-        /// </summary>
-        internal sealed class IManyHashBitMapClientFilterNode_GetData_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
-        {
-            internal IManyHashBitMapClientFilterNode_GetData_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)7, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)130) { }
-            public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
-            {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>)node).GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)130));
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>)node).GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)130), AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.Create(ref keepCallback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134));
             }
         }
         /// <summary>
         /// Get the bitmap size (number of bits) 
 ///            获取位图大小（位数量） server node method
         /// </summary>
-        internal sealed class IManyHashBitMapClientFilterNode_GetSize_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
+        internal sealed class IManyHashBitMapClientFilterNode_GetSize_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
         {
-            internal IManyHashBitMapClientFilterNode_GetSize_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)6) { }
+            internal IManyHashBitMapClientFilterNode_GetSize_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)6) { }
             public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IManyHashBitMapClientFilterNode>)node).GetSize(), ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)6);
@@ -3734,12 +3681,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Set bit 
 ///            设置位 server node method
         /// </summary>
-        internal sealed class IManyHashBitMapClientFilterNode_SetBit_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__>
+        internal sealed class IManyHashBitMapClientFilterNode_SetBit_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__>
         {
-            internal IManyHashBitMapClientFilterNode_SetBit_3() : base(3, 4, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IManyHashBitMapClientFilterNode_SetBit_2() : base(2, 3, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__>)methodParameter);
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IManyHashBitMapClientFilterNode>(methodParameter).SetBit(parameter.bit);
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
             }
@@ -3748,12 +3695,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Set bit (Check the input parameters before the persistence operation) 
 ///            设置位（持久化操作之前检查输入参数） server node method
         /// </summary>
-        internal sealed class IManyHashBitMapClientFilterNode_SetBitBeforePersistence_4 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__>
+        internal sealed class IManyHashBitMapClientFilterNode_SetBitBeforePersistence_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__>
         {
-            internal IManyHashBitMapClientFilterNode_SetBitBeforePersistence_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)24) { }
+            internal IManyHashBitMapClientFilterNode_SetBitBeforePersistence_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)40) { }
             public override bool CallBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__>)methodParameter);
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IManyHashBitMapClientFilterNode>(methodParameter).SetBitBeforePersistence(parameter.bit);
             }
         }
@@ -3761,12 +3708,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Add snapshot data 
 ///            添加快照数据 server node method
         /// </summary>
-        internal sealed class IManyHashBitMapClientFilterNode_SnapshotSet_5 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__>
+        internal sealed class IManyHashBitMapClientFilterNode_SnapshotSet_4 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__>
         {
-            internal IManyHashBitMapClientFilterNode_SnapshotSet_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)1) { }
+            internal IManyHashBitMapClientFilterNode_SnapshotSet_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)1) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__>)methodParameter);
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IManyHashBitMapClientFilterNode>(methodParameter).SnapshotSet(parameter.map);
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
             }
@@ -3779,7 +3726,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             private static void SnapshotSet_SnapshotSerialize(AutoCSer.BinarySerializer serializer, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap value)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__ snapshotMethodParameter = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__ { map = value };
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__ snapshotMethodParameter = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__ { map = value };
                 serializer.InternalIndependentSerializeNotNull(ref snapshotMethodParameter);
             }
             /// <summary>
@@ -3791,12 +3738,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[]
                     {
-                        new IManyHashBitMapClientFilterNode_GetBit_0(),
-                        new IManyHashBitMapClientFilterNode_GetData_1(),
-                        new IManyHashBitMapClientFilterNode_GetSize_2(),
-                        new IManyHashBitMapClientFilterNode_SetBit_3(),
-                        new IManyHashBitMapClientFilterNode_SetBitBeforePersistence_4(),
-                        new IManyHashBitMapClientFilterNode_SnapshotSet_5(),
+                        new IManyHashBitMapClientFilterNode_GetData_0(),
+                        new IManyHashBitMapClientFilterNode_GetSize_1(),
+                        new IManyHashBitMapClientFilterNode_SetBit_2(),
+                        new IManyHashBitMapClientFilterNode_SetBitBeforePersistence_3(),
+                        new IManyHashBitMapClientFilterNode_SnapshotSet_4(),
                     }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
                     {
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
@@ -3804,10 +3750,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
-                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                     }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo[]
                     {
-                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo(5, typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap), SnapshotSet_SnapshotSerialize),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo(4, typeof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap), SnapshotSet_SnapshotSerialize),
                     });
             }
             internal static void MethodParameterCreator()
@@ -3908,7 +3853,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IManyHashBitMapFilterNode_SetBits_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__>
         {
-            internal IManyHashBitMapFilterNode_SetBits_2() : base(2, 3, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)23) { }
+            internal IManyHashBitMapFilterNode_SetBits_2() : base(2, 3, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)39) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__>)methodParameter);
@@ -3921,7 +3866,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal sealed class IManyHashBitMapFilterNode_SetBitsBeforePersistence_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__>
         {
-            internal IManyHashBitMapFilterNode_SetBitsBeforePersistence_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)20) { }
+            internal IManyHashBitMapFilterNode_SetBitsBeforePersistence_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)36) { }
             public override AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> CallOutputBeforePersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__>)methodParameter);
@@ -4271,15 +4216,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public enum IUniformProbabilityClientStatisticsNodeMethodEnum
         {
             /// <summary>
-            /// [0] Get the array of binary bits 
-///            获取二进制位数量的数组
+            /// [0] Get data 
+///            获取数据
             /// </summary>
-            GetBitArray = 0,
+            GetData = 0,
             /// <summary>
-            /// [1] Get the newly set data 
-///            获取新设置的数据
+            /// [1] Add snapshot data 
+///            添加快照数据
+            /// byte[] bitCountArray 
             /// </summary>
-            GetIndexBit = 1,
+            SnapshotSet = 1,
             /// <summary>
             /// [2] Try to modify the number of binary bits at the specified index position 
 ///            尝试修改指定索引位置的二进制位数量
@@ -4298,35 +4244,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 ///            最后连续的二进制位 1 的数量
             /// </summary>
             SetIndexBitLoadPersistence = 3,
-            /// <summary>
-            /// [4] Add snapshot data 
-///            添加快照数据
-            /// byte[] bitCountArray 
-            /// </summary>
-            SnapshotSet = 4,
         }
         /// <summary>
-        /// Get the array of binary bits 
-///            获取二进制位数量的数组 server node method
+        /// Get data 
+///            获取数据 server node method
         /// </summary>
-        internal sealed class IUniformProbabilityClientStatisticsNode_GetBitArray_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
+        internal sealed class IUniformProbabilityClientStatisticsNode_GetData_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod
         {
-            internal IUniformProbabilityClientStatisticsNode_GetBitArray_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)7, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
-            public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
+            internal IUniformProbabilityClientStatisticsNode_GetData_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)150) { }
+            public override void TwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> keepCallback)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>)node).GetBitArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<byte[]>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134));
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>)node).GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<byte[]>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)150), AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.Create(ref keepCallback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)150));
             }
         }
         /// <summary>
-        /// Get the newly set data 
-///            获取新设置的数据 server node method
+        /// Add snapshot data 
+///            添加快照数据 server node method
         /// </summary>
-        internal sealed class IUniformProbabilityClientStatisticsNode_GetIndexBit_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod
+        internal sealed class IUniformProbabilityClientStatisticsNode_SnapshotSet_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__>
         {
-            internal IUniformProbabilityClientStatisticsNode_GetIndexBit_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
-            public override void KeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> callback)
+            internal IUniformProbabilityClientStatisticsNode_SnapshotSet_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)9) { }
+            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<IUniformProbabilityClientStatisticsNode>)node).GetIndexBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134));
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__>)methodParameter);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IUniformProbabilityClientStatisticsNode>(methodParameter).SnapshotSet(parameter.bitCountArray);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
             }
         }
         /// <summary>
@@ -4358,20 +4300,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
-        /// Add snapshot data 
-///            添加快照数据 server node method
-        /// </summary>
-        internal sealed class IUniformProbabilityClientStatisticsNode_SnapshotSet_4 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__>
-        {
-            internal IUniformProbabilityClientStatisticsNode_SnapshotSet_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)9) { }
-            public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
-            {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__>)methodParameter);
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameter.GetNodeTarget<IUniformProbabilityClientStatisticsNode>(methodParameter).SnapshotSet(parameter.bitCountArray);
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter.Callback(methodParameter);
-            }
-        }
-        /// <summary>
         /// Client statistics node interface based on uniform probability (similar to HyperLogLog, suitable for small containers) 
 ///            基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） (Create the calling method and parameter information)
         /// </summary>
@@ -4379,7 +4307,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             private static void SnapshotSet_SnapshotSerialize(AutoCSer.BinarySerializer serializer, byte[] value)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ snapshotMethodParameter = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__ { bitCountArray = value };
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__ snapshotMethodParameter = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__ { bitCountArray = value };
                 serializer.SimpleSerialize(ref snapshotMethodParameter);
             }
             /// <summary>
@@ -4391,21 +4319,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 return new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeCreatorMethod(new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method[]
                     {
-                        new IUniformProbabilityClientStatisticsNode_GetBitArray_0(),
-                        new IUniformProbabilityClientStatisticsNode_GetIndexBit_1(),
+                        new IUniformProbabilityClientStatisticsNode_GetData_0(),
+                        new IUniformProbabilityClientStatisticsNode_SnapshotSet_1(),
                         new IUniformProbabilityClientStatisticsNode_SetIndexBit_2(),
                         new IUniformProbabilityClientStatisticsNode_SetIndexBitLoadPersistence_3(),
-                        new IUniformProbabilityClientStatisticsNode_SnapshotSet_4(),
                     }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo[]
                     {
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(3),
                         new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
-                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethodInfo(-2147483648),
                     }, new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo[]
                     {
-                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo(4, typeof(byte[]), SnapshotSet_SnapshotSerialize),
+                        new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SnapshotMethodCreatorInfo(1, typeof(byte[]), SnapshotSet_SnapshotSerialize),
                     });
             }
             internal static void MethodParameterCreator()
@@ -4792,8 +4718,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeLocalClient.__ip1__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeLocalClient.__ip2__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IdentityGeneratorNodeLocalClient.LocalClientNode();
-                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__.SimpleSerialize();
-                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.BinarySerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__.SimpleSerialize();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.LocalClientNode();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip0__.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapFilterNodeLocalClient.__ip4__.BinarySerialize();
@@ -4805,8 +4731,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip4__.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.__ip6__.BinarySerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServiceNodeLocalClient.LocalClientNode();
+                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.SimpleSerialize();
-                    AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.LocalClientNode();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip0__.SimpleSerialize();
                     AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityTotalStatisticsNodeLocalClient.__ip3__.SimpleSerialize();

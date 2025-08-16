@@ -441,7 +441,7 @@ namespace AutoCSer.BinarySerialize
             if (baseType != null) return BinarySerializer.BaseReflectionMethod.MakeGenericMethod(type, baseType).CreateDelegate(typeof(Action<BinarySerializer, object?>));
             if (!object.ReferenceEquals(attribute, BinarySerializer.DefaultAttribute) && attribute.IsJsonMix)
             {
-                GenericType genericType = GenericType.Get(type);
+                //GenericType genericType = GenericType.Get(type);
                 if (type.IsValueType) return BinarySerializer.StructJsonReflectionMethod.MakeGenericMethod(type).CreateDelegate(typeof(Action<BinarySerializer, object>));
                 return BinarySerializer.JsonReflectionMethod.MakeGenericMethod(type).CreateDelegate(typeof(Action<BinarySerializer, object?>));
             }

@@ -25,7 +25,7 @@ namespace AutoCSer.ORM.Reflection.Emit
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldarg_1);
             generator.call(property.GetSetMethod(true).notNull());
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return (Action<T, PT>)dynamicMethod.CreateDelegate(typeof(Action<T, PT>));
         }
         /// <summary>
@@ -42,7 +42,7 @@ namespace AutoCSer.ORM.Reflection.Emit
             ILGenerator generator = dynamicMethod.GetILGenerator();
             generator.Emit(OpCodes.Ldarg_0);
             generator.call(property.GetGetMethod(true).notNull());
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return (Func<T, PT>)dynamicMethod.CreateDelegate(typeof(Func<T, PT>));
         }
     }

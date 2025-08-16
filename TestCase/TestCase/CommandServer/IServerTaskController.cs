@@ -30,6 +30,7 @@ namespace AutoCSer.TestCase
 
         Task<string> TaskQueueException(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -98,4 +99,5 @@ namespace AutoCSer.TestCase
             throw new AutoCSer.Log.IgnoreException(ServerSynchronousController.SessionObject.Xor(queue.Key, Ref).ToString());
         }
     }
+#endif
 }

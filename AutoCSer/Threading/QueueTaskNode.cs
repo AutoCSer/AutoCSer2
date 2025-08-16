@@ -51,6 +51,7 @@ namespace AutoCSer.Threading
         {
             AutoCSer.LogHelper.ExceptionIgnoreException(exception, null, LogLevelEnum.Exception);
         }
+#if !AOT
         /// <summary>
         /// Server-side queue timeout notification
         /// 服务端队列超时通知
@@ -64,5 +65,6 @@ namespace AutoCSer.Threading
             else AutoCSer.LogHelper.DebugIgnoreException($"控制器 {queue.Controller.ControllerName} 队列任务耗时 {seconds} 秒，可能产生死锁并阻塞队列其它任务执行");
             return AutoCSer.Common.CompletedTask;
         }
+#endif
     }
 }

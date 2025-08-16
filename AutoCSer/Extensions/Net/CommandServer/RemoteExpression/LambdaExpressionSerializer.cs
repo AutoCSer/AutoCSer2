@@ -332,11 +332,12 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     return serialize((DefaultExpression)expression);
                 case ExpressionType.Parameter:
                     return serializeParameter(expression);
-                case ExpressionType.New:
                 case ExpressionType.NewArrayInit:
+                case ExpressionType.NewArrayBounds:
+                    return serialize((NewArrayExpression)expression);
+                case ExpressionType.New:
                 case ExpressionType.ListInit:
                 case ExpressionType.MemberInit:
-                case ExpressionType.NewArrayBounds:
                     state = RemoteExpressionSerializeStateEnum.NotSupportNew;
                     return false;
                 case ExpressionType.Lambda:
@@ -484,6 +485,16 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         private bool serialize(ConditionalExpression expression)
         {
             return stream.Write((int)expression.NodeType) && serializeNode(expression.Test) && serializeNode(expression.IfTrue) && serializeNode(expression.IfFalse);
+        }
+        /// <summary>
+        /// 序列化 new T[] 表达式节点
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private bool serialize(NewArrayExpression expression)
+        {
+            TypeIndex typeIndex = new TypeIndex(expression.Type);
+            return stream.Write((int)expression.NodeType | typeIndex.NodeHeader) && serialize(typeIndex.Type) && serialize(expression.Expressions);
         }
         /// <summary>
         /// 序列化成员表达式节点

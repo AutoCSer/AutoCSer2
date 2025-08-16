@@ -112,7 +112,7 @@ namespace AutoCSer.Net.CommandServer
                 constructorGenerator.Emit(OpCodes.Ldarg_1);
                 constructorGenerator.Emit(OpCodes.Ldarg_2);
                 constructorGenerator.Emit(OpCodes.Call, typeof(CommandClientTaskQueueController<KT>).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, constructorParameterTypes, null).notNull());
-                constructorGenerator.Emit(OpCodes.Ret);
+                constructorGenerator.ret();
                 #endregion
                 #endregion
                 Func<CommandClientTaskQueueController<KT>, KT> commandClientTaskQueueControllerGetKey = CommandClientTaskQueueController<KT>.GetKey;
@@ -155,9 +155,9 @@ namespace AutoCSer.Net.CommandServer
                     {
                         methodGenerator.ldstr(method.Error);
                         methodGenerator.call(ClientInterfaceController.ClientInterfaceMethodThrowException.Method);
-                        if (method.Method.ReturnType != typeof(void)) methodGenerator.Emit(OpCodes.Ldnull);
+                        if (method.Method.ReturnType != typeof(void)) methodGenerator.loadNull();
                     }
-                    methodGenerator.Emit(OpCodes.Ret);
+                    methodGenerator.ret();
                     ++methodIndex;
                 }
                 Type controllerType = typeBuilder.CreateType();
@@ -167,7 +167,7 @@ namespace AutoCSer.Net.CommandServer
                 callConstructorGenerator.Emit(OpCodes.Ldarg_0);
                 callConstructorGenerator.Emit(OpCodes.Ldarg_1);
                 callConstructorGenerator.Emit(OpCodes.Newobj, controllerType.GetConstructor(constructorParameterTypes).notNull());
-                callConstructorGenerator.Emit(OpCodes.Ret);
+                callConstructorGenerator.ret();
                 callConstructor = (Func<TaskQueueClientController<T, KT>, KT, T>)dynamicMethod.CreateDelegate(typeof(Func<TaskQueueClientController<T, KT>, KT, T>));
             }
             catch (Exception exception)

@@ -89,7 +89,7 @@ namespace AutoCSer.ORM.CustomColumn
                     #endregion
                 }
             }
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             writer = (Writer)dynamicMethod.CreateDelegate(typeof(Writer));
         }
     }

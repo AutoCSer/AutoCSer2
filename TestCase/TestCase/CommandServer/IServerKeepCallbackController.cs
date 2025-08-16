@@ -70,9 +70,13 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端测试接口
     /// </summary>
-    internal sealed class ServerKeepCallbackController : IServerKeepCallbackController
+    internal sealed class ServerKeepCallbackController
+#if !AOT
+        : IServerKeepCallbackController
+#endif
     {
         internal const int KeepCallbackCount = 4;
+#if !AOT
         //internal static void KeepCallback(long value, CommandServerKeepCallback<string> callback)
         //{
         //    for (long endValue = value + KeepCallbackCount; value != endValue; ++value) callback.Callback(value.ToString());
@@ -329,5 +333,6 @@ namespace AutoCSer.TestCase
         {
             KeepCallback(Callback).AutoCSerExtensions().Catch();
         }
+#endif
     }
 }

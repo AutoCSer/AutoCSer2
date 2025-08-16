@@ -142,7 +142,7 @@ namespace AutoCSer.Json
         {
             #region return;
             generator.MarkLabel(returnLabel);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             #endregion
             return dynamicMethod.CreateDelegate(type);
         }
@@ -162,7 +162,7 @@ namespace AutoCSer.Json
             if (!type.IsValueType) generator.Emit(OpCodes.Ldind_Ref);
             generator.Emit(OpCodes.Ldflda, field);
             generator.call(Common.GetMemberDeserializeDelegate(field.FieldType).Method);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod;
         }
         /// <summary>
@@ -187,7 +187,7 @@ namespace AutoCSer.Json
             if (!type.IsValueType) generator.Emit(OpCodes.Ldind_Ref);
             generator.Emit(OpCodes.Ldloc_0);
             generator.call(propertyMethod);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod;
         }
     }

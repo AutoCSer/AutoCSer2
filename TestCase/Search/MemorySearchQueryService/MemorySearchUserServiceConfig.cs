@@ -57,10 +57,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// </summary>
         public static readonly LocalClient<IQueryServiceNodeLocalClientNode> Client = localService.CreateClient<IQueryServiceNodeLocalClientNode>();
         /// <summary>
-        /// 用户搜索非索引条件数据节点单例
-        /// </summary>
-        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISearchUserNodeLocalClientNode> SearchUserNodeCache = Client.CreateNode(client => client.GetOrCreateNode<ISearchUserNodeLocalClientNode>(nameof(OperationDataTypeEnum.SearchUserNode), client.ClientNode.CreateSearchUserNode));
-        /// <summary>
         /// 用户名称索引节点单例
         /// </summary>
         public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IHashCodeKeyIndexNodeLocalClientNode<int>> UserNameNodeCache = Client.CreateNode(client => client.GetOrCreateNode<IHashCodeKeyIndexNodeLocalClientNode<int>>(nameof(OperationDataTypeEnum.UserNameNode), (index, key, nodeInfo) => client.ClientNode.CreateHashCodeKeyIndexNode(index, key, nodeInfo, typeof(int))));
@@ -68,5 +64,9 @@ namespace AutoCSer.TestCase.SearchQueryService
         /// 用户备注索引节点单例
         /// </summary>
         public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<IHashCodeKeyIndexNodeLocalClientNode<int>> UserRemarkNodeCache = Client.CreateNode(client => client.GetOrCreateNode<IHashCodeKeyIndexNodeLocalClientNode<int>>(nameof(OperationDataTypeEnum.UserRemarkNode), (index, key, nodeInfo) => client.ClientNode.CreateHashCodeKeyIndexNode(index, key, nodeInfo, typeof(int))));
+        /// <summary>
+        /// 用户搜索非索引条件数据节点单例
+        /// </summary>
+        public static readonly AutoCSer.CommandService.StreamPersistenceMemoryDatabaseLocalClientNodeCache<ISearchUserNodeLocalClientNode> SearchUserNodeCache = Client.CreateNode(client => client.GetOrCreateNode<ISearchUserNodeLocalClientNode>(nameof(OperationDataTypeEnum.SearchUserNode), client.ClientNode.CreateSearchUserNode));
     }
 }

@@ -50,7 +50,7 @@ namespace AutoCSer.Net.CommandServer
         /// <returns>web表单委托</returns>
         internal Delegate Create(Type type)
         {
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod.CreateDelegate(type);
         }
 

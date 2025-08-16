@@ -570,14 +570,12 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
 }namespace AutoCSer.Document.NativeAOT.Service
 {
         /// <summary>
-        /// Example of service controller client interface            
-///                                                                                                                          服务控制器客户端接口示例
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(ServiceControllerClientController))]
         public partial interface IServiceControllerClientController { }
         /// <summary>
-        /// Example of service controller client interface            
-///                                                                                                                          服务控制器客户端接口示例 client controller
+        ///  client controller
         /// </summary>
         internal unsafe partial class ServiceControllerClientController : AutoCSer.Net.CommandClientController<AutoCSer.Document.NativeAOT.Service.IServiceControllerClientController, AutoCSer.Document.NativeAOT.Service.IServiceController>, IServiceControllerClientController
         {
@@ -3587,7 +3585,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
         /// </summary>
         internal sealed class IStringDictionaryNode_GetRemove_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__>
         {
-            internal IStringDictionaryNode_GetRemove_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringDictionaryNode_GetRemove_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -3611,7 +3609,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
         /// </summary>
         internal sealed class IStringDictionaryNode_Remove_5 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__>
         {
-            internal IStringDictionaryNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringDictionaryNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -3635,7 +3633,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
         /// </summary>
         internal sealed class IStringDictionaryNode_Renew_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip7__>
         {
-            internal IStringDictionaryNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringDictionaryNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip7__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip7__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip7__>)methodParameter);
@@ -3660,7 +3658,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
         /// </summary>
         internal sealed class IStringDictionaryNode_Set_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__>
         {
-            internal IStringDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -3685,7 +3683,7 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
         /// </summary>
         internal sealed class IStringDictionaryNode_TryAdd_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__>
         {
-            internal IStringDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.Document.NativeAOT.MemoryDatabaseLocalService.StringDictionaryNodeLocalClient.__ip9__>)methodParameter);

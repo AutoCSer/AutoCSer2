@@ -110,7 +110,7 @@ namespace AutoCSer.ORM.RemoteProxy
                     #endregion
                 }
             }
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             reader = (ReaderDelegate)dynamicMethod.CreateDelegate(typeof(ReaderDelegate));
         }
     }

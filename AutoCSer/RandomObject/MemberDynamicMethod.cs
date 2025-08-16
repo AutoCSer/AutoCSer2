@@ -70,7 +70,7 @@ namespace AutoCSer.RandomObject
         /// <returns>委托</returns>
         public Delegate Create(Type type)
         {
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod.CreateDelegate(type);
         }
     }

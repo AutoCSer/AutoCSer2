@@ -8,6 +8,24 @@ using System.Threading.Tasks;
 
 namespace AutoCSer.Net
 {
+#if AOT
+    /// <summary>
+    /// The server asynchronously calls the low-priority queue (mainly used for write operations, transaction read operations, and updating the queue memory cache status)
+    /// 服务端异步调用低优先级队列（主要用于写操作、事务读操作、更新队列内存缓存状态）
+    /// </summary>
+    public sealed class CommandServerCallTaskLowPriorityQueue
+    {
+    }
+    /// <summary>
+    /// The server asynchronously calls the low-priority queue
+    /// 服务端异步调用低优先级队列
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public sealed class CommandServerCallTaskLowPriorityQueue<T>
+        where T : IEquatable<T>
+    {
+    }
+#else
     /// <summary>
     /// The server asynchronously calls the low-priority queue (mainly used for write operations, transaction read operations, and updating the queue memory cache status)
     /// 服务端异步调用低优先级队列（主要用于写操作、事务读操作、更新队列内存缓存状态）
@@ -537,4 +555,5 @@ namespace AutoCSer.Net
             Key = key;
         }
     }
+#endif
 }

@@ -77,6 +77,7 @@ namespace AutoCSer.CommandService.DeployTask
         {
             this.fileWriter = fileWriter;
         }
+#if !AOT
         /// <summary>
         /// 读取文件数据
         /// </summary>
@@ -174,6 +175,7 @@ namespace AutoCSer.CommandService.DeployTask
             serializeSize = -1;
             serializeLock.Exit();
         }
+#endif
         /// <summary>
         /// 服务端序列化
         /// </summary>

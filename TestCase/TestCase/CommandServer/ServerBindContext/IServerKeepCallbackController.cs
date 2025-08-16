@@ -30,6 +30,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         void KeepCallbackCountQueueReturn(CommandServerCallQueue queue, CommandServerKeepCallbackCount<string> Callback);
         void KeepCallbackCountQueue(CommandServerCallLowPriorityQueue queue, CommandServerKeepCallbackCount Callback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -107,4 +108,5 @@ namespace AutoCSer.TestCase.ServerBindContext
             AutoCSer.TestCase.ServerKeepCallbackController.KeepCallback(Callback).AutoCSerExtensions().Catch();
         }
     }
+#endif
 }

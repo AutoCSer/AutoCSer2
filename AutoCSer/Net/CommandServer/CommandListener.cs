@@ -18,7 +18,11 @@ namespace AutoCSer.Net
     /// Command server to listen
     /// 命令服务端监听
     /// </summary>
+#if AOT
+    internal sealed class CommandListener : IDisposable
+#else
     public class CommandListener : CommandListenerBase, ICommandListenerSession
+#endif
     {
         /// <summary>
         /// The starting position of the user command
@@ -68,16 +72,145 @@ namespace AutoCSer.Net
         internal const int MaxControllerCount = (1 << ((CommandServer.Command.MethodIndexBits) - CommandServerController.MaxCommandBits)) - 1;
 
         /// <summary>
+        /// By default, the server listens for empty commands
+        /// 默认空命令服务端监听
+        /// </summary>
+        internal static readonly CommandListener Null = new CommandListener();
+        
+        /// <summary>
+                                                                                      /// Command server configuration
+                                                                                      /// 命令服务配置
+                                                                                      /// </summary>
+        internal readonly CommandServerConfig Config;
+        /// <summary>
+        /// Main service controller
+        /// 主服务控制器
+        /// </summary>
+        internal CommandServerController Controller;
+        /// <summary>
+        /// The TCP server side supports synchronous queues for parallel reading
+        /// TCP 服务器端支持并行读的同步队列
+        /// </summary>
+        internal CommandServerCallConcurrencyReadQueue CallConcurrencyReadQueue;
+        /// <summary>
+        /// TCP server-side read and write queue
+        /// TCP 服务器端读写队列
+        /// </summary>
+        internal CommandServerCallReadQueue CallReadWriteQueue;
+        /// <summary>
+        /// Command controller access lock
+        /// 命令控制器访问锁
+        /// </summary>
+        private AutoCSer.Threading.SleepFlagSpinLock controllerLock;
+        /// <summary>
+        /// Gets the synchronization queue that supports parallel reads on the server
+        /// 获取服务端支持并行读的同步队列
+        /// </summary>
+        /// <returns></returns>
+        private CommandServerCallConcurrencyReadQueue createServerCallConcurrencyReadQueue()
+        {
+            controllerLock.Enter();
+            try
+            {
+                if (object.ReferenceEquals(CallConcurrencyReadQueue, CommandServerCallConcurrencyReadQueue.Null) && !IsDisposed)
+                {
+                    controllerLock.SleepFlag = 1;
+                    CallConcurrencyReadQueue = new CommandServerCallConcurrencyReadQueue(this, null);
+                }
+            }
+            finally { controllerLock.ExitSleepFlag(); }
+            return CallConcurrencyReadQueue;
+        }
+        /// <summary>
+        /// Gets the synchronization queue that supports parallel reads on the server
+        /// 获取服务端支持并行读的同步队列
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal CommandServerCallConcurrencyReadQueue GetServerCallConcurrencyReadQueue()
+        {
+            return !object.ReferenceEquals(CallConcurrencyReadQueue, CommandServerCallConcurrencyReadQueue.Null) ? CallConcurrencyReadQueue : createServerCallConcurrencyReadQueue();
+        }
+        /// <summary>
+        /// Gets the server read and write queue
+        /// 获取服务端读写队列
+        /// </summary>
+        /// <returns></returns>
+        private CommandServerCallReadQueue createServerCallReadWriteQueue()
+        {
+            controllerLock.Enter();
+            try
+            {
+                if (object.ReferenceEquals(CallReadWriteQueue, CommandServerCallReadQueue.Null) && !IsDisposed)
+                {
+                    controllerLock.SleepFlag = 1;
+                    CallReadWriteQueue = new CommandServerCallReadQueue(this, null, Config.MaxReadWriteQueueConcurrency);
+                }
+            }
+            finally { controllerLock.ExitSleepFlag(); }
+            return CallReadWriteQueue;
+        }
+        /// <summary>
+        /// Gets the server read and write queue
+        /// 获取服务端读写队列
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal CommandServerCallReadQueue GetServerCallReadWriteQueue()
+        {
+            return !object.ReferenceEquals(CallReadWriteQueue, CommandServerCallReadQueue.Null) ? CallReadWriteQueue : createServerCallReadWriteQueue();
+        }
+#if AOT
+        /// <summary>
+        /// Is it closed
+        /// 是否已经关闭
+        /// </summary>
+        public bool IsDisposed { get; private set; }
+        /// <summary>
+        /// By default, the server listens for empty commands
+        /// 默认空命令服务端监听
+        /// </summary>
+        private CommandListener()
+        {
+            Config = CommandServerConfig.Null;
+            CallConcurrencyReadQueue = CommandServerCallConcurrencyReadQueue.Null;
+            CallReadWriteQueue = CommandServerCallReadQueue.Null;
+            Controller = new NullCommandServerController(this);
+        }
+        /// <summary>
+        /// Command server to listen
+        /// 命令服务端监听
+        /// </summary>
+        /// <param name="config"></param>
+        internal CommandListener(CommandServerConfig config)
+        {
+            Config = config;
+            CallConcurrencyReadQueue = CommandServerCallConcurrencyReadQueue.Null;
+            CallReadWriteQueue = CommandServerCallReadQueue.Null;
+            Controller = Null.Controller;
+        }
+        /// <summary>
+        /// Release resources
+        /// </summary>
+        public void Dispose()
+        {
+            IsDisposed = true;
+
+            controllerLock.Enter();
+            try
+            {
+                CallConcurrencyReadQueue.Close();
+                CallReadWriteQueue.Close();
+            }
+            finally { controllerLock.Exit(); }
+        }
+#else
+        /// <summary>
         /// Has the socket data sending thread been started
         /// 是否已经启动套接字发送数据线程
         /// </summary>
         private static int isSocketBuildOutputThread;
 
-        /// <summary>
-        /// Command server configuration
-        /// 命令服务配置
-        /// </summary>
-        internal readonly CommandServerConfig Config;
         /// <summary>
         /// Log processing instance
         /// 日志处理实例
@@ -165,31 +298,10 @@ namespace AutoCSer.Net
         /// </summary>
         private KeyValue<CommandServerCallQueue, CommandServerCallLowPriorityQueue>[] callQueues;
         /// <summary>
-        /// The TCP server side supports synchronous queues for parallel reading
-        /// TCP 服务器端支持并行读的同步队列
-        /// </summary>
-        internal CommandServerCallConcurrencyReadQueue CallConcurrencyReadQueue;
-        /// <summary>
-        /// TCP server-side read and write queue
-        /// TCP 服务器端读写队列
-        /// </summary>
-        internal CommandServerCallReadQueue CallReadWriteQueue;
-        /// <summary>
-        /// Command controller access lock
-        /// 命令控制器访问锁
-        /// </summary>
-        private AutoCSer.Threading.SleepFlagSpinLock controllerLock;
-        /// <summary>
         /// Command service controller collection
         /// 命令服务控制器集合
         /// </summary>
         internal LeftArray<CommandServerController> Controllers;
-        /// <summary>
-        /// Main service controller
-        /// 主服务控制器
-        /// </summary>
-        internal CommandServerController Controller;
-#if !AOT
         /// <summary>
         /// Remote expression server metadata information
         /// 远程表达式服务端元数据信息
@@ -198,7 +310,6 @@ namespace AutoCSer.Net
         internal readonly AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata? RemoteMetadata;
 #else
         internal readonly AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata RemoteMetadata;
-#endif
 #endif
         /// <summary>
         /// End command sequence number
@@ -240,11 +351,6 @@ namespace AutoCSer.Net
             Controller = new NullCommandServerController(this);
         }
         /// <summary>
-        /// By default, the server listens for empty commands
-        /// 默认空命令服务端监听
-        /// </summary>
-        internal static readonly CommandListener Null = new CommandListener();
-        /// <summary>
         /// Command server to listen
         /// 命令服务端监听
         /// </summary>
@@ -269,9 +375,7 @@ namespace AutoCSer.Net
             else if ((MaxMergeInputSize = MaxInputSize + ReceiveBufferPool.Size) < 0) MaxMergeInputSize = int.MaxValue;
             taskRunConcurrent = Math.Max(config.MaxTaskRunConcurrent, 0);
             SocketAsyncEventArgsPool = new SocketAsyncEventArgsPool(config.SocketAsyncEventArgsMaxCount);
-#if !AOT
             if (config.IsRemoteExpression && !Config.IsShortLink) RemoteMetadata = new AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata(this);
-#endif
             Controller = Null.Controller;
             Controllers.SetEmpty();
             if (config.BuildOutputThread == CommandServerSocketBuildOutputThreadEnum.Queue && Interlocked.CompareExchange(ref isSocketBuildOutputThread, 1, 0) == 0)
@@ -944,70 +1048,12 @@ namespace AutoCSer.Net
         /// Gets the server read and write queue
         /// 获取服务端读写队列
         /// </summary>
-        /// <returns></returns>
-        private CommandServerCallReadQueue createServerCallReadWriteQueue()
-        {
-            controllerLock.Enter();
-            try
-            {
-                if (object.ReferenceEquals(CallReadWriteQueue, CommandServerCallReadQueue.Null) && !IsDisposed)
-                {
-                    controllerLock.SleepFlag = 1;
-                    CallReadWriteQueue = new CommandServerCallReadQueue(this, null, Config.MaxReadWriteQueueConcurrency);
-                }
-            }
-            finally { controllerLock.ExitSleepFlag(); }
-            return CallReadWriteQueue;
-        }
-        /// <summary>
-        /// Gets the server read and write queue
-        /// 获取服务端读写队列
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private CommandServerCallReadQueue getServerCallReadWriteQueue()
-        {
-            return !object.ReferenceEquals(CallReadWriteQueue, CommandServerCallReadQueue.Null) ? CallReadWriteQueue : createServerCallReadWriteQueue();
-        }
-        /// <summary>
-        /// Gets the server read and write queue
-        /// 获取服务端读写队列
-        /// </summary>
         /// <param name="server"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static CommandServerCallReadQueue GetServerCallReadWriteQueue(CommandListener server)
         {
-            return server.getServerCallReadWriteQueue();
-        }
-        /// <summary>
-        /// Gets the synchronization queue that supports parallel reads on the server
-        /// 获取服务端支持并行读的同步队列
-        /// </summary>
-        /// <returns></returns>
-        private CommandServerCallConcurrencyReadQueue createServerCallConcurrencyReadQueue()
-        {
-            controllerLock.Enter();
-            try
-            {
-                if (object.ReferenceEquals(CallConcurrencyReadQueue, CommandServerCallConcurrencyReadQueue.Null) && !IsDisposed)
-                {
-                    controllerLock.SleepFlag = 1;
-                    CallConcurrencyReadQueue = new CommandServerCallConcurrencyReadQueue(this, null);
-                }
-            }
-            finally { controllerLock.ExitSleepFlag(); }
-            return CallConcurrencyReadQueue;
-        }
-        /// <summary>
-        /// Gets the synchronization queue that supports parallel reads on the server
-        /// 获取服务端支持并行读的同步队列
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private CommandServerCallConcurrencyReadQueue getServerCallConcurrencyReadQueue()
-        {
-            return !object.ReferenceEquals(CallConcurrencyReadQueue, CommandServerCallConcurrencyReadQueue.Null) ? CallConcurrencyReadQueue : createServerCallConcurrencyReadQueue();
+            return server.GetServerCallReadWriteQueue();
         }
         /// <summary>
         /// Gets the synchronization queue that supports parallel reads on the server
@@ -1018,7 +1064,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal static CommandServerCallConcurrencyReadQueue GetServerCallConcurrencyReadQueue(CommandListener server)
         {
-            return server.getServerCallConcurrencyReadQueue();
+            return server.GetServerCallConcurrencyReadQueue();
         }
         /// <summary>
         /// Gets the server asynchronous call queue
@@ -1060,5 +1106,6 @@ namespace AutoCSer.Net
                 }
             }
         }
+#endif
     }
 }

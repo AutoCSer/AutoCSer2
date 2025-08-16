@@ -87,6 +87,7 @@ namespace AutoCSer.TestCase
         [CommandServerMethod(IsSynchronousCallTask = true)]
         Task TwoStage‌CallbackCountTaskSocketReturn(CommandServerSocket socket, CommandServerCallback<long> Callback, CommandServerKeepCallbackCount<string> KeepCallback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -324,4 +325,5 @@ namespace AutoCSer.TestCase
             await ServerTwoStage‌CallbackController.TwoStage‌Callback(((CommandServerSessionObject)socket.SessionObject).Xor(), Callback, KeepCallback);
         }
     }
+#endif
 }

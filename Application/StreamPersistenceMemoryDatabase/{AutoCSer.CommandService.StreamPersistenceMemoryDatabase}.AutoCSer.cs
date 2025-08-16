@@ -396,6 +396,66 @@ namespace AutoCSer.CommandService
 ///            请求参数
             /// </summary>
             SendOnlyWrite = 32,
+            /// <summary>
+            /// [33] Call the node method 
+///            调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter Request parameters 
+///            请求参数
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback The first stage returns the parameter callback 
+///            第一阶段返回参数回调
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} keepCallback The second stage returns the parameter callback 
+///            第二阶段返回参数回调
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            InputTwoStageCallback = 33,
+            /// <summary>
+            /// [34] Call the node method 
+///            调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter parameter Request parameters 
+///            请求参数
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback The first stage returns the parameter callback 
+///            第一阶段返回参数回调
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} keepCallback The second stage returns the parameter callback 
+///            第二阶段返回参数回调
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            InputTwoStageCallbackWrite = 34,
+            /// <summary>
+            /// [35] Call the node method 
+///            调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+///            节点索引信息
+            /// int methodIndex Call method number 
+///            调用方法编号
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback The first stage returns the parameter callback 
+///            第一阶段返回参数回调
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} keepCallback The second stage returns the parameter callback 
+///            第二阶段返回参数回调
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            TwoStageCallback = 35,
+            /// <summary>
+            /// [36] Call the node method 
+///            调用节点方法
+            /// AutoCSer.Net.CommandServerSocket socket 
+            /// AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue queue 
+            /// AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index Node index information 
+///            节点索引信息
+            /// int methodIndex Call method number 
+///            调用方法编号
+            /// AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter} callback The first stage returns the parameter callback 
+///            第一阶段返回参数回调
+            /// AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter} keepCallback The second stage returns the parameter callback 
+///            第二阶段返回参数回调
+            /// 返回值 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter 
+            /// </summary>
+            TwoStageCallbackWrite = 36,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
 {
@@ -456,7 +516,7 @@ namespace AutoCSer.CommandService
 ///            获取执行任务消息数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1823,17 +1883,17 @@ namespace AutoCSer.CommandService
         public partial interface IManyHashBitMapClientFilterNodeClientNode
         {
             /// <summary>
-            /// Get the operation of setting a new bit 
-///            获取设置新位操作
+            /// Get data 
+///            获取数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand GetBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> callback, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
             /// <summary>
-            /// Get the current bitmap data 
-///            获取当前位图数据
+            /// Get the bitmap size (number of bits) 
+///            获取位图大小（位数量）
             /// </summary>
             /// <returns></returns>
-            AutoCSer.Net.CallbackCommand GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap>> callback);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> GetSize();
             /// <summary>
             /// Set bit 
 ///            设置位
@@ -1841,12 +1901,6 @@ namespace AutoCSer.CommandService
             /// <param name="bit">The set binary bit 
 ///            设置的二进制位</param>
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResultAwaiter SetBit(int bit);
-            /// <summary>
-            /// Get the bitmap size (number of bits) 
-///            获取位图大小（位数量）
-            /// </summary>
-            /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter<int> GetSize();
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -1948,7 +2002,7 @@ namespace AutoCSer.CommandService
             /// <param name="maxCount">The current maximum number of concurrent messages on the client side 
 ///            当前客户端最大并发消息数量</param>
             /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
             /// <summary>
             /// Get the number of unfinished timeout messages 
 ///            获取未完成的超时消息数量
@@ -2349,7 +2403,7 @@ namespace AutoCSer.CommandService
             /// <param name="serverName">Monitor the server name. An empty string represents all servers 
 ///            监视服务名称，空字符串表示所有服务</param>
             /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand LogCallback(string serverName, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand LogCallback(string serverName, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryLog>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
             /// <summary>
             /// The server registration callback delegate is mainly used to register components to check the online state of the server 
 ///            服务注册回调委托，主要用于注册组件检查服务的在线状态
@@ -2357,7 +2411,7 @@ namespace AutoCSer.CommandService
             /// <param name="sessionID">Server session identity 
 ///            服务会话标识</param>
             /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand ServerCallback(long sessionID, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand ServerCallback(long sessionID, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerRegistryOperationTypeEnum>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
             /// <summary>
             /// Get the main log of the server 
 ///            获取服务主日志
@@ -3211,17 +3265,11 @@ namespace AutoCSer.CommandService
         public partial interface IUniformProbabilityClientStatisticsNodeClientNode
         {
             /// <summary>
-            /// Get the array of binary bits 
-///            获取二进制位数量的数组
+            /// Get data 
+///            获取数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.Net.CallbackCommand GetBitArray(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<byte[]>> callback);
-            /// <summary>
-            /// Get the newly set data 
-///            获取新设置的数据
-            /// </summary>
-            /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand GetIndexBit(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand GetData(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<byte[]>> callback, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<int>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
             /// <summary>
             /// Try to modify the number of binary bits at the specified index position 
 ///            尝试修改指定索引位置的二进制位数量
@@ -3319,7 +3367,7 @@ namespace AutoCSer.CommandService
 ///            获取执行任务消息数据
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __callback__);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetRunTask(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __keepCallback__);
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -4280,7 +4328,7 @@ namespace AutoCSer.CommandService
             /// <param name="maxCount">The current maximum number of concurrent messages on the client side 
 ///            当前客户端最大并发消息数量</param>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __callback__);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetMessage(int maxCount, System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __keepCallback__);
             /// <summary>
             /// Get the number of unfinished timeout messages 
 ///            获取未完成的超时消息数量
@@ -7092,15 +7140,16 @@ namespace AutoCSer.CommandService
         public enum IManyHashBitMapClientFilterNodeMethodEnum
         {
             /// <summary>
-            /// [0] Get the operation of setting a new bit 
-///            获取设置新位操作
+            /// [0] Get data 
+///            获取数据
             /// </summary>
-            GetBit = 0,
+            GetData = 0,
             /// <summary>
-            /// [1] Get the current bitmap data 
-///            获取当前位图数据
+            /// [1] Get the bitmap size (number of bits) 
+///            获取位图大小（位数量）
+            /// 返回值 int 
             /// </summary>
-            GetData = 1,
+            GetSize = 1,
             /// <summary>
             /// [2] Set bit 
 ///            设置位
@@ -7124,12 +7173,6 @@ namespace AutoCSer.CommandService
 ///            多哈希位图数据
             /// </summary>
             SnapshotSet = 4,
-            /// <summary>
-            /// [5] Get the bitmap size (number of bits) 
-///            获取位图大小（位数量）
-            /// 返回值 int 
-            /// </summary>
-            GetSize = 5,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -8673,15 +8716,16 @@ namespace AutoCSer.CommandService
         public enum IUniformProbabilityClientStatisticsNodeMethodEnum
         {
             /// <summary>
-            /// [0] Get the array of binary bits 
-///            获取二进制位数量的数组
+            /// [0] Get data 
+///            获取数据
             /// </summary>
-            GetBitArray = 0,
+            GetData = 0,
             /// <summary>
-            /// [1] Get the newly set data 
-///            获取新设置的数据
+            /// [1] Add snapshot data 
+///            添加快照数据
+            /// byte[] bitCountArray 
             /// </summary>
-            GetIndexBit = 1,
+            SnapshotSet = 1,
             /// <summary>
             /// [2] Try to modify the number of binary bits at the specified index position 
 ///            尝试修改指定索引位置的二进制位数量
@@ -8700,12 +8744,6 @@ namespace AutoCSer.CommandService
 ///            最后连续的二进制位 1 的数量
             /// </summary>
             SetIndexBitLoadPersistence = 3,
-            /// <summary>
-            /// [4] Add snapshot data 
-///            添加快照数据
-            /// byte[] bitCountArray 
-            /// </summary>
-            SnapshotSet = 4,
         }
 }namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

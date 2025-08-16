@@ -73,7 +73,7 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 二阶段回调的第一阶段的返回值类型
         /// </summary>
-        internal Type TwoStage‌ReturnValueType;
+        internal readonly Type TwoStage‌ReturnValueType;
         /// <summary>
         /// 保持回调输出计数
         /// </summary>
@@ -537,32 +537,6 @@ namespace AutoCSer.Net.CommandServer
             runTaskCount = (isSynchronousCallTask = MethodAttribute.IsSynchronousCallTask) ? 0 : 1;
         }
         /// <summary>
-        /// 否则使用 IO 线程同步调用 Task
-        /// </summary>
-        /// <param name="method"></param>
-        /// <param name="socket"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static bool IsSynchronousCallTask(ServerInterfaceMethod method, CommandServerSocket socket)
-        {
-            return method.runTaskCount <= 0 || method.checkIsSynchronousCallTask(socket);
-        }
-        /// <summary>
-        /// 否则使用 IO 线程同步调用 Task
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <returns></returns>
-        private bool checkIsSynchronousCallTask(CommandServerSocket socket)
-        {
-            if (isSynchronousCallTaskTimestamp)
-            {
-                if (socket.Server.CheckTaskRunConcurrent()) return false;
-                return System.Threading.Interlocked.CompareExchange(ref isMethodRunTask, 1, 0) != 0;
-            }
-            socket.Server.TaskRunConcurrent();
-            return false;
-        }
-        /// <summary>
         /// async Task 调度时间检查
         /// </summary>
         /// <param name="startTimestamp"></param>
@@ -636,6 +610,58 @@ namespace AutoCSer.Net.CommandServer
                 if (field.Name == name) return field;
             }
             return null;
+        }
+        /// <summary>
+        /// 获取服务端接口方法集合
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="controllerAttribute"></param>
+        /// <param name="taskQueueControllerKeyType"></param>
+        /// <param name="isGetServerMethodParameter"></param>
+        /// <param name="methods"></param>
+        /// <returns>错误信息</returns>
+#if NetStandard21
+        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isGetServerMethodParameter, ref LeftArray<ServerInterfaceMethod> methods)
+#else
+        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isGetServerMethodParameter, ref LeftArray<ServerInterfaceMethod> methods)
+#endif
+        {
+            foreach (MethodInfo method in type.GetMethods())
+            {
+                var error = InterfaceController.CheckMethod(type, method);
+                if (error != null) return error;
+                ServerInterfaceMethod serverMethod = new ServerInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType, isGetServerMethodParameter);
+                if (serverMethod.MethodType == ServerMethodTypeEnum.Unknown) return serverMethod.Error ?? $"{type.fullName()}.{method.Name} 未知服务端方法调用类型";
+                methods.Add(serverMethod);
+            }
+            return null;
+        }
+#if !AOT
+        /// <summary>
+        /// 否则使用 IO 线程同步调用 Task
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="socket"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static bool IsSynchronousCallTask(ServerInterfaceMethod method, CommandServerSocket socket)
+        {
+            return method.runTaskCount <= 0 || method.checkIsSynchronousCallTask(socket);
+        }
+        /// <summary>
+        /// 否则使用 IO 线程同步调用 Task
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <returns></returns>
+        private bool checkIsSynchronousCallTask(CommandServerSocket socket)
+        {
+            if (isSynchronousCallTaskTimestamp)
+            {
+                if (socket.Server.CheckTaskRunConcurrent()) return false;
+                return System.Threading.Interlocked.CompareExchange(ref isMethodRunTask, 1, 0) != 0;
+            }
+            socket.Server.TaskRunConcurrent();
+            return false;
         }
         /// <summary>
         /// 获取输出参数临时变量定义
@@ -929,31 +955,6 @@ namespace AutoCSer.Net.CommandServer
         }
 
         /// <summary>
-        /// 获取服务端接口方法集合
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="controllerAttribute"></param>
-        /// <param name="taskQueueControllerKeyType"></param>
-        /// <param name="isGetServerMethodParameter"></param>
-        /// <param name="methods"></param>
-        /// <returns>错误信息</returns>
-#if NetStandard21
-        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isGetServerMethodParameter, ref LeftArray<ServerInterfaceMethod> methods)
-#else
-        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isGetServerMethodParameter, ref LeftArray<ServerInterfaceMethod> methods)
-#endif
-        {
-            foreach (MethodInfo method in type.GetMethods())
-            {
-                var error = InterfaceController.CheckMethod(type, method);
-                if (error != null) return error;
-                ServerInterfaceMethod serverMethod = new ServerInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType, isGetServerMethodParameter);
-                if (serverMethod.MethodType == ServerMethodTypeEnum.Unknown) return serverMethod.Error ?? $"{type.fullName()}.{method.Name} 未知服务端方法调用类型";
-                methods.Add(serverMethod);
-            }
-            return null;
-        }
-        /// <summary>
         /// 服务端接口方法排序
         /// </summary>
         /// <param name="left"></param>
@@ -993,11 +994,11 @@ namespace AutoCSer.Net.CommandServer
             doCommandGenerator.Emit(OpCodes.Switch, doCommandLabels);
             doCommandGenerator.MarkLabel(doCommandReturnUnknownLabel);
             doCommandGenerator.int32((byte)CommandClientReturnTypeEnum.Unknown);
-            doCommandGenerator.Emit(OpCodes.Ret);
+            doCommandGenerator.ret();
             doCommandReturnDeserializeErrorLabel = doCommandGenerator.DefineLabel();
             doCommandGenerator.MarkLabel(doCommandReturnDeserializeErrorLabel);
             doCommandGenerator.int32((byte)CommandClientReturnTypeEnum.ServerDeserializeError);
-            doCommandGenerator.Emit(OpCodes.Ret);
+            doCommandGenerator.ret();
             return doCommandLabels;
         }
         /// <summary>
@@ -1303,5 +1304,6 @@ namespace AutoCSer.Net.CommandServer
                     break;
             }
         }
+#endif
     }
 }

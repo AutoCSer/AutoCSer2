@@ -61,7 +61,7 @@ namespace AutoCSer.FieldEquals
             generator.call(objectReferenceEqualsMethod);
             generator.Emit(OpCodes.Brfalse_S, next);
             generator.Emit(OpCodes.Ldc_I4_1);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             generator.MarkLabel(next);
         }
         /// <summary>
@@ -80,7 +80,7 @@ namespace AutoCSer.FieldEquals
             generator.call(GenericType.Get(field.FieldType).CallEqualsDelegate.Method);
             generator.Emit(OpCodes.Brtrue_S, next);
             generator.Emit(OpCodes.Ldc_I4_0);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             generator.MarkLabel(next);
         }
         /// <summary>
@@ -109,12 +109,12 @@ namespace AutoCSer.FieldEquals
                     generator.Emit(OpCodes.Ldarg_0);
                     generator.Emit(OpCodes.Ldarg_1);
                     generator.call(GenericType.Get(baseType).CallEqualsDelegate.Method);
-                    generator.Emit(OpCodes.Ret);
+                    generator.ret();
                     return;
                 }
             }
             generator.Emit(OpCodes.Ldc_I4_1);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
         }
         /// <summary>
         /// 创建委托
@@ -126,7 +126,7 @@ namespace AutoCSer.FieldEquals
             if (isMemberMap)
             {
                 generator.Emit(OpCodes.Ldc_I4_1);
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
             }
             return dynamicMethod.CreateDelegate(type);
         }

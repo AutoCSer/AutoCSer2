@@ -70,16 +70,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (nodeResult.IsSuccess)
                 {
                     IManyHashBitMapClientFilterNodeClientNode node = nodeResult.Value.notNull();
-                    KeepCallbackCommand keepCommand = node.GetBit(getBit);
-                    if (await node.GetData(getData))
-                    {
-                        keepCallback = await keepCommand;
-                        if (keepCallback != null)
-                        {
-                            client.Set(this);
-                            return;
-                        }
-                    }
+                    keepCallback = await node.GetData(getData, getBit);
+                    if (keepCallback != null) return;
                 }
                 await Task.Delay(1000);
             }
@@ -105,7 +97,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="result"></param>
         private void getData(ResponseResult<ManyHashBitMap> result)
         {
-            if (result.IsSuccess) this.map = result.Value;
+            if (result.IsSuccess)
+            {
+                this.map = result.Value;
+                if (!isCancel) client.Set(this);
+            }
             else Cancel();
         }
         /// <summary>

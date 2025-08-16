@@ -235,10 +235,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 创建调用方法与参数信息
         /// </summary>
         /// <param name="methodIndex"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private void createKeepCallbackMethodParameter(int methodIndex)
+        /// <param name="callback"></param>
+#if NetStandard21
+        private void createKeepCallbackMethodParameter(int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter>? callback)
+#else
+        private void createKeepCallbackMethodParameter(int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+#endif
         {
-            pushPersistence(new KeepCallbackMethodParameter(node, methodIndex));
+            if (!pushPersistence(new KeepCallbackMethodParameter(node, methodIndex, callback))) callback?.CallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.NotSupportPersistence));
         }
         /// <summary>
         /// Create the calling method and parameter information
@@ -246,9 +250,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
-        public static void CreateKeepCallbackMethodParameter(MethodParameterCreator creator, int methodIndex)
+        /// <param name="callback"></param>
+#if NetStandard21
+        public static void CreateKeepCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter>? callback)
+#else
+        public static void CreateKeepCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+#endif
         {
-            creator.createKeepCallbackMethodParameter(methodIndex);
+            creator.createKeepCallbackMethodParameter(methodIndex, callback);
         }
         /// <summary>
         /// Create the calling method and parameter information
@@ -257,10 +266,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <typeparam name="T"></typeparam>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        private void createInputKeepCallbackMethodParameter<T>(int methodIndex, ref T parameter) where T : struct
+        /// <param name="callback"></param>
+#if NetStandard21
+        private void createInputKeepCallbackMethodParameter<T>(int methodIndex, ref T parameter, CommandServerKeepCallback<KeepCallbackResponseParameter>? callback) where T : struct
+#else
+        private void createInputKeepCallbackMethodParameter<T>(int methodIndex, ref T parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback) where T : struct
+#endif
         {
-            pushPersistence(new InputKeepCallbackMethodParameter<T>(node, methodIndex, ref parameter));
+            if (!pushPersistence(new InputKeepCallbackMethodParameter<T>(node, methodIndex, ref parameter, callback))) callback?.CallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.NotSupportPersistence));
         }
         /// <summary>
         /// Create the calling method and parameter information
@@ -270,9 +283,100 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="creator"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        public static void CreateInputKeepCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter) where T : struct
+        /// <param name="callback"></param>
+#if NetStandard21
+        public static void CreateInputKeepCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerKeepCallback<KeepCallbackResponseParameter>? callback) where T : struct
+#else
+        public static void CreateInputKeepCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback) where T : struct
+#endif
         {
-            creator.createInputKeepCallbackMethodParameter(methodIndex, ref parameter);
+            creator.createInputKeepCallbackMethodParameter(methodIndex, ref parameter, callback);
+        }
+        /// <summary>
+        /// Create the calling method and parameter information
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+#if NetStandard21
+        private void createTwoStageCallbackMethodParameter(int methodIndex, CommandServerCallback<ResponseParameter>? callback, CommandServerKeepCallback<KeepCallbackResponseParameter>? keepCallback)
+#else
+        private void createTwoStageCallbackMethodParameter(int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+#endif
+        {
+            if (!pushPersistence(new TwoStageCallbackMethodParameter(node, methodIndex, callback, keepCallback)))
+            {
+                try
+                {
+                    callback?.Callback(ResponseParameter.CallStates[(byte)CallStateEnum.NotSupportPersistence]);
+                }
+                finally
+                {
+                    keepCallback?.CallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.NotSupportPersistence));
+                }
+            }
+        }
+        /// <summary>
+        /// Create the calling method and parameter information
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <param name="creator"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+#if NetStandard21
+        public static void CreateTwoStageCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerCallback<ResponseParameter>? callback, CommandServerKeepCallback<KeepCallbackResponseParameter>? keepCallback)
+#else
+        public static void CreateTwoStageCallbackMethodParameter(MethodParameterCreator creator, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+#endif
+        {
+            creator.createTwoStageCallbackMethodParameter(methodIndex, callback, keepCallback);
+        }
+        /// <summary>
+        /// Create the calling method and parameter information
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+#if NetStandard21
+        private void createInputTwoStageCallbackMethodParameter<T>(int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter>? callback, CommandServerKeepCallback<KeepCallbackResponseParameter>? keepCallback) where T : struct
+#else
+        private void createInputTwoStageCallbackMethodParameter<T>(int methodIndex, ref T parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback) where T : struct
+#endif
+        {
+            if (!pushPersistence(new InputTwoStageCallbackMethodParameter<T>(node, methodIndex, ref parameter, callback, keepCallback)))
+            {
+                try
+                {
+                    callback?.Callback(ResponseParameter.CallStates[(byte)CallStateEnum.NotSupportPersistence]);
+                }
+                finally
+                {
+                    keepCallback?.CallbackCancelKeep(new KeepCallbackResponseParameter(CallStateEnum.NotSupportPersistence));
+                }
+            }
+        }
+        /// <summary>
+        /// Create the calling method and parameter information
+        /// 创建调用方法与参数信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="creator"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="parameter"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+#if NetStandard21
+        public static void CreateInputTwoStageCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerCallback<ResponseParameter>? callback, CommandServerKeepCallback<KeepCallbackResponseParameter>? keepCallback) where T : struct
+#else
+        public static void CreateInputTwoStageCallbackMethodParameter<T>(MethodParameterCreator creator, int methodIndex, T parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback) where T : struct
+#endif
+        {
+            creator.createInputTwoStageCallbackMethodParameter(methodIndex, ref parameter, callback, keepCallback);
         }
         /// <summary>
         /// AOT code generation template

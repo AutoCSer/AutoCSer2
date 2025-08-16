@@ -24,7 +24,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF MethodIsReturn
             /// <returns>@Method.CodeGeneratorReturnXmlDocument</returns>
             #endregion IF MethodIsReturn
-            @MethodReturnType.FullName @MethodName(/*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:CallbackType*//*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*/@FullName __callback__/*PUSH:CallbackType*/);
+            @MethodReturnType.FullName @MethodName(/*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:CallbackType*//*IF:IsJoinCallback*/, /*IF:IsJoinCallback*/@FullName __callback__/*PUSH:CallbackType*//*PUSH:KeepCallbackType*//*IF:IsJoinKeepCallback*/, /*IF:IsJoinKeepCallback*/@FullName __keepCallback__/*PUSH:KeepCallbackType*/);
             #endregion IF IsInterfaceMethod
             #endregion LOOP Methods
         }
@@ -74,7 +74,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF MethodIsReturn
             /// <returns>@Method.CodeGeneratorReturnXmlDocument</returns>
             #endregion IF MethodIsReturn
-            @MethodReturnType.FullName @MethodInterfaceTypeName/**/.@MethodName(/*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:CallbackType*//*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*/@FullName __callback__/*PUSH:CallbackType*/)
+            @MethodReturnType.FullName @MethodInterfaceTypeName/**/.@MethodName(/*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:CallbackType*//*IF:IsJoinCallback*/, /*IF:IsJoinCallback*/@FullName __callback__/*PUSH:CallbackType*//*PUSH:KeepCallbackType*//*IF:IsJoinKeepCallback*/, /*IF:IsJoinKeepCallback*/@FullName __keepCallback__/*PUSH:KeepCallbackType*/)
             {
                 /*IF:IsMethodReturnType*/
                 return /*IF:IsMethodReturnType*/@ClientType.FullName/**/.Create/*IF:GenericTypeName*/<@GenericTypeName>/*IF:GenericTypeName*/(this, @MethodIndex
@@ -89,6 +89,9 @@ namespace AutoCSer.CodeGenerator.Template
                     #region IF CallbackType
                     , __callback__
                 #endregion IF CallbackType
+                #region IF KeepCallbackType
+                    , __keepCallback__
+                #endregion IF KeepCallbackType
                 #region IF IsReadWriteNodeParameter
                     , @IsReadWriteNode
                 #endregion IF IsReadWriteNodeParameter
@@ -117,7 +120,7 @@ namespace AutoCSer.CodeGenerator.Template
         public interface InterfaceTypeName { }
         public interface MethodInterfaceTypeName
         {
-            MethodReturnType.FullName MethodName(ParameterType.FullName ParameterJoinName, FullName __callback__);
+            MethodReturnType.FullName MethodName(ParameterType.FullName ParameterJoinName, FullName __callback__, FullName __keepCallback__);
         }
     }
 }

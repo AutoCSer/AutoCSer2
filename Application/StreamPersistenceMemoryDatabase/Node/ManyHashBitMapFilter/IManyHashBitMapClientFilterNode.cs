@@ -18,13 +18,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(ManyHashBitMap map);
         /// <summary>
-        /// Get the operation of setting a new bit
-        /// 获取设置新位操作
-        /// </summary>
-        /// <param name="callback"></param>
-        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
-        void GetBit(MethodKeepCallback<int> callback);
-        /// <summary>
         /// Get the bitmap size (number of bits)
         /// 获取位图大小（位数量）
         /// </summary>
@@ -32,12 +25,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsPersistence = false)]
         int GetSize();
         /// <summary>
-        /// Get the current bitmap data
-        /// 获取当前位图数据
+        /// Get data
+        /// 获取数据
         /// </summary>
-        /// <param name="callback"></param>
+        /// <param name="callback">Get the current bitmap data
+        /// 获取当前位图数据</param>
+        /// <param name="keepCallback">Get the operation of setting a new bit
+        /// 获取设置新位操作</param>
         [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
-        void GetData(MethodCallback<ManyHashBitMap> callback);
+        void GetData(MethodCallback<ManyHashBitMap> callback, MethodKeepCallback<int> keepCallback);
         /// <summary>
         /// Set bit (Check the input parameters before the persistence operation)
         /// 设置位（持久化操作之前检查输入参数）

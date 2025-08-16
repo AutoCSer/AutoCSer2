@@ -171,7 +171,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         {
             return $"After the daemon process {process.ProcessName} exits, the new process fails to start.";
         }
-#endif
         /// <summary>
         /// Service startup failed
         /// </summary>
@@ -186,6 +185,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
             if (endPoint != null) message += "listen for " + endPoint.ToString() + " ";
             return message + "failed to start.";
         }
+#endif
         /// <summary>
         /// Default Extended English configuration
         /// </summary>

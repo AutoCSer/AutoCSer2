@@ -148,7 +148,7 @@ namespace AutoCSer.Metadata
                         DynamicMethod dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "DefaultConstructor", type, EmptyArray<Type>.Array, type, true);
                         ILGenerator generator = dynamicMethod.GetILGenerator();
                         generator.Emit(OpCodes.Newobj, constructorInfo);
-                        generator.Emit(OpCodes.Ret);
+                        generator.ret();
                         Constructor = (Func<T>)dynamicMethod.CreateDelegate(typeof(Func<T>));
 #endif
                         Type = DefaultConstructorTypeEnum.Constructor;

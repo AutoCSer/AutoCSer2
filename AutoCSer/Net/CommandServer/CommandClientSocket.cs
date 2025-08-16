@@ -223,7 +223,7 @@ namespace AutoCSer.Net
         /// Current session callback identity
         /// 当前会话回调标识
         /// </summary>
-        internal CallbackIdentity callbackIdentity;
+        internal CallbackIdentity CallbackIdentity;
         /// <summary>
         /// Current client command
         /// 当前客户端命令
@@ -957,8 +957,8 @@ namespace AutoCSer.Net
                 {
                     receiveDataStart = receiveDataFixed + receiveBuffer.StartIndex;
                     byte* start = receiveDataStart + receiveIndex;
-                    callbackIdentity = *(CallbackIdentity*)start;
-                    if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) != 0)
+                    CallbackIdentity = *(CallbackIdentity*)start;
+                    if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) != 0)
                     {
                         if (receiveSize >= (sizeof(CallbackIdentity) + sizeof(int)))
                         {
@@ -1009,7 +1009,7 @@ namespace AutoCSer.Net
                     }
                     else
                     {
-                        if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
+                        if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
                         {
                             if ((receiveErrorType = onReceive(CommandClientReturnTypeEnum.Success)) == ClientReceiveErrorTypeEnum.Success)
                             {
@@ -1130,7 +1130,7 @@ namespace AutoCSer.Net
                 //Command command = CommandPool.GetCommand(callbackIdentity);
                 //if (command != null)
                 //{
-                    if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
+                    if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
                     {
                         SubArray<byte> data = new SubArray<byte>(receiveBuffer.StartIndex + receiveIndex, dataSize, receiveBuffer.Buffer.notNull().Buffer);
                         receiveErrorType = onReceive(ref data);
@@ -1147,7 +1147,7 @@ namespace AutoCSer.Net
                 SubArray<byte> data = buffer.GetSubArray(dataSize);
                 if (Client.Config.TransferDecode(this, receiveBuffer.GetSubArray(receiveIndex, transferDataSize), ref data))
                 {
-                    if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0) receiveErrorType = onReceive(ref data);
+                    if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0) receiveErrorType = onReceive(ref data);
                     else
                     {
                         fixed (byte* dataFixed = data.GetFixedBuffer()) receiveErrorType = onReceiveErrorMessage(dataFixed + data.Start);
@@ -1192,7 +1192,7 @@ namespace AutoCSer.Net
             System.Buffer.BlockCopy(receiveBuffer.Buffer.notNull().Buffer, receiveBuffer.StartIndex + receiveIndex, receiveBigBuffer.Buffer.notNull().Buffer, receiveBigBuffer.StartIndex, receiveBuffer.CurrentIndex - receiveIndex);
             if (transferDataSize == dataSize)
             {
-                if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
+                if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
                 {
                     SubArray<byte> data = receiveBigBuffer.GetSubArray(transferDataSize);
                     receiveErrorType = onReceive(ref data);
@@ -1211,7 +1211,7 @@ namespace AutoCSer.Net
                     SubArray<byte> data = buffer.GetSubArray(dataSize);
                     if (Client.Config.TransferDecode(this, receiveBigBuffer.GetSubArray(transferDataSize), ref data))
                     {
-                        if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0) receiveErrorType = onReceive(ref data);
+                        if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0) receiveErrorType = onReceive(ref data);
                         else
                         {
                             fixed (byte* dataFixed = data.GetFixedBuffer()) receiveErrorType = onReceiveErrorMessage(dataFixed + data.Start);
@@ -1327,8 +1327,8 @@ namespace AutoCSer.Net
             if (receiveSize >= sizeof(CallbackIdentity))
             {
                 byte* start = receiveDataStart + receiveIndex;
-                callbackIdentity = *(CallbackIdentity*)start;
-                if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) != 0)
+                CallbackIdentity = *(CallbackIdentity*)start;
+                if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) != 0)
                 {
                     if (receiveSize >= (sizeof(CallbackIdentity) + sizeof(int)))
                     {
@@ -1387,7 +1387,7 @@ namespace AutoCSer.Net
                 }
                 else
                 {
-                    if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
+                    if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
                     {
                         if ((receiveErrorType = onReceive(CommandClientReturnTypeEnum.Success)) == ClientReceiveErrorTypeEnum.Success)
                         {
@@ -1452,7 +1452,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private ClientReceiveErrorTypeEnum onReceive(CommandClientReturnTypeEnum type, string errorMessage)
         {
-            var command = CommandPool.GetCommand(callbackIdentity);
+            var command = CommandPool.GetCommand(CallbackIdentity);
             if (command != null)
             {
                 SubArray<byte> data = new SubArray<byte>((int)(byte)type);
@@ -1471,7 +1471,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private ClientReceiveErrorTypeEnum onReceive(CommandClientReturnTypeEnum type)
         {
-            var command = CommandPool.GetCommand(callbackIdentity);
+            var command = CommandPool.GetCommand(CallbackIdentity);
             if (command != null)
             {
                 SubArray<byte> data = new SubArray<byte>((int)(byte)type);
@@ -1487,7 +1487,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         private ClientReceiveErrorTypeEnum onReceive(ref SubArray<byte> data)
         {
-            command = CommandPool.GetCommand(callbackIdentity);
+            command = CommandPool.GetCommand(CallbackIdentity);
             if (command != null) return command.OnReceive(ref data);
             return ClientReceiveErrorTypeEnum.Success;
         }
@@ -1509,10 +1509,10 @@ namespace AutoCSer.Net
                     byte* start;
                     do
                     {
-                        callbackIdentity = *(CallbackIdentity*)(start = dataFixed + receiveIndex);
-                        if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
+                        CallbackIdentity = *(CallbackIdentity*)(start = dataFixed + receiveIndex);
+                        if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.Error) == 0)
                         {
-                            if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) == 0)
+                            if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) == 0)
                             {
                                 if ((receiveErrorType = onReceive(CommandClientReturnTypeEnum.Success)) == ClientReceiveErrorTypeEnum.Success)
                                 {
@@ -1527,7 +1527,7 @@ namespace AutoCSer.Net
                                     && (receiveSize -= dataSize + (sizeof(CallbackIdentity) + sizeof(int))) >= 0)
                                 {
                                     receiveIndex += (sizeof(CallbackIdentity) + sizeof(int));
-                                    if ((command = CommandPool.GetCommand(callbackIdentity)) != null)
+                                    if ((command = CommandPool.GetCommand(CallbackIdentity)) != null)
                                     {
                                         data.Set(receiveIndex, dataSize);
                                         receiveErrorType = command.OnReceive(ref data);
@@ -1540,7 +1540,7 @@ namespace AutoCSer.Net
                             }
                             else return ClientReceiveErrorTypeEnum.CallbackIdentityError;
                         }
-                        else if ((callbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) == 0)
+                        else if ((CallbackIdentity.Index & (uint)CallbackFlagsEnum.SendData) == 0)
                         {
                             if ((receiveSize -= sizeof(CallbackIdentity) + sizeof(int)) >= 0)
                             {

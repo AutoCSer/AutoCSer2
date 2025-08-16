@@ -69,7 +69,24 @@ namespace AutoCSer.Extensions
         {
             generator.Emit(method.IsFinal || !method.IsVirtual ? OpCodes.Call : OpCodes.Callvirt, method);
         }
-#if !AOT
+        /// <summary>
+        /// 加载 null 值
+        /// </summary>
+        /// <param name="generator"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static void loadNull(this ILGenerator generator)
+        {
+            generator.Emit(OpCodes.Ldnull);
+        }
+        /// <summary>
+        /// 返回方法调用
+        /// </summary>
+        /// <param name="generator"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static void ret(this ILGenerator generator)
+        {
+            generator.Emit(OpCodes.Ret);
+        }
         /// <summary>
         /// 加载字符串
         /// </summary>
@@ -97,7 +114,7 @@ namespace AutoCSer.Extensions
                 }
                 else
                 {
-                    generator.Emit(OpCodes.Ldnull);
+                    generator.loadNull();
                     generator.Emit(OpCodes.Stloc_S, local);
                 }
             }
@@ -119,7 +136,7 @@ namespace AutoCSer.Extensions
                 }
                 else
                 {
-                    generator.Emit(OpCodes.Ldnull);
+                    generator.loadNull();
                     generator.Emit(OpCodes.Stloc, local);
                 }
             }
@@ -152,7 +169,6 @@ namespace AutoCSer.Extensions
             generator.int32(value);
             generator.call(genericType.GetMemberMapSetMemberDelegate.Method);
         }
-#endif
 
         ///// <summary>
         ///// 判断成员位图是否匹配成员索引

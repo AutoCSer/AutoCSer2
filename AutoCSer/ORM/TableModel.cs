@@ -234,7 +234,7 @@ namespace AutoCSer.ORM
                     }
                     generator.MarkLabel(notMemberLabel);
                 }
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 Action<DbDataReader, T, MemberMap<T>> read = (Action<DbDataReader, T, MemberMap<T>>)dynamicMethod.CreateDelegate(typeof(Action<DbDataReader, T, MemberMap<T>>));
 
                 dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "SQLModelInsert." + hashCode, null, new Type[] { typeof(CharStream), type, typeof(TableWriter) }, type, true);
@@ -283,7 +283,7 @@ namespace AutoCSer.ORM
                     }
                     isFirst = false;
                 }
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 Action<CharStream, T, TableWriter> insert = (Action<CharStream, T, TableWriter>)dynamicMethod.CreateDelegate(typeof(Action<CharStream, T, TableWriter>));
                 
                 dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "SQLModelUpdate." + hashCode, null, new Type[] { typeof(CharStream), type, typeof(TableWriter), genericType.GetMemberMapType }, type, true);
@@ -360,7 +360,7 @@ namespace AutoCSer.ORM
                         generator.MarkLabel(nextLabel);
                     }
                 }
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 Action<CharStream, T, TableWriter, MemberMap<T>> update = (Action<CharStream, T, TableWriter, MemberMap<T>>)dynamicMethod.CreateDelegate(typeof(Action<CharStream, T, TableWriter, MemberMap<T>>));
 
                 dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "SQLModelConcatCondition." + hashCode, null, new Type[] { typeof(CharStream), type, typeof(TableWriter), genericType.GetMemberMapType }, type, true);
@@ -450,7 +450,7 @@ namespace AutoCSer.ORM
                         generator.MarkLabel(nextLabel);
                     }
                 }
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 Action<CharStream, T, TableWriter, MemberMap<T>> concatCondition = (Action<CharStream, T, TableWriter, MemberMap<T>>)dynamicMethod.CreateDelegate(typeof(Action<CharStream, T, TableWriter, MemberMap<T>>));
 
                 tableModel = new TableModel<T>(read, insert, update, concatCondition, writer.MemberMap.MemberMapData);
@@ -503,7 +503,7 @@ namespace AutoCSer.ORM
                     #endregion
                     generator.MarkLabel(notMemberLabel);
                 }
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 tableModel.copy = (Action<T, T, MemberMap<T>>)dynamicMethod.CreateDelegate(typeof(Action<T, T, MemberMap<T>>));
                 return tableModel.copy;
             }
@@ -562,7 +562,7 @@ namespace AutoCSer.ORM
                         #endregion
                     }
                 }
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 tableModel.toArray = (Action<T, object[]>)dynamicMethod.CreateDelegate(typeof(Action<T, object[]>));
                 return tableModel.toArray;
             }

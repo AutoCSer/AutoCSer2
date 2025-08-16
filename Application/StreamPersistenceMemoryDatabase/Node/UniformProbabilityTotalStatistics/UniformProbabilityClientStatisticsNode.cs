@@ -18,10 +18,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private LeftArray<MethodKeepCallback<int>> callbacks;
         /// <summary>
-        /// 获取新设置的数据的回调委托的超时信息
-        /// </summary>
-        private LeftArray<MethodKeepCallbackTimeout<int>> callbackTimeouts;
-        /// <summary>
         /// 索引数组大小
         /// </summary>
         private readonly int indexCount;
@@ -44,7 +40,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             else this.indexBits = 20;
             callbacks.SetEmpty();
             indexCount = 1 << this.indexBits;
-            callbackTimeouts.SetEmpty();
             bitCountArray = new byte[indexCount + (65 - UniformProbabilityTotalStatisticsNode.MinIndexBits) * sizeof(int)];
             bitCountArray[bitCountArray.Length - 1] = this.indexBits;
         }
@@ -96,27 +91,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.bitCountArray = bitCountArray;
         }
         /// <summary>
-        /// Get the array of binary bits
-        /// 获取二进制位数量的数组
+        /// Get data
+        /// 获取数据
         /// </summary>
         /// <param name="callback"></param>
-        public void GetBitArray(MethodCallback<byte[]> callback)
+        /// <param name="keepCallback"></param>
+        public void GetData(MethodCallback<byte[]> callback, MethodKeepCallback<int> keepCallback)
         {
-            var socket = callback.CommandServerCallback?.Socket;
-            if (socket != null && callback.Callback(bitCountArray))
+            if (callback.Callback(bitCountArray))
             {
-                var keepCallback = MethodKeepCallbackTimeout<int>.GetCallback(ref callbackTimeouts, socket);
-                if (keepCallback != null) callbacks.Add(keepCallback);
+                bool isAdd = false;
+                try
+                {
+                    callbacks.Add(keepCallback);
+                    isAdd = true;
+                }
+                finally
+                {
+                    if (!isAdd) keepCallback.CancelKeep();
+                }
             }
-        }
-        /// <summary>
-        /// Get the newly set data
-        /// 获取新设置的数据
-        /// </summary>
-        /// <param name="callback"></param>
-        public void GetIndexBit(MethodKeepCallback<int> callback)
-        {
-            callbackTimeouts.Add(new MethodKeepCallbackTimeout<int>(callback));
         }
         /// <summary>
         /// Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data)

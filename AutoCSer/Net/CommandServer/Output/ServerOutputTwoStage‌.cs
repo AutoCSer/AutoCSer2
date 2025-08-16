@@ -53,12 +53,12 @@ namespace AutoCSer.Net.CommandServer
                 if (method.IsSimpleSerializeTwoStage‌ReturnValue)
                 {
                     SimpleSerialize.Serializer<ServerReturnValue<T>>.DefaultSerializer(socket.OutputSerializer.Stream, ref outputParameter);
-                    callbackIdentity.Index |= (uint)CallbackFlagsEnum.SendData;
+                    callbackIdentity.Index |= (uint)CallbackFlagsEnum.SendData | (uint)CallbackFlagsEnum.TwoStageCallback;
                 }
                 else
                 {
                     socket.OutputSerializer.IndependentSerialize(ref outputParameter);
-                    callbackIdentity.Index |= (uint)CallbackFlagsEnum.SendData;
+                    callbackIdentity.Index |= (uint)CallbackFlagsEnum.SendData | (uint)CallbackFlagsEnum.TwoStageCallback;
                 }
                 if (!stream.IsResizeError)
                 {

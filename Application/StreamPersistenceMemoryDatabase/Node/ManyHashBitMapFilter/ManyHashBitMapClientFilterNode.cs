@@ -24,10 +24,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         private LeftArray<MethodKeepCallback<int>> callbacks;
         /// <summary>
-        /// 获取新设置的数据的回调委托的超时信息
-        /// </summary>
-        private LeftArray<MethodKeepCallbackTimeout<int>> callbackTimeouts;
-        /// <summary>
         /// Multi-hash bitmap client synchronization filter node (similar to Bloom filter, suitable for small containers)
         /// 多哈希位图客户端同步过滤节点（类似布隆过滤器，适合小容器）
         /// </summary>
@@ -37,7 +33,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             map.Set(size);
             callbacks.SetEmpty();
-            callbackTimeouts.SetEmpty();
         }
         /// <summary>
         /// Add snapshot data
@@ -50,15 +45,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             this.map = map;
         }
         /// <summary>
-        /// Get the operation of setting a new bit
-        /// 获取设置新位操作
-        /// </summary>
-        /// <param name="callback"></param>
-        public void GetBit(MethodKeepCallback<int> callback)
-        {
-            callbackTimeouts.Add(new MethodKeepCallbackTimeout<int>(callback));
-        }
-        /// <summary>
         /// Get the bitmap size (number of bits)
         /// 获取位图大小（位数量）
         /// </summary>
@@ -68,17 +54,27 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             return map.Size;
         }
         /// <summary>
-        /// Get the current bitmap data
-        /// 获取当前位图数据
+        /// Get data
+        /// 获取数据
         /// </summary>
-        /// <param name="callback"></param>
-        public void GetData(MethodCallback<ManyHashBitMap> callback)
+        /// <param name="callback">Get the current bitmap data
+        /// 获取当前位图数据</param>
+        /// <param name="keepCallback">Get the operation of setting a new bit
+        /// 获取设置新位操作</param>
+        public void GetData(MethodCallback<ManyHashBitMap> callback, MethodKeepCallback<int> keepCallback)
         {
-            var socket = callback.CommandServerCallback?.Socket;
-            if (socket != null && callback.Callback(map))
+            if (callback.Callback(map))
             {
-                var keepCallback = MethodKeepCallbackTimeout<int>.GetCallback(ref callbackTimeouts, socket);
-                if (keepCallback != null) callbacks.Add(keepCallback);
+                bool isAdd = false;
+                try
+                {
+                    callbacks.Add(keepCallback);
+                    isAdd = true;
+                }
+                finally
+                {
+                    if (!isAdd) keepCallback.CancelKeep();
+                }
             }
         }
         /// <summary>

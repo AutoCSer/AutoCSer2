@@ -8,6 +8,24 @@ using AutoCSer.Threading;
 
 namespace AutoCSer.Net
 {
+#if AOT
+    /// <summary>
+    /// The queue for asynchronous server calls (mainly used for reading the queue's memory cache status, except for the initialization of the queue context, try to avoid IO blocking operations as much as possible; Dirty read database operations should be handled using ordinary concurrent tasks instead of read-write queue operations.
+    /// 服务端异步调用队列（主要用于读取队列内存缓存状态，除了队列上下文初始化尽量不要有 IO 阻塞操作；脏读数据库操作应该使用普通并发任务处理，不应该使用读写队列操作）
+    /// </summary>
+    public sealed class CommandServerCallTaskQueue
+    {
+    }
+    /// <summary>
+    /// The queue for asynchronous server calls
+    /// 服务端异步调用队列
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public sealed class CommandServerCallTaskQueue<T>
+        where T : IEquatable<T>
+    {
+    }
+#else
     /// <summary>
     /// The queue for asynchronous server calls (mainly used for reading the queue's memory cache status, except for the initialization of the queue context, try to avoid IO blocking operations as much as possible; Dirty read database operations should be handled using ordinary concurrent tasks instead of read-write queue operations.
     /// 服务端异步调用队列（主要用于读取队列内存缓存状态，除了队列上下文初始化尽量不要有 IO 阻塞操作；脏读数据库操作应该使用普通并发任务处理，不应该使用读写队列操作）
@@ -287,4 +305,5 @@ namespace AutoCSer.Net
         /// </summary>
         internal static readonly CommandServerCallTaskQueue<T> Null = new CommandServerCallTaskQueue<T>();
     }
-}
+#endif
+    }

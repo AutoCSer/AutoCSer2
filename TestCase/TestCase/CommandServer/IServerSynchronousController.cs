@@ -45,9 +45,13 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端测试接口
     /// </summary>
-    internal sealed class ServerSynchronousController : IServerSynchronousController
+    internal sealed class ServerSynchronousController
+#if !AOT
+        : IServerSynchronousController
+#endif
     {
         public static CommandServerSessionObject SessionObject { get; internal set; }
+#if !AOT
         internal static CommandServerSessionObject GetSessionObject(CommandServerSocket socket)
         {
             return socket.IsShortLink ? SessionObject : (CommandServerSessionObject)socket.SessionObject;
@@ -179,5 +183,6 @@ namespace AutoCSer.TestCase
         {
             SessionObject.Xor();
         }
+#endif
     }
 }

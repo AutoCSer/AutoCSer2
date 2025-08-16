@@ -12645,6 +12645,18 @@
             <param name="generator"></param>
             <param name="method"></param>
         </member>
+        <member name="M:AutoCSer.Extensions.EmitGenerator.loadNull(System.Reflection.Emit.ILGenerator)">
+            <summary>
+            加载 null 值
+            </summary>
+            <param name="generator"></param>
+        </member>
+        <member name="M:AutoCSer.Extensions.EmitGenerator.ret(System.Reflection.Emit.ILGenerator)">
+            <summary>
+            返回方法调用
+            </summary>
+            <param name="generator"></param>
+        </member>
         <member name="M:AutoCSer.Extensions.EmitGenerator.ldstr(System.Reflection.Emit.ILGenerator,System.String)">
             <summary>
             加载字符串
@@ -26975,6 +26987,35 @@
             Linux
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.CommandClientReturnValueParameterCallback`1">
+            <summary>
+            Client callback delegate with return parameter initial values
+            带返回参数初始值的客户端回调委托
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnValueParameterCallback`1.Callback">
+            <summary>
+            The client callback delegate
+            客户端回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientReturnValueParameterCallback`1.ReturnValueParameter">
+            <summary>
+            The initial value of the return parameter
+            返回参数初始值
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientReturnValueParameterCallback`1.#ctor(System.Action{AutoCSer.Net.CommandClientReturnValue{`0}},`0)">
+            <summary>
+            Client callback delegate with return parameter initial values
+            带返回参数初始值的客户端回调委托
+            </summary>
+            <param name="callback">The client callback delegate
+            客户端回调委托</param>
+            <param name="returnValueParameter">The initial value of the return parameter
+            返回参数初始值</param>
+        </member>
         <member name="T:AutoCSer.Net.CommandClientCompressConfig">
             <summary>
             Command client configuration that supports default compression of transmitted data
@@ -27330,6 +27371,17 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultTwoStageCallbackAction``2(System.Action{AutoCSer.Net.CommandClientReturnValue{``0}},System.Action{AutoCSer.Net.CommandClientReturnValue{``1},AutoCSer.Net.KeepCallbackCommand})">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientDefaultController.DefaultTwoStageCallbackParameter``2(AutoCSer.Net.CommandClientReturnValueParameterCallback{``0},System.Action{AutoCSer.Net.CommandClientReturnValue{``1},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
             Two-stage callback command
             两阶段回调命令
@@ -28235,6 +28287,12 @@
             客户端回调委托
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.returnValue">
+            <summary>
+            The initial return value
+            初始返回值
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{`0},AutoCSer.Net.CommandClientKeepCallback{`1})">
             <summary>
             Two-stage callback command
@@ -28246,6 +28304,27 @@
             <param name="keepCallback"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{`0},AutoCSer.Net.CommandClientKeepCallback{`1},`1@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{`0},AutoCSer.Net.CommandClientKeepCallback{`1})">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`2.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{`0},AutoCSer.Net.CommandClientKeepCallback{`1},`1@)">
             <summary>
             Two-stage callback command
             两阶段回调命令
@@ -28312,6 +28391,29 @@
             <param name="inputParameter"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientCallback{`1},AutoCSer.Net.CommandClientKeepCallback{`2},`0@,`2@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{`1},AutoCSer.Net.CommandClientKeepCallback{`2},`0@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <param name="controller"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.TwoStageCallbackCommand`3.#ctor(AutoCSer.Net.CommandClientController,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{`1},AutoCSer.Net.CommandClientKeepCallback{`2},`0@,`2@)">
             <summary>
             Two-stage callback command
             两阶段回调命令
@@ -28730,6 +28832,13 @@
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.ConditionalExpression)">
             <summary>
             序列化条件表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            new T[] 表达式节点
             </summary>
             <param name="expression"></param>
             <returns></returns>
@@ -30531,6 +30640,11 @@
             缺省空参数标志
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.CallbackFlagsEnum.TwoStageCallback">
+            <summary>
+            是否二阶段回调的第一阶段回调
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.CallbackFlagsEnum.SendData">
             <summary>
             是否发送数据
@@ -31099,13 +31213,31 @@
             两阶段回调命令
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackOutputMethod">
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackInputMethod">
             <summary>
             Two-stage callback command
             两阶段回调命令
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackOutputReturnValueMethod">
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackInputReturnValueMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackReturnParameterMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackInputReturnParameterMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientControllerTwoStageCallbackInputReturnValueParameterMethod">
             <summary>
             Two-stage callback command
             两阶段回调命令
@@ -31296,6 +31428,12 @@
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerTwoStageCallbackActionMethod">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceController.CommandClientDefaultControllerTwoStageCallbackParameterMethod">
             <summary>
             Two-stage callback command
             两阶段回调命令
@@ -33789,6 +33927,11 @@
             <summary>
             Whether it is a low-priority queue
             是否低优先级队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.IsTwoStageReturnValueParameter">
+            <summary>
+            二阶段回调的第一阶段回调委托是否带返回参数初始值
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.ClientInterfaceMethod.IsSimpleSerializeTwoStageReturnValue">
@@ -36390,21 +36533,6 @@
             <param name="taskQueueControllerKeyType"></param>
             <param name="isGetServerMethodParameter"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.IsSynchronousCallTask(AutoCSer.Net.CommandServer.ServerInterfaceMethod,AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            否则使用 IO 线程同步调用 Task
-            </summary>
-            <param name="method"></param>
-            <param name="socket"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.checkIsSynchronousCallTask(AutoCSer.Net.CommandServerSocket)">
-            <summary>
-            否则使用 IO 线程同步调用 Task
-            </summary>
-            <param name="socket"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.CheckGetTaskTimestamp(System.Int64)">
             <summary>
             async Task 调度时间检查
@@ -36435,6 +36563,32 @@
             获取输出参数字段
             </summary>
             <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,System.Boolean,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ServerInterfaceMethod}@)">
+            <summary>
+            获取服务端接口方法集合
+            </summary>
+            <param name="type"></param>
+            <param name="controllerAttribute"></param>
+            <param name="taskQueueControllerKeyType"></param>
+            <param name="isGetServerMethodParameter"></param>
+            <param name="methods"></param>
+            <returns>错误信息</returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.IsSynchronousCallTask(AutoCSer.Net.CommandServer.ServerInterfaceMethod,AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            否则使用 IO 线程同步调用 Task
+            </summary>
+            <param name="method"></param>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.checkIsSynchronousCallTask(AutoCSer.Net.CommandServerSocket)">
+            <summary>
+            否则使用 IO 线程同步调用 Task
+            </summary>
+            <param name="socket"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetOutputParameterLocalBuilder(System.Reflection.Emit.ILGenerator)">
@@ -36510,17 +36664,6 @@
             <param name="asynchronousControllerFieldBuilder"></param>
             <param name="getSocketMethod"></param>
             <param name="inputParameterFieldBuilder"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,System.Boolean,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ServerInterfaceMethod}@)">
-            <summary>
-            获取服务端接口方法集合
-            </summary>
-            <param name="type"></param>
-            <param name="controllerAttribute"></param>
-            <param name="taskQueueControllerKeyType"></param>
-            <param name="isGetServerMethodParameter"></param>
-            <param name="methods"></param>
-            <returns>错误信息</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerInterfaceMethod.Compare(AutoCSer.Net.CommandServer.ServerInterfaceMethod,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
@@ -43841,6 +43984,18 @@
             命令服务端配置
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.QueueTimeoutSeconds">
+            <summary>
+            The default value is 0, indicating no check. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
+            同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.MaxReadWriteQueueConcurrency">
+            <summary>
+            The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
+            默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.SessionObject">
             <summary>
             Command server socket User-defined session object operation interface
@@ -43851,18 +44006,6 @@
             <summary>
             Number of socket asynchronous event object caches. The default value is 256. The recommended value for open services is greater than 1024
             套接字异步事件对象缓存数量，默认为 256，开放服务建议值大于 1024
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.VerifyTimeoutSeconds">
-            <summary>
-            Authentication timeout seconds. The default value is 4
-            认证超时秒数，默认为 4
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.MinSocketSize">
-            <summary>
-            The default value is 1. The recommended value for open service is 512 to avoid slow attacks on the client
-            接收发送数据不完整时连续两次最小字节数，默认为 1，开放服务建议值为 512 避免客户端慢攻击
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.MaxVerifyDataSize">
@@ -43883,16 +44026,16 @@
             二进制反序列化数组最大长度，默认为 0 表示不限制，开放服务建议根据实际情况设置防止内存占用攻击，大数组建议拆分循环调用发送或者保持回调模式接收
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.QueueTimeoutSeconds">
+        <member name="F:AutoCSer.Net.CommandServerConfig.VerifyTimeoutSeconds">
             <summary>
-            The default value is 0, indicating no check. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
-            同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
+            Authentication timeout seconds. The default value is 4
+            认证超时秒数，默认为 4
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.BuildOutputThread">
+        <member name="F:AutoCSer.Net.CommandServerConfig.MinSocketSize">
             <summary>
-            The default is queue mode
-            默认为队列模式
+            The default value is 1. The recommended value for open service is 512 to avoid slow attacks on the client
+            接收发送数据不完整时连续两次最小字节数，默认为 1，开放服务建议值为 512 避免客户端慢攻击
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.IsOutputControllerMethodName">
@@ -43907,6 +44050,12 @@
             默认为 true 表示输出服务端异常信息，开放服务建议设置为 false 避免敏感信息泄漏
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.BuildOutputThread">
+            <summary>
+            The default is queue mode
+            默认为队列模式
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.NoDelay">
             <summary>
             The default is true, indicating that the Nagle algorithm is disabled and data is sent immediately
@@ -43917,12 +44066,6 @@
             <summary>
             The default value of false indicates that remote expressions are not supported. Setting it to true means allowing arbitrary code execution, so the client needs to be fully trusted
             默认为 false 表示不支持远程表达式；设置为 true 意味着允许执行任意代码，所以需要客户端完全可信任
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.MaxReadWriteQueueConcurrency">
-            <summary>
-            The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
-            默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.MaxTaskRunConcurrent">
@@ -44074,14 +44217,14 @@
             当前任务执行秒数</param>
             <returns></returns>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerConfig.Null">
-            <summary>
-            Default empty command server configuration
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.NullServerOutput">
             <summary>
             Output information of the default empty server socket
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerConfig.Null">
+            <summary>
+            Default empty command server configuration
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerConfig.NullServerInterfaceMethod">
@@ -45921,7 +46064,7 @@
             <param name="keepCallback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackOutput``3(System.Int32,AutoCSer.Net.CommandClientCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@)">
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackInput``3(System.Int32,AutoCSer.Net.CommandClientCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@)">
             <summary>
             Two-stage callback command
             两阶段回调命令
@@ -45935,7 +46078,48 @@
             <param name="inputParameter"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackOutputReturnValue``3(System.Int32,AutoCSer.Net.CommandClientCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@,``2@)">
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackInputReturnValue``3(System.Int32,AutoCSer.Net.CommandClientCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@,``2@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="RT"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackReturnParameter``2(System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{``0},AutoCSer.Net.CommandClientKeepCallback{``1})">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackInputReturnParameter``3(System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@)">
+            <summary>
+            Two-stage callback command
+            两阶段回调命令
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="RT"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <param name="inputParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientController.TwoStageCallbackInputReturnValueParameter``3(System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{``1},AutoCSer.Net.CommandClientKeepCallback{``2},``0@,``2@)">
             <summary>
             Two-stage callback command
             两阶段回调命令
@@ -46447,7 +46631,7 @@
             接收数据起始位置
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientSocket.callbackIdentity">
+        <member name="F:AutoCSer.Net.CommandClientSocket.CallbackIdentity">
             <summary>
             Current session callback identity
             当前会话回调标识
@@ -46904,14 +47088,14 @@
             默认命令服务控制器配置
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServerController.Server">
-            <summary>
-            命令服务
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandServerController.ControllerName">
             <summary>
             控制器名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerController.Server">
+            <summary>
+            命令服务
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerController.Attribute">
@@ -47001,12 +47185,6 @@
             <summary>
             关闭控制器
             </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerController.GetControllerObject">
-            <summary>
-            控制器接口实例
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerController.SetCommandStartIndex(System.Int32)">
             <summary>
@@ -47251,6 +47429,12 @@
             <param name="controller"></param>
             <param name="value"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerController.GetControllerObject">
+            <summary>
+            控制器接口实例
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerController`1">
             <summary>
             Command service controller
@@ -47468,16 +47652,74 @@
             最大命令控制器数量
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandListener.isSocketBuildOutputThread">
+        <member name="F:AutoCSer.Net.CommandListener.Null">
             <summary>
-            Has the socket data sending thread been started
-            是否已经启动套接字发送数据线程
+            By default, the server listens for empty commands
+            默认空命令服务端监听
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandListener.Config">
             <summary>
             Command server configuration
             命令服务配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandListener.Controller">
+            <summary>
+            Main service controller
+            主服务控制器
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandListener.CallConcurrencyReadQueue">
+            <summary>
+            The TCP server side supports synchronous queues for parallel reading
+            TCP 服务器端支持并行读的同步队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandListener.CallReadWriteQueue">
+            <summary>
+            TCP server-side read and write queue
+            TCP 服务器端读写队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandListener.controllerLock">
+            <summary>
+            Command controller access lock
+            命令控制器访问锁
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.createServerCallConcurrencyReadQueue">
+            <summary>
+            Gets the synchronization queue that supports parallel reads on the server
+            获取服务端支持并行读的同步队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.GetServerCallConcurrencyReadQueue">
+            <summary>
+            Gets the synchronization queue that supports parallel reads on the server
+            获取服务端支持并行读的同步队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.createServerCallReadWriteQueue">
+            <summary>
+            Gets the server read and write queue
+            获取服务端读写队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandListener.GetServerCallReadWriteQueue">
+            <summary>
+            Gets the server read and write queue
+            获取服务端读写队列
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:AutoCSer.Net.CommandListener.isSocketBuildOutputThread">
+            <summary>
+            Has the socket data sending thread been started
+            是否已经启动套接字发送数据线程
             </summary>
         </member>
         <member name="P:AutoCSer.Net.CommandListener.Log">
@@ -47564,34 +47806,10 @@
             TCP 服务器端同步调用队列数组
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandListener.CallConcurrencyReadQueue">
-            <summary>
-            The TCP server side supports synchronous queues for parallel reading
-            TCP 服务器端支持并行读的同步队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandListener.CallReadWriteQueue">
-            <summary>
-            TCP server-side read and write queue
-            TCP 服务器端读写队列
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandListener.controllerLock">
-            <summary>
-            Command controller access lock
-            命令控制器访问锁
-            </summary>
-        </member>
         <member name="F:AutoCSer.Net.CommandListener.Controllers">
             <summary>
             Command service controller collection
             命令服务控制器集合
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandListener.Controller">
-            <summary>
-            Main service controller
-            主服务控制器
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandListener.RemoteMetadata">
@@ -47625,12 +47843,6 @@
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandListener.#ctor">
-            <summary>
-            By default, the server listens for empty commands
-            默认空命令服务端监听
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Net.CommandListener.Null">
             <summary>
             By default, the server listens for empty commands
             默认空命令服务端监听
@@ -47955,40 +48167,12 @@
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandListener.createServerCallReadWriteQueue">
-            <summary>
-            Gets the server read and write queue
-            获取服务端读写队列
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandListener.getServerCallReadWriteQueue">
-            <summary>
-            Gets the server read and write queue
-            获取服务端读写队列
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandListener.GetServerCallReadWriteQueue(AutoCSer.Net.CommandListener)">
             <summary>
             Gets the server read and write queue
             获取服务端读写队列
             </summary>
             <param name="server"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandListener.createServerCallConcurrencyReadQueue">
-            <summary>
-            Gets the synchronization queue that supports parallel reads on the server
-            获取服务端支持并行读的同步队列
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandListener.getServerCallConcurrencyReadQueue">
-            <summary>
-            Gets the synchronization queue that supports parallel reads on the server
-            获取服务端支持并行读的同步队列
-            </summary>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandListener.GetServerCallConcurrencyReadQueue(AutoCSer.Net.CommandListener)">
@@ -49155,21 +49339,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerCallback.SynchronousCallback">
-            <summary>
-            Successful status queue synchronization callback
-            成功状态队列同步回调
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallback.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
-            <summary>
-            Cancel the keep callback command
-            取消保持回调命令
-            </summary>
-            <param name="returnType"></param>
-            <param name="exception"></param>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerCallback.CreateServerCallback(AutoCSer.Net.CommandServerSocket)">
             <summary>
             Create asynchronous callbacks
@@ -49209,6 +49378,21 @@
             </summary>
             <param name="node"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback.SynchronousCallback">
+            <summary>
+            Successful status queue synchronization callback
+            成功状态队列同步回调
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback.CancelKeep(AutoCSer.Net.CommandClientReturnTypeEnum,System.Exception)">
+            <summary>
+            Cancel the keep callback command
+            取消保持回调命令
+            </summary>
+            <param name="returnType"></param>
+            <param name="exception"></param>
         </member>
         <member name="T:AutoCSer.Net.CommandServerCallback`1">
             <summary>
@@ -49300,22 +49484,6 @@
             No output callback is supported
             不支持无输出回调
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallback`1.Callback(`0)">
-            <summary>
-            Return value callback
-            返回值回调
-            </summary>
-            <param name="returnValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerCallback`1.SynchronousCallback(`0)">
-            <summary>
-            Queue synchronization callback
-            队列同步回调
-            </summary>
-            <param name="returnValue"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerCallback`1.callback(AutoCSer.Net.CommandServer.ServerInterfaceMethod,`0)">
@@ -49443,6 +49611,22 @@
             Cancel all callbacks
             取消所有回调
             </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.Callback(`0)">
+            <summary>
+            Return value callback
+            返回值回调
+            </summary>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerCallback`1.SynchronousCallback(`0)">
+            <summary>
+            Queue synchronization callback
+            队列同步回调
+            </summary>
+            <param name="returnValue"></param>
+            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServerCallLowPriorityQueue">
             <summary>
@@ -50262,43 +50446,6 @@
             <param name="returnType"></param>
             <param name="exception"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.SetCancelKeep">
-            <summary>
-            Cancel the keep callback command
-            取消保持回调命令
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand)">
-            <summary>
-            Client callback
-            客户端回调
-            </summary>
-            <param name="returnValue"></param>
-            <param name="command"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.op_Implicit(AutoCSer.Net.CommandServerKeepCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand}">
-            <summary>
-            Implicitly converted to client callback delegate
-            隐式转换为客户端回调委托
-            </summary>
-            <param name="callback"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
-            <summary>
-            Client callback
-            客户端回调
-            </summary>
-            <param name="returnValue"></param>
-            <param name="queue"></param>
-            <param name="command"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback.op_Implicit(AutoCSer.Net.CommandServerKeepCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
-            <summary>
-            Implicitly converted to client callback delegate
-            隐式转换为客户端回调委托
-            </summary>
-            <param name="callback"></param>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback.CreateServerKeepCallback(AutoCSer.Net.CommandServerSocket)">
             <summary>
             Create an asynchronous callback object
@@ -50338,6 +50485,43 @@
             </summary>
             <param name="node"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.SetCancelKeep">
+            <summary>
+            Cancel the keep callback command
+            取消保持回调命令
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.op_Implicit(AutoCSer.Net.CommandServerKeepCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback.op_Implicit(AutoCSer.Net.CommandServerKeepCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback.CancelKeep(AutoCSer.Net.CommandServerKeepCallback)">
             <summary>
@@ -50425,13 +50609,6 @@
             <param name="node"></param>
             <param name="method"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback">
-            <summary>
-            No output callback is supported
-            不支持无输出回调
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(`0)">
             <summary>
             Return value callback
@@ -50450,15 +50627,6 @@
             <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
             是否成功加入输出队列，返回 false 表示通道已关闭</returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(AutoCSer.Net.CommandServerCallQueue,`0)">
-            <summary>
-            Return value callback
-            返回值回调
-            </summary>
-            <param name="queue"></param>
-            <param name="returnValue"></param>
-            <returns></returns>
-        </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(`0,System.Action)">
             <summary>
             Return value callback
@@ -50467,19 +50635,14 @@
             <param name="returnValue"></param>
             <param name="onFree"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackCancelKeep(`0)">
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(AutoCSer.Net.CommandServerCallQueue,`0)">
             <summary>
-            Return the value callback and end the callback
-            返回值回调并结束回调
+            Return value callback
+            返回值回调
             </summary>
+            <param name="queue"></param>
             <param name="returnValue"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.VirtualCallbackCancelKeep(`0)">
-            <summary>
-            Return the value callback and end the callback
-            返回值回调并结束回调
-            </summary>
-            <param name="returnValue"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback(System.Collections.Generic.IEnumerable{`0},System.Boolean)">
             <summary>
@@ -50499,37 +50662,6 @@
             </summary>
             <param name="values"></param>
             <returns></returns>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand)">
-            <summary>
-            Client callback
-            客户端回调
-            </summary>
-            <param name="returnValue"></param>
-            <param name="command"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.op_Implicit(AutoCSer.Net.CommandServerKeepCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand}">
-            <summary>
-            Implicitly converted to client callback delegate
-            隐式转换为客户端回调委托
-            </summary>
-            <param name="callback"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
-            <summary>
-            Client callback
-            客户端回调
-            </summary>
-            <param name="returnValue"></param>
-            <param name="queue"></param>
-            <param name="command"></param>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.op_Implicit(AutoCSer.Net.CommandServerKeepCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
-            <summary>
-            Implicitly converted to client callback delegate
-            隐式转换为客户端回调委托
-            </summary>
-            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CreateServerKeepCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServer.ServerInterfaceMethod)">
             <summary>
@@ -50576,6 +50708,37 @@
             <param name="method"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.op_Implicit(AutoCSer.Net.CommandServerKeepCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.op_Implicit(AutoCSer.Net.CommandServerKeepCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicitly converted to client callback delegate
+            隐式转换为客户端回调委托
+            </summary>
+            <param name="callback"></param>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerKeepCallback`1.Link">
             <summary>
             The TCP server side asynchronously maintains the callback linked list
@@ -50614,10 +50777,37 @@
             取消所有回调
             </summary>
         </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.Callback">
+            <summary>
+            No output callback is supported
+            不支持无输出回调
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.CallbackCancelKeep(`0)">
+            <summary>
+            Return the value callback and end the callback
+            返回值回调并结束回调
+            </summary>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServerKeepCallback`1.VirtualCallbackCancelKeep(`0)">
+            <summary>
+            Return the value callback and end the callback
+            返回值回调并结束回调
+            </summary>
+            <param name="returnValue"></param>
+        </member>
         <member name="T:AutoCSer.Net.CommandServerSocket">
             <summary>
             Command server socket
             命令服务套接字
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServerSocket.CommandServerSocketContext">
+            <summary>
+            Empty command service socket, used to simulate the server-side context
+            空命令服务套接字，用于模拟服务端上下文
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.Server">
@@ -51924,12 +52114,6 @@
             <param name="callbackIdentity"></param>
             <param name="returnType"></param>
             <param name="exception"></param>
-        </member>
-        <member name="F:AutoCSer.Net.CommandServerSocket.CommandServerSocketContext">
-            <summary>
-            Empty command service socket, used to simulate the server-side context
-            空命令服务套接字，用于模拟服务端上下文
-            </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServerSocket.outputSocketHead">
             <summary>

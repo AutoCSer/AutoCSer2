@@ -33,7 +33,10 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 服务端测试接口
     /// </summary>
-    internal sealed class ServerSendOnlyController : IServerSendOnlyController
+    internal sealed class ServerSendOnlyController
+#if !AOT
+        : IServerSendOnlyController
+#endif
     {
         internal static readonly System.Threading.SemaphoreSlim SendOnlyWaitLock = new System.Threading.SemaphoreSlim(0, 1);
         private static int waitCount;
@@ -42,16 +45,6 @@ namespace AutoCSer.TestCase
         {
             ++waitCount;
             return SendOnlyWaitLock.WaitAsync();
-        }
-        internal static void ReleaseWaitLock()
-        {
-#if !AOT
-            if (!CommandServer.IsAotClient)
-            {
-                ++releaseCount;
-                SendOnlyWaitLock.Release();
-            }
-#endif
         }
         internal static bool CheckCount()
         {
@@ -65,6 +58,15 @@ namespace AutoCSer.TestCase
             return true;
         }
 
+#if !AOT
+        internal static void ReleaseWaitLock()
+        {
+            if (!CommandServer.IsAotClient)
+            {
+                ++releaseCount;
+                SendOnlyWaitLock.Release();
+            }
+        }
         CommandServerSendOnly IServerSendOnlyController.SendOnlySocket(CommandServerSocket socket, int Value, int Ref)
         {
             ((CommandServerSessionObject)socket.SessionObject).Xor(Value, Ref);
@@ -139,5 +141,6 @@ namespace AutoCSer.TestCase
             SendOnly();
             return AutoCSer.CompletedTask<CommandServerSendOnly>.Default;
         }
+#endif
     }
 }

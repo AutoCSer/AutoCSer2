@@ -43,6 +43,7 @@ namespace AutoCSer.TestCase
         void TwoStage‌CallbackCountConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadWriteQueue queue, int Value, int Ref, CommandServerCallback<long> Callback, CommandServerKeepCallbackCount<string> KeepCallback);
         void TwoStage‌CallbackCountConcurrencyReadQueueReturn(CommandServerCallConcurrencyReadQueue queue, CommandServerCallback<long> Callback, CommandServerKeepCallbackCount<string> KeepCallback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -163,4 +164,5 @@ namespace AutoCSer.TestCase
             TwoStage‌Callback(ServerSynchronousController.SessionObject.Xor(), Callback, KeepCallback).AutoCSerExtensions().Catch();
         }
     }
+#endif
 }

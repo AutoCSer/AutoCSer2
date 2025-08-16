@@ -24,7 +24,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF MethodIsReturn
             /// <returns>@Method.CodeGeneratorReturnXmlDocument</returns>
             #endregion IF MethodIsReturn
-            @MethodReturnType.FullName @MethodName(/*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:CallbackType*//*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*/@FullName __callback__/*PUSH:CallbackType*/);
+            @MethodReturnType.FullName @MethodName(/*LOOP:Method.Parameters*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*PUSH:CallbackType*//*IF:IsJoinCallback*/, /*IF:IsJoinCallback*/@FullName __callback__/*PUSH:CallbackType*//*PUSH:KeepCallbackType*//*IF:IsJoinKeepCallback*/, /*IF:IsJoinKeepCallback*/@FullName __keepCallback__/*PUSH:KeepCallbackType*/);
             #endregion IF Method
             #endregion LOOP Methods
         }

@@ -213,7 +213,7 @@ namespace AutoCSer.ORM.CustomColumn
                     #endregion
                 }
             }
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             read = (ReaderDelegate)dynamicMethod.CreateDelegate(typeof(ReaderDelegate));
 
             dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "SQLTableCustomColumnInsert", typeof(int), new Type[] { typeof(CharStream), type, typeof(TableWriter), typeof(int) }, type, true);
@@ -263,7 +263,7 @@ namespace AutoCSer.ORM.CustomColumn
                 isFirst = false;
             }
             generator.Emit(OpCodes.Ldarg_3);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             insert = (Func<CharStream, T, TableWriter, int, int>)dynamicMethod.CreateDelegate(typeof(Func<CharStream, T, TableWriter, int, int>));
 
             dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "SQLTableCustomColumnUpdate", typeof(int), new Type[] { typeof(CharStream), type, typeof(TableWriter), typeof(int), typeof(bool) }, type, true);
@@ -308,7 +308,7 @@ namespace AutoCSer.ORM.CustomColumn
                 isFirst = false;
             }
             generator.Emit(OpCodes.Ldarg_3);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             update = (Func<CharStream, T, TableWriter, int, bool, int>)dynamicMethod.CreateDelegate(typeof(Func<CharStream, T, TableWriter, int, bool, int>));
 
             dynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "SQLTableCustomColumnConcatCondition", typeof(int), new Type[] { typeof(CharStream), type, typeof(TableWriter), typeof(int), typeof(bool) }, type, true);
@@ -386,7 +386,7 @@ namespace AutoCSer.ORM.CustomColumn
                 isFirst = false;
             }
             generator.Emit(OpCodes.Ldarg_3);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             concatCondition = (Func<CharStream, T, TableWriter, int, bool, int>)dynamicMethod.CreateDelegate(typeof(Func<CharStream, T, TableWriter, int, bool, int>));
         }
     }

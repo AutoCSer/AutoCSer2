@@ -1401,6 +1401,118 @@ namespace AutoCSer.CommandService
                 return node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputKeepCallbackWrite(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<RT>.Default, 0), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer(flags, ref parameter)), new KeepCallbackCommandResponse<RT>(callback).Callback);
             }
         }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="flags">Server-side node method flags
+        /// 服务端节点方法标记</param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.KeepCallbackCommand TwoStageCallback<T, KT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, Action<ResponseResult<T>> callback, Action<ResponseResult<KT>, AutoCSer.Net.KeepCallbackCommand> keepCallback)
+        {
+            CallbackCommandResponseParameter<T> responseParameter;
+            if ((flags & MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter) != 0) responseParameter = new CallbackCommandSimpleSerializeResponseParameter<T>(node, callback);
+            else responseParameter = new CallbackCommandBinarySerializeResponseParameter<T>(node, callback);
+            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
+            {
+                return node.Client.Client.StreamPersistenceMemoryDatabaseClient.TwoStageCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<KT>.Default, MethodFlagsEnum.IsSimpleSerializeParamter), node.Index, methodIndex, responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+            }
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.TwoStageCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<KT>.Default, 0), node.Index, methodIndex, responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="RT"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="flags">Server-side node method flags
+        /// 服务端节点方法标记</param>
+        /// <param name="parameter">Call the method request parameters
+        /// 调用方法请求参数</param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.KeepCallbackCommand InputTwoStageCallback<T, RT, KT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, T parameter, Action<ResponseResult<RT>> callback, Action<ResponseResult<KT>, AutoCSer.Net.KeepCallbackCommand> keepCallback)
+            where T : struct
+        {
+            CallbackCommandResponseParameter<RT> responseParameter;
+            if ((flags & MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter) != 0) responseParameter = new CallbackCommandSimpleSerializeResponseParameter<RT>(node, callback);
+            else responseParameter = new CallbackCommandBinarySerializeResponseParameter<RT>(node, callback);
+            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
+            {
+                return node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputTwoStageCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<KT>.Default, MethodFlagsEnum.IsSimpleSerializeParamter), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer(flags, ref parameter)), responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+            }
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputTwoStageCallback(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<KT>.Default, 0), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer(flags, ref parameter)), responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="flags">Server-side node method flags
+        /// 服务端节点方法标记</param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.KeepCallbackCommand TwoStageCallbackWrite<T, KT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, Action<ResponseResult<T>> callback, Action<ResponseResult<KT>, AutoCSer.Net.KeepCallbackCommand> keepCallback)
+        {
+            CallbackCommandResponseParameter<T> responseParameter;
+            if ((flags & MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter) != 0) responseParameter = new CallbackCommandSimpleSerializeResponseParameter<T>(node, callback);
+            else responseParameter = new CallbackCommandBinarySerializeResponseParameter<T>(node, callback);
+            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
+            {
+                return node.Client.Client.StreamPersistenceMemoryDatabaseClient.TwoStageCallbackWrite(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<KT>.Default, MethodFlagsEnum.IsSimpleSerializeParamter), node.Index, methodIndex, responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+            }
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.TwoStageCallbackWrite(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<KT>.Default, 0), node.Index, methodIndex, responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="RT"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="node">Client node
+        /// 客户端节点</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="flags">Server-side node method flags
+        /// 服务端节点方法标记</param>
+        /// <param name="parameter">Call the method request parameters
+        /// 调用方法请求参数</param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        internal static AutoCSer.Net.KeepCallbackCommand InputTwoStageCallbackWrite<T, RT, KT>(ClientNode node, int methodIndex, MethodFlagsEnum flags, T parameter, Action<ResponseResult<RT>> callback, Action<ResponseResult<KT>, AutoCSer.Net.KeepCallbackCommand> keepCallback)
+            where T : struct
+        {
+            CallbackCommandResponseParameter<RT> responseParameter;
+            if ((flags & MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter) != 0) responseParameter = new CallbackCommandSimpleSerializeResponseParameter<RT>(node, callback);
+            else responseParameter = new CallbackCommandBinarySerializeResponseParameter<RT>(node, callback);
+            if ((flags & MethodFlagsEnum.IsSimpleDeserializeParamter) != 0)
+            {
+                return node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputTwoStageCallbackWrite(new KeepCallbackResponseParameter(KeepCallbackResponseParameterSimpleSerializer<KT>.Default, MethodFlagsEnum.IsSimpleSerializeParamter), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer(flags, ref parameter)), responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+            }
+            return node.Client.Client.StreamPersistenceMemoryDatabaseClient.InputTwoStageCallbackWrite(new KeepCallbackResponseParameter(KeepCallbackResponseParameterBinarySerializer<KT>.Default, 0), new RequestParameter(node.Index, methodIndex, getRequestParameterSerializer(flags, ref parameter)), responseParameter.GetReturnValueParameterCallback(), new KeepCallbackCommandResponse<KT>(keepCallback).Callback);
+        }
     }
     /// <summary>
     /// Log stream persistence in-memory database client

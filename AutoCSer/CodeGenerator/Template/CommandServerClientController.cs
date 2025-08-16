@@ -7,7 +7,7 @@ namespace AutoCSer.CodeGenerator.Template
     {
         #region PART CLASS
         /// <summary>
-        /// @CurrentType.CodeGeneratorXmlDocument
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(@TypeName)/*IF:IsDefaultController*/, typeof(@DefaultControllerTypeName)/*IF:IsDefaultController*/)]
         public partial interface @InterfaceTypeName { }
@@ -34,6 +34,13 @@ namespace AutoCSer.CodeGenerator.Template
                 }
                 internal static readonly Func<@ParameterTypeName, @ParameterType.FullName> GetReturnValue = getReturnValue;
                 #endregion IF IsReturnValue
+                #region IF IsReturnValueParameter
+                private static @ParameterTypeName getReturnValueParameter(@ParameterType.FullName parameter)
+                {
+                    return new @ParameterTypeName { @ParameterName = parameter };
+                }
+                internal static readonly Func<@ParameterType.FullName, @ParameterTypeName> GetReturnValueParameter = getReturnValueParameter;
+                #endregion IF IsReturnValueParameter
                 #endregion LOOP Parameters
                 #region NOTE
                 internal MethodReturnType.FullName ReturnValue;
@@ -74,14 +81,17 @@ namespace AutoCSer.CodeGenerator.Template
                 #endregion IF IsOutputParameter
                 var __returnValue__ = base.@CallMethodName/*IF:GenericTypeName*/<@GenericTypeName/*NOTE*/, ParameterTypeName, ParameterTypeName/*NOTE*/>/*IF:GenericTypeName*/(@MethodArrayIndex
                 #region IF TwoStageCallbackParameterName
-                #region IF CallbackType
+                #region IF TwoStageCallbackType
                     , @TwoStageCallbackType.FullName/**/.Get(@TwoStageCallbackParameterName)
-                #endregion IF CallbackType
-                #region NOT CallbackType
+                #endregion IF TwoStageCallbackType
+                #region NOT TwoStageCallbackType
                     , @TwoStageCallbackParameterName
-                #endregion NOT CallbackType
+                #endregion NOT TwoStageCallbackType
                 #endregion IF TwoStageCallbackParameterName
                 #region PUSH TwoStageOutputParameterType
+                #region IF IsGetReturnValueParameter
+                    , @ParameterTypeName/**/.GetReturnValueParameter
+                #endregion IF IsGetReturnValueParameter
                 #region IF IsGetReturnValue
                     , @ParameterTypeName/**/.GetReturnValue
                 #endregion IF IsGetReturnValue

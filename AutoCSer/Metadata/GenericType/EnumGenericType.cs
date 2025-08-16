@@ -531,13 +531,13 @@ namespace AutoCSer.Metadata
                 DynamicMethod toIntDynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "To" + typeof(UT).FullName, typeof(UT), new Type[] { typeof(T) }, typeof(T), true);
                 ILGenerator generator = toIntDynamicMethod.GetILGenerator();
                 generator.Emit(OpCodes.Ldarg_0);
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 ToInt = (Func<T, UT>)toIntDynamicMethod.CreateDelegate(typeof(Func<T, UT>));
 
                 DynamicMethod fromIntDynamicMethod = new DynamicMethod(AutoCSer.Common.NamePrefix + "From" + typeof(UT).FullName, typeof(T), new Type[] { typeof(UT) }, typeof(T), true);
                 generator = fromIntDynamicMethod.GetILGenerator();
                 generator.Emit(OpCodes.Ldarg_0);
-                generator.Emit(OpCodes.Ret);
+                generator.ret();
                 FromInt = (Func<UT, T>)fromIntDynamicMethod.CreateDelegate(typeof(Func<UT, T>));
 #endif
                 return;

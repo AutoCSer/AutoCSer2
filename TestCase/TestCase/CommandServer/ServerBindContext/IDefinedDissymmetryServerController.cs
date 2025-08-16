@@ -17,6 +17,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         Task SetSocketTask(Data.ORM.BusinessModel value);
         Task<Data.ORM.BusinessModel> GetSocketTask();
     }
+#if !AOT
     /// <summary>
     /// 服务端定义非对称测试接口实例（套接字上下文绑定服务端）
     /// </summary>
@@ -44,4 +45,5 @@ namespace AutoCSer.TestCase.ServerBindContext
             return Task.FromResult(value);
         }
     }
+#endif
 }

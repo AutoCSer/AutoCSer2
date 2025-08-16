@@ -12,6 +12,7 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         /// <param name="server"></param>
         internal NullCommandServerController(CommandListener server) : base(server) { }
+#if !AOT
         /// <summary>
         /// 命令处理
         /// </summary>
@@ -23,5 +24,6 @@ namespace AutoCSer.Net.CommandServer
         {
             throw new InvalidOperationException();
         }
+#endif
     }
 }

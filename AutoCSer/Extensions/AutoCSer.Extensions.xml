@@ -9806,6 +9806,22 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.newArrayInit(System.Type,System.Linq.Expressions.Expression[])">
+            <summary>
+            new T[] { ... }
+            </summary>
+            <param name="type"></param>
+            <param name="initializers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.newArrayBounds(System.Type,System.Linq.Expressions.Expression[])">
+            <summary>
+            new T[...]
+            </summary>
+            <param name="type"></param>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.setNullParameter">
             <summary>
             设置参数反序列化失败错误状态
@@ -9995,6 +10011,13 @@
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.ConditionalExpression)">
             <summary>
             序列化条件表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.NewArrayExpression)">
+            <summary>
+            序列化 new T[] 表达式节点
             </summary>
             <param name="expression"></param>
             <returns></returns>

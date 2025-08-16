@@ -42,46 +42,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Call the node method
         /// 调用节点方法
         /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutput), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputWriteMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputWrite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputWriteCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputWriteCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallback), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackWrite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
-        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteCommandMethod = typeof(StreamPersistenceMemoryDatabaseClient).GetMethod(nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackWriteCommand), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
-        /// <summary>
-        /// Call the node method
-        /// 调用节点方法
-        /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameter, ResponseParameterAwaiter<ResponseParameter>> StreamPersistenceMemoryDatabaseClientCallOutputResponseParameter = StreamPersistenceMemoryDatabaseClient.CallOutputResponseParameter;
         /// <summary>
         /// Call the node method
@@ -118,6 +78,111 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用节点方法
         /// </summary>
         internal static readonly Func<ClientNode, int, ResponseParameterSerializer, Action<ResponseResult<ResponseParameterSerializer>, AutoCSer.Net.KeepCallbackCommand>, AutoCSer.Net.KeepCallbackCommand> StreamPersistenceMemoryDatabaseClientKeepCallbackWriteCommandResponseParameter = StreamPersistenceMemoryDatabaseClient.KeepCallbackWriteCommandResponseParameter;
+
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputWriteMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputCommandMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientCallInputOutputWriteCommandMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackCommandMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteCommandMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientTwoStageCallbackMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputTwoStageCallbackMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientTwoStageCallbackWriteMethod;
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo StreamPersistenceMemoryDatabaseClientInputTwoStageCallbackWriteMethod;
+
+#pragma warning disable CS8618
+        static ClientNodeCreator()
+#pragma warning restore CS8618
+        {
+            foreach (MethodInfo method in typeof(StreamPersistenceMemoryDatabaseClient).GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
+            {
+                switch(method.Name.Length - 15)
+                {
+                    case 15 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutput)) StreamPersistenceMemoryDatabaseClientCallInputOutputMethod = method;
+                        break;
+                    case 16 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.TwoStageCallback)) StreamPersistenceMemoryDatabaseClientTwoStageCallbackMethod = method;
+                        break;
+                    case 17 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallback)) StreamPersistenceMemoryDatabaseClientInputKeepCallbackMethod = method;
+                        break;
+                    case 20 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputWrite)) StreamPersistenceMemoryDatabaseClientCallInputOutputWriteMethod = method;
+                        break;
+                    case 21 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.InputTwoStageCallback)) StreamPersistenceMemoryDatabaseClientInputTwoStageCallbackMethod = method;
+                        else if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.TwoStageCallbackWrite)) StreamPersistenceMemoryDatabaseClientTwoStageCallbackWriteMethod = method;
+                        break;
+                    case 22 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputCommand)) StreamPersistenceMemoryDatabaseClientCallInputOutputCommandMethod = method;
+                        else if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackWrite)) StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteMethod = method;
+                        break;
+                    case 24 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackCommand)) StreamPersistenceMemoryDatabaseClientInputKeepCallbackCommandMethod = method;
+                        break;
+                    case 26 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.InputTwoStageCallbackWrite)) StreamPersistenceMemoryDatabaseClientInputTwoStageCallbackWriteMethod = method;
+                        break;
+                    case 27 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.CallInputOutputWriteCommand)) StreamPersistenceMemoryDatabaseClientCallInputOutputWriteCommandMethod = method;
+                        break;
+                    case 29 - 15:
+                        if (method.Name == nameof(StreamPersistenceMemoryDatabaseClient.InputKeepCallbackWriteCommand)) StreamPersistenceMemoryDatabaseClientInputKeepCallbackWriteCommandMethod = method;
+                        break;
+                }
+            }
+        }
     }
     /// <summary>
     /// 生成客户端节点
@@ -244,7 +309,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 constructorGenerator.ldarg(4);
                 constructorGenerator.ldarg(5);
                 constructorGenerator.Emit(OpCodes.Call, typeof(ClientNode<T>).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, ClientNodeCreator.NodeConstructorParameterTypes, null).notNull());
-                constructorGenerator.Emit(OpCodes.Ret);
+                constructorGenerator.ret();
                 #endregion
                 #endregion
                 foreach (var method in methods)
@@ -269,6 +334,14 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     if (method.IsSimpleDeserializeParamter) flags |= MethodFlagsEnum.IsSimpleDeserializeParamter;
                                     methodGenerator.int32((byte)flags);
                                     break;
+                                case CallTypeEnum.TwoStageCallback:
+                                case CallTypeEnum.InputTwoStageCallback:
+                                    flags = MethodFlagsEnum.None;
+                                    if (method.IsSimpleSerializeParamter) flags |= MethodFlagsEnum.IsSimpleSerializeParamter;
+                                    if (method.IsSimpleDeserializeParamter) flags |= MethodFlagsEnum.IsSimpleDeserializeParamter;
+                                    if (method.IsSimpleSerializeTwoStageCallbackParamter) flags |= MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter;
+                                    methodGenerator.int32((byte)flags);
+                                    break;
                             }
                             #region p0 inputParameter = new p0 { Value = Value, Ref = Ref };
                             var inputParameterLocalBuilder = default(LocalBuilder);
@@ -284,7 +357,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 methodGenerator.Emit(OpCodes.Ldloc_S, inputParameterLocalBuilder);
                             }
                             #endregion
-                            if (method.IsCallback) methodGenerator.ldarg(method.Parameters.Length);
+                            if (method.IsCallback)
+                            {
+                                switch (method.CallType)
+                                {
+                                    case CallTypeEnum.TwoStageCallback:
+                                    case CallTypeEnum.InputTwoStageCallback:
+                                        methodGenerator.ldarg(method.Parameters.Length - 1);
+                                        break;
+                                }
+                                methodGenerator.ldarg(method.Parameters.Length);
+                            }
                             switch (method.CallType)
                             {
                                 case CallTypeEnum.Call:
@@ -459,6 +542,26 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                         }
                                     }
                                     break;
+                                case CallTypeEnum.TwoStageCallback:
+                                    if (method.QueueNodeType == Net.CommandServer.ReadWriteNodeTypeEnum.Read)
+                                    {
+                                        methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientTwoStageCallbackMethod.MakeGenericMethod(method.TwoStageReturnValueType, method.ReturnValueType));
+                                    }
+                                    else
+                                    {
+                                        methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientTwoStageCallbackWriteMethod.MakeGenericMethod(method.TwoStageReturnValueType, method.ReturnValueType));
+                                    }
+                                    break;
+                                case CallTypeEnum.InputTwoStageCallback:
+                                    if (method.QueueNodeType == Net.CommandServer.ReadWriteNodeTypeEnum.Read)
+                                    {
+                                        methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientInputTwoStageCallbackMethod.MakeGenericMethod(method.InputParameterType.notNull().Type, method.TwoStageReturnValueType, method.ReturnValueType));
+                                    }
+                                    else
+                                    {
+                                        methodGenerator.call(ClientNodeCreator.StreamPersistenceMemoryDatabaseClientInputTwoStageCallbackWriteMethod.MakeGenericMethod(method.InputParameterType.notNull().Type, method.TwoStageReturnValueType, method.ReturnValueType));
+                                    }
+                                    break;
                             }
                             #endregion
                         }
@@ -466,9 +569,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             methodGenerator.ldstr(method.Error);
                             methodGenerator.call(AutoCSer.Net.CommandServer.ClientInterfaceController.ClientInterfaceMethodThrowException.Method);
-                            methodGenerator.Emit(OpCodes.Ldnull);
+                            methodGenerator.loadNull();
                         }
-                        methodGenerator.Emit(OpCodes.Ret);
+                        methodGenerator.ret();
                     }
                 }
                 Type creatorType = typeBuilder.CreateType();
@@ -481,7 +584,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 callConstructorGenerator.Emit(OpCodes.Ldarg_3);
                 callConstructorGenerator.ldarg(4);
                 callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(ClientNodeCreator.NodeConstructorParameterTypes).notNull());
-                callConstructorGenerator.Emit(OpCodes.Ret);
+                callConstructorGenerator.ret();
 #if NetStandard21
                 creator = (Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, ResponseParameterAwaiter<NodeIndex>>?, StreamPersistenceMemoryDatabaseClient, NodeIndex, bool, T>));
 #else

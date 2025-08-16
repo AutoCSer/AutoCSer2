@@ -24,7 +24,7 @@ namespace AutoCSer.TestCase
         KeepCallbackCommand TwoStage‌CallbackCountTaskReturn(int Value, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
         KeepCallbackCommand TwoStage‌CallbackCountTaskReturn(Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
 
-        KeepCallbackCommand TwoStage‌CallbackTaskQueueSocketReturn(int queueKey, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
+        KeepCallbackCommand TwoStage‌CallbackTaskQueueSocketReturn(int queueKey, int Ref, CommandClientReturnValueParameterCallback<long> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
         KeepCallbackCommand TwoStage‌CallbackTaskQueueReturn(int queueKey, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
 
         KeepCallbackCommand TwoStage‌CallbackCountTaskQueueSocketReturn(int queueKey, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);
@@ -116,7 +116,7 @@ namespace AutoCSer.TestCase
             }
 
             callback = new ClientTwoStage‌CallbackController.Stage‌Callback(clientSessionObject, true);
-            using (CommandKeepCallback commandKeepCallback = await client.ClientTwoStage‌CallbackTaskController.TwoStage‌CallbackTaskQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, callback.Callback, callback.KeepCallback))
+            using (CommandKeepCallback commandKeepCallback = await client.ClientTwoStage‌CallbackTaskController.TwoStage‌CallbackTaskQueueSocketReturn(clientSessionObject.Value, clientSessionObject.Ref, new CommandClientReturnValueParameterCallback<long>(callback.Callback, 0), callback.KeepCallback))
             {
                 if (!await callback.Wait(commandKeepCallback))
                 {

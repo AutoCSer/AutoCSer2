@@ -196,6 +196,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 CommandServerKeepCallback = null;
             }
         }
+        /// <summary>
+        /// 获取服务接口回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        public static CommandServerKeepCallback<KeepCallbackResponseParameter>? GetKeepCallback(MethodKeepCallback<T>? callback)
+#else
+        public static CommandServerKeepCallback<KeepCallbackResponseParameter> GetKeepCallback(MethodKeepCallback<T> callback)
+#endif
+        {
+            return callback?.CommandServerKeepCallback;
+        }
 
         /// <summary>
         /// 创建方法调用回调包装对象委托类型
@@ -236,6 +250,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static MethodKeepCallback<T> Create(InputKeepCallbackMethodParameter methodParameter)
+        {
+            return methodParameter.CreateMethodKeepCallback<T>();
+        }
+        /// <summary>
+        /// 创建方法调用回调包装对象
+        /// </summary>
+        /// <param name="methodParameter"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static MethodKeepCallback<T> Create(InputTwoStageCallbackMethodParameter methodParameter)
         {
             return methodParameter.CreateMethodKeepCallback<T>();
         }

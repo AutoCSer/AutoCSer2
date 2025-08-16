@@ -31,6 +31,7 @@ namespace AutoCSer.TestCase
         Task TwoStage‌CallbackCountTaskQueueSocketReturn(CommandServerSocket socket, CommandServerCallTaskLowPriorityQueue<int> queue, int Ref, CommandServerCallback<long> Callback, CommandServerKeepCallbackCount<string> KeepCallback);
         Task TwoStage‌CallbackCountTaskQueueReturn(CommandServerCallTaskQueue<int> queue, int Ref, CommandServerCallback<long> Callback, CommandServerKeepCallbackCount<string> KeepCallback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -97,4 +98,5 @@ namespace AutoCSer.TestCase
             await ServerTwoStage‌CallbackController.TwoStage‌Callback(ServerSynchronousController.SessionObject.Xor(queue.Key, Ref), Callback, KeepCallback);
         }
     }
+#endif
 }

@@ -78,7 +78,7 @@ namespace AutoCSer.SimpleSerialize
         public Delegate Create(Type type)
         {
             generator.MarkLabel(returnLabel);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod.CreateDelegate(type);
         }
     }

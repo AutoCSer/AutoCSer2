@@ -33,6 +33,7 @@ namespace AutoCSer.Net
         /// Empty callback
         /// </summary>
         protected CommandServerKeepCallback() { IsCancelKeep = 1; }
+#if !AOT
         /// <summary>
         /// TCP server-side asynchronous keep callback
         /// TCP 服务器端异步保持回调
@@ -150,59 +151,7 @@ namespace AutoCSer.Net
                 Socket.RemoveKeepCallback(CallbackIdentity, returnType, exception);
             }
         }
-        /// <summary>
-        /// Cancel the keep callback command
-        /// 取消保持回调命令
-        /// </summary>
-        internal virtual void SetCancelKeep()
-        {
-            IsCancelKeep = 1;
-        }
-
-        /// <summary>
-        /// Client callback
-        /// 客户端回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        /// <param name="command"></param>
-        private void callback(AutoCSer.Net.CommandClientReturnValue returnValue, AutoCSer.Net.KeepCallbackCommand command)
-        {
-            if (returnValue.IsSuccess) Callback();
-            else
-            {
-                CancelKeep(returnValue.ReturnType);
-                command.Dispose();
-            }
-        }
-        /// <summary>
-        /// Implicitly converted to client callback delegate
-        /// 隐式转换为客户端回调委托
-        /// </summary>
-        /// <param name="callback"></param>
-        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback callback) { return callback.callback; }
-        /// <summary>
-        /// Client callback
-        /// 客户端回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        /// <param name="queue"></param>
-        /// <param name="command"></param>
-        private void callback(AutoCSer.Net.CommandClientReturnValue returnValue, AutoCSer.Net.CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
-        {
-            if (returnValue.IsSuccess) Callback();
-            else
-            {
-                CancelKeep(returnValue.ReturnType);
-                command.Dispose();
-            }
-        }
-        /// <summary>
-        /// Implicitly converted to client callback delegate
-        /// 隐式转换为客户端回调委托
-        /// </summary>
-        /// <param name="callback"></param>
-        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue, AutoCSer.Net.CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback callback) { return callback.callback; }
-
+        
         /// <summary>
         /// Create an asynchronous callback object
         /// 创建异步回调对象
@@ -258,6 +207,60 @@ namespace AutoCSer.Net
         {
             return new CommandServerKeepCallback(node);
         }
+#endif
+        /// <summary>
+        /// Cancel the keep callback command
+        /// 取消保持回调命令
+        /// </summary>
+        internal virtual void SetCancelKeep()
+        {
+            IsCancelKeep = 1;
+        }
+
+        /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue returnValue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback();
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback callback) { return callback.callback; }
+        /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="queue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue returnValue, AutoCSer.Net.CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback();
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue, AutoCSer.Net.CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback callback) { return callback.callback; }
+
         /// <summary>
         /// Cancel the keep callback command
         /// 取消保持回调命令
@@ -305,6 +308,32 @@ namespace AutoCSer.Net
             Method = CommandServerConfig.NullServerInterfaceMethod;
 #endif
         }
+#if AOT
+        /// <summary>
+        /// Return value callback
+        /// 返回值回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        public virtual bool VirtualCallback(T returnValue)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Return a collection of data
+        /// 返回数据集合
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="isCancel">Whether to close the callback after the callback is completed
+        /// 回调完成之后是否关闭回调</param>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        public virtual bool Callback(IEnumerable<T> values, bool isCancel = true)
+        {
+            throw new NotImplementedException();
+        }
+#else
         /// <summary>
         /// TCP server-side asynchronous keep callback
         /// TCP 服务器端异步保持回调
@@ -367,15 +396,6 @@ namespace AutoCSer.Net
             this.Method = method;
         }
         /// <summary>
-        /// No output callback is supported
-        /// 不支持无输出回调
-        /// </summary>
-        /// <returns></returns>
-        public override bool Callback()
-        {
-            throw new InvalidOperationException();
-        }
-        /// <summary>
         /// Return value callback
         /// 返回值回调
         /// </summary>
@@ -386,6 +406,17 @@ namespace AutoCSer.Net
         public bool Callback(T returnValue)
         {
             return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(returnValue));
+        }
+        /// <summary>
+        /// Return value callback
+        /// 返回值回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
+        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
+        public virtual bool VirtualCallback(T returnValue)
+        {
+            return Callback(returnValue);
         }
         ///// <summary>
         ///// 返回值回调
@@ -402,11 +433,11 @@ namespace AutoCSer.Net
         /// 返回值回调
         /// </summary>
         /// <param name="returnValue"></param>
-        /// <returns>Whether successfully added to the output queue, a false return indicates that the channel has been closed
-        /// 是否成功加入输出队列，返回 false 表示通道已关闭</returns>
-        public virtual bool VirtualCallback(T returnValue)
+        /// <param name="onFree"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal bool Callback(T returnValue, Action onFree)
         {
-            return Callback(returnValue);
+            return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(returnValue), onFree);
         }
         /// <summary>
         /// Return value callback
@@ -425,36 +456,7 @@ namespace AutoCSer.Net
             }
             return false;
         }
-        /// <summary>
-        /// Return value callback
-        /// 返回值回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        /// <param name="onFree"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal bool Callback(T returnValue, Action onFree)
-        {
-            return IsCancelKeep == 0 && Socket.Send(CallbackIdentity, Method, new ServerReturnValue<T>(returnValue), onFree);
-        }
-        /// <summary>
-        /// Return the value callback and end the callback
-        /// 返回值回调并结束回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public void CallbackCancelKeep(T returnValue)
-        {
-            if (Callback(returnValue)) CancelKeep();
-        }
-        /// <summary>
-        /// Return the value callback and end the callback
-        /// 返回值回调并结束回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        public virtual void VirtualCallbackCancelKeep(T returnValue)
-        {
-            CallbackCancelKeep(returnValue);
-        }
+        
         /// <summary>
         /// Return a collection of data
         /// 返回数据集合
@@ -564,49 +566,6 @@ namespace AutoCSer.Net
         }
 #endif
 
-        /// <summary>
-        /// Client callback
-        /// 客户端回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        /// <param name="command"></param>
-        private void callback(AutoCSer.Net.CommandClientReturnValue<T> returnValue, AutoCSer.Net.KeepCallbackCommand command)
-        {
-            if (returnValue.IsSuccess) Callback(returnValue.Value);
-            else
-            {
-                CancelKeep(returnValue.ReturnType);
-                command.Dispose();
-            }
-        }
-        /// <summary>
-        /// Implicitly converted to client callback delegate
-        /// 隐式转换为客户端回调委托
-        /// </summary>
-        /// <param name="callback"></param>
-        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback<T> callback) { return callback.callback; }
-        /// <summary>
-        /// Client callback
-        /// 客户端回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        /// <param name="queue"></param>
-        /// <param name="command"></param>
-        private void callback(AutoCSer.Net.CommandClientReturnValue<T> returnValue, AutoCSer.Net.CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
-        {
-            if (returnValue.IsSuccess) Callback(returnValue.Value);
-            else
-            {
-                CancelKeep(returnValue.ReturnType);
-                command.Dispose();
-            }
-        }
-        /// <summary>
-        /// Implicitly converted to client callback delegate
-        /// 隐式转换为客户端回调委托
-        /// </summary>
-        /// <param name="callback"></param>
-        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback<T> callback) { return callback.callback; }
 
         /// <summary>
         /// Create an asynchronous callback object
@@ -668,6 +627,50 @@ namespace AutoCSer.Net
         {
             return new CommandServerKeepCallback<T>(node, method);
         }
+
+        /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue<T> returnValue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback(returnValue.Value);
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback<T> callback) { return callback.callback; }
+        /// <summary>
+        /// Client callback
+        /// 客户端回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <param name="queue"></param>
+        /// <param name="command"></param>
+        private void callback(AutoCSer.Net.CommandClientReturnValue<T> returnValue, AutoCSer.Net.CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
+        {
+            if (returnValue.IsSuccess) Callback(returnValue.Value);
+            else
+            {
+                CancelKeep(returnValue.ReturnType);
+                command.Dispose();
+            }
+        }
+        /// <summary>
+        /// Implicitly converted to client callback delegate
+        /// 隐式转换为客户端回调委托
+        /// </summary>
+        /// <param name="callback"></param>
+        public static implicit operator Action<AutoCSer.Net.CommandClientReturnValue<T>, AutoCSer.Net.CommandClientCallQueue, AutoCSer.Net.KeepCallbackCommand>(CommandServerKeepCallback<T> callback) { return callback.callback; }
 
         /// <summary>
         /// The TCP server side asynchronously maintains the callback linked list
@@ -747,5 +750,35 @@ namespace AutoCSer.Net
                 }
             }
         }
+#endif
+        /// <summary>
+        /// No output callback is supported
+        /// 不支持无输出回调
+        /// </summary>
+        /// <returns></returns>
+        public override bool Callback()
+        {
+            throw new InvalidOperationException();
+        }
+        /// <summary>
+        /// Return the value callback and end the callback
+        /// 返回值回调并结束回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void CallbackCancelKeep(T returnValue)
+        {
+            if (VirtualCallback(returnValue)) CancelKeep();
+        }
+        /// <summary>
+        /// Return the value callback and end the callback
+        /// 返回值回调并结束回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        public virtual void VirtualCallbackCancelKeep(T returnValue)
+        {
+            CallbackCancelKeep(returnValue);
+        }
+
     }
 }

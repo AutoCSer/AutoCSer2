@@ -95,21 +95,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callbackCopy != null)
             {
                 callback = null;
-                bool isCallback = false;
+                //bool isCallback = false;
                 try
                 {
                     ResponseParameter responseParameter = ResponseParameter.Create(value, flag);
-                    isCallback = true;
+                    //isCallback = true;
                     callbackCopy.SynchronousCallback(responseParameter);
                 }
                 catch (Exception exception)
                 {
                     AutoCSer.LogHelper.ExceptionIgnoreException(exception);
                 }
-                finally
-                {
-                    if (!isCallback) callbackCopy.Socket.DisposeSocket();
-                }
+                //finally
+                //{
+                //    if (!isCallback) callbackCopy.Socket.DisposeSocket();
+                //}
             }
         }
         /// <summary>

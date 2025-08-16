@@ -163,7 +163,7 @@ namespace AutoCSer.ORM.RemoteProxy
                     #endregion
                 }
             }
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             Reader = (Action<DataValue[], T, int[]>)dynamicMethod.CreateDelegate(typeof(Action<DataValue[], T, int[]>));
             ModelReader<T>.columnIndexs = columnIndexs;
         }

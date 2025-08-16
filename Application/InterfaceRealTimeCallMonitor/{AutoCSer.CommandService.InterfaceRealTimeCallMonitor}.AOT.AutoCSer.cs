@@ -161,7 +161,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
 }namespace AutoCSer.CommandService
 {
         /// <summary>
-        /// 接口实时调用监视服务接口 客户端接口
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(InterfaceRealTimeCallMonitorServiceClientController))]
         public partial interface IInterfaceRealTimeCallMonitorServiceClientController { }

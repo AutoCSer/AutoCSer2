@@ -19,6 +19,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         void CallbackQueueReturn(CommandServerCallLowPriorityQueue queue, CommandServerCallback<string> Callback);
         void CallbackQueue(CommandServerCallQueue queue, CommandServerCallback Callback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -60,4 +61,5 @@ namespace AutoCSer.TestCase.ServerBindContext
             Callback.Callback();
         }
     }
+#endif
 }

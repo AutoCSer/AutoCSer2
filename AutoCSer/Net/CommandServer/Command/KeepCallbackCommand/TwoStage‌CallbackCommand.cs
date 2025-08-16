@@ -33,6 +33,11 @@ namespace AutoCSer.Net.CommandServer
         private CommandClientCallback<T> callback;
 #if AOT
         /// <summary>
+        /// The initial return value
+        /// 初始返回值
+        /// </summary>
+        private OT outputParameter;
+        /// <summary>
         /// The delegate that gets the return value
         /// 获取返回值委托
         /// </summary>
@@ -68,7 +73,50 @@ namespace AutoCSer.Net.CommandServer
             this.callback = callback;
             this.getReturnValue = getReturnValue;
         }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="getOutputParameter"></param>
+        /// <param name="getReturnValue"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="getKeepReturnValue"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<T> callback, Func<T, OT> getOutputParameter, Func<OT, T> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue) : base(controller, methodIndex, keepCallback, getKeepReturnValue)
+        {
+            this.callback = callback.Callback;
+            this.outputParameter = getOutputParameter(callback.ReturnValueParameter);
+            this.getReturnValue = getReturnValue;
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="getOutputParameter"></param>
+        /// <param name="getReturnValue"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="getKeepReturnValue"></param>
+        /// <param name="outputParameter"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<T> callback, Func<T, OT> getOutputParameter, Func<OT, T> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, KOT outputParameter) : base(controller, methodIndex, keepCallback, getKeepReturnValue, outputParameter)
+        {
+            this.callback = callback.Callback;
+            this.outputParameter = getOutputParameter(callback.ReturnValueParameter);
+            this.getReturnValue = getReturnValue;
+        }
 #else
+        /// <summary>
+        /// The initial return value
+        /// 初始返回值
+        /// </summary>
+#if NetStandard21
+        [AllowNull]
+#endif
+        private T returnValue;
         /// <summary>
         /// Two-stage callback command
         /// 两阶段回调命令
@@ -93,6 +141,33 @@ namespace AutoCSer.Net.CommandServer
         internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientCallback<T> callback, CommandClientKeepCallback<KT> keepCallback, ref KT returnValue) : base(controller, methodIndex, keepCallback, ref returnValue)
         {
             this.callback = callback;
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<T> callback, CommandClientKeepCallback<KT> keepCallback) : base(controller, methodIndex, keepCallback)
+        {
+            this.callback = callback.Callback;
+            this.returnValue = callback.ReturnValueParameter;
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="returnValue"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<T> callback, CommandClientKeepCallback<KT> keepCallback, ref KT returnValue) : base(controller, methodIndex, keepCallback, ref returnValue)
+        {
+            this.callback = callback.Callback;
+            this.returnValue = callback.ReturnValueParameter;
         }
 #endif
         /// <summary>
@@ -132,16 +207,21 @@ namespace AutoCSer.Net.CommandServer
         /// <returns></returns>
         internal override ClientReceiveErrorTypeEnum OnReceive(ref SubArray<byte> data)
         {
-            if (IsReceiveKeepData) return base.OnReceive(ref data);
-            IsReceiveKeepData = true;
-            if (data.Length == int.MinValue)
+            if ((Controller.Socket.CallbackIdentity.Index & (uint)CallbackFlagsEnum.TwoStageCallback) == 0)
             {
-                onReceiveError((CommandClientReturnTypeEnum)(byte)data.Start);
-                return ClientReceiveErrorTypeEnum.Success;
+                IsReceiveKeepData = true;
+                return base.OnReceive(ref data);
             }
-            CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;
+            if (!IsReceiveKeepData)
+            {
+                IsReceiveKeepData = true;
+                if (data.Length == int.MinValue)
+                {
+                    onReceiveError((CommandClientReturnTypeEnum)(byte)data.Start);
+                    return ClientReceiveErrorTypeEnum.Success;
+                }
+                CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Unknown;
 #if AOT
-            OT outputParameter = default(OT);
             try
             {
                 if (Controller.Socket.Deserialize(ref data, ref outputParameter, Method.IsSimpleSerializeTwoStage‌ReturnValue))
@@ -158,23 +238,25 @@ namespace AutoCSer.Net.CommandServer
                 else onReceiveError(CommandClientReturnTypeEnum.ClientDeserializeError);
             }
 #else
-            ServerReturnValue<T> outputParameter = default(ServerReturnValue<T>);
-            try
-            {
-                if (Controller.Socket.Deserialize(ref data, ref outputParameter, Method.IsSimpleSerializeTwoStage‌ReturnValue))
+                ServerReturnValue<T> outputParameter = new ServerReturnValue<T>(returnValue);
+                try
                 {
-                    returnType = CommandClientReturnTypeEnum.Success;
+                    if (Controller.Socket.Deserialize(ref data, ref outputParameter, Method.IsSimpleSerializeTwoStage‌ReturnValue))
+                    {
+                        returnType = CommandClientReturnTypeEnum.Success;
+                        return ClientReceiveErrorTypeEnum.Success;
+                    }
+                    Method.DeserializeError(Controller);
                     return ClientReceiveErrorTypeEnum.Success;
                 }
-                Method.DeserializeError(Controller);
-                return ClientReceiveErrorTypeEnum.Success;
-            }
-            finally
-            {
-                if (returnType == CommandClientReturnTypeEnum.Success) callback.Callback(outputParameter.ReturnValue);
-                else onReceiveError(CommandClientReturnTypeEnum.ClientDeserializeError);
-            }
+                finally
+                {
+                    if (returnType == CommandClientReturnTypeEnum.Success) callback.Callback(outputParameter.ReturnValue);
+                    else onReceiveError(CommandClientReturnTypeEnum.ClientDeserializeError);
+                }
 #endif
+            }
+            return ClientReceiveErrorTypeEnum.Success;
         }
         /// <summary>
         /// Cancel the hold callback (Note that since it is a synchronous call by the IO thread receiving data, if there is a blockage, please open a new thread task to handle it)
@@ -258,6 +340,41 @@ namespace AutoCSer.Net.CommandServer
             this.inputParameter = inputParameter;
             Push();
         }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="getOutputParameter"></param>
+        /// <param name="getReturnValue"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="getKeepReturnValue"></param>
+        /// <param name="inputParameter"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, Func<RT, OT> getOutputParameter, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter) : base(controller, methodIndex, callback, getOutputParameter, getReturnValue, keepCallback, getKeepReturnValue)
+        {
+            this.inputParameter = inputParameter;
+            Push();
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="getOutputParameter"></param>
+        /// <param name="getReturnValue"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="getKeepReturnValue"></param>
+        /// <param name="inputParameter"></param>
+        /// <param name="outputParameter"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, Func<RT, OT> getOutputParameter, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter, KOT outputParameter) : base(controller, methodIndex, callback, getOutputParameter, getReturnValue, keepCallback, getKeepReturnValue, outputParameter)
+        {
+            this.inputParameter = inputParameter;
+            Push();
+        }
 #else
         /// <summary>
         /// Two-stage callback command
@@ -284,6 +401,35 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="inputParameter"></param>
         /// <param name="returnValue"></param>
         internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter, ref KT returnValue) : base(controller, methodIndex, callback, keepCallback, ref returnValue)
+        {
+            this.inputParameter = inputParameter;
+            Push();
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="inputParameter"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter) : base(controller, methodIndex, callback, keepCallback)
+        {
+            this.inputParameter = inputParameter;
+            Push();
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="inputParameter"></param>
+        /// <param name="returnValue"></param>
+        internal TwoStage‌CallbackCommand(CommandClientController controller, int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter, ref KT returnValue) : base(controller, methodIndex, callback, keepCallback, ref returnValue)
         {
             this.inputParameter = inputParameter;
             Push();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -23,7 +24,7 @@ namespace AutoCSer.ORM.Reflection.Emit
             ILGenerator generator = dynamicMethod.GetILGenerator();
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldfld, field);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return (Func<T, FT>)dynamicMethod.CreateDelegate(typeof(Func<T, FT>));
         }
     }

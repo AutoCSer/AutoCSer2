@@ -166,12 +166,12 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
-        public static CommandServerCallback<ResponseParameter>? GetCallback(MethodCallback<T> callback)
+        public static CommandServerCallback<ResponseParameter>? GetCallback(MethodCallback<T>? callback)
 #else
         public static CommandServerCallback<ResponseParameter> GetCallback(MethodCallback<T> callback)
 #endif
         {
-            return callback.CommandServerCallback;
+            return callback?.CommandServerCallback;
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 #if NetStandard21
         internal delegate MethodCallback<T> CreateDelegate(ref CommandServerCallback<ResponseParameter>? callback, MethodFlagsEnum flag);
 #else
-        internal delegate MethodCallback<T> CreateDelegate(ref CommandServerCallback<ResponseParameter> callback,MethodFlagsEnum flag);
+        internal delegate MethodCallback<T> CreateDelegate(ref CommandServerCallback<ResponseParameter> callback, MethodFlagsEnum flag);
 #endif
         /// <summary>
         /// 创建方法调用回调包装对象
@@ -213,6 +213,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static MethodCallback<T> Create(CallInputOutputMethodParameter methodParameter)
+        {
+            return methodParameter.CreateMethodCallback<T>();
+        }
+        /// <summary>
+        /// 创建方法调用回调包装对象
+        /// </summary>
+        /// <param name="methodParameter"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public static MethodCallback<T> Create(InputTwoStageCallbackMethodParameter methodParameter)
         {
             return methodParameter.CreateMethodCallback<T>();
         }

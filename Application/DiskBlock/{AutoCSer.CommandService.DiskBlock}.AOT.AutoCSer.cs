@@ -99,7 +99,7 @@ namespace AutoCSer.CommandService.DiskBlock
 }namespace AutoCSer.CommandService
 {
         /// <summary>
-        /// 磁盘块客户端接口
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(DiskBlockClientController))]
         public partial interface IDiskBlockClient { }

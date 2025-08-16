@@ -33,6 +33,7 @@ namespace AutoCSer.Net.CommandServer
 #else
         public string[] MethodNames;
 #endif
+#if !AOT
         /// <summary>
         /// 命令控制器查询输出数据
         /// </summary>
@@ -49,5 +50,6 @@ namespace AutoCSer.Net.CommandServer
                 MethodNames = controller.Methods.getArray(p => p?.Method.Name);
             }
         }
+#endif
     }
 }

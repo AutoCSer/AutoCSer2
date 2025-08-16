@@ -26,6 +26,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         void Queue(CommandServerCallReadQueue queue, out long Out);
         void Queue(CommandServerCallWriteQueue queue);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -93,4 +94,5 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         void IServerReadWriteQueueController.Queue(CommandServerCallWriteQueue queue) { }
     }
+#endif
 }

@@ -70,7 +70,7 @@ namespace AutoCSer.MemberCopy
         /// <returns>成员复制委托</returns>
         internal Delegate Create(Type type)
         {
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod.CreateDelegate(type);
         }
     }

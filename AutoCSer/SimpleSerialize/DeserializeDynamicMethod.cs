@@ -64,7 +64,7 @@ namespace AutoCSer.SimpleSerialize
         public Delegate Create(Type type)
         {
             generator.Emit(OpCodes.Ldarg_0);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod.CreateDelegate(type);
         }
     }

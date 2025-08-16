@@ -18,6 +18,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal static readonly Type LocalClientSendOnlyMethodReturnType = typeof(MethodParameter);
         /// <summary>
+        /// 二阶段回调的第一阶段的返回值类型
+        /// </summary>
+        internal readonly Type TwoStage‌ReturnValueType;
+        /// <summary>
         /// 队列节点类型
         /// </summary>
         internal ReadWriteNodeTypeEnum QueueNodeType;
@@ -29,6 +33,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 是否返回参数类型
         /// </summary>
         internal readonly bool IsReturnResponseParameter;
+        /// <summary>
+        /// Whether to simply serialize the output data of the first-stage callback of the two-stage callback
+        /// 是否简单序列化二阶段回调的第一阶段回调输出数据
+        /// </summary>
+        internal readonly bool IsSimpleSerializeTwoStageCallbackParamter;
 
         /// <summary>
         /// 客户端节点方法信息
@@ -43,6 +52,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             ParameterEndIndex = Parameters.Length;
             ReturnValueType = method.ReturnType;
             QueueNodeType = ReadWriteNodeTypeEnum.Write;
+            TwoStage‌ReturnValueType = typeof(void);
             bool isReturnType = false, isKeepCallback = false;
             if (ReturnValueType == (isLocalClient ? LocalClientSendOnlyMethodReturnType : typeof(SendOnlyCommand)))
             {
@@ -88,7 +98,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     {
                                         ReturnValueType = ReturnValueType.GetGenericArguments()[0];
                                         isReturnType = isKeepCallback = IsCallback = true;
-                                        --ParameterEndIndex;
+                                        if (ParameterStartIndex != --ParameterEndIndex)
+                                        {
+                                            Type twoStageCallbackType = Parameters[ParameterEndIndex - 1].ParameterType;
+                                            if (twoStageCallbackType.IsGenericType && twoStageCallbackType.GetGenericTypeDefinition() == typeof(Action<>))
+                                            {
+                                                twoStageCallbackType = twoStageCallbackType.GetGenericArguments()[0];
+                                                if (twoStageCallbackType.IsGenericType && twoStageCallbackType.GetGenericTypeDefinition() == typeof(LocalResult<>))
+                                                {
+                                                    TwoStageReturnValueType = twoStageCallbackType.GetGenericArguments()[0];
+                                                    --ParameterEndIndex;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -158,7 +180,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 {
                                     ReturnValueType = ReturnValueType.GetGenericArguments()[0];
                                     isReturnType = isKeepCallback = IsCallback = true;
-                                    --ParameterEndIndex;
+                                    if (ParameterStartIndex != --ParameterEndIndex)
+                                    {
+                                        Type twoStageCallbackType = Parameters[ParameterEndIndex - 1].ParameterType;
+                                        if (twoStageCallbackType.IsGenericType && twoStageCallbackType.GetGenericTypeDefinition() == typeof(Action<>))
+                                        {
+                                            twoStageCallbackType = twoStageCallbackType.GetGenericArguments()[0];
+                                            if (twoStageCallbackType.IsGenericType && twoStageCallbackType.GetGenericTypeDefinition() == typeof(ResponseResult<>))
+                                            {
+                                                TwoStageReturnValueType = twoStageCallbackType.GetGenericArguments()[0];
+                                                --ParameterEndIndex;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -198,7 +232,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     Error = $"节点方法 {type.fullName()}.{method.Name} 返回值类型必须是 {awaitType.fullName()}";
                     return;
                 }
-                if (!isLocalClient)
+                if (!isLocalClient && TwoStageReturnValueType == typeof(void))
                 {
                     if (ParameterStartIndex != ParameterEndIndex && ReturnValueType == (isKeepCallback ? typeof(ResponseParameterSerializer) : typeof(ResponseParameter)))
                     {
@@ -215,8 +249,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 {
                     switch (CallType)
                     {
-                        case CallTypeEnum.CallOutput: CallType = CallTypeEnum.KeepCallback; break;
-                        case CallTypeEnum.CallInputOutput: CallType = CallTypeEnum.InputKeepCallback; break;
+                        case CallTypeEnum.CallOutput: CallType = TwoStageReturnValueType == typeof(void) ? CallTypeEnum.KeepCallback : CallTypeEnum.TwoStageCallback; break;
+                        case CallTypeEnum.CallInputOutput: CallType = TwoStageReturnValueType == typeof(void) ? CallTypeEnum.InputKeepCallback : CallTypeEnum.InputTwoStageCallback; break;
                     }
                 }
             }
@@ -231,6 +265,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 IsSimpleSerializeParamter = InputParameterType.IsSimpleSerialize;
             }
             if (ReturnValueType != typeof(void)) IsSimpleDeserializeParamter = SimpleSerialize.Serializer.IsType(ReturnValueType);
+            if (TwoStageReturnValueType != typeof(void)) IsSimpleSerializeTwoStageCallbackParamter = SimpleSerialize.Serializer.IsType(TwoStageReturnValueType);
         }
         /// <summary>
         /// 设置服务端节点方法数据

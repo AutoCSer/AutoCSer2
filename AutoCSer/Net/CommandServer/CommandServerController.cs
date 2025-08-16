@@ -11,7 +11,11 @@ namespace AutoCSer.Net
     /// Command service controller
     /// 命令服务控制器
     /// </summary>
+#if AOT
+    internal abstract class CommandServerController
+#else
     public abstract class CommandServerController
+#endif
     {
         /// <summary>
         /// 多命令控制器模式最大命令数量有效位
@@ -27,13 +31,24 @@ namespace AutoCSer.Net
         internal static readonly CommandServerControllerInterfaceAttribute DefaultAttribute = AutoCSer.Configuration.Common.Get<CommandServerControllerInterfaceAttribute>()?.Value ?? new CommandServerControllerInterfaceAttribute { IsAutoMethodIndex = true };
 
         /// <summary>
-        /// 命令服务
-        /// </summary>
-        public readonly CommandListener Server;
-        /// <summary>
         /// 控制器名称
         /// </summary>
         public readonly string ControllerName;
+#if AOT
+        /// <summary>
+        /// 默认空命令服务控制器
+        /// </summary>
+        /// <param name="server"></param>
+        internal CommandServerController(CommandListener server)
+        {
+            ControllerName = string.Empty;
+        }
+#else
+
+        /// <summary>
+        /// 命令服务
+        /// </summary>
+        public readonly CommandListener Server;
         /// <summary>
         /// 命令控制器配置
         /// </summary>
@@ -168,11 +183,6 @@ namespace AutoCSer.Net
             if (!object.ReferenceEquals(Server.CallConcurrencyReadQueue, CallConcurrencyReadQueue)) CallConcurrencyReadQueue.Close();
             if (!object.ReferenceEquals(Server.CallReadWriteQueue, CallReadWriteQueue)) CallReadWriteQueue.Close();
         }
-        /// <summary>
-        /// 控制器接口实例
-        /// </summary>
-        /// <returns></returns>
-        public virtual object GetControllerObject() { throw new InvalidOperationException(); }
         /// <summary>
         /// 设置起始命令序号
         /// </summary>
@@ -644,7 +654,14 @@ namespace AutoCSer.Net
         {
             controller.CallTaskQueue.notNull().AddLowPriorityOnly(value);
         }
+#endif
+        /// <summary>
+        /// 控制器接口实例
+        /// </summary>
+        /// <returns></returns>
+        public virtual object GetControllerObject() { throw new InvalidOperationException(); }
     }
+#if !AOT
     /// <summary>
     /// Command service controller
     /// 命令服务控制器
@@ -750,4 +767,5 @@ namespace AutoCSer.Net
             return controller.getController(node.Socket);
         }
     }
+#endif
 }

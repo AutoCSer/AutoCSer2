@@ -27,6 +27,7 @@ namespace AutoCSer.TestCase
         void CallbackQueueReturn(CommandServerCallLowPriorityQueue queue, CommandServerCallback<string> Callback);
         void CallbackQueue(CommandServerCallQueue queue, CommandServerCallback Callback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -103,4 +104,5 @@ namespace AutoCSer.TestCase
             Callback.Callback();
         }
     }
+#endif
 }

@@ -647,7 +647,7 @@
             拉取文件客户端接口
             </summary>
             <summary>
-            拉取文件客户端接口
+            
             </summary>
             <summary>
             文件拉取服务接口 client interface
@@ -797,25 +797,6 @@
             客户端写文件操作
             </summary>
             <param name="fileWriter">客户端写文件操作</param>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.Read(AutoCSer.CommandService.DeployTask.SynchronousFileInfo,System.Int32)">
-            <summary>
-            读取文件数据
-            </summary>
-            <param name="fileInfo">文件信息</param>
-            <param name="bufferSize">缓冲区大小</param>
-            <returns>是否已经结束</returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.callbackAsync">
-            <summary>
-            回调处理
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.releaseSerializeLock">
-            <summary>
-            输出错误处理释放序列化等待锁
-            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.PullFileBuffer.AutoCSer#BinarySerialize#ICustomSerialize{AutoCSer#CommandService#DeployTask#PullFileBuffer}#Serialize(AutoCSer.BinarySerializer)">
             <summary>
@@ -1854,7 +1835,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController">
             <summary>
-            数据库备份服务接口 客户端接口
+            
             </summary>
             <summary>
             数据库备份服务接口 client interface
@@ -1890,7 +1871,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController">
             <summary>
-            数据库备份服务接口 客户端接口 client controller
+             client controller
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.DeployTask.DatabaseBackupServiceClientController.__ip0__@)">
@@ -2293,7 +2274,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController">
             <summary>
-            文件上传服务接口 客户端接口
+            
             </summary>
             <summary>
             文件上传服务接口 client interface
@@ -2442,7 +2423,7 @@
         </member>
         <member name="T:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController">
             <summary>
-            文件上传服务接口 客户端接口 client controller
+             client controller
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.DeployTask.UploadFileServiceClientController.__ip0__)">

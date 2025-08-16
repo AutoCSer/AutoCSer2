@@ -13,12 +13,26 @@ namespace AutoCSer.Net
     /// TCP server-side asynchronous callback
     /// TCP 服务器端异步回调
     /// </summary>
-    public class CommandServerCallback : CommandServerCall//, IDisposable
+    public class CommandServerCallback
+#if !AOT
+        : CommandServerCall//, IDisposable
+#endif
     {
         /// <summary>
         /// Empty callback
         /// </summary>
         protected CommandServerCallback() { }
+#if AOT
+        /// <summary>
+        /// Success status callback
+        /// 成功状态回调
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool Callback()
+        {
+            throw new NotImplementedException();
+        }
+#else
         /// <summary>
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
@@ -102,29 +116,6 @@ namespace AutoCSer.Net
         {
             return Callback(CommandClientReturnTypeEnum.Success, null);
         }
-        /// <summary>
-        /// Successful status queue synchronization callback
-        /// 成功状态队列同步回调
-        /// </summary>
-        /// <returns></returns>
-        internal virtual bool SynchronousCallback()
-        {
-            return Callback();
-        }
-        /// <summary>
-        /// Cancel the keep callback command
-        /// 取消保持回调命令
-        /// </summary>
-        /// <param name="returnType"></param>
-        /// <param name="exception"></param>
-#if NetStandard21
-        public virtual void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception? exception = null)
-#else
-        public virtual void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception exception = null)
-#endif
-        {
-            throw new InvalidOperationException();
-        }
 
         /// <summary>
         /// Create asynchronous callbacks
@@ -181,6 +172,30 @@ namespace AutoCSer.Net
         {
             return new CommandServerCallback(node);
         }
+#endif
+        /// <summary>
+        /// Successful status queue synchronization callback
+        /// 成功状态队列同步回调
+        /// </summary>
+        /// <returns></returns>
+        internal virtual bool SynchronousCallback()
+        {
+            return Callback();
+        }
+        /// <summary>
+        /// Cancel the keep callback command
+        /// 取消保持回调命令
+        /// </summary>
+        /// <param name="returnType"></param>
+        /// <param name="exception"></param>
+#if NetStandard21
+        public virtual void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception? exception = null)
+#else
+        public virtual void CancelKeep(CommandClientReturnTypeEnum returnType = CommandClientReturnTypeEnum.Success, Exception exception = null)
+#endif
+        {
+            throw new InvalidOperationException();
+        }
     }
     /// <summary>
     /// TCP server-side asynchronous callback
@@ -202,6 +217,7 @@ namespace AutoCSer.Net
         /// Empty callback
         /// </summary>
         protected CommandServerCallback() { }
+#if !AOT
         /// <summary>
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
@@ -258,7 +274,7 @@ namespace AutoCSer.Net
         /// <param name="node"></param>
         /// <param name="offlineCount"></param>
         internal CommandServerCallback(CommandServerCallConcurrencyReadQueueNode node, OfflineCount offlineCount) : base(node, offlineCount) { }
-        
+
         /// <summary>
         /// TCP server-side asynchronous callback
         /// TCP 服务器端异步回调
@@ -275,23 +291,7 @@ namespace AutoCSer.Net
             checkOfflineCount();
             throw new InvalidOperationException();
         }
-        /// <summary>
-        /// Return value callback
-        /// 返回值回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        /// <returns></returns>
-        public abstract bool Callback(T returnValue);
-        /// <summary>
-        /// Queue synchronization callback
-        /// 队列同步回调
-        /// </summary>
-        /// <param name="returnValue"></param>
-        /// <returns></returns>
-        internal virtual bool SynchronousCallback(T returnValue)
-        {
-            return Callback(returnValue);
-        }
+        
         /// <summary>
         /// Return value callback
         /// 返回值回调
@@ -423,6 +423,7 @@ namespace AutoCSer.Net
         {
             return new CommandServerTwoStage‌Callback<T>(node, method);
         }
+        
 
         /// <summary>
         /// TCP server-side asynchronous callback linked list
@@ -474,6 +475,24 @@ namespace AutoCSer.Net
                     head = head.LinkNext;
                 }
             }
+        }
+#endif
+        /// <summary>
+        /// Return value callback
+        /// 返回值回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        public abstract bool Callback(T returnValue);
+        /// <summary>
+        /// Queue synchronization callback
+        /// 队列同步回调
+        /// </summary>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        internal virtual bool SynchronousCallback(T returnValue)
+        {
+            return Callback(returnValue);
         }
     }
 }

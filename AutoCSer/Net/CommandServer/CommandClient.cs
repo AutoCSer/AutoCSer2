@@ -232,6 +232,7 @@ namespace AutoCSer.Net
                 if (ControllerCreators.Length != 0) config.AutoCreateSocket(this);
             }
         }
+#if !AOT
         /// <summary>
         /// Reverse command client
         /// 反向命令客户端
@@ -263,6 +264,7 @@ namespace AutoCSer.Net
             if (ControllerCreators.Length == 0) throw new Exception($"反向服务 {Config.ServerName} 创建客户端失败，缺少客户端控制器信息");
 
         }
+#endif
         ///// <summary>
         ///// 反向命令客户端
         ///// </summary>

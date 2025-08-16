@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace AutoCSer.Net
 {
+#if AOT
+    /// <summary>
+    /// The low-priority queue of the server synchronization thread
+    /// 服务端同步线程低优先级队列
+    /// </summary>
+    public sealed class CommandServerCallLowPriorityQueue
+    {
+    }
+#else
     /// <summary>
     /// The low-priority queue of the server synchronization thread
     /// 服务端同步线程低优先级队列
@@ -161,4 +170,5 @@ namespace AutoCSer.Net
             return AutoCSer.Common.CompletedTask;
         }
     }
+#endif
 }

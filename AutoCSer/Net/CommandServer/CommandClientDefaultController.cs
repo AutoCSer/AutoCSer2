@@ -465,6 +465,20 @@ namespace AutoCSer.Net
             finally { keepCallback(new CommandClientReturnValue<KT>(DefaultControllerReturnType, null), command); }
             return command;
         }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public AutoCSer.Net.KeepCallbackCommand DefaultTwoStage‌CallbackParameter<T, KT>(CommandClientReturnValueParameterCallback<T> callback, Action<CommandClientReturnValue<KT>, AutoCSer.Net.KeepCallbackCommand> keepCallback)
+        {
+            return DefaultTwoStage‌CallbackAction(callback.Callback, keepCallback);
+        }
 #if AOT
         /// <summary>
         /// Return value command

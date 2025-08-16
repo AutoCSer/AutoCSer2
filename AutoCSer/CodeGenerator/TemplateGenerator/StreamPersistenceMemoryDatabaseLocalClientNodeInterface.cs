@@ -55,6 +55,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public ExtensionType CallbackType;
             /// <summary>
+            /// 回调委托类型
+            /// </summary>
+            public ExtensionType KeepCallbackType;
+            /// <summary>
+            /// 回调委托参数之前是否存在其它参数
+            /// </summary>
+            public bool IsJoinCallback { get { return Method.Parameters.Length != 0; } }
+            /// <summary>
+            /// 回调委托参数之前是否存在其它参数
+            /// </summary>
+            public bool IsJoinKeepCallback { get { return IsJoinCallback || CallbackType != null; } }
+            /// <summary>
             /// 接口方法与枚举信息
             /// </summary>
             /// <param name="nodeAttribute"></param>
@@ -78,10 +90,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputEnumerable:
                             if (method.MethodAttribute.IsCallbackClient)
                             {
-                                CallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
+                                KeepCallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
                                 MethodReturnType = typeof(LocalServiceQueueNode<IDisposable>);
                             }
                             else MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalKeepCallback<>).MakeGenericType(method.ReturnValueType));
+                            break;
+                        case CallTypeEnum.TwoStageCallback:
+                        case CallTypeEnum.InputTwoStageCallback:
+                            CallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.TwoStageReturnValueType));
+                            KeepCallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
+                            MethodReturnType = typeof(LocalServiceQueueNode<IDisposable>);
                             break;
                         default:
                             if (method.MethodAttribute.IsCallbackClient)

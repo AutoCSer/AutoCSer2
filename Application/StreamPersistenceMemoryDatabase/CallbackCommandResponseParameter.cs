@@ -2,6 +2,7 @@
 using AutoCSer.Net;
 using AutoCSer.Net.CommandServer;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {
@@ -147,6 +148,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 callback(result.Value.State);
             }
             else callback(new ResponseResult<T>(result.ReturnType, result.ErrorMessage));
+        }
+        /// <summary>
+        /// Get the client callback delegate with the initial value of the return parameter
+        /// 获取带返回参数初始值的客户端回调委托
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal CommandClientReturnValueParameterCallback<ResponseParameter> GetReturnValueParameterCallback()
+        {
+            return new CommandClientReturnValueParameterCallback<ResponseParameter>(Callback, this);
         }
     }
 }

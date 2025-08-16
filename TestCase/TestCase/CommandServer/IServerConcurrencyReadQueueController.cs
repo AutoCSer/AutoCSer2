@@ -42,6 +42,7 @@ namespace AutoCSer.TestCase
         void Queue(CommandServerCallConcurrencyReadQueue queue, out long Out);
         void Queue(CommandServerCallConcurrencyReadWriteQueue queue);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -170,4 +171,5 @@ namespace AutoCSer.TestCase
         }
         void IServerConcurrencyReadQueueController.Queue(CommandServerCallConcurrencyReadWriteQueue queue) { }
     }
+#endif
 }

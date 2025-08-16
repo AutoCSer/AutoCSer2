@@ -51,6 +51,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用节点方法
         /// </summary>
         internal static readonly MethodInfo LocalServiceInputKeepCallbackNodeCreateMethod = typeof(LocalServiceInputKeepCallbackNode).GetMethod(nameof(LocalServiceInputKeepCallbackNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo LocalServiceTwoStageCallbackNodeCreateMethod = typeof(LocalServiceTwoStageCallbackNode).GetMethod(nameof(LocalServiceTwoStageCallbackNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo LocalServiceInputTwoStageCallbackNodeCreateMethod = typeof(LocalServiceInputTwoStageCallbackNode).GetMethod(nameof(LocalServiceInputTwoStageCallbackNode.Create), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).notNull();
     }
 #endif
     /// <summary>
@@ -195,7 +205,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 constructorGenerator.ldarg(4);
                 constructorGenerator.ldarg(5);
                 constructorGenerator.Emit(OpCodes.Call, typeof(LocalClientNode<T>).GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, LocalClientNodeCreator.NodeConstructorParameterTypes, null).notNull());
-                constructorGenerator.Emit(OpCodes.Ret);
+                constructorGenerator.ret();
                 #endregion
                 #endregion
                 foreach (var method in methods)
@@ -224,7 +234,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 methodGenerator.Emit(OpCodes.Ldloc_S, inputParameterLocalBuilder);
                             }
                             #endregion
-                            if (method.IsCallback) methodGenerator.ldarg(method.Parameters.Length);
+                            if (method.IsCallback)
+                            {
+                                switch (method.CallType)
+                                {
+                                    case CallTypeEnum.TwoStageCallback:
+                                    case CallTypeEnum.InputTwoStageCallback:
+                                        methodGenerator.ldarg(method.Parameters.Length - 1);
+                                        break;
+                                }
+                                methodGenerator.ldarg(method.Parameters.Length);
+                            }
                             switch (method.CallType)
                             {
                                 case CallTypeEnum.Call:
@@ -257,6 +277,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     if (method.IsCallback) methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     else methodGenerator.call(LocalClientNodeCreator.LocalServiceInputKeepCallbackEnumeratorNodeCreateMethod.MakeGenericMethod(method.ReturnValueType, method.InputParameterType.notNull().Type));
                                     break;
+                                case CallTypeEnum.TwoStageCallback:
+                                    methodGenerator.int32(method.QueueNodeType == Net.CommandServer.ReadWriteNodeTypeEnum.Read ? 0 : 1);
+                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceTwoStageCallbackNodeCreateMethod.MakeGenericMethod(method.TwoStageReturnValueType, method.ReturnValueType));
+                                    break;
+                                case CallTypeEnum.InputTwoStageCallback:
+                                    methodGenerator.call(LocalClientNodeCreator.LocalServiceInputTwoStageCallbackNodeCreateMethod.MakeGenericMethod(method.TwoStageReturnValueType, method.ReturnValueType, method.InputParameterType.notNull().Type));
+                                    break;
                             }
                             #endregion
                         }
@@ -264,9 +291,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                         {
                             methodGenerator.ldstr(method.Error);
                             methodGenerator.call(AutoCSer.Net.CommandServer.ClientInterfaceController.ClientInterfaceMethodThrowException.Method);
-                            methodGenerator.Emit(OpCodes.Ldnull);
+                            methodGenerator.loadNull();
                         }
-                        methodGenerator.Emit(OpCodes.Ret);
+                        methodGenerator.ret();
                     }
                 }
                 Type creatorType = typeBuilder.CreateType();
@@ -279,7 +306,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 callConstructorGenerator.Emit(OpCodes.Ldarg_3);
                 callConstructorGenerator.ldarg(4);
                 callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(LocalClientNodeCreator.NodeConstructorParameterTypes).notNull());
-                callConstructorGenerator.Emit(OpCodes.Ret);
+                callConstructorGenerator.ret();
 #if NetStandard21
                 creator = (Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>)dynamicMethod.CreateDelegate(typeof(Func<string, Func<NodeIndex, string, NodeInfo, LocalServiceQueueNode<LocalResult<NodeIndex>>>?, LocalClient, NodeIndex, bool, T>));
 #else

@@ -589,7 +589,7 @@ namespace AutoCSer.Net
         /// <param name="inputParameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackOutput<T, RT, OT, KT, KOT>(int methodIndex, CommandClientCallback<RT> callback, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter)
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInput<T, RT, OT, KT, KOT>(int methodIndex, CommandClientCallback<RT> callback, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter)
             where T : struct
             where OT : struct
             where KOT : struct
@@ -614,12 +614,87 @@ namespace AutoCSer.Net
         /// <param name="outputParameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackOutputReturnValue<T, RT, OT, KT, KOT>(int methodIndex, CommandClientCallback<RT> callback, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter, KOT outputParameter)
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInputReturnValue<T, RT, OT, KT, KOT>(int methodIndex, CommandClientCallback<RT> callback, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter, KOT outputParameter)
             where T : struct
             where OT : struct
             where KOT : struct
         {
             return new TwoStage‌CallbackCommand<T, RT, OT, KT, KOT>(this, methodIndex, callback, getReturnValue, keepCallback, getKeepReturnValue, ref inputParameter, outputParameter);
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="OT"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="KOT"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="getOutputParameter"></param>
+        /// <param name="getReturnValue"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="getKeepReturnValue"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackReturnParameter<T, OT, KT, KOT>(int methodIndex, CommandClientReturnValueParameterCallback<T> callback, Func<T, OT> getOutputParameter, Func<OT, T> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue)
+            where OT : struct
+            where KOT : struct
+        {
+            TwoStage‌CallbackCommand<T, OT, KT, KOT> command = new TwoStage‌CallbackCommand<T, OT, KT, KOT>(this, methodIndex, callback, getOutputParameter, getReturnValue, keepCallback, getKeepReturnValue);
+            command.Push();
+            return command;
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="RT"></typeparam>
+        /// <typeparam name="OT"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="KOT"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="getOutputParameter"></param>
+        /// <param name="getReturnValue"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="getKeepReturnValue"></param>
+        /// <param name="inputParameter"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInputReturnParameter<T, RT, OT, KT, KOT>(int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, Func<RT, OT> getOutputParameter, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter)
+            where T : struct
+            where OT : struct
+            where KOT : struct
+        {
+            return new TwoStage‌CallbackCommand<T, RT, OT, KT, KOT>(this, methodIndex, callback, getOutputParameter, getReturnValue, keepCallback, getKeepReturnValue, ref inputParameter);
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="RT"></typeparam>
+        /// <typeparam name="OT"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <typeparam name="KOT"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="getOutputParameter"></param>
+        /// <param name="getReturnValue"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="getKeepReturnValue"></param>
+        /// <param name="inputParameter"></param>
+        /// <param name="outputParameter"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInputReturnValueParameter<T, RT, OT, KT, KOT>(int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, Func<RT, OT> getOutputParameter, Func<OT, RT> getReturnValue, CommandClientKeepCallback<KT> keepCallback, Func<KOT, KT> getKeepReturnValue, ref T inputParameter, KOT outputParameter)
+            where T : struct
+            where OT : struct
+            where KOT : struct
+        {
+            return new TwoStage‌CallbackCommand<T, RT, OT, KT, KOT>(this, methodIndex, callback, getOutputParameter, getReturnValue, keepCallback, getKeepReturnValue, ref inputParameter, outputParameter);
         }
 #else
         /// <summary>
@@ -652,7 +727,7 @@ namespace AutoCSer.Net
         /// <param name="inputParameter"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackOutput<T, RT, KT>(int methodIndex, CommandClientCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter)
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInput<T, RT, KT>(int methodIndex, CommandClientCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter)
             where T : struct
         {
             return new TwoStage‌CallbackCommand<T, RT, KT>(this, methodIndex, callback, keepCallback, ref inputParameter);
@@ -671,7 +746,61 @@ namespace AutoCSer.Net
         /// <param name="returnValue"></param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackOutputReturnValue<T, RT, KT>(int methodIndex, CommandClientCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter, ref KT returnValue)
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInputReturnValue<T, RT, KT>(int methodIndex, CommandClientCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter, ref KT returnValue)
+            where T : struct
+        {
+            return new TwoStage‌CallbackCommand<T, RT, KT>(this, methodIndex, callback, keepCallback, ref inputParameter, ref returnValue);
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackReturnParameter<T, KT>(int methodIndex, CommandClientReturnValueParameterCallback<T> callback, CommandClientKeepCallback<KT> keepCallback)
+        {
+            TwoStage‌CallbackCommand<T, KT> command = new TwoStage‌CallbackCommand<T, KT>(this, methodIndex, callback, keepCallback);
+            command.Push();
+            return command;
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="RT"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="inputParameter"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInputReturnParameter<T, RT, KT>(int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter)
+            where T : struct
+        {
+            return new TwoStage‌CallbackCommand<T, RT, KT>(this, methodIndex, callback, keepCallback, ref inputParameter);
+        }
+        /// <summary>
+        /// Two-stage callback command
+        /// 两阶段回调命令
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="RT"></typeparam>
+        /// <typeparam name="KT"></typeparam>
+        /// <param name="methodIndex"></param>
+        /// <param name="callback"></param>
+        /// <param name="keepCallback"></param>
+        /// <param name="inputParameter"></param>
+        /// <param name="returnValue"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public AutoCSer.Net.KeepCallbackCommand TwoStage‌CallbackInputReturnValueParameter<T, RT, KT>(int methodIndex, CommandClientReturnValueParameterCallback<RT> callback, CommandClientKeepCallback<KT> keepCallback, ref T inputParameter, ref KT returnValue)
             where T : struct
         {
             return new TwoStage‌CallbackCommand<T, RT, KT>(this, methodIndex, callback, keepCallback, ref inputParameter, ref returnValue);
@@ -1686,13 +1815,14 @@ namespace AutoCSer.Net
         /// <param name="actionCallback"></param>
         /// <param name="callback"></param>
         /// <param name="getReturnValue"></param>
+        /// <param name="getOutputParameter"></param>
         /// <param name="actionKeepCallback"></param>
         /// <param name="keepCallback"></param>
         /// <param name="getKeepReturnValue"></param>
         /// <param name="inputParameter"></param>
         /// <param name="outputParameter"></param>
         /// <returns></returns>
-        internal CommandClientReturnValue CallMethodName<T, IT, OT>(int methodIndex, object actionCallback, object callback, object getReturnValue, object actionKeepCallback, object keepCallback, object getKeepReturnValue, ref IT inputParameter, ref OT outputParameter)
+        internal CommandClientReturnValue CallMethodName<T, IT, OT>(int methodIndex, object actionCallback, object callback, object getOutputParameter, object getReturnValue, object actionKeepCallback, object keepCallback, object getKeepReturnValue, ref IT inputParameter, ref OT outputParameter)
         {
             return default;
         }

@@ -111,7 +111,7 @@ namespace AutoCSer.ORM.CustomColumn
                     #endregion
                 }
             }
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             reader = (ReaderDelegate)dynamicMethod.CreateDelegate(typeof(ReaderDelegate));
         }
     }

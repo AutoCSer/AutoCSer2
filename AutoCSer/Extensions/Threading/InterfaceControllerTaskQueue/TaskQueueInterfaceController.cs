@@ -139,7 +139,7 @@ namespace AutoCSer.Threading
                 constructorGenerator.Emit(OpCodes.Ldarg_2);
                 constructorGenerator.Emit(OpCodes.Stfld, controllerField);
                 #endregion
-                constructorGenerator.Emit(OpCodes.Ret);
+                constructorGenerator.ret();
                 #endregion
                 LeftArray<Type> nodeConstructorParameterTypes = new LeftArray<Type>(4);
                 nodeConstructorParameterTypes.Add(typeof(InterfaceControllerTaskQueue));
@@ -191,7 +191,7 @@ namespace AutoCSer.Threading
                     constructorGenerator.Emit(OpCodes.Ldarg_0);
                     constructorGenerator.call(TaskQueueInterfaceController.InterfaceControllerTaskQueueAdd.Method);
                     #endregion
-                    constructorGenerator.Emit(OpCodes.Ret);
+                    constructorGenerator.ret();
                     #endregion
                     #region public override void RunTask()
                     MethodBuilder methodBuilder = nodeTypeBuilder.DefineMethod(nameof(InterfaceControllerTaskQueueNodeBase.RunTask), MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, typeof(void), EmptyArray<Type>.Array);
@@ -218,7 +218,7 @@ namespace AutoCSer.Threading
                     {
                         methodGenerator.call(AutoCSer.Extensions.Metadata.GenericType.Get(method.ServiceMethod.ReturnType).InterfaceControllerTaskQueueNodeSetReturn.Method);
                     }
-                    methodGenerator.Emit(OpCodes.Ret);
+                    methodGenerator.ret();
                     #endregion
                     nodeTypeBuilder.CreateType();
 
@@ -232,7 +232,7 @@ namespace AutoCSer.Threading
                     methodGenerator.Emit(OpCodes.Ldfld, controllerField);
                     for (parameterIndex = 0; parameterIndex != method.Parameters.Length; methodGenerator.ldarg(++parameterIndex)) ;
                     methodGenerator.Emit(OpCodes.Newobj, nodeConstructorBuilder);
-                    methodGenerator.Emit(OpCodes.Ret);
+                    methodGenerator.ret();
                     #endregion
                 }
                 Type controllerType = typeBuilder.CreateType();
@@ -242,7 +242,7 @@ namespace AutoCSer.Threading
                 callConstructorGenerator.Emit(OpCodes.Ldarg_0);
                 callConstructorGenerator.Emit(OpCodes.Ldarg_1);
                 callConstructorGenerator.Emit(OpCodes.Newobj, controllerType.GetConstructor(constructorParameterTypes).notNull());
-                callConstructorGenerator.Emit(OpCodes.Ret);
+                callConstructorGenerator.ret();
                 callConstructor = (Func<InterfaceControllerTaskQueue, ST, T>)dynamicMethod.CreateDelegate(typeof(Func<InterfaceControllerTaskQueue, ST, T>));
 
             }

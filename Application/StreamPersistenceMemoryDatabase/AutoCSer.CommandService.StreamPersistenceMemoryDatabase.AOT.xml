@@ -700,6 +700,11 @@
             本地客户端 SendOnly 方法返回值类型
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeMethod.TwoStageReturnValueType">
+            <summary>
+            二阶段回调的第一阶段的返回值类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeMethod.QueueNodeType">
             <summary>
             队列节点类型
@@ -713,6 +718,12 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeMethod.IsReturnResponseParameter">
             <summary>
             是否返回参数类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeMethod.IsSimpleSerializeTwoStageCallbackParamter">
+            <summary>
+            Whether to simply serialize the output data of the first-stage callback of the two-stage callback
+            是否简单序列化二阶段回调的第一阶段回调输出数据
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ClientNodeMethod.#ctor(System.Type,System.Reflection.MethodInfo,System.Boolean)">
@@ -1310,6 +1321,337 @@
             <summary>
             基于均匀概率的总量统计的二进制位数量的倒数
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BeforePersistenceTwoStageCallbackMethodParameter">
+            <summary>
+            持久化之前检查参数的调用方法与参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BeforePersistenceTwoStageCallbackMethodParameter.customSessionObject">
+            <summary>
+            自定义状态对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BeforePersistenceTwoStageCallbackMethodParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            调用方法与参数信息
+            </summary>
+            <param name="node"></param>
+            <param name="method"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BeforePersistenceTwoStageCallbackMethodParameter.SetBeforePersistenceCustomSessionObject(System.Object)">
+            <summary>
+            设置自定义状态对象
+            </summary>
+            <param name="sessionObject">自定义状态对象</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BeforePersistenceTwoStageCallbackMethodParameter.GetBeforePersistenceCustomSessionObject">
+            <summary>
+            获取自定义状态对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod.#ctor(System.Int32,System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+            <param name="index">Method Number
+            方法编号</param>
+            <param name="beforePersistenceMethodIndex">The method number that checks the input parameter before the persistence operation
+            持久化操作之前检查输入参数的方法编号</param>
+            <param name="flags">Server-side node method flags
+            服务端节点方法标记</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod.InputTwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter)">
+            <summary>
+            调用方法
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod.LoadCall(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter)">
+            <summary>
+            初始化加载数据
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod`1">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+            <typeparam name="T">输入参数类型</typeparam>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod`1.#ctor(System.Int32,System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+            <param name="index">Method Number
+            方法编号</param>
+            <param name="beforePersistenceMethodIndex">The method number that checks the input parameter before the persistence operation
+            持久化操作之前检查输入参数的方法编号</param>
+            <param name="flags">Server-side node method flags
+            服务端节点方法标记</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod`1.CreateInputParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode)">
+            <summary>
+            Create the calling method and parameter information
+            创建调用方法与参数信息
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter">
+            <summary>
+            调用方法与参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.Method">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.callback">
+            <summary>
+            调用回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.keepCallback">
+            <summary>
+            调用回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod)">
+            <summary>
+            调用方法与参数信息
+            </summary>
+            <param name="node"></param>
+            <param name="method"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.InputTwoStageCallback(AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter}@)">
+            <summary>
+            调用方法
+            </summary>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.PersistenceCallback">
+            <summary>
+            持久化回调
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.PersistenceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            持久化异常回调
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.CreateBeforePersistenceMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod)">
+            <summary>
+            创建持久化检查方法调用参数
+            </summary>
+            <param name="beforePersistenceMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.enumerableCallback``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            枚举回调
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="values"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.EnumerableCallback``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            枚举回调
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodParameter"></param>
+            <param name="values"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.CreateMethodKeepCallback``1">
+            <summary>
+            创建方法调用回调包装对象
+            </summary>
+            <typeparam name="T">返回数据类型</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter.CreateMethodCallback``1">
+            <summary>
+            创建方法调用回调包装对象
+            </summary>
+            <typeparam name="T">返回数据类型</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1">
+            <summary>
+            调用方法与参数信息
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.Parameter">
+            <summary>
+            Input parameters
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod)">
+            <summary>
+            调用方法与参数信息
+            </summary>
+            <param name="node"></param>
+            <param name="method"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.Int32,`0@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            调用方法与参数信息
+            </summary>
+            <param name="node"></param>
+            <param name="methodIndex"></param>
+            <param name="parameter"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.Deserialize(AutoCSer.BinaryDeserializer)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.Deserialize(AutoCSer.BinaryDeserializer,AutoCSer.SubArray{System.Byte}@)">
+            <summary>
+            输入参数反序列化（初始化加载持久化数据）
+            </summary>
+            <param name="deserializer"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.PersistenceSerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            持久化序列化
+            </summary>
+            <param name="serializer">序列化</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.CreateBeforePersistenceMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod)">
+            <summary>
+            创建持久化检查方法调用参数
+            </summary>
+            <param name="beforePersistenceMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter`1.GetParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter{`0})">
+            <summary>
+            获取输入参数
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod.#ctor(System.Int32,System.Int32,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+            <param name="index">Method Number
+            方法编号</param>
+            <param name="beforePersistenceMethodIndex">The method number that checks the input parameter before the persistence operation
+            持久化操作之前检查输入参数的方法编号</param>
+            <param name="flags">Server-side node method flags
+            服务端节点方法标记</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod.TwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter}@)">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="node"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod.LoadCall(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode)">
+            <summary>
+            初始化加载数据
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter">
+            <summary>
+            调用方法与参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.method">
+            <summary>
+            Server node method information
+            服务端节点方法信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.callback">
+            <summary>
+            调用回调
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.keepCallback">
+            <summary>
+            调用回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            调用方法与参数信息
+            </summary>
+            <param name="node"></param>
+            <param name="method"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            调用方法与参数信息
+            </summary>
+            <param name="node"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.PersistenceCallback">
+            <summary>
+            持久化回调
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.PersistenceCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            持久化异常回调
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethodParameter.PersistenceSerialize(AutoCSer.BinarySerializer)">
+            <summary>
+            持久化序列化
+            </summary>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ArrayNode`1">
@@ -3894,13 +4236,6 @@
             <param name="map">Multi-hash bitmap data
             多哈希位图数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
-            <summary>
-            Get the operation of setting a new bit
-            获取设置新位操作
-            </summary>
-            <param name="callback"></param>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetSize">
             <summary>
             Get the bitmap size (number of bits)
@@ -3908,12 +4243,15 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
             <summary>
-            Get the current bitmap data
-            获取当前位图数据
+            Get data
+            获取数据
             </summary>
-            <param name="callback"></param>
+            <param name="callback">Get the current bitmap data
+            获取当前位图数据</param>
+            <param name="keepCallback">Get the operation of setting a new bit
+            获取设置新位操作</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode.SetBitBeforePersistence(System.Int32)">
             <summary>
@@ -4158,11 +4496,6 @@
             设置新位回调委托集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.callbackTimeouts">
-            <summary>
-            获取新设置的数据的回调委托的超时信息
-            </summary>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.#ctor(System.Int32)">
             <summary>
             Multi-hash bitmap client synchronization filter node (similar to Bloom filter, suitable for small containers)
@@ -4179,13 +4512,6 @@
             <param name="map">Multi-hash bitmap data
             多哈希位图数据</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
-            <summary>
-            Get the operation of setting a new bit
-            获取设置新位操作
-            </summary>
-            <param name="callback"></param>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetSize">
             <summary>
             Get the bitmap size (number of bits)
@@ -4193,12 +4519,15 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
             <summary>
-            Get the current bitmap data
-            获取当前位图数据
+            Get data
+            获取数据
             </summary>
-            <param name="callback"></param>
+            <param name="callback">Get the current bitmap data
+            获取当前位图数据</param>
+            <param name="keepCallback">Get the operation of setting a new bit
+            获取设置新位操作</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNode.SetBitBeforePersistence(System.Int32)">
             <summary>
@@ -6542,19 +6871,15 @@
             </summary>
             <param name="bitCountArray"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.GetBitArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Byte[]})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Byte[]},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
             <summary>
-            Get the array of binary bits
-            获取二进制位数量的数组
+            Get data
+            获取数据
             </summary>
-            <param name="callback"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.GetIndexBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
-            <summary>
-            Get the newly set data
-            获取新设置的数据
-            </summary>
-            <param name="callback"></param>
+            <param name="callback">Get the array of binary bits
+            获取二进制位数量的数组</param>
+            <param name="keepCallback">Get the newly set data
+            获取新设置的数据</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode.SetIndexBitLoadPersistence(System.Int32,System.Byte)">
             <summary>
@@ -6629,11 +6954,6 @@
             获取新设置的数据的委托集合
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.callbackTimeouts">
-            <summary>
-            获取新设置的数据的回调委托的超时信息
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.indexCount">
             <summary>
             索引数组大小
@@ -6690,19 +7010,13 @@
             </summary>
             <param name="bitCountArray"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.GetBitArray(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Byte[]})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.GetData(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback{System.Byte[]},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
             <summary>
-            Get the array of binary bits
-            获取二进制位数量的数组
+            Get data
+            获取数据
             </summary>
             <param name="callback"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.GetIndexBit(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{System.Int32})">
-            <summary>
-            Get the newly set data
-            获取新设置的数据
-            </summary>
-            <param name="callback"></param>
+            <param name="keepCallback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNode.SetIndexBitLoadPersistence(System.Int32,System.Byte)">
             <summary>
@@ -7070,13 +7384,6 @@
             <param name="messages">节点构造提示信息</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
-            <summary>
-            服务启动失败
-            </summary>
-            <param name="listener">命令服务端监听</param>
-            <returns></returns>
-        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Chinese.Default">
             <summary>
             默认扩展中文配置
@@ -7205,13 +7512,6 @@
             <param name="messages">节点构造提示信息</param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
-            <summary>
-            服务启动失败
-            </summary>
-            <param name="listener">命令服务端监听</param>
-            <returns></returns>
-        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.Configuration.Default">
             <summary>
             默认扩展系统语言文化配置
@@ -7338,13 +7638,6 @@
             </summary>
             <param name="type">Type of the client node interface</param>
             <param name="messages">Node construction prompts</param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.GetCommandListenerStartFailed(AutoCSer.Net.CommandListener)">
-            <summary>
-            Service startup failed
-            </summary>
-            <param name="listener">Command server to listen</param>
             <returns></returns>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture.English.Default">
@@ -7568,6 +7861,12 @@
             <summary>
             Whether to simply deserialize the input data
             是否简单反序列化输入数据
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter">
+            <summary>
+            Whether to simply serialize the output data of the first-stage callback of the two-stage callback
+            是否简单序列化二阶段回调的第一阶段回调输出数据
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum.IsIgnorePersistenceCallbackException">
@@ -7880,13 +8179,14 @@
             <param name="node"></param>
             <param name="method"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.Int32,`0@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.Int32,`0@,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
             <summary>
             调用方法与参数信息
             </summary>
             <param name="node"></param>
             <param name="methodIndex"></param>
             <param name="parameter"></param>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter`1.Deserialize(AutoCSer.BinaryDeserializer)">
             <summary>
@@ -8003,12 +8303,13 @@
             <param name="method"></param>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethodParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethodParameter.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode,System.Int32,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
             <summary>
             调用方法与参数信息
             </summary>
             <param name="node"></param>
             <param name="methodIndex"></param>
+            <param name="callback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethodParameter.PersistenceCallback">
             <summary>
@@ -10384,6 +10685,18 @@
             有输入参数，有返回值（持续回调）
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum.TwoStageCallback">
+            <summary>
+            No input parameters, the return value of the two-stage callback
+            无输入参数，二阶段回调返回值
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum.InputTwoStageCallback">
+            <summary>
+            There are input parameters and the return value of the two-stage callback
+            有输入参数，二阶段回调返回值
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum.Callback">
             <summary>
             There are no input parameters, but there is a return value (The server-side call type corresponds to the CallOutput on the client side)
@@ -10700,42 +11013,233 @@
             <returns>Node identifier, there have been a node is returned directly
             节点标识，已经存在节点则直接返回</returns>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2">
             <summary>
-            保持回调超时信息
+            本地服务调用节点方法队列节点
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2.parameter">
+            <summary>
+            调用方法与参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2.keepCallback">
+            <summary>
+            本地服务调用节点方法队列节点回调对象
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`1}})">
+            <summary>
+            本地服务调用节点方法队列节点
+            </summary>
+            <param name="clientNode">本地服务客户端节点</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="parameter">调用方法与参数信息</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}},AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`1}})">
+            <summary>
+            调用状态错误
+            </summary>
+            <param name="clientNode">本地服务客户端节点</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="result"></param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2.RunTask">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2.Cancel">
+            <summary>
+            调用方主动取消回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode`2.cancelKeep(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            取消保持回调命令
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode">
+            <summary>
+            本地服务调用节点方法队列节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputTwoStageCallbackNode.Create``3(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Int32,``2,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{``0}},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{``1}})">
+            <summary>
+            创建本地服务调用节点方法队列节点
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+            <typeparam name="PT"></typeparam>
+            <param name="clientNode">Local service client node
+            本地服务客户端节点</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="parameter">Call parameters
+            调用参数</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1">
+            <summary>
+            本地服务调用节点方法队列节点
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.callback">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1.clientNode">
             <summary>
-            回调包装
+            Local service client node
+            本地服务客户端节点
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.timeoutSeconds">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1.ServerCallback">
             <summary>
-            超时秒计数
+            本地服务调用节点方法队列节点回调对象
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{`0},System.Int32)">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1.callback">
             <summary>
-            保持回调超时信息
+            The client callback delegate
+            客户端回调委托
             </summary>
-            <param name="callback"></param>
-            <param name="timeoutSeconds"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.get(AutoCSer.Net.CommandServerSocket)">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1.isCallback">
             <summary>
-             获取匹配的保持回调
+            回调访问锁
             </summary>
-            <param name="socket"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}})">
+            <summary>
+            本地服务调用节点方法队列节点
+            </summary>
+            <param name="clientNode">Local service client node
+            本地服务客户端节点</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter)">
+            <summary>
+            队列节点回调设置结果
+            </summary>
+            <param name="responseParameter"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout`1.GetCallback(AutoCSer.LeftArray{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallbackTimeout{`0}}@,AutoCSer.Net.CommandServerSocket)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`1.cancelKeep(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
             <summary>
-            获取匹配的保持回调
+            取消保持回调命令
             </summary>
-            <param name="callbacks"></param>
-            <param name="socket"></param>
+            <param name="state"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`2">
+            <summary>
+            本地服务调用节点方法队列节点
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="KT"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`2.keepCallback">
+            <summary>
+            本地服务调用节点方法队列节点回调对象
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`2.methodIndex">
+            <summary>
+            调用方法编号
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`2.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Int32,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0}},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`1}},System.Boolean)">
+            <summary>
+            本地服务调用节点方法队列节点
+            </summary>
+            <param name="clientNode">Local service client node
+            本地服务客户端节点</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+            <param name="isWriteQueue"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`2.RunTask">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`2.Cancel">
+            <summary>
+            调用方主动取消回调
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode`2.cancelKeep(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            取消保持回调命令
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode">
+            <summary>
+            本地服务调用节点方法队列节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode.Create``2(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalClientNode,System.Int32,System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{``0}},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{``1}},System.Boolean)">
+            <summary>
+            创建本地服务调用节点方法队列节点
+            </summary>
+            <param name="clientNode">Local service client node
+            本地服务客户端节点</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+            <param name="isWriteQueue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNodeCallback`1">
+            <summary>
+            本地服务调用节点方法队列节点回调对象
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNodeCallback`1.node">
+            <summary>
+            本地服务调用节点方法队列节点
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNodeCallback`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNode{`0})">
+            <summary>
+            本地服务调用节点方法队列节点回调对象
+            </summary>
+            <param name="node">本地服务调用节点方法队列节点</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNodeCallback`1.Callback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter)">
+            <summary>
+            回调设置结果
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceTwoStageCallbackNodeCallback`1.SynchronousCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter)">
+            <summary>
+            同步回调
+            </summary>
+            <param name="result"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CheckSnapshotCloneObject`1">
@@ -11381,6 +11885,12 @@
             </summary>
             <param name="returnType"></param>
             <param name="exception"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNodeCallback`1.CancelKeep(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum)">
+            <summary>
+            取消保持回调命令
+            </summary>
+            <param name="state"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceKeepCallbackNodeCallback`1.callbackResult(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{`0})">
             <summary>
@@ -13920,6 +14430,12 @@
             服务端节点方法标记
             </summary>
         </member>
+        <member name="P:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method.TwoStageFlags">
+            <summary>
+            Server-side node method flags
+            服务端节点方法标记
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Method.IsPersistence">
             <summary>
             Whether to persist (persistence is required if write operations are involved)
@@ -14043,6 +14559,18 @@
             请求参数</param>
             <param name="callback">The return parameters of the keep callback
             返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalService.InputTwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="parameter">Request parameters
+            请求参数</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalService.AppendQueueNode``1(System.Func{``0})">
             <summary>
@@ -15112,6 +15640,13 @@
             <param name="methodParameter"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter)">
+            <summary>
+            创建方法调用回调包装对象
+            </summary>
+            <param name="methodParameter"></param>
+            <returns></returns>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback`1.NullCallback">
             <summary>
             无回调
@@ -15305,6 +15840,13 @@
             取消保持回调命令
             </summary>
         </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.GetKeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback{`0})">
+            <summary>
+            获取服务接口回调委托
+            </summary>
+            <param name="callback"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.CreateDelegate">
             <summary>
             创建方法调用回调包装对象委托类型
@@ -15322,6 +15864,13 @@
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter)">
+            <summary>
+            创建方法调用回调包装对象
+            </summary>
+            <param name="methodParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback`1.Create(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethodParameter)">
             <summary>
             创建方法调用回调包装对象
             </summary>
@@ -15492,22 +16041,24 @@
             <param name="methodIndex"></param>
             <param name="parameter"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.createKeepCallbackMethodParameter(System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.createKeepCallbackMethodParameter(System.Int32,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
             <summary>
             Create the calling method and parameter information
             创建调用方法与参数信息
             </summary>
             <param name="methodIndex"></param>
+            <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateKeepCallbackMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator,System.Int32)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateKeepCallbackMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator,System.Int32,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
             <summary>
             Create the calling method and parameter information
             创建调用方法与参数信息
             </summary>
             <param name="creator"></param>
             <param name="methodIndex"></param>
+            <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.createInputKeepCallbackMethodParameter``1(System.Int32,``0@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.createInputKeepCallbackMethodParameter``1(System.Int32,``0@,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
             <summary>
             Create the calling method and parameter information
             创建调用方法与参数信息
@@ -15515,8 +16066,9 @@
             <typeparam name="T"></typeparam>
             <param name="methodIndex"></param>
             <param name="parameter"></param>
+            <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateInputKeepCallbackMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator,System.Int32,``0)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateInputKeepCallbackMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator,System.Int32,``0,AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
             <summary>
             Create the calling method and parameter information
             创建调用方法与参数信息
@@ -15525,6 +16077,49 @@
             <param name="creator"></param>
             <param name="methodIndex"></param>
             <param name="parameter"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.createTwoStageCallbackMethodParameter(System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Create the calling method and parameter information
+            创建调用方法与参数信息
+            </summary>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateTwoStageCallbackMethodParameter(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Create the calling method and parameter information
+            创建调用方法与参数信息
+            </summary>
+            <param name="creator"></param>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.createInputTwoStageCallbackMethodParameter``1(System.Int32,``0@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Create the calling method and parameter information
+            创建调用方法与参数信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="methodIndex"></param>
+            <param name="parameter"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateInputTwoStageCallbackMethodParameter``1(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator,System.Int32,``0,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Create the calling method and parameter information
+            创建调用方法与参数信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="creator"></param>
+            <param name="methodIndex"></param>
+            <param name="parameter"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.MethodParameterCreatorCallMethodName(System.Object[])">
             <summary>
@@ -15787,6 +16382,16 @@
             </summary>
             <param name="methodIndex"></param>
             <param name="callback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.TwoStageCallback(System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter}@)">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="methodIndex"></param>
+            <param name="callback"></param>
+            <param name="keepCallback"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode.CloseRebuild">
@@ -16200,6 +16805,11 @@
             节点方法自定义属性
             </summary>
         </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.TwoStageReturnValueType">
+            <summary>
+            二阶段回调的第一阶段的返回值类型
+            </summary>
+        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.PersistenceMethodName">
             <summary>
             持久化方法名称
@@ -16245,6 +16855,12 @@
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.IsBeforePersistenceMethod">
             <summary>
             是否持久化之前检查参数方法
+            </summary>
+        </member>
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.IsSimpleSerializeTwoStageCallbackParamter">
+            <summary>
+            Whether to simply serialize the output data of the first-stage callback of the two-stage callback
+            是否简单序列化二阶段回调的第一阶段回调输出数据
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.#ctor(System.Type,System.Reflection.MethodInfo,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerMethodAttribute)">
@@ -16296,6 +16912,13 @@
             <param name="type"></param>
             <param name="methods"></param>
             <returns>错误信息</returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.GetTwoStageFlags(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)">
+            <summary>
+            获取二阶段回调的第一阶段回调委托的方法标记
+            </summary>
+            <param name="flags"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod.Compare(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod)">
             <summary>
@@ -17812,17 +18435,10 @@
                        多哈希位图客户端同步过滤节点接口（类似布隆过滤器，适合小容器） local client node interface
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetBit(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
             <summary>
-            Get the operation of setting a new bit 
-                       获取设置新位操作
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeLocalClientNode.GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}})">
-            <summary>
-            Get the current bitmap data 
-                       获取当前位图数据
+            Get data 
+                       获取数据
             </summary>
             <returns></returns>
         </member>
@@ -17863,7 +18479,7 @@
             <param name="isPersistenceCallbackExceptionRenewNode">Persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the exception is repair and restart the server, If this parameter is set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
             服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__@)">
             <summary>
             Simple binary serialization
             简单二进制序列化
@@ -17871,14 +18487,14 @@
             <param name="stream"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
             <summary>
             Simple binary serialization
             简单二进制序列化
             </summary>
             <param name="__stream__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__@,System.Byte*)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__@,System.Byte*)">
             <summary>
             Simple binary deserialization
             简单二进制反序列化
@@ -17888,7 +18504,7 @@
             <param name="end"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__.simpleDeserialize(System.Byte*,System.Byte*)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__.simpleDeserialize(System.Byte*,System.Byte*)">
             <summary>
             Simple binary deserialization
             简单二进制反序列化
@@ -17897,13 +18513,13 @@
             <param name="__end__"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip3__.SimpleSerialize">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip2__.SimpleSerialize">
             <summary>
             AOT code generation call activation reflection
             AOT 代码生成调用激活反射
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.BinarySerialize(AutoCSer.BinarySerializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__)">
             <summary>
             Binary serialization
             二进制序列化
@@ -17911,14 +18527,14 @@
             <param name="serializer"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.binarySerialize(AutoCSer.BinarySerializer)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.binarySerialize(AutoCSer.BinarySerializer)">
             <summary>
             Binary serialization
             二进制序列化
             </summary>
             <param name="__serializer__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.BinaryDeserialize(AutoCSer.BinaryDeserializer,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__@)">
             <summary>
             Binary deserialization
             二进制反序列化
@@ -17926,43 +18542,36 @@
             <param name="deserializer"></param>
             <param name="value"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.binaryDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.binaryFieldDeserialize(AutoCSer.BinaryDeserializer)">
             <summary>
             Binary deserialization
             二进制反序列化
             </summary>
             <param name="__deserializer__"></param>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.BinarySerializeMemberTypes">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.BinarySerializeMemberTypes">
             <summary>
             Get the binary serialization type information
             获取二进制序列化类型信息
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip5__.BinarySerialize">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.__ip4__.BinarySerialize">
             <summary>
             二进制序列化代码生成调用激活 AOT 反射
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IManyHashBitMapClientFilterNodeLocalClientNode#GetBit(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IManyHashBitMapClientFilterNodeLocalClientNode#GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
             <summary>
-            Get the operation of setting a new bit 
-                       获取设置新位操作
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMapClientFilterNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IManyHashBitMapClientFilterNodeLocalClientNode#GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap}})">
-            <summary>
-            Get the current bitmap data 
-                       获取当前位图数据
+            Get data 
+                       获取数据
             </summary>
             <returns></returns>
         </member>
@@ -18738,17 +19347,10 @@
                        基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） local client node interface
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode.GetBitArray(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Byte[]}})">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode.GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Byte[]}},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
             <summary>
-            Get the array of binary bits 
-                       获取二进制位数量的数组
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeLocalClientNode.GetIndexBit(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
-            <summary>
-            Get the newly set data 
-                       获取新设置的数据
+            Get data 
+                       获取数据
             </summary>
             <returns></returns>
         </member>
@@ -18783,6 +19385,46 @@
             节点索引信息</param>
             <param name="isPersistenceCallbackExceptionRenewNode">Persistence service node produces success but PersistenceCallbackException when performing a abnormal state node will not operate until the exception is repair and restart the server, If this parameter is set to true, the server node will be automatically deleted and a new node will be recreated after the exception occurs during the call to avoid the situation where the node is unavailable for a long time. The cost is that all historical data will be lost
             服务端节点产生持久化成功但是执行异常状态时 PersistenceCallbackException 节点将不可操作直到该异常被修复并重启服务端，该参数设置为 true 则在调用发生该异常以后自动删除该服务端节点并重新创建新节点避免该节点长时间不可使用的情况，代价是历史数据将全部丢失</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__@)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
+            <summary>
+            Simple binary serialization
+            简单二进制序列化
+            </summary>
+            <param name="__stream__"></param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__@,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="start"></param>
+            <param name="value"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__.simpleDeserialize(System.Byte*,System.Byte*)">
+            <summary>
+            Simple binary deserialization
+            简单二进制反序列化
+            </summary>
+            <param name="__start__"></param>
+            <param name="__end__"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip1__.SimpleSerialize">
+            <summary>
+            AOT code generation call activation reflection
+            AOT 代码生成调用激活反射
+            </summary>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip2__@)">
             <summary>
@@ -18824,57 +19466,10 @@
             AOT 代码生成调用激活反射
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleSerialize(AutoCSer.Memory.UnmanagedStream,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__@)">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityClientStatisticsNodeLocalClientNode#GetData(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Byte[]}},System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
             <summary>
-            Simple binary serialization
-            简单二进制序列化
-            </summary>
-            <param name="stream"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.simpleSerialize(AutoCSer.Memory.UnmanagedStream)">
-            <summary>
-            Simple binary serialization
-            简单二进制序列化
-            </summary>
-            <param name="__stream__"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleDeserialize(System.Byte*,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__@,System.Byte*)">
-            <summary>
-            Simple binary deserialization
-            简单二进制反序列化
-            </summary>
-            <param name="start"></param>
-            <param name="value"></param>
-            <param name="end"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.simpleDeserialize(System.Byte*,System.Byte*)">
-            <summary>
-            Simple binary deserialization
-            简单二进制反序列化
-            </summary>
-            <param name="__start__"></param>
-            <param name="__end__"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.__ip4__.SimpleSerialize">
-            <summary>
-            AOT code generation call activation reflection
-            AOT 代码生成调用激活反射
-            </summary>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityClientStatisticsNodeLocalClientNode#GetBitArray(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Byte[]}})">
-            <summary>
-            Get the array of binary bits 
-                       获取二进制位数量的数组
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeLocalClient.AutoCSer#CommandService#StreamPersistenceMemoryDatabase#IUniformProbabilityClientStatisticsNodeLocalClientNode#GetIndexBit(System.Action{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult{System.Int32}})">
-            <summary>
-            Get the newly set data 
-                       获取新设置的数据
+            Get data 
+                       获取数据
             </summary>
             <returns></returns>
         </member>
@@ -19287,28 +19882,22 @@
                        多哈希位图客户端同步过滤节点接口（类似布隆过滤器，适合小容器） (node method sequence number mapping enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.GetBit">
-            <summary>
-            [0] Get the operation of setting a new bit 
-                       获取设置新位操作
-            </summary>
-        </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.GetData">
             <summary>
-            [1] Get the current bitmap data 
-                       获取当前位图数据
+            [0] Get data 
+                       获取数据
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.GetSize">
             <summary>
-            [2] Get the bitmap size (number of bits) 
+            [1] Get the bitmap size (number of bits) 
                        获取位图大小（位数量）
             Return value : int 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.SetBit">
             <summary>
-            [3] Set bit 
+            [2] Set bit 
                        设置位
             int bit The set binary bit 
                        设置的二进制位
@@ -19316,7 +19905,7 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.SetBitBeforePersistence">
             <summary>
-            [4] Set bit (Check the input parameters before the persistence operation) 
+            [3] Set bit (Check the input parameters before the persistence operation) 
                        设置位（持久化操作之前检查输入参数）
             int bit The set binary bit 
                        设置的二进制位
@@ -19326,43 +19915,37 @@
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNodeMethodEnum.SnapshotSet">
             <summary>
-            [5] Add snapshot data 
+            [4] Add snapshot data 
                        添加快照数据
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ManyHashBitMap map Multi-hash bitmap data 
                        多哈希位图数据
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_GetBit_0">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_GetData_0">
             <summary>
-            Get the operation of setting a new bit 
-                       获取设置新位操作 server node method
+            Get data 
+                       获取数据 server node method
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_GetData_1">
-            <summary>
-            Get the current bitmap data 
-                       获取当前位图数据 server node method
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_GetSize_2">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_GetSize_1">
             <summary>
             Get the bitmap size (number of bits) 
                        获取位图大小（位数量） server node method
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_SetBit_3">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_SetBit_2">
             <summary>
             Set bit 
                        设置位 server node method
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_SetBitBeforePersistence_4">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_SetBitBeforePersistence_3">
             <summary>
             Set bit (Check the input parameters before the persistence operation) 
                        设置位（持久化操作之前检查输入参数） server node method
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_SnapshotSet_5">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IManyHashBitMapClientFilterNode_SnapshotSet_4">
             <summary>
             Add snapshot data 
                        添加快照数据 server node method
@@ -19670,16 +20253,17 @@
                        基于均匀概率的客户端同步总量统计节点接口（类似 HyperLogLog，适合小容器） (node method sequence number mapping enumeration type)
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.GetBitArray">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.GetData">
             <summary>
-            [0] Get the array of binary bits 
-                       获取二进制位数量的数组
+            [0] Get data 
+                       获取数据
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.GetIndexBit">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.SnapshotSet">
             <summary>
-            [1] Get the newly set data 
-                       获取新设置的数据
+            [1] Add snapshot data 
+                       添加快照数据
+            byte[] bitCountArray 
             </summary>
         </member>
         <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.SetIndexBit">
@@ -19702,23 +20286,16 @@
                        最后连续的二进制位 1 的数量
             </summary>
         </member>
-        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNodeMethodEnum.SnapshotSet">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_GetData_0">
             <summary>
-            [4] Add snapshot data 
-                       添加快照数据
-            byte[] bitCountArray 
+            Get data 
+                       获取数据 server node method
             </summary>
         </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_GetBitArray_0">
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_SnapshotSet_1">
             <summary>
-            Get the array of binary bits 
-                       获取二进制位数量的数组 server node method
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_GetIndexBit_1">
-            <summary>
-            Get the newly set data 
-                       获取新设置的数据 server node method
+            Add snapshot data 
+                       添加快照数据 server node method
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_SetIndexBit_2">
@@ -19731,12 +20308,6 @@
             <summary>
             Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data) 
                        尝试修改指定索引位置的二进制位数量（初始化加载持久化数据） server node method
-            </summary>
-        </member>
-        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.IUniformProbabilityClientStatisticsNode_SnapshotSet_4">
-            <summary>
-            Add snapshot data 
-                       添加快照数据 server node method
             </summary>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.UniformProbabilityClientStatisticsNodeMethodParameterCreator">
@@ -20399,13 +20970,6 @@
             <param name="state"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.AutoCSer#Net#ICommandServerBindController#Bind(AutoCSer.Net.CommandServerController)">
-            <summary>
-            Bind the command service controller
-            绑定命令服务控制器
-            </summary>
-            <param name="controller"></param>
-        </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetServerNode(System.String)">
             <summary>
             Get server node based on node global keywords
@@ -20550,36 +21114,6 @@
             释放空闲节点
             </summary>
             <param name="index"></param>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeKeys(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{System.String})">
-            <summary>
-            Gets the global keyword for all matching nodes
-            获取所有匹配节点的全局关键字
-            </summary>
-            <param name="nodeInfo">The server-side node information to be matched
-            待匹配的服务端节点信息</param>
-            <param name="callback"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex})">
-            <summary>
-            Gets the node index information for all matching nodes
-            获取所有匹配节点的节点索引信息
-            </summary>
-            <param name="nodeInfo">The server-side node information to be matched
-            待匹配的服务端节点信息</param>
-            <param name="callback"></param>
-            <returns></returns>
-        </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.GetNodeKeyIndexs(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo,AutoCSer.Net.CommandServerKeepCallbackCount{AutoCSer.BinarySerializeKeyValue{System.String,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex}})">
-            <summary>
-            Gets the global keyword and node index information of all matching nodes
-            获取所有匹配节点的全局关键字与节点索引信息
-            </summary>
-            <param name="nodeInfo">The server-side node information to be matched
-            待匹配的服务端节点信息</param>
-            <param name="callback"></param>
-            <returns></returns>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.Call(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum})">
             <summary>
@@ -20990,6 +21524,151 @@
             请求参数</param>
             <param name="callback">The return parameters of the keep callback
             返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.TwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.TwoStageCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallConcurrencyReadQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.TwoStageCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallReadQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.TwoStageCallbackWrite(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.TwoStageCallbackWrite(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallWriteQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex,System.Int32,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="index">Node index information
+            节点索引信息</param>
+            <param name="methodIndex">Call method number
+            调用方法编号</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.InputTwoStageCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter@,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="parameter"></param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.InputTwoStageCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallConcurrencyReadQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="parameter">Request parameters
+            请求参数</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.InputTwoStageCallbackWrite(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallConcurrencyReadWriteQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="parameter">Request parameters
+            请求参数</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.InputTwoStageCallback(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallReadQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="parameter">Request parameters
+            请求参数</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.InputTwoStageCallbackWrite(AutoCSer.Net.CommandServerSocket,AutoCSer.Net.CommandServerCallWriteQueue,AutoCSer.CommandService.StreamPersistenceMemoryDatabase.RequestParameter,AutoCSer.Net.CommandServerCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter},AutoCSer.Net.CommandServerKeepCallback{AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter})">
+            <summary>
+            Call the node method
+            调用节点方法
+            </summary>
+            <param name="socket"></param>
+            <param name="queue"></param>
+            <param name="parameter">Request parameters
+            请求参数</param>
+            <param name="callback">The first stage returns the parameter callback
+            第一阶段返回参数回调</param>
+            <param name="keepCallback">The second stage returns the parameter callback
+            第二阶段返回参数回调</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabaseService.SetBeforePersistenceMethodParameterCustomSessionObject(System.Object)">
             <summary>

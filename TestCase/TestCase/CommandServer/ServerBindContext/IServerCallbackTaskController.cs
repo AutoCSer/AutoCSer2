@@ -23,6 +23,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         Task CallbackQueueReturn(CommandServerCallTaskLowPriorityQueue queue, CommandServerCallback<string> Callback);
         Task CallbackQueue(CommandServerCallTaskQueue queue, CommandServerCallback Callback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -72,4 +73,5 @@ namespace AutoCSer.TestCase.ServerBindContext
             return AutoCSer.Common.CompletedTask;
         }
     }
+#endif
 }

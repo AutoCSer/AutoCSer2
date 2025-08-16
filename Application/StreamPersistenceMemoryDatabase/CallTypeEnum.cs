@@ -43,6 +43,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 有输入参数，有返回值（持续回调）
         /// </summary>
         InputKeepCallback,
+        /// <summary>
+        /// No input parameters, the return value of the two-stage callback
+        /// 无输入参数，二阶段回调返回值
+        /// </summary>
+        TwoStageCallback,
+        /// <summary>
+        /// There are input parameters and the return value of the two-stage callback
+        /// 有输入参数，二阶段回调返回值
+        /// </summary>
+        InputTwoStageCallback,
 
         /// <summary>
         /// There are no input parameters, but there is a return value (The server-side call type corresponds to the CallOutput on the client side)

@@ -1664,7 +1664,7 @@
             磁盘块客户端接口
             </summary>
             <summary>
-            磁盘块客户端接口
+            
             </summary>
         </member>
         <member name="M:AutoCSer.CommandService.IDiskBlockClient.GetPosition(System.UInt32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64},AutoCSer.Net.KeepCallbackCommand})">

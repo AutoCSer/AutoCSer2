@@ -164,7 +164,7 @@ namespace AutoCSer.ORM
                     #endregion
                 }
             }
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             Reader = (Action<DbDataReader, T, int[]>)dynamicMethod.CreateDelegate(typeof(Action<DbDataReader, T, int[]>));
             ModelReader<T>.columnIndexs = columnIndexs;
         }

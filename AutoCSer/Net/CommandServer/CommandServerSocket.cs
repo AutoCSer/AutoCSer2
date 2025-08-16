@@ -21,6 +21,26 @@ namespace AutoCSer.Net
     public sealed class CommandServerSocket
     {
         /// <summary>
+        /// Empty command service socket, used to simulate the server-side context
+        /// 空命令服务套接字，用于模拟服务端上下文
+        /// </summary>
+        internal static readonly CommandServerSocket CommandServerSocketContext = new CommandServerSocket();
+#if AOT
+        /// <summary>
+        /// The current parsing command service controller
+        /// 当前解析命令服务控制器
+        /// </summary>
+        internal CommandServerController CurrentController;
+        /// <summary>
+        /// Command server socket
+        /// 命令服务套接字
+        /// </summary>
+        internal CommandServerSocket()
+        {
+            CurrentController = CommandListener.Null.Controller;
+        }
+#else
+        /// <summary>
         /// Command server to listen
         /// 命令服务端监听
         /// </summary>
@@ -181,7 +201,6 @@ namespace AutoCSer.Net
         /// 同步输出尾节点
         /// </summary>
         private ServerOutput outputEnd;
-#if !AOT
         /// <summary>
         /// Format the remote expression deserialization data
         /// 格式化远程表达式反序列化数据
@@ -196,7 +215,6 @@ namespace AutoCSer.Net
         /// 创建远程表达式参数集合
         /// </summary>
         private object[] createRemoteExpressionParameters;
-#endif
         /// <summary>
         /// The current command method sequence number + command flag bit information
         /// 当前命令方法序号 + 命令标志位信息
@@ -414,9 +432,7 @@ namespace AutoCSer.Net
             sendAsyncEventArgs = CommandServerConfigBase.NullSocketAsyncEventArgs;
             outputHead = outputEnd = CommandServerConfig.NullServerOutput;
             bindControllers = EmptyArray<CommandServerBindContextController>.Array;
-#if !AOT
             createRemoteExpressionParameters = EmptyArray<object>.Array;
-#endif
         }
         /// <summary>
         /// Command server socket
@@ -444,9 +460,7 @@ namespace AutoCSer.Net
             sendAsyncEventArgs = CommandServerConfigBase.NullSocketAsyncEventArgs;
             outputHead = outputEnd = CommandServerConfig.NullServerOutput;
             bindControllers = EmptyArray<CommandServerBindContextController>.Array;
-#if !AOT
             createRemoteExpressionParameters = EmptyArray<object>.Array;
-#endif
         }
         /// <summary>
         /// Get the socket context binding server instance
@@ -660,7 +674,6 @@ namespace AutoCSer.Net
         {
             socket.SetVerifyState(verifyState);
         }
-#if !AOT
         /// <summary>
         /// Format the remote expression deserialization data
         /// 格式化远程表达式反序列化数据
@@ -699,7 +712,6 @@ namespace AutoCSer.Net
                 Server.RemoteMetadata?.Append(this);
             }
         }
-#endif
         /// <summary>
         /// Start receiving data
         /// 开始接收数据
@@ -1421,13 +1433,11 @@ namespace AutoCSer.Net
                                 receiveIndex += sizeof(uint);
                                 isCommand = false;
                                 goto START;
-#if !AOT
                             case CommandListener.RemoteMetadataMethodIndex - CommandListener.MinMethodIndex:
                                 appendRemoteMetadata();
                                 receiveIndex += sizeof(uint);
                                 isCommand = false;
                                 goto START;
-#endif
                             case CommandListener.CheckMethodIndex - CommandListener.MinMethodIndex:
                                 receiveIndex += sizeof(uint);
                                 isCommand = false;
@@ -2337,13 +2347,11 @@ namespace AutoCSer.Net
                                     if ((receiveSize -= sizeof(int)) == 0) return true;
                                     receiveIndex += sizeof(int);
                                     break;
-#if !AOT
                                 case CommandListener.RemoteMetadataMethodIndex - CommandListener.CustomDataMethodIndex:
                                     appendRemoteMetadata();
                                     if ((receiveSize -= sizeof(int)) == 0) return true;
                                     receiveIndex += sizeof(int);
                                     break;
-#endif
                                 case CommandListener.CheckMethodIndex - CommandListener.CustomDataMethodIndex:
                                     if ((receiveSize -= sizeof(int)) == 0) return true;
                                     receiveIndex += sizeof(int);
@@ -2572,7 +2580,7 @@ namespace AutoCSer.Net
                     outputStream.Data.Pointer.CurrentIndex = ServerOutput.StreamStartIndex;
                     if (buildOutputHead == null)
                     {
-                        if((head = outputs.GetQueue(out end)) == null)
+                        if ((head = outputs.GetQueue(out end)) == null)
                         {
                             AutoCSer.Threading.ThreadYield.YieldOnly();
                             if ((head = outputs.GetQueue(out end)) == null) goto END;
@@ -2947,7 +2955,7 @@ namespace AutoCSer.Net
         {
             if (outputs.IsPushHeadLink(outputHead, outputEnd) && Interlocked.CompareExchange(ref isOutput, 1, 0) == 0)
             {
-                if(buildOutputThreadEnum == CommandServerSocketBuildOutputThreadEnum.Queue) queueOutput();
+                if (buildOutputThreadEnum == CommandServerSocketBuildOutputThreadEnum.Queue) queueOutput();
                 else AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(buildOutputHandle);
             }
             outputHead = outputEnd = CommandServerConfig.NullServerOutput;
@@ -3884,11 +3892,6 @@ namespace AutoCSer.Net
         ///// </summary>
         //internal static readonly AutoCSer.JsonSerializeConfig JsonSerializeConfig = AutoCSer.JsonSerializeConfig.CreateInternal();
         /// <summary>
-        /// Empty command service socket, used to simulate the server-side context
-        /// 空命令服务套接字，用于模拟服务端上下文
-        /// </summary>
-        internal static readonly CommandServerSocket CommandServerSocketContext = new CommandServerSocket();
-        /// <summary>
         /// The set of sockets waiting to send data
         /// 等待发送数据的套接字集合
         /// </summary>
@@ -3943,5 +3946,6 @@ namespace AutoCSer.Net
         {
             AutoCSer.Threading.ThreadPool.TinyBackground.FastStart(socketBuildOutput);
         }
+#endif
     }
 }

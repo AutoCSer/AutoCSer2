@@ -122,13 +122,13 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         /// <param name="process">退出的进程信息</param>
         /// <returns></returns>
         public abstract string GetGuardProcessStartFailed(ProcessGuardInfo process);
-#endif
         /// <summary>
         /// 服务启动失败
         /// </summary>
         /// <param name="listener">命令服务端监听</param>
         /// <returns></returns>
         public abstract string GetCommandListenerStartFailed(AutoCSer.Net.CommandListener listener);
+#endif
         /// <summary>
         /// 默认扩展系统语言文化配置
         /// </summary>

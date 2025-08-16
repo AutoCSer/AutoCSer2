@@ -42,6 +42,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 节点方法自定义属性
         /// </summary>
         internal readonly ServerMethodAttribute MethodAttribute;
+        /// <summary>
+        /// 二阶段回调的第一阶段的返回值类型
+        /// </summary>
+        internal readonly Type TwoStage‌ReturnValueType;
 #if !AOT
         /// <summary>
         /// 修复方法集合
@@ -95,6 +99,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal bool IsBeforePersistenceMethod;
         /// <summary>
+        /// Whether to simply serialize the output data of the first-stage callback of the two-stage callback
+        /// 是否简单序列化二阶段回调的第一阶段回调输出数据
+        /// </summary>
+        internal readonly bool IsSimpleSerializeTwoStageCallbackParamter;
+        /// <summary>
         /// Server node method information
         /// 服务端节点方法信息
         /// </summary>
@@ -108,6 +117,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             IsClientCall = MethodAttribute.IsClientCall;
             IsPersistence = MethodAttribute.IsPersistence;
             QueueNodeType = MethodAttribute.IsWriteQueue && !IsPersistence ? ReadWriteNodeTypeEnum.Write : ReadWriteNodeTypeEnum.Read;
+            TwoStage‌ReturnValueType = typeof(void);
 #if NetStandard21
             PersistenceMethodReturnType = typeof(void);
 #if !AOT
@@ -161,8 +171,22 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                             else if (genericType == typeof(MethodKeepCallback<>))
                             {
                                 ReturnValueType = parameterType.GetGenericArguments()[0];
-                                --ParameterEndIndex;
-                                CallType = ParameterStartIndex == ParameterEndIndex ? CallTypeEnum.KeepCallback : CallTypeEnum.InputKeepCallback;
+                                if (ParameterStartIndex != --ParameterEndIndex)
+                                {
+                                    CallType = CallTypeEnum.InputKeepCallback;
+                                    parameterType = Parameters[ParameterEndIndex - 1].ParameterType;
+                                    if (parameterType.IsGenericType)
+                                    {
+                                        genericType = parameterType.GetGenericTypeDefinition();
+                                        if (genericType == typeof(MethodCallback<>))
+                                        {
+                                            TwoStageReturnValueType = parameterType.GetGenericArguments()[0];
+                                            --ParameterEndIndex;
+                                            CallType = ParameterStartIndex == ParameterEndIndex ? CallTypeEnum.TwoStageCallback : CallTypeEnum.InputTwoStageCallback;
+                                        }
+                                    }
+                                }
+                                else CallType = CallTypeEnum.KeepCallback;
                             }
                         }
                     }
@@ -251,6 +275,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             {
                 if (PersistenceMethodReturnType != typeof(void) && ReturnValueType != typeof(ResponseParameter)) IsSimpleSerializeParamter = SimpleSerialize.Serializer.IsType(PersistenceMethodReturnType);
             }
+            if (TwoStageReturnValueType != typeof(void)) IsSimpleSerializeTwoStageCallbackParamter = SimpleSerialize.Serializer.IsType(TwoStageReturnValueType);
         }
         /// <summary>
         /// 冷启动持久化方法匹配（初始化加载持久化数据）
@@ -472,6 +497,17 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     callMethodParameterTypes = ServerNodeCreator.InputKeepCallbackMethodParameterTypes;
                     getParameterMethod = typeof(InputKeepCallbackMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(InputKeepCallbackMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
                     break;
+                case CallTypeEnum.TwoStageCallback:
+                    parentType = typeof(TwoStageCallbackMethod);
+                    callMethod = ServerNodeCreator.TwoStageCallbackMethod;
+                    callMethodParameterTypes = ServerNodeCreator.TwoStageCallbackMethodParameterTypes;
+                    break;
+                case CallTypeEnum.InputTwoStageCallback:
+                    parentType = typeof(InputTwoStageCallbackMethod<>).MakeGenericType(InputParameterType.notNull().Type);
+                    callMethod = ServerNodeCreator.InputTwoStageCallbackMethod;
+                    callMethodParameterTypes = ServerNodeCreator.InputTwoStageCallbackMethodParameterTypes;
+                    getParameterMethod = typeof(InputTwoStageCallbackMethodParameter<>).MakeGenericType(InputParameterType.notNull().Type).GetMethod(nameof(InputTwoStageCallbackMethodParameter<int>.GetParameter), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                    break;
             }
             string methodName = AutoCSer.Common.NamePrefix + ".CommandService.StreamPersistenceMemoryDatabase." + Type.FullName + "." + Method.Name + MethodIndex.toString('.') + Interlocked.Increment(ref createMethodIndex).toString('.');
             if (repairMethod != null) methodName += ".Repair." + repairMethod.Name;
@@ -505,7 +541,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 constructorGenerator.Emit(OpCodes.Call, parentType.notNull().GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, ServerNodeCreator.MethodConstructorParameterTypes, null).notNull());
             }
             #endregion
-            constructorGenerator.Emit(OpCodes.Ret);
+            constructorGenerator.ret();
             #endregion
             #region public override void Call(Node node, ref CommandServerCallback<CallStateEnum> callback)
             MethodBuilder callMethodBuilder = typeBuilder.DefineMethod(callMethod.notNull().Name, MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, callMethodReturnType, callMethodParameterTypes);
@@ -539,7 +575,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 case CallTypeEnum.InputCallback:
                 case CallTypeEnum.InputKeepCallback:
                 case CallTypeEnum.InputEnumerable:
-                    //callMethodGenerator.call(ServerNodeCreator.MethodParameterGetNode.Method);
+                case CallTypeEnum.InputTwoStageCallback:
                     callMethodGenerator.call(((Func<MethodParameter, T>)MethodParameter.GetNodeTarget<T>).Method);
                     break;
                 default:
@@ -573,6 +609,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     #region MethodKeepCallback<T>.Create(methodParameter)
                     callMethodGenerator.ldarg(1);
                     callMethodGenerator.call(GenericType.Get(ReturnValueType).CreateMethodParameterKeepCallbackDelegate.Method);
+                    #endregion
+                    break;
+                case CallTypeEnum.TwoStageCallback:
+                    #region MethodKeepCallback<T>.Create(ref callback, false)
+                    callMethodGenerator.Emit(OpCodes.Ldarga_S, 2);
+                    callMethodGenerator.int32((byte)GetTwoStageFlags(flags));
+                    callMethodGenerator.call(GenericType.Get(TwoStageReturnValueType).CreateMethodCallbackDelegate.Method);
+                    callMethodGenerator.ldarg(3);
+                    callMethodGenerator.int32((byte)flags);
+                    callMethodGenerator.call(GenericType.Get(ReturnValueType).CreateMethodKeepCallbackDelegate.Method);
+                    #endregion
+                    break;
+                case CallTypeEnum.InputTwoStageCallback:
+                    #region MethodKeepCallback<T>.Create(methodParameter)
+                    callMethodGenerator.ldarg(1);
+                    callMethodGenerator.call(GenericType.Get(TwoStageReturnValueType).CreateMethodParameterTwoStageCallbackDelegate.Method);
+                    callMethodGenerator.ldarg(1);
+                    callMethodGenerator.call(GenericType.Get(ReturnValueType).CreateMethodParameterTwoStageKeepCallbackDelegate.Method);
                     #endregion
                     break;
             }
@@ -647,7 +701,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     break;
             }
             #endregion
-            callMethodGenerator.Emit(OpCodes.Ret);
+            callMethodGenerator.ret();
             #endregion
             return (Method)typeBuilder.CreateType().GetConstructor(EmptyArray<Type>.Array).notNull().Invoke(null);
         }
@@ -663,6 +717,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (IsClientCall) flags |= MethodFlagsEnum.IsClientCall;
             if (IsSimpleSerializeParamter) flags |= MethodFlagsEnum.IsSimpleSerializeParamter;
             if (IsSimpleDeserializeParamter) flags |= MethodFlagsEnum.IsSimpleDeserializeParamter;
+            if (IsSimpleSerializeTwoStageCallbackParamter) flags |= MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter;
             if (MethodAttribute.IsIgnorePersistenceCallbackException) flags |= MethodFlagsEnum.IsIgnorePersistenceCallbackException;
             if (QueueNodeType != ReadWriteNodeTypeEnum.Read) flags |= MethodFlagsEnum.IsWriteQueue;
             return flags;
@@ -702,6 +757,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 methods.Add(serverMethod);
             }
             return null;
+        }
+        /// <summary>
+        /// 获取二阶段回调的第一阶段回调委托的方法标记
+        /// </summary>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        internal static MethodFlagsEnum GetTwoStageFlags(MethodFlagsEnum flags)
+        {
+            flags |= MethodFlagsEnum.IsSimpleSerializeParamter;
+            if ((flags & MethodFlagsEnum.IsSimpleSerializeTwoStageCallbackParamter) == 0) flags ^= MethodFlagsEnum.IsSimpleSerializeParamter;
+            return flags;
         }
 
         /// <summary>

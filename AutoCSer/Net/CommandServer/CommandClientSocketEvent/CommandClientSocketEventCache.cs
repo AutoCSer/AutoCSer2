@@ -39,6 +39,7 @@ namespace AutoCSer.Net
         /// <param name="config">Command the client configuration
         /// 命令客户端配置</param>
         public CommandClientSocketEventCache(CommandClientConfig config) : this(new CommandClient(config)) { }
+#if !AOT
         /// <summary>
         /// Gets the command client socket event cache
         /// 获取命令客户端套接字事件缓存
@@ -51,5 +52,6 @@ namespace AutoCSer.Net
             listener.Start().AutoCSerNotWait();
             return new CommandClientSocketEventCache<T>(listener.CommandClient);
         }
+#endif
     }
 }

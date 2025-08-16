@@ -102,16 +102,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 if (nodeResult.IsSuccess)
                 {
                     IUniformProbabilityClientStatisticsNodeClientNode node = nodeResult.Value.notNull();
-                    KeepCallbackCommand keepCommand = node.GetIndexBit(getIndexBit);
-                    if (await node.GetBitArray(getBitArray))
-                    {
-                        keepCallback = await keepCommand;
-                        if (keepCallback != null)
-                        {
-                            client.Set(this);
-                            return;
-                        }
-                    }
+                    keepCallback = await node.GetData(getBitArray, getIndexBit);
+                    if (keepCallback != null) return;
                 }
                 await Task.Delay(1000);
             }
@@ -166,6 +158,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     while (++start != counts);
                     if (maxBits != 0) setMaxBits(maxBits, counts);
                 }
+                if (!isCancel) client.Set(this);
             }
             else Cancel();
         }

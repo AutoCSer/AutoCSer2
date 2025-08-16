@@ -576,7 +576,7 @@ namespace AutoCSer.Xml
             if (!type.IsValueType) generator.Emit(OpCodes.Ldind_Ref);
             generator.Emit(OpCodes.Ldflda, field);
             generator.call(deserializeDelegate.Method);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod;
         }
         /// <summary>
@@ -602,7 +602,7 @@ namespace AutoCSer.Xml
             if (!type.IsValueType) generator.Emit(OpCodes.Ldind_Ref);
             generator.Emit(OpCodes.Ldloc_0);
             generator.call(propertyMethod);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod;
         }
 #endif

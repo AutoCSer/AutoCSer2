@@ -785,7 +785,7 @@ namespace AutoCSer.Net.CommandServer
                     ++methodIndex;
                 }
                 #endregion
-                staticConstructorGenerator.Emit(OpCodes.Ret);
+                staticConstructorGenerator.ret();
                 #endregion
                 #region 构造函数
                 ConstructorBuilder constructorBuilder = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, constructorParameterTypes);
@@ -884,7 +884,7 @@ namespace AutoCSer.Net.CommandServer
                     }
                 }
                 #endregion
-                constructorGenerator.Emit(OpCodes.Ret);
+                constructorGenerator.ret();
                 #endregion
                 #region public override void DoCommand(CommandServerSocket socket, ref SubArray<byte> data)
                 MethodBuilder doCommandMethodBuilder = typeBuilder.DefineMethod(nameof(CommandServerController.DoCommand), MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, typeof(CommandClientReturnTypeEnum), ServerInterfaceController.DoCommandParameterTypes);
@@ -910,7 +910,7 @@ namespace AutoCSer.Net.CommandServer
                         {
                             #region return CommandServerReturnType.VersionExpired;
                             doCommandGenerator.int32((byte)CommandClientReturnTypeEnum.VersionExpired);
-                            doCommandGenerator.Emit(OpCodes.Ret);
+                            doCommandGenerator.ret();
                             #endregion
                         }
                         else
@@ -1061,7 +1061,7 @@ namespace AutoCSer.Net.CommandServer
                                         if (asynchronousConstructorParameterTypeArray.Length == 2) asynchronousConstructorGenerator.Emit(OpCodes.Ldarg_2);
                                         asynchronousConstructorGenerator.Emit(OpCodes.Call, serverCallbackType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, serverCallbackConstructorParameterTypeArray, null).notNull());
                                     }
-                                    asynchronousConstructorGenerator.Emit(OpCodes.Ret);
+                                    asynchronousConstructorGenerator.ret();
                                     #endregion
                                     MethodBuilder asynchronousMethodBuilder;
                                     ILGenerator asynchronousMethodGenerator;
@@ -1076,7 +1076,7 @@ namespace AutoCSer.Net.CommandServer
                                         asynchronousMethodGenerator.Emit(OpCodes.Ldsfld, method.MethodFieldBuilder);
                                         asynchronousMethodGenerator.Emit(OpCodes.Ldarg_1);
                                         asynchronousMethodGenerator.call(methodIndex == serverInterface.VerifyMethodIndex ? ServerInterfaceController.ServerCallSendVerifyState.Method : returnGenericType.CommandServerCallbackDelegate.Method);
-                                        asynchronousMethodGenerator.Emit(OpCodes.Ret);
+                                        asynchronousMethodGenerator.ret();
                                         #endregion
                                     }
                                     if (asynchronousQueueFieldBuilder != null && method.MethodType == ServerMethodTypeEnum.CallbackQueue)
@@ -1092,7 +1092,7 @@ namespace AutoCSer.Net.CommandServer
                                         asynchronousMethodGenerator.Emit(OpCodes.Ldsfld, method.MethodFieldBuilder);
                                         asynchronousMethodGenerator.Emit(OpCodes.Ldarg_1);
                                         asynchronousMethodGenerator.call(returnGenericType.notNull().CommandServerSynchronousCallbackDelegate.Method);
-                                        asynchronousMethodGenerator.Emit(OpCodes.Ret);
+                                        asynchronousMethodGenerator.ret();
                                         #endregion
                                     }
                                     method.AsynchronousType = asynchronousTypeBuilder.CreateType();
@@ -1251,7 +1251,7 @@ namespace AutoCSer.Net.CommandServer
                                         asynchronousConstructorGenerator.call(ServerInterfaceController.CommandServerSocketDeserializeMethod.MakeGenericMethod(method.InputParameterType.Type));
                                         asynchronousConstructorGenerator.call(setDeserializeMethod);
                                     }
-                                    asynchronousConstructorGenerator.Emit(OpCodes.Ret);
+                                    asynchronousConstructorGenerator.ret();
                                     #endregion
                                     #region public override void RunTask()
                                     asynchronousMethodBuilder = asynchronousTypeBuilder.DefineMethod(nameof(QueueTaskNode.RunTask), MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, typeof(void), EmptyArray<Type>.Array);
@@ -1469,7 +1469,7 @@ namespace AutoCSer.Net.CommandServer
                                             break;
                                     }
                                     asynchronousMethodGenerator.MarkLabel(returnLabel);
-                                    asynchronousMethodGenerator.Emit(OpCodes.Ret);
+                                    asynchronousMethodGenerator.ret();
                                     method.AsynchronousType = asynchronousTypeBuilder.CreateType();
                                     if (method.InputParameterType != null)
                                     {
@@ -1758,7 +1758,7 @@ namespace AutoCSer.Net.CommandServer
                                     #region this.inputParameter = inputParameter;
                                     inputParameterFieldBuilder = method.GetTaskQueueInputParameterFieldBuilder(asynchronousTypeBuilder, asynchronousConstructorGenerator);
                                     #endregion
-                                    asynchronousConstructorGenerator.Emit(OpCodes.Ret);
+                                    asynchronousConstructorGenerator.ret();
                                     #region public override bool RunTask()
                                     asynchronousMethodBuilder = asynchronousTypeBuilder.DefineMethod(nameof(CommandServerCallTaskQueueNode.RunTask), MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, typeof(bool), EmptyArray<Type>.Array);
                                     asynchronousMethodGenerator = asynchronousMethodBuilder.GetILGenerator();
@@ -1837,7 +1837,7 @@ namespace AutoCSer.Net.CommandServer
                                     //asynchronousMethodGenerator.Emit(OpCodes.Constrained, type);
                                     asynchronousMethodGenerator.call(method.Method);
                                     method.CheckCallTaskQueue(asynchronousMethodGenerator, returnGenericType, methodIndex == serverInterface.VerifyMethodIndex);
-                                    asynchronousMethodGenerator.Emit(OpCodes.Ret);
+                                    asynchronousMethodGenerator.ret();
                                     #endregion
                                     method.AsynchronousType = asynchronousTypeBuilder.CreateType();
 
@@ -1876,7 +1876,7 @@ namespace AutoCSer.Net.CommandServer
                                     break;
                             }
                             if (returnSuccess) doCommandGenerator.int32((byte)CommandClientReturnTypeEnum.Success);
-                            doCommandGenerator.Emit(OpCodes.Ret);
+                            doCommandGenerator.ret();
                             var callbackDelegate = default(Delegate);
                             switch (method.MethodType)
                             {
@@ -2001,7 +2001,7 @@ namespace AutoCSer.Net.CommandServer
                                         asynchronousConstructorGenerator.call(setIsDeserializeDelegate.Method);
                                     }
                                     #endregion
-                                    asynchronousConstructorGenerator.Emit(OpCodes.Ret);
+                                    asynchronousConstructorGenerator.ret();
                                     #region public override Task GetTask()
                                     MethodBuilder asynchronousMethodBuilder = asynchronousTypeBuilder.DefineMethod(nameof(CommandServerRunTask.GetTask), MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.ReuseSlot, method.Method.ReturnType, EmptyArray<Type>.Array);
                                     ILGenerator asynchronousMethodGenerator = asynchronousMethodBuilder.GetILGenerator();
@@ -2025,7 +2025,7 @@ namespace AutoCSer.Net.CommandServer
                                             break;
                                     }
                                     asynchronousMethodGenerator.call(method.Method);
-                                    asynchronousMethodGenerator.Emit(OpCodes.Ret);
+                                    asynchronousMethodGenerator.ret();
                                     #endregion
                                     if (method.MethodType == ServerMethodTypeEnum.CallbackTask && method.ReturnValueType != typeof(void))
                                     {
@@ -2038,7 +2038,7 @@ namespace AutoCSer.Net.CommandServer
                                         asynchronousMethodGenerator.Emit(OpCodes.Ldsfld, method.MethodFieldBuilder);
                                         asynchronousMethodGenerator.Emit(OpCodes.Ldarg_1);
                                         asynchronousMethodGenerator.call(callbackDelegate.notNull().Method);
-                                        asynchronousMethodGenerator.Emit(OpCodes.Ret);
+                                        asynchronousMethodGenerator.ret();
                                         #endregion
 
                                     }
@@ -2053,7 +2053,7 @@ namespace AutoCSer.Net.CommandServer
                                     if (method.InputParameterType != null) doCommandGenerator.Emit(OpCodes.Ldarg_2);
                                     doCommandGenerator.Emit(OpCodes.Newobj, asynchronousConstructorBuilder.notNull());
                                     doCommandGenerator.call(runTaskDelegate.Method);
-                                    doCommandGenerator.Emit(OpCodes.Ret);
+                                    doCommandGenerator.ret();
                                     #endregion
                                     break;
                             }
@@ -2325,7 +2325,7 @@ namespace AutoCSer.Net.CommandServer
             public override bool RunTask()
             {
                 CommandServerCallTaskQueue queue;
-                CommandServerSocket socket = CommandServerCallTaskQueueNode.GetSocket(this, out queue);
+                CommandServerSocket socket = CommandServerCallTaskQueueNode.GetSocketQueue(this, out queue);
                 return CommandServerCallTaskQueueTask<string>.CheckCallTask(this, controller.TaskQueue(socket, queue, inputParameter.Value, inputParameter.Ref));
             }
         }
@@ -2359,7 +2359,7 @@ namespace AutoCSer.Net.CommandServer
             public override bool RunTask()
             {
                 CommandServerCallTaskQueue queue;
-                CommandServerSocket socket = CommandServerCallTaskQueueNode.GetSocket(this, out queue);
+                CommandServerSocket socket = CommandServerCallTaskQueueNode.GetSocketQueue(this, out queue);
                 return CommandServerCallbackTaskQueueTask.CheckCallTask(this, controller.CallbackTaskQueue(socket, queue, inputParameter.Value, inputParameter.Ref, new AsynchronousCallback(this)));
             }
         }
@@ -2376,7 +2376,7 @@ namespace AutoCSer.Net.CommandServer
             public override bool RunTask()
             {
                 CommandServerCallTaskQueue queue;
-                CommandServerSocket socket = CommandServerCallTaskQueueNode.GetSocket(this, out queue);
+                CommandServerSocket socket = CommandServerCallTaskQueueNode.GetSocketQueue(this, out queue);
                 return CommandServerCallTaskQueueSendOnlyTask.CheckCallTask(this, controller.SendOnlyTaskQueue(socket, queue, inputParameter.Value, inputParameter.Ref));
             }
         }

@@ -138,7 +138,7 @@ namespace AutoCSer.ObjectRoot
         //        generator.int32(1);
         //        CatchTask.AddIgnoreException(AutoCSer.LogHelper.Add(LogLevel.Debug, $"没有找到属性 {runtimeType.FullName}.DomainInitialized"));
         //    }
-        //    generator.Emit(OpCodes.Ret);
+        //    generator.ret();
         //    isDomainInitialized = (Func<Type, bool>)dynamicMethod.CreateDelegate(typeof(Func<Type, bool>));
         //}
     }

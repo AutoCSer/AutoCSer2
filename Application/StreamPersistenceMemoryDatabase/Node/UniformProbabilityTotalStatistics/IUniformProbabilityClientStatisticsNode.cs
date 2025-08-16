@@ -17,19 +17,15 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [ServerMethod(IsClientCall = false, SnapshotMethodSort = 1)]
         void SnapshotSet(byte[] bitCountArray);
         /// <summary>
-        /// Get the array of binary bits
-        /// 获取二进制位数量的数组
+        /// Get data
+        /// 获取数据
         /// </summary>
-        /// <param name="callback"></param>
+        /// <param name="callback">Get the array of binary bits
+        /// 获取二进制位数量的数组</param>
+        /// <param name="keepCallback">Get the newly set data
+        /// 获取新设置的数据</param>
         [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
-        void GetBitArray(MethodCallback<byte[]> callback);
-        /// <summary>
-        /// Get the newly set data
-        /// 获取新设置的数据
-        /// </summary>
-        /// <param name="callback"></param>
-        [ServerMethod(IsPersistence = false, IsWriteQueue = true, IsCallbackClient = true)]
-        void GetIndexBit(MethodKeepCallback<int> callback);
+        void GetData(MethodCallback<byte[]> callback, MethodKeepCallback<int> keepCallback);
         /// <summary>
         /// Try to modify the number of binary bits at the specified index position (Initialize and load the persistent data)
         /// 尝试修改指定索引位置的二进制位数量（初始化加载持久化数据）

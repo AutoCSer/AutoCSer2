@@ -16,6 +16,7 @@ namespace AutoCSer.TestCase
         Task SetSocketTask(CommandServerSocket socket, Data.ORM.BusinessModel value);
         Task<Data.ORM.BusinessModel> GetSocketTask(CommandServerSocket socket);
     }
+#if !AOT
     /// <summary>
     /// 服务端定义非对称测试接口实例
     /// </summary>
@@ -43,4 +44,5 @@ namespace AutoCSer.TestCase
             return Task.FromResult(value);
         }
     }
+#endif
 }

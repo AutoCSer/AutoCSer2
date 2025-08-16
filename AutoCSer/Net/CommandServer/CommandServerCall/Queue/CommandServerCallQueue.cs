@@ -8,6 +8,15 @@ using System.Threading.Tasks;
 
 namespace AutoCSer.Net
 {
+#if AOT
+    /// <summary>
+    /// The queue of the server synchronization thread
+    /// 服务端同步线程队列
+    /// </summary>
+    public sealed class CommandServerCallQueue
+    {
+    }
+#else
     /// <summary>
     /// The queue of the server synchronization thread
     /// 服务端同步线程队列
@@ -146,7 +155,7 @@ namespace AutoCSer.Net
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         internal void AddOnly(QueueTaskNode node)
         {
-            if(queue.IsPushHead(node)) WaitHandle.Set();
+            if (queue.IsPushHead(node)) WaitHandle.Set();
         }
         /// <summary>
         /// Add the task node
@@ -288,4 +297,5 @@ namespace AutoCSer.Net
             }
         }
     }
+#endif
 }

@@ -26,6 +26,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         void Queue(CommandServerCallQueue queue, out long Out);
         void Queue(CommandServerCallLowPriorityQueue queue);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -93,4 +94,5 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
         void IServerQueueController.Queue(CommandServerCallLowPriorityQueue queue) { }
     }
+#endif
 }

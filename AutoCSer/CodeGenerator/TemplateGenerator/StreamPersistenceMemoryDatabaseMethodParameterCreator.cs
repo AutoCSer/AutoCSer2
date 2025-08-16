@@ -64,6 +64,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public bool MethodIsReturn { get { return ServerNodeMethod.ReturnValueType != typeof(void); } }
             /// <summary>
+            /// 二阶段回调的第一阶段回调的返回值类型
+            /// </summary>
+            public ExtensionType TwoStageReturnValueType;
+            /// <summary>
             /// 枚举名称
             /// </summary>
             public string EnumName;
@@ -116,6 +120,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// 服务端节点方法标记
             /// </summary>
             public readonly byte MethodFlags;
+            /// <summary>
+            /// Server-side node method flags
+            /// 服务端节点方法标记
+            /// </summary>
+            public byte TwoStageMethodFlags { get { return (byte)ServerNodeMethod.GetTwoStageFlags((MethodFlagsEnum)MethodFlags); } }
             /// <summary>
             /// 方法调用类型
             /// </summary>
@@ -172,6 +181,22 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// 服务端节点方法类型名称
             /// </summary>
             public string InputKeepCallbackMethodTypeName { get { return CallMethodTypeName; } }
+            /// <summary>
+            /// 方法调用类型
+            /// </summary>
+            public bool IsTwoStageCallback { get { return ServerNodeMethod.CallType == CallTypeEnum.TwoStageCallback; } }
+            /// <summary>
+            /// 服务端节点方法类型名称
+            /// </summary>
+            public string TwoStageCallbackMethodTypeName { get { return CallMethodTypeName; } }
+            /// <summary>
+            /// 方法调用类型
+            /// </summary>
+            public bool IsInputTwoStageCallback { get { return ServerNodeMethod.CallType == CallTypeEnum.InputTwoStageCallback; } }
+            /// <summary>
+            /// 服务端节点方法类型名称
+            /// </summary>
+            public string InputTwoStageCallbackMethodTypeName { get { return CallMethodTypeName; } }
             /// <summary>
             /// 是否持久化之前检查参数方法
             /// </summary>
@@ -243,6 +268,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         case CallTypeEnum.InputEnumerable:
                             IsCallTypeParameter = true;
                             break;
+                        case CallTypeEnum.TwoStageCallback:
+                        case CallTypeEnum.InputTwoStageCallback:
+                            TwoStageReturnValueType = method.TwoStageReturnValueType;
+                            break;
                     }
                     if (isMethodParameterCreator)
                     {
@@ -262,8 +291,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                                 MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateSendOnlyMethodParameter);
                                 break;
                             case CallTypeEnum.InputKeepCallback:
-                            case CallTypeEnum.InputEnumerable:
+                                CallbackParameterName = $"{typeof(MethodKeepCallback<>).MakeGenericType(method.ReturnValueType).fullName()}.{nameof(MethodKeepCallback<int>.GetKeepCallback)}({method.Parameters[method.ParameterEndIndex].Name})";
                                 MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateInputKeepCallbackMethodParameter);
+                                break;
+                            case CallTypeEnum.InputEnumerable:
+                                CallbackParameterName = "null";
+                                MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateInputKeepCallbackMethodParameter);
+                                break;
+                            case CallTypeEnum.InputTwoStageCallback:
+                                CallbackParameterName = $"{typeof(MethodCallback<>).MakeGenericType(method.TwoStageReturnValueType).fullName()}.{nameof(MethodCallback<int>.GetCallback)}({method.Parameters[method.ParameterEndIndex].Name}), {typeof(MethodKeepCallback<>).MakeGenericType(method.ReturnValueType).fullName()}.{nameof(MethodKeepCallback<int>.GetKeepCallback)}({method.Parameters[method.ParameterEndIndex + 1].Name})";
+                                MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateInputTwoStageCallbackMethodParameter);
                                 break;
 
                             case CallTypeEnum.Call:
@@ -277,8 +314,16 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                                 MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateCallOutputCallbackMethodParameter);
                                 break;
                             case CallTypeEnum.KeepCallback:
-                            case CallTypeEnum.Enumerable:
+                                CallbackParameterName = $"{typeof(MethodKeepCallback<>).MakeGenericType(method.ReturnValueType).fullName()}.{nameof(MethodKeepCallback<int>.GetKeepCallback)}({method.Parameters[method.ParameterEndIndex].Name})";
                                 MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateKeepCallbackMethodParameter);
+                                break;
+                            case CallTypeEnum.Enumerable:
+                                CallbackParameterName = "null";
+                                MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateKeepCallbackMethodParameter);
+                                break;
+                            case CallTypeEnum.TwoStageCallback:
+                                CallbackParameterName = $"{typeof(MethodCallback<>).MakeGenericType(method.TwoStageReturnValueType).fullName()}.{nameof(MethodCallback<int>.GetCallback)}({method.Parameters[method.ParameterEndIndex].Name}), {typeof(MethodKeepCallback<>).MakeGenericType(method.ReturnValueType).fullName()}.{nameof(MethodKeepCallback<int>.GetKeepCallback)}({method.Parameters[method.ParameterEndIndex + 1].Name})";
+                                MethodParameterCreatorCallMethodName = nameof(MethodParameterCreator.CreateTwoStageCallbackMethodParameter);
                                 break;
                         }
                     }

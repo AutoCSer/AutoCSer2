@@ -191,6 +191,62 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         [CommandServerMethod(AutoCancelKeep = false)]
         void InputKeepCallbackWrite(CommandServerSocket socket, CommandServerCallWriteQueue queue, RequestParameter parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback);
         /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        void TwoStageCallback(CommandServerSocket socket, CommandServerCallReadQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback);
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">Request parameters
+        /// 请求参数</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        void InputTwoStageCallback(CommandServerSocket socket, CommandServerCallReadQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback);
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        void TwoStageCallbackWrite(CommandServerSocket socket, CommandServerCallWriteQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback);
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">Request parameters
+        /// 请求参数</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        void InputTwoStageCallbackWrite(CommandServerSocket socket, CommandServerCallWriteQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback);
+        /// <summary>
         /// Rebuild the persistent file (clear invalid data), and note that nodes that do not support snapshots will be discarded
         /// 重建持久化文件（清除无效数据），注意不支持快照的节点将被抛弃
         /// </summary>

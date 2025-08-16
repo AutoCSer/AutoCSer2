@@ -33,6 +33,7 @@ namespace AutoCSer.TestCase
         Task CallbackQueueReturn(CommandServerCallTaskLowPriorityQueue queue, CommandServerCallback<string> Callback);
         Task CallbackQueue(CommandServerCallTaskQueue queue, CommandServerCallback Callback);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -125,4 +126,5 @@ namespace AutoCSer.TestCase
             Callback.Callback();
         }
     }
+#endif
 }

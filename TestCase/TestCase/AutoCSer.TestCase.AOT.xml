@@ -231,7 +231,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientCallbackController">
@@ -280,7 +280,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientCallbackTaskController">
@@ -308,7 +308,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.IClientKeepCallbackController">
@@ -316,7 +316,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientKeepCallbackController">
@@ -350,7 +350,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientKeepCallbackTaskController">
@@ -384,7 +384,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientQueueController">
@@ -418,7 +418,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.IClientSendOnlyController">
@@ -426,7 +426,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientSendOnlyController">
@@ -460,7 +460,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientSynchronousController">
@@ -494,7 +494,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientTaskController">
@@ -528,7 +528,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientTwoStageCallbackController">
@@ -562,7 +562,7 @@
             客户端测试接口
             </summary>
             <summary>
-            客户端测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ClientTwoStageCallbackTaskController">
@@ -596,7 +596,7 @@
             客户端定义非对称测试接口
             </summary>
             <summary>
-            客户端定义非对称测试接口
+            
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.IDefinedDissymmetryClientController.SetSocket(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
@@ -747,17 +747,12 @@
             服务端定义非对称测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.DefinedDissymmetryServerController">
-            <summary>
-            服务端定义非对称测试接口实例
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.IDefinedSymmetryController">
             <summary>
             定义对称测试接口
             </summary>
             <summary>
-            定义对称测试接口
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.DefinedSymmetryServerController">
@@ -791,17 +786,7 @@
             服务端测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerCallbackController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.IServerCallbackTaskController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerCallbackTaskController">
             <summary>
             服务端测试接口
             </summary>
@@ -814,17 +799,12 @@
             服务端测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerCodeGeneratorController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.IServerCodeGeneratorControllerClientController">
             <summary>
             服务端测试接口 client interface
             </summary>
             <summary>
-            服务端测试接口 client interface
+            
             </summary>
             <summary>
             服务端测试接口 client interface
@@ -1176,11 +1156,6 @@
             服务端测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerConcurrencyReadQueueController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.IServerKeepCallbackController">
             <summary>
             服务端测试接口
@@ -1196,27 +1171,12 @@
             服务端测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerKeepCallbackTaskController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.IServerQueueController">
             <summary>
             服务端测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerQueueController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.IServerReadWriteQueueController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerReadWriteQueueController">
             <summary>
             服务端测试接口
             </summary>
@@ -1246,17 +1206,7 @@
             服务端测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerTaskController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.IServerTwoStageCallbackController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerTwoStageCallbackController">
             <summary>
             服务端测试接口
             </summary>
@@ -1266,17 +1216,12 @@
             服务端测试接口
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerTwoStageCallbackTaskController">
-            <summary>
-            服务端测试接口
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientCallbackController">
             <summary>
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientCallbackController">
@@ -1325,7 +1270,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientCallbackTaskController">
@@ -1353,7 +1298,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientKeepCallbackController">
@@ -1361,7 +1306,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackController">
@@ -1395,7 +1340,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientKeepCallbackTaskController">
@@ -1429,7 +1374,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientQueueController">
@@ -1463,7 +1408,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IClientSendOnlyController">
@@ -1471,7 +1416,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSendOnlyController">
@@ -1505,7 +1450,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientSynchronousController">
@@ -1539,7 +1484,7 @@
             客户端测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            客户端测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.ClientTaskController">
@@ -1574,8 +1519,7 @@
             客户端定义非对称测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            The client defines an asymmetric test interface (socket context binding the server) 
-                       客户端定义非对称测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="M:AutoCSer.TestCase.ServerBindContext.IDefinedDissymmetryClientController.SetSocket(AutoCSer.TestCase.Data.ORM.ModelGeneric)">
@@ -1724,17 +1668,12 @@
             服务端定义非对称测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedDissymmetryServerController">
-            <summary>
-            服务端定义非对称测试接口实例（套接字上下文绑定服务端）
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IDefinedSymmetryController">
             <summary>
             定义对称测试接口（套接字上下文绑定服务端）
             </summary>
             <summary>
-            定义对称测试接口（套接字上下文绑定服务端）
+            
             </summary>
         </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.DefinedSymmetryServerController">
@@ -1768,17 +1707,7 @@
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerCallbackController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerCallbackTaskController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerCallbackTaskController">
             <summary>
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
@@ -1788,17 +1717,7 @@
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerConcurrencyReadQueueController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerKeepCallbackController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerKeepCallbackController">
             <summary>
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
@@ -1808,17 +1727,7 @@
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerKeepCallbackTaskController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerQueueController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerQueueController">
             <summary>
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
@@ -1828,17 +1737,7 @@
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerReadWriteQueueController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerSendOnlyController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerSendOnlyController">
             <summary>
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
@@ -1848,17 +1747,7 @@
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
         </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerSynchronousController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
         <member name="T:AutoCSer.TestCase.ServerBindContext.IServerTaskController">
-            <summary>
-            服务端测试接口（套接字上下文绑定服务端）
-            </summary>
-        </member>
-        <member name="T:AutoCSer.TestCase.ServerBindContext.ServerTaskController">
             <summary>
             服务端测试接口（套接字上下文绑定服务端）
             </summary>
@@ -15569,7 +15458,7 @@
             <param name="KeepCallback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientController.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientController.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
             
             </summary>
@@ -15579,7 +15468,7 @@
             <param name="KeepCallback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientController.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientController.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
             
             </summary>
@@ -15801,7 +15690,7 @@
             <param name="KeepCallback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientControllerDefault.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientControllerDefault.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
             
             </summary>
@@ -15811,7 +15700,7 @@
             <param name="KeepCallback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientControllerDefault.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackClientControllerDefault.AutoCSer#TestCase#IClientTwoStageCallbackController#TwoStageCallbackQueueSocketReturn(AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
             
             </summary>
@@ -16114,7 +16003,7 @@
             <param name="KeepCallback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackTaskClientController.AutoCSer#TestCase#IClientTwoStageCallbackTaskController#TwoStageCallbackTaskQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackTaskClientController.AutoCSer#TestCase#IClientTwoStageCallbackTaskController#TwoStageCallbackTaskQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
             
             </summary>
@@ -16242,7 +16131,7 @@
             <param name="KeepCallback"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientTwoStageCallbackTaskController#TwoStageCallbackTaskQueueSocketReturn(System.Int32,System.Int32,System.Action{AutoCSer.Net.CommandClientReturnValue{System.Int64}},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
+        <member name="M:AutoCSer.TestCase.ClientTwoStageCallbackTaskClientControllerDefault.AutoCSer#TestCase#IClientTwoStageCallbackTaskController#TwoStageCallbackTaskQueueSocketReturn(System.Int32,System.Int32,AutoCSer.Net.CommandClientReturnValueParameterCallback{System.Int64},System.Action{AutoCSer.Net.CommandClientReturnValue{System.String},AutoCSer.Net.KeepCallbackCommand})">
             <summary>
             
             </summary>

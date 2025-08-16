@@ -13910,7 +13910,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ICallbackNode_Enumerable_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod
         {
-            internal ICallbackNode_Enumerable_7() : base(7, 8, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)9, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)7) { }
+            internal ICallbackNode_Enumerable_7() : base(7, 8, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)11, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)7) { }
             public override void KeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerKeepCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackResponseParameter> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.KeepCallbackMethod.EnumerableCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>)node).Enumerable(), ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)7);
@@ -13976,7 +13976,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ICallbackNode_InputEnumerable_13 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__>
         {
-            internal ICallbackNode_InputEnumerable_13() : base(13, 14, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)10, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)15) { }
+            internal ICallbackNode_InputEnumerable_13() : base(13, 14, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)12, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)15) { }
             public override void InputKeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__>)methodParameter);
@@ -14048,7 +14048,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ICallbackNode_PersistenceCallbackException_19 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallMethod
         {
-            internal ICallbackNode_PersistenceCallbackException_19() : base(19, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            internal ICallbackNode_PersistenceCallbackException_19() : base(19, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)35) { }
             public override void Call(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallStateEnum> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>)node).PersistenceCallbackException();
@@ -14060,7 +14060,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ICallbackNode_SetCallback_20 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
         {
-            internal ICallbackNode_SetCallback_20() : base(20, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)7, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
+            internal ICallbackNode_SetCallback_20() : base(20, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)9, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134) { }
             public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>)node).SetCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<int>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)134));
@@ -14071,7 +14071,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ICallbackNode_SetCallbackPersistence_21 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallOutputMethod
         {
-            internal ICallbackNode_SetCallbackPersistence_21() : base(21, 22, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)7, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)7) { }
+            internal ICallbackNode_SetCallbackPersistence_21() : base(21, 22, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)9, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)7) { }
             public override void CallOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode node, ref AutoCSer.Net.CommandServerCallback<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameter> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>.GetTarget((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNode<ICallbackNode>)node).SetCallbackPersistence(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodCallback<int>.Create(ref callback, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)7));
@@ -14131,7 +14131,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ICallbackNode_SetValueCallback_26 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__>
         {
-            internal ICallbackNode_SetValueCallback_26() : base(26, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)8, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)15) { }
+            internal ICallbackNode_SetValueCallback_26() : base(26, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)10, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)15) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__>)methodParameter);
@@ -14143,7 +14143,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ICallbackNode_SetValueCallbackPersistence_27 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__>
         {
-            internal ICallbackNode_SetValueCallbackPersistence_27() : base(27, 28, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)8, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)15) { }
+            internal ICallbackNode_SetValueCallbackPersistence_27() : base(27, 28, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)10, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)15) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip0__>)methodParameter);
@@ -14430,6 +14430,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             System.Collections.Generic.IEnumerable<int> AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode/**/.Enumerable()
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateKeepCallbackMethodParameter(this, 7
+                    , null
                     );
                 return default(System.Collections.Generic.IEnumerable<int>);
             }
@@ -14497,6 +14498,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                         value = value,
                         count = count,
                     }
+                    , null
                     );
                 return default(System.Collections.Generic.IEnumerable<int>);
             }
@@ -14531,6 +14533,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                         value = value,
                         count = count,
                     }
+                    , AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.GetKeepCallback(callback)
                     );
             }
             /// <summary>
@@ -14557,6 +14560,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             void AutoCSer.TestCase.StreamPersistenceMemoryDatabase.ICallbackNode/**/.KeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int> callback)
             {
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateKeepCallbackMethodParameter(this, 17
+                    , AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.GetKeepCallback(callback)
                     );
             }
             /// <summary>
@@ -16195,7 +16199,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongSearchTreeSetNode_Add_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__>
         {
-            internal ILongSearchTreeSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongSearchTreeSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__>)methodParameter);
@@ -16207,7 +16211,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongSearchTreeSetNode_AddValues_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip1__>
         {
-            internal ILongSearchTreeSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)23) { }
+            internal ILongSearchTreeSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)39) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip1__>)methodParameter);
@@ -16324,7 +16328,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongSearchTreeSetNode_Remove_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__>
         {
-            internal ILongSearchTreeSetNode_Remove_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongSearchTreeSetNode_Remove_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSearchTreeSetNodeLocalClient.__ip0__>)methodParameter);
@@ -16468,7 +16472,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongSortedSetNode_Add_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__>
         {
-            internal ILongSortedSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongSortedSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__>)methodParameter);
@@ -16480,7 +16484,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongSortedSetNode_AddValues_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip1__>
         {
-            internal ILongSortedSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)23) { }
+            internal ILongSortedSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)39) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip1__>)methodParameter);
@@ -16549,7 +16553,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongSortedSetNode_Remove_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__>
         {
-            internal ILongSortedSetNode_Remove_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongSortedSetNode_Remove_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongSortedSetNodeLocalClient.__ip0__>)methodParameter);
@@ -16842,7 +16846,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSearchTreeDictionaryNode_GetRemove_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__>
         {
-            internal ILongStringSearchTreeDictionaryNode_GetRemove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal ILongStringSearchTreeDictionaryNode_GetRemove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -16866,7 +16870,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSearchTreeDictionaryNode_GetValues_8 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip8__>
         {
-            internal ILongStringSearchTreeDictionaryNode_GetValues_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)10, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)10) { }
+            internal ILongStringSearchTreeDictionaryNode_GetValues_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)12, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)10) { }
             public override void InputKeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip8__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip8__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip8__>)methodParameter);
@@ -16890,7 +16894,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSearchTreeDictionaryNode_Remove_10 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__>
         {
-            internal ILongStringSearchTreeDictionaryNode_Remove_10() : base(10, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSearchTreeDictionaryNode_Remove_10() : base(10, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -16914,7 +16918,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSearchTreeDictionaryNode_Set_12 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__>
         {
-            internal ILongStringSearchTreeDictionaryNode_Set_12() : base(12, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSearchTreeDictionaryNode_Set_12() : base(12, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__>)methodParameter);
@@ -16939,7 +16943,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSearchTreeDictionaryNode_TryAdd_14 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__>
         {
-            internal ILongStringSearchTreeDictionaryNode_TryAdd_14() : base(14, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSearchTreeDictionaryNode_TryAdd_14() : base(14, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSearchTreeDictionaryNodeLocalClient.__ip12__>)methodParameter);
@@ -17256,7 +17260,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSortedDictionaryNode_GetRemove_4 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__>
         {
-            internal ILongStringSortedDictionaryNode_GetRemove_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal ILongStringSortedDictionaryNode_GetRemove_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -17280,7 +17284,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSortedDictionaryNode_Remove_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__>
         {
-            internal ILongStringSortedDictionaryNode_Remove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSortedDictionaryNode_Remove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -17317,7 +17321,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSortedDictionaryNode_TryAdd_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip9__>
         {
-            internal ILongStringSortedDictionaryNode_TryAdd_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSortedDictionaryNode_TryAdd_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -17540,7 +17544,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSortedListNode_GetRemove_5 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__>
         {
-            internal ILongStringSortedListNode_GetRemove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal ILongStringSortedListNode_GetRemove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__>)methodParameter);
@@ -17576,7 +17580,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSortedListNode_Remove_8 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__>
         {
-            internal ILongStringSortedListNode_Remove_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSortedListNode_Remove_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip1__>)methodParameter);
@@ -17588,7 +17592,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSortedListNode_RemoveAt_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip9__>
         {
-            internal ILongStringSortedListNode_RemoveAt_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSortedListNode_RemoveAt_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip9__>)methodParameter);
@@ -17613,7 +17617,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ILongStringSortedListNode_TryAdd_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip11__>
         {
-            internal ILongStringSortedListNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal ILongStringSortedListNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip11__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip11__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.LongStringSortedListNodeLocalClient.__ip11__>)methodParameter);
@@ -17816,7 +17820,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceDictionaryNode_GetRemove_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__>
         {
-            internal IPerformanceDictionaryNode_GetRemove_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IPerformanceDictionaryNode_GetRemove_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -17840,7 +17844,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceDictionaryNode_Remove_5 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__>
         {
-            internal IPerformanceDictionaryNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IPerformanceDictionaryNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -17864,7 +17868,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceDictionaryNode_Renew_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip7__>
         {
-            internal IPerformanceDictionaryNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IPerformanceDictionaryNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip7__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip7__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip7__>)methodParameter);
@@ -17889,7 +17893,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceDictionaryNode_Set_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__>
         {
-            internal IPerformanceDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IPerformanceDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -17914,7 +17918,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceDictionaryNode_TryAdd_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__>
         {
-            internal IPerformanceDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IPerformanceDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -18164,7 +18168,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceMessageNode_Completed_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>
         {
-            internal IPerformanceMessageNode_Completed_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            internal IPerformanceMessageNode_Completed_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)35) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -18176,7 +18180,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceMessageNode_CompletedLoadPersistence_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>
         {
-            internal IPerformanceMessageNode_CompletedLoadPersistence_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            internal IPerformanceMessageNode_CompletedLoadPersistence_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)32) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -18188,7 +18192,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceMessageNode_Failed_8 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>
         {
-            internal IPerformanceMessageNode_Failed_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            internal IPerformanceMessageNode_Failed_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)35) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -18200,7 +18204,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceMessageNode_FailedLoadPersistence_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>
         {
-            internal IPerformanceMessageNode_FailedLoadPersistence_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            internal IPerformanceMessageNode_FailedLoadPersistence_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)32) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -18577,7 +18581,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceSearchTreeDictionaryNode_GetRemove_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__>
         {
-            internal IPerformanceSearchTreeDictionaryNode_GetRemove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IPerformanceSearchTreeDictionaryNode_GetRemove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -18601,7 +18605,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceSearchTreeDictionaryNode_GetValues_8 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip8__>
         {
-            internal IPerformanceSearchTreeDictionaryNode_GetValues_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)10, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)10) { }
+            internal IPerformanceSearchTreeDictionaryNode_GetValues_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallTypeEnum)12, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)10) { }
             public override void InputKeepCallback(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip8__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip8__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputKeepCallbackMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip8__>)methodParameter);
@@ -18625,7 +18629,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceSearchTreeDictionaryNode_Remove_10 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__>
         {
-            internal IPerformanceSearchTreeDictionaryNode_Remove_10() : base(10, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IPerformanceSearchTreeDictionaryNode_Remove_10() : base(10, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -18649,7 +18653,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceSearchTreeDictionaryNode_Set_12 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__>
         {
-            internal IPerformanceSearchTreeDictionaryNode_Set_12() : base(12, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IPerformanceSearchTreeDictionaryNode_Set_12() : base(12, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__>)methodParameter);
@@ -18674,7 +18678,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IPerformanceSearchTreeDictionaryNode_TryAdd_14 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__>
         {
-            internal IPerformanceSearchTreeDictionaryNode_TryAdd_14() : base(14, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IPerformanceSearchTreeDictionaryNode_TryAdd_14() : base(14, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.PerformanceSearchTreeDictionaryNodeLocalClient.__ip12__>)methodParameter);
@@ -18985,7 +18989,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringArrayNode_Clear_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__>
         {
-            internal IStringArrayNode_Clear_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringArrayNode_Clear_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__>)methodParameter);
@@ -19009,7 +19013,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringArrayNode_Fill_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip2__>
         {
-            internal IStringArrayNode_Fill_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringArrayNode_Fill_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip2__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip2__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip2__>)methodParameter);
@@ -19057,7 +19061,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringArrayNode_GetValueSet_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__>
         {
-            internal IStringArrayNode_GetValueSet_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringArrayNode_GetValueSet_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__>)methodParameter);
@@ -19117,7 +19121,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringArrayNode_Reverse_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__>
         {
-            internal IStringArrayNode_Reverse_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringArrayNode_Reverse_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip0__>)methodParameter);
@@ -19141,7 +19145,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringArrayNode_SetValue_13 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__>
         {
-            internal IStringArrayNode_SetValue_13() : base(13, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringArrayNode_SetValue_13() : base(13, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringArrayNodeLocalClient.__ip6__>)methodParameter);
@@ -19379,7 +19383,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringDictionaryNode_GetRemove_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__>
         {
-            internal IStringDictionaryNode_GetRemove_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringDictionaryNode_GetRemove_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -19403,7 +19407,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringDictionaryNode_Remove_5 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__>
         {
-            internal IStringDictionaryNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringDictionaryNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip1__>)methodParameter);
@@ -19427,7 +19431,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringDictionaryNode_Renew_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip7__>
         {
-            internal IStringDictionaryNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringDictionaryNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip7__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip7__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip7__>)methodParameter);
@@ -19452,7 +19456,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringDictionaryNode_Set_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__>
         {
-            internal IStringDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -19477,7 +19481,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringDictionaryNode_TryAdd_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__>
         {
-            internal IStringDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -19692,7 +19696,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringFragmentDictionaryNode_GetRemove_4 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__>
         {
-            internal IStringFragmentDictionaryNode_GetRemove_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringFragmentDictionaryNode_GetRemove_4() : base(4, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__>)methodParameter);
@@ -19716,7 +19720,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringFragmentDictionaryNode_Remove_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__>
         {
-            internal IStringFragmentDictionaryNode_Remove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringFragmentDictionaryNode_Remove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip2__>)methodParameter);
@@ -19752,7 +19756,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringFragmentDictionaryNode_Set_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__>
         {
-            internal IStringFragmentDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringFragmentDictionaryNode_Set_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -19777,7 +19781,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringFragmentDictionaryNode_TryAdd_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__>
         {
-            internal IStringFragmentDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringFragmentDictionaryNode_TryAdd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentDictionaryNodeLocalClient.__ip9__>)methodParameter);
@@ -19919,7 +19923,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringFragmentHashSetNode_Add_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__>
         {
-            internal IStringFragmentHashSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringFragmentHashSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__>)methodParameter);
@@ -19931,7 +19935,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringFragmentHashSetNode_AddValues_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip1__>
         {
-            internal IStringFragmentHashSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)23) { }
+            internal IStringFragmentHashSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)39) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip1__>)methodParameter);
@@ -19990,7 +19994,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringFragmentHashSetNode_Remove_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__>
         {
-            internal IStringFragmentHashSetNode_Remove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringFragmentHashSetNode_Remove_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringFragmentHashSetNodeLocalClient.__ip0__>)methodParameter);
@@ -20137,7 +20141,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringHashSetNode_Add_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__>
         {
-            internal IStringHashSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringHashSetNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__>)methodParameter);
@@ -20149,7 +20153,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringHashSetNode_AddValues_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip1__>
         {
-            internal IStringHashSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)23) { }
+            internal IStringHashSetNode_AddValues_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)39) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip1__>)methodParameter);
@@ -20196,7 +20200,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringHashSetNode_Remove_5 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__>
         {
-            internal IStringHashSetNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringHashSetNode_Remove_5() : base(5, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip0__>)methodParameter);
@@ -20220,7 +20224,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringHashSetNode_Renew_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip7__>
         {
-            internal IStringHashSetNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringHashSetNode_Renew_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip7__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip7__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringHashSetNodeLocalClient.__ip7__>)methodParameter);
@@ -20479,7 +20483,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_Add_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>
         {
-            internal IStringLeftArrayNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringLeftArrayNode_Add_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>)methodParameter);
@@ -20492,7 +20496,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_Clear_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__>
         {
-            internal IStringLeftArrayNode_Clear_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_Clear_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__>)methodParameter);
@@ -20516,7 +20520,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_Fill_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip3__>
         {
-            internal IStringLeftArrayNode_Fill_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_Fill_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip3__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip3__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip3__>)methodParameter);
@@ -20597,7 +20601,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_GetValueRemoveAt_10 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>
         {
-            internal IStringLeftArrayNode_GetValueRemoveAt_10() : base(10, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringLeftArrayNode_GetValueRemoveAt_10() : base(10, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>)methodParameter);
@@ -20609,7 +20613,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_GetValueRemoveToEnd_11 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>
         {
-            internal IStringLeftArrayNode_GetValueRemoveToEnd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringLeftArrayNode_GetValueRemoveToEnd_11() : base(11, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>)methodParameter);
@@ -20621,7 +20625,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_GetValueSet_12 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>
         {
-            internal IStringLeftArrayNode_GetValueSet_12() : base(12, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringLeftArrayNode_GetValueSet_12() : base(12, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>)methodParameter);
@@ -20657,7 +20661,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_Insert_15 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>
         {
-            internal IStringLeftArrayNode_Insert_15() : base(15, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_Insert_15() : base(15, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>)methodParameter);
@@ -20693,7 +20697,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_Remove_18 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>
         {
-            internal IStringLeftArrayNode_Remove_18() : base(18, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_Remove_18() : base(18, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>)methodParameter);
@@ -20705,7 +20709,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_RemoveAt_19 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>
         {
-            internal IStringLeftArrayNode_RemoveAt_19() : base(19, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_RemoveAt_19() : base(19, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>)methodParameter);
@@ -20717,7 +20721,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_RemoveToEnd_20 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>
         {
-            internal IStringLeftArrayNode_RemoveToEnd_20() : base(20, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_RemoveToEnd_20() : base(20, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip9__>)methodParameter);
@@ -20729,7 +20733,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_Reverse_21 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__>
         {
-            internal IStringLeftArrayNode_Reverse_21() : base(21, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_Reverse_21() : base(21, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip1__>)methodParameter);
@@ -20765,7 +20769,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_SetValue_24 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>
         {
-            internal IStringLeftArrayNode_SetValue_24() : base(24, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_SetValue_24() : base(24, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip12__>)methodParameter);
@@ -20801,7 +20805,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringLeftArrayNode_TryAdd_27 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>
         {
-            internal IStringLeftArrayNode_TryAdd_27() : base(27, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)31) { }
+            internal IStringLeftArrayNode_TryAdd_27() : base(27, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)47) { }
             public override void CallInputOutput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputOutputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringLeftArrayNodeLocalClient.__ip0__>)methodParameter);
@@ -20992,7 +20996,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringQueueNode_Enqueue_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringQueueNodeLocalClient.__ip1__>
         {
-            internal IStringQueueNode_Enqueue_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringQueueNode_Enqueue_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringQueueNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringQueueNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringQueueNodeLocalClient.__ip1__>)methodParameter);
@@ -21149,7 +21153,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class IStringStackNode_Push_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringStackNodeLocalClient.__ip1__>
         {
-            internal IStringStackNode_Push_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)27) { }
+            internal IStringStackNode_Push_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)43) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringStackNodeLocalClient.__ip1__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringStackNodeLocalClient.__ip1__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.StringStackNodeLocalClient.__ip1__>)methodParameter);
@@ -21396,7 +21400,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassMessageNode_Completed_6 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>
         {
-            internal ITestClassMessageNode_Completed_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            internal ITestClassMessageNode_Completed_6() : base(6, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)35) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -21408,7 +21412,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassMessageNode_CompletedLoadPersistence_7 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>
         {
-            internal ITestClassMessageNode_CompletedLoadPersistence_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            internal ITestClassMessageNode_CompletedLoadPersistence_7() : base(7, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)32) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -21420,7 +21424,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassMessageNode_Failed_8 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>
         {
-            internal ITestClassMessageNode_Failed_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            internal ITestClassMessageNode_Failed_8() : base(8, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)35) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -21432,7 +21436,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassMessageNode_FailedLoadPersistence_9 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>
         {
-            internal ITestClassMessageNode_FailedLoadPersistence_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            internal ITestClassMessageNode_FailedLoadPersistence_9() : base(9, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)32) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassMessageNodeLocalClient.__ip6__>)methodParameter);
@@ -21623,7 +21627,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassOnlyPersistenceNode_Save_0 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
         {
-            internal ITestClassOnlyPersistenceNode_Save_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            internal ITestClassOnlyPersistenceNode_Save_0() : base(0, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)35) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);
@@ -21636,7 +21640,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassOnlyPersistenceNode_SaveLoadPersistence_1 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
         {
-            internal ITestClassOnlyPersistenceNode_SaveLoadPersistence_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            internal ITestClassOnlyPersistenceNode_SaveLoadPersistence_1() : base(1, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)32) { }
             public override void CallInput(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CallInputMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);
@@ -21649,7 +21653,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassOnlyPersistenceNode_SaveSendOnly_2 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
         {
-            internal ITestClassOnlyPersistenceNode_SaveSendOnly_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)19) { }
+            internal ITestClassOnlyPersistenceNode_SaveSendOnly_2() : base(2, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)35) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);
@@ -21661,7 +21665,7 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
         /// </summary>
         internal sealed class ITestClassOnlyPersistenceNode_SaveSendOnlyLoadPersistence_3 : AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethod<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>
         {
-            internal ITestClassOnlyPersistenceNode_SaveSendOnlyLoadPersistence_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)16) { }
+            internal ITestClassOnlyPersistenceNode_SaveSendOnlyLoadPersistence_3() : base(3, -2147483648, (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodFlagsEnum)32) { }
             public override void SendOnly(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter methodParameter)
             {
                 AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__ parameter = AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>.GetParameter((AutoCSer.CommandService.StreamPersistenceMemoryDatabase.SendOnlyMethodParameter<AutoCSer.TestCase.StreamPersistenceMemoryDatabase.TestClassOnlyPersistenceNodeLocalClient.__ip0__>)methodParameter);

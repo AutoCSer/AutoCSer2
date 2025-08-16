@@ -45,6 +45,11 @@
     <Compile Include="CreateNodeIndex.cs" />
     <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
     <Compile Include="Memory\Unmanaged.cs" />
+    <Compile Include="Method\BeforePersistenceTwoStageCallbackMethodParameter.cs" />
+    <Compile Include="Method\InputTwoStageCallbackMethod.cs" />
+    <Compile Include="Method\InputTwoStageCallbackMethodParameter.cs" />
+    <Compile Include="Method\TwoStageCallbackMethod.cs" />
+    <Compile Include="Method\TwoStageCallbackMethodParameter.cs" />
     <Compile Include="Node\ArrayNode.cs" />
     <Compile Include="Node\DictionaryNode.cs" />
     <Compile Include="Node\FragmentDictionaryNode.cs" />
@@ -149,7 +154,9 @@
     <Compile Include="ResponseParameterSimpleSerializer.cs" />
     <Compile Include="Method\InputMethodParameter.cs" />
     <Compile Include="Node\IServiceNode.cs" />
-    <Compile Include="Server\MethodKeepCallbackTimeout.cs" />
+    <Compile Include="Server\LocalService\LocalServiceInputTwoStageCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceTwoStageCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceTwoStageCallbackNodeCallback.cs" />
     <Compile Include="Snapshot\CheckSnapshotCloneObject.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackInputOutputNodeCallback.cs" />

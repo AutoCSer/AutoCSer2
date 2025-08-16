@@ -44,6 +44,7 @@ namespace AutoCSer.TestCase.ServerBindContext
         IAsyncEnumerable<string> AsyncEnumerableQueueReturn(CommandServerCallTaskQueue<int> queue, int Ref);
 #endif
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -160,4 +161,5 @@ namespace AutoCSer.TestCase.ServerBindContext
         }
 #endif
     }
+#endif
 }

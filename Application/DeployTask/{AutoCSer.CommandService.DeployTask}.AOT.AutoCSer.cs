@@ -310,12 +310,12 @@ namespace AutoCSer.CommandService.DeployTask
 }namespace AutoCSer.CommandService.DeployTask
 {
         /// <summary>
-        /// 数据库备份服务接口 客户端接口
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(DatabaseBackupServiceClientController))]
         public partial interface IDatabaseBackupServiceClientController { }
         /// <summary>
-        /// 数据库备份服务接口 客户端接口 client controller
+        ///  client controller
         /// </summary>
         internal unsafe partial class DatabaseBackupServiceClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.DeployTask.IDatabaseBackupServiceClientController, AutoCSer.CommandService.DeployTask.IDatabaseBackupService>, IDatabaseBackupServiceClientController
         {
@@ -661,7 +661,7 @@ namespace AutoCSer.CommandService.DeployTask
 }namespace AutoCSer.CommandService.DeployTask
 {
         /// <summary>
-        /// 拉取文件客户端接口
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(PullFileServiceClientController))]
         public partial interface IPullFileServiceClientController { }
@@ -1101,12 +1101,12 @@ namespace AutoCSer.CommandService.DeployTask
 }namespace AutoCSer.CommandService.DeployTask
 {
         /// <summary>
-        /// 文件上传服务接口 客户端接口
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(UploadFileServiceClientController))]
         public partial interface IUploadFileServiceClientController { }
         /// <summary>
-        /// 文件上传服务接口 客户端接口 client controller
+        ///  client controller
         /// </summary>
         internal unsafe partial class UploadFileServiceClientController : AutoCSer.Net.CommandClientController<AutoCSer.CommandService.DeployTask.IUploadFileServiceClientController, AutoCSer.CommandService.DeployTask.IUploadFileService>, IUploadFileServiceClientController
         {

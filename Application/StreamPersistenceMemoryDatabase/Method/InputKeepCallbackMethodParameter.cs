@@ -246,10 +246,16 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// <param name="node"></param>
         /// <param name="methodIndex"></param>
         /// <param name="parameter"></param>
-        public InputKeepCallbackMethodParameter(ServerNode node, int methodIndex, ref T parameter) : base(node, (InputKeepCallbackMethod)node.NodeCreator.Methods[methodIndex].notNull())
+        /// <param name="callback"></param>
+#if NetStandard21
+        public InputKeepCallbackMethodParameter(ServerNode node, int methodIndex, ref T parameter, CommandServerKeepCallback<KeepCallbackResponseParameter>? callback) 
+#else
+        public InputKeepCallbackMethodParameter(ServerNode node, int methodIndex, ref T parameter, CommandServerKeepCallback<KeepCallbackResponseParameter> callback)
+#endif
+            : base(node, (InputKeepCallbackMethod)node.NodeCreator.Methods[methodIndex].notNull())
         {
             this.Parameter = parameter;
-            callback = KeepCallbackResponseParameter.EmptyKeepCallback;
+            this.callback = callback ?? KeepCallbackResponseParameter.EmptyKeepCallback;
         }
 //        /// <summary>
 //        /// 复制调用方法与参数信息

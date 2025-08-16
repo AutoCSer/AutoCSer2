@@ -236,6 +236,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     return writeHeader(header) && writeNode() && writeArguments();
                 case (int)ExpressionType.Default:
                     return writeHeader(header) && writeType(header);
+                case (int)ExpressionType.NewArrayInit:
+                case (int)ExpressionType.NewArrayBounds:
+                    return writeHeader(header) && writeType(header) && writeArguments();
                 case (int)ExpressionType.Constant:
                 case (int)ExpressionType.Parameter:
                     return writeIndex((int)header);
@@ -725,6 +728,8 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 case (int)ExpressionType.Conditional: return Expression.Condition(createNode(), createNode(), createNode());
                 case (int)ExpressionType.Invoke: return Expression.Invoke(createNode(), readArguments());
                 case (int)ExpressionType.Default: return Expression.Default(readType(header).notNull());
+                case (int)ExpressionType.NewArrayInit: return Expression.NewArrayInit(readType(header).notNull(), readArguments());
+                case (int)ExpressionType.NewArrayBounds: return Expression.NewArrayBounds(readType(header).notNull(), readArguments());
                 case (int)ExpressionType.Constant:
                     return Expression.MakeMemberAccess(Expression.MakeMemberAccess(parameter, parameterFields[parameterFields.Length - 1]), constantParameterFields[header >> 8]);
                 case (int)ExpressionType.Parameter: return Expression.MakeMemberAccess(parameter, parameterFields[header >> 8]);

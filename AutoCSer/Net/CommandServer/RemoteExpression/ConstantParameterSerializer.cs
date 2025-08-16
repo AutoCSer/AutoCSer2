@@ -41,7 +41,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             generator.Emit(OpCodes.Ldloca_S, parameter);
             if (IsSimpleSerialize) generator.call(SimpleSerializeConstantParameterMethod.MakeGenericMethod(type));
             else generator.call(SerializeConstantParameterMethod.MakeGenericMethod(type));
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             Serializer = (Action<ClientMetadata>)dynamicMethod.CreateDelegate(typeof(Action<ClientMetadata>));
         }
 
@@ -109,8 +109,8 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         {
             Parameter parameter = new Parameter
             {
-                Int = ClientMetadata.GetConstantParameter<int>(metadata, 0),
-                String = ClientMetadata.GetConstantParameter<string>(metadata, 1).notNull()
+                Int = ClientMetadata.GetConstantParameterValue<int>(metadata, 0),
+                String = ClientMetadata.GetConstantParameterValue<string>(metadata, 1).notNull()
             };
             ClientMetadata.SerializeConstantParameter(metadata, ref parameter);
         }

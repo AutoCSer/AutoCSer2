@@ -10,8 +10,7 @@ using AutoCSer;
 namespace AutoCSer.CommandService
 {
         /// <summary>
-        /// Service authentication client interface based on incremental login timestamp verification 
-///            基于递增登录时间戳验证的服务认证客户端接口
+        /// 
         /// </summary>
         [AutoCSer.Net.CommandClientControllerType(typeof(TimestampVerifyClientController))]
         public partial interface ITimestampVerifyClient { }

@@ -171,7 +171,6 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
         {
             return $"守护的进程 {process.ProcessName} 退出后，新进程启动失败。";
         }
-#endif
         /// <summary>
         /// 服务启动失败
         /// </summary>
@@ -186,6 +185,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Culture
             if (endPoint != null) message += " 监听 " + endPoint.ToString() + " ";
             return message + "启动失败";
         }
+#endif
         /// <summary>
         /// 默认扩展中文配置
         /// </summary>

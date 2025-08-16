@@ -49,7 +49,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            获取更新关键字集合
             /// </summary>
             /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<KT>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<KT>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
             /// <summary>
             /// Delete the matching data keyword 
 ///            删除匹配数据关键字
@@ -150,7 +150,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            获取更新关键字集合
             /// </summary>
             /// <returns></returns>
-            AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> callback);
+            AutoCSer.Net.KeepCallbackCommand GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseResult<T>,AutoCSer.Net.KeepCallbackCommand> keepCallback);
             /// <summary>
             /// Delete the matching data keyword 
 ///            删除匹配数据关键字
@@ -470,7 +470,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            获取更新关键字集合
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<KT>> __callback__);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<KT>> __keepCallback__);
             /// <summary>
             /// Delete the matching data keyword 
 ///            删除匹配数据关键字
@@ -571,7 +571,7 @@ namespace AutoCSer.CommandService.Search.DiskBlockIndex
 ///            获取更新关键字集合
             /// </summary>
             /// <returns></returns>
-            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __callback__);
+            AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceQueueNode<System.IDisposable> GetChangeKeys(System.Action<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalResult<T>> __keepCallback__);
             /// <summary>
             /// Delete the matching data keyword 
 ///            删除匹配数据关键字

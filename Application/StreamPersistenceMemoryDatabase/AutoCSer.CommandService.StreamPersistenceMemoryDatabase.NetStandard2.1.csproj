@@ -98,12 +98,17 @@
     <Compile Include="Method\BeforePersistenceCallOutputMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceKeepCallbackMethodParameter.cs" />
     <Compile Include="Method\BeforePersistenceMethodParameter.cs" />
+    <Compile Include="Method\BeforePersistenceTwoStageCallbackMethodParameter.cs" />
     <Compile Include="Method\InputKeepCallbackMethod.cs" />
     <Compile Include="Method\InputKeepCallbackMethodParameter.cs" />
+    <Compile Include="Method\InputTwoStageCallbackMethod.cs" />
+    <Compile Include="Method\InputTwoStageCallbackMethodParameter.cs" />
     <Compile Include="Method\KeepCallbackMethod.cs" />
     <Compile Include="Method\KeepCallbackMethodParameter.cs" />
     <Compile Include="Method\MethodParameterPersistenceCallback.cs" />
     <Compile Include="Method\SendOnlyMethod.cs" />
+    <Compile Include="Method\TwoStageCallbackMethod.cs" />
+    <Compile Include="Method\TwoStageCallbackMethodParameter.cs" />
     <Compile Include="NodeIndex.cs" />
     <Compile Include="NodeInfo.cs" />
     <Compile Include="NodeMethod.cs" />
@@ -317,6 +322,7 @@
     <Compile Include="Server\LocalService\LocalServiceCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceCallbackNodeCallback.cs" />
     <Compile Include="Server\LocalService\LocalServiceCustomQueueNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceInputTwoStageCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceRebuild.cs" />
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackNode.cs" />
@@ -336,7 +342,8 @@
     <Compile Include="Server\LocalService\LocalServiceInputKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNode.cs" />
     <Compile Include="Server\LocalService\LocalServiceKeepCallbackEnumeratorNodeCallback.cs" />
-    <Compile Include="Server\MethodKeepCallbackTimeout.cs" />
+    <Compile Include="Server\LocalService\LocalServiceTwoStageCallbackNode.cs" />
+    <Compile Include="Server\LocalService\LocalServiceTwoStageCallbackNodeCallback.cs" />
     <Compile Include="Server\PersistenceFile.cs" />
     <Compile Include="Server\PersistenceTypeEnum.cs" />
     <Compile Include="Server\ScanPersistenceServiceLoader.cs" />

@@ -67,6 +67,7 @@ namespace AutoCSer.TestCase
         IAsyncEnumerable<string> AsyncEnumerableQueueReturn(CommandServerCallTaskQueue<int> queue, int Ref);
 #endif
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -279,4 +280,5 @@ namespace AutoCSer.TestCase
         }
 #endif
     }
+#endif
 }

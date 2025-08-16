@@ -22,7 +22,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (config.OnlyLocalService)
             {
-                CommandServerCallQueue = new AutoCSer.Net.CommandServerCallConcurrencyReadQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null);
+                CommandServerCallQueue = new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }).GetServerCallConcurrencyReadQueue();
                 CommandServerCallQueue.AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
             }
         }
@@ -40,7 +40,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         {
             if (config.OnlyLocalService)
             {
-                CommandServerCallQueue = new AutoCSer.Net.CommandServerCallReadQueue(new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds }), null, maxConcurrency);
+                CommandServerCallQueue = new AutoCSer.Net.CommandListener(new AutoCSer.Net.CommandServerConfig { QueueTimeoutSeconds = config.QueueTimeoutSeconds, MaxReadWriteQueueConcurrency = maxConcurrency }).GetServerCallReadWriteQueue();
                 CommandServerCallQueue.AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
             }
         }
@@ -127,10 +127,31 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             var refCallback = callback;
             try
             {
-                if (!IsDisposed) parameter.InputKeepCallback(ref refCallback);
+                if (!IsDisposed) state = parameter.InputKeepCallback(ref refCallback);
                 else state = CallStateEnum.Disposed;
             }
             finally { refCallback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="parameter">Request parameters
+        /// 请求参数</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        internal void InputTwoStageCallback(InputTwoStageCallbackMethodParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            CallStateEnum state = CallStateEnum.Unknown;
+            var refKeepCallback = keepCallback;
+            try
+            {
+                if (!IsDisposed) state = parameter.InputTwoStageCallback(callback, ref refKeepCallback);
+                else state = CallStateEnum.Disposed;
+            }
+            finally { refKeepCallback?.CallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
         }
         /// <summary>
         /// Add non-persistent queue tasks (without modifying the status of in-memory data)

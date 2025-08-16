@@ -111,6 +111,7 @@ namespace AutoCSer.TestCase.CommandServerPerformance
         [CommandServerMethod(IsSynchronousCallTask = true)]
         Task<CommandServerSendOnly> SendOnlyTask(int left, int right);
     }
+#if !AOT
     /// <summary>
     /// 命令服务性能测试服务端实例
     /// </summary>
@@ -250,4 +251,5 @@ namespace AutoCSer.TestCase.CommandServerPerformance
             return CommandServerSendOnly.Null;
         }
     }
+#endif
 }

@@ -135,6 +135,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// 创建调用方法与参数信息
         /// </summary>
         internal abstract Delegate MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate { get; }
+        /// <summary>
+        /// Create the calling method and parameter information
+        /// 创建调用方法与参数信息
+        /// </summary>
+        internal abstract Delegate MethodParameterCreatorCreateInputTwoStageCallbackMethodParameterDelegate { get; }
 
         /// <summary>
         /// Call the node method
@@ -323,7 +328,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
         /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
-        internal override Delegate MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T>)MethodParameterCreator.CreateInputKeepCallbackMethodParameter<T>; } }
+#if NetStandard21
+        internal override Delegate MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T, CommandServerKeepCallback<KeepCallbackResponseParameter>?>)MethodParameterCreator.CreateInputKeepCallbackMethodParameter<T>; } }
+#else
+        internal override Delegate MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T, CommandServerKeepCallback<KeepCallbackResponseParameter>>)MethodParameterCreator.CreateInputKeepCallbackMethodParameter<T>; } }
+#endif
+        /// <summary>
+        /// Create the calling method and parameter information
+        /// 创建调用方法与参数信息
+        /// </summary>
+#if NetStandard21
+        internal override Delegate MethodParameterCreatorCreateInputTwoStageCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T, CommandServerCallback<ResponseParameter>?, CommandServerKeepCallback<KeepCallbackResponseParameter>?>)MethodParameterCreator.CreateInputTwoStageCallbackMethodParameter<T>; } }
+#else
+        internal override Delegate MethodParameterCreatorCreateInputTwoStageCallbackMethodParameterDelegate { get { return (Action<MethodParameterCreator, int, T, CommandServerCallback<ResponseParameter>, CommandServerKeepCallback<KeepCallbackResponseParameter>>)MethodParameterCreator.CreateInputTwoStageCallbackMethodParameter<T>; } }
+#endif
 
         /// <summary>
         /// Call the node method

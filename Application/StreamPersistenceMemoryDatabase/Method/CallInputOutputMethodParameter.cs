@@ -177,21 +177,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             if (callback != null)
             {
                 this.callback = null;
-                bool isCallback = false;
+                //bool isCallback = false;
                 try
                 {
                     ResponseParameter responseParameter = ResponseParameter.Create(value, Method.Flags);
-                    isCallback = true;
+                    //isCallback = true;
                     callback.SynchronousCallback(responseParameter);
                 }
                 catch (Exception exception)
                 {
                     AutoCSer.LogHelper.ExceptionIgnoreException(exception);
                 }
-                finally
-                {
-                    if (!isCallback) callback.Socket.DisposeSocket();
-                }
+                //finally
+                //{
+                //    if (!isCallback) callback.Socket.DisposeSocket();
+                //}
             }
         }
         /// <summary>

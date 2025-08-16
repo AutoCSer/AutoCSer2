@@ -181,7 +181,7 @@ namespace AutoCSer.Xml
         /// <returns>成员转换委托</returns>
         public Delegate Create(Type type)
         {
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return dynamicMethod.CreateDelegate(type);
         }
 

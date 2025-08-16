@@ -42,6 +42,7 @@ namespace AutoCSer.TestCase
         void Queue(CommandServerCallQueue queue, out long Out);
         void Queue(CommandServerCallLowPriorityQueue queue);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口
     /// </summary>
@@ -170,4 +171,5 @@ namespace AutoCSer.TestCase
         }
         void IServerQueueController.Queue(CommandServerCallLowPriorityQueue queue) { }
     }
+#endif
 }

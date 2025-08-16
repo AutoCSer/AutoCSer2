@@ -31,6 +31,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// </summary>
         internal readonly MethodFlagsEnum Flags;
         /// <summary>
+        /// Server-side node method flags
+        /// 服务端节点方法标记
+        /// </summary>
+        internal MethodFlagsEnum TwoStageFlags { get { return ServerNodeMethod.GetTwoStageFlags(Flags); } }
+        /// <summary>
         /// Whether to persist (persistence is required if write operations are involved)
         /// 是否持久化（涉及写入操作则需要持久化）
         /// </summary>

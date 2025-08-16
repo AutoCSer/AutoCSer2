@@ -794,6 +794,8 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     case (int)ExpressionType.Conditional: return condition(deserializeExpression(), deserializeExpression(), deserializeExpression());
                     case (int)ExpressionType.Invoke: return invoke(deserializeExpression(), deserializeArguments());
                     case (int)ExpressionType.Default: return defaultExpression(deserializeType(header));
+                    case (int)ExpressionType.NewArrayInit: return newArrayInit(deserializeType(header), deserializeArguments());
+                    case (int)ExpressionType.NewArrayBounds: return newArrayBounds(deserializeType(header), deserializeArguments());
                     case (int)ExpressionType.Constant: return deserializeConstant(header);
                     case (int)ExpressionType.Parameter: return Parameters[header >> 8];
                     default:
@@ -1831,6 +1833,36 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
 #endif
         {
             return type != null ? System.Linq.Expressions.Expression.Default(type) : setNullParameter();
+        }
+        /// <summary>
+        /// new T[] { ... }
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="initializers"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private System.Linq.Expressions.Expression? newArrayInit(Type? type, System.Linq.Expressions.Expression[]? initializers)
+#else
+        private System.Linq.Expressions.Expression newArrayInit(Type type, System.Linq.Expressions.Expression[] initializers)
+#endif
+        {
+            return type != null && initializers != null ? System.Linq.Expressions.Expression.NewArrayInit(type, initializers) : setNullParameter();
+        }
+        /// <summary>
+        /// new T[...]
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="bounds"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private System.Linq.Expressions.Expression? newArrayBounds(Type? type, System.Linq.Expressions.Expression[]? bounds)
+#else
+        private System.Linq.Expressions.Expression newArrayBounds(Type type, System.Linq.Expressions.Expression[] bounds)
+#endif
+        {
+            return type != null && bounds != null && bounds.Length != 0 ? System.Linq.Expressions.Expression.NewArrayBounds(type, bounds) : setNullParameter();
         }
         /// <summary>
         /// 设置参数反序列化失败错误状态

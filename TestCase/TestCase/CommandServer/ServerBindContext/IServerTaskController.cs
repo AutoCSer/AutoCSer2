@@ -22,6 +22,7 @@ namespace AutoCSer.TestCase.ServerBindContext
 
         Task<string> TaskQueueException(CommandServerCallTaskLowPriorityQueue<int> queue, int Ref);
     }
+#if !AOT
     /// <summary>
     /// 服务端测试接口（套接字上下文绑定服务端）
     /// </summary>
@@ -62,4 +63,5 @@ namespace AutoCSer.TestCase.ServerBindContext
             throw new AutoCSer.Log.IgnoreException(AutoCSer.TestCase.ServerSynchronousController.GetSessionObject(Socket).Xor(queue.Key, Ref).ToString());
         }
     }
+#endif
 }

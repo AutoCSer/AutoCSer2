@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoCSer.Extensions;
+using System;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
@@ -42,7 +43,7 @@ namespace AutoCSer.Reflection.Emit
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Ldarg_1);
             generator.Emit(OpCodes.Stfld, field);
-            generator.Emit(OpCodes.Ret);
+            generator.ret();
             return (Action<T, FT>)dynamicMethod.CreateDelegate(typeof(Action<T, FT>));
         }
     }

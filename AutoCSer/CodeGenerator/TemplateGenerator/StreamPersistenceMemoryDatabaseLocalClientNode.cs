@@ -68,6 +68,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// </summary>
             public ExtensionType CallbackType;
             /// <summary>
+            /// 回调委托类型
+            /// </summary>
+            public ExtensionType KeepCallbackType;
+            /// <summary>
+            /// 回调委托参数之前是否存在其它参数
+            /// </summary>
+            public bool IsJoinCallback { get { return Method.Parameters.Length != 0; } }
+            /// <summary>
+            /// 回调委托参数之前是否存在其它参数
+            /// </summary>
+            public bool IsJoinKeepCallback { get { return IsJoinCallback || CallbackType != null; } }
+            /// <summary>
             /// Customize the command sequence number
             /// 自定义命令序号
             /// </summary>
@@ -140,6 +152,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                                 }
                                 else MethodReturnType = typeof(LocalServiceQueueNode<>).MakeGenericType(typeof(LocalKeepCallback<>).MakeGenericType(method.ReturnValueType));
                                 break;
+                            case CallTypeEnum.TwoStageCallback:
+                            case CallTypeEnum.InputTwoStageCallback:
+                                CallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.TwoStageReturnValueType));
+                                KeepCallbackType = typeof(Action<>).MakeGenericType(typeof(LocalResult<>).MakeGenericType(method.ReturnValueType));
+                                MethodReturnType = typeof(LocalServiceQueueNode<IDisposable>);
+                                break;
                             default:
                                 if (method.MethodAttribute.IsCallbackClient)
                                 {
@@ -190,6 +208,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                                 IsReadWriteNodeParameter = true;
                                 ClientType = (CallbackType != null ? typeof(LocalServiceKeepCallbackNode<>) : typeof(LocalServiceKeepCallbackEnumeratorNode<>)).MakeGenericType(method.ReturnValueType);
                                 break;
+                            case CallTypeEnum.TwoStageCallback:
+                                IsReadWriteNodeParameter = true;
+                                ClientType = typeof(LocalServiceTwoStageCallbackNode);
+                                GenericTypeName = $"{method.TwoStageReturnValueType.fullName()}, {method.ReturnValueType.fullName()}";
+                                break;
                             case CallTypeEnum.InputKeepCallback:
                             case CallTypeEnum.InputEnumerable:
                                 if (CallbackType != null) ClientType = typeof(LocalServiceInputKeepCallbackNode);
@@ -198,6 +221,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                                     ClientType = typeof(LocalServiceInputKeepCallbackEnumeratorNode);
                                     GenericTypeName = $"{method.ReturnValueType.fullName()}, {InputParameterType.ParameterTypeName}";
                                 }
+                                break;
+                            case CallTypeEnum.InputTwoStageCallback:
+                                ClientType = typeof(LocalServiceInputTwoStageCallbackNode);
+                                GenericTypeName = $"{method.TwoStageReturnValueType.fullName()}, {method.ReturnValueType.fullName()}, {InputParameterType.ParameterTypeName}";
                                 break;
                         }
                     }

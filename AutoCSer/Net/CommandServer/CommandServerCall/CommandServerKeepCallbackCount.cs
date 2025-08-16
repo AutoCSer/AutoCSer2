@@ -8,6 +8,23 @@ using System.Threading.Tasks;
 
 namespace AutoCSer.Net
 {
+#if AOT
+    /// <summary>
+    /// TCP server-side asynchronously keep callback count
+    /// TCP 服务器端异步保持回调计数
+    /// </summary>
+    public class CommandServerKeepCallbackCount
+    {
+    }
+    /// <summary>
+    /// TCP server-side asynchronously keep callback count
+    /// TCP 服务器端异步保持回调计数
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public sealed class CommandServerKeepCallbackCount<T>
+    {
+    }
+#else
     /// <summary>
     /// TCP server-side asynchronously keep callback count
     /// TCP 服务器端异步保持回调计数
@@ -782,4 +799,5 @@ namespace AutoCSer.Net
             }
         }
     }
+#endif
 }

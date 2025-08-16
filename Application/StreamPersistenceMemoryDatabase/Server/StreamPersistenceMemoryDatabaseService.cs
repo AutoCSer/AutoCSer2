@@ -19,9 +19,9 @@ namespace AutoCSer.CommandService
     /// Log stream persistence memory database service
     /// 日志流持久化内存数据库服务
     /// </summary>
-    public class StreamPersistenceMemoryDatabaseService : StreamPersistenceMemoryDatabaseServiceBase, ICommandServerBindController, IDisposable
+    public class StreamPersistenceMemoryDatabaseService : StreamPersistenceMemoryDatabaseServiceBase, IDisposable
 #if !AOT
-        , IStreamPersistenceMemoryDatabaseService, IReadWriteQueueService
+        , ICommandServerBindController, IStreamPersistenceMemoryDatabaseService, IReadWriteQueueService
 #endif
     {
         /// <summary>
@@ -433,17 +433,6 @@ namespace AutoCSer.CommandService
             return null;
         }
         /// <summary>
-        /// Bind the command service controller
-        /// 绑定命令服务控制器
-        /// </summary>
-        /// <param name="controller"></param>
-        void ICommandServerBindController.Bind(CommandServerController controller)
-        {
-            CommandServerCallQueue = controller.CallConcurrencyReadQueue;
-            if (object.ReferenceEquals(controller.Server.CallConcurrencyReadQueue, CommandServerCallQueue)) CommandServerCallQueue = controller.CallReadWriteQueue;
-            if (IsMaster) CommandServerCallQueue.AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
-        }
-        /// <summary>
         /// Get server node based on node global keywords
         /// 根据节点全局关键字获取服务端节点
         /// </summary>
@@ -728,69 +717,6 @@ namespace AutoCSer.CommandService
             if (Nodes[index.Index].FreeIdentity(index.Identity))
             {
                 freeIndexs.Add(index.Index);
-            }
-        }
-        /// <summary>
-        /// Gets the global keyword for all matching nodes
-        /// 获取所有匹配节点的全局关键字
-        /// </summary>
-        /// <param name="nodeInfo">The server-side node information to be matched
-        /// 待匹配的服务端节点信息</param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public async Task GetNodeKeys(NodeInfo nodeInfo, CommandServerKeepCallbackCount<string> callback)
-        {
-            if (nodeInfo != null)
-            {
-                foreach (ServerNode node in GetNodes())
-                {
-                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
-                    {
-                        if (!await callback.CallbackAsync(node.Key)) return;
-                    }
-                }
-            }
-        }
-        /// <summary>
-        /// Gets the node index information for all matching nodes
-        /// 获取所有匹配节点的节点索引信息
-        /// </summary>
-        /// <param name="nodeInfo">The server-side node information to be matched
-        /// 待匹配的服务端节点信息</param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public async Task GetNodeIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<NodeIndex> callback)
-        {
-            if (nodeInfo != null)
-            {
-                foreach (ServerNode node in GetNodes())
-                {
-                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
-                    {
-                        if (!await callback.CallbackAsync(node.Index)) return;
-                    }
-                }
-            }
-        }
-        /// <summary>
-        /// Gets the global keyword and node index information of all matching nodes
-        /// 获取所有匹配节点的全局关键字与节点索引信息
-        /// </summary>
-        /// <param name="nodeInfo">The server-side node information to be matched
-        /// 待匹配的服务端节点信息</param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public async Task GetNodeKeyIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<BinarySerializeKeyValue<string, NodeIndex>> callback)
-        {
-            if (nodeInfo != null)
-            {
-                foreach (ServerNode node in GetNodes())
-                {
-                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
-                    {
-                        if (!await callback.CallbackAsync(new BinarySerializeKeyValue<string, NodeIndex>(node.Key, node.Index))) return;
-                    }
-                }
             }
         }
         /// <summary>
@@ -1400,6 +1326,210 @@ namespace AutoCSer.CommandService
             InputKeepCallback(ref parameter, callback);
         }
         /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        internal void TwoStageCallback(NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            CallStateEnum state = CallStateEnum.Unknown;
+            var refKeepCallback = keepCallback;
+            try
+            {
+                if (!IsDisposed)
+                {
+                    if ((uint)index.Index < (uint)NodeIndex)
+                    {
+                        var node = Nodes[index.Index].Get(index.Identity);
+                        if (node != null)
+                        {
+                            state = node.TwoStageCallback(methodIndex, callback, ref refKeepCallback);
+                            return;
+                        }
+                        else state = CallStateEnum.NodeIdentityNotMatch;
+                    }
+                    else state = CallStateEnum.NodeIndexOutOfRange;
+                }
+                else state = CallStateEnum.Disposed;
+            }
+            finally
+            {
+                refKeepCallback?.VirtualCallbackCancelKeep(new KeepCallbackResponseParameter(state));
+            }
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void TwoStageCallback(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            TwoStageCallback(index, methodIndex, callback, keepCallback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void TwoStageCallback(CommandServerSocket socket, CommandServerCallReadQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            TwoStageCallback(index, methodIndex, callback, keepCallback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void TwoStageCallbackWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            TwoStageCallback(index, methodIndex, callback, keepCallback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="index">Node index information
+        /// 节点索引信息</param>
+        /// <param name="methodIndex">Call method number
+        /// 调用方法编号</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public void TwoStageCallbackWrite(CommandServerSocket socket, CommandServerCallWriteQueue queue, NodeIndex index, int methodIndex, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            TwoStageCallback(index, methodIndex, callback, keepCallback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        internal void InputTwoStageCallback(ref RequestParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            CallStateEnum state = CallStateEnum.Unknown;
+            var refKeepCallback = keepCallback;
+            try
+            {
+                if (!IsDisposed)
+                {
+                    if (parameter.CallState == CallStateEnum.Success) state = ((InputTwoStageCallbackMethodParameter)parameter.MethodParameter.notNull()).InputTwoStageCallback(callback, ref refKeepCallback);
+                    else state = parameter.CallState;
+                }
+                else state = CallStateEnum.Disposed;
+            }
+            finally { refKeepCallback?.CallbackCancelKeep(new KeepCallbackResponseParameter(state)); }
+        }
+
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">Request parameters
+        /// 请求参数</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        public void InputTwoStageCallback(CommandServerSocket socket, CommandServerCallConcurrencyReadQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            InputTwoStageCallback(ref parameter, callback, keepCallback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">Request parameters
+        /// 请求参数</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        public void InputTwoStageCallbackWrite(CommandServerSocket socket, CommandServerCallConcurrencyReadWriteQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            InputTwoStageCallback(ref parameter, callback, keepCallback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">Request parameters
+        /// 请求参数</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        public void InputTwoStageCallback(CommandServerSocket socket, CommandServerCallReadQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            InputTwoStageCallback(ref parameter, callback, keepCallback);
+        }
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="queue"></param>
+        /// <param name="parameter">Request parameters
+        /// 请求参数</param>
+        /// <param name="callback">The first stage returns the parameter callback
+        /// 第一阶段返回参数回调</param>
+        /// <param name="keepCallback">The second stage returns the parameter callback
+        /// 第二阶段返回参数回调</param>
+        public void InputTwoStageCallbackWrite(CommandServerSocket socket, CommandServerCallWriteQueue queue, RequestParameter parameter, CommandServerCallback<ResponseParameter> callback, CommandServerKeepCallback<KeepCallbackResponseParameter> keepCallback)
+        {
+            InputTwoStageCallback(ref parameter, callback, keepCallback);
+        }
+        /// <summary>
         /// Set a custom state object
         /// 设置自定义状态对象
         /// </summary>
@@ -1690,6 +1820,7 @@ namespace AutoCSer.CommandService
                                 case CallTypeEnum.Callback:
                                 case CallTypeEnum.KeepCallback:
                                 case CallTypeEnum.Enumerable:
+                                case CallTypeEnum.TwoStageCallback:
                                     if (data.Length == 0) break;
                                     node.SetPersistenceCallbackException();
                                     return CallStateEnum.LoadParameterSizeError;
@@ -1699,6 +1830,7 @@ namespace AutoCSer.CommandService
                                 case CallTypeEnum.InputCallback:
                                 case CallTypeEnum.InputKeepCallback:
                                 case CallTypeEnum.InputEnumerable:
+                                case CallTypeEnum.InputTwoStageCallback:
                                     if (data.Length != 0) break;
                                     node.SetPersistenceCallbackException();
                                     return CallStateEnum.LoadParameterSizeError;
@@ -1755,6 +1887,18 @@ namespace AutoCSer.CommandService
                                         {
                                             CurrentMethodParameter = inputKeepCallbackMethodParameter;
                                             return inputKeepCallbackMethod.LoadCall(inputKeepCallbackMethodParameter);
+                                        }
+                                        break;
+                                    case CallTypeEnum.TwoStageCallback:
+                                        return ((TwoStageCallbackMethod)method).LoadCall(node);
+                                    case CallTypeEnum.InputTwoStageCallback:
+                                        InputTwoStageCallbackMethod inputTwoStageCallbackMethod = (InputTwoStageCallbackMethod)method;
+                                        InputTwoStageCallbackMethodParameter inputTwoStageCallbackMethodParameter = inputTwoStageCallbackMethod.CreateInputParameter(node).notNullCastType<InputTwoStageCallbackMethodParameter>();
+                                        data.MoveStart(-sizeof(int));
+                                        if (inputTwoStageCallbackMethodParameter.Deserialize(deserializer, ref data))
+                                        {
+                                            CurrentMethodParameter = inputTwoStageCallbackMethodParameter;
+                                            return inputTwoStageCallbackMethod.LoadCall(inputTwoStageCallbackMethodParameter);
                                         }
                                         break;
                                 }
@@ -1876,6 +2020,80 @@ namespace AutoCSer.CommandService
             PersistenceWaitHandle.Set();
         }
 #if !AOT
+        /// <summary>
+        /// Gets the global keyword and node index information of all matching nodes
+        /// 获取所有匹配节点的全局关键字与节点索引信息
+        /// </summary>
+        /// <param name="nodeInfo">The server-side node information to be matched
+        /// 待匹配的服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public async Task GetNodeKeyIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<BinarySerializeKeyValue<string, NodeIndex>> callback)
+        {
+            if (nodeInfo != null)
+            {
+                foreach (ServerNode node in GetNodes())
+                {
+                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                    {
+                        if (!await callback.CallbackAsync(new BinarySerializeKeyValue<string, NodeIndex>(node.Key, node.Index))) return;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Gets the global keyword for all matching nodes
+        /// 获取所有匹配节点的全局关键字
+        /// </summary>
+        /// <param name="nodeInfo">The server-side node information to be matched
+        /// 待匹配的服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public async Task GetNodeKeys(NodeInfo nodeInfo, CommandServerKeepCallbackCount<string> callback)
+        {
+            if (nodeInfo != null)
+            {
+                foreach (ServerNode node in GetNodes())
+                {
+                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                    {
+                        if (!await callback.CallbackAsync(node.Key)) return;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Gets the node index information for all matching nodes
+        /// 获取所有匹配节点的节点索引信息
+        /// </summary>
+        /// <param name="nodeInfo">The server-side node information to be matched
+        /// 待匹配的服务端节点信息</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public async Task GetNodeIndexs(NodeInfo nodeInfo, CommandServerKeepCallbackCount<NodeIndex> callback)
+        {
+            if (nodeInfo != null)
+            {
+                foreach (ServerNode node in GetNodes())
+                {
+                    if (nodeInfo.RemoteType.Equals(new RemoteType(node.NodeCreator.Type)))
+                    {
+                        if (!await callback.CallbackAsync(node.Index)) return;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Bind the command service controller
+        /// 绑定命令服务控制器
+        /// </summary>
+        /// <param name="controller"></param>
+        void ICommandServerBindController.Bind(CommandServerController controller)
+        {
+            CommandServerCallQueue = controller.CallConcurrencyReadQueue;
+            if (object.ReferenceEquals(controller.Server.CallConcurrencyReadQueue, CommandServerCallQueue)) CommandServerCallQueue = controller.CallReadWriteQueue;
+            if (IsMaster) CommandServerCallQueue.AppendWriteOnly(new ServiceCallback(this, ServiceCallbackTypeEnum.Load));
+        }
         /// <summary>
         /// Initialize the loading repair method
         /// 初始化加载修复方法

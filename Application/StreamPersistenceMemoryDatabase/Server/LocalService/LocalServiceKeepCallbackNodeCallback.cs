@@ -59,6 +59,18 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
         }
         /// <summary>
+        /// 取消保持回调命令
+        /// </summary>
+        /// <param name="state"></param>
+        internal void CancelKeep(CallStateEnum state)
+        {
+            if (IsCancelKeep == 0)
+            {
+                SetCancelKeep();
+                callbackResult(state);
+            }
+        }
+        /// <summary>
         /// 回调操作
         /// </summary>
         /// <param name="reuslt"></param>

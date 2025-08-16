@@ -264,6 +264,7 @@
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallQueueLowPriorityLink.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallQueueNode.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientKeepCallbackQueue.cs" />
+    <Compile Include="Net\CommandServer\CommandClientCall\CommandClientReturnValueParameterCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientMethodAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandClientServiceRegistrar.cs" />
     <Compile Include="Net\CommandServer\CommandClientSocketEvent\CommandClientControllerCreatorParameter.cs" />

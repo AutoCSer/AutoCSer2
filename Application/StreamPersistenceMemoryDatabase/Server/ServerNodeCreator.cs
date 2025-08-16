@@ -689,6 +689,24 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 调用节点方法参数
         /// </summary>
         internal static readonly Type[] InputKeepCallbackMethodParameterTypes = new Type[] { typeof(InputKeepCallbackMethodParameter) };
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo TwoStageCallbackMethod = typeof(TwoStageCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.TwoStageCallbackMethod.TwoStageCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
+        /// <summary>
+        /// 调用节点方法参数
+        /// </summary>
+        internal static readonly Type[] TwoStageCallbackMethodParameterTypes = new Type[] { typeof(ServerNode), typeof(CommandServerCallback<ResponseParameter>), typeof(CommandServerKeepCallback<KeepCallbackResponseParameter>).MakeByRefType() };
+        /// <summary>
+        /// Call the node method
+        /// 调用节点方法
+        /// </summary>
+        internal static readonly MethodInfo InputTwoStageCallbackMethod = typeof(InputTwoStageCallbackMethod).GetMethod(nameof(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.InputTwoStageCallbackMethod.InputTwoStageCallback), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).notNull();
+        /// <summary>
+        /// 调用节点方法参数
+        /// </summary>
+        internal static readonly Type[] InputTwoStageCallbackMethodParameterTypes = new Type[] { typeof(InputTwoStageCallbackMethodParameter) };
         ///// <summary>
         ///// 获取服务端节点
         ///// </summary>
@@ -767,7 +785,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// Create the calling method and parameter information
         /// 创建调用方法与参数信息
         /// </summary>
-        internal static readonly Action<MethodParameterCreator, int> MethodParameterCreatorCreateKeepCallbackMethodParameter = MethodParameterCreator.CreateKeepCallbackMethodParameter;
+#if NetStandard21
+        internal static readonly Action<MethodParameterCreator, int, CommandServerKeepCallback<KeepCallbackResponseParameter>?> MethodParameterCreatorCreateKeepCallbackMethodParameter = MethodParameterCreator.CreateKeepCallbackMethodParameter;
+#else
+        internal static readonly Action<MethodParameterCreator, int, CommandServerKeepCallback<KeepCallbackResponseParameter>> MethodParameterCreatorCreateKeepCallbackMethodParameter = MethodParameterCreator.CreateKeepCallbackMethodParameter;
+#endif
+        /// <summary>
+        /// Create the calling method and parameter information
+        /// 创建调用方法与参数信息
+        /// </summary>
+#if NetStandard21
+        internal static readonly Action<MethodParameterCreator, int, CommandServerCallback<ResponseParameter>?, CommandServerKeepCallback<KeepCallbackResponseParameter>?> MethodParameterCreatorCreateTwoStageCallbackMethodParameter = MethodParameterCreator.CreateTwoStageCallbackMethodParameter;
+#else
+        internal static readonly Action<MethodParameterCreator, int, CommandServerCallback<ResponseParameter>, CommandServerKeepCallback<KeepCallbackResponseParameter>> MethodParameterCreatorCreateTwoStageCallbackMethodParameter = MethodParameterCreator.CreateTwoStageCallbackMethodParameter;
+#endif
 #endif
     }
     /// <summary>
@@ -959,7 +990,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     constructorGenerator.Emit(OpCodes.Ldarg_0);
                     constructorGenerator.Emit(OpCodes.Ldarg_1);
                     constructorGenerator.Emit(OpCodes.Call, methodParameterCreatorType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, methodParameterCreatorConstructorParameterTypes, null).notNull());
-                    constructorGenerator.Emit(OpCodes.Ret);
+                    constructorGenerator.ret();
                     #endregion
                     #endregion
                     methodIndex = 0;
@@ -1001,8 +1032,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateSendOnlyMethodParameterDelegate.Method);
                                     break;
                                 case CallTypeEnum.InputKeepCallback:
-                                case CallTypeEnum.InputEnumerable:
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 1);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.ReturnValueType).MethodKeepCallbackGetKeepCallbackDelegate.Method);
                                     methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate.Method);
+                                    break;
+                                case CallTypeEnum.InputEnumerable:
+                                    methodGenerator.loadNull();
+                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateInputKeepCallbackMethodParameterDelegate.Method);
+                                    break;
+                                case CallTypeEnum.InputTwoStageCallback:
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 1);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.TwoStageReturnValueType).MethodCallbackGetCallbackDelegate.Method);
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 2);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.ReturnValueType).MethodKeepCallbackGetKeepCallbackDelegate.Method);
+                                    methodGenerator.call(StructGenericType.Get(nodeMethod.InputParameterType.notNull().Type).MethodParameterCreatorCreateInputTwoStageCallbackMethodParameterDelegate.Method);
                                     break;
 
                                 case CallTypeEnum.Call:
@@ -1017,8 +1060,20 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                     methodGenerator.call(ServerNodeCreator.MethodParameterCreatorCreateCallOutputCallbackMethodParameter.Method);
                                     break;
                                 case CallTypeEnum.KeepCallback:
-                                case CallTypeEnum.Enumerable:
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 1);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.ReturnValueType).MethodKeepCallbackGetKeepCallbackDelegate.Method);
                                     methodGenerator.call(ServerNodeCreator.MethodParameterCreatorCreateKeepCallbackMethodParameter.Method);
+                                    break;
+                                case CallTypeEnum.Enumerable:
+                                    methodGenerator.loadNull();
+                                    methodGenerator.call(ServerNodeCreator.MethodParameterCreatorCreateKeepCallbackMethodParameter.Method);
+                                    break;
+                                case CallTypeEnum.TwoStageCallback:
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 1);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.TwoStageReturnValueType).MethodCallbackGetCallbackDelegate.Method);
+                                    methodGenerator.ldarg(nodeMethod.ParameterEndIndex + 2);
+                                    methodGenerator.call(GenericType.Get(nodeMethod.ReturnValueType).MethodKeepCallbackGetKeepCallbackDelegate.Method);
+                                    methodGenerator.call(ServerNodeCreator.MethodParameterCreatorCreateTwoStageCallbackMethodParameter.Method);
                                     break;
                             }
                             #endregion
@@ -1033,7 +1088,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                                 }
                                 methodGenerator.Emit(OpCodes.Ldloc_S, returnLocalBuilder);
                             }
-                            methodGenerator.Emit(OpCodes.Ret);
+                            methodGenerator.ret();
                             #endregion
                         }
                         ++methodIndex;
@@ -1043,7 +1098,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     ILGenerator callConstructorGenerator = dynamicMethod.GetILGenerator();
                     callConstructorGenerator.Emit(OpCodes.Ldarg_0);
                     callConstructorGenerator.Emit(OpCodes.Newobj, creatorType.GetConstructor(methodParameterCreatorConstructorParameterTypes).notNull());
-                    callConstructorGenerator.Emit(OpCodes.Ret);
+                    callConstructorGenerator.ret();
                     MethodParameterCreator = (Func<ServerNode<T>, T>)dynamicMethod.CreateDelegate(typeof(Func<ServerNode<T>, T>));
                 }
                 ServerNodeCreator<T>.methods = methods;
@@ -1108,11 +1163,11 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             }
             public void KeepCallback(MethodKeepCallback<VT> callback)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateKeepCallbackMethodParameter(this, 0);
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateKeepCallbackMethodParameter(this, 0, MethodKeepCallback<VT>.GetKeepCallback(callback));
             }
             public void GetKeepCallback(KT key, MethodKeepCallback<VT> callback)
             {
-                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateInputKeepCallbackMethodParameter(this, 0, new Dictionary<KT, VT>.p0 { key = key });
+                AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateInputKeepCallbackMethodParameter(this, 0, new Dictionary<KT, VT>.p0 { key = key }, MethodKeepCallback<VT>.GetKeepCallback(callback));
             }
         }
         public sealed class Dictionary<KT, VT> : IDictionary<KT, VT>

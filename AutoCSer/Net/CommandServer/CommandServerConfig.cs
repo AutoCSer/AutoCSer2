@@ -16,6 +16,26 @@ namespace AutoCSer.Net
     /// </summary>
     public class CommandServerConfig : CommandServerConfigBase
     {
+#if DEBUG
+        /// <summary>
+        /// The default value is 5 seconds. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
+        /// 同步队列任务执行超时检查秒数默认为 5 ，用于检查队列任务是否存在长时间阻塞或者死锁问题
+        /// </summary>
+        public ushort QueueTimeoutSeconds = 5;
+#else
+        /// <summary>
+        /// The default value is 0, indicating no check. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
+        /// 同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
+        /// </summary>
+        public ushort QueueTimeoutSeconds = 0;
+#endif
+        /// <summary>
+        /// The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
+        /// 默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
+        /// </summary>
+        public int MaxReadWriteQueueConcurrency = AutoCSer.Common.ProcessorCount - 1;
+
+#if !AOT
         /// <summary>
         /// Command server socket User-defined session object operation interface
         /// 命令服务套接字自定义会话对象操作接口
@@ -31,16 +51,6 @@ namespace AutoCSer.Net
         /// </summary>
         public int SocketAsyncEventArgsMaxCount = 256;
         /// <summary>
-        /// Authentication timeout seconds. The default value is 4
-        /// 认证超时秒数，默认为 4
-        /// </summary>
-        public ushort VerifyTimeoutSeconds = 4;
-        /// <summary>
-        /// The default value is 1. The recommended value for open service is 512 to avoid slow attacks on the client
-        /// 接收发送数据不完整时连续两次最小字节数，默认为 1，开放服务建议值为 512 避免客户端慢攻击
-        /// </summary>
-        public ushort MinSocketSize = 1;
-        /// <summary>
         /// Maximum number of authentication data bytes. The default value is 256 bytes
         /// 最大认证数据字节数量，默认为 256 字节
         /// </summary>
@@ -55,28 +65,16 @@ namespace AutoCSer.Net
         /// 二进制反序列化数组最大长度，默认为 0 表示不限制，开放服务建议根据实际情况设置防止内存占用攻击，大数组建议拆分循环调用发送或者保持回调模式接收
         /// </summary>
         public int BinaryDeserializeMaxArraySize;
-#if DEBUG
         /// <summary>
-        /// The default value is 5 seconds. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
-        /// 同步队列任务执行超时检查秒数默认为 5 ，用于检查队列任务是否存在长时间阻塞或者死锁问题
+        /// Authentication timeout seconds. The default value is 4
+        /// 认证超时秒数，默认为 4
         /// </summary>
-        public ushort QueueTimeoutSeconds = 5;
-#else
+        public ushort VerifyTimeoutSeconds = 4;
         /// <summary>
-        /// The default value is 0, indicating no check. This parameter is used to check whether queued tasks are blocked or deadlocked for a long time
-        /// 同步队列任务执行超时检查秒数，默认为 0 表示不检查，用于检查队列任务是否存在长时间阻塞或者死锁问题
+        /// The default value is 1. The recommended value for open service is 512 to avoid slow attacks on the client
+        /// 接收发送数据不完整时连续两次最小字节数，默认为 1，开放服务建议值为 512 避免客户端慢攻击
         /// </summary>
-        public ushort QueueTimeoutSeconds = 0;
-#endif
-        ///// <summary>
-        ///// 最大认证失败次数，异步认证也可能当成失败处理，默认为 2
-        ///// </summary>
-        //public byte MaxVerifyMethodErrorCount = 2;
-        /// <summary>
-        /// The default is queue mode
-        /// 默认为队列模式
-        /// </summary>
-        public CommandServerSocketBuildOutputThreadEnum BuildOutputThread;
+        public ushort MinSocketSize = 1;
         /// <summary>
         /// The default value true indicates that the command controller queries the output data containing method name for client match verification
         /// 默认为 true 表示命令控制器查询输出数据包含方法名称用于客户端匹配验证
@@ -87,23 +85,25 @@ namespace AutoCSer.Net
         /// 默认为 true 表示输出服务端异常信息，开放服务建议设置为 false 避免敏感信息泄漏
         /// </summary>
         public bool IsOutputExceptionMessage = true;
+        ///// <summary>
+        ///// 最大认证失败次数，异步认证也可能当成失败处理，默认为 2
+        ///// </summary>
+        //public byte MaxVerifyMethodErrorCount = 2;
+        /// <summary>
+        /// The default is queue mode
+        /// 默认为队列模式
+        /// </summary>
+        public CommandServerSocketBuildOutputThreadEnum BuildOutputThread;
         /// <summary>
         /// The default is true, indicating that the Nagle algorithm is disabled and data is sent immediately
         /// 默认为 true 表示禁用 Nagle 算法，立即发送数据
         /// </summary>
         public bool NoDelay = true;
-#if !AOT
         /// <summary>
         /// The default value of false indicates that remote expressions are not supported. Setting it to true means allowing arbitrary code execution, so the client needs to be fully trusted
         /// 默认为 false 表示不支持远程表达式；设置为 true 意味着允许执行任意代码，所以需要客户端完全可信任
         /// </summary>
         public bool IsRemoteExpression;
-#endif
-        /// <summary>
-        /// The maximum concurrent number of the default read/write queue is set to the number of CPU logical processors minus 1 by default
-        /// 默认读写队列最大并发数量，默认为 CPU 逻辑处理器数量 - 1
-        /// </summary>
-        public int MaxReadWriteQueueConcurrency = AutoCSer.Common.ProcessorCount - 1;
         /// <summary>
         /// The maximum Task.Run concurrency is set to 1024 by default, and should be set to 0 for highly concurrent lightweight applications
         /// 最大 Task.Run 并发默认为 1024，高并发轻量级应用应该设置为 0
@@ -283,13 +283,14 @@ namespace AutoCSer.Net
         //public virtual void OnSocketClosed(CommandServerSocket socket) { }
 
         /// <summary>
-        /// Default empty command server configuration
-        /// </summary>
-        internal static readonly CommandServerConfig Null = new CommandServerConfig { QueueTimeoutSeconds = 0 };
-        /// <summary>
         /// Output information of the default empty server socket
         /// </summary>
         internal static readonly ServerOutput NullServerOutput = new ServerOutputReturnType(default(CallbackIdentity), default(CommandClientReturnTypeEnum));
+#endif
+        /// <summary>
+        /// Default empty command server configuration
+        /// </summary>
+        internal static readonly CommandServerConfig Null = new CommandServerConfig { QueueTimeoutSeconds = 0 };
 #if NetStandard21
         /// <summary>
         /// Default empty server interface method information
