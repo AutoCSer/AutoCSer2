@@ -36,6 +36,10 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// </summary>
         internal LeftArray<int> NewFields;
         /// <summary>
+        /// 新增构造函数编号集合
+        /// </summary>
+        internal LeftArray<int> NewConstructors;
+        /// <summary>
         /// A collection of generic parameter types
         /// 泛型参数类型集合
         /// </summary>
@@ -95,6 +99,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             NewMethods = new LeftArray<int>(0);
             NewProperties = new LeftArray<int>(0);
             NewFields = new LeftArray<int>(0);
+            NewConstructors = new LeftArray<int>(0);
             constantParameterFields = parameterFields = EmptyArray<FieldInfo>.Array;
         }
         /// <summary>
@@ -109,7 +114,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             byte* start = (byte*)serializeInfo.Key.Buffer.Data;
             this.deserializer = deserializer;
             this.parameterTypes = parameterTypes;
-            NewTypes.Length = NewMethods.Length = NewProperties.Length = NewFields.Length = 0;
+            NewTypes.Length = NewMethods.Length = NewProperties.Length = NewFields.Length = NewConstructors.Length = 0;
             state = RemoteExpressionSerializeStateEnum.Success;
             write = read = start + sizeof(int);
             end = read + *(int*)start;
@@ -147,7 +152,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             }
             finally
             {
-                if ((NewTypes.Length | NewMethods.Length | NewProperties.Length | NewFields.Length) != 0) metadata.Output(this);
+                if ((NewTypes.Length | NewMethods.Length | NewProperties.Length | NewFields.Length | NewConstructors.Length) != 0) metadata.Output(this);
             }
             return state;
         }
@@ -239,6 +244,12 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 case (int)ExpressionType.NewArrayInit:
                 case (int)ExpressionType.NewArrayBounds:
                     return writeHeader(header) && writeType(header) && writeArguments();
+                case (int)ExpressionType.New:
+                    return writeHeader(header) && ((header & (int)NodeHeaderEnum.NewType) == 0 ? writeConstructor(header) && writeArguments() && writeMembers() : writeType(header));
+                case (int)ExpressionType.ListInit:
+                    return writeHeader(header) && writeNode() && writeElementInits();
+                case (int)ExpressionType.MemberInit:
+                    return writeHeader(header) && writeNode() && writeBindings();
                 case (int)ExpressionType.Constant:
                 case (int)ExpressionType.Parameter:
                     return writeIndex((int)header);
@@ -260,6 +271,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 if ((header & (int)NodeHeaderEnum.Method) != 0) header ^= (int)NodeHeaderEnum.Method | (int)NodeHeaderEnum.MethodIndex;
                 if ((header & (int)NodeHeaderEnum.Property) != 0) header ^= (int)NodeHeaderEnum.Property | (int)NodeHeaderEnum.PropertyIndex;
                 if ((header & (int)NodeHeaderEnum.Field) != 0) header ^= (int)NodeHeaderEnum.Field | (int)NodeHeaderEnum.FieldIndex;
+                if ((header & (int)NodeHeaderEnum.Constructor) != 0) header ^= (int)NodeHeaderEnum.Constructor | (int)NodeHeaderEnum.ConstructorIndex;
                 *(uint*)write = header;
                 write += sizeof(uint);
                 return true;
@@ -583,6 +595,92 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             return (header & (int)NodeHeaderEnum.FieldIndex) == 0 || writeIndex();
         }
         /// <summary>
+        /// 格式化构造函数信息
+        /// </summary>
+        /// <param name="header"></param>
+        /// <returns></returns>
+        private bool writeConstructor(uint header)
+        {
+            if ((header & (int)NodeHeaderEnum.Constructor) != 0)
+            {
+                if (*(int*)read == AutoCSer.BinarySerializer.NullValue)
+                {
+                    read += sizeof(int);
+                    KeyValue<Type, int> type = readType();
+                    if (type.Value != 0)
+                    {
+                        int parameterCount = *(int*)(read);
+                        int[] parameterTypeIndexs;
+                        read += sizeof(int);
+                        var parameterTypes = readTypeArray(parameterCount, out parameterTypeIndexs);
+                        if (parameterTypes != null)
+                        {
+                            var constructor =  type.Key.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, parameterTypes, null);
+                            if (constructor != null)
+                            {
+                                RemoteMetadataConstructorIndex constructorIndex = new RemoteMetadataConstructorIndex(type.Value, parameterTypeIndexs);
+                                return writeIndex(metadata.Append(constructor, ref constructorIndex, ref NewConstructors));
+                            }
+                            state = RemoteExpressionSerializeStateEnum.NotFoundConstructor;
+                        }
+                    }
+                }
+                else state = RemoteExpressionSerializeStateEnum.DeserializeFailed;
+                return false;
+            }
+            return (header & (int)NodeHeaderEnum.ConstructorIndex) == 0 || writeIndex();
+        }
+        /// <summary>
+        /// 格式化 new 操作成员初始化信息
+        /// </summary>
+        /// <returns></returns>
+        private bool writeElementInits()
+        {
+            int count = *(int*)read;
+            read += sizeof(int);
+            if (writeIndex(count))
+            {
+                while (count > 0)
+                {
+                    if (writeElementInit()) --count;
+                    else return false;
+                }
+                if (count == 0) return true;
+                state = RemoteExpressionSerializeStateEnum.UnknownSerializeInfo;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 格式化 new 操作成员初始化信息
+        /// </summary>
+        /// <returns></returns>
+        private bool writeElementInit()
+        {
+            uint header = *(uint*)read;
+            read += sizeof(uint);
+            return writeMethod(header) && writeArguments();
+        }
+        /// <summary>
+        /// 格式化 new 操作成员初始化信息
+        /// </summary>
+        /// <returns></returns>
+        private bool writeBindings()
+        {
+            int count = *(int*)read;
+            read += sizeof(int);
+            if (writeIndex(count))
+            {
+                while (count > 0)
+                {
+                    if (writeMember() && writeNode()) --count;
+                    else return false;
+                }
+                if (count == 0) return true;
+                state = RemoteExpressionSerializeStateEnum.UnknownSerializeInfo;
+            }
+            return false;
+        }
+        /// <summary>
         /// 写入 object 表达式数据
         /// </summary>
         /// <param name="header"></param>
@@ -598,9 +696,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         private bool writeArguments()
         {
             int count = *(int*)read;
+            read += sizeof(int);
             if (writeIndex(count))
             {
-                read += sizeof(int);
                 while(count > 0)
                 {
                     if (writeNode()) --count;
@@ -610,6 +708,36 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 state = RemoteExpressionSerializeStateEnum.UnknownSerializeInfo;
             }
             return false;
+        }
+        /// <summary>
+        /// 写入成员集合信息
+        /// </summary>
+        /// <returns></returns>
+        private bool writeMembers()
+        {
+            int count = *(int*)read;
+            read += sizeof(int);
+            if (writeIndex(count))
+            {
+                while (count > 0)
+                {
+                    if (writeMember()) --count;
+                    else return false;
+                }
+                if (count == 0 || count == AutoCSer.BinarySerializer.NullValue) return true;
+                state = RemoteExpressionSerializeStateEnum.UnknownSerializeInfo;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 写入成员信息
+        /// </summary>
+        /// <returns></returns>
+        private bool writeMember()
+        {
+            uint header = *(uint*)read;
+            read += sizeof(uint);
+            return writeHeader(header) && writeField(header) && writeProperty(header);
         }
         /// <summary>
         /// 设置表达式反序列化位置
@@ -730,6 +858,17 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 case (int)ExpressionType.Default: return Expression.Default(readType(header).notNull());
                 case (int)ExpressionType.NewArrayInit: return Expression.NewArrayInit(readType(header).notNull(), readArguments());
                 case (int)ExpressionType.NewArrayBounds: return Expression.NewArrayBounds(readType(header).notNull(), readArguments());
+                case (int)ExpressionType.New:
+                    if ((header & (int)NodeHeaderEnum.NewType) == 0)
+                    {
+                        ConstructorInfo constructor = readConstructor(header).notNull();
+                        Expression[] arguments = readArguments();
+                        var members = readMembers();
+                        return members == null ? Expression.New(constructor, arguments) : Expression.New(constructor, arguments, members);
+                    }
+                    return Expression.New(readType(header).notNull());
+                case (int)ExpressionType.ListInit: return Expression.ListInit((NewExpression)createNode(), readElementInits());
+                case (int)ExpressionType.MemberInit: return Expression.MemberInit((NewExpression)createNode(), readBindings());
                 case (int)ExpressionType.Constant:
                     return Expression.MakeMemberAccess(Expression.MakeMemberAccess(parameter, parameterFields[parameterFields.Length - 1]), constantParameterFields[header >> 8]);
                 case (int)ExpressionType.Parameter: return Expression.MakeMemberAccess(parameter, parameterFields[header >> 8]);
@@ -833,6 +972,97 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             read += sizeof(int);
             if ((header & (int)NodeHeaderEnum.PropertyIndex) != 0) return metadata.PropertyArray.Array[index].Key;
             return metadata.FieldArray.Array[index].Key;
+        }
+        /// <summary>
+        /// 读取构造函数信息
+        /// </summary>
+        /// <param name="header"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private ConstructorInfo? readConstructor(uint header)
+#else
+        private ConstructorInfo readConstructor(uint header)
+#endif
+        {
+            if ((header & (int)NodeHeaderEnum.ConstructorIndex) != 0)
+            {
+                int index = *(int*)read;
+                read += sizeof(int);
+                return metadata.ConstructorArray.Array[index].Key;
+            }
+            return null;
+        }
+        /// <summary>
+        /// 读取成员集合
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        private MemberInfo[]? readMembers()
+#else
+        private MemberInfo[] readMembers()
+#endif
+        {
+            int count = *(int*)read;
+            read += sizeof(int);
+            if (count > 0)
+            {
+                MemberInfo[] members = new MemberInfo[count];
+                for (int index = 0; index != count; members[index++] = readMember()) ;
+                return members;
+            }
+            return count == 0 ? EmptyArray<MemberInfo>.Array : null;
+        }
+        /// <summary>
+        /// 读取成员
+        /// </summary>
+        /// <returns></returns>
+        private MemberInfo readMember()
+        {
+            uint header = *(uint*)read;
+            read += sizeof(uint);
+            return readMember(header);
+        }
+        /// <summary>
+        /// 读取 new 操作成员初始化集合
+        /// </summary>
+        /// <returns></returns>
+        private ElementInit[] readElementInits()
+        {
+            int count = *(int*)read;
+            read += sizeof(int);
+            if (count != 0)
+            {
+                ElementInit[] members = new ElementInit[count];
+                for (int index = 0; index != count; members[index++] = readElementInit()) ;
+                return members;
+            }
+            return EmptyArray<ElementInit>.Array;
+        }
+        /// <summary>
+        /// 读取 new 操作成员初始化
+        /// </summary>
+        /// <returns></returns>
+        private ElementInit readElementInit()
+        {
+            uint header = *(uint*)read;
+            read += sizeof(uint);
+            return Expression.ElementInit(readMethod(header).notNull(), readArguments());
+        }
+        /// <summary>
+        /// 读取 new 操作成员初始化集合
+        /// </summary>
+        /// <returns></returns>
+        private MemberBinding[] readBindings()
+        {
+            int count = *(int*)read;
+            read += sizeof(int);
+            if (count != 0)
+            {
+                MemberBinding[] members = new MemberBinding[count];
+                for (int index = 0; index != count; members[index++] = Expression.Bind(readMember(), createNode())) ;
+                return members;
+            }
+            return EmptyArray<MemberBinding>.Array;
         }
     }
 }

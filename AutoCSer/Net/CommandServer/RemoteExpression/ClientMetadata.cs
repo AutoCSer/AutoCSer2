@@ -101,6 +101,14 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// </summary>
         private LeftArray<FieldInfo> fieldArray;
         /// <summary>
+        /// 远程构造函数编号集合
+        /// </summary>
+        private readonly Dictionary<HashObject<ConstructorInfo>, int> constructors;
+        /// <summary>
+        /// 远程构造函数集合
+        /// </summary>
+        private LeftArray<ConstructorInfo> constructorArray;
+        /// <summary>
         /// Remote expression client metadata information
         /// 远程表达式客户端元数据信息
         /// </summary>
@@ -113,10 +121,12 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             methods = DictionaryCreator.CreateHashObject<MethodInfo, int>();
             properties = DictionaryCreator.CreateHashObject<PropertyInfo, int>();
             fields = DictionaryCreator.CreateHashObject<FieldInfo, int>();
+            constructors = DictionaryCreator.CreateHashObject<ConstructorInfo, int>();
             typeArray = new LeftArray<Type>(0);
             methodArray = new LeftArray<MethodInfo>(0);
             propertyArray = new LeftArray<PropertyInfo>(0);
             fieldArray = new LeftArray<FieldInfo>(0);
+            constructorArray = new LeftArray<ConstructorInfo>(0);
             typeIndexs = new ReusableDictionary<HashObject<Type>, int>(isNull ? -1 : 0);
             constantParameterIndexs = new ReusableDictionary<ConstantParameter, int>(isNull ? -1 : 0);
             constantParameters = new LeftArray<ConstantParameter>(0);
@@ -143,6 +153,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             LeftArray<KeyValue<MethodInfo, int>> methods = new LeftArray<KeyValue<MethodInfo, int>>(0);
             LeftArray<KeyValue<PropertyInfo, int>> properties = new LeftArray<KeyValue<PropertyInfo, int>>(0);
             LeftArray<KeyValue<FieldInfo, int>> fields = new LeftArray<KeyValue<FieldInfo, int>>(0);
+            LeftArray<KeyValue<ConstructorInfo, int>> constructors = new LeftArray<KeyValue<ConstructorInfo, int>>(0);
             try
             {
                 if (remoteMetadataOutputData.TypeIndexs.Length != 0)
@@ -161,6 +172,15 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     {
                         var method = methodIndex.GetMethod(this, ref types);
                         if(method != null) methods.Add(new KeyValue<MethodInfo, int>(method, methodIndex.Index));
+                    }
+                }
+                if (remoteMetadataOutputData.ConstructorIndexs.Length != 0)
+                {
+                    methods.PrepLength(remoteMetadataOutputData.ConstructorIndexs.Length);
+                    foreach (RemoteMetadataConstructorIndex constructorIndex in remoteMetadataOutputData.ConstructorIndexs)
+                    {
+                        var constructor = constructorIndex.GetConstructor(this, ref types);
+                        if (constructor != null) constructors.Add(new KeyValue<ConstructorInfo, int>(constructor, constructorIndex.Index));
                     }
                 }
                 if (remoteMetadataOutputData.PropertyIndexs.Length != 0)
@@ -184,7 +204,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             }
             finally
             {
-                callbacks.Push(new RemoteMetadataCallback(types.ToArray(), methods.ToArray(), properties.ToArray(), fields.ToArray()));
+                callbacks.Push(new RemoteMetadataCallback(types.ToArray(), methods.ToArray(), properties.ToArray(), fields.ToArray(), constructors.ToArray()));
             }
         }
         /// <summary>
@@ -250,6 +270,11 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             {
                 methods[method.Key] = method.Value;
                 methodArray.Set(method.Value, method.Key);
+            }
+            foreach (KeyValue<ConstructorInfo, int> constructor in callback.Constructors)
+            {
+                constructors[constructor.Key] = constructor.Value;
+                constructorArray.Set(constructor.Value, constructor.Key);
             }
             foreach (KeyValue<PropertyInfo, int> property in callback.Properties)
             {
@@ -360,6 +385,26 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             return new PropertyIndex(property);
         }
         /// <summary>
+        /// 获取远程构造函数编号
+        /// </summary>
+        /// <param name="constructor"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private ConstructorIndex getConstructorIndex(ConstructorInfo? constructor)
+#else
+        private ConstructorIndex getConstructorIndex(ConstructorInfo constructor)
+#endif
+        {
+            if (constructor != null)
+            {
+                if (!callbacks.IsEmpty) callback();
+                int index;
+                if (constructors.TryGetValue(constructor, out index)) return new ConstructorIndex(index);
+                isMetadataIndex = false;
+            }
+            return new ConstructorIndex(constructor);
+        }
+        /// <summary>
         /// 获取远程字段编号
         /// </summary>
         /// <param name="field"></param>
@@ -449,7 +494,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <returns></returns>
         private bool serializeNode(Expression expression)
         {
-            switch (expression.NodeType)
+            ExpressionType nodeType = expression.NodeType;
+            if (nodeType != ExpressionType.MemberAccess) isCheckConstant = true;
+            switch (nodeType)
             {
                 case ExpressionType.Add:
                 case ExpressionType.AddChecked:
@@ -539,10 +586,11 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 case ExpressionType.NewArrayBounds:
                     return serialize((NewArrayExpression)expression);
                 case ExpressionType.New:
+                    return serialize((NewExpression)expression);
                 case ExpressionType.ListInit:
+                    return serialize((ListInitExpression)expression);
                 case ExpressionType.MemberInit:
-                    State = RemoteExpressionSerializeStateEnum.NotSupportNew;
-                    return false;
+                    return serialize((MemberInitExpression)expression);
                 case ExpressionType.Lambda:
                 case ExpressionType.RuntimeVariables:
                     State = RemoteExpressionSerializeStateEnum.NotSupportLambda;
@@ -587,6 +635,101 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 }
                 return true;
             }
+            return false;
+        }
+        /// <summary>
+        /// new 操作调用成员序列化
+        /// </summary>
+        /// <param name="members"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private bool serialize(ReadOnlyCollection<MemberInfo>? members)
+#else
+        private bool serialize(ReadOnlyCollection<MemberInfo> members)
+#endif
+
+        {
+            if (members == null) return Stream.Write(AutoCSer.BinarySerializer.NullValue);
+            if (Stream.Write(members.Count))
+            {
+                foreach (MemberInfo member in members)
+                {
+                    if (!serialize(member)) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// new 操作调用成员初始化序列化
+        /// </summary>
+        /// <param name="members"></param>
+        /// <returns></returns>
+        private bool serialize(ReadOnlyCollection<ElementInit> members)
+        {
+            if (Stream.Write(members.Count))
+            {
+                foreach (ElementInit member in members)
+                {
+                    if (!serialize(member)) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// new 操作调用成员初始化序列化
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        private bool serialize(ElementInit member)
+        {
+            MethodIndex methodIndex = getMethodIndex(member.AddMethod);
+            return Stream.Write(methodIndex.NodeHeader) && methodIndex.Serialize(this) && serialize(member.Arguments);
+        }
+        /// <summary>
+        /// 成员序列化
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        private bool serialize(MemberInfo member)
+        {
+            var property = member as PropertyInfo;
+            if (property != null)
+            {
+                PropertyIndex propertyIndex = getPropertyIndex(property);
+                return Stream.Write(propertyIndex.NodeHeader) && propertyIndex.Serialize(this);
+            }
+            FieldIndex fieldIndex = getFieldIndex((FieldInfo)member);
+            return Stream.Write(fieldIndex.NodeHeader) && fieldIndex.Serialize(this);
+
+        }
+        /// <summary>
+        /// new 操作调用成员初始化序列化
+        /// </summary>
+        /// <param name="bindings"></param>
+        /// <returns></returns>
+        private bool serialize(ReadOnlyCollection<MemberBinding> bindings)
+        {
+            if (Stream.Write(bindings.Count))
+            {
+                foreach (MemberBinding member in bindings)
+                {
+                    if (!serialize(member)) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 成员初始化序列化
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        private bool serialize(MemberBinding member)
+        {
+            if (member.BindingType == MemberBindingType.Assignment) return serialize(member.Member) && serializeNode(((MemberAssignment)member).Expression);
+            State = RemoteExpressionSerializeStateEnum.NotSupportMemberInitBindingType;
             return false;
         }
         /// <summary>
@@ -749,14 +892,55 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             return Stream.Write((int)expression.NodeType) && serializeNode(expression.Test) && serializeNode(expression.IfTrue) && serializeNode(expression.IfFalse);
         }
         /// <summary>
-        /// new T[] 表达式节点
+        /// 序列化 new T[] 表达式节点
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
         private bool serialize(NewArrayExpression expression)
         {
-            TypeIndex typeIndex = getTypeIndex(expression.Type);
+            TypeIndex typeIndex = getTypeIndex(expression.Type.GetElementType());
             return Stream.Write((int)expression.NodeType | typeIndex.NodeHeader) && typeIndex.Serialize(this) && serialize(expression.Expressions);
+        }
+        /// <summary>
+        /// 序列化 new T() 表达式节点
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private bool serialize(NewExpression expression)
+        {
+            Type type = expression.Type;
+            if (type.Name[0] != '<')
+            {
+                var constructor = expression.Constructor;
+                isCheckConstant = true;
+                if (constructor != null)
+                {
+                    ConstructorIndex constructorIndex = getConstructorIndex(constructor);
+                    return Stream.Write((int)expression.NodeType | constructorIndex.NodeHeader) && constructorIndex.Serialize(this, type) && serialize(expression.Arguments) && serialize(expression.Members);
+                }
+                TypeIndex typeIndex = getTypeIndex(type);
+                return Stream.Write((int)expression.NodeType | typeIndex.NodeHeader | (int)NodeHeaderEnum.NewType) && typeIndex.Serialize(this);
+            }
+            State = RemoteExpressionSerializeStateEnum.NotSupportNewAnonymousType;
+            return false;
+        }
+        /// <summary>
+        /// 序列化 new List 表达式节点
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private bool serialize(ListInitExpression expression)
+        {
+            return Stream.Write((int)expression.NodeType) && serialize(expression.NewExpression) && serialize(expression.Initializers);
+        }
+        /// <summary>
+        /// 序列化 new 操作成员初始化节点
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private bool serialize(MemberInitExpression expression)
+        {
+            return Stream.Write((int)expression.NodeType) && serialize(expression.NewExpression) && serialize(expression.Bindings);
         }
         /// <summary>
         /// 序列化成员表达式节点

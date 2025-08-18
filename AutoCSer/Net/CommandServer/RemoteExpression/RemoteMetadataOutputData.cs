@@ -30,6 +30,10 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         public RemoteMetadataMemberIndex[] FieldIndexs;
         /// <summary>
+        /// 远程构造函数编号集合
+        /// </summary>
+        public RemoteMetadataConstructorIndex[] ConstructorIndexs;
+        /// <summary>
         /// 远程元数据输出数据
         /// </summary>
         /// <param name="metadata"></param>
@@ -90,6 +94,20 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
             else MethodIndexs = EmptyArray<RemoteMetadataMethodIndex>.Array;
+
+            count = metadata.ConstructorArray.Length;
+            if (count != 0)
+            {
+                ConstructorIndexs = new RemoteMetadataConstructorIndex[count];
+                int index = 0;
+                foreach (KeyValue<ConstructorInfo, RemoteMetadataConstructorIndex> constructor in metadata.ConstructorArray.Array)
+                {
+                    ConstructorIndexs[index] = constructor.Value;
+                    if (--count == 0) break;
+                    ++index;
+                }
+            }
+            else ConstructorIndexs = EmptyArray<RemoteMetadataConstructorIndex>.Array;
         }
         /// <summary>
         /// 远程元数据输出数据
@@ -157,6 +175,21 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
             else MethodIndexs = EmptyArray<RemoteMetadataMethodIndex>.Array;
+
+            count = formatDeserialize.NewConstructors.Length;
+            if (count != 0)
+            {
+                KeyValue<ConstructorInfo, RemoteMetadataConstructorIndex>[] constructors = metadata.ConstructorArray.Array;
+                ConstructorIndexs = new RemoteMetadataConstructorIndex[count];
+                int index = 0;
+                foreach (int constructorIndex in formatDeserialize.NewConstructors.Array)
+                {
+                    ConstructorIndexs[index] = constructors[constructorIndex].Value;
+                    if (--count == 0) break;
+                    ++index;
+                }
+            }
+            else ConstructorIndexs = EmptyArray<RemoteMetadataConstructorIndex>.Array;
         }
     }
 }

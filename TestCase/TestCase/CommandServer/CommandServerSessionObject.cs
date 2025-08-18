@@ -12,6 +12,12 @@ namespace AutoCSer.TestCase
         internal int Ref;
         internal long Out;
         internal int? NullableValue;
+        internal int Property { get; set; }
+        internal CommandServerSessionObject() { }
+        internal CommandServerSessionObject(int value)
+        {
+            Value = value;
+        }
         internal long Xor(int value, ref int refValue, out long outValue)
         {
             this.Value = value;

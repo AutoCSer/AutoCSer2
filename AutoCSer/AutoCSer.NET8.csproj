@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.71</Version>
+    <Version>2.0.72</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a full-duplex RPC component based on TCP long connections, featuring high concurrency, high throughput and other high-performance characteristics.
@@ -205,7 +205,9 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\RemoteExpression\FieldIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\DelegateTypeEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\FormatDeserialize.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ConstructorIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMemberIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataConstructorIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMethodIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataOutputData.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataTypeIndex.cs" />

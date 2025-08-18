@@ -390,6 +390,7 @@
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterKey.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantParameterSerializer.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\ConstantTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ConstructorIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\DelegateTypeEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\FieldIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\FormatDeserialize.cs" />
@@ -398,6 +399,7 @@
     <Compile Include="Net\CommandServer\RemoteExpression\PropertyIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionSerializeStateEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataCallback.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataConstructorIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMemberIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMethodIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataOutputData.cs" />

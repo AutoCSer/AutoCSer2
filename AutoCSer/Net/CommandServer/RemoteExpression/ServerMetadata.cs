@@ -64,6 +64,14 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// </summary>
         internal LeftArray<KeyValue<FieldInfo, RemoteMetadataMemberIndex>> FieldArray;
         /// <summary>
+        /// 远程构造函数编号集合
+        /// </summary>
+        private readonly Dictionary<HashObject<ConstructorInfo>, int> constructorIndexs;
+        /// <summary>
+        /// 远程构造函数集合
+        /// </summary>
+        internal LeftArray<KeyValue<ConstructorInfo, RemoteMetadataConstructorIndex>> ConstructorArray;
+        /// <summary>
         /// 远程 Lambda 表达式反序列化类型缓存集合
         /// </summary>
         internal readonly Dictionary<HashBuffer, Type> Types;
@@ -80,6 +88,10 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// </summary>
         internal readonly Dictionary<HashBuffer, FieldInfo> Fields;
         /// <summary>
+        /// 远程 Lambda 表达式反序列化构造函数缓存集合
+        /// </summary>
+        internal readonly Dictionary<HashBuffer, ConstructorInfo> Constructors;
+        /// <summary>
         /// Command server to listen
         /// 命令服务端监听
         /// </summary>
@@ -92,16 +104,19 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             methodIndexs = DictionaryCreator.CreateHashObject<MethodInfo, int>();
             propertyIndexs = DictionaryCreator.CreateHashObject<PropertyInfo, int>();
             fieldIndexs = DictionaryCreator.CreateHashObject<FieldInfo, int>();
+            constructorIndexs = DictionaryCreator.CreateHashObject<ConstructorInfo, int>();
             TypeArray = new LeftArray<Type>(0);
             MethodArray = new LeftArray<KeyValue<MethodInfo, RemoteMetadataMethodIndex>>(0);
             PropertyArray = new LeftArray<KeyValue<PropertyInfo, RemoteMetadataMemberIndex>>(0);
             FieldArray = new LeftArray<KeyValue<FieldInfo, RemoteMetadataMemberIndex>>(0);
+            ConstructorArray = new LeftArray<KeyValue<ConstructorInfo, RemoteMetadataConstructorIndex>>(0);
             sockets = new LeftArray<CommandServerSocket>(0);
             socketLock = new object();
             Types = DictionaryCreator<HashBuffer>.Create<Type>();
             Methods = DictionaryCreator<HashBuffer>.Create<MethodInfo>();
             Properties = DictionaryCreator<HashBuffer>.Create<PropertyInfo>();
             Fields = DictionaryCreator<HashBuffer>.Create<FieldInfo>();
+            Constructors = DictionaryCreator<HashBuffer>.Create<ConstructorInfo>();
         }
         /// <summary>
         /// 添加命令服务套接字
@@ -117,7 +132,7 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             finally
             {
                 Monitor.Exit(socketLock);
-                if ((TypeArray.Length | MethodArray.Length | PropertyArray.Length | FieldArray.Length) != 0) socket.Push(new ServerOutputRemoteMetadata(this));
+                if ((TypeArray.Length | MethodArray.Length | PropertyArray.Length | FieldArray.Length | ConstructorArray.Length) != 0) socket.Push(new ServerOutputRemoteMetadata(this));
             }
         }
         /// <summary>
@@ -146,6 +161,34 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             }
             finally { Monitor.Exit(methodIndexs); }
             if (isNew) newMethods.Add(index);
+            return index;
+        }
+        /// <summary>
+        /// 添加新构造函数信息
+        /// </summary>
+        /// <param name="constructor"></param>
+        /// <param name="constructorIndex"></param>
+        /// <param name="newConstructors"></param>
+        /// <returns></returns>
+        internal int Append(HashObject<ConstructorInfo> constructor, ref RemoteMetadataConstructorIndex constructorIndex, ref LeftArray<int> newConstructors)
+        {
+            int index;
+            bool isNew = false;
+            Monitor.Enter(constructorIndexs);
+            try
+            {
+                if (!constructorIndexs.TryGetValue(constructor, out index))
+                {
+                    index = constructorIndexs.Count;
+                    ConstructorArray.PrepLength(1);
+                    constructorIndex.Index = index;
+                    constructorIndexs.Add(constructor, index);
+                    ConstructorArray.UnsafeAdd(new KeyValue<ConstructorInfo, RemoteMetadataConstructorIndex>(constructor.Value, constructorIndex));
+                    isNew = true;
+                }
+            }
+            finally { Monitor.Exit(constructorIndexs); }
+            if (isNew) newConstructors.Add(index);
             return index;
         }
         /// <summary>

@@ -51,5 +51,17 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// 是否数组类型
         /// </summary>
         IsArray = 0x40000,
+        /// <summary>
+        /// new 操作没有构造函数
+        /// </summary>
+        NewType = 0x80000,
+        /// <summary>
+        /// 构造函数编号
+        /// </summary>
+        ConstructorIndex = 0x100000,
+        /// <summary>
+        /// 构造函数信息
+        /// </summary>
+        Constructor = 0x200000,
     }
 }

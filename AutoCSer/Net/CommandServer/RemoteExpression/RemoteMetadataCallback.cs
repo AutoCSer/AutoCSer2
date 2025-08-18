@@ -26,18 +26,24 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         internal readonly KeyValue<FieldInfo, int>[] Fields;
         /// <summary>
+        /// 远程构造函数编号集合
+        /// </summary>
+        internal readonly KeyValue<ConstructorInfo, int>[] Constructors;
+        /// <summary>
         /// 远程元数据信息编号回调
         /// </summary>
         /// <param name="types"></param>
         /// <param name="methods"></param>
         /// <param name="properties"></param>
         /// <param name="fields"></param>
-        internal RemoteMetadataCallback(KeyValue<Type, int>[] types, KeyValue<MethodInfo, int>[] methods, KeyValue<PropertyInfo, int>[] properties, KeyValue<FieldInfo, int>[] fields)
+        /// <param name="constructors"></param>
+        internal RemoteMetadataCallback(KeyValue<Type, int>[] types, KeyValue<MethodInfo, int>[] methods, KeyValue<PropertyInfo, int>[] properties, KeyValue<FieldInfo, int>[] fields, KeyValue<ConstructorInfo, int>[] constructors)
         {
             this.Types = types;
             this.Methods = methods;
             this.Properties = properties;
             this.Fields = fields;
+            this.Constructors = constructors;
         }
         /// <summary>
         /// 远程元数据信息编号回调

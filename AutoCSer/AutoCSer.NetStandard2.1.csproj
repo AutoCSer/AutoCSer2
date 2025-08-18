@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.71</Version>
+    <Version>2.0.72</Version>
     <PackageId>AutoCSer2.1</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.1]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -348,6 +348,8 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\RemoteExpression\NodeHeaderEnum.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\PropertyIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteExpressionSerializeStateEnum.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\ConstructorIndex.cs" />
+    <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataConstructorIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataCallback.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMemberIndex.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\RemoteMetadataMethodIndex.cs" />

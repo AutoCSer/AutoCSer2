@@ -34,10 +34,15 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         UnknownNodeType,
         /// <summary>
-        /// The new operation on nodes is not supported
-        /// 不支持 new 操作节点 
+        /// Member initialization using the new operation is not supported
+        /// 不支持 new 操作成员初始化
         /// </summary>
-        NotSupportNew,
+        NotSupportMemberInitBindingType,
+        /// <summary>
+        /// The new operation on anonymous type is not supported
+        /// 不支持匿名类型的 new 操作
+        /// </summary>
+        NotSupportNewAnonymousType,
         /// <summary>
         /// Lambda nodes are not supported
         /// 不支持 Lambda 节点
@@ -158,6 +163,11 @@ namespace AutoCSer.Net.CommandServer
         /// 服务端没有找到远程字段信息
         /// </summary>
         NotFoundField,
+        /// <summary>
+        /// The server did not find the remote constructor information
+        /// 服务端没有找到远程构造函数信息
+        /// </summary>
+        NotFoundConstructor,
         /// <summary>
         /// Constant value deserialization failed
         /// 常量值反序列化失败

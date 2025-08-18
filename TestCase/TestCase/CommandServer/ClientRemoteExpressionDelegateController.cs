@@ -109,7 +109,7 @@ namespace AutoCSer.TestCase
             }
 
             parameter = AutoCSer.Random.Default.Next();
-            returnValue = await client.ClientRemoteExpressionDelegateController.Default(new RemoteExpressionFunc<CommandServerSessionObject, CommandServerSessionObject, int>((session, session2) => (session ?? session2).Value + default(int)));
+            returnValue = await client.ClientRemoteExpressionDelegateController.Default(new RemoteExpressionFunc<CommandServerSessionObject, CommandServerSessionObject, int>((session, session2) => (session ?? session2).Value + new int[default(int)].Length));
             if (!returnValue.IsSuccess || returnValue.Value != clientSessionObject.Value)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
@@ -129,8 +129,16 @@ namespace AutoCSer.TestCase
             if (parameter == int.MinValue) parameter = 1;
             parameter2 = parameter - 1;
             nullableValue.NullableValue = parameter;
-            boolReturnValue = await client.ClientRemoteExpressionDelegateController.Logical(new RemoteExpressionFunc<int, int, bool>((p, p2) => (nullableValue.NullableValue == p2 || nullableValue.NullableValue > p2)  && (p == p2 || p > p2)), parameter, parameter2);
+            boolReturnValue = await client.ClientRemoteExpressionDelegateController.Logical(new RemoteExpressionFunc<int, int, bool>((p, p2) => (nullableValue.NullableValue == p2 || nullableValue.NullableValue > p2) && (p == p2 || p > p2)), parameter, parameter2);
             if (!boolReturnValue.IsSuccess || !boolReturnValue.Value)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            parameter = AutoCSer.Random.Default.Next();
+            value = AutoCSer.Random.Default.Next();
+            returnValue = await client.ClientRemoteExpressionDelegateController.Func2(new RemoteExpressionFunc<CommandServerSessionObject, int, int>((session, p) => new CommandServerSessionObject { Property = session.Value }.Property - new CommandServerSessionObject(value).Value + new int[] { AutoCSer.Random.Default.Next(), p }[1]), parameter);
+            if (!returnValue.IsSuccess || returnValue.Value != clientSessionObject.Value - value + parameter)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -226,8 +234,8 @@ namespace AutoCSer.TestCase
             }
 
             parameter = AutoCSer.Random.Default.Next();
-            returnValue = await client.ClientRemoteExpressionDelegateController.LambdaDefault(new RemoteLambdaExpression<Func<CommandServerSessionObject, CommandServerSessionObject, int>>((session, session2) => (session ?? session2).Value + default(int)));
-            if (!returnValue.IsSuccess || returnValue.Value != clientSessionObject.Value)
+            returnValue = await client.ClientRemoteExpressionDelegateController.LambdaDefault(new RemoteLambdaExpression<Func<CommandServerSessionObject, CommandServerSessionObject, int>>((session, session2) => (session ?? session2).Value + new int[default(int) + 1].Length));
+            if (!returnValue.IsSuccess || returnValue.Value != clientSessionObject.Value + 1)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
@@ -246,6 +254,14 @@ namespace AutoCSer.TestCase
             parameter2 = parameter - 1;
             boolReturnValue = await client.ClientRemoteExpressionDelegateController.LambdaLogical(new RemoteLambdaExpression<Func<int, int, bool>>((p, p2) => nullableValue.NullableValue == null || p == p2 || p > p2), parameter, parameter2);
             if (!boolReturnValue.IsSuccess || !boolReturnValue.Value)
+            {
+                return AutoCSer.Breakpoint.ReturnFalse();
+            }
+
+            parameter = AutoCSer.Random.Default.Next();
+            value = AutoCSer.Random.Default.Next();
+            returnValue = await client.ClientRemoteExpressionDelegateController.LambdaFunc2(new RemoteLambdaExpression<Func<CommandServerSessionObject, int, int>>((session, p) => new CommandServerSessionObject { Value = session.Value }.Value - new CommandServerSessionObject(value).Value + new int[] { AutoCSer.Random.Default.Next(), p }[1]), parameter);
+            if (!returnValue.IsSuccess || returnValue.Value != clientSessionObject.Value - value + parameter)
             {
                 return AutoCSer.Breakpoint.ReturnFalse();
             }

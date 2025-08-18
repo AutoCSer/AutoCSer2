@@ -417,6 +417,202 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             return null;
         }
         /// <summary>
+        /// 反序列化构造函数信息
+        /// </summary>
+        /// <param name="header"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private ConstructorInfo? deserializeConstructor(uint header)
+#else
+        private ConstructorInfo deserializeConstructor(uint header)
+#endif
+        {
+            if ((header & (int)NodeHeaderEnum.Constructor) != 0 && State == RemoteExpressionSerializeStateEnum.Success)
+            {
+                HashBuffer hashBuffer = new HashBuffer(read, end);
+                if (hashBuffer.Buffer.Data != null)
+                {
+                    Dictionary<HashBuffer, ConstructorInfo> constructors = metadata.Constructors;
+                    var value = default(ConstructorInfo);
+                    int step = 0;
+                    Monitor.Enter(constructors);
+                    try
+                    {
+                        if (!constructors.TryGetValue(hashBuffer, out value))
+                        {
+                            read += sizeof(int);
+                            var type = deserializeType();
+                            if (type != null)
+                            {
+                                int parameterCount = *(int*)(read);
+                                read += sizeof(int);
+                                var parameterTypes = deserializeTypeArray(parameterCount);
+                                if (parameterTypes != null)
+                                {
+                                    value = type.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, parameterTypes, null);
+                                    if (value != null) constructors.Add(new HashBuffer(ref hashBuffer), value);
+                                    else step = 1;
+                                }
+                                else step = 2;
+                            }
+                            else step = 2;
+                        }
+                    }
+                    finally { Monitor.Exit(constructors); }
+                    switch (step)
+                    {
+                        case 0:
+                            read = hashBuffer.Buffer.End + sizeof(int);
+                            return value;
+                        case 1:
+                            State = RemoteExpressionSerializeStateEnum.NotFoundConstructor;
+                            return null;
+                        case 2: return null;
+                    }
+                }
+                else setIndexOutOfRange();
+            }
+            return null;
+        }
+        /// <summary>
+        /// 反序列化 new 调用成员集合
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        private MemberInfo[]? deserializeMembers()
+#else
+        private MemberInfo[] deserializeMembers()
+#endif
+        {
+            if (State == RemoteExpressionSerializeStateEnum.Success)
+            {
+                int count = *(int*)read;
+                read += sizeof(int);
+                if (count > 0)
+                {
+                    MemberInfo[] members = new MemberInfo[count];
+                    for (int index = 0; index != count; ++index)
+                    {
+                        uint header = *(uint*)read;
+                        read += sizeof(uint);
+                        var member = deserializeMember(header);
+                        if (member != null) members[index] = member;
+                        else return null;
+                    }
+                    return members;
+                }
+                if (count == 0) return EmptyArray<MemberInfo>.Array;
+                if (count != AutoCSer.BinarySerializer.NullValue) State = RemoteExpressionSerializeStateEnum.DeserializeFailed;
+            }
+            return null;
+        }
+        /// <summary>
+        /// 反序列化 new 调用成员初始化集合
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        private ElementInit[]? deserializeElementInits()
+#else
+        private ElementInit[] deserializeElementInits()
+#endif
+        {
+            if (State == RemoteExpressionSerializeStateEnum.Success)
+            {
+                int count = *(int*)read;
+                read += sizeof(int);
+                if (count > 0)
+                {
+                    ElementInit[] members = new ElementInit[count];
+                    for (int index = 0; index != count; ++index)
+                    {
+                        var member = deserializeElementInit();
+                        if (member != null) members[index] = member;
+                        else return null;
+                    }
+                    return members;
+                }
+                if (count == 0) return EmptyArray<ElementInit>.Array;
+                State = RemoteExpressionSerializeStateEnum.DeserializeFailed;
+            }
+            return null;
+        }
+        /// <summary>
+        /// 反序列化 new 调用成员初始化
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        private ElementInit? deserializeElementInit()
+#else
+        private ElementInit deserializeElementInit()
+#endif
+        {
+            if (State == RemoteExpressionSerializeStateEnum.Success)
+            {
+                uint header = *(uint*)read;
+                read += sizeof(uint);
+                var method = deserializeMethod(header);
+                if (method != null)
+                {
+                    var arguments = deserializeArguments();
+                    if (arguments != null) return System.Linq.Expressions.Expression.ElementInit(method, arguments);
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// 反序列化 new 调用成员初始化集合
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        private MemberBinding[]? deserializeBindings()
+#else
+        private MemberBinding[] deserializeBindings()
+#endif
+        {
+            if (State == RemoteExpressionSerializeStateEnum.Success)
+            {
+                int count = *(int*)read;
+                read += sizeof(int);
+                if (count > 0)
+                {
+                    MemberBinding[] members = new MemberBinding[count];
+                    for (int index = 0; index != count; ++index)
+                    {
+                        var member = deserializeBinding();
+                        if (member != null) members[index] = member;
+                        else return null;
+                    }
+                    return members;
+                }
+                if (count == 0) return EmptyArray<MemberBinding>.Array;
+                State = RemoteExpressionSerializeStateEnum.DeserializeFailed;
+            }
+            return null;
+        }
+        /// <summary>
+        /// 反序列化 new 调用成员初始化
+        /// </summary>
+        /// <returns></returns>
+#if NetStandard21
+        private MemberBinding? deserializeBinding()
+#else
+        private MemberBinding deserializeBinding()
+#endif
+        {
+            if (State == RemoteExpressionSerializeStateEnum.Success)
+            {
+                uint header = *(uint*)read;
+                read += sizeof(uint);
+                var member = deserializeMember(header);
+                if (member != null)
+                {
+                    var expression = deserializeExpression();
+                    if (expression != null) return System.Linq.Expressions.Expression.Bind(member, expression);
+                }
+            }
+            return null;
+        }
+        /// <summary>
         /// 字符串反序列化
         /// </summary>
         /// <param name="value"></param>
@@ -796,6 +992,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                     case (int)ExpressionType.Default: return defaultExpression(deserializeType(header));
                     case (int)ExpressionType.NewArrayInit: return newArrayInit(deserializeType(header), deserializeArguments());
                     case (int)ExpressionType.NewArrayBounds: return newArrayBounds(deserializeType(header), deserializeArguments());
+                    case (int)ExpressionType.New: return (header & (int)NodeHeaderEnum.NewType) == 0 ? newConstructor(deserializeConstructor(header), deserializeArguments(), deserializeMembers()) : newType(deserializeType(header));
+                    case (int)ExpressionType.ListInit: return listInit(deserializeExpression(), deserializeElementInits());
+                    case (int)ExpressionType.MemberInit: return memberInit(deserializeExpression(), deserializeBindings());
                     case (int)ExpressionType.Constant: return deserializeConstant(header);
                     case (int)ExpressionType.Parameter: return Parameters[header >> 8];
                     default:
@@ -1864,6 +2063,82 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         {
             return type != null && bounds != null && bounds.Length != 0 ? System.Linq.Expressions.Expression.NewArrayBounds(type, bounds) : setNullParameter();
         }
+        /// <summary>
+        /// new T()
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#if NetStandard21
+        private System.Linq.Expressions.Expression? newType(Type? type)
+#else
+        private System.Linq.Expressions.Expression newType(Type type)
+#endif
+        {
+            return type != null ? System.Linq.Expressions.Expression.New(type) : setNullParameter();
+        }
+        /// <summary>
+        /// new T(...)
+        /// </summary>
+        /// <param name="constructor"></param>
+        /// <param name="arguments"></param>
+        /// <param name="members"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private System.Linq.Expressions.Expression? newConstructor(ConstructorInfo? constructor, System.Linq.Expressions.Expression[]? arguments, MemberInfo[]? members)
+#else
+        private System.Linq.Expressions.Expression newConstructor(ConstructorInfo constructor, System.Linq.Expressions.Expression[] arguments, MemberInfo[] members)
+#endif
+        {
+            if(constructor != null && arguments != null)
+            {
+                if (State == RemoteExpressionSerializeStateEnum.Success)
+                {
+                    return members == null ? System.Linq.Expressions.Expression.New(constructor, arguments) : System.Linq.Expressions.Expression.New(constructor, arguments, members);
+                }
+                return null;
+            }
+            return setNullParameter();
+        }
+        /// <summary>
+        /// new List
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="members"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private System.Linq.Expressions.Expression? listInit(System.Linq.Expressions.Expression? expression, ElementInit[]? members)
+#else
+        private System.Linq.Expressions.Expression listInit(System.Linq.Expressions.Expression expression, ElementInit[] members)
+#endif
+        {
+            if (members != null)
+            {
+                var newExpression = expression as NewExpression;
+                if (newExpression != null) return System.Linq.Expressions.Expression.ListInit(newExpression, members);
+            }
+            return setNullParameter();
+        }
+        /// <summary>
+        /// new T{ x = ... }
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="members"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private System.Linq.Expressions.Expression? memberInit(System.Linq.Expressions.Expression? expression, MemberBinding[]? members)
+#else
+        private System.Linq.Expressions.Expression memberInit(System.Linq.Expressions.Expression expression, MemberBinding[] members)
+#endif
+        {
+            if (members != null)
+            {
+                var newExpression = expression as NewExpression;
+                if (newExpression != null) return System.Linq.Expressions.Expression.MemberInit(newExpression, members);
+            }
+            return setNullParameter();
+        }
+
         /// <summary>
         /// 设置参数反序列化失败错误状态
         /// </summary>

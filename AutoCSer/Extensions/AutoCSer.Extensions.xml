@@ -9208,6 +9208,43 @@
             <param name="header"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeConstructor(System.UInt32)">
+            <summary>
+            反序列化构造函数信息
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeMembers">
+            <summary>
+            反序列化 new 调用成员集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeElementInits">
+            <summary>
+            反序列化 new 调用成员初始化集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeElementInit">
+            <summary>
+            反序列化 new 调用成员初始化
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeBindings">
+            <summary>
+            反序列化 new 调用成员初始化集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserializeBinding">
+            <summary>
+            反序列化 new 调用成员初始化
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.deserialize(System.String@)">
             <summary>
             字符串反序列化
@@ -9822,6 +9859,38 @@
             <param name="bounds"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.newType(System.Type)">
+            <summary>
+            new T()
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.newConstructor(System.Reflection.ConstructorInfo,System.Linq.Expressions.Expression[],System.Reflection.MemberInfo[])">
+            <summary>
+            new T(...)
+            </summary>
+            <param name="constructor"></param>
+            <param name="arguments"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.listInit(System.Linq.Expressions.Expression,System.Linq.Expressions.ElementInit[])">
+            <summary>
+            new List
+            </summary>
+            <param name="expression"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.memberInit(System.Linq.Expressions.Expression,System.Linq.Expressions.MemberBinding[])">
+            <summary>
+            new T{ x = ... }
+            </summary>
+            <param name="expression"></param>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionDeserializer.setNullParameter">
             <summary>
             设置参数反序列化失败错误状态
@@ -9914,6 +9983,56 @@
             序列化字段信息
             </summary>
             <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Reflection.ConstructorInfo,System.Type)">
+            <summary>
+            序列化构造函数信息
+            </summary>
+            <param name="constructor"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Collections.ObjectModel.ReadOnlyCollection{System.Reflection.MemberInfo})">
+            <summary>
+            new 调用成员集合序列化
+            </summary>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Reflection.MemberInfo)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.ElementInit})">
+            <summary>
+            new 操作调用成员初始化序列化
+            </summary>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.ElementInit)">
+            <summary>
+            new 操作调用成员初始化序列化
+            </summary>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.MemberBinding})">
+            <summary>
+            new 操作调用成员初始化序列化
+            </summary>
+            <param name="bindings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.MemberBinding)">
+            <summary>
+            new 操作调用成员初始化序列化
+            </summary>
+            <param name="member"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serializeParameters">
@@ -10018,6 +10137,27 @@
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.NewArrayExpression)">
             <summary>
             序列化 new T[] 表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.NewExpression)">
+            <summary>
+            序列化 new 表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.ListInitExpression)">
+            <summary>
+            序列化 new List 表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.LambdaExpressionSerializer.serialize(System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            序列化 new 操作成员初始化节点
             </summary>
             <param name="expression"></param>
             <returns></returns>

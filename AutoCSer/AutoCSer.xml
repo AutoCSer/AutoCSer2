@@ -28629,6 +28629,16 @@
             远程字段集合
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.constructors">
+            <summary>
+            远程构造函数编号集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.constructorArray">
+            <summary>
+            远程构造函数集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.#ctor(System.Boolean)">
             <summary>
             Remote expression client metadata information
@@ -28711,6 +28721,13 @@
             <param name="property"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.getConstructorIndex(System.Reflection.ConstructorInfo)">
+            <summary>
+            获取远程构造函数编号
+            </summary>
+            <param name="constructor"></param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.getFieldIndex(System.Reflection.FieldInfo)">
             <summary>
             获取远程字段编号
@@ -28747,6 +28764,48 @@
             方法调用参数序列化节点
             </summary>
             <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Collections.ObjectModel.ReadOnlyCollection{System.Reflection.MemberInfo})">
+            <summary>
+            new 操作调用成员序列化
+            </summary>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.ElementInit})">
+            <summary>
+            new 操作调用成员初始化序列化
+            </summary>
+            <param name="members"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.ElementInit)">
+            <summary>
+            new 操作调用成员初始化序列化
+            </summary>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Reflection.MemberInfo)">
+            <summary>
+            成员序列化
+            </summary>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Collections.ObjectModel.ReadOnlyCollection{System.Linq.Expressions.MemberBinding})">
+            <summary>
+            new 操作调用成员初始化序列化
+            </summary>
+            <param name="bindings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.MemberBinding)">
+            <summary>
+            成员初始化序列化
+            </summary>
+            <param name="member"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.ConstantExpression)">
@@ -28838,7 +28897,28 @@
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.NewArrayExpression)">
             <summary>
-            new T[] 表达式节点
+            序列化 new T[] 表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.NewExpression)">
+            <summary>
+            序列化 new T() 表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.ListInitExpression)">
+            <summary>
+            序列化 new List 表达式节点
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata.serialize(System.Linq.Expressions.MemberInitExpression)">
+            <summary>
+            序列化 new 操作成员初始化节点
             </summary>
             <param name="expression"></param>
             <returns></returns>
@@ -29192,6 +29272,11 @@
             新增字段编号集合
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.NewConstructors">
+            <summary>
+            新增构造函数编号集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.parameterTypes">
             <summary>
             A collection of generic parameter types
@@ -29349,6 +29434,31 @@
             <param name="header"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeConstructor(System.UInt32)">
+            <summary>
+            格式化构造函数信息
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeElementInits">
+            <summary>
+            格式化 new 操作成员初始化信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeElementInit">
+            <summary>
+            格式化 new 操作成员初始化信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeBindings">
+            <summary>
+            格式化 new 操作成员初始化信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeValue(System.UInt32)">
             <summary>
             写入 object 表达式数据
@@ -29359,6 +29469,18 @@
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeArguments">
             <summary>
             写入参数集合信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeMembers">
+            <summary>
+            写入成员集合信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.writeMember">
+            <summary>
+            写入成员信息
             </summary>
             <returns></returns>
         </member>
@@ -29422,6 +29544,83 @@
             读取成员信息
             </summary>
             <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.readConstructor(System.UInt32)">
+            <summary>
+            读取构造函数信息
+            </summary>
+            <param name="header"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.readMembers">
+            <summary>
+            读取成员集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.readMember">
+            <summary>
+            读取成员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.readElementInits">
+            <summary>
+            读取 new 操作成员初始化集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.readElementInit">
+            <summary>
+            读取 new 操作成员初始化
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.FormatDeserialize.readBindings">
+            <summary>
+            读取 new 操作成员初始化集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.ConstructorIndex">
+            <summary>
+            远程表达式构造函数编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ConstructorIndex.index">
+            <summary>
+            构造函数编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ConstructorIndex.NodeHeader">
+            <summary>
+            默认头部标记
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ConstructorIndex.Constructor">
+            <summary>
+            构造函数信息
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ConstructorIndex.#ctor(System.Int32)">
+            <summary>
+            远程表达式构造函数编号
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ConstructorIndex.#ctor(System.Reflection.ConstructorInfo)">
+            <summary>
+            远程表达式构造函数编号
+            </summary>
+            <param name="constructor"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ConstructorIndex.Serialize(AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata,System.Type)">
+            <summary>
+            序列化
+            </summary>
+            <param name="metadata"></param>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.PropertyIndex">
@@ -29521,6 +29720,21 @@
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.NodeHeaderEnum.IsArray">
             <summary>
             是否数组类型
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.NodeHeaderEnum.NewType">
+            <summary>
+            new 操作没有构造函数
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.NodeHeaderEnum.ConstructorIndex">
+            <summary>
+            构造函数编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.NodeHeaderEnum.Constructor">
+            <summary>
+            构造函数信息
             </summary>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpression.SerializeInfo">
@@ -29667,6 +29881,16 @@
             远程字段集合 + 类型编号
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.constructorIndexs">
+            <summary>
+            远程构造函数编号集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.ConstructorArray">
+            <summary>
+            远程构造函数集合
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Types">
             <summary>
             远程 Lambda 表达式反序列化类型缓存集合
@@ -29685,6 +29909,11 @@
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Fields">
             <summary>
             远程 Lambda 表达式反序列化属性缓存集合
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Constructors">
+            <summary>
+            远程 Lambda 表达式反序列化构造函数缓存集合
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.#ctor(AutoCSer.Net.CommandListener)">
@@ -29707,6 +29936,15 @@
             <param name="method"></param>
             <param name="methodIndex"></param>
             <param name="newMethods"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Append(AutoCSer.HashObject{System.Reflection.ConstructorInfo},AutoCSer.Net.CommandServer.RemoteMetadataConstructorIndex@,AutoCSer.LeftArray{System.Int32}@)">
+            <summary>
+            添加新构造函数信息
+            </summary>
+            <param name="constructor"></param>
+            <param name="constructorIndex"></param>
+            <param name="newConstructors"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata.Append(AutoCSer.HashObject{System.Reflection.PropertyInfo},System.Int32,AutoCSer.LeftArray{System.Int32}@)">
@@ -30205,6 +30443,41 @@
             <param name="types"></param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.RemoteMetadataConstructorIndex">
+            <summary>
+            远程元数据构造函数编号信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteMetadataConstructorIndex.Index">
+            <summary>
+            构造函数编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteMetadataConstructorIndex.TypeIndex">
+            <summary>
+            类型编号
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteMetadataConstructorIndex.ParameterTypes">
+            <summary>
+            参数类型集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataConstructorIndex.#ctor(System.Int32,System.Int32[])">
+            <summary>
+            远程元数据构造函数编号信息
+            </summary>
+            <param name="typeIndex"></param>
+            <param name="parameterTypes"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataConstructorIndex.GetConstructor(AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata,AutoCSer.LeftArray{AutoCSer.KeyValue{System.Type,System.Int32}}@)">
+            <summary>
+            获取构造函数信息
+            </summary>
+            <param name="metadata"></param>
+            <param name="types"></param>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteMetadataMethodIndex">
             <summary>
             远程元数据方法编号信息
@@ -30295,6 +30568,11 @@
             远程字段编号集合
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteMetadataOutputData.ConstructorIndexs">
+            <summary>
+            远程构造函数编号集合
+            </summary>
+        </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataOutputData.#ctor(AutoCSer.Net.CommandServer.RemoteExpression.ServerMetadata)">
             <summary>
             远程元数据输出数据
@@ -30378,10 +30656,16 @@
             未知节点类型
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportNew">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportMemberInitBindingType">
             <summary>
-            The new operation on nodes is not supported
-            不支持 new 操作节点 
+            Member initialization using the new operation is not supported
+            不支持 new 操作成员初始化
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportNewAnonymousType">
+            <summary>
+            The new operation on anonymous type is not supported
+            不支持匿名类型的 new 操作
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotSupportLambda">
@@ -30516,6 +30800,12 @@
             服务端没有找到远程字段信息
             </summary>
         </member>
+        <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.NotFoundConstructor">
+            <summary>
+            The server did not find the remote constructor information
+            服务端没有找到远程构造函数信息
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionSerializeStateEnum.ConstantError">
             <summary>
             Constant value deserialization failed
@@ -30614,7 +30904,12 @@
             远程字段编号集合
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataCallback.#ctor(AutoCSer.KeyValue{System.Type,System.Int32}[],AutoCSer.KeyValue{System.Reflection.MethodInfo,System.Int32}[],AutoCSer.KeyValue{System.Reflection.PropertyInfo,System.Int32}[],AutoCSer.KeyValue{System.Reflection.FieldInfo,System.Int32}[])">
+        <member name="F:AutoCSer.Net.CommandServer.RemoteMetadataCallback.Constructors">
+            <summary>
+            远程构造函数编号集合
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataCallback.#ctor(AutoCSer.KeyValue{System.Type,System.Int32}[],AutoCSer.KeyValue{System.Reflection.MethodInfo,System.Int32}[],AutoCSer.KeyValue{System.Reflection.PropertyInfo,System.Int32}[],AutoCSer.KeyValue{System.Reflection.FieldInfo,System.Int32}[],AutoCSer.KeyValue{System.Reflection.ConstructorInfo,System.Int32}[])">
             <summary>
             远程元数据信息编号回调
             </summary>
@@ -30622,6 +30917,7 @@
             <param name="methods"></param>
             <param name="properties"></param>
             <param name="fields"></param>
+            <param name="constructors"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.RemoteMetadataCallback.Callback(AutoCSer.Net.CommandServer.RemoteExpression.ClientMetadata)">
             <summary>

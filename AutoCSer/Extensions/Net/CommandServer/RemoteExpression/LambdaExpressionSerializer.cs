@@ -178,6 +178,122 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
             return startIndex >= 0 && serializeRemoteType(field.ReflectedType.notNull()) && serialize(field.Name) && stream.Write((int)bindingFlags) && writeHashCode(startIndex);
         }
         /// <summary>
+        /// 序列化构造函数信息
+        /// </summary>
+        /// <param name="constructor"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private bool serialize(ConstructorInfo constructor, Type type)
+        {
+            int startIndex = stream.GetIndexBeforeMove(sizeof(int));
+            if (startIndex >= 0 && serializeRemoteType(type))
+            {
+                ParameterInfo[] parameters = constructor.GetParameters();
+                if (parameters.Length < 256)
+                {
+                    if (stream.Write(parameters.Length))
+                    {
+                        foreach (ParameterInfo parameter in parameters)
+                        {
+                            if (!serializeRemoteType(parameter.ParameterType)) return false;
+                        }
+                        return writeHashCode(startIndex);
+                    }
+                }
+                state = RemoteExpressionSerializeStateEnum.TooManyParameters;
+            }
+            return false;
+        }
+        /// <summary>
+        /// new 调用成员集合序列化
+        /// </summary>
+        /// <param name="members"></param>
+        /// <returns></returns>
+#if NetStandard21
+        private bool serialize(ReadOnlyCollection<MemberInfo>? members)
+#else
+        private bool serialize(ReadOnlyCollection<MemberInfo> members)
+#endif
+        {
+            if (members == null) return stream.Write(AutoCSer.BinarySerializer.NullValue);
+            if (stream.Write(members.Count))
+            {
+                foreach (MemberInfo member in members)
+                {
+                    if (!serialize(member)) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 成员序列化
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        private bool serialize(MemberInfo member)
+        {
+            var property = member as PropertyInfo;
+            if (property != null) return stream.Write(new PropertyIndex(property).NodeHeader) && serialize(property);
+            FieldInfo field = (FieldInfo)member;
+            return stream.Write(new FieldIndex(field).NodeHeader) && serialize(field);
+        }
+        /// <summary>
+        /// new 操作调用成员初始化序列化
+        /// </summary>
+        /// <param name="members"></param>
+        /// <returns></returns>
+        private bool serialize(ReadOnlyCollection<ElementInit> members)
+        {
+            if (stream.Write(members.Count))
+            {
+                foreach (ElementInit member in members)
+                {
+                    if (!serialize(member)) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// new 操作调用成员初始化序列化
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        private bool serialize(ElementInit member)
+        {
+            MethodInfo method = member.AddMethod;
+            return stream.Write(new MethodIndex(method).NodeHeader) && serialize(method) && serialize(member.Arguments);
+        }
+        /// <summary>
+        /// new 操作调用成员初始化序列化
+        /// </summary>
+        /// <param name="bindings"></param>
+        /// <returns></returns>
+        private bool serialize(ReadOnlyCollection<MemberBinding> bindings)
+        {
+            if (stream.Write(bindings.Count))
+            {
+                foreach (MemberBinding member in bindings)
+                {
+                    if (!serialize(member)) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// new 操作调用成员初始化序列化
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        private bool serialize(MemberBinding member)
+        {
+            if (member.BindingType == MemberBindingType.Assignment) return serialize(member.Member) && serializeNode(((MemberAssignment)member).Expression);
+            state = RemoteExpressionSerializeStateEnum.NotSupportMemberInitBindingType;
+            return false;
+        }
+        /// <summary>
         /// 序列化参数集合
         /// </summary>
         /// <returns></returns>
@@ -246,7 +362,9 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <returns></returns>
         private bool serializeNode(System.Linq.Expressions.Expression expression)
         {
-            switch (expression.NodeType)
+            ExpressionType nodeType = expression.NodeType;
+            if (nodeType != ExpressionType.MemberAccess) isCheckConstant = true;
+            switch (nodeType)
             {
                 case ExpressionType.Add:
                 case ExpressionType.AddChecked:
@@ -336,10 +454,11 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
                 case ExpressionType.NewArrayBounds:
                     return serialize((NewArrayExpression)expression);
                 case ExpressionType.New:
+                    return serialize((NewExpression)expression);
                 case ExpressionType.ListInit:
+                    return serialize((ListInitExpression)expression);
                 case ExpressionType.MemberInit:
-                    state = RemoteExpressionSerializeStateEnum.NotSupportNew;
-                    return false;
+                    return serialize((MemberInitExpression)expression);
                 case ExpressionType.Lambda:
                 case ExpressionType.RuntimeVariables:
                     state = RemoteExpressionSerializeStateEnum.NotSupportLambda;
@@ -493,8 +612,49 @@ namespace AutoCSer.Net.CommandServer.RemoteExpression
         /// <returns></returns>
         private bool serialize(NewArrayExpression expression)
         {
-            TypeIndex typeIndex = new TypeIndex(expression.Type);
+            TypeIndex typeIndex = new TypeIndex(expression.Type.GetElementType());
             return stream.Write((int)expression.NodeType | typeIndex.NodeHeader) && serialize(typeIndex.Type) && serialize(expression.Expressions);
+        }
+        /// <summary>
+        /// 序列化 new 表达式节点
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private bool serialize(NewExpression expression)
+        {
+            Type type = expression.Type;
+            if (type.Name[0] != '<')
+            {
+                var constructor = expression.Constructor;
+                isCheckConstant = true;
+                if (constructor != null)
+                {
+                    return stream.Write((int)expression.NodeType | new ConstructorIndex(constructor).NodeHeader) && serialize(constructor, type) && serialize(expression.Arguments) && serialize(expression.Members);
+                }
+                TypeIndex typeIndex = new TypeIndex(type);
+                return stream.Write((int)expression.NodeType | typeIndex.NodeHeader | (int)NodeHeaderEnum.NewType) && serialize(typeIndex.Type);
+            }
+            state = RemoteExpressionSerializeStateEnum.NotSupportNewAnonymousType;
+            return false;
+
+        }
+        /// <summary>
+        /// 序列化 new List 表达式节点
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private bool serialize(ListInitExpression expression)
+        {
+            return stream.Write((int)expression.NodeType) && serialize(expression.NewExpression) && serialize(expression.Initializers);
+        }
+        /// <summary>
+        /// 序列化 new 操作成员初始化节点
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private bool serialize(MemberInitExpression expression)
+        {
+            return stream.Write((int)expression.NodeType) && serialize(expression.NewExpression) && serialize(expression.Bindings);
         }
         /// <summary>
         /// 序列化成员表达式节点
