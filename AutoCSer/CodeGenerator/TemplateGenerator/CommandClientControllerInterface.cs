@@ -13,7 +13,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// 客户端命令控制器接口
     /// </summary>
     [Generator(Name = "客户端命令控制器接口", IsAuto = true)]
-    internal partial class CommandServerClientControllerInterface : AttributeGenerator<CommandServerControllerInterfaceAttribute>
+    internal partial class CommandClientControllerInterface : AttributeGenerator<CommandServerControllerInterfaceAttribute>
     {
         /// <summary>
         /// 生成类型名称后缀
@@ -110,7 +110,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (interfaceMethod != null)
                 {
                     this.interfaceMethod = interfaceMethod;
-                    Method = new Metadata.MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex, interfaceMethod.ParameterStartIndex, interfaceMethod.ParameterEndIndex);
+                    Method = new Metadata.MethodIndex(interfaceMethod.Method, AutoCSer.Metadata.MemberFiltersEnum.Instance, interfaceMethod.MethodIndex, interfaceMethod.ParameterStartIndex, interfaceMethod.ParameterEndIndex, true);
                     TaskQueueKeyType = interfaceMethod.TaskQueueKeyType != null ? interfaceMethod.TaskQueueKeyType : (ExtensionType)null;
                     switch (interfaceMethod.MethodType)
                     {

@@ -3114,12 +3114,20 @@
             Return value
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter{`0})">
+        <member name="F:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.isIgnoreError">
+            <summary>
+            Whether errors and exceptions are ignored
+            是否忽略错误与异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.#ctor(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter{`0},System.Boolean)">
             <summary>
             命令返回值
             </summary>
             <param name="response">The return value command
             返回值命令</param>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
         </member>
         <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseReturnValue`1.onCompleted">
             <summary>
@@ -22268,11 +22276,13 @@
             返回值命令完成回调
             </summary>
         </member>
-        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter`1.GetResponseReturnValue">
+        <member name="M:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterAwaiter`1.GetResponseReturnValue(System.Boolean)">
             <summary>
             Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
             获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
             </summary>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ResponseParameterBinarySerializer`1">

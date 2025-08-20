@@ -8,9 +8,7 @@ namespace AutoCSer.CommandService.DeployTask
     /// <summary>
     /// 上传索引与路径信息
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
-#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial struct UploaderInfo

@@ -103,6 +103,7 @@
     <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
     <Compile Include="MemberCopy\CodeGenerator\MemberCopyAttribute.cs" />
     <Compile Include="MemberCopy\MemberCopy.cs" />
+    <Compile Include="MemberCopy\MemberCopyMethod.cs" />
     <Compile Include="Memory\BitMap.cs" />
     <Compile Include="Memory\BufferCount.cs" />
     <Compile Include="Memory\ByteArrayBufferObject.cs" />

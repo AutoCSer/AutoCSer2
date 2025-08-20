@@ -7,9 +7,7 @@ namespace AutoCSer.CommandService
     /// <summary>
     /// 磁盘块客户端接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IDiskBlockService))]
-#endif
     public partial interface IDiskBlockClient
     {
         /// <summary>

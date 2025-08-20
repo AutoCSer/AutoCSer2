@@ -4,9 +4,7 @@ using System;
 #pragma warning disable
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
-#endif
     public partial class TestClassMessage : Message<TestClassMessage>, IEquatable<TestClassMessage>
     {
         public int Int;

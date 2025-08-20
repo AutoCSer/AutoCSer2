@@ -45,6 +45,7 @@
     <Compile Include="CreateNodeIndex.cs" />
     <Compile Include="Extensions\SnapshotEnumerableExtension.cs" />
     <Compile Include="Memory\Unmanaged.cs" />
+    <Compile Include="Metadata\GenericType\GenericType.cs" />
     <Compile Include="Method\BeforePersistenceTwoStageCallbackMethodParameter.cs" />
     <Compile Include="Method\InputTwoStageCallbackMethod.cs" />
     <Compile Include="Method\InputTwoStageCallbackMethodParameter.cs" />

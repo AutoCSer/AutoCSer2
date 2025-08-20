@@ -112,10 +112,11 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="taskQueueControllerKeyType"></param>
         /// <param name="isServer"></param>
         /// <param name="isDefault"></param>
+        /// <param name="isCheckRedirectType"></param>
 #if NetStandard21
-        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isServer, bool isDefault) : base(type, method, controllerAttribute)
+        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, bool isServer, bool isDefault, bool isCheckRedirectType) : base(type, method, controllerAttribute)
 #else
-        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isServer, bool isDefault) : base(type, method, controllerAttribute)
+        internal ClientInterfaceMethod(Type type, MethodInfo method, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, bool isServer, bool isDefault, bool isCheckRedirectType) : base(type, method, controllerAttribute)
 #endif
         {
             MethodAttribute = method.GetCustomAttribute<CommandClientMethodAttribute>(false) ?? CommandClientMethodAttribute.Defafult;
@@ -406,7 +407,7 @@ namespace AutoCSer.Net.CommandServer
                     {
                         if (taskQueueControllerKeyType != null)
                         {
-                            InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, taskQueueControllerKeyType);
+                            InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, taskQueueControllerKeyType, isCheckRedirectType);
                         }
                         else
                         {
@@ -420,8 +421,8 @@ namespace AutoCSer.Net.CommandServer
                                     parameterSkipCount = 1;
                                 }
                             }
-                            if (taskQueueControllerKeyType == null) InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, null);
-                            else InputParameterType = ServerMethodParameter.Get(InputParameterCount - 1, InputParameters.Skip(parameterSkipCount), taskQueueControllerKeyType);
+                            if (taskQueueControllerKeyType == null) InputParameterType = ServerMethodParameter.Get(InputParameterCount, InputParameters, null, isCheckRedirectType);
+                            else InputParameterType = ServerMethodParameter.Get(InputParameterCount - 1, InputParameters.Skip(parameterSkipCount), taskQueueControllerKeyType, isCheckRedirectType);
                         }
                         if (InputParameterType == null)
                         {
@@ -431,7 +432,7 @@ namespace AutoCSer.Net.CommandServer
                     }
                     else
                     {
-                        InputParameterType = ServerMethodParameter.GetOrCreate(InputParameterCount, InputParameters, taskQueueControllerKeyType ?? typeof(void));
+                        InputParameterType = ServerMethodParameter.GetOrCreate(InputParameterCount, InputParameters, taskQueueControllerKeyType ?? typeof(void), isCheckRedirectType);
                         IsSimpleSerializeParamter = controllerAttribute.IsSimpleSerializeInputParameter && InputParameterType.IsSimpleSerialize;
                     }
                     InputParameterFields = InputParameterType.GetFields(InputParameters, parameterSkipCount == 0 ? null : QueueKeyParameterName);
@@ -1247,10 +1248,12 @@ namespace AutoCSer.Net.CommandServer
                 foreach (var method in methods)
                 {
                     int methodIndex = method.MethodIndex;
-                    //if ((uint)methodIndex >= serverMethodIndexs.Length)
-                    //{
-                    //    Console.WriteLine("ERROR");
-                    //}
+#if DotNet45
+                    if ((uint)methodIndex >= serverMethodIndexs.Length)
+                    {
+                        Console.WriteLine($"{method.Method.Name} ERROR {methodIndex}");
+                    }
+#endif
                     serverMethodIndexs[methodIndex] = methodIndex;
                 }
             }
@@ -1320,18 +1323,19 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="methods"></param>
         /// <param name="isServer"></param>
         /// <param name="isDefault"></param>
+        /// <param name="isCheckRedirectType"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer, bool isDefault = false)
+        internal static string? GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type? taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer, bool isDefault = false, bool isCheckRedirectType = false)
 #else
-        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer, bool isDefault = false)
+        internal static string GetMethod(Type type, CommandServerControllerInterfaceAttribute controllerAttribute, Type taskQueueControllerKeyType, ref LeftArray<ClientInterfaceMethod> methods, bool isServer, bool isDefault = false, bool isCheckRedirectType = false)
 #endif
         {
             foreach (MethodInfo method in type.GetMethods())
             {
                 var error = InterfaceController.CheckMethod(type, method);
                 if (error != null) return error;
-                methods.Add(new ClientInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType, isServer, isDefault));
+                methods.Add(new ClientInterfaceMethod(type, method, controllerAttribute, taskQueueControllerKeyType, isServer, isDefault, isCheckRedirectType));
                 //ClientInterfaceMethod clientMethod = new ClientInterfaceMethod(type, controllerAttribute, method, taskQueueControllerKeyType);
                 //if (clientMethod.MethodType == ClientMethodType.Unknown) return clientMethod.Error ?? $"{type.fullName()}.{method.Name} 未知客户端方法调用类型";
                 //methods.Add(clientMethod);

@@ -171,17 +171,18 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="parameterCount"></param>
         /// <param name="parameters"></param>
         /// <param name="returnType"></param>
+        /// <param name="isCheckRedirectType"></param>
         /// <returns></returns>
 #if NetStandard21
-        private static ServerMethodParameterKey getKey(int parameterCount, IEnumerable<ParameterInfo> parameters, Type? returnType)
+        private static ServerMethodParameterKey getKey(int parameterCount, IEnumerable<ParameterInfo> parameters, Type? returnType, bool isCheckRedirectType)
 #else
-        private static ServerMethodParameterKey getKey(int parameterCount, IEnumerable<ParameterInfo> parameters, Type returnType)
+        private static ServerMethodParameterKey getKey(int parameterCount, IEnumerable<ParameterInfo> parameters, Type returnType, bool isCheckRedirectType)
 #endif
         {
-            if (parameterCount == 0) return new ServerMethodParameterKey(EmptyArray<ParameterInfo>.Array, returnType);
+            if (parameterCount == 0) return new ServerMethodParameterKey(EmptyArray<MethodParameter>.Array, returnType);
             int parameterIndex = 0;
-            ParameterInfo[] parameterArray = new ParameterInfo[parameterCount];
-            foreach (ParameterInfo parameter in parameters) parameterArray[parameterIndex++] = parameter;
+            MethodParameter[] parameterArray = new MethodParameter[parameterCount];
+            foreach (ParameterInfo parameter in parameters) parameterArray[parameterIndex++] = new MethodParameter(parameter, isCheckRedirectType);
             return new ServerMethodParameterKey(parameterArray, returnType == typeof(void) ? null : returnType);
         }
         /// <summary>
@@ -190,15 +191,16 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="parameterCount"></param>
         /// <param name="parameters">参数集合</param>
         /// <param name="returnType">类型</param>
+        /// <param name="isCheckRedirectType"></param>
         /// <returns></returns>
 #if NetStandard21
-        internal static ServerMethodParameter? Get(int parameterCount, IEnumerable<ParameterInfo> parameters, Type? returnType)
+        internal static ServerMethodParameter? Get(int parameterCount, IEnumerable<ParameterInfo> parameters, Type? returnType, bool isCheckRedirectType = false)
 #else
-        internal static ServerMethodParameter Get(int parameterCount, IEnumerable<ParameterInfo> parameters, Type returnType)
+        internal static ServerMethodParameter Get(int parameterCount, IEnumerable<ParameterInfo> parameters, Type returnType, bool isCheckRedirectType = false)
 #endif
         {
             var type = default(ServerMethodParameter);
-            ServerMethodParameterKey key = getKey(parameterCount, parameters, returnType);
+            ServerMethodParameterKey key = getKey(parameterCount, parameters, returnType, isCheckRedirectType);
             Monitor.Enter(keyTypes);
             keyTypes.TryGetValue(key, out type);
             Monitor.Exit(keyTypes);
@@ -210,11 +212,12 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="parameterCount"></param>
         /// <param name="parameters">参数集合</param>
         /// <param name="returnType">类型</param>
+        /// <param name="isCheckRedirectType"></param>
         /// <returns></returns>
-        internal static ServerMethodParameter GetOrCreate(int parameterCount, IEnumerable<ParameterInfo> parameters, Type returnType)
+        internal static ServerMethodParameter GetOrCreate(int parameterCount, IEnumerable<ParameterInfo> parameters, Type returnType, bool isCheckRedirectType = false)
         {
             var type = default(ServerMethodParameter);
-            ServerMethodParameterKey key = getKey(parameterCount, parameters, returnType);
+            ServerMethodParameterKey key = getKey(parameterCount, parameters, returnType, isCheckRedirectType);
             Monitor.Enter(keyTypes);
             if (keyTypes.TryGetValue(key, out type))
             {
@@ -224,7 +227,7 @@ namespace AutoCSer.Net.CommandServer
             try
             {
                 TypeBuilder typeBuilder = AutoCSer.Reflection.Emit.Module.Builder.DefineType(AutoCSer.Common.NamePrefix + ".Net.CommandServer.ServerMethodParameter" + (++typeIndex).toString(), TypeAttributes.AutoLayout | TypeAttributes.Public, typeof(ValueType), null);
-                foreach (ParameterInfo parameter in parameters) typeBuilder.DefineField(parameter.Name.notNull(), parameter.elementType(), FieldAttributes.Public);
+                foreach (MethodParameter parameter in key.Parameters) typeBuilder.DefineField(parameter.Parameter.Name.notNull(), parameter.ElementType, FieldAttributes.Public);
                 if (returnType != typeof(void))
                 {
                     FieldBuilder returnFieldBuilder = typeBuilder.DefineField(nameof(ServerReturnValue<int>.ReturnValue), returnType, FieldAttributes.Public);

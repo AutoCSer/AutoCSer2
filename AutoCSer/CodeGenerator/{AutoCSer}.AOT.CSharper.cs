@@ -754,7 +754,288 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 }
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
-    internal partial class CommandServerClientController
+    internal partial class CommandClientControllerInterface
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(_isOut_))
+            {
+                
+            _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" client interface
+        /// </summary>");
+            _if_ = false;
+                    if (IsCodeGeneratorControllerAttribute)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+        [AutoCSer.CodeGenerator.CommandClientController(typeof(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
+                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value1_.FullName);
+                    }
+                }
+            _code_.Add(@"))]");
+            }
+            _code_.Add(@"
+        ");
+            _code_.Add(TypeNameDefinition);
+            _code_.Add(@"
+        {");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientControllerInterface.ControllerMethod[] _value1_;
+                    _value1_ = Methods;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientControllerInterface.ControllerMethod _value2_ in _value1_)
+                        {
+            _if_ = false;
+                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+            _if_ = false;
+                    if (_value2_.TaskQueueKeyType != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <param name=""queueKey"">Queue keyword</param>");
+            }
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// <param name=""");
+            _code_.Add(_value4_.ParameterName);
+            _code_.Add(@""">");
+            _code_.Add(_value4_.CodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.TwoStageReturnValueType != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <param name=""callback"">");
+            _code_.Add(_value2_.CallbackCodeGeneratorXmlDocument);
+            _code_.Add(@"</param>
+            /// <param name=""keepCallback"">");
+            _code_.Add(_value2_.KeepCallbackCodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+            }
+            _if_ = false;
+                    if (_value2_.MethodIsReturn)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+            _code_.Add(_value2_.CodeGeneratorReturnXmlDocument);
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value2_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value3_ = _value2_.TaskQueueKeyType;
+            _if_ = false;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(_value3_.FullName);
+            _code_.Add(@" queueKey");
+            _if_ = false;
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = _value4_.Parameters;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]))
+                    {
+                    if (_value5_.Length != default(int))
+                    {
+                        _if_ = true;
+                    }
+                }
+                    }
+                }
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value3_ = _value4_.Parameters;
+                    }
+                }
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        {
+            _code_.Add(_value4_.RefOutString);
+            _if_ = false;
+                    if (_value4_.IsRedirectType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"[AutoCSer.Net.CommandServer.MethodParameterType(typeof(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"))]");
+            }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.RedirectType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _if_ = false;
+                    if (_value2_.TwoStageReturnValueType != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value2_.IsTwoStageInputParameter)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"Action<AutoCSer.Net.CommandClientReturnValue<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.TwoStageReturnValueType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">> callback, Action<AutoCSer.Net.CommandClientReturnValue<");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.ReturnValueType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@">, AutoCSer.Net.KeepCallbackCommand> keepCallback");
+            }
+            _code_.Add(@");");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+            _code_.Add(@"
+        }");
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
+    internal partial class CommandClientController
     {
         /// <summary>
         /// 生成代码
@@ -842,13 +1123,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"(socket, controllerName, startMethodIndex, serverMethodNames);
             }");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType[] _value1_;
                     _value1_ = ParameterTypes;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value2_ in _value1_)
                         {
             _code_.Add(@"
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
@@ -857,13 +1138,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
             {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value3_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value3_;
                     _value3_ = _value2_.Parameters;
                     if (_value3_ != null)
                     {
                         int _loopIndex3_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value4_ in _value3_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value4_ in _value3_)
                         {
             _code_.Add(@"
                 internal ");
@@ -967,13 +1248,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     }
                 }
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ControllerMethod[] _value1_;
                     _value1_ = Methods;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ControllerMethod _value2_ in _value1_)
                         {
             _code_.Add(@"
             /// <summary>
@@ -1076,10 +1357,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (_if_)
             {
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     _value3_ = _value2_.InputParameterType;
             _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -1093,13 +1374,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
                 {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value4_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value4_;
                     _value4_ = _value3_.Parameters;
                     if (_value4_ != null)
                     {
                         int _loopIndex4_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value5_ in _value4_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value5_ in _value4_)
                         {
             _if_ = false;
                 if (!(bool)_value5_.IsOut)
@@ -1132,10 +1413,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (_if_)
             {
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     _value3_ = _value2_.OutputParameterType;
             _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -1149,10 +1430,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
                 {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value4_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value4_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField);
                     _value4_ = _value3_.ReturnValueParameter;
             _if_ = false;
-                    if (_value4_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField))
+                    if (_value4_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField))
                     {
                         _if_ = true;
                 }
@@ -1226,10 +1507,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             }
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     _value3_ = _value2_.TwoStageOutputParameterType;
             _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -1301,10 +1582,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             }
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     _value3_ = _value2_.OutputParameterType;
             _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -1325,7 +1606,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
                 }
             _if_ = false;
-                    if (_value2_.InputParameterType != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value2_.InputParameterType != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -1371,10 +1652,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (_if_)
             {
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[]);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[]);
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value4_ = _value2_.OutputParameterType;
-                    if (_value4_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value4_ = _value2_.OutputParameterType;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                     _value3_ = _value4_.Parameters;
                     }
@@ -1383,7 +1664,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     {
                         int _loopIndex3_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value4_ in _value3_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value4_ in _value3_)
                         {
             _if_ = false;
                     if (_value4_.IsRef)
@@ -1428,10 +1709,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                 if (__returnValue__.IsSuccess)
                 {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[]);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[]);
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value4_ = _value2_.OutputParameterType;
-                    if (_value4_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value4_ = _value2_.OutputParameterType;
+                    if (_value4_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                     _value3_ = _value4_.Parameters;
                     }
@@ -1440,7 +1721,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                     {
                         int _loopIndex3_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value4_ in _value3_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value4_ in _value3_)
                         {
             _if_ = false;
                     if (_value4_.IsRef)
@@ -1581,13 +1862,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(MethodCount.ToString());
             _code_.Add(@");");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ControllerMethod[] _value1_;
                     _value1_ = Methods;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ControllerMethod _value2_ in _value1_)
                         {
             _code_.Add(@"
                 methods.Add(new AutoCSer.Net.CommandServer.ClientMethod(typeof(");
@@ -1712,13 +1993,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"(client, controllerName);
             }");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ControllerMethod[] _value1_;
                     _value1_ = Methods;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ControllerMethod _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ControllerMethod _value2_ in _value1_)
                         {
             _code_.Add(@"
             /// <summary>
@@ -1968,7 +2249,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 }
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
-    internal partial class CommandServerClientControllerInterface
+    internal partial class CommandClientReturnValueController
     {
         /// <summary>
         /// 生成代码
@@ -1979,122 +2260,131 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (outStart(_isOut_))
             {
                 
-            _code_.Add(@"
-        /// <summary>
-        /// ");
                 {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
-                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value1_.CodeGeneratorXmlDocument);
-                    }
-                }
-            _code_.Add(@" client interface
-        /// </summary>");
-            _if_ = false;
-                    if (IsCodeGeneratorControllerAttribute)
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-        [AutoCSer.CodeGenerator.CommandClientController(typeof(");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value1_ = CurrentType;
-                    if (_value1_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value1_.FullName);
-                    }
-                }
-            _code_.Add(@"))]");
-            }
-            _code_.Add(@"
-        ");
-            _code_.Add(TypeNameDefinition);
-            _code_.Add(@"
-        {");
-                {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientControllerInterface.ControllerMethod[] _value1_;
-                    _value1_ = Methods;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerInterface[] _value1_;
+                    _value1_ = ControllerInterfaces;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientControllerInterface.ControllerMethod _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerInterface _value2_ in _value1_)
                         {
-            _if_ = false;
-                    if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
             _code_.Add(@"
-            /// <summary>
-            /// ");
+        /// <summary>
+        /// ");
                 {
-                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value3_ = _value2_.Method;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    AutoCSer.CodeGenerator.Metadata.PropertyIndex _value3_ = _value2_.Property;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.PropertyIndex))
                     {
             _code_.Add(_value3_.CodeGeneratorXmlDocument);
                     }
                 }
+            _code_.Add(@" (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
             _code_.Add(@"
-            /// </summary>");
-            _if_ = false;
-                    if (_value2_.TaskQueueKeyType != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(@"
-            /// <param name=""queueKey"">Queue keyword</param>");
-            }
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly ");
                 {
-                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
-                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = CurrentType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
-                    _value3_ = _value4_.Parameters;
+            _code_.Add(_value3_.FullName);
                     }
                 }
+            _code_.Add(@" __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.PropertyIndex _value3_ = _value2_.Property;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.PropertyIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name=""client"">Command client socket event</param>
+            /// <param name=""isIgnoreError"">Whether errors and exceptions are ignored</param>
+            public ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = CurrentType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerMethod[] _value3_;
+                    _value3_ = _value2_.Methods;
                     if (_value3_ != null)
                     {
                         int _loopIndex3_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerMethod _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
                         {
             _code_.Add(@"
             /// <param name=""");
-            _code_.Add(_value4_.ParameterName);
+            _code_.Add(_value6_.ParameterName);
             _code_.Add(@""">");
-            _code_.Add(_value4_.CodeGeneratorXmlDocument);
+            _code_.Add(_value6_.CodeGeneratorXmlDocument);
             _code_.Add(@"</param>");
                             ++_loopIndex_;
                         }
-                        _loopIndex_ = _loopIndex3_;
+                        _loopIndex_ = _loopIndex5_;
                     }
                 }
             _if_ = false;
-                    if (_value2_.TwoStageReturnValueType != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    if (_value4_.IsSynchronous)
                     {
                         _if_ = true;
                 }
             if (_if_)
             {
-            _code_.Add(@"
-            /// <param name=""callback"">");
-            _code_.Add(_value2_.CallbackCodeGeneratorXmlDocument);
-            _code_.Add(@"</param>
-            /// <param name=""keepCallback"">");
-            _code_.Add(_value2_.KeepCallbackCodeGeneratorXmlDocument);
-            _code_.Add(@"</param>");
-            }
             _if_ = false;
-                    if (_value2_.MethodIsReturn)
+                    if (_value4_.IsReturnValue)
                     {
                         _if_ = true;
                 }
@@ -2102,95 +2392,190 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
             _code_.Add(@"
             /// <returns>");
-            _code_.Add(_value2_.CodeGeneratorReturnXmlDocument);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
             _code_.Add(@"</returns>");
             }
             _code_.Add(@"
-            ");
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public ");
                 {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.MethodReturnType;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-            _code_.Add(_value3_.FullName);
-                    }
-                }
-            _code_.Add(@" ");
-            _code_.Add(_value2_.MethodName);
-            _code_.Add(@"(");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
-                    _value3_ = _value2_.TaskQueueKeyType;
-            _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
-                    {
-                        _if_ = true;
-                }
-            if (_if_)
-            {
-            _code_.Add(_value3_.FullName);
-            _code_.Add(@" queueKey");
-            _if_ = false;
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
-                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
-                    {
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = _value4_.Parameters;
-                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]))
-                    {
-                    if (_value5_.Length != default(int))
-                    {
-                        _if_ = true;
-                    }
-                }
-                    }
-                }
-                }
-            if (_if_)
-            {
-            _code_.Add(@", ");
-            }
-            }
-                }
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value3_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
-                {
-                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value4_ = _value2_.Method;
-                    if (_value4_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
-                    {
-                    _value3_ = _value4_.Parameters;
-                    }
-                }
-                    if (_value3_ != null)
-                    {
-                        int _loopIndex3_ = _loopIndex_;
-                        _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
-                        {
-            _code_.Add(_value4_.RefOutString);
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.MethodReturnType;
                     if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
             _code_.Add(_value5_.FullName);
                     }
                 }
             _code_.Add(@" ");
-            _code_.Add(_value4_.ParameterJoinName);
-                            ++_loopIndex_;
-                        }
-                        _loopIndex_ = _loopIndex3_;
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
                     }
                 }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.RefOutString);
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value7_ = _value6_.ParameterType;
+                    if (_value7_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value7_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _code_.Add(@")
+            {
+                ");
             _if_ = false;
-                    if (_value2_.TwoStageReturnValueType != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    if (_value4_.IsReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return ");
+            }
+            _code_.Add(@"this.__client__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.RefOutString);
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _code_.Add(@")");
+            _if_ = false;
+                    if (_value4_.IsGetReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@".GetValue(__isIgnoreError__)");
+            }
+            _code_.Add(@";
+            }");
+            }
+            _if_ = false;
+                if (!(bool)_value4_.IsSynchronous)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.MethodReturnType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value7_ = _value6_.ParameterType;
+                    if (_value7_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value7_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.CallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
                         _if_ = true;
                 }
             if (_if_)
             {
             _if_ = false;
-                    if (_value2_.IsTwoStageInputParameter)
+                    if (_value4_.IsJoinCallback)
                     {
                         _if_ = true;
                 }
@@ -2198,33 +2583,412 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             {
             _code_.Add(@", ");
             }
-            _code_.Add(@"Action<AutoCSer.Net.CommandClientReturnValue<");
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.CallbackParameterName);
+            }
+                }
                 {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.TwoStageReturnValueType;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.KeepCallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
-            _code_.Add(_value3_.FullName);
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            }
+                }
+            _code_.Add(@")
+            {
+                return this.__client__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
                     }
                 }
-            _code_.Add(@">> callback, Action<AutoCSer.Net.CommandClientReturnValue<");
-                {
-                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = _value2_.ReturnValueType;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    if (_value5_ != null)
                     {
-            _code_.Add(_value3_.FullName);
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
                     }
                 }
-            _code_.Add(@">, AutoCSer.Net.KeepCallbackCommand> keepCallback");
+            _if_ = false;
+                    if (_value4_.CallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
             }
-            _code_.Add(@");");
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.CallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.CallbackParameterName);
+            _code_.Add(@")");
             }
+            _if_ = false;
+                    if (_value4_.KeepCallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.KeepCallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            _code_.Add(@")");
+            }
+            _code_.Add(@");
+            }
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(@"
+            /// <param name=""");
+            _code_.Add(_value6_.ParameterName);
+            _code_.Add(@""">");
+            _code_.Add(_value6_.CodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _if_ = false;
+                    if (_value4_.IsReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.MethodReturnType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value7_ = _value6_.ParameterType;
+                    if (_value7_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value7_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.CallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.CallbackParameterName);
+            _if_ = false;
+                if (!(bool)_value4_.IsTwoStageReturnValueParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", Action<AutoCSer.Net.CommandClientReturnValue> ");
+            _code_.Add(_value4_.ErrorCallbackParameterName);
+            }
+            }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.KeepCallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            _code_.Add(@", Action<AutoCSer.Net.CommandClientReturnValue> ");
+            _code_.Add(_value4_.ErrorKeepCallbackParameterName);
+            }
+                }
+            _code_.Add(@")
+            {
+                return this.__client__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _if_ = false;
+                    if (_value4_.CallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.CallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.CallbackParameterName);
+            _if_ = false;
+                if (!(bool)_value4_.IsTwoStageReturnValueParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            _code_.Add(_value4_.ErrorCallbackParameterName);
+            }
+            _code_.Add(@")");
+            }
+            _if_ = false;
+                    if (_value4_.KeepCallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.KeepCallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            _code_.Add(@", ");
+            _code_.Add(_value4_.ErrorKeepCallbackParameterName);
+            _code_.Add(@")");
+            }
+            _code_.Add(@");
+            }");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@"
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@")
+        /// </summary>
+        /// <param name=""isIgnoreError"">Whether errors and exceptions are ignored</param>
+        /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.PropertyIndex _value3_ = _value2_.Property;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.PropertyIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
+            _code_.Add(@" ");
+            _code_.Add(_value2_.GetReturnValueControllerMethodName);
+            _code_.Add(@"(bool isIgnoreError = false) { return new ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
+            _code_.Add(@"(this, isIgnoreError); }");
                             ++_loopIndex_;
                         }
                         _loopIndex_ = _loopIndex1_;
                     }
                 }
-            _code_.Add(@"
-        }");
                 if (_isOut_) outEnd();
             }
         }
@@ -6217,13 +6981,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"(key, creator, client, index, isPersistenceCallbackExceptionRenewNode);
             }");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType[] _value1_;
                     _value1_ = ParameterTypes;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value2_ in _value1_)
                         {
             _code_.Add(@"
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
@@ -6232,13 +6996,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
             {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value3_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value3_;
                     _value3_ = _value2_.Parameters;
                     if (_value3_ != null)
                     {
                         int _loopIndex3_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value4_ in _value3_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value4_ in _value3_)
                         {
             _code_.Add(@"
                 internal ");
@@ -6463,10 +7227,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"(this, ");
             _code_.Add(_value2_.MethodIndex.ToString());
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     _value3_ = _value2_.InputParameterType;
             _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -6478,13 +7242,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
                     {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value4_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value4_;
                     _value4_ = _value3_.Parameters;
                     if (_value4_ != null)
                     {
                         int _loopIndex4_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value5_ in _value4_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value5_ in _value4_)
                         {
             _code_.Add(@"
                         ");
@@ -7905,10 +8669,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@" value)
             {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     _value3_ = _value2_.InputParameterType;
             _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -7921,13 +8685,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(_value3_.ParameterTypeFullName);
             _code_.Add(@" { ");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value4_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value4_;
                     _value4_ = _value3_.Parameters;
                     if (_value4_ != null)
                     {
                         int _loopIndex4_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value5_ in _value4_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value5_ in _value4_)
                         {
             _code_.Add(_value5_.ParameterName);
             _code_.Add(@" = value");
@@ -8228,10 +8992,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"(this, ");
             _code_.Add(_value2_.MethodArrayIndex.ToString());
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType _value3_ = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     _value3_ = _value2_.InputParameterType;
             _if_ = false;
-                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType))
+                    if (_value3_ != default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType))
                     {
                         _if_ = true;
                 }
@@ -8243,13 +9007,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
                     {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField[] _value4_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField[] _value4_;
                     _value4_ = _value3_.Parameters;
                     if (_value4_ != null)
                     {
                         int _loopIndex4_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterField _value5_ in _value4_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterField _value5_ in _value4_)
                         {
             _code_.Add(@"
                         ");

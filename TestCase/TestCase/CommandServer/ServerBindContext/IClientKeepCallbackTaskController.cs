@@ -9,9 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerKeepCallbackTaskController), true)]
-#endif
     public partial interface IClientKeepCallbackTaskController
     {
         EnumeratorCommand<string> KeepCallbackTaskReturn(int Value, int Ref);
@@ -28,19 +26,19 @@ namespace AutoCSer.TestCase.ServerBindContext
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn();
 
 #if NetStandard21
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackTaskReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackTaskReturnAsync();
 
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackCountTaskReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackCountTaskReturnAsync();
 
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync();
 #endif
 
@@ -53,9 +51,12 @@ namespace AutoCSer.TestCase.ServerBindContext
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int queueKey, int Ref);
 
 #if NetStandard21
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableReturn(int Value, int Ref);
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableReturn();
-
+        
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableQueueReturn(int queueKey, int Ref);
 #endif
     }
@@ -249,7 +250,6 @@ namespace AutoCSer.TestCase.ServerBindContext
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 #endif
-
             return true;
         }
         /// <summary>

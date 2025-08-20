@@ -13,7 +13,7 @@ namespace AutoCSer.Net.CommandServer
         /// <summary>
         /// 参数集合
         /// </summary>
-        private ParameterInfo[] parameters;
+        internal MethodParameter[] Parameters;
         /// <summary>
         /// 类型
         /// </summary>
@@ -32,17 +32,17 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="parameters">参数集合</param>
         /// <param name="returnType">类型</param>
 #if NetStandard21
-        internal ServerMethodParameterKey(ParameterInfo[] parameters, Type? returnType)
+        internal ServerMethodParameterKey(MethodParameter[] parameters, Type? returnType)
 #else
-        internal ServerMethodParameterKey(ParameterInfo[] parameters, Type returnType)
+        internal ServerMethodParameterKey(MethodParameter[] parameters, Type returnType)
 #endif
         {
-            this.parameters = parameters.sort(compare);
+            this.Parameters = parameters.sort(compare);
             this.returnType = returnType;
             hashCode = returnType == null ? 0 : returnType.GetHashCode();
-            foreach (ParameterInfo parameter in parameters)
+            foreach (MethodParameter parameter in parameters)
             {
-                hashCode ^= parameter.elementType().GetHashCode() ^ parameter.Name.notNull().GetHashCode();
+                hashCode ^= parameter.ElementType.GetHashCode() ^ parameter.Parameter.Name.notNull().GetHashCode();
             }
         }
         /// <summary>
@@ -54,13 +54,13 @@ namespace AutoCSer.Net.CommandServer
         {
             if (returnType == other.returnType)
             {
-                if (parameters.Length == other.parameters.Length)
+                if (Parameters.Length == other.Parameters.Length)
                 {
                     int index = 0;
-                    foreach (ParameterInfo otherParameter in other.parameters)
+                    foreach (MethodParameter otherParameter in other.Parameters)
                     {
-                        ParameterInfo parameter = parameters[index++];
-                        if (parameter.ParameterType != otherParameter.ParameterType || parameter.Name != otherParameter.Name) return false;
+                        MethodParameter parameter = Parameters[index++];
+                        if (parameter.ParameterType != otherParameter.ParameterType || parameter.Parameter.Name != otherParameter.Parameter.Name) return false;
                     }
                     return true;
                 }
@@ -96,9 +96,9 @@ namespace AutoCSer.Net.CommandServer
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        private static int compare(ParameterInfo left, ParameterInfo right)
+        private static int compare(MethodParameter left, MethodParameter right)
         {
-            return string.CompareOrdinal(left.Name, right.Name);
+            return string.CompareOrdinal(left.Parameter.Name, right.Parameter.Name);
         }
     }
 }

@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerCallbackController), true)]
-#endif
     public partial interface IClientCallbackController
     {
         CallbackCommand CallbackSocketReturn(int Value, int Ref, Action<CommandClientReturnValue<string>> Callback);

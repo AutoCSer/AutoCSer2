@@ -6,9 +6,6 @@ namespace AutoCSer.Reflection.Emit
     /// <summary>
     /// 动态程序集模块
     /// </summary>
-//#if AOT
-//    [System.Diagnostics.CodeAnalysis.RequiresDynamicCode("Emit not supported")]
-//#endif
     internal static class Module
     {
         /// <summary>

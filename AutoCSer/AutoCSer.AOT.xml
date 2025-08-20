@@ -12225,8 +12225,8 @@
         </member>
         <member name="T:AutoCSer.CodeGenerator.BinarySerializeAttribute">
             <summary>
-            AOT binary serialization code generation configuration
-            AOT 二进制序列化代码生成配置
+            Binary serialization code generation configuration (for .NET NativeAOT only)
+            二进制序列化代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.BinarySerializeAttribute.BinarySerializeMethodName">
@@ -12357,7 +12357,7 @@
         </member>
         <member name="T:AutoCSer.CodeGenerator.ConfigurationAttribute">
             <summary>
-            项目配置代码生成配置（用于 AOT 环境）
+            项目配置代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.ConfigurationAttribute.ConfigurationMethodName">
@@ -12367,8 +12367,8 @@
         </member>
         <member name="T:AutoCSer.CodeGenerator.JsonSerializeAttribute">
             <summary>
-            Configuration for generating JSON serialization code in the AOT environment
-            AOT 环境 JSON 序列化代码生成配置
+            JSON serialization code generation configuration (for .NET NativeAOT only)
+            JSON 序列化代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.JsonSerializeAttribute.JsonSerializeMethodName">
@@ -12431,8 +12431,8 @@
         </member>
         <member name="T:AutoCSer.CodeGenerator.CommandClientControllerAttribute">
             <summary>
-            AOT client command controller code generation configuration
-            AOT 客户端命令控制器代码生成配置
+            Client command controller code generation configuration (for .NET NativeAOT only)
+            客户端命令控制器代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.CommandClientControllerAttribute.CommandClientControllerConstructorMethodName">
@@ -12467,8 +12467,8 @@
         </member>
         <member name="M:AutoCSer.CodeGenerator.CommandClientControllerAttribute.#ctor(System.Type,System.Boolean,System.String)">
             <summary>
-            AOT client command controller code generation configuration
-            AOT 客户端命令控制器代码生成配置
+            .NET NativeAOT client command controller code generation configuration
+            .NET NativeAOT 客户端命令控制器代码生成配置
             </summary>
             <param name="serverInterfaceType">Server controller interface type, asymmetric interface parameter typeof(void)
             服务端控制器接口类型，非对称接口传参 typeof(void)</param>
@@ -30229,6 +30229,170 @@
             系统默认线程池模式
             </summary>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.ClientReturnValueCallback">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueCallback.Callback">
+            <summary>
+            Success value callback delegate
+            成功值回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueCallback.ErrorCallback">
+            <summary>
+            Error return value type callback delegate
+            错误成功值类型回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.#ctor(System.Action,System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+            <param name="callback">Success value callback delegate
+            成功值回调委托</param>
+            <param name="errorCallback">Error return value type callback delegate
+            错误成功值类型回调委托</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~AutoCSer.Net.CommandClientCallback">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~AutoCSer.Net.CommandClientCallbackQueueNode">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~System.Action{AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~AutoCSer.Net.CommandClientKeepCallback">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback)~AutoCSer.Net.CommandClientKeepCallbackQueue">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback.emptyCallback(AutoCSer.Net.CommandClientReturnValue)">
+            <summary>
+            Default empty callback
+            </summary>
+            <param name="returnValue"></param>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueCallback.EmptyCallback">
+            <summary>
+            Default empty callback
+            </summary>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.Callback">
+            <summary>
+            Success value callback delegate
+            成功值回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.ErrorCallback">
+            <summary>
+            Error return value type callback delegate
+            错误成功值类型回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.#ctor(System.Action{`0},System.Action{AutoCSer.Net.CommandClientReturnValue})">
+            <summary>
+            A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托
+            </summary>
+            <param name="callback">Success value callback delegate
+            成功值回调委托</param>
+            <param name="errorCallback">Error return value type callback delegate
+            错误成功值类型回调委托</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0}}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~AutoCSer.Net.CommandClientCallback{`0}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~AutoCSer.Net.CommandClientCallbackQueueNode{`0}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~System.Action{AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~AutoCSer.Net.CommandClientKeepCallback{`0}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.ClientReturnValueCallback`1.op_Implicit(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})~AutoCSer.Net.CommandClientKeepCallbackQueue{`0}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="callback"></param>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientCheckTimer">
             <summary>
             Client heart rate detection timing
@@ -32653,7 +32817,7 @@
             客户端接口方法信息
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.#ctor(System.Type,System.Reflection.MethodInfo,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,System.Boolean,System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.#ctor(System.Type,System.Reflection.MethodInfo,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Client interface method information
             客户端接口方法信息
@@ -32664,6 +32828,7 @@
             <param name="taskQueueControllerKeyType"></param>
             <param name="isServer"></param>
             <param name="isDefault"></param>
+            <param name="isCheckRedirectType"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.DeserializeError(AutoCSer.Net.CommandClientController)">
             <summary>
@@ -32690,7 +32855,7 @@
             </summary>
             <param name="serverMethod"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@,System.Boolean,System.Boolean)">
+        <member name="M:AutoCSer.Net.CommandServer.ClientInterfaceMethod.GetMethod(System.Type,AutoCSer.Net.CommandServerControllerInterfaceAttribute,System.Type,AutoCSer.LeftArray{AutoCSer.Net.CommandServer.ClientInterfaceMethod}@,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             获取客户端接口方法集合
             </summary>
@@ -32700,6 +32865,7 @@
             <param name="methods"></param>
             <param name="isServer"></param>
             <param name="isDefault"></param>
+            <param name="isCheckRedirectType"></param>
             <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ClientReceiveErrorTypeEnum">
@@ -33358,6 +33524,86 @@
             响应数据</param>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.Net.CommandServer.CommandReturnValue">
+            <summary>
+            命令返回值 await
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandReturnValue.Command">
+            <summary>
+            The return value command
+            返回值命令
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandReturnValue.continuation">
+            <summary>
+            Asynchronous callback
+            异步回调
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.CommandReturnValue.IsCompleted">
+            <summary>
+            Completed status
+            完成状态
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.CommandReturnValue.ReturnType">
+            <summary>
+            The return type of the call
+            调用返回类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.CommandReturnValue.ErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.CommandReturnValue.isIgnoreError">
+            <summary>
+            Whether errors and exceptions are ignored
+            是否忽略错误与异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.#ctor(AutoCSer.Net.ReturnCommand,System.Boolean)">
+            <summary>
+            命令返回值
+            </summary>
+            <param name="command">The return value command
+            返回值命令</param>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.onCompleted">
+            <summary>
+            完成回调操作
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.OnCompleted(System.Action)">
+            <summary>
+            Set asynchronous callback
+            设置异步回调
+            </summary>
+            <param name="continuation"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.Wait">
+            <summary>
+            Wait for the command call to return the result
+            等待命令调用返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.GetResult">
+            <summary>
+            Get the result of the command call, return an error message before the result is returned (Only for supporting await)
+            获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue.GetAwaiter">
+            <summary>
+            Get the awaiter object
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.CommandReturnValue`1">
             <summary>
             命令返回值 await T
@@ -33398,12 +33644,20 @@
             Return value
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.#ctor(AutoCSer.Net.ReturnCommand{`0})">
+        <member name="F:AutoCSer.Net.CommandServer.CommandReturnValue`1.isIgnoreError">
+            <summary>
+            Whether errors and exceptions are ignored
+            是否忽略错误与异常
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.#ctor(AutoCSer.Net.ReturnCommand{`0},System.Boolean)">
             <summary>
             命令返回值
             </summary>
             <param name="command">The return value command
             返回值命令</param>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.CommandReturnValue`1.onCompleted">
             <summary>
@@ -33526,6 +33780,74 @@
             The await IAsyncEnumerable call requires.NET Satndard version 2.1 or above
             await IAsyncEnumerable 调用，需要 .NET Satndard 2.1 及以上版本
             </summary>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.MethodParameter">
+            <summary>
+            调用参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.MethodParameter.CommandParameterCastTypeMethodName">
+            <summary>
+            调用参数类型重定向方法名称
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.MethodParameter.Parameter">
+            <summary>
+            参数信息
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.MethodParameter.redirectType">
+            <summary>
+            重定向类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.MethodParameter.ParameterType">
+            <summary>
+            参数类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandServer.MethodParameter.ElementType">
+            <summary>
+            获取参数真实类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.MethodParameter.#ctor(System.Reflection.ParameterInfo,System.Boolean)">
+            <summary>
+            调用参数信息
+            </summary>
+            <param name="parameter">参数信息</param>
+            <param name="isCheckRedirectType"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.MethodParameter.GetRedirectType(System.Reflection.ParameterInfo,System.Reflection.MethodInfo@)">
+            <summary>
+            客户端获取重定向类型
+            </summary>
+            <param name="parameter"></param>
+            <param name="castMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.MethodParameter.GetParameterType(System.Type)">
+            <summary>
+            服务端获取客户端重定向类型
+            </summary>
+            <param name="redirectType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutoCSer.Net.CommandServer.MethodParameterTypeAttribute">
+            <summary>
+            参数类型配置
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandServer.MethodParameterTypeAttribute.RedirectType">
+            <summary>
+            重定向类型
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.MethodParameterTypeAttribute.#ctor(System.Type)">
+            <summary>
+            参数类型配置
+            </summary>
+            <param name="redirectType">重定向类型</param>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.ServerInterface">
             <summary>
@@ -33727,31 +34049,34 @@
             命令服务参数类型编号
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.getKey(System.Int32,System.Collections.Generic.IEnumerable{System.Reflection.ParameterInfo},System.Type)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.getKey(System.Int32,System.Collections.Generic.IEnumerable{System.Reflection.ParameterInfo},System.Type,System.Boolean)">
             <summary>
             获取命令服务参数类型关键字
             </summary>
             <param name="parameterCount"></param>
             <param name="parameters"></param>
             <param name="returnType"></param>
+            <param name="isCheckRedirectType"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.Get(System.Int32,System.Collections.Generic.IEnumerable{System.Reflection.ParameterInfo},System.Type)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.Get(System.Int32,System.Collections.Generic.IEnumerable{System.Reflection.ParameterInfo},System.Type,System.Boolean)">
             <summary>
             获取命令服务参数类型
             </summary>
             <param name="parameterCount"></param>
             <param name="parameters">参数集合</param>
             <param name="returnType">类型</param>
+            <param name="isCheckRedirectType"></param>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.GetOrCreate(System.Int32,System.Collections.Generic.IEnumerable{System.Reflection.ParameterInfo},System.Type)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.GetOrCreate(System.Int32,System.Collections.Generic.IEnumerable{System.Reflection.ParameterInfo},System.Type,System.Boolean)">
             <summary>
             获取命令服务参数类型
             </summary>
             <param name="parameterCount"></param>
             <param name="parameters">参数集合</param>
             <param name="returnType">类型</param>
+            <param name="isCheckRedirectType"></param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameter.AppendType(System.Type)">
@@ -33765,7 +34090,7 @@
             命令服务参数缓存关键字
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameterKey.parameters">
+        <member name="F:AutoCSer.Net.CommandServer.ServerMethodParameterKey.Parameters">
             <summary>
             参数集合
             </summary>
@@ -33780,7 +34105,7 @@
             
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameterKey.#ctor(System.Reflection.ParameterInfo[],System.Type)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameterKey.#ctor(AutoCSer.Net.CommandServer.MethodParameter[],System.Type)">
             <summary>
             TCP 参数类型
             </summary>
@@ -33807,7 +34132,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameterKey.compare(System.Reflection.ParameterInfo,System.Reflection.ParameterInfo)">
+        <member name="M:AutoCSer.Net.CommandServer.ServerMethodParameterKey.compare(AutoCSer.Net.CommandServer.MethodParameter,AutoCSer.Net.CommandServer.MethodParameter)">
             <summary>
             参数排序
             </summary>
@@ -36363,6 +36688,64 @@
             </summary>
             <param name="returnValue"></param>
         </member>
+        <member name="T:AutoCSer.Net.CommandClientCallback.ErrorCallback">
+            <summary>
+            The client callback delegate
+            客户端回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientCallback.ErrorCallback.callback">
+            <summary>
+            Success value callback delegate
+            成功值回调委托
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientCallback.ErrorCallback.errorCallback">
+            <summary>
+            Error return value type callback delegate
+            错误成功值类型回调委托
+            </summary>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback.ErrorCallback.#ctor(AutoCSer.Net.CommandServer.ClientReturnValueCallback)">
+            <summary>
+            The client callback delegate
+            客户端回调委托
+            </summary>
+            <param name="callback">A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback.ErrorCallback.Callback(AutoCSer.Net.CommandClientReturnValue)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback.ErrorCallback.Callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback.ErrorCallback.Callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback.ErrorCallback.Callback(AutoCSer.Net.CommandClientReturnValue,AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+            <param name="command"></param>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientCallback.op_Implicit(System.Action)~AutoCSer.Net.CommandClientCallback">
             <summary>
             Implicit conversion
@@ -36411,7 +36794,7 @@
             </summary>
             <param name="callback"></param>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientCallback`1.#ctor(System.Action{`0},System.Action{AutoCSer.Net.CommandClientReturnTypeEnum})">
+        <member name="M:AutoCSer.Net.CommandClientCallback`1.#ctor(System.Action{`0},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             The client callback delegate
             客户端回调委托
@@ -36439,7 +36822,15 @@
             错误成功值类型回调委托
             </summary>
         </member>
-        <member name="M:AutoCSer.Net.CommandClientCallback`1.ErrorCallback.#ctor(System.Action{`0},System.Action{AutoCSer.Net.CommandClientReturnTypeEnum})">
+        <member name="M:AutoCSer.Net.CommandClientCallback`1.ErrorCallback.#ctor(AutoCSer.Net.CommandServer.ClientReturnValueCallback{`0})">
+            <summary>
+            The client callback delegate
+            客户端回调委托
+            </summary>
+            <param name="callback">A client callback delegate that directly retrieves the return value
+            直接获取返回值的客户端回调委托</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback`1.ErrorCallback.#ctor(System.Action{`0},System.Action{AutoCSer.Net.CommandClientReturnValue})">
             <summary>
             The client callback delegate
             客户端回调委托
@@ -36455,6 +36846,31 @@
             客户端回调
             </summary>
             <param name="returnValue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback`1.ErrorCallback.Callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="command"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback`1.ErrorCallback.Callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientCallback`1.ErrorCallback.Callback(AutoCSer.Net.CommandClientReturnValue{`0},AutoCSer.Net.CommandClientCallQueue,AutoCSer.Net.KeepCallbackCommand)">
+            <summary>
+            Client callback
+            客户端回调
+            </summary>
+            <param name="returnValue"></param>
+            <param name="queue"></param>
+            <param name="command"></param>
         </member>
         <member name="M:AutoCSer.Net.CommandClientCallback`1.op_Implicit(System.Action{AutoCSer.Net.CommandClientReturnValue{`0}})~AutoCSer.Net.CommandClientCallback{`0}">
             <summary>
@@ -37182,10 +37598,16 @@
             默认为 false 表示客户端通过验证之前不创建默认的初始化控制器实例，设置为 true 则在客户端初始化的时候创建返回错误状态的默认控制器实例以避免实例引用发送 null 异常问题（代价是会延长客户端初始化的时间）
             </summary>
         </member>
-        <member name="F:AutoCSer.Net.CommandClientConfig.ControllerCreatorBindingFlags">
+        <member name="F:AutoCSer.Net.CommandClientConfig.IsRemoteExpression">
             <summary>
-            Command client socket event controller property binding identification, Defaults to the current type only define attributes BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly
-            命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
+            The default value of false indicates that remote expressions are not supported. To set it to true, the server needs to manually set AutoCSer.Net.CommandServerConfig.IsRemoteExpression to true for it to take effect (Not supported .NET NativeAOT)
+            默认为 false 表示不支持远程表达式，设置为 true 需要服务端手动设置 AutoCSer.Net.CommandServerConfig.IsRemoteExpression 为 true 才能生效（不支持 .NET NativeAOT）
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClientConfig.GetIsRemoteExpression">
+            <summary>
+            Does it support remote expressions
+            是否支持支持远程表达式
             </summary>
         </member>
         <member name="M:AutoCSer.Net.CommandClientConfig.AutoCreateSocket(AutoCSer.Net.CommandClient)">
@@ -37732,6 +38154,26 @@
             <param name="returnValueParameter">The initial value of the return parameter
             返回参数初始值</param>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientReturnValueParameterCallback`1.#ctor(AutoCSer.Net.CommandClientReturnValueParameterCallback{`0})">
+            <summary>
+            Client callback delegate with return parameter initial values
+            带返回参数初始值的客户端回调委托
+            </summary>
+            <param name="callback">Client callback delegate with return parameter initial values
+            带返回参数初始值的客户端回调委托</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientReturnValueParameterCallback`1.Create(System.Action{`0},`0)">
+            <summary>
+            Client callback delegate with return parameter initial values
+            带返回参数初始值的客户端回调委托
+            </summary>
+            <param name="callback">The client callback delegate
+            客户端回调委托</param>
+            <param name="returnValueParameter">The initial value of the return parameter
+            返回参数初始值</param>
+            <returns>Client callback delegate with return parameter initial values
+            带返回参数初始值的客户端回调委托</returns>
+        </member>
         <member name="T:AutoCSer.Net.CommandClientMethodAttribute">
             <summary>
             Command client method configuration
@@ -37760,6 +38202,12 @@
             <summary>
             Whether it is a low-priority synchronous queue
             是否低优先级同步队列
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Net.CommandClientMethodAttribute.IsCodeGeneratorReturnValueController">
+            <summary>
+            A default value of true indicates the generation of a client API that directly retrieves the return value
+            默认为 true 表示生成直接获取返回值的客户端 API
             </summary>
         </member>
         <member name="F:AutoCSer.Net.CommandClientMethodAttribute.MatchMethodName">
@@ -37977,6 +38425,18 @@
             客户端控制器创建参数集合，用于命令客户端套接字初始化是创建客户端控制器对象，同时也用于命令客户端套接字事件在通过认证 API 之后根据客户端控制器接口类型自动绑定控制器属性
             </summary>
         </member>
+        <member name="P:AutoCSer.Net.CommandClientSocketEvent.IsCodeGeneratorReturnValueController">
+            <summary>
+            A default value of false indicates that no client controller encapsulation type is generated for directly obtaining the return value
+            默认为 false 表示不生成直接获取返回值的客户端控制器封装类型
+            </summary>
+        </member>
+        <member name="P:AutoCSer.Net.CommandClientSocketEvent.ControllerBindingFlags">
+            <summary>
+            Command client socket event controller property binding identification, Defaults to the current type only define attributes BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly
+            命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
+            </summary>
+        </member>
         <member name="F:AutoCSer.Net.CommandClientSocketEvent.closeSocketVersion">
             <summary>
             Release the closed socket version of the waiting lock
@@ -37998,6 +38458,25 @@
             命令客户端</param>
             <param name="customParameter">Custom pamameter
             自定义参数</param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent.GetControllerProperties(System.Type,System.Collections.Generic.Dictionary{System.String,System.Reflection.PropertyInfo}@)">
+            <summary>
+            Gets a collection of controller property information
+            获取控制器属性信息集合
+            </summary>
+            <param name="type"></param>
+            <param name="propertyNames"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientSocketEvent.GetControllerProperties(System.Collections.Generic.IEnumerable{AutoCSer.Net.CommandClientControllerCreatorParameter},System.Collections.Generic.Dictionary{AutoCSer.HashObject{System.Type},System.Reflection.PropertyInfo},System.Collections.Generic.Dictionary{System.String,System.Reflection.PropertyInfo})">
+            <summary>
+            Gets a collection of controller property information
+            获取控制器属性信息集合
+            </summary>
+            <param name="controllerCreatorParameters"></param>
+            <param name="properties"></param>
+            <param name="propertyNames"></param>
+            <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientSocketEvent.AppendCreators(AutoCSer.LeftArray{AutoCSer.Net.CommandClientInterfaceControllerCreator}@)">
             <summary>
@@ -39124,6 +39603,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.ReturnCommand.GetValue(System.Boolean)">
+            <summary>
+            Get the command return value
+            获取命令返回值
+            </summary>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+            <returns></returns>
+        </member>
         <member name="M:AutoCSer.Net.ReturnCommand.GetTask(AutoCSer.Net.ReturnCommand)">
             <summary>
             Convert to a Task object
@@ -39192,11 +39680,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoCSer.Net.ReturnCommand`1.GetCommandReturnValue">
+        <member name="M:AutoCSer.Net.ReturnCommand`1.GetValue(System.Boolean)">
             <summary>
-            Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
-            获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
+            Get the command return value
+            获取命令返回值
             </summary>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
             <returns></returns>
         </member>
         <member name="M:AutoCSer.Net.ReturnCommand`1.SetReturn(`0)">
@@ -41466,6 +41956,14 @@
             <param name="returnType"></param>
             <returns></returns>
         </member>
+        <member name="M:AutoCSer.Net.CommandClientReturnValue.GetValue(System.Boolean)">
+            <summary>
+            Get the return value
+            获取返回值
+            </summary>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+        </member>
         <member name="M:AutoCSer.Net.CommandClientReturnValue.GetThrowMessage">
             <summary>
             Get exception information
@@ -41553,6 +42051,15 @@
             </summary>
             <param name="returnValue"></param>
             <returns></returns>
+        </member>
+        <member name="M:AutoCSer.Net.CommandClientReturnValue`1.GetValue(System.Boolean)">
+            <summary>
+            Get the return value
+            获取返回值
+            </summary>
+            <param name="isIgnoreError">Whether errors and exceptions are ignored
+            是否忽略错误与异常</param>
+            <returns>Return value</returns>
         </member>
         <member name="M:AutoCSer.Net.CommandClientReturnValue`1.GetReturnValue(`0)">
             <summary>
@@ -43520,6 +44027,21 @@
             字典
             </summary>
         </member>
+        <member name="T:AutoCSer.Reflection.Emit.Module">
+            <summary>
+            动态程序集模块
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Reflection.Emit.Module.assemblyBuilder">
+            <summary>
+            动态程序集
+            </summary>
+        </member>
+        <member name="F:AutoCSer.Reflection.Emit.Module.Builder">
+            <summary>
+            动态程序集模块
+            </summary>
+        </member>
         <member name="T:AutoCSer.Reflection.TypeNameBuildEnum">
             <summary>
             类型名称输出类型
@@ -43538,21 +44060,6 @@
         <member name="F:AutoCSer.Reflection.TypeNameBuildEnum.OutputXml">
             <summary>
             XML 文档输出注释
-            </summary>
-        </member>
-        <member name="T:AutoCSer.Reflection.Emit.Module">
-            <summary>
-            动态程序集模块
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Reflection.Emit.Module.assemblyBuilder">
-            <summary>
-            动态程序集
-            </summary>
-        </member>
-        <member name="F:AutoCSer.Reflection.Emit.Module.Builder">
-            <summary>
-            动态程序集模块
             </summary>
         </member>
         <member name="T:AutoCSer.Reflection.AssemblyCache">

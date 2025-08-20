@@ -7,9 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// 消息处理节点接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-#if !AOT
     [ServerNode(IsLocalClient = true)]
-#endif
     public partial interface IMessageNode<T>
     {
         /// <summary>

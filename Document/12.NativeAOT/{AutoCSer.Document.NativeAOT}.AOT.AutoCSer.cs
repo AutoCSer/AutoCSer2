@@ -1019,10 +1019,10 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip0__
             {
+                internal uint capacity;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal uint capacity;
                 
             /// <summary>
             /// Binary serialization
@@ -1108,10 +1108,10 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip1__
             {
+                internal long identity;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal long identity;
                 
             /// <summary>
             /// Binary serialization
@@ -1428,9 +1428,9 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             internal struct __ip6__
             {
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
+                internal byte indexBits;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal byte indexBits;
                 
             /// <summary>
             /// Binary serialization
@@ -1518,11 +1518,11 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip256__
             {
+                internal int capacity;
+                internal AutoCSer.ReusableDictionaryGroupTypeEnum groupType;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal int capacity;
-                internal AutoCSer.ReusableDictionaryGroupTypeEnum groupType;
                 
             /// <summary>
             /// Binary serialization
@@ -1630,10 +1630,10 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip0__>(this, 0
                     , new __ip0__
                     {
+                        capacity = capacity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
                     }
                     );
             }
@@ -1658,10 +1658,10 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip1__>(this, 1
                     , new __ip1__
                     {
+                        identity = identity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        identity = identity,
                     }
                     );
             }
@@ -1781,9 +1781,9 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                     , new __ip6__
                     {
                         index = index,
+                        indexBits = indexBits,
                         key = key,
                         nodeInfo = nodeInfo,
-                        indexBits = indexBits,
                     }
                     );
             }
@@ -1809,9 +1809,9 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                     , new __ip6__
                     {
                         index = index,
+                        indexBits = indexBits,
                         key = key,
                         nodeInfo = nodeInfo,
-                        indexBits = indexBits,
                     }
                     );
             }
@@ -1838,11 +1838,11 @@ namespace AutoCSer.Document.NativeAOT.DataSerialize
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip256__>(this, 256
                     , new __ip256__
                     {
+                        capacity = capacity,
+                        groupType = groupType,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
-                        groupType = groupType,
                     }
                     );
             }

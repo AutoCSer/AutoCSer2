@@ -8,13 +8,11 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 字段数据定义(引用类型外壳)
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
     [AutoCSer.CodeGenerator.RandomObject]
     [AutoCSer.CodeGenerator.FieldEquals]
     [AutoCSer.CodeGenerator.MemberCopy]
-#endif
     [AutoCSer.BinarySerialize(IsMemberMap = true)]
     internal partial class Field
     {

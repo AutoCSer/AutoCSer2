@@ -405,8 +405,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
             internal struct __ip8__
             {
                 internal long callIdentity;
-                internal string callType;
                 internal string callName;
+                internal string callType;
                 internal int timeoutMilliseconds;
                 internal ushort type;
                 
@@ -610,8 +610,8 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
                 __ip8__ __inputParameter__ = new __ip8__
                 {
                     callIdentity = callIdentity,
-                    callType = callType,
                     callName = callName,
+                    callType = callType,
                     timeoutMilliseconds = timeoutMilliseconds,
                     type = type,
                 };

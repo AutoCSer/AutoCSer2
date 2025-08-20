@@ -1,4 +1,5 @@
-﻿using AutoCSer.Extensions;
+﻿using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
+using AutoCSer.Extensions;
 using AutoCSer.Memory;
 using AutoCSer.Net;
 using System;
@@ -7,9 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-#if !AOT
-using AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata;
-#endif
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
 {

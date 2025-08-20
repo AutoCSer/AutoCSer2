@@ -6,16 +6,19 @@
     <members>
         <member name="T:AutoCSer.CodeGenerator.FieldEqualsAttribute">
             <summary>
-            对象对比代码生成配置（用于 AOT 环境）
+            Object comparison code generation configuration (for .NET NativeAOT only)
+            对象对比代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.FieldEqualsAttribute.FieldEqualsMethodName">
             <summary>
+            Object comparison method name
             对象对比方法名称
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.FieldEqualsAttribute.MemberMapFieldEqualsMethodName">
             <summary>
+            Object comparison method name
             对象对比方法名称
             </summary>
         </member>

@@ -9,9 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.CustomNode
     /// </summary>
     /// <typeparam name="T">Task message data type
     /// 任务消息数据类型</typeparam>
-#if !AOT
     [ServerNode(IsLocalClient = true, IsMethodParameterCreator = true)]
-#endif
     public partial interface ITimeoutMessageNode<T>
     {
         /// <summary>

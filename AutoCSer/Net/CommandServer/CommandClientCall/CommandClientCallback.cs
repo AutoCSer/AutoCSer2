@@ -1,4 +1,5 @@
-﻿using AutoCSer.Threading;
+﻿using AutoCSer.Net.CommandServer;
+using AutoCSer.Threading;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -79,6 +80,78 @@ namespace AutoCSer.Net
             }
         }
         /// <summary>
+        /// The client callback delegate
+        /// 客户端回调委托
+        /// </summary>
+        internal sealed class ErrorCallback
+        {
+            /// <summary>
+            /// Success value callback delegate
+            /// 成功值回调委托
+            /// </summary>
+            private readonly Action callback;
+            /// <summary>
+            /// Error return value type callback delegate
+            /// 错误成功值类型回调委托
+            /// </summary>
+            private readonly Action<CommandClientReturnValue> errorCallback;
+            /// <summary>
+            /// The client callback delegate
+            /// 客户端回调委托
+            /// </summary>
+            /// <param name="callback">A client callback delegate that directly retrieves the return value
+            /// 直接获取返回值的客户端回调委托</param>
+            public ErrorCallback(ClientReturnValueCallback callback)
+            {
+                this.callback = callback.Callback;
+                this.errorCallback = callback.ErrorCallback;
+            }
+            /// <summary>
+            /// Client callback
+            /// 客户端回调
+            /// </summary>
+            /// <param name="returnValue"></param>
+            internal void Callback(CommandClientReturnValue returnValue)
+            {
+                if (returnValue.IsSuccess) callback();
+                else errorCallback(returnValue);
+            }
+            /// <summary>
+            /// Client callback
+            /// 客户端回调
+            /// </summary>
+            /// <param name="returnValue"></param>
+            /// <param name="command"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            internal void Callback(CommandClientReturnValue returnValue, AutoCSer.Net.KeepCallbackCommand command)
+            {
+                Callback(returnValue);
+            }
+            /// <summary>
+            /// Client callback
+            /// 客户端回调
+            /// </summary>
+            /// <param name="returnValue"></param>
+            /// <param name="queue"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            internal void Callback(CommandClientReturnValue returnValue, CommandClientCallQueue queue)
+            {
+                Callback(returnValue);
+            }
+            /// <summary>
+            /// Client callback
+            /// 客户端回调
+            /// </summary>
+            /// <param name="returnValue"></param>
+            /// <param name="queue"></param>
+            /// <param name="command"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            internal void Callback(CommandClientReturnValue returnValue, CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
+            {
+                Callback(returnValue);
+            }
+        }
+        /// <summary>
         /// Implicit conversion
         /// </summary>
         /// <param name="value"></param>
@@ -104,28 +177,6 @@ namespace AutoCSer.Net
                 callback(new CommandClientReturnValue(returnType, errorMessage));
             }
         }
-        ///// <summary>
-        ///// 回调
-        ///// </summary>
-        ///// <param name="callback"></param>
-        ///// <param name="returnType"></param>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //internal static void CallCallback(CommandClientCallback callback, CommandClientReturnType returnType)
-        //{
-        //    callback.Callback(returnType);
-        //}
-        ///// <summary>
-        ///// 失败回调
-        ///// </summary>
-        ///// <param name="callback"></param>
-        ///// <param name="client"></param>
-        ///// <param name="exception"></param>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //internal static void CallCallback(CommandClientCallback callback, CommandClient client, Exception exception)
-        //{
-        //    callback.Callback(CommandClientReturnType.ClientException);
-        //    CatchTask.AddIgnoreException(client.Attribute.Log.ExceptionIgnoreException(exception, null, LogLevel.AutoCSer | LogLevel.Exception));
-        //}
 
         /// <summary>
         /// Type conversion of the callback return value
@@ -177,7 +228,7 @@ namespace AutoCSer.Net
         /// 成功值回调委托</param>
         /// <param name="errorCallback">Error return value type callback delegate
         /// 错误成功值类型回调委托</param>
-        public CommandClientCallback(Action<T> callback, Action<CommandClientReturnTypeEnum> errorCallback)
+        public CommandClientCallback(Action<T> callback, Action<CommandClientReturnValue> errorCallback)
         {
             this.callback = new ErrorCallback(callback, errorCallback).Callback;
         }
@@ -196,7 +247,18 @@ namespace AutoCSer.Net
             /// Error return value type callback delegate
             /// 错误成功值类型回调委托
             /// </summary>
-            private readonly Action<CommandClientReturnTypeEnum> errorCallback;
+            private readonly Action<CommandClientReturnValue> errorCallback;
+            /// <summary>
+            /// The client callback delegate
+            /// 客户端回调委托
+            /// </summary>
+            /// <param name="callback">A client callback delegate that directly retrieves the return value
+            /// 直接获取返回值的客户端回调委托</param>
+            public ErrorCallback(ClientReturnValueCallback<T> callback)
+            {
+                this.callback = callback.Callback;
+                this.errorCallback = callback.ErrorCallback;
+            }
             /// <summary>
             /// The client callback delegate
             /// 客户端回调委托
@@ -205,7 +267,7 @@ namespace AutoCSer.Net
             /// 成功值回调委托</param>
             /// <param name="errorCallback">Error return value type callback delegate
             /// 错误成功值类型回调委托</param>
-            internal ErrorCallback(Action<T> callback, Action<CommandClientReturnTypeEnum> errorCallback)
+            internal ErrorCallback(Action<T> callback, Action<CommandClientReturnValue> errorCallback)
             {
                 this.callback = callback;
                 this.errorCallback = errorCallback;
@@ -218,7 +280,41 @@ namespace AutoCSer.Net
             internal void Callback(CommandClientReturnValue<T> returnValue)
             {
                 if (returnValue.ReturnType == CommandClientReturnTypeEnum.Success) callback(returnValue.Value);
-                else errorCallback(returnValue.ReturnType);
+                else errorCallback(returnValue.ReturnValue);
+            }
+            /// <summary>
+            /// Client callback
+            /// 客户端回调
+            /// </summary>
+            /// <param name="returnValue"></param>
+            /// <param name="command"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            internal void Callback(CommandClientReturnValue<T> returnValue, AutoCSer.Net.KeepCallbackCommand command)
+            {
+                Callback(returnValue);
+            }
+            /// <summary>
+            /// Client callback
+            /// 客户端回调
+            /// </summary>
+            /// <param name="returnValue"></param>
+            /// <param name="queue"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            internal void Callback(CommandClientReturnValue<T> returnValue, CommandClientCallQueue queue)
+            {
+                Callback(returnValue);
+            }
+            /// <summary>
+            /// Client callback
+            /// 客户端回调
+            /// </summary>
+            /// <param name="returnValue"></param>
+            /// <param name="queue"></param>
+            /// <param name="command"></param>
+            [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            internal void Callback(CommandClientReturnValue<T> returnValue, CommandClientCallQueue queue, AutoCSer.Net.KeepCallbackCommand command)
+            {
+                Callback(returnValue);
             }
         }
         /// <summary>

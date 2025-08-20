@@ -7,9 +7,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// <summary>
     /// 实时调用信息序列化数据
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
-#endif
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial class CallData
     {

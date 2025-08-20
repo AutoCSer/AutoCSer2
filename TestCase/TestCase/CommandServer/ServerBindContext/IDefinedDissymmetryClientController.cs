@@ -9,9 +9,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// The client defines an asymmetric test interface (socket context binding the server)
     /// 客户端定义非对称测试接口（套接字上下文绑定服务端）
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(void), true)]
-#endif
     [AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute(typeof(IDefinedDissymmetryServerControllerMethodEnum))]
     [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false, IsCodeGeneratorControllerAttribute = false)]
     public partial interface IDefinedDissymmetryClientController

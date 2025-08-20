@@ -12,9 +12,7 @@ namespace AutoCSer
     /// 关键字类型</typeparam>
     /// <typeparam name="VT">Data value type
     /// 数据值类型</typeparam>
-#if AOT
     [AutoCSer.CodeGenerator.XmlSerialize]
-#endif
     [RemoteType]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]

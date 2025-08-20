@@ -28,8 +28,8 @@ namespace AutoCSer.CommandService
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip0__
             {
-                internal ulong randomPrefix;
                 internal byte[] hashData;
+                internal ulong randomPrefix;
                 internal long timestamp;
                 
             /// <summary>
@@ -128,8 +128,8 @@ namespace AutoCSer.CommandService
             {
                 __ip0__ __inputParameter__ = new __ip0__
                 {
-                    randomPrefix = randomPrefix,
                     hashData = hashData,
+                    randomPrefix = randomPrefix,
                     timestamp = timestamp,
                 };
                 __op0__ __outputParameter__ = new __op0__

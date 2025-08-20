@@ -3,12 +3,13 @@
 namespace AutoCSer.CodeGenerator
 {
     /// <summary>
-    /// AOT client command controller code generation configuration
-    /// AOT 客户端命令控制器代码生成配置
+    /// Client command controller code generation configuration (for .NET NativeAOT only)
+    /// 客户端命令控制器代码生成配置（仅用于 .NET NativeAOT）
     /// </summary>
     [AttributeUsage(AttributeTargets.Interface)]
     public sealed class CommandClientControllerAttribute : Attribute
     {
+#if AOT
         /// <summary>
         /// The method name of the constructor of the command client controller is called
         /// 命令客户端控制器构造函数调用方法名称
@@ -19,6 +20,7 @@ namespace AutoCSer.CodeGenerator
         /// 获取客户端接口方法信息方法名称
         /// </summary>
         internal const string CommandClientControllerMethodName = "__CommandClientControllerMethods__";
+#endif
 
         /// <summary>
         /// Server-side controller interface type
@@ -29,15 +31,19 @@ namespace AutoCSer.CodeGenerator
         /// Generate the controller name
         /// 生成控制器名称
         /// </summary>
+#if NetStandard21
         internal readonly string? ControllerTypeName;
+#else
+        internal readonly string ControllerTypeName;
+#endif
         /// <summary>
         /// Whether to generate the default controller for the client
         /// 是否生成客户端默认控制器
         /// </summary>
         internal readonly bool IsDefaultController;
         /// <summary>
-        /// AOT client command controller code generation configuration
-        /// AOT 客户端命令控制器代码生成配置
+        /// .NET NativeAOT client command controller code generation configuration
+        /// .NET NativeAOT 客户端命令控制器代码生成配置
         /// </summary>
         /// <param name="serverInterfaceType">Server controller interface type, asymmetric interface parameter typeof(void)
         /// 服务端控制器接口类型，非对称接口传参 typeof(void)</param>
@@ -45,7 +51,11 @@ namespace AutoCSer.CodeGenerator
         /// 默认为 false 表示不生成客户端默认控制器</param>
         /// <param name="controllerTypeName">The code generates the type name of the client controller. By default, null represents the default rule name
         /// 代码生成客户端控制器类型名称，默认为 null 表示默认规则名称</param>
+#if NetStandard21
         public CommandClientControllerAttribute(Type serverInterfaceType, bool isDefaultController = false, string? controllerTypeName = null)
+#else
+        public CommandClientControllerAttribute(Type serverInterfaceType, bool isDefaultController = false, string controllerTypeName = null)
+#endif
         {
             ServerInterfaceType = serverInterfaceType;
             IsDefaultController = isDefaultController;

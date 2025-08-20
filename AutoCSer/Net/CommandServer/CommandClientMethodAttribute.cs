@@ -31,6 +31,11 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsLowPriorityQueue;
         /// <summary>
+        /// A default value of true indicates the generation of a client API that directly retrieves the return value
+        /// 默认为 true 表示生成直接获取返回值的客户端 API
+        /// </summary>
+        public bool IsCodeGeneratorReturnValueController = true;
+        /// <summary>
         /// Match the server method name, which is used to specify the matching server method name when the client rewrites the method name in the automatic command sequence number mode
         /// 匹配服务端方法名称，用于自动命令序号模式下客户端改写方法名称时指定匹配的服务端方法名称
         /// </summary>

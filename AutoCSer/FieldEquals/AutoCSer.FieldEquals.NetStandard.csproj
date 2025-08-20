@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="CodeGenerator\FieldEqualsAttribute.cs" />
     <Compile Include="CombinationTemplateConfig.cs" />
     <Compile Include="CombinationTemplate\Comparor.Enum.cs" />
     <Compile Include="Comparor.cs" />

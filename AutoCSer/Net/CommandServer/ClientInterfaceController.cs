@@ -972,7 +972,7 @@ namespace AutoCSer.Net.CommandServer
                         var inputParameterLocalBuilder = method.GetInputParameterLocalBuilder(methodGenerator, out newInputParameterLocalBuilder);
                         if (method.InputParameterType != null)
                         {
-                            method.SetInputParameter(methodGenerator, newInputParameterLocalBuilder.notNull());
+                            method.SetInputParameter(methodGenerator, newInputParameterLocalBuilder.notNull(), true);
                             methodGenerator.Emit(OpCodes.Ldloc_S, newInputParameterLocalBuilder.notNull());
                             methodGenerator.Emit(OpCodes.Stloc_S, inputParameterLocalBuilder.notNull());
                         }

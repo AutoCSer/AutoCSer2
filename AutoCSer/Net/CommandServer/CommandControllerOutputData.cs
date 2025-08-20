@@ -7,9 +7,7 @@ namespace AutoCSer.Net.CommandServer
     /// <summary>
     /// 命令控制器查询输出数据
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
-#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal partial struct CommandControllerOutputData
     {

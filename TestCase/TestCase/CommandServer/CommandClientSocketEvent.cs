@@ -193,8 +193,14 @@ namespace AutoCSer.TestCase
         /// 命令客户端套接字事件
         /// </summary>
         /// <param name="client">Command client</param>
+        public CommandClientSocketEvent(CommandClient client) : this(client, true) { }
+        /// <summary>
+        /// Command client socket events
+        /// 命令客户端套接字事件
+        /// </summary>
+        /// <param name="client">Command client</param>
         /// <param name="isRemoteExpression"></param>
-        public CommandClientSocketEvent(CommandClient client, bool isRemoteExpression = false) : base(client, isRemoteExpression) { }
+        public CommandClientSocketEvent(CommandClient client, bool isRemoteExpression) : base(client, isRemoteExpression) { }
 #if AOT
         /// <summary>
         /// The notification of the server controller name was not found
@@ -215,6 +221,12 @@ namespace AutoCSer.TestCase
             }
             return base.NotFoundControllerName(socket, controllerName);
         }
+#else
+        /// <summary>
+        /// Generate the client controller encapsulation type for directly obtaining the return value
+        /// 生成直接获取返回值的客户端控制器封装类型
+        /// </summary>
+        public override bool IsCodeGeneratorReturnValueController { get { return true; } }
 #endif
     }
 }

@@ -21,7 +21,6 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseBackuper
             CommandClientConfig commandClientConfig = new CommandClientConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
-                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, slaveServiceConfig)
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))

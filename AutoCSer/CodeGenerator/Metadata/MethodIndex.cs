@@ -108,12 +108,13 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// <param name="index">成员编号</param>
         /// <param name="parameterStartIndex"></param>
         /// <param name="parameterEndIndex"></param>
-        internal MethodIndex(MethodInfo method, MemberFiltersEnum filter, int index, int parameterStartIndex, int parameterEndIndex)
+        /// <param name="isCheckRedirectType"></param>
+        internal MethodIndex(MethodInfo method, MemberFiltersEnum filter, int index, int parameterStartIndex, int parameterEndIndex, bool isCheckRedirectType = false)
             : base(method, filter, index)
         {
             Method = method;
             //if (method.ReturnType != typeof(void)) MethodReturnType = method.ReturnType;
-            Parameters = MethodParameter.Get(method, parameterStartIndex, parameterEndIndex);
+            Parameters = MethodParameter.Get(method, parameterStartIndex, parameterEndIndex, isCheckRedirectType);
         }
         /// <summary>
         /// 获取数据值

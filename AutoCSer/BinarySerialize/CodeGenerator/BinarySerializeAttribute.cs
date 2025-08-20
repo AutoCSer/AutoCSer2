@@ -4,12 +4,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CodeGenerator
 {
     /// <summary>
-    /// AOT binary serialization code generation configuration
-    /// AOT 二进制序列化代码生成配置
+    /// Binary serialization code generation configuration (for .NET NativeAOT only)
+    /// 二进制序列化代码生成配置（仅用于 .NET NativeAOT）
     /// </summary>
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class BinarySerializeAttribute : Attribute
     {
+#if AOT
         /// <summary>
         /// Name of binary serialization method
         /// 二进制序列化方法名称
@@ -35,7 +36,7 @@ namespace AutoCSer.CodeGenerator
         /// 二进制反数据序列化方法名称
         /// </summary>
         internal const string BinaryDeserializeMemberMapMethodName = "BinaryDeserializeMemberMap";
-
+#endif
         /// <summary>
         /// The default is true, indicating the generation of serialization code
         /// 默认为 true 表示生成序列化代码

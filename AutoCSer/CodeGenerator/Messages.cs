@@ -68,7 +68,7 @@ namespace AutoCSer.CodeGenerator
         /// 添加异常
         /// </summary>
         /// <param name="exception">异常</param>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
         public static void Exception(Exception exception)
         {
             exceptions.Add(exception);

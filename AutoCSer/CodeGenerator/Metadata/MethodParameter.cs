@@ -22,6 +22,14 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// </summary>
         public ExtensionType ParameterType { get; private set; }
         /// <summary>
+        /// 重定向类型
+        /// </summary>
+        public ExtensionType RedirectType { get; private set; }
+        /// <summary>
+        /// 是否重定向类型
+        /// </summary>
+        public bool IsRedirectType { get { return !object.ReferenceEquals(ParameterType, RedirectType); } }
+        /// <summary>
         /// 参数索引位置
         /// </summary>
         public int ParameterIndex { get; private set; }
@@ -100,7 +108,8 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// <param name="parameter">参数信息</param>
         /// <param name="index">参数索引位置</param>
         /// <param name="isLast">是否最后一个参数</param>
-        private MethodParameter(MethodInfo method, ParameterInfo parameter, int index, bool isLast)
+        /// <param name="isCheckRedirectType"></param>
+        private MethodParameter(MethodInfo method, ParameterInfo parameter, int index, bool isLast, bool isCheckRedirectType)
         {
             this.method = method;
             Parameter = parameter;
@@ -110,9 +119,17 @@ namespace AutoCSer.CodeGenerator.Metadata
             {
                 if (parameter.IsOut) IsOut = true;
                 else IsRef = true;
-                ParameterType = parameterType.GetElementType();
+                RedirectType = ParameterType = parameterType.GetElementType();
             }
-            else ParameterType = parameterType;
+            else
+            {
+                RedirectType = ParameterType = parameterType;
+                if (isCheckRedirectType)
+                {
+                    var redirectType = AutoCSer.Net.CommandServer.MethodParameter.GetParameterType(parameterType);
+                    if (redirectType != null) RedirectType = redirectType;
+                }
+            }
             ParameterName = Parameter.Name;
             ParameterJoin = isLast ? null : ", ";
         }
@@ -127,7 +144,7 @@ namespace AutoCSer.CodeGenerator.Metadata
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.isEmpty()) return EmptyArray<MethodParameter>.Array;
             int index = 0;
-            return parameters.getArray(value => new MethodParameter(method, value, index, ++index == parameters.Length));
+            return parameters.getArray(value => new MethodParameter(method, value, index, ++index == parameters.Length, false));
         }
         /// <summary>
         /// 获取方法参数信息集合
@@ -135,15 +152,16 @@ namespace AutoCSer.CodeGenerator.Metadata
         /// <param name="method">方法信息</param>
         /// <param name="startIndex"></param>
         /// <param name="endIndex"></param>
+        /// <param name="isCheckRedirectType"></param>
         /// <returns>参数信息集合</returns>
-        internal static MethodParameter[] Get(MethodInfo method, int startIndex, int endIndex)
+        internal static MethodParameter[] Get(MethodInfo method, int startIndex, int endIndex, bool isCheckRedirectType)
         {
             int count = endIndex - startIndex;
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.Length == 0 || count <= 0) return EmptyArray<MethodParameter>.Array;
             int index = 0;
             return new SubArray<ParameterInfo>(startIndex, count, parameters)
-                .GetArray(value => new MethodParameter(method, value, index, ++index == count));
+                .GetArray(value => new MethodParameter(method, value, index, ++index == count, isCheckRedirectType));
         }
     }
 }

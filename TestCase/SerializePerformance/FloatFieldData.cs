@@ -6,11 +6,9 @@ namespace AutoCSer.TestCase.SerializePerformance
     /// <summary>
     /// 浮点数字段测试数据
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
     [AutoCSer.CodeGenerator.RandomObject]
-#endif
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [AutoCSer.JsonSerialize(CheckLoopReference = false)]
     partial class FloatFieldData : FieldData

@@ -3,7 +3,7 @@
 #pragma warning disable
 namespace AutoCSer.CodeGenerator.Template
 {
-    internal sealed class CommandServerClientController : Pub
+    internal sealed class CommandClientController : Pub
     {
         #region PART CLASS
         /// <summary>

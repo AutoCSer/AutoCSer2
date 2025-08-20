@@ -5,9 +5,7 @@ namespace AutoCSer.Net.CommandServer
     /// <summary>
     /// 取消异步保持回调数据
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
-#endif
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     internal partial struct CancelKeepCallbackData

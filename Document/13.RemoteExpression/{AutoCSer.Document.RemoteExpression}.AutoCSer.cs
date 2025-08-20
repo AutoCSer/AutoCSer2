@@ -22,7 +22,7 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="action">Remote expression delegate Action 
 ///            远程表达式委托 Action</param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action(AutoCSer.Net.CommandServer.RemoteExpressionAction action);
+            AutoCSer.Net.ReturnCommand<int> Action([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction))]System.Linq.Expressions.Expression<System.Action> action);
             /// <summary>
             /// The test API of the delegate Action{T} 
 ///            委托 Action{T} 测试 API
@@ -31,7 +31,7 @@ namespace AutoCSer.Document.RemoteExpression
 ///            远程表达式委托 Action{T}</param>
             /// <param name="parameter"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action1(AutoCSer.Net.CommandServer.RemoteExpressionAction<int> action, int parameter);
+            AutoCSer.Net.ReturnCommand<int> Action1([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction<int>))]System.Linq.Expressions.Expression<System.Action<int>> action, int parameter);
             /// <summary>
             /// The test API of the delegate Action{T1, T2} 
 ///            委托 Action{T1, T2} 测试 API
@@ -41,7 +41,7 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="parameter1"></param>
             /// <param name="parameter2"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action2(AutoCSer.Net.CommandServer.RemoteExpressionAction<int,int> action, int parameter1, int parameter2);
+            AutoCSer.Net.ReturnCommand<int> Action2([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction<int,int>))]System.Linq.Expressions.Expression<System.Action<int,int>> action, int parameter1, int parameter2);
             /// <summary>
             /// The test API of the delegate Action{T1, T2, T3} 
 ///            委托 Action{T1, T2, T3} 测试 API
@@ -52,7 +52,7 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="parameter2"></param>
             /// <param name="parameter3"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action3(AutoCSer.Net.CommandServer.RemoteExpressionAction<int,int,int> action, int parameter1, int parameter2, int parameter3);
+            AutoCSer.Net.ReturnCommand<int> Action3([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction<int,int,int>))]System.Linq.Expressions.Expression<System.Action<int,int,int>> action, int parameter1, int parameter2, int parameter3);
             /// <summary>
             /// The test API of the parameterless delegate Func{T} 
 ///            无参委托 Func{T} 测试 API
@@ -60,7 +60,7 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="func">Remote expression delegate Func{RT} 
 ///            远程表达式委托 Func{RT}</param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int> func);
+            AutoCSer.Net.ReturnCommand<int> Func([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int>))]System.Linq.Expressions.Expression<System.Func<int>> func);
             /// <summary>
             /// The test API of the delegate Func{T, RT} 
 ///            委托 Func{T, RT} 测试 API
@@ -69,7 +69,7 @@ namespace AutoCSer.Document.RemoteExpression
 ///            远程表达式委托 Func{T, RT}</param>
             /// <param name="parameter"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func1(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int> func, int parameter);
+            AutoCSer.Net.ReturnCommand<int> Func1([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int>))]System.Linq.Expressions.Expression<System.Func<int,int>> func, int parameter);
             /// <summary>
             /// The test API of the delegate Func{T1, T2, RT} 
 ///            委托 Func{T1, T2, RT} 测试 API
@@ -79,7 +79,7 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="parameter1"></param>
             /// <param name="parameter2"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func2(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,int> func, int parameter1, int parameter2);
+            AutoCSer.Net.ReturnCommand<int> Func2([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,int>))]System.Linq.Expressions.Expression<System.Func<int,int,int>> func, int parameter1, int parameter2);
             /// <summary>
             /// The test API of the delegate Func{T1, T2, T3, RT} 
 ///            委托 Func{T1, T2, T3, RT} 测试 API
@@ -90,7 +90,7 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="parameter2"></param>
             /// <param name="parameter3"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func3(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,int,int> func, int parameter1, int parameter2, int parameter3);
+            AutoCSer.Net.ReturnCommand<int> Func3([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,int,int>))]System.Linq.Expressions.Expression<System.Func<int,int,int,int>> func, int parameter1, int parameter2, int parameter3);
             /// <summary>
             /// Test API for support persistent Lambda expressions 
 ///            支持持久化的 Lambda 表达式测试 API
@@ -98,7 +98,7 @@ namespace AutoCSer.Document.RemoteExpression
             /// <param name="func">Support persistent remote Lambda expressions 
 ///            支持持久化的远程 Lambda 表达式</param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Persistent(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<int>> func);
+            AutoCSer.Net.ReturnCommand<int> Persistent([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<int>>))]System.Linq.Expressions.Expression<System.Func<int>> func);
         }
 }namespace AutoCSer.Document.RemoteExpression
 {

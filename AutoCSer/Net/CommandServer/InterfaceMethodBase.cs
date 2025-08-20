@@ -1,6 +1,7 @@
 ﻿using AutoCSer.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -135,7 +136,8 @@ namespace AutoCSer.Net.CommandServer
         /// </summary>
         /// <param name="methodGenerator"></param>
         /// <param name="newInputParameterLocalBuilder"></param>
-        internal void SetInputParameter(ILGenerator methodGenerator, LocalBuilder newInputParameterLocalBuilder)
+        /// <param name="isCheckRedirectType"></param>
+        internal void SetInputParameter(ILGenerator methodGenerator, LocalBuilder newInputParameterLocalBuilder, bool isCheckRedirectType = false)
         {
             int parameterIndex = 0;
             foreach (ParameterInfo parameter in InputParameters)
@@ -162,6 +164,12 @@ namespace AutoCSer.Net.CommandServer
                             else methodGenerator.Emit(OpCodes.Ldobj, parameterType);
                         }
                         else methodGenerator.Emit(OpCodes.Ldind_Ref);
+                    }
+                    else if(isCheckRedirectType)
+                    {
+                        var castMethod = default(MethodInfo);
+                        var redirectType = MethodParameter.GetRedirectType(parameter, out castMethod);
+                        if (redirectType != null) methodGenerator.call(castMethod.notNull());
                     }
                     methodGenerator.Emit(OpCodes.Stfld, InputParameterFields[parameterIndex]);
                 }

@@ -180,7 +180,6 @@ namespace AutoCSer.Net
         /// 默认初始化控制器调用返回类型
         /// </summary>
         public CommandClientReturnTypeEnum DefaultControllerReturnType { get; internal set; }
-#if NetStandard21
         /// <summary>
         /// Default empty command client
         /// 默认空命令客户端
@@ -191,15 +190,16 @@ namespace AutoCSer.Net
             DefaultControllerReturnType = CommandClientReturnTypeEnum.NoSocketCreated;
             callbackQueues = EmptyArray<KeyValue<CommandClientCallQueue, CommandClientCallQueueLowPriorityLink>>.Array;
             BinaryDeserializeConfig = BinaryDeserializer.DefaultConfig;
+#if NetStandard21
             SendBufferPool = ReceiveBufferPool = ByteArrayPool.GetPool(Config.ReceiveBufferSizeBits);
             SocketEvent = new CommandClientSocketEvent(this);
+#endif
         }
         /// <summary>
         /// Default empty command client
         /// 默认空命令客户端
         /// </summary>
         internal static readonly CommandClient Null = new CommandClient();
-#endif
         /// <summary>
         /// Command client
         /// </summary>

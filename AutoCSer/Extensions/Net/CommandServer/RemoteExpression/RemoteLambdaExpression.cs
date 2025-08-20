@@ -118,5 +118,15 @@ namespace AutoCSer.Net.CommandServer
                 else state = (RemoteExpressionSerializeStateEnum)(byte)stateValue;
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteLambdaExpression<T>(Expression<T> expression) { return new RemoteLambdaExpression<T>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteLambdaExpression<T> AutoCSerCommandParameterCastType(Expression<T> expression) { return (RemoteLambdaExpression<T>)expression; }
     }
 }

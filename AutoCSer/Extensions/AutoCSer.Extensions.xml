@@ -7197,6 +7197,18 @@
             </summary>
             <param name="size"></param>
         </member>
+        <member name="T:AutoCSer.CodeGenerator.MemberCopyAttribute">
+            <summary>
+            Member copy code generation configuration (for.NET NativeAOT only)
+            成员复制代码生成配置（仅用于 .NET NativeAOT）
+            </summary>
+        </member>
+        <member name="T:AutoCSer.CodeGenerator.XmlSerializeAttribute">
+            <summary>
+            XML serialization code generation configuration (for.NET NativeAOT only)
+            XML 序列化代码生成配置（仅用于 .NET NativeAOT）
+            </summary>
+        </member>
         <member name="T:AutoCSer.MemberCopy`1">
             <summary>
             成员复制
@@ -10291,6 +10303,18 @@
             </summary>
             <param name="deserializer"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction.op_Implicit(System.Linq.Expressions.Expression{System.Action})~AutoCSer.Net.CommandServer.RemoteExpressionAction">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Action})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
+        </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionAction`1">
             <summary>
             Remote expression delegate Action{T} (It relies on the state of in-memory data and does not support persistence)
@@ -10367,6 +10391,18 @@
             反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.op_Implicit(System.Linq.Expressions.Expression{System.Action{`0}})~AutoCSer.Net.CommandServer.RemoteExpressionAction{`0}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Action{`0}})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`1.parameterTypes">
             <summary>
@@ -10454,6 +10490,18 @@
             反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.op_Implicit(System.Linq.Expressions.Expression{System.Action{`0,`1}})~AutoCSer.Net.CommandServer.RemoteExpressionAction{`0,`1}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Action{`0,`1}})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`2.parameterTypes">
             <summary>
@@ -10546,27 +10594,23 @@
             </summary>
             <param name="deserializer"></param>
         </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.op_Implicit(System.Linq.Expressions.Expression{System.Action{`0,`1,`2}})~AutoCSer.Net.CommandServer.RemoteExpressionAction{`0,`1,`2}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Action{`0,`1,`2}})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
+        </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionAction`3.parameterTypes">
             <summary>
             A collection of generic parameter types
             泛型参数类型集合
             </summary>
-        </member>
-        <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionFunc">
-            <summary>
-            Remote expression delegate
-            远程表达式委托
-            </summary>
-        </member>
-        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc.Get``1(System.Linq.Expressions.Expression{System.Func{``0}})">
-            <summary>
-            Get the remote expression delegate
-            获取远程表达式委托
-            </summary>
-            <typeparam name="RT">Return value type
-            返回值类型</typeparam>
-            <param name="expression"></param>
-            <returns></returns>
         </member>
         <member name="T:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1">
             <summary>
@@ -10643,6 +10687,18 @@
             反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.op_Implicit(System.Linq.Expressions.Expression{System.Func{`0}})~AutoCSer.Net.CommandServer.RemoteExpressionFunc{`0}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Func{`0}})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`1.parameterTypes">
             <summary>
@@ -10729,6 +10785,18 @@
             反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.op_Implicit(System.Linq.Expressions.Expression{System.Func{`0,`1}})~AutoCSer.Net.CommandServer.RemoteExpressionFunc{`0,`1}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Func{`0,`1}})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`2.parameterTypes">
             <summary>
@@ -10819,6 +10887,18 @@
             反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.op_Implicit(System.Linq.Expressions.Expression{System.Func{`0,`1,`2}})~AutoCSer.Net.CommandServer.RemoteExpressionFunc{`0,`1,`2}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Func{`0,`1,`2}})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`3.parameterTypes">
             <summary>
@@ -10913,6 +10993,18 @@
             反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.op_Implicit(System.Linq.Expressions.Expression{System.Func{`0,`1,`2,`3}})~AutoCSer.Net.CommandServer.RemoteExpressionFunc{`0,`1,`2,`3}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{System.Func{`0,`1,`2,`3}})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
         </member>
         <member name="F:AutoCSer.Net.CommandServer.RemoteExpressionFunc`4.parameterTypes">
             <summary>
@@ -11014,6 +11106,18 @@
             反序列化
             </summary>
             <param name="deserializer"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.op_Implicit(System.Linq.Expressions.Expression{`0})~AutoCSer.Net.CommandServer.RemoteLambdaExpression{`0}">
+            <summary>
+            Implicit conversion
+            </summary>
+            <param name="expression"></param>
+        </member>
+        <member name="M:AutoCSer.Net.CommandServer.RemoteLambdaExpression`1.AutoCSerCommandParameterCastType(System.Linq.Expressions.Expression{`0})">
+            <summary>
+            客户端传参类型重定向
+            </summary>
+            <param name="expression"></param>
         </member>
         <member name="T:AutoCSer.Net.Packet.Arp">
             <summary>

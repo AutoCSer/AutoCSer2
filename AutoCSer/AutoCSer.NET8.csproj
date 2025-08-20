@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.72</Version>
+    <Version>2.0.73</Version>
     <PackageId>AutoCSer.NET8</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>AutoCSer is a distributed application infrastructure framework implemented in C#. Its core is a full-duplex RPC component based on TCP long connections, featuring high concurrency, high throughput and other high-performance characteristics.
@@ -55,6 +55,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="BinarySerialize\BinarySerializeMemberAttribute.cs" />
     <Compile Include="BinarySerialize\BinarySerializeMemberMap.cs" />
     <Compile Include="BinarySerialize\BinarySerializer.cs" />
+    <Compile Include="BinarySerialize\CodeGenerator\BinarySerializeAttribute.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.Member.NET8.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.AlignArray.NET8.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.Align.NET8.cs" />
@@ -113,6 +114,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Extensions\NullableReferenceExtension.cs" />
     <Compile Include="Extensions\TaskExtension.cs" />
     <Compile Include="FragmentDictionary256.cs" />
+    <Compile Include="Json\CodeGenerator\JsonSerializeAttribute.cs" />
     <Compile Include="Memory\HashBuffer.cs" />
     <Compile Include="Memory\HashBytes.cs" />
     <Compile Include="HeadLeftArray.cs" />
@@ -156,6 +158,8 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="NET8\SerializeQuaternion.cs" />
     <Compile Include="NET8\SerializeVector4.cs" />
     <Compile Include="NET8\SupportedOSPlatform.cs" />
+    <Compile Include="Net\CommandServer\CodeGenerator\CommandClientControllerAttribute.cs" />
+    <Compile Include="Net\CommandServer\CommandClientCall\ClientReturnValueCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientReturnValueParameterCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCompressConfig.cs" />
     <Compile Include="Net\CommandServer\CommandClientDefaultController.cs" />
@@ -194,6 +198,8 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\CompletedReturnCommand.cs" />
     <Compile Include="Net\CommandServer\Command\IEnumeratorCommand.cs" />
     <Compile Include="Net\CommandServer\Command\KeepCallbackCommand\TwoStage‌CallbackCommand.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameter.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameterTypeAttribute.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputRemoteMetadata.cs" />
     <Compile Include="Net\CommandServer\Output\ServerOutputTwoStage‌.cs" />
     <Compile Include="Net\CommandServer\RemoteExpression\CallDelegate.cs" />

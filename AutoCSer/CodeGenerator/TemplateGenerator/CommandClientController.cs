@@ -15,7 +15,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     /// 客户端命令控制器
     /// </summary>
     [Generator(Name = "客户端命令控制器", IsAuto = true)]
-    internal partial class CommandServerClientController : AttributeGenerator<AutoCSer.CodeGenerator.CommandClientControllerAttribute>
+    internal partial class CommandClientController : AttributeGenerator<AutoCSer.CodeGenerator.CommandClientControllerAttribute>
     {
         /// <summary>
         /// 参数字段信息
@@ -640,11 +640,11 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 
                         if (InputParameterType == null)
                         {
-                            if (OutputParameterType == null) CallMethodName = nameof(CommandClientController.Synchronous);
+                            if (OutputParameterType == null) CallMethodName = nameof(Net.CommandClientController.Synchronous);
                             else
                             {
                                 IsOutputParameter = true;
-                                CallMethodName = nameof(CommandClientController.SynchronousOutput);
+                                CallMethodName = nameof(Net.CommandClientController.SynchronousOutput);
                                 GenericTypeName = OutputParameterType.ParameterTypeName;
                             }
                         }
@@ -652,23 +652,23 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         {
                             if (OutputParameterType == null)
                             {
-                                CallMethodName = nameof(CommandClientController.SynchronousInput);
+                                CallMethodName = nameof(Net.CommandClientController.SynchronousInput);
                                 GenericTypeName = InputParameterType.ParameterTypeName;
                             }
                             else
                             {
                                 IsOutputParameter = true;
-                                CallMethodName = nameof(CommandClientController.SynchronousInputOutput);
+                                CallMethodName = nameof(Net.CommandClientController.SynchronousInputOutput);
                                 GenericTypeName = $"{InputParameterType.ParameterTypeName}, {OutputParameterType.ParameterTypeName}";
                             }
                         }
                         break;
                     case ClientMethodTypeEnum.SendOnly:
                         DefaultControllerCallMethodName = nameof(CommandClientDefaultController.SendOnly);
-                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.SendOnly);
+                        if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.SendOnly);
                         else
                         {
-                            CallMethodName = nameof(CommandClientController.SendOnlyInput);
+                            CallMethodName = nameof(Net.CommandClientController.SendOnlyInput);
                             GenericTypeName = InputParameterType.ParameterTypeName;
                         }
                         break;
@@ -680,10 +680,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultCallback);
                         }
 
-                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.Callback);
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.CallbackInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.CallbackOutput);
-                        else CallMethodName = nameof(CommandClientController.CallbackOutputReturnValue);
+                        if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.Callback);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.CallbackInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.CallbackOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.CallbackOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.KeepCallback:
                         if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.KeepCallback);
@@ -693,10 +693,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultKeepCallback);
                         }
 
-                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.KeepCallback);
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.KeepCallbackInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.KeepCallbackOutput);
-                        else CallMethodName = nameof(CommandClientController.KeepCallbackOutputReturnValue);
+                        if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.KeepCallback);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.KeepCallbackInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.KeepCallbackOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.KeepCallbackOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.TwoStageCallback:
                         if (method.IsTwoStageReturnValueParameter)
@@ -704,18 +704,18 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             if (method.IsCallbackAction) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultTwoStage‌CallbackParameter);
                             else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultTwoStageCallback);
 
-                            if (InputParameterType == null) CallMethodName = nameof(CommandClientController.TwoStageCallbackReturnParameter);
-                            else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.TwoStageCallbackInputReturnParameter);
-                            else CallMethodName = nameof(CommandClientController.TwoStageCallbackInputReturnValueParameter);
+                            if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.TwoStageCallbackReturnParameter);
+                            else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.TwoStageCallbackInputReturnParameter);
+                            else CallMethodName = nameof(Net.CommandClientController.TwoStageCallbackInputReturnValueParameter);
                         }
                         else
                         {
                             if (method.IsCallbackAction) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultTwoStageCallbackAction);
                             else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultTwoStageCallback);
 
-                            if (InputParameterType == null) CallMethodName = nameof(CommandClientController.TwoStageCallback);
-                            else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.TwoStageCallbackInput);
-                            else CallMethodName = nameof(CommandClientController.TwoStageCallbackInputReturnValue);
+                            if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.TwoStageCallback);
+                            else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.TwoStageCallbackInput);
+                            else CallMethodName = nameof(Net.CommandClientController.TwoStageCallbackInputReturnValue);
                         }
                         break;
                     case ClientMethodTypeEnum.CallbackQueue:
@@ -726,10 +726,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultCallbackQueue);
                         }
 
-                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.CallbackQueue);
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.CallbackQueueInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.CallbackQueueOutput);
-                        else CallMethodName = nameof(CommandClientController.CallbackQueueOutputReturnValue);
+                        if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.CallbackQueue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.CallbackQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.CallbackQueueOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.CallbackQueueOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.KeepCallbackQueue:
                         if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.KeepCallbackQueue);
@@ -739,10 +739,10 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultKeepCallbackQueue);
                         }
 
-                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.KeepCallbackQueue);
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.KeepCallbackQueueInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.KeepCallbackQueueOutput);
-                        else CallMethodName = nameof(CommandClientController.KeepCallbackQueueOutputReturnValue);
+                        if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.KeepCallbackQueue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.KeepCallbackQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.KeepCallbackQueueOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.KeepCallbackQueueOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.ReturnValue:
                     case ClientMethodTypeEnum.Task:
@@ -754,12 +754,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 
                         if (InputParameterType == null)
                         {
-                            if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnType);
-                            else CallMethodName = nameof(CommandClientController.ReturnValue);
+                            if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.ReturnType);
+                            else CallMethodName = nameof(Net.CommandClientController.ReturnValue);
                         }
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnTypeInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.ReturnValueOutput);
-                        else CallMethodName = nameof(CommandClientController.ReturnValueOutputReturnValue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.ReturnTypeInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.ReturnValueOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.ReturnValueOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.ReturnValueQueue:
                         if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.ReturnTypeQueue);
@@ -767,12 +767,12 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 
                         if (InputParameterType == null)
                         {
-                            if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnTypeQueue);
-                            else CallMethodName = nameof(CommandClientController.ReturnValueQueue);
+                            if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.ReturnTypeQueue);
+                            else CallMethodName = nameof(Net.CommandClientController.ReturnValueQueue);
                         }
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.ReturnTypeQueueInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.ReturnValueQueueOutput);
-                        else CallMethodName = nameof(CommandClientController.ReturnValueQueueOutputReturnValue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.ReturnTypeQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.ReturnValueQueueOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.ReturnValueQueueOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.Enumerator:
                     case ClientMethodTypeEnum.AsyncEnumerable:
@@ -782,19 +782,19 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                             else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultEnumerator);
                         }
 
-                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.Enumerator);
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.EnumeratorInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.EnumeratorOutput);
-                        else CallMethodName = nameof(CommandClientController.EnumeratorOutputReturnValue);
+                        if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.Enumerator);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.EnumeratorInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.EnumeratorOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.EnumeratorOutputReturnValue);
                         break;
                     case ClientMethodTypeEnum.EnumeratorQueue:
                         if (method.ReturnValueType == typeof(void)) DefaultControllerCallMethodName = nameof(CommandClientDefaultController.EnumeratorQueue);
                         else DefaultControllerCallMethodName = nameof(CommandClientDefaultController.DefaultEnumeratorQueue);
 
-                        if (InputParameterType == null) CallMethodName = nameof(CommandClientController.EnumeratorQueue);
-                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(CommandClientController.EnumeratorQueueInput);
-                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(CommandClientController.EnumeratorQueueOutput);
-                        else CallMethodName = nameof(CommandClientController.EnumeratorQueueOutputReturnValue);
+                        if (InputParameterType == null) CallMethodName = nameof(Net.CommandClientController.EnumeratorQueue);
+                        else if (method.ReturnValueType == typeof(void)) CallMethodName = nameof(Net.CommandClientController.EnumeratorQueueInput);
+                        else if (method.ReturnValueParameterIndex < 0) CallMethodName = nameof(Net.CommandClientController.EnumeratorQueueOutput);
+                        else CallMethodName = nameof(Net.CommandClientController.EnumeratorQueueOutputReturnValue);
                         break;
                 }
             }

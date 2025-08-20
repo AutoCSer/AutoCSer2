@@ -37,6 +37,82 @@ namespace AutoCSer.Document.NativeAOT.Service
 }namespace AutoCSer.Document.NativeAOT.Service
 {
         /// <summary>
+        /// Command client socket events 
+///            命令客户端套接字事件
+        /// </summary>
+    internal partial class CommandClientSocketEvent
+    {
+        /// <summary>
+        /// Client interface example 
+///            客户端接口示例 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServiceControllerClientControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.Document.NativeAOT.Service.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// Client interface example 
+///            客户端接口示例 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServiceControllerClientControllerReturnValueController(AutoCSer.Document.NativeAOT.Service.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// One-time response API example  
+///                       一次性响应 API 示例
+            /// </summary>
+            /// <param name="left"></param>
+            /// <param name="right"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> OneTimeResponse(int left, int right)
+            {
+                
+                return this.__client__.ServiceControllerClientController/**/.OneTimeResponse(left, right).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// Two-stage response API example  
+///                       二阶段响应 API 示例
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageResponse(System.Action<string> callback, System.Action<int> keepCallback)
+            {
+                return this.__client__.ServiceControllerClientController/**/.TwoStageResponse(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<int>(keepCallback));
+            }
+            /// <summary>
+            /// Two-stage response API example  
+///                       二阶段响应 API 示例
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageResponse(System.Action<string> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<int> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ServiceControllerClientController/**/.TwoStageResponse(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<int>(keepCallback, error_keepCallback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServiceControllerClientController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>Client interface example 
+///            客户端接口示例 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServiceControllerClientControllerReturnValueController GetServiceControllerClientControllerReturnValueController(bool isIgnoreError = false) { return new ServiceControllerClientControllerReturnValueController(this, isIgnoreError); }
+    }
+}namespace AutoCSer.Document.NativeAOT.Service
+{
+        /// <summary>
         /// An example of generate the API definition of the client controller interface 
 ///            生成客户端控制器接口 API 定义示例
         /// </summary>

@@ -3,10 +3,8 @@
 #pragma warning disable
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase
 {
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize]
     [AutoCSer.CodeGenerator.RandomObject]
-#endif
     public partial class TestClass : IEquatable<TestClass>
     {
         public int Int;

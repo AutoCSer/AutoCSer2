@@ -20,13 +20,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 ? new CommandClientCompressConfig
                 {
                     Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
-                    ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                     GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
                 }
                 : new CommandClientConfig
                 {
                     Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.StreamPersistenceMemoryDatabase),
-                    ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                     GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
                 };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))

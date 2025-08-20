@@ -3,6 +3,7 @@ using AutoCSer.Extensions;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.ServerRegistryServiceClient
@@ -29,6 +30,11 @@ namespace AutoCSer.TestCase.ServerRegistryServiceClient
                 yield return new CommandClientControllerCreatorParameter(typeof(ServerRegistryService.IService), typeof(IClient));
             }
         }
+        /// <summary>
+        /// Command client socket event controller property binding identification
+        /// 命令客户端套接字事件控制器属性绑定标识
+        /// </summary>
+        public override BindingFlags ControllerBindingFlags { get { return BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public; } }
         /// <summary>
         /// Command client socket events
         /// 命令客户端套接字事件

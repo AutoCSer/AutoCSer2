@@ -30,6 +30,11 @@ namespace AutoCSer.TestCase.SearchQueryService
             }
         }
         /// <summary>
+        /// Command client socket event controller property binding identification
+        /// 命令客户端套接字事件控制器属性绑定标识
+        /// </summary>
+        public override BindingFlags ControllerBindingFlags { get { return BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public; } }
+        /// <summary>
         /// Command client socket events
         /// 命令客户端套接字事件
         /// </summary>
@@ -42,7 +47,6 @@ namespace AutoCSer.TestCase.SearchQueryService
         public static readonly AutoCSer.Net.CommandClientSocketEventCache<DiskBlockCommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<DiskBlockCommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
         {
             Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock),
-            ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
             GetSocketEventDelegate = (client) => new DiskBlockCommandClientSocketEvent(client)
         });
     }

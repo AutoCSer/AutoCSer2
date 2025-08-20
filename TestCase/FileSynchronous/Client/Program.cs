@@ -16,7 +16,6 @@ namespace AutoCSer.TestCase.FileSynchronousClient
             CommandClientConfig commandClientConfig = new CommandClientCompressConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.FileSynchronous),
-                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))

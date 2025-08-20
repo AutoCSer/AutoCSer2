@@ -4,12 +4,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CodeGenerator
 {
     /// <summary>
-    /// Configuration for generating JSON serialization code in the AOT environment
-    /// AOT 环境 JSON 序列化代码生成配置
+    /// JSON serialization code generation configuration (for .NET NativeAOT only)
+    /// JSON 序列化代码生成配置（仅用于 .NET NativeAOT）
     /// </summary>
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class JsonSerializeAttribute : Attribute
     {
+#if AOT
         /// <summary>
         /// Name of JSON serialization method
         /// JSON 序列化方法名称
@@ -40,7 +41,7 @@ namespace AutoCSer.CodeGenerator
         /// 获取 JSON 反序列化成员名称集合的方法名称
         /// </summary>
         internal const string JsonDeserializeMemberNameMethodName = "JsonDeserializeMemberNames";
-
+#endif
         /// <summary>
         /// The default is true, indicating the generation of serialization code
         /// 默认为 true 表示生成序列化代码

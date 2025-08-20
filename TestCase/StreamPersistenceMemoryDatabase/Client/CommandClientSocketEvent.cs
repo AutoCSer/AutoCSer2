@@ -3,6 +3,7 @@ using AutoCSer.CommandService.StreamPersistenceMemoryDatabase;
 using AutoCSer.Net;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
@@ -31,6 +32,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabaseClient
                 //yield return new CommandClientControllerCreatorParameter(typeof(IReadWriteQueueService), typeof(IStreamPersistenceMemoryDatabaseClient));
             }
         }
+        /// <summary>
+        /// Command client socket event controller property binding identification
+        /// 命令客户端套接字事件控制器属性绑定标识
+        /// </summary>
+        public override BindingFlags ControllerBindingFlags { get { return BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public; } }
         /// <summary>
         /// Command client socket events
         /// 命令客户端套接字事件

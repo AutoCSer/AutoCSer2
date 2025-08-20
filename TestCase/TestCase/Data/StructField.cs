@@ -8,12 +8,10 @@ namespace AutoCSer.TestCase.Data
     /// <summary>
     /// 字段数据定义(值类型外壳)
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
     [AutoCSer.CodeGenerator.XmlSerialize]
     [AutoCSer.CodeGenerator.RandomObject]
     [AutoCSer.CodeGenerator.FieldEquals]
-#endif
     [AutoCSer.BinarySerialize(IsMemberMap = true)]
     internal partial struct StructField
     {

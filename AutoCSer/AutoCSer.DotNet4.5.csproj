@@ -52,6 +52,7 @@
     <Compile Include="BinarySerialize\BinarySerializeMemberAttribute.cs" />
     <Compile Include="BinarySerialize\BinarySerializeMemberMap.cs" />
     <Compile Include="BinarySerialize\BinarySerializer.cs" />
+    <Compile Include="BinarySerialize\CodeGenerator\BinarySerializeAttribute.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.Align.NET8.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.AlignArray.NET8.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.FillAlignArray.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="BinarySerialize\TypeDeserializer.cs" />
     <Compile Include="BinarySerialize\DeSerializeArrayMap.cs" />
     <Compile Include="CompletedTask.cs" />
+    <Compile Include="Configuration\CodeGenerator\ConfigurationAttribute.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Extensions\SubArrayExtension.cs" />
     <Compile Include="Extensions\TypeBuilderExtension.cs" />
     <Compile Include="Json\BinaryMixTypeEnum.cs" />
+    <Compile Include="Json\CodeGenerator\JsonSerializeAttribute.cs" />
     <Compile Include="Json\CombinationTemplate\JsonDeserialize.Enum.cs" />
     <Compile Include="Json\CombinationTemplate\JsonDeserializer.Array.cs" />
     <Compile Include="Json\CombinationTemplate\JsonDeserializer.cs" />
@@ -210,6 +213,8 @@
     <Compile Include="Net\CommandServer\ClientBuildInfo.cs" />
     <Compile Include="Net\CommandServer\ClientCallbackTypeEnum.cs" />
     <Compile Include="Net\CommandServer\ClientTaskQueueInterfaceController.cs" />
+    <Compile Include="Net\CommandServer\CodeGenerator\CommandClientControllerAttribute.cs" />
+    <Compile Include="Net\CommandServer\CommandClientCall\ClientReturnValueCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallbackQueueNode.cs" />
     <Compile Include="Net\CommandServer\ClientCheckTimer.cs" />
@@ -368,6 +373,8 @@
     <Compile Include="Net\CommandServer\Command\CommandReturnValue.cs" />
     <Compile Include="Net\CommandServer\Command\SendOnlyCommand.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientMethodTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameter.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameterTypeAttribute.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterface.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerMethodParameter.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerMethodParameterKey.cs" />

@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerQueueController), true)]
-#endif
     public partial interface IClientQueueController
     {
         CommandClientReturnValue<string> QueueReturnSocket(int Value, ref int Ref, out long Out);

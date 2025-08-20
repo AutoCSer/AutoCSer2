@@ -144,9 +144,9 @@ namespace AutoCSer
                 if (type.GetArrayRank() == 1)
                 {
 #if AOT
-                    //Type elementType = type.GetElementType().notNull();
-                    //defaultCopyer = (Copyer)MemberCopyMethod.CopyArrayMethod.MakeGenericMethod(elementType).CreateDelegate(typeof(Copyer));
-                    //defaultMemberCopyer = (MemberMapCopyer)MemberCopyMethod.CopyArrayMemberMapMethod.MakeGenericMethod(elementType).CreateDelegate(typeof(MemberMapCopyer));
+                    Type elementType = type.GetElementType().notNull();
+                    defaultCopyer = (Copyer)MemberCopyMethod.CopyArrayMethod.MakeGenericMethod(elementType).CreateDelegate(typeof(Copyer));
+                    defaultMemberCopyer = (MemberMapCopyer)MemberCopyMethod.CopyArrayMemberMapMethod.MakeGenericMethod(elementType).CreateDelegate(typeof(MemberMapCopyer));
 #else
                     AutoCSer.Extensions.Metadata.GenericType genericType = AutoCSer.Extensions.Metadata.GenericType.Get(type.GetElementType().notNull());
                     defaultCopyer = (Copyer)genericType.MemberCopyArrayDelegate;

@@ -6,9 +6,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// System.Numerics.Complex
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.XmlSerialize]
-#endif
     [StructLayout(LayoutKind.Sequential, Size = sizeof(double) * 2)]
     internal partial struct SerializeComplex
     {

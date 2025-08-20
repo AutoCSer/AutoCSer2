@@ -3,7 +3,7 @@
 #pragma warning disable
 namespace AutoCSer.CodeGenerator.Template
 {
-    internal sealed class CommandServerClientControllerInterface : Pub
+    internal sealed class CommandClientControllerInterface : Pub
     {
         #region PART CLASS
         /// <summary>
@@ -33,7 +33,7 @@ namespace AutoCSer.CodeGenerator.Template
             #region IF MethodIsReturn
             /// <returns>@CodeGeneratorReturnXmlDocument</returns>
             #endregion IF MethodIsReturn
-            @MethodReturnType.FullName @MethodName(/*PUSH:TaskQueueKeyType*/@FullName queueKey/*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*//*PUSH:TaskQueueKeyType*//*LOOP:Method.Parameters*//*AT:RefOutString*/@ParameterType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*IF:TwoStageReturnValueType*//*IF:IsTwoStageInputParameter*/, /*IF:IsTwoStageInputParameter*/Action<AutoCSer.Net.CommandClientReturnValue<@TwoStageReturnValueType.FullName>> callback, Action<AutoCSer.Net.CommandClientReturnValue<@ReturnValueType.FullName>, AutoCSer.Net.KeepCallbackCommand> keepCallback/*IF:TwoStageReturnValueType*/);
+            @MethodReturnType.FullName @MethodName(/*PUSH:TaskQueueKeyType*/@FullName queueKey/*IF:Method.Parameters.Length*/, /*IF:Method.Parameters.Length*//*PUSH:TaskQueueKeyType*//*LOOP:Method.Parameters*//*AT:RefOutString*//*IF:IsRedirectType*/[AutoCSer.Net.CommandServer.MethodParameterType(typeof(@ParameterType.FullName))]/*IF:IsRedirectType*/@RedirectType.FullName @ParameterJoinName/*LOOP:Method.Parameters*//*IF:TwoStageReturnValueType*//*IF:IsTwoStageInputParameter*/, /*IF:IsTwoStageInputParameter*/Action<AutoCSer.Net.CommandClientReturnValue<@TwoStageReturnValueType.FullName>> callback, Action<AutoCSer.Net.CommandClientReturnValue<@ReturnValueType.FullName>, AutoCSer.Net.KeepCallbackCommand> keepCallback/*IF:TwoStageReturnValueType*/);
             #endregion IF Method
             #endregion LOOP Methods
         }

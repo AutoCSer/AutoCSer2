@@ -56,13 +56,21 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         public T ReturnValue { get { return Response.Value.ReturnValue; } }
 #endif
         /// <summary>
+        /// Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常
+        /// </summary>
+        private readonly bool isIgnoreError;
+        /// <summary>
         /// 命令返回值
         /// </summary>
         /// <param name="response">The return value command
         /// 返回值命令</param>
-        internal ResponseReturnValue(ResponseParameterAwaiter<T> response)
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
+        internal ResponseReturnValue(ResponseParameterAwaiter<T> response, bool isIgnoreError)
         {
             Response = response;
+            this.isIgnoreError = isIgnoreError;
             if (!response.IsCompleted) response.OnCompleted(onCompleted);
             else continuation = Common.EmptyAction;
         }
@@ -102,14 +110,19 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
         /// 获取命令调用结果，结果未返回之前则返回错误信息（仅用于支持 await）
         /// </summary>
         /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #if NetStandard21
         public T? GetResult()
 #else
         public T GetResult()
 #endif
         {
-            return Response.Command.ReturnType == CommandClientReturnTypeEnum.Success && Response.Command.ReturnValue.State == CallStateEnum.Success ? Response.Value.ReturnValue : default(T);
+            if (Response.Command.ReturnValue.State == CallStateEnum.Success)
+            {
+                if (Response.Command.ReturnType == CommandClientReturnTypeEnum.Success) return Response.Value.ReturnValue;
+                if (!isIgnoreError) throw new Exception($"调用返回类型错误 {Response.Command.ReturnType} {ErrorMessage}");
+            }
+            else if (!isIgnoreError) throw new Exception($"调用返回状态错误 {Response.Command.ReturnValue.State} {ErrorMessage}");
+            return default(T);
         }
         /// <summary>
         /// Get the awaiter object

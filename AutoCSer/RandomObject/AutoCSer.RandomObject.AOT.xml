@@ -6,11 +6,13 @@
     <members>
         <member name="T:AutoCSer.CodeGenerator.RandomObjectAttribute">
             <summary>
-            随机对象生成代码生成配置（用于 AOT 环境）
+            Random object generation code generation configuration (for .NET NativeAOT only)
+            随机对象生成代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.RandomObjectAttribute.CreateRandomObjectMethodName">
             <summary>
+            Name of the method for generating random objects
             随机对象生成方法名称
             </summary>
         </member>

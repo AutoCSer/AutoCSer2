@@ -1118,8 +1118,8 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip0__
             {
-                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 internal AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo;
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 
             /// <summary>
             /// Binary serialization
@@ -1229,8 +1229,8 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip1__
             {
-                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 internal string path;
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 
             /// <summary>
             /// Binary serialization
@@ -1326,8 +1326,8 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip2__
             {
-                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 internal string fileName;
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 
             /// <summary>
             /// Binary serialization
@@ -1556,9 +1556,9 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip6__
             {
-                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
-                internal string path;
                 internal string directoryName;
+                internal string path;
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 
             /// <summary>
             /// Binary serialization
@@ -1608,9 +1608,9 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip7__
             {
-                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 internal AutoCSer.CommandService.DeployTask.SynchronousFileInfo fileInfo;
                 internal long serverFileLength;
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 
             /// <summary>
             /// Binary serialization
@@ -1722,10 +1722,10 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip8__
             {
-                internal string path;
                 internal string backupPath;
                 internal string[] extensions;
                 internal bool isCaseExtension;
+                internal string path;
                 
             /// <summary>
             /// Binary serialization
@@ -1938,9 +1938,9 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip14__
             {
+                internal string fileName;
                 internal string path;
                 internal string switchPath;
-                internal string fileName;
                 
             /// <summary>
             /// Simple binary serialization
@@ -2041,8 +2041,8 @@ namespace AutoCSer.CommandService.DeployTask
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip15__
             {
-                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 internal AutoCSer.CommandService.DeployTask.UploadFileIndex fileIndex;
+                internal AutoCSer.CommandService.DeployTask.UploadFileIndex uploaderIndex;
                 
             /// <summary>
             /// Binary serialization
@@ -2193,8 +2193,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip0__ __inputParameter__ = new __ip0__
                 {
-                    uploaderIndex = uploaderIndex,
                     fileInfo = fileInfo,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip0__, AutoCSer.CommandService.DeployTask.UploadFileInfo, __op0__>(0
                     , __op0__/**/.GetReturnValue
@@ -2212,8 +2212,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip1__ __inputParameter__ = new __ip1__
                 {
-                    uploaderIndex = uploaderIndex,
                     path = path,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip1__, bool, __op1__>(1
                     , __op1__/**/.GetReturnValue
@@ -2231,8 +2231,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip2__ __inputParameter__ = new __ip2__
                 {
-                    uploaderIndex = uploaderIndex,
                     fileName = fileName,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip2__, bool, __op1__>(2
                     , __op1__/**/.GetReturnValue
@@ -2304,9 +2304,9 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip6__ __inputParameter__ = new __ip6__
                 {
-                    uploaderIndex = uploaderIndex,
-                    path = path,
                     directoryName = directoryName,
+                    path = path,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip6__, string, __op3__>(6
                     , __op3__/**/.GetReturnValue
@@ -2325,9 +2325,9 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip7__ __inputParameter__ = new __ip7__
                 {
-                    uploaderIndex = uploaderIndex,
                     fileInfo = fileInfo,
                     serverFileLength = serverFileLength,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip7__, AutoCSer.CommandService.DeployTask.UploadFileIndex, __op7__>(7
                     , __op7__/**/.GetReturnValue
@@ -2347,10 +2347,10 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip8__ __inputParameter__ = new __ip8__
                 {
-                    path = path,
                     backupPath = backupPath,
                     extensions = extensions,
                     isCaseExtension = isCaseExtension,
+                    path = path,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip8__, AutoCSer.CommandService.DeployTask.UploaderInfo, __op8__>(8
                     , __op8__/**/.GetReturnValue
@@ -2385,8 +2385,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip1__ __inputParameter__ = new __ip1__
                 {
-                    uploaderIndex = uploaderIndex,
                     path = path,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.EnumeratorOutput<__ip1__, AutoCSer.CommandService.DeployTask.DirectoryName, __op10__>(10
                     , __op10__/**/.GetReturnValue
@@ -2404,8 +2404,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip2__ __inputParameter__ = new __ip2__
                 {
-                    uploaderIndex = uploaderIndex,
                     fileName = fileName,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip2__, AutoCSer.CommandService.DeployTask.UploadFileInfo, __op0__>(11
                     , __op0__/**/.GetReturnValue
@@ -2423,8 +2423,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip1__ __inputParameter__ = new __ip1__
                 {
-                    uploaderIndex = uploaderIndex,
                     path = path,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.EnumeratorOutput<__ip1__, AutoCSer.CommandService.DeployTask.UploadFileInfo, __op0__>(12
                     , __op0__/**/.GetReturnValue
@@ -2460,9 +2460,9 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip14__ __inputParameter__ = new __ip14__
                 {
+                    fileName = fileName,
                     path = path,
                     switchPath = switchPath,
-                    fileName = fileName,
                 };
                 var __returnValue__ = base.ReturnValueOutput<__ip14__, AutoCSer.CommandService.DeployTask.SynchronousFileInfo, __op14__>(14
                     , __op14__/**/.GetReturnValue
@@ -2480,8 +2480,8 @@ namespace AutoCSer.CommandService.DeployTask
             {
                 __ip15__ __inputParameter__ = new __ip15__
                 {
-                    uploaderIndex = uploaderIndex,
                     fileIndex = fileIndex,
+                    uploaderIndex = uploaderIndex,
                 };
                 var __returnValue__ = base.SendOnlyInput<__ip15__>(15
                     , ref __inputParameter__

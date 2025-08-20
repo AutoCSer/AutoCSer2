@@ -4,6 +4,12 @@
         <name>AutoCSer.RandomObject</name>
     </assembly>
     <members>
+        <member name="T:AutoCSer.CodeGenerator.RandomObjectAttribute">
+            <summary>
+            Random object generation code generation configuration (for .NET NativeAOT only)
+            随机对象生成代码生成配置（仅用于 .NET NativeAOT）
+            </summary>
+        </member>
         <member name="T:AutoCSer.RandomObject.CombinationTemplateConfig">
             <summary>
             Customize simple combination template parameters

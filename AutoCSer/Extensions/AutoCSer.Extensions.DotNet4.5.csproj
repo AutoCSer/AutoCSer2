@@ -114,7 +114,7 @@
     <Compile Include="IO\StreamPersistenceLoader.cs" />
     <Compile Include="IO\StreamPersistenceLoaderBuffer.cs" />
     <Compile Include="Extensions\MemberCopyExtension.cs" />
-    <Compile Include="MemberCopy\MemberCopyMethod.cs" />
+    <Compile Include="MemberCopy\CodeGenerator\MemberCopyAttribute.cs" />
     <Compile Include="MemberCopy\MemberCopy.cs" />
     <Compile Include="MemberCopy\MemberDynamicMethod.cs" />
     <Compile Include="Memory\BitMap.cs" />
@@ -246,6 +246,7 @@
     <Compile Include="Threading\InterfaceControllerTaskQueue\InterfaceControllerTaskQueueNodeBase.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceControllerMatchMethod.cs" />
     <Compile Include="Threading\InterfaceControllerTaskQueue\TaskQueueInterfaceControllerMethod.cs" />
+    <Compile Include="Xml\CodeGenerator\XmlSerializeAttribute.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.CustomConfig.cs" />
     <Compile Include="Xml\CombinationTemplate\XmlDeserializer.Enum.cs" />

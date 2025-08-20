@@ -22,9 +22,7 @@ namespace AutoCSer.TestCase
                 Host = AutoCSer.TestCase.Common.JsonFileConfig.Default.GetClientHostEndPoint(Common.CommandServerPortEnum.TestCase),
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, true),
                 IsDefaultController = true,
-#if !AOT
                 IsRemoteExpression = true
-#endif
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))
             {

@@ -16,7 +16,6 @@ namespace AutoCSer.TestCase.DiskBlockClient
             CommandClientConfig commandClientConfig = new CommandClientCompressConfig
             {
                 Host = new HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.DiskBlock),
-                ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
                 GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client)
             };
             using (CommandClient commandClient = new CommandClient(commandClientConfig))

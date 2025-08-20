@@ -11,9 +11,7 @@ namespace AutoCSer.Reflection
     /// Remote type (for serialization operations)
     /// 远程类型（用于序列化操作）
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
-#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial struct RemoteType : IEquatable<RemoteType>

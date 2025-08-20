@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerSynchronousController), true)]
-#endif
     public partial interface IClientSynchronousController
     {
         CommandClientReturnValue<string> SynchronousReturnSocket(int Value, ref int Ref, out long Out);

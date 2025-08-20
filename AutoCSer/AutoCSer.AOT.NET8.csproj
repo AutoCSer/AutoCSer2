@@ -212,6 +212,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\CancelKeepCallbackData.cs" />
     <Compile Include="Net\CommandServer\ClientBuildInfo.cs" />
     <Compile Include="Net\CommandServer\ClientCallbackTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\CommandClientCall\ClientReturnValueCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallbackQueueNode.cs" />
     <Compile Include="Net\CommandServer\ClientCheckTimer.cs" />
@@ -292,6 +293,8 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\Command\CommandReturnValue.cs" />
     <Compile Include="Net\CommandServer\Command\SendOnlyCommand.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientMethodTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameter.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameterTypeAttribute.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterface.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerMethodParameter.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerMethodParameterKey.cs" />
@@ -357,6 +360,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Json\JsonNode.cs" />
     <Compile Include="Json\JsonNodeTypeEnum.cs" />
     <Compile Include="Json\NumberTypeEnum.cs" />
+    <Compile Include="Reflection\Emit\Builder.cs" />
     <Compile Include="Reflection\TypeNameEnum.cs" />
     <Compile Include="RemoteTypeAttribute.cs" />
     <Compile Include="ReusableDictionaryGroupTypeEnum.cs" />
@@ -409,7 +413,6 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="ListArray.cs" />
     <Compile Include="Memory\UnmanagedStream.cs" />
     <Compile Include="Metadata\TestMethodAttribute.cs" />
-    <Compile Include="Reflection\Emit\Builder.cs" />
     <Compile Include="ReusableDictionary.cs" />
     <Compile Include="SimpleSerialize\CombinationTemplate\Deserializer.Enum.cs" />
     <Compile Include="SimpleSerialize\CombinationTemplate\Deserializer.cs" />

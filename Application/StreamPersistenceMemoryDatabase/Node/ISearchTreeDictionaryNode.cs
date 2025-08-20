@@ -223,9 +223,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <typeparam name="KT">Sort keyword type
     /// 排序关键字类型</typeparam>
     /// <typeparam name="VT">Data type</typeparam>
-#if !AOT
     [ServerNode(IsLocalClient = true)]
-#endif
     public partial interface ISearchTreeDictionaryNode<KT, VT> : ISearchTreeDictionaryNode<KT, VT, KeyValue<KT, VT>>
         where KT : IComparable<KT>
     {

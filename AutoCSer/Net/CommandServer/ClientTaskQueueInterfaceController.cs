@@ -130,7 +130,7 @@ namespace AutoCSer.Net.CommandServer
                         #region SynchronousInputParameter inputParameter = new SynchronousInputParameter { Value = Value, Ref = Ref, __KEY__ = CommandClientTaskQueueController<KT>.GetKey(this) };
                         var newInputParameterLocalBuilder = default(LocalBuilder);
                         LocalBuilder inputParameterLocalBuilder = method.GetInputParameterLocalBuilder(methodGenerator, out newInputParameterLocalBuilder).notNull();
-                        method.SetInputParameter(methodGenerator, newInputParameterLocalBuilder.notNull());
+                        method.SetInputParameter(methodGenerator, newInputParameterLocalBuilder.notNull(), true);
                         methodGenerator.Emit(OpCodes.Ldloca, newInputParameterLocalBuilder.notNull());
                         methodGenerator.Emit(OpCodes.Ldarg_0);
                         methodGenerator.call(commandClientTaskQueueControllerGetKey.Method);

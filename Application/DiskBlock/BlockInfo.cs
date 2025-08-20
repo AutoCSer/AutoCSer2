@@ -5,9 +5,7 @@ namespace AutoCSer.CommandService.DiskBlock
     /// <summary>
     /// 磁盘块信息
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
-#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial struct BlockInfo

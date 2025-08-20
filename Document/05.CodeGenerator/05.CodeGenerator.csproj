@@ -20,6 +20,7 @@
     <Compile Include="MemoryDatabase\ILocalNode.cs" />
     <Compile Include="MemoryDatabase\IServerNode.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Service\CommandClientSocketEvent.cs" />
     <Compile Include="Service\IServiceController.cs" />
     <Compile Include="{AutoCSer.Document.CodeGenerator}.AutoCSer.cs" />
   </ItemGroup>

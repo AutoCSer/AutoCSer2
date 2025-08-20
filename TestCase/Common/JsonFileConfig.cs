@@ -9,9 +9,7 @@ namespace AutoCSer.TestCase.Common
     /// JSON file configuration
     /// JSON 文件配置
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize(IsSerialize = false)]
-#endif
 
     public sealed partial class JsonFileConfig
     {

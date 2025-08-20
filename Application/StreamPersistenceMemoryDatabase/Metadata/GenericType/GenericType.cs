@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
 {
+#if AOT
+    /// <summary>
+    /// 泛型类型元数据（用于保留命名空间）
+    /// </summary>
+    internal static class GenericType { }
+#else
     /// <summary>
     /// 泛型类型元数据
     /// </summary>
@@ -538,4 +544,5 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata
             return new EnumerableSnapshotNode<T>((IEnumerableSnapshot<T>)target);
         }
     }
+#endif
 }

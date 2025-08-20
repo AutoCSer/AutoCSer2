@@ -5,7 +5,7 @@
     <AssemblyName>AutoCSer</AssemblyName>
     <RootNamespace>AutoCSer</RootNamespace>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>2.0.72</Version>
+    <Version>2.0.73</Version>
     <PackageId>AutoCSer2</PackageId>
     <Authors>Jin Xiao</Authors>
     <Description>[.NET Standard 2.0]AutoCSer is a flexible and versatile high-performance RPC framework that is a distributed application infrastructure framework.
@@ -54,6 +54,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="BinarySerialize\BinarySerializeMemberAttribute.cs" />
     <Compile Include="BinarySerialize\BinarySerializeMemberMap.cs" />
     <Compile Include="BinarySerialize\BinarySerializer.cs" />
+    <Compile Include="BinarySerialize\CodeGenerator\BinarySerializeAttribute.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.Align.NET8.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.AlignArray.NET8.cs" />
     <Compile Include="BinarySerialize\CombinationTemplate\BinaryDeserializer.FillAlignArray.cs" />
@@ -97,6 +98,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="CombinationTemplate\Common.cs" />
     <Compile Include="CombinationTemplate\DictionaryCreator.cs" />
     <Compile Include="CompletedTask.cs" />
+    <Compile Include="Configuration\CodeGenerator\ConfigurationAttribute.cs" />
     <Compile Include="Culture\Chinese.cs" />
     <Compile Include="Culture\Configuration.cs" />
     <Compile Include="Culture\English.cs" />
@@ -120,6 +122,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Extensions\ParameterInfoExtension.cs" />
     <Compile Include="Extensions\SubArrayExtension.cs" />
     <Compile Include="Extensions\TypeBuilderExtension.cs" />
+    <Compile Include="Json\CodeGenerator\JsonSerializeAttribute.cs" />
     <Compile Include="Json\CombinationTemplate\JsonDeserialize.Enum.cs" />
     <Compile Include="Json\CombinationTemplate\JsonDeserializer.NET8.cs" />
     <Compile Include="Json\CombinationTemplate\JsonSerializer.NET8.cs" />
@@ -158,6 +161,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="NET8\Vector4Union.cs" />
     <Compile Include="NetStandard\IAsyncEnumerator.cs" />
     <Compile Include="NetStandard\ValueTask.cs" />
+    <Compile Include="Net\CommandServer\CodeGenerator\CommandClientControllerAttribute.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\CommandServerTwoStage‌Callback.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueue.cs" />
     <Compile Include="Net\CommandServer\CommandServerCall\ConcurrencyReadQueue\CommandServerCallConcurrencyReadQueueNode.cs" />
@@ -246,6 +250,7 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\ClientTaskQueueInterfaceController.cs" />
     <Compile Include="Net\CommandServer\CommandClient.cs" />
     <Compile Include="Net\CommandServer\CommandClientDefaultController.cs" />
+    <Compile Include="Net\CommandServer\CommandClientCall\ClientReturnValueCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallback.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallbackQueueNode.cs" />
     <Compile Include="Net\CommandServer\CommandClientCall\CommandClientCallQueue.cs" />
@@ -378,6 +383,8 @@ AutoCSer based on the implementation of support reliable persistence and object-
     <Compile Include="Net\CommandServer\KeepCallbackReturnValueLink.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientInterfaceMethod.cs" />
     <Compile Include="Net\CommandServer\Metadata\ClientMethodTypeEnum.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameter.cs" />
+    <Compile Include="Net\CommandServer\Metadata\MethodParameterTypeAttribute.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterface.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerInterfaceMethod.cs" />
     <Compile Include="Net\CommandServer\Metadata\ServerMethodParameter.cs" />

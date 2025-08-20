@@ -76,14 +76,8 @@ namespace AutoCSer.Net
         /// </summary>
         public bool IsDefaultController;
         /// <summary>
-        /// Command client socket event controller property binding identification, Defaults to the current type only define attributes BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly
-        /// 命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
-        /// </summary>
-        public BindingFlags ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly;
-#if !AOT
-        /// <summary>
-        /// The default value of false indicates that remote expressions are not supported. To set it to true, the server needs to manually set AutoCSer.Net.CommandServerConfig.IsRemoteExpression to true for it to take effect
-        /// 默认为 false 表示不支持远程表达式，设置为 true 需要服务端手动设置 AutoCSer.Net.CommandServerConfig.IsRemoteExpression 为 true 才能生效
+        /// The default value of false indicates that remote expressions are not supported. To set it to true, the server needs to manually set AutoCSer.Net.CommandServerConfig.IsRemoteExpression to true for it to take effect (Not supported .NET NativeAOT)
+        /// 默认为 false 表示不支持远程表达式，设置为 true 需要服务端手动设置 AutoCSer.Net.CommandServerConfig.IsRemoteExpression 为 true 才能生效（不支持 .NET NativeAOT）
         /// </summary>
         public bool IsRemoteExpression;
         /// <summary>
@@ -91,7 +85,6 @@ namespace AutoCSer.Net
         /// 是否支持支持远程表达式
         /// </summary>
         internal bool GetIsRemoteExpression { get { return IsRemoteExpression & !IsShortLink; } }
-#endif
 
         /// <summary>
         /// Used to override the connection logic after server registration is enabled

@@ -1344,8 +1344,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip13__
             {
-                internal int value;
                 internal int count;
+                internal int value;
                 
             /// <summary>
             /// Simple binary serialization
@@ -1674,8 +1674,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode/**/.Create<int, __ip13__>(this, 13
                     , new __ip13__
                     {
-                        value = value,
                         count = count,
+                        value = value,
                     }
                     );
             }
@@ -1692,8 +1692,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode/**/.Create<int, __ip13__>(this, 15
                     , new __ip13__
                     {
-                        value = value,
                         count = count,
+                        value = value,
                     }
                     );
             }
@@ -2178,10 +2178,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip0__
             {
+                internal uint capacity;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal uint capacity;
                 
             /// <summary>
             /// Binary serialization
@@ -2267,10 +2267,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip1__
             {
+                internal long identity;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal long identity;
                 
             /// <summary>
             /// Binary serialization
@@ -2587,9 +2587,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             internal struct __ip6__
             {
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
+                internal byte indexBits;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal byte indexBits;
                 
             /// <summary>
             /// Binary serialization
@@ -2764,8 +2764,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             {
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
-                internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
                 internal int length;
+                internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
                 
             /// <summary>
             /// Binary serialization
@@ -2851,11 +2851,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip259__
             {
+                internal int capacity;
+                internal AutoCSer.ReusableDictionaryGroupTypeEnum groupType;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal int capacity;
-                internal AutoCSer.ReusableDictionaryGroupTypeEnum groupType;
                 
             /// <summary>
             /// Binary serialization
@@ -2946,10 +2946,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip263__
             {
+                internal int capacity;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal int capacity;
                 
             /// <summary>
             /// Binary serialization
@@ -3035,12 +3035,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip271__
             {
+                internal int arraySize;
+                internal int checkTimeoutSeconds;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal int arraySize;
                 internal int timeoutSeconds;
-                internal int checkTimeoutSeconds;
                 
             /// <summary>
             /// Binary serialization
@@ -3147,10 +3147,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip0__>(this, 0
                     , new __ip0__
                     {
+                        capacity = capacity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
                     }
                     );
             }
@@ -3175,10 +3175,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip1__>(this, 1
                     , new __ip1__
                     {
+                        identity = identity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        identity = identity,
                     }
                     );
             }
@@ -3298,9 +3298,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                     , new __ip6__
                     {
                         index = index,
+                        indexBits = indexBits,
                         key = key,
                         nodeInfo = nodeInfo,
-                        indexBits = indexBits,
                     }
                     );
             }
@@ -3326,9 +3326,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                     , new __ip6__
                     {
                         index = index,
+                        indexBits = indexBits,
                         key = key,
                         nodeInfo = nodeInfo,
-                        indexBits = indexBits,
                     }
                     );
             }
@@ -3401,8 +3401,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                     {
                         index = index,
                         key = key,
-                        nodeInfo = nodeInfo,
                         length = length,
+                        nodeInfo = nodeInfo,
                     }
                     );
             }
@@ -3429,11 +3429,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip259__>(this, 259
                     , new __ip259__
                     {
+                        capacity = capacity,
+                        groupType = groupType,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
-                        groupType = groupType,
                     }
                     );
             }
@@ -3483,11 +3483,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip259__>(this, 261
                     , new __ip259__
                     {
+                        capacity = capacity,
+                        groupType = groupType,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
-                        groupType = groupType,
                     }
                     );
             }
@@ -3535,10 +3535,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip263__>(this, 263
                     , new __ip263__
                     {
+                        capacity = capacity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
                     }
                     );
             }
@@ -3562,10 +3562,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip263__>(this, 264
                     , new __ip263__
                     {
+                        capacity = capacity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
                     }
                     );
             }
@@ -3589,10 +3589,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip263__>(this, 265
                     , new __ip263__
                     {
+                        capacity = capacity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
                     }
                     );
             }
@@ -3689,10 +3689,10 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip263__>(this, 269
                     , new __ip263__
                     {
+                        capacity = capacity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
                     }
                     );
             }
@@ -3744,12 +3744,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip271__>(this, 271
                     , new __ip271__
                     {
+                        arraySize = arraySize,
+                        checkTimeoutSeconds = checkTimeoutSeconds,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        arraySize = arraySize,
                         timeoutSeconds = timeoutSeconds,
-                        checkTimeoutSeconds = checkTimeoutSeconds,
                     }
                     );
             }
@@ -3775,11 +3775,11 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip259__>(this, 272
                     , new __ip259__
                     {
+                        capacity = capacity,
+                        groupType = groupType,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
-                        groupType = groupType,
                     }
                     );
             }
@@ -3831,12 +3831,12 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip271__>(this, 274
                     , new __ip271__
                     {
+                        arraySize = arraySize,
+                        checkTimeoutSeconds = checkTimeoutSeconds,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        arraySize = arraySize,
                         timeoutSeconds = timeoutSeconds,
-                        checkTimeoutSeconds = checkTimeoutSeconds,
                     }
                     );
             }
@@ -5006,8 +5006,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip8__
             {
-                internal int skipCount;
                 internal byte getCount;
+                internal int skipCount;
                 
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
@@ -5288,8 +5288,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<string>, __ip8__>(this, 8
                     , new __ip8__
                     {
-                        skipCount = skipCount,
                         getCount = getCount,
+                        skipCount = skipCount,
                     }
                     );
             }
@@ -8068,8 +8068,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip8__
             {
-                internal int skipCount;
                 internal byte getCount;
+                internal int skipCount;
                 
             }
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
@@ -8349,8 +8349,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceInputKeepCallbackEnumeratorNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>, __ip8__>(this, 8
                     , new __ip8__
                     {
-                        skipCount = skipCount,
                         getCount = getCount,
+                        skipCount = skipCount,
                     }
                     );
             }
@@ -8707,8 +8707,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip0__
             {
-                internal int startIndex;
                 internal int count;
+                internal int startIndex;
                 
             /// <summary>
             /// Simple binary serialization
@@ -8774,9 +8774,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip2__
             {
-                internal string value;
-                internal int startIndex;
                 internal int count;
+                internal int startIndex;
+                internal string value;
                 
             /// <summary>
             /// Simple binary serialization
@@ -9069,8 +9069,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip0__>(this, 0
                     , new __ip0__
                     {
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
                     }
                     );
             }
@@ -9099,9 +9099,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip2__>(this, 2
                     , new __ip2__
                     {
-                        value = value,
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
+                        value = value,
                     }
                     );
             }
@@ -9180,9 +9180,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<int, __ip2__>(this, 7
                     , new __ip2__
                     {
-                        value = value,
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
+                        value = value,
                     }
                     );
             }
@@ -9216,9 +9216,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<int, __ip2__>(this, 9
                     , new __ip2__
                     {
-                        value = value,
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
+                        value = value,
                     }
                     );
             }
@@ -9251,8 +9251,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip0__>(this, 11
                     , new __ip0__
                     {
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
                     }
                     );
             }
@@ -9298,8 +9298,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip0__>(this, 15
                     , new __ip0__
                     {
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
                     }
                     );
             }
@@ -11609,8 +11609,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip1__
             {
-                internal int startIndex;
                 internal int count;
+                internal int startIndex;
                 
             /// <summary>
             /// Simple binary serialization
@@ -11676,9 +11676,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip3__
             {
-                internal string value;
-                internal int startIndex;
                 internal int count;
+                internal int startIndex;
+                internal string value;
                 
             /// <summary>
             /// Simple binary serialization
@@ -11903,8 +11903,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip1__>(this, 1
                     , new __ip1__
                     {
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
                     }
                     );
             }
@@ -11933,9 +11933,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip3__>(this, 3
                     , new __ip3__
                     {
-                        value = value,
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
+                        value = value,
                     }
                     );
             }
@@ -12082,9 +12082,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<int, __ip3__>(this, 13
                     , new __ip3__
                     {
-                        value = value,
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
+                        value = value,
                     }
                     );
             }
@@ -12136,9 +12136,9 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<int, __ip3__>(this, 16
                     , new __ip3__
                     {
-                        value = value,
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
+                        value = value,
                     }
                     );
             }
@@ -12219,8 +12219,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip1__>(this, 21
                     , new __ip1__
                     {
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
                     }
                     );
             }
@@ -12277,8 +12277,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip1__>(this, 25
                     , new __ip1__
                     {
-                        startIndex = startIndex,
                         count = count,
+                        startIndex = startIndex,
                     }
                     );
             }
@@ -14495,8 +14495,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateInputKeepCallbackMethodParameter(this, 13
                     , new AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__
                     {
-                        value = value,
                         count = count,
+                        value = value,
                     }
                     , null
                     );
@@ -14513,8 +14513,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateCallInputOutputMethodParameter(this, 14
                     , new AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__
                     {
-                        value = value,
                         count = count,
+                        value = value,
                     }
                     );
                 return default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>);
@@ -14530,8 +14530,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateInputKeepCallbackMethodParameter(this, 15
                     , new AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__
                     {
-                        value = value,
                         count = count,
+                        value = value,
                     }
                     , AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodKeepCallback<int>.GetKeepCallback(callback)
                     );
@@ -14547,8 +14547,8 @@ namespace AutoCSer.TestCase.StreamPersistenceMemoryDatabase.Game
                 AutoCSer.CommandService.StreamPersistenceMemoryDatabase.MethodParameterCreator.CreateCallInputOutputMethodParameter(this, 16
                     , new AutoCSer.TestCase.StreamPersistenceMemoryDatabase.CallbackNodeLocalClient.__ip13__
                     {
-                        value = value,
                         count = count,
+                        value = value,
                     }
                     );
                 return default(AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ValueResult<int>);

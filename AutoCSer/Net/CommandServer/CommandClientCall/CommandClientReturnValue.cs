@@ -54,6 +54,17 @@ namespace AutoCSer.Net
         {
             return new CommandClientReturnValue(returnType, null);
         }
+        /// <summary>
+        /// Get the return value
+        /// 获取返回值
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
+        public void GetValue(bool isIgnoreError = false)
+        {
+            if (ReturnType == CommandClientReturnTypeEnum.Success) return;
+            if (!isIgnoreError) throw new Exception($"调用返回类型错误 {ReturnType} {ErrorMessage}");
+        }
 #if AOT
         /// <summary>
         /// Get exception information
@@ -205,6 +216,19 @@ namespace AutoCSer.Net
         public static implicit operator CommandClientReturnValue<T>(CommandClientReturnValue returnValue)
         {
             return new CommandClientReturnValue<T>(returnValue.ReturnType, returnValue.ErrorMessage);
+        }
+        /// <summary>
+        /// Get the return value
+        /// 获取返回值
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
+        /// <returns>Return value</returns>
+        public T GetValue(bool isIgnoreError = false)
+        {
+            if (ReturnType == CommandClientReturnTypeEnum.Success) return Value;
+            if (!isIgnoreError) throw new Exception($"调用返回类型错误 {ReturnType} {ErrorMessage}");
+            return Value;
         }
         /// <summary>
         /// Get return value

@@ -6,9 +6,7 @@
     /// </summary>
     /// <typeparam name="T">Keyword type
     /// 关键字类型</typeparam>
-#if !AOT
     [ServerNode(IsLocalClient = true)]
-#endif
     public partial interface IFragmentHashSetNode<T>
     {
         /// <summary>

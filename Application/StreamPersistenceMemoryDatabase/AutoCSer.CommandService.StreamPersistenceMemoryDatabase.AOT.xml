@@ -1323,6 +1323,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.Metadata.GenericType">
+            <summary>
+            泛型类型元数据（用于保留命名空间）
+            </summary>
+        </member>
         <member name="T:AutoCSer.CommandService.StreamPersistenceMemoryDatabase.BeforePersistenceTwoStageCallbackMethodParameter">
             <summary>
             持久化之前检查参数的调用方法与参数信息

@@ -318,108 +318,20 @@ namespace AutoCSer.TestCase
             /// </summary>
             /// <param name="action"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action(AutoCSer.Net.CommandServer.RemoteExpressionAction action);
+            AutoCSer.Net.ReturnCommand<int> Action([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction))]System.Linq.Expressions.Expression<System.Action> action);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="action"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action1(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject> action);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="action"></param>
-            /// <param name="parameter"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action2(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject,int> action, int parameter);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="action"></param>
-            /// <param name="parameter"></param>
-            /// <param name="parameter2"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Action3(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject,int,int> action, int parameter, int parameter2);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Default(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int> func);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int> func);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func1(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int> func);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <param name="parameter"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func2(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int,int> func, int parameter);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <param name="parameter"></param>
-            /// <param name="parameter2"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Func3(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int,int,int> func, int parameter, int parameter2);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Index(AutoCSer.Net.CommandServer.RemoteExpressionFunc<object,int> func);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <param name="parameter"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> TypeBinaryExpression(AutoCSer.Net.CommandServer.RemoteExpressionFunc<object,int,int> func, int parameter);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <param name="parameter"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> Unbox(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,object,int> func, int parameter);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <param name="parameter"></param>
-            /// <param name="parameter2"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<bool> Logical(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,bool> func, int parameter, int parameter2);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="action"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaAction(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action> action);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="action"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaAction1(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action<AutoCSer.TestCase.CommandServerSessionObject>> action);
+            AutoCSer.Net.ReturnCommand<int> Action1([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject>))]System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject>> action);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="action"></param>
             /// <param name="parameter"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaAction2(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int>> action, int parameter);
+            AutoCSer.Net.ReturnCommand<int> Action2([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject,int>))]System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int>> action, int parameter);
             /// <summary>
             /// 
             /// </summary>
@@ -427,46 +339,32 @@ namespace AutoCSer.TestCase
             /// <param name="parameter"></param>
             /// <param name="parameter2"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaAction3(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int,int>> action, int parameter, int parameter2);
+            AutoCSer.Net.ReturnCommand<int> Action3([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionAction<AutoCSer.TestCase.CommandServerSessionObject,int,int>))]System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int,int>> action, int parameter, int parameter2);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="func"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaFunc(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<int>> func);
+            AutoCSer.Net.ReturnCommand<int> Default([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int>> func);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="func"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaFunc1(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int>> func);
+            AutoCSer.Net.ReturnCommand<int> Func([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int>))]System.Linq.Expressions.Expression<System.Func<int>> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Func1([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int>> func);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="func"></param>
             /// <param name="parameter"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaFunc2(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int>> func, int parameter);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <param name="parameter"></param>
-            /// <param name="parameter2"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaFunc3(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int,int>> func, int parameter, int parameter2);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaDefault(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int>> func);
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="func"></param>
-            /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaIndex(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<object,int>> func);
+            AutoCSer.Net.ReturnCommand<int> Func2([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int,int>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int>> func, int parameter);
             /// <summary>
             /// 
             /// </summary>
@@ -474,21 +372,123 @@ namespace AutoCSer.TestCase
             /// <param name="parameter"></param>
             /// <param name="parameter2"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<bool> LambdaLogical(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<int,int,bool>> func, int parameter, int parameter2);
+            AutoCSer.Net.ReturnCommand<int> Func3([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,int,int,int>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int,int>> func, int parameter, int parameter2);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> Index([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<object,int>))]System.Linq.Expressions.Expression<System.Func<object,int>> func);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="func"></param>
             /// <param name="parameter"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaTypeBinaryExpression(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<object,int,int>> func, int parameter);
+            AutoCSer.Net.ReturnCommand<int> TypeBinaryExpression([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<object,int,int>))]System.Linq.Expressions.Expression<System.Func<object,int,int>> func, int parameter);
             /// <summary>
             /// 
             /// </summary>
             /// <param name="func"></param>
             /// <param name="parameter"></param>
             /// <returns></returns>
-            AutoCSer.Net.ReturnCommand<int> LambdaUnbox(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,object,int>> func, int parameter);
+            AutoCSer.Net.ReturnCommand<int> Unbox([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<AutoCSer.TestCase.CommandServerSessionObject,object,int>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,object,int>> func, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<bool> Logical([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteExpressionFunc<int,int,bool>))]System.Linq.Expressions.Expression<System.Func<int,int,bool>> func, int parameter, int parameter2);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaAction([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action>))]System.Linq.Expressions.Expression<System.Action> action);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaAction1([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action<AutoCSer.TestCase.CommandServerSessionObject>>))]System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject>> action);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaAction2([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int>>))]System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int>> action, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaAction3([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int,int>>))]System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int,int>> action, int parameter, int parameter2);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaFunc([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<int>>))]System.Linq.Expressions.Expression<System.Func<int>> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaFunc1([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int>>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int>> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaFunc2([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int>>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int>> func, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaFunc3([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int,int>>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int,int>> func, int parameter, int parameter2);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaDefault([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int>>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int>> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaIndex([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<object,int>>))]System.Linq.Expressions.Expression<System.Func<object,int>> func);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<bool> LambdaLogical([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<int,int,bool>>))]System.Linq.Expressions.Expression<System.Func<int,int,bool>> func, int parameter, int parameter2);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaTypeBinaryExpression([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<object,int,int>>))]System.Linq.Expressions.Expression<System.Func<object,int,int>> func, int parameter);
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            AutoCSer.Net.ReturnCommand<int> LambdaUnbox([AutoCSer.Net.CommandServer.MethodParameterType(typeof(AutoCSer.Net.CommandServer.RemoteLambdaExpression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,object,int>>))]System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,object,int>> func, int parameter);
         }
 }namespace AutoCSer.TestCase
 {
@@ -572,6 +572,8403 @@ namespace AutoCSer.TestCase
             /// <returns></returns>
             AutoCSer.Net.ReturnCommand<string> TaskQueueReturn(int Value, int Ref);
         }
+}namespace AutoCSer.TestCase
+{
+        /// <summary>
+        /// Command client socket events 
+///            命令客户端套接字事件
+        /// </summary>
+    internal partial class CommandClientSocketEvent
+    {
+        /// <summary>
+        /// 同步接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientSynchronousControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 同步接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientSynchronousControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket(int Value)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket(ref int Ref)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket(out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturnSocket()
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturnSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket(int Value, ref int Ref)
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket(int Value, out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket(int Value)
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket(ref int Ref, out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket(ref int Ref)
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket(out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SynchronousSocket()
+            {
+                this.__client__.ClientSynchronousController/**/.SynchronousSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(out long Out)
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn()
+            {
+                
+                return this.__client__.ClientSynchronousController/**/.SynchronousReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref)
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value)
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref, out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref)
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(out long Out)
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous()
+            {
+                this.__client__.ClientSynchronousController/**/.Synchronous().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientSynchronousController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>同步接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientSynchronousControllerReturnValueController GetClientSynchronousControllerReturnValueController(bool isIgnoreError = false) { return new ClientSynchronousControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 仅发送数据接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientSendOnlyControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 仅发送数据接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientSendOnlyControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlySocket(int Value, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlySocket(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlySocket()
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlySocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnly(int Value, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnly(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnly()
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnly();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyQueueSocket(int Value, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyQueueSocket(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyQueueSocket()
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyQueueSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyQueue(int Value, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyQueue(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyQueue()
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyQueue();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTaskSocket(int Value, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyTaskSocket(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTaskSocket()
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyTaskSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTask(int Value, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTask()
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyTask();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTaskQueueSocket(int queueKey, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyTaskQueueSocket(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTaskQueue(int queueKey, int Ref)
+            {
+                this.__client__.ClientSendOnlyController/**/.SendOnlyTaskQueue(queueKey, Ref);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientSendOnlyController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>仅发送数据接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientSendOnlyControllerReturnValueController GetClientSendOnlyControllerReturnValueController(bool isIgnoreError = false) { return new ClientSendOnlyControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 队列接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 队列接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(ref int Ref)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket()
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturnSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, ref int Ref)
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, out long Out)
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value)
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(ref int Ref, out long Out)
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(ref int Ref)
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(out long Out)
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket()
+            {
+                this.__client__.ClientQueueController/**/.QueueSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(out long Out)
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn()
+            {
+                
+                return this.__client__.ClientQueueController/**/.QueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientQueueController/**/.Queue(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref)
+            {
+                this.__client__.ClientQueueController/**/.Queue(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, out long Out)
+            {
+                this.__client__.ClientQueueController/**/.Queue(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value)
+            {
+                this.__client__.ClientQueueController/**/.Queue(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref, out long Out)
+            {
+                this.__client__.ClientQueueController/**/.Queue(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref)
+            {
+                this.__client__.ClientQueueController/**/.Queue(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(out long Out)
+            {
+                this.__client__.ClientQueueController/**/.Queue(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue()
+            {
+                this.__client__.ClientQueueController/**/.Queue().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>队列接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientQueueControllerReturnValueController GetClientQueueControllerReturnValueController(bool isIgnoreError = false) { return new ClientQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 队列接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientConcurrencyReadQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 队列接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientConcurrencyReadQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(ref int Ref)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket()
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturnSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, ref int Ref)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(ref int Ref, out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(ref int Ref)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket()
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.QueueSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(out long Out)
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn()
+            {
+                
+                return this.__client__.ClientConcurrencyReadQueueController/**/.QueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref, out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(out long Out)
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue()
+            {
+                this.__client__.ClientConcurrencyReadQueueController/**/.Queue().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientConcurrencyReadQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>队列接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientConcurrencyReadQueueControllerReturnValueController GetClientConcurrencyReadQueueControllerReturnValueController(bool isIgnoreError = false) { return new ClientConcurrencyReadQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 队列接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientReadWriteQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 队列接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientReadWriteQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(int Value)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(ref int Ref)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket(out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturnSocket()
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturnSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, ref int Ref)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value, out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(int Value)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(ref int Ref, out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(ref int Ref)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket(out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void QueueSocket()
+            {
+                this.__client__.ClientReadWriteQueueController/**/.QueueSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(out long Out)
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn()
+            {
+                
+                return this.__client__.ClientReadWriteQueueController/**/.QueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref, out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(out long Out)
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue()
+            {
+                this.__client__.ClientReadWriteQueueController/**/.Queue().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientReadWriteQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>队列接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientReadWriteQueueControllerReturnValueController GetClientReadWriteQueueControllerReturnValueController(bool isIgnoreError = false) { return new ClientReadWriteQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 回调接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientCallbackControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 回调接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientCallbackControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientCallbackController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>回调接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientCallbackControllerReturnValueController GetClientCallbackControllerReturnValueController(bool isIgnoreError = false) { return new ClientCallbackControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 回调接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientCallbackTaskControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 回调接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientCallbackTaskControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientCallbackTaskController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientCallbackTaskController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>回调接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientCallbackTaskControllerReturnValueController GetClientCallbackTaskControllerReturnValueController(bool isIgnoreError = false) { return new ClientCallbackTaskControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 保持回调接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientKeepCallbackControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 保持回调接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientKeepCallbackControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocket(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocket(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCount(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCount(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCount(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCount(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocket(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocketReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocketReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocket(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocket(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocket(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocketReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocketReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocket(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueSocket(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueSocket(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueue(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReadWriteQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackReadWriteQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueue(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReadWriteQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountReadWriteQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueue(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackConcurrencyReadQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackConcurrencyReadQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueue(System.Action Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountConcurrencyReadQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ClientKeepCallbackController/**/.KeepCallbackCountConcurrencyReadQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientKeepCallbackController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>保持回调接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientKeepCallbackControllerReturnValueController GetClientKeepCallbackControllerReturnValueController(bool isIgnoreError = false) { return new ClientKeepCallbackControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 二阶段回调接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientTwoStageCallbackControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 二阶段回调接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientTwoStageCallbackControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueSocketReturn(int Value, int Ref, AutoCSer.Net.CommandClientReturnValueParameterCallback<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandClientReturnValueParameterCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueSocketReturn(int Value, int Ref, AutoCSer.Net.CommandClientReturnValueParameterCallback<long> Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandClientReturnValueParameterCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueSocketReturn(AutoCSer.Net.CommandClientReturnValueParameterCallback<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueSocketReturn(new AutoCSer.Net.CommandClientReturnValueParameterCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueSocketReturn(AutoCSer.Net.CommandClientReturnValueParameterCallback<long> Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueSocketReturn(new AutoCSer.Net.CommandClientReturnValueParameterCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackQueueReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueSocketReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueSocketReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueSocketReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueSocketReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountQueueReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReadWriteQueueReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReadWriteQueueReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReadWriteQueueReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackReadWriteQueueReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReadWriteQueueReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReadWriteQueueReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReadWriteQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReadWriteQueueReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountReadWriteQueueReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountReadWriteQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackConcurrencyReadQueueReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackConcurrencyReadQueueReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackConcurrencyReadQueueReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackConcurrencyReadQueueReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountConcurrencyReadQueueReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountConcurrencyReadQueueReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountConcurrencyReadQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountConcurrencyReadQueueReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountConcurrencyReadQueueReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackController/**/.TwoStageCallbackCountConcurrencyReadQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientTwoStageCallbackController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>二阶段回调接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientTwoStageCallbackControllerReturnValueController GetClientTwoStageCallbackControllerReturnValueController(bool isIgnoreError = false) { return new ClientTwoStageCallbackControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 异步任务接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientTaskControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 异步任务接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientTaskControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> AsynchronousTaskReturnSocket(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturnSocket(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> AsynchronousTaskReturnSocket()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturnSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue AsynchronousTaskSocket(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskSocket(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue AsynchronousTaskSocket()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> AsynchronousTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturn(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> AsynchronousTaskReturn()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue AsynchronousTask(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTask(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue AsynchronousTask()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTask().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturnSocketAsync(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturnSocketAsync(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturnSocketAsync()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturnSocketAsync();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTaskSocketAsync(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskSocketAsync(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTaskSocketAsync()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskSocketAsync();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturnAsync(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturnAsync(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturnAsync()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskReturnAsync();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTaskAsync(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskAsync(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTaskAsync()
+            {
+                
+                return this.__client__.ClientTaskController/**/.AsynchronousTaskAsync();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturnSocket(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.TaskQueueReturnSocket(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueueSocket(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.TaskQueueSocket(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.TaskQueueReturn(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueue(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.TaskQueue(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueException(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientTaskController/**/.TaskQueueException(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientTaskController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>异步任务接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientTaskControllerReturnValueController GetClientTaskControllerReturnValueController(bool isIgnoreError = false) { return new ClientTaskControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 保持回调异步任务接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientKeepCallbackTaskControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 保持回调异步任务接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientKeepCallbackTaskControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskSocketReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskSocketReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTaskSocket(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskSocket(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskSocketReturn()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskSocketReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTaskSocket()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTask(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskReturn()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTask()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTask();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskSocketReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskSocketReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTaskSocket(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskSocket(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskSocketReturn()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskSocketReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTaskSocket()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTask(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskReturn()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTask()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTask();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskSocketReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskSocketReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskSocketReturn()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskSocketReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn()
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand<string> KeepCallbackTaskQueueSocketReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskQueueSocketReturn(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand KeepCallbackTaskQueueSocket(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskQueueSocket(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand<string> KeepCallbackTaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskQueueReturn(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand KeepCallbackTaskQueue(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackTaskQueue(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueSocketReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskQueueSocketReturn(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand KeepCallbackCountTaskQueueSocket(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskQueueSocket(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskQueueReturn(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand KeepCallbackCountTaskQueue(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.KeepCallbackCountTaskQueue(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueSocketReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskQueueSocketReturn(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskQueueReturn(queueKey, Ref);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientKeepCallbackTaskController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>保持回调异步任务接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientKeepCallbackTaskControllerReturnValueController GetClientKeepCallbackTaskControllerReturnValueController(bool isIgnoreError = false) { return new ClientKeepCallbackTaskControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 二阶段回调异步任务接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientTwoStageCallbackTaskControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 二阶段回调异步任务接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientTwoStageCallbackTaskControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskSocketReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskReturn(int Value, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskReturn(int Value, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskReturn(System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskReturn(System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskQueueSocketReturn(int queueKey, int Ref, AutoCSer.Net.CommandClientReturnValueParameterCallback<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskQueueSocketReturn(queueKey, Ref, new AutoCSer.Net.CommandClientReturnValueParameterCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskQueueSocketReturn(int queueKey, int Ref, AutoCSer.Net.CommandClientReturnValueParameterCallback<long> Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskQueueSocketReturn(queueKey, Ref, new AutoCSer.Net.CommandClientReturnValueParameterCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskQueueReturn(int queueKey, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskQueueReturn(queueKey, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskQueueReturn(int queueKey, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackTaskQueueReturn(queueKey, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskQueueSocketReturn(int queueKey, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskQueueSocketReturn(queueKey, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskQueueSocketReturn(int queueKey, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskQueueSocketReturn(queueKey, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskQueueReturn(int queueKey, int Ref, System.Action<long> Callback, System.Action<string> KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskQueueReturn(queueKey, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskQueueReturn(int queueKey, int Ref, System.Action<long> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback, System.Action<string> KeepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_KeepCallback)
+            {
+                return this.__client__.ClientTwoStageCallbackTaskController/**/.TwoStageCallbackCountTaskQueueReturn(queueKey, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(Callback, error_Callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(KeepCallback, error_KeepCallback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientTwoStageCallbackTaskController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>二阶段回调异步任务接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientTwoStageCallbackTaskControllerReturnValueController GetClientTwoStageCallbackTaskControllerReturnValueController(bool isIgnoreError = false) { return new ClientTwoStageCallbackTaskControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 定义对称接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class DefinedSymmetryControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 定义对称接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public DefinedSymmetryControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn(Value, ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn(Value, ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn(Value, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn(Value);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn(ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn(ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(out long Out)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn(out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn()
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.SynchronousReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous(Value, ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref)
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous(Value, ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, out long Out)
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous(Value, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value)
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous(Value);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref, out long Out)
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous(ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref)
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous(ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(out long Out)
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous(out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous()
+            {
+                this.__client__.DefinedSymmetryController/**/.Synchronous();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.AsynchronousTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturn()
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.AsynchronousTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTask(int Value, int Ref)
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.AsynchronousTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTask()
+            {
+                
+                return this.__client__.DefinedSymmetryController/**/.AsynchronousTask();
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (DefinedSymmetryController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>定义对称接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public DefinedSymmetryControllerReturnValueController GetDefinedSymmetryControllerReturnValueController(bool isIgnoreError = false) { return new DefinedSymmetryControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 控制器异步队列接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientTaskQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 控制器异步队列接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientTaskQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueue()
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueue().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueue(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueue(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturn()
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueueReturn(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturnSocket()
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueueReturnSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturnSocket(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueueReturnSocket(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueueSocket()
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueueSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueueSocket(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientTaskQueueController/**/.TaskQueueSocket(Value, Ref).GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientTaskQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>控制器异步队列接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientTaskQueueControllerReturnValueController GetClientTaskQueueControllerReturnValueController(bool isIgnoreError = false) { return new ClientTaskQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 同步接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientSynchronousControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 同步接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientSynchronousControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value)
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientSynchronousController/**/.SynchronousReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref)
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, out long Out)
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value)
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref)
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(out long Out)
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous()
+            {
+                this.__client__.ServerBindContextClientSynchronousController/**/.Synchronous().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientSynchronousController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>同步接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientSynchronousControllerReturnValueController GetServerBindContextClientSynchronousControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientSynchronousControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 仅发送数据接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientSendOnlyControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 仅发送数据接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientSendOnlyControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnly(int Value, int Ref)
+            {
+                this.__client__.ServerBindContextClientSendOnlyController/**/.SendOnly(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnly()
+            {
+                this.__client__.ServerBindContextClientSendOnlyController/**/.SendOnly();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyQueue(int Value, int Ref)
+            {
+                this.__client__.ServerBindContextClientSendOnlyController/**/.SendOnlyQueue(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyQueue()
+            {
+                this.__client__.ServerBindContextClientSendOnlyController/**/.SendOnlyQueue();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTask(int Value, int Ref)
+            {
+                this.__client__.ServerBindContextClientSendOnlyController/**/.SendOnlyTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTask()
+            {
+                this.__client__.ServerBindContextClientSendOnlyController/**/.SendOnlyTask();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTaskQueue(int queueKey, int Ref)
+            {
+                this.__client__.ServerBindContextClientSendOnlyController/**/.SendOnlyTaskQueue(queueKey, Ref);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientSendOnlyController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>仅发送数据接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientSendOnlyControllerReturnValueController GetServerBindContextClientSendOnlyControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientSendOnlyControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value)
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientQueueController/**/.QueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref)
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, out long Out)
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value)
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref)
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(out long Out)
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue()
+            {
+                this.__client__.ServerBindContextClientQueueController/**/.Queue().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientQueueControllerReturnValueController GetServerBindContextClientQueueControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientConcurrencyReadQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientConcurrencyReadQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value)
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.QueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref)
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, out long Out)
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value)
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref)
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(out long Out)
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue()
+            {
+                this.__client__.ServerBindContextClientConcurrencyReadQueueController/**/.Queue().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientConcurrencyReadQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientConcurrencyReadQueueControllerReturnValueController GetServerBindContextClientConcurrencyReadQueueControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientConcurrencyReadQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientReadWriteQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientReadWriteQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(int Value)
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn(out long Out)
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string QueueReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientReadWriteQueueController/**/.QueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue(Value, ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, ref int Ref)
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue(Value, ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value, out long Out)
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue(Value, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(int Value)
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue(ref Ref, out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(ref int Ref)
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue(ref Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue(out long Out)
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue(out Out).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Queue()
+            {
+                this.__client__.ServerBindContextClientReadWriteQueueController/**/.Queue().GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientReadWriteQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientReadWriteQueueControllerReturnValueController GetServerBindContextClientReadWriteQueueControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientReadWriteQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientCallbackControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientCallbackControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientCallbackController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientCallbackControllerReturnValueController GetServerBindContextClientCallbackControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientCallbackControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientCallbackTaskControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientCallbackTaskControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.Callback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand Callback(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.Callback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CallbackCommand CallbackQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientCallbackTaskController/**/.CallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientCallbackTaskController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientCallbackTaskControllerReturnValueController GetServerBindContextClientCallbackTaskControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientCallbackTaskControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 保持回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientKeepCallbackControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 保持回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientKeepCallbackControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallback(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallback(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallback(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCount(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCount(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCount(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCount(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCount(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(int Value, int Ref, System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(int Value, int Ref, System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(int Value, int Ref, System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(int Value, int Ref, System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueue(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(System.Action<string> Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueueReturn(System.Action<string> Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueueReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(Callback, error_Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(System.Action Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand KeepCallbackCountQueue(System.Action Callback, Action<AutoCSer.Net.CommandClientReturnValue> error_Callback)
+            {
+                return this.__client__.ServerBindContextClientKeepCallbackController/**/.KeepCallbackCountQueue(new AutoCSer.Net.CommandServer.ClientReturnValueCallback(Callback, error_Callback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientKeepCallbackController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>保持回调接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientKeepCallbackControllerReturnValueController GetServerBindContextClientKeepCallbackControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientKeepCallbackControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientTaskControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientTaskControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> AsynchronousTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTaskReturn(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> AsynchronousTaskReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTaskReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue AsynchronousTask(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTask(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue AsynchronousTask()
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTask().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturnAsync(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTaskReturnAsync(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturnAsync()
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTaskReturnAsync();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTaskAsync(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTaskAsync(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTaskAsync()
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.AsynchronousTaskAsync();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.TaskQueueReturn(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueue(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.TaskQueue(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueException(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskController/**/.TaskQueueException(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientTaskController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientTaskControllerReturnValueController GetServerBindContextClientTaskControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientTaskControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 保持回调异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientKeepCallbackTaskControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 保持回调异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientKeepCallbackTaskControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTask(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTask()
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackTask();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackCountTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTask(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackCountTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackCountTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTask()
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackCountTask();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand<string> KeepCallbackTaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackTaskQueueReturn(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand KeepCallbackTaskQueue(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackTaskQueue(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand<string> KeepCallbackCountTaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackCountTaskQueueReturn(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorQueueCommand KeepCallbackCountTaskQueue(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.KeepCallbackCountTaskQueue(queueKey, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientKeepCallbackTaskController/**/.EnumerableKeepCallbackCountTaskQueueReturn(queueKey, Ref);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientKeepCallbackTaskController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>保持回调异步任务接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientKeepCallbackTaskControllerReturnValueController GetServerBindContextClientKeepCallbackTaskControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientKeepCallbackTaskControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 定义对称接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextDefinedSymmetryControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 定义对称接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextDefinedSymmetryControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn(Value, ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn(Value, ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn(Value, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(int Value)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn(Value);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref, out long Out)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn(ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(ref int Ref)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn(ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn(out long Out)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn(out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public string SynchronousReturn()
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.SynchronousReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous(Value, ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, ref int Ref)
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous(Value, ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value, out long Out)
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous(Value, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(int Value)
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous(Value);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref, out long Out)
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous(ref Ref, out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(ref int Ref)
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous(ref Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Out"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous(out long Out)
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous(out Out);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void Synchronous()
+            {
+                this.__client__.ServerBindContextDefinedSymmetryController/**/.Synchronous();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.AsynchronousTaskReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task<string> AsynchronousTaskReturn()
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.AsynchronousTaskReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTask(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.AsynchronousTask(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public System.Threading.Tasks.Task AsynchronousTask()
+            {
+                
+                return this.__client__.ServerBindContextDefinedSymmetryController/**/.AsynchronousTask();
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextDefinedSymmetryController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>定义对称接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextDefinedSymmetryControllerReturnValueController GetServerBindContextDefinedSymmetryControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextDefinedSymmetryControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 控制器异步队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ServerBindContextClientTaskQueueControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 控制器异步队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ServerBindContextClientTaskQueueControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueue()
+            {
+                
+                return this.__client__.ServerBindContextClientTaskQueueController/**/.TaskQueue().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueue(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskQueueController/**/.TaskQueue(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturn()
+            {
+                
+                return this.__client__.ServerBindContextClientTaskQueueController/**/.TaskQueueReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ServerBindContextClientTaskQueueController/**/.TaskQueueReturn(Value, Ref).GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ServerBindContextClientTaskQueueController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>控制器异步队列接口测试（套接字上下文绑定服务端） (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ServerBindContextClientTaskQueueControllerReturnValueController GetServerBindContextClientTaskQueueControllerReturnValueController(bool isIgnoreError = false) { return new ServerBindContextClientTaskQueueControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 远程表达式委托接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientRemoteExpressionDelegateControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 远程表达式委托接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientRemoteExpressionDelegateControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Action(System.Linq.Expressions.Expression<System.Action> action)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Action(action).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Action1(System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject>> action)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Action1(action).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Action2(System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int>> action, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Action2(action, parameter).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Action3(System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int,int>> action, int parameter, int parameter2)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Action3(action, parameter, parameter2).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Default(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Default(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Func(System.Linq.Expressions.Expression<System.Func<int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Func(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Func1(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Func1(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Func2(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int>> func, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Func2(func, parameter).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Func3(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int,int>> func, int parameter, int parameter2)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Func3(func, parameter, parameter2).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Index(System.Linq.Expressions.Expression<System.Func<object,int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Index(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> TypeBinaryExpression(System.Linq.Expressions.Expression<System.Func<object,int,int>> func, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.TypeBinaryExpression(func, parameter).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> Unbox(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,object,int>> func, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Unbox(func, parameter).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<bool> Logical(System.Linq.Expressions.Expression<System.Func<int,int,bool>> func, int parameter, int parameter2)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.Logical(func, parameter, parameter2).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaAction(System.Linq.Expressions.Expression<System.Action> action)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaAction(action).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaAction1(System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject>> action)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaAction1(action).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaAction2(System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int>> action, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaAction2(action, parameter).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="action"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaAction3(System.Linq.Expressions.Expression<System.Action<AutoCSer.TestCase.CommandServerSessionObject,int,int>> action, int parameter, int parameter2)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaAction3(action, parameter, parameter2).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaFunc(System.Linq.Expressions.Expression<System.Func<int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaFunc(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaFunc1(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaFunc1(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaFunc2(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int>> func, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaFunc2(func, parameter).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaFunc3(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,int,int,int>> func, int parameter, int parameter2)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaFunc3(func, parameter, parameter2).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaDefault(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,AutoCSer.TestCase.CommandServerSessionObject,int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaDefault(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaIndex(System.Linq.Expressions.Expression<System.Func<object,int>> func)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaIndex(func).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <param name="parameter2"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<bool> LambdaLogical(System.Linq.Expressions.Expression<System.Func<int,int,bool>> func, int parameter, int parameter2)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaLogical(func, parameter, parameter2).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaTypeBinaryExpression(System.Linq.Expressions.Expression<System.Func<object,int,int>> func, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaTypeBinaryExpression(func, parameter).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="func"></param>
+            /// <param name="parameter"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<int> LambdaUnbox(System.Linq.Expressions.Expression<System.Func<AutoCSer.TestCase.CommandServerSessionObject,object,int>> func, int parameter)
+            {
+                
+                return this.__client__.ClientRemoteExpressionDelegateController/**/.LambdaUnbox(func, parameter).GetValue(__isIgnoreError__);
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientRemoteExpressionDelegateController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>远程表达式委托接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientRemoteExpressionDelegateControllerReturnValueController GetClientRemoteExpressionDelegateControllerReturnValueController(bool isIgnoreError = false) { return new ClientRemoteExpressionDelegateControllerReturnValueController(this, isIgnoreError); }
+        /// <summary>
+        /// 代码生成客户端接口测试 (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ClientCodeGeneratorControllerReturnValueController
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly AutoCSer.TestCase.CommandClientSocketEvent __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// 代码生成客户端接口测试 (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name="client">Command client socket event</param>
+            /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+            public ClientCodeGeneratorControllerReturnValueController(AutoCSer.TestCase.CommandClientSocketEvent client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue CallbackSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.CallbackSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue CallbackSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.CallbackSocketInput(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> CallbackSocketInputReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.CallbackSocketInputReturn(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> CallbackSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.CallbackSocketReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountSocketInput(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountSocketInputReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountSocketInputReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountSocketReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTaskSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountTaskSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackCountTaskSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountTaskSocketInput(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskSocketInputReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountTaskSocketInputReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackCountTaskSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackCountTaskSocketReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackSocketInput(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackSocketInputReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackSocketInputReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackSocketReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTaskSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackTaskSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand KeepCallbackTaskSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackTaskSocketInput(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskSocketInputReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackTaskSocketInputReturn(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.EnumeratorCommand<string> KeepCallbackTaskSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.KeepCallbackTaskSocketReturn();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue QueueSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.QueueSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue QueueSocketInput(int Value)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.QueueSocketInput(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> QueueSocketInputReturn(int Value)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.QueueSocketInputReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> QueueSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.QueueSocketReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlySocket()
+            {
+                this.__client__.ClientCodeGeneratorController/**/.SendOnlySocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlySocketInput(int Value, int Ref)
+            {
+                this.__client__.ClientCodeGeneratorController/**/.SendOnlySocketInput(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTaskSocket()
+            {
+                this.__client__.ClientCodeGeneratorController/**/.SendOnlyTaskSocket();
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public void SendOnlyTaskSocketInput(int Value, int Ref)
+            {
+                this.__client__.ClientCodeGeneratorController/**/.SendOnlyTaskSocketInput(Value, Ref);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue SynchronousSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.SynchronousSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue SynchronousSocketInput(int Value)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.SynchronousSocketInput(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> SynchronousSocketInputReturn(int Value)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.SynchronousSocketInputReturn(Value).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> SynchronousSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.SynchronousSocketReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskCallbackSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskCallbackSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskCallbackSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskCallbackSocketInput(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskCallbackSocketInputReturn(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskCallbackSocketInputReturn(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskCallbackSocketReturn()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskCallbackSocketReturn().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey">Queue keyword</param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskQueueReturnSocket(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskQueueReturnSocket(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="queueKey">Queue keyword</param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskQueueSocket(int queueKey, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskQueueSocket(queueKey, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskReturnSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskReturnSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue<string> TaskReturnSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskReturnSocketInput(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskSocket()
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskSocket().GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.CommandServer.CommandReturnValue TaskSocketInput(int Value, int Ref)
+            {
+                
+                return this.__client__.ClientCodeGeneratorController/**/.TaskSocketInput(Value, Ref).GetValue(__isIgnoreError__);
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketInputReturn(int Value, int Ref, System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketInputReturn(int Value, int Ref, System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketReturn(System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountSocketReturn(System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketInputReturn(int Value, int Ref, System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountTaskSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketInputReturn(int Value, int Ref, System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountTaskSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketReturn(System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackCountTaskSocketReturn(System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackCountTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketInputReturn(int Value, int Ref, System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketInputReturn(int Value, int Ref, System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketReturn(System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackSocketReturn(System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketInputReturn(int Value, int Ref, System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackTaskSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="Value"></param>
+            /// <param name="Ref"></param>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketInputReturn(int Value, int Ref, System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackTaskSocketInputReturn(Value, Ref, new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketReturn(System.Action<long> callback, System.Action<string> keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback));
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public AutoCSer.Net.KeepCallbackCommand TwoStageCallbackTaskSocketReturn(System.Action<long> callback, Action<AutoCSer.Net.CommandClientReturnValue> error_callback, System.Action<string> keepCallback, Action<AutoCSer.Net.CommandClientReturnValue> error_keepCallback)
+            {
+                return this.__client__.ClientCodeGeneratorController/**/.TwoStageCallbackTaskSocketReturn(new AutoCSer.Net.CommandServer.ClientReturnValueCallback<long>(callback, error_callback), new AutoCSer.Net.CommandServer.ClientReturnValueCallback<string>(keepCallback, error_keepCallback));
+            }
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (ClientCodeGeneratorController)
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored</param>
+        /// <returns>代码生成客户端接口测试 (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ClientCodeGeneratorControllerReturnValueController GetClientCodeGeneratorControllerReturnValueController(bool isIgnoreError = false) { return new ClientCodeGeneratorControllerReturnValueController(this, isIgnoreError); }
+    }
 }namespace AutoCSer.TestCase
 {
         /// <summary>

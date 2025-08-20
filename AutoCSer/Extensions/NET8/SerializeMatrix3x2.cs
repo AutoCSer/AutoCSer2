@@ -6,9 +6,7 @@ namespace AutoCSer.Extensions
     /// <summary>
     /// System.Numerics.Matrix3x2
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.XmlSerialize]
-#endif
     [StructLayout(LayoutKind.Sequential, Size = sizeof(float) * 6)]
     internal partial struct SerializeMatrix3x2
     {

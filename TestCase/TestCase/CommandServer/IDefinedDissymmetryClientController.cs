@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端定义非对称测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(void), true)]
-#endif
     [AutoCSer.Net.CommandServer.ServerControllerInterfaceAttribute(typeof(IDefinedDissymmetryServerControllerMethodEnum))]
     [CommandServerControllerInterface(IsCodeGeneratorMethodEnum = false, IsCodeGeneratorClientInterface = false, IsCodeGeneratorControllerAttribute = false)]
     public partial interface IDefinedDissymmetryClientController
@@ -63,7 +61,7 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 
-            Data.ORM.ModelGeneric result = await client.DefinedDissymmetryClientController.GetSocketTask().GetCommandReturnValue();
+            Data.ORM.ModelGeneric result = await client.DefinedDissymmetryClientController.GetSocketTask().GetValue();
             if (!ServerSynchronousController.SessionObject.Check(result))
             {
                 return AutoCSer.Breakpoint.ReturnFalse();

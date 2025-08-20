@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase.CommandClientPerformance
     /// <summary>
     /// 命令服务性能测试客户端接口（客户端同步返回结果）
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IService))]
-#endif
     public partial interface ISynchronousCllient
     {
         /// <summary>

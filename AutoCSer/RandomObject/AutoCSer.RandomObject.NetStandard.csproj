@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="CodeGenerator\RandomObjectAttribute.cs" />
     <Compile Include="CombinationTemplateConfig.cs" />
     <Compile Include="CombinationTemplate\Creator.Enum.cs" />
     <Compile Include="Config.cs" />

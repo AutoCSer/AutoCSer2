@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 定义对称测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IDefinedSymmetryController), true)]
-#endif
     public partial interface IDefinedSymmetryController
     {
         string SynchronousReturn(int Value, ref int Ref, out long Out);

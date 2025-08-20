@@ -314,7 +314,7 @@ namespace AutoCSer.Net.CommandServer
             if (Error == null)
             {
                 if (Messages.Length != 0) controllerConstructorMessages = Messages.ToArray();
-                Error = ClientInterfaceMethod.GetMethod(type, ControllerAttribute, keyType, ref methodArray, Methods != null);
+                Error = ClientInterfaceMethod.GetMethod(type, ControllerAttribute, keyType, ref methodArray, Methods != null, false, true);
             }
             if (Error != null)
             {
@@ -323,7 +323,7 @@ namespace AutoCSer.Net.CommandServer
             }
             foreach (Type interfaceType in type.GetInterfaces())
             {
-                Error = ClientInterfaceMethod.GetMethod(interfaceType, ControllerAttribute, keyType, ref methodArray, Methods != null);
+                Error = ClientInterfaceMethod.GetMethod(interfaceType, ControllerAttribute, keyType, ref methodArray, Methods != null, false, true);
                 if (Error != null)
                 {
                     controllerConstructorException = new Exception($"{type.fullName()} 客户端控制器生成失败 {Error}");

@@ -14,13 +14,6 @@ namespace AutoCSer.TestCase.ServerRegistryServiceClient
     internal sealed class CommandClientConfig : AutoCSer.Net.CommandClientConfig
     {
         /// <summary>
-        /// 注册服务命令客户端配置
-        /// </summary>
-        public CommandClientConfig()
-        {
-            ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
-        }
-        /// <summary>
         /// Automatically start the connection
         /// 自动启动连接
         /// </summary>

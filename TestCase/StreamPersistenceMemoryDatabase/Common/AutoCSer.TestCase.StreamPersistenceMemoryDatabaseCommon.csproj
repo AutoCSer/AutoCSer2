@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\StreamPersistenceMemoryDatabase\AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NET8.csproj" />
+    <ProjectReference Include="..\..\..\AutoCSer\RandomObject\AutoCSer.RandomObject.NET8.csproj" />
   </ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

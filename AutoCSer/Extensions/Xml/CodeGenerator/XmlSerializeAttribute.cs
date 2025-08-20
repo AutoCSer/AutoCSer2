@@ -4,12 +4,13 @@ using System.Runtime.CompilerServices;
 namespace AutoCSer.CodeGenerator
 {
     /// <summary>
-    /// Configuration for generating XML serialization code in the AOT environment
-    /// AOT 环境 XML 序列化代码生成配置
+    /// XML serialization code generation configuration (for.NET NativeAOT only)
+    /// XML 序列化代码生成配置（仅用于 .NET NativeAOT）
     /// </summary>
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class XmlSerializeAttribute : Attribute
     {
+#if AOT
         /// <summary>
         /// Name of XML serialization method
         /// XML 序列化方法名称
@@ -35,5 +36,6 @@ namespace AutoCSer.CodeGenerator
         /// 获取 XML 反序列化成员名称集合的方法名称
         /// </summary>
         internal const string XmlDeserializeMemberNameMethodName = "XmlDeserializeMemberNames";
+#endif
     }
 }

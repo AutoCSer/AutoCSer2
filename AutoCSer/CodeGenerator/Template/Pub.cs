@@ -15,6 +15,7 @@ namespace AutoCSer.CodeGenerator.Template
             public string ParameterName;
             public string ReturnValueParameterName;
             public MethodReturnType.FullName ReturnValue;
+            public FullName(params object[] values) { }
             public static implicit operator int(FullName value) { return 0; }
             public static implicit operator FullName(int value) { return null; }
             public static implicit operator string(FullName value) { return null; }
@@ -32,6 +33,7 @@ namespace AutoCSer.CodeGenerator.Template
             public bool fieldEquals(params object[] values) { return false; }
             public void memberCopyFrom(params object[] values) { }
             public void createRandomObject(params object[] values) { }
+            public MethodReturnType.FullName GetValue(params object[] values) { return null; }
 
             public static void MethodName() { }
             public static object Get(params object[] values) { return null; }
@@ -50,9 +52,13 @@ namespace AutoCSer.CodeGenerator.Template
         public partial class ReturnValueType : Pub { }
         public partial class TwoStageReturnValueType : Pub { }
         public partial class ParameterType : Pub { }
+        public partial class RedirectType : Pub { }
         public partial class ServerType : Pub { }
         public partial class ClientType : Pub { }
         public partial class CallbackType : Pub { }
+        public partial class KeepCallbackType : Pub { }
+        public partial class CallbackReturnValueType : Pub { }
+        public partial class KeepCallbackReturnValueType : Pub { }
         public partial class TwoStageCallbackType : Pub { }
         public partial class EnumType : Pub { }
         public partial class SnapshotType : Pub { }

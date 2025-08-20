@@ -614,6 +614,753 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
     }
 }
 #endif
+namespace AutoCSer.CodeGenerator.TemplateGenerator
+{
+    internal partial class CommandClientReturnValueController
+    {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="isOut">是否输出类定义代码</param>
+        protected override void create(bool _isOut_)
+        {
+            if (outStart(_isOut_))
+            {
+                
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerInterface[] _value1_;
+                    _value1_ = ControllerInterfaces;
+                    if (_value1_ != null)
+                    {
+                        int _loopIndex1_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerInterface _value2_ in _value1_)
+                        {
+            _code_.Add(@"
+        /// <summary>
+        /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.PropertyIndex _value3_ = _value2_.Property;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.PropertyIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" (Direct return value API encapsulation)
+        /// </summary>
+        public sealed class ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
+            _code_.Add(@"
+        {
+            /// <summary>
+            /// Command client socket event
+            /// </summary>
+            private readonly ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = CurrentType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" __client__;
+            /// <summary>
+            /// Whether errors and exceptions are ignored
+            /// </summary>
+            private readonly bool __isIgnoreError__;
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.PropertyIndex _value3_ = _value2_.Property;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.PropertyIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" (Direct return value API encapsulation)
+            /// </summary>
+            /// <param name=""client"">Command client socket event</param>
+            /// <param name=""isIgnoreError"">Whether errors and exceptions are ignored</param>
+            public ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value3_ = CurrentType;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value3_.FullName);
+                    }
+                }
+            _code_.Add(@" client, bool isIgnoreError = false)
+            {
+                __client__ = client;
+                __isIgnoreError__ = isIgnoreError;
+            }");
+                {
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerMethod[] _value3_;
+                    _value3_ = _value2_.Methods;
+                    if (_value3_ != null)
+                    {
+                        int _loopIndex3_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientReturnValueController.ControllerMethod _value4_ in _value3_)
+                        {
+            _code_.Add(@"
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(@"
+            /// <param name=""");
+            _code_.Add(_value6_.ParameterName);
+            _code_.Add(@""">");
+            _code_.Add(_value6_.CodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _if_ = false;
+                    if (_value4_.IsSynchronous)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.MethodReturnType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.RefOutString);
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value7_ = _value6_.ParameterType;
+                    if (_value7_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value7_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _code_.Add(@")
+            {
+                ");
+            _if_ = false;
+                    if (_value4_.IsReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+                return ");
+            }
+            _code_.Add(@"this.__client__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.RefOutString);
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _code_.Add(@")");
+            _if_ = false;
+                    if (_value4_.IsGetReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@".GetValue(__isIgnoreError__)");
+            }
+            _code_.Add(@";
+            }");
+            }
+            _if_ = false;
+                if (!(bool)_value4_.IsSynchronous)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.MethodReturnType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value7_ = _value6_.ParameterType;
+                    if (_value7_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value7_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.CallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.CallbackParameterName);
+            }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.KeepCallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            }
+                }
+            _code_.Add(@")
+            {
+                return this.__client__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _if_ = false;
+                    if (_value4_.CallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.CallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.CallbackParameterName);
+            _code_.Add(@")");
+            }
+            _if_ = false;
+                    if (_value4_.KeepCallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.KeepCallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            _code_.Add(@")");
+            }
+            _code_.Add(@");
+            }
+            /// <summary>
+            /// ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@"
+            /// </summary>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(@"
+            /// <param name=""");
+            _code_.Add(_value6_.ParameterName);
+            _code_.Add(@""">");
+            _code_.Add(_value6_.CodeGeneratorXmlDocument);
+            _code_.Add(@"</param>");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _if_ = false;
+                    if (_value4_.IsReturnValue)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"
+            /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value5_ = _value4_.Method;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+            _code_.Add(_value5_.CodeGeneratorReturnXmlDocument);
+                    }
+                }
+            _code_.Add(@"</returns>");
+            }
+            _code_.Add(@"
+            [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+            public ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.MethodReturnType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value7_ = _value6_.ParameterType;
+                    if (_value7_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value7_.FullName);
+                    }
+                }
+            _code_.Add(@" ");
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.CallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.CallbackParameterName);
+            _if_ = false;
+                if (!(bool)_value4_.IsTwoStageReturnValueParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", Action<AutoCSer.Net.CommandClientReturnValue> ");
+            _code_.Add(_value4_.ErrorCallbackParameterName);
+            }
+            }
+                }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = default(AutoCSer.CodeGenerator.Metadata.ExtensionType);
+                    _value5_ = _value4_.KeepCallbackType;
+            _if_ = false;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(_value5_.FullName);
+            _code_.Add(@" ");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            _code_.Add(@", Action<AutoCSer.Net.CommandClientReturnValue> ");
+            _code_.Add(_value4_.ErrorKeepCallbackParameterName);
+            }
+                }
+            _code_.Add(@")
+            {
+                return this.__client__.");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@"/**/.");
+            _code_.Add(_value4_.MethodName);
+            _code_.Add(@"(");
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodParameter[] _value5_ = default(AutoCSer.CodeGenerator.Metadata.MethodParameter[]);
+                {
+                    AutoCSer.CodeGenerator.Metadata.MethodIndex _value6_ = _value4_.Method;
+                    if (_value6_ != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
+                    {
+                    _value5_ = _value6_.Parameters;
+                    }
+                }
+                    if (_value5_ != null)
+                    {
+                        int _loopIndex5_ = _loopIndex_;
+                        _loopIndex_ = 0;
+                        foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value6_ in _value5_)
+                        {
+            _code_.Add(_value6_.ParameterJoinName);
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex5_;
+                    }
+                }
+            _if_ = false;
+                    if (_value4_.CallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.CallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.CallbackParameterName);
+            _if_ = false;
+                if (!(bool)_value4_.IsTwoStageReturnValueParameter)
+                {
+                    _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            _code_.Add(_value4_.ErrorCallbackParameterName);
+            }
+            _code_.Add(@")");
+            }
+            _if_ = false;
+                    if (_value4_.KeepCallbackParameterName != default(string))
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _if_ = false;
+                    if (_value4_.IsJoinKeepCallback)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@", ");
+            }
+            _code_.Add(@"new ");
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.KeepCallbackReturnValueType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"(");
+            _code_.Add(_value4_.KeepCallbackParameterName);
+            _code_.Add(@", ");
+            _code_.Add(_value4_.ErrorKeepCallbackParameterName);
+            _code_.Add(@")");
+            }
+            _code_.Add(@");
+            }");
+            }
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex3_;
+                    }
+                }
+            _code_.Add(@"
+        }
+        /// <summary>
+        /// Get the direct return value API encapsulation (");
+            _code_.Add(_value2_.MemberName);
+            _code_.Add(@")
+        /// </summary>
+        /// <param name=""isIgnoreError"">Whether errors and exceptions are ignored</param>
+        /// <returns>");
+                {
+                    AutoCSer.CodeGenerator.Metadata.PropertyIndex _value3_ = _value2_.Property;
+                    if (_value3_ != default(AutoCSer.CodeGenerator.Metadata.PropertyIndex))
+                    {
+            _code_.Add(_value3_.CodeGeneratorXmlDocument);
+                    }
+                }
+            _code_.Add(@" (Direct return value API encapsulation)</returns>
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
+            _code_.Add(@" ");
+            _code_.Add(_value2_.GetReturnValueControllerMethodName);
+            _code_.Add(@"(bool isIgnoreError = false) { return new ");
+            _code_.Add(_value2_.ReturnValueControllerTypeName);
+            _code_.Add(@"(this, isIgnoreError); }");
+                            ++_loopIndex_;
+                        }
+                        _loopIndex_ = _loopIndex1_;
+                    }
+                }
+                if (_isOut_) outEnd();
+            }
+        }
+    }
+}
 #if !DotNet45
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
@@ -700,7 +1447,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
 #endif
 namespace AutoCSer.CodeGenerator.TemplateGenerator
 {
-    internal partial class CommandServerClientControllerInterface
+    internal partial class CommandClientControllerInterface
     {
         /// <summary>
         /// 生成代码
@@ -747,13 +1494,13 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             _code_.Add(@"
         {");
                 {
-                    AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientControllerInterface.ControllerMethod[] _value1_;
+                    AutoCSer.CodeGenerator.TemplateGenerator.CommandClientControllerInterface.ControllerMethod[] _value1_;
                     _value1_ = Methods;
                     if (_value1_ != null)
                     {
                         int _loopIndex1_ = _loopIndex_;
                         _loopIndex_ = 0;
-                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientControllerInterface.ControllerMethod _value2_ in _value1_)
+                        foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientControllerInterface.ControllerMethod _value2_ in _value1_)
                         {
             _if_ = false;
                     if (_value2_.Method != default(AutoCSer.CodeGenerator.Metadata.MethodIndex))
@@ -900,8 +1647,25 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         foreach (AutoCSer.CodeGenerator.Metadata.MethodParameter _value4_ in _value3_)
                         {
             _code_.Add(_value4_.RefOutString);
+            _if_ = false;
+                    if (_value4_.IsRedirectType)
+                    {
+                        _if_ = true;
+                }
+            if (_if_)
+            {
+            _code_.Add(@"[AutoCSer.Net.CommandServer.MethodParameterType(typeof(");
                 {
                     AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.ParameterType;
+                    if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
+                    {
+            _code_.Add(_value5_.FullName);
+                    }
+                }
+            _code_.Add(@"))]");
+            }
+                {
+                    AutoCSer.CodeGenerator.Metadata.ExtensionType _value5_ = _value4_.RedirectType;
                     if (_value5_ != default(AutoCSer.CodeGenerator.Metadata.ExtensionType))
                     {
             _code_.Add(_value5_.FullName);

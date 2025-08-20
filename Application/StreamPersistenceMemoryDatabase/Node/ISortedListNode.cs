@@ -9,9 +9,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// <typeparam name="KT">Sort keyword type
     /// 排序关键字类型</typeparam>
     /// <typeparam name="VT">Data type</typeparam>
-#if !AOT
     [ServerNode(IsLocalClient = true)]
-#endif
     public partial interface ISortedListNode<KT, VT>
         where KT : IComparable<KT>
     {

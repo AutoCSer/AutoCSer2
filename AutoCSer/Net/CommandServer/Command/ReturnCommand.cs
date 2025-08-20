@@ -59,6 +59,18 @@ namespace AutoCSer.Net
         {
             return this;
         }
+        /// <summary>
+        /// Get the command return value
+        /// 获取命令返回值
+        /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
+        /// <returns></returns>
+        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        public CommandReturnValue GetValue(bool isIgnoreError = false)
+        {
+            return new CommandReturnValue(this, isIgnoreError);
+        }
 
         /// <summary>
         /// Convert to a Task object
@@ -149,14 +161,16 @@ namespace AutoCSer.Net
             return this;
         }
         /// <summary>
-        /// Get the command return value (suitable for scenarios where the server does not return default and does not care about the specific error)
-        /// 获取命令返回值（适合服务端不会返回 default 并且不关心具体错误的场景）
+        /// Get the command return value
+        /// 获取命令返回值
         /// </summary>
+        /// <param name="isIgnoreError">Whether errors and exceptions are ignored
+        /// 是否忽略错误与异常</param>
         /// <returns></returns>
         [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public CommandReturnValue<T> GetCommandReturnValue()
+        public CommandReturnValue<T> GetValue(bool isIgnoreError = false)
         {
-            return new CommandReturnValue<T>(this);
+            return new CommandReturnValue<T>(this, isIgnoreError);
         }
 
         /// <summary>

@@ -7399,23 +7399,26 @@
         </member>
         <member name="T:AutoCSer.CodeGenerator.MemberCopyAttribute">
             <summary>
-            成员复制代码生成配置（用于 AOT 环境）
+            Member copy code generation configuration (for.NET NativeAOT only)
+            成员复制代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.MemberCopyAttribute.MemberCopyMethodName">
             <summary>
+            Member copy method name
             成员复制方法名称
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.MemberCopyAttribute.MemberMapCopyMethodName">
             <summary>
+            Member copy method name
             成员复制方法名称
             </summary>
         </member>
         <member name="T:AutoCSer.CodeGenerator.XmlSerializeAttribute">
             <summary>
-            Configuration for generating XML serialization code in the AOT environment
-            AOT 环境 XML 序列化代码生成配置
+            XML serialization code generation configuration (for.NET NativeAOT only)
+            XML 序列化代码生成配置（仅用于 .NET NativeAOT）
             </summary>
         </member>
         <member name="F:AutoCSer.CodeGenerator.XmlSerializeAttribute.XmlSerializeMethodName">
@@ -7542,6 +7545,38 @@
             </summary>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="T:AutoCSer.MemberCopyMethod">
+            <summary>
+            成员复制方法
+            </summary>
+        </member>
+        <member name="M:AutoCSer.MemberCopyMethod.CopyArray``1(``0[]@,``0[])">
+            <summary>
+            数组复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="writeArray"></param>
+            <param name="readArray"></param>
+        </member>
+        <member name="M:AutoCSer.MemberCopyMethod.CopyArrayMemberMap``1(``0[]@,``0[],AutoCSer.Metadata.MemberMap{``0[]})">
+            <summary>
+            数组复制
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="writeArray"></param>
+            <param name="readArray"></param>
+            <param name="memberMap"></param>
+        </member>
+        <member name="F:AutoCSer.MemberCopyMethod.CopyArrayMethod">
+            <summary>
+            数组复制
+            </summary>
+        </member>
+        <member name="F:AutoCSer.MemberCopyMethod.CopyArrayMemberMapMethod">
+            <summary>
+            数组复制
+            </summary>
         </member>
         <member name="T:AutoCSer.Memory.BitMap">
             <summary>

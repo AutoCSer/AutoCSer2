@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 定义对称测试接口（套接字上下文绑定服务端）
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IDefinedSymmetryController), true)]
-#endif
     public partial interface IDefinedSymmetryController
     {
         string SynchronousReturn(int Value, ref int Ref, out long Out);

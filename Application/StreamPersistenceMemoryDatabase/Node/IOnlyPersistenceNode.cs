@@ -8,9 +8,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// </summary>
     /// <typeparam name="T">Archive data type
     /// 存档数据类型</typeparam>
-#if !AOT
     [ServerNode(IsLocalClient = true)]
-#endif
     public partial interface IOnlyPersistenceNode<T>
     {
         /// <summary>

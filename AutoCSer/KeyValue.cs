@@ -32,9 +32,7 @@ namespace AutoCSer
     /// </typeparam>
     /// <typeparam name="VT">Data value type
     /// 数据值类型</typeparam>
-#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
-#endif
     [RemoteType]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct KeyValue<KT, VT>

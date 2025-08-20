@@ -6,9 +6,7 @@ namespace AutoCSer.CommandService.InterfaceRealTimeCallMonitor
     /// <summary>
     /// 实时调用时间戳信息
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.BinarySerialize(IsSerialize = false)]
-#endif
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct CallTimestamp

@@ -91,7 +91,6 @@ namespace AutoCSer.Document.ServiceAuthentication.TransferEncoding
         {
             MinCompressSize = 1,
             Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-            ControllerCreatorBindingFlags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public,
             GetSocketEventDelegate = (client) => new TimestampVerify.CommandClientSocketEvent(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
         });
         /// <summary>

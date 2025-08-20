@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 
 namespace AutoCSer.Document.ServiceAuthentication.TimestampVerify
 {
@@ -32,6 +31,11 @@ namespace AutoCSer.Document.ServiceAuthentication.TimestampVerify
             }
         }
         /// <summary>
+        /// Command client socket event controller property binding identification
+        /// 命令客户端套接字事件控制器属性绑定标识
+        /// </summary>
+        public override System.Reflection.BindingFlags ControllerBindingFlags { get { return System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public; } }
+        /// <summary>
         /// No identity authentication (string matching authentication) command client socket event
         /// 无身份认证（字符串匹配认证）命令客户端套接字事件
         /// </summary>
@@ -47,7 +51,6 @@ namespace AutoCSer.Document.ServiceAuthentication.TimestampVerify
         public static readonly AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent> CommandClient = new AutoCSer.Net.CommandClientSocketEventCache<CommandClientSocketEvent>(new AutoCSer.Net.CommandClientConfig
         {
             Host = new AutoCSer.Net.HostEndPoint((ushort)AutoCSer.TestCase.Common.CommandServerPortEnum.Document),
-            ControllerCreatorBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
             GetSocketEventDelegate = (client) => new CommandClientSocketEvent(client, AutoCSer.TestCase.Common.Config.TimestampVerifyString)
         });
         /// <summary>

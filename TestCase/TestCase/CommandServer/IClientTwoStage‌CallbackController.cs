@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerTwoStageCallbackController), true)]
-#endif
     public partial interface IClientTwoStage‌CallbackController
     {
         KeepCallbackCommand TwoStage‌CallbackSocketReturn(int Value, int Ref, Action<CommandClientReturnValue<long>> Callback, Action<CommandClientReturnValue<string>, KeepCallbackCommand> KeepCallback);

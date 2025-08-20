@@ -9,9 +9,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerKeepCallbackTaskController), true)]
-#endif
     public partial interface IClientKeepCallbackTaskController
     {
         EnumeratorCommand<string> KeepCallbackTaskSocketReturn(int Value, int Ref);
@@ -38,31 +36,31 @@ namespace AutoCSer.TestCase
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskReturn();
 
 #if NetStandard21
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackTaskSocketReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskSocketReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackTaskSocketReturnAsync();
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackTaskReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackTaskReturnAsync();
 
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackCountTaskSocketReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskSocketReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackCountTaskSocketReturnAsync();
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackCountTaskReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.KeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> KeepCallbackCountTaskReturnAsync();
 
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskSocketReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskSocketReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskSocketReturnAsync();
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync(int Value, int Ref);
-        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn))]
+        [CommandClientMethod(MatchMethodName = nameof(IServerKeepCallbackTaskController.EnumerableKeepCallbackCountTaskReturn), IsCodeGeneratorReturnValueController = false)]
         IAsyncEnumerable<string> EnumerableKeepCallbackCountTaskReturnAsync();
 #endif
 
@@ -80,12 +78,18 @@ namespace AutoCSer.TestCase
         EnumeratorCommand<string> EnumerableKeepCallbackCountTaskQueueReturn(int queueKey, int Ref);
 
 #if NetStandard21
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableSocketReturn(int Value, int Ref);
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableSocketReturn();
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableReturn(int Value, int Ref);
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableReturn();
-
+        
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableQueueSocketReturn(int queueKey, int Ref);
+        [CommandClientMethod(IsCodeGeneratorReturnValueController = false)]
         EnumeratorCommand<string> AsyncEnumerableQueueReturn(int queueKey, int Ref);
 #endif
     }
@@ -608,7 +612,6 @@ namespace AutoCSer.TestCase
                 return AutoCSer.Breakpoint.ReturnFalse();
             }
 #endif
-
             return true;
         }
         /// <summary>

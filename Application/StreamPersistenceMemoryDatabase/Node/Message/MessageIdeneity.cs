@@ -7,9 +7,7 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
     /// The identifier of the message being processed
     /// 正在处理的消息标识
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.JsonSerialize]
-#endif
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     [AutoCSer.BinarySerialize(IsReferenceMember = false)]
     public partial struct MessageIdeneity

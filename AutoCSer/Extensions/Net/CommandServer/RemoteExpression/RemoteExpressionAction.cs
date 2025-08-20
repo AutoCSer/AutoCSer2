@@ -139,6 +139,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionAction(Expression<Action> expression) { return new RemoteExpressionAction(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionAction AutoCSerCommandParameterCastType(Expression<Action> expression) { return (RemoteExpressionAction)expression; }
 
         ///// <summary>
         ///// 获取远程表达式委托
@@ -319,6 +329,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionAction<T>(Expression<Action<T>> expression) { return new RemoteExpressionAction<T>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionAction<T> AutoCSerCommandParameterCastType(Expression<Action<T>> expression) { return (RemoteExpressionAction<T>)expression; }
 
         /// <summary>
         /// A collection of generic parameter types
@@ -462,6 +482,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionAction<T1, T2>(Expression<Action<T1, T2>> expression) { return new RemoteExpressionAction<T1, T2>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionAction<T1, T2> AutoCSerCommandParameterCastType(Expression<Action<T1, T2>> expression) { return (RemoteExpressionAction<T1, T2>)expression; }
 
         /// <summary>
         /// A collection of generic parameter types
@@ -609,6 +639,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionAction<T1, T2, T3>(Expression<Action<T1, T2, T3>> expression) { return new RemoteExpressionAction<T1, T2, T3>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionAction<T1, T2, T3> AutoCSerCommandParameterCastType(Expression<Action<T1, T2, T3>> expression) { return (RemoteExpressionAction<T1, T2, T3>)expression; }
 
         /// <summary>
         /// A collection of generic parameter types

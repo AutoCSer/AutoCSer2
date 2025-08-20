@@ -101,6 +101,16 @@ namespace AutoCSer.Net
         public virtual IEnumerable<CommandClientControllerCreatorParameter> ControllerCreatorParameters { get { return null; } }
 #endif
         /// <summary>
+        /// A default value of false indicates that no client controller encapsulation type is generated for directly obtaining the return value
+        /// 默认为 false 表示不生成直接获取返回值的客户端控制器封装类型
+        /// </summary>
+        public virtual bool IsCodeGeneratorReturnValueController { get { return false; } }
+        /// <summary>
+        /// Command client socket event controller property binding identification, Defaults to the current type only define attributes BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly
+        /// 命令客户端套接字事件控制器属性绑定标识，默认为仅当前类型定义属性 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly 
+        /// </summary>
+        public virtual BindingFlags ControllerBindingFlags { get { return  BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly; } }
+        /// <summary>
         /// Release the closed socket version of the waiting lock
         /// 释放等待锁的关闭套接字版本
         /// </summary>
@@ -132,60 +142,31 @@ namespace AutoCSer.Net
             if (controllerCreatorParameters != null)
             {
                 Type type = GetType();
-                Dictionary<HashObject<System.Type>, PropertyInfo> propertys = DictionaryCreator.CreateHashObject<System.Type, PropertyInfo>();
-                Dictionary<string, PropertyInfo> propertyNames = DictionaryCreator<string>.Create<PropertyInfo>();
-                foreach (PropertyInfo property in type.GetProperties(commandClient.Config.ControllerCreatorBindingFlags))
-                {
-                    if (property.CanRead && property.CanWrite)
-                    {
-                        Type propertyType = property.PropertyType;
-                        if (propertyType.IsInterface)
-                        {
-                            if (property.GetIndexParameters().Length == 0)//!propertys.ContainsKey(propertyType)
-                            {
-                                propertyNames.Add(property.Name, property);
-                                propertys[propertyType] = property;
-                            }
-                        }
-#if !AOT
-                        else if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(TaskQueueClientController<,>))
-                        {
-                            propertyNames.Add(property.Name, property);
-                            propertys[propertyType.GetGenericArguments()[0]] = property;
-                        }
-#endif
-                    }
-                }
+                Dictionary<string, PropertyInfo> propertyNames;
+                Dictionary<HashObject<System.Type>, PropertyInfo> properties = GetControllerProperties(type, out propertyNames);
 #if AOT
-                LeftArray<SetClientControllerMethod> propertyMethods = new LeftArray<SetClientControllerMethod>(propertyNames.Count + propertys.Count);
+                LeftArray<SetClientControllerMethod> propertyMethods = new LeftArray<SetClientControllerMethod>(propertyNames.Count + properties.Count);
 #else
                 SetClientControllerDynamicMethod setClientControllerDynamicMethod = new SetClientControllerDynamicMethod(type);
                 bool isProperty = false;
 #endif
                 object[] defaultControllerParameters = EmptyArray<object>.Array;
-                foreach (CommandClientControllerCreatorParameter parameter in controllerCreatorParameters)
+                foreach(KeyValue<PropertyInfo, CommandClientControllerCreatorParameter> propertyParameter in GetControllerProperties(controllerCreatorParameters, properties, propertyNames))
                 {
-                    var property = default(PropertyInfo);
-                    var propertyName = parameter.PropertyName;
-                    if (string.IsNullOrEmpty(propertyName)
-                        ? propertys.TryGetValue(parameter.ClientInterfaceType, out property)
-                        : propertyNames.TryGetValue(propertyName, out property))
-                    {
 #if AOT
-                        propertyMethods.Add(new SetClientControllerMethod(parameter.GetControllerName(), property.GetSetMethod(true).notNull()));
+                    propertyMethods.Add(new SetClientControllerMethod(propertyParameter.Value.GetControllerName(), propertyParameter.Key.GetSetMethod(true).notNull()));
 #else
-                        setClientControllerDynamicMethod.Push(property, parameter.GetControllerName());
-                        isProperty = true;
+                    setClientControllerDynamicMethod.Push(propertyParameter.Key, propertyParameter.Value.GetControllerName());
+                    isProperty = true;
 #endif
-                        if (Client.Config.IsDefaultController)
+                    if (Client.Config.IsDefaultController)
+                    {
+                        CommandClientInterfaceControllerCreator creator = propertyParameter.Value.Creator;
+                        if (creator != null && !creator.IsTaskQueue)
                         {
-                            CommandClientInterfaceControllerCreator creator = parameter.Creator;
-                            if (creator != null && !creator.IsTaskQueue)
-                            {
-                                if (defaultControllerParameters.Length == 0) defaultControllerParameters = new object[1];
-                                defaultControllerParameters[0] = creator.CreateDefault(commandClient);
-                                property.SetMethod.notNull().Invoke(this, defaultControllerParameters);
-                            }
+                            if (defaultControllerParameters.Length == 0) defaultControllerParameters = new object[1];
+                            defaultControllerParameters[0] = creator.CreateDefault(commandClient);
+                            propertyParameter.Key.SetMethod.notNull().Invoke(this, defaultControllerParameters);
                         }
                     }
                 }
@@ -194,6 +175,63 @@ namespace AutoCSer.Net
 #else
                 if (isProperty) setController = (Action<CommandClientSocketEvent>)setClientControllerDynamicMethod.Create(typeof(Action<CommandClientSocketEvent>));
 #endif
+            }
+        }
+        /// <summary>
+        /// Gets a collection of controller property information
+        /// 获取控制器属性信息集合
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="propertyNames"></param>
+        /// <returns></returns>
+        internal Dictionary<HashObject<System.Type>, PropertyInfo> GetControllerProperties(Type type, out Dictionary<string, PropertyInfo> propertyNames)
+        {
+            Dictionary<HashObject<System.Type>, PropertyInfo> properties = DictionaryCreator.CreateHashObject<System.Type, PropertyInfo>();
+            propertyNames = DictionaryCreator<string>.Create<PropertyInfo>();
+            foreach (PropertyInfo property in type.GetProperties(ControllerBindingFlags))
+            {
+                if (property.CanRead && property.CanWrite)
+                {
+                    Type propertyType = property.PropertyType;
+                    if (propertyType.IsInterface)
+                    {
+                        if (property.GetIndexParameters().Length == 0)//!properties.ContainsKey(propertyType)
+                        {
+                            propertyNames.Add(property.Name, property);
+                            properties[propertyType] = property;
+                        }
+                    }
+#if !AOT
+                    else if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(TaskQueueClientController<,>))
+                    {
+                        propertyNames.Add(property.Name, property);
+                        properties[propertyType.GetGenericArguments()[0]] = property;
+                    }
+#endif
+                }
+            }
+            return properties;
+        }
+        /// <summary>
+        /// Gets a collection of controller property information
+        /// 获取控制器属性信息集合
+        /// </summary>
+        /// <param name="controllerCreatorParameters"></param>
+        /// <param name="properties"></param>
+        /// <param name="propertyNames"></param>
+        /// <returns></returns>
+        internal IEnumerable<KeyValue<PropertyInfo, CommandClientControllerCreatorParameter>> GetControllerProperties(IEnumerable<CommandClientControllerCreatorParameter> controllerCreatorParameters, Dictionary<HashObject<System.Type>, PropertyInfo> properties, Dictionary<string, PropertyInfo> propertyNames)
+        {
+            foreach (CommandClientControllerCreatorParameter parameter in controllerCreatorParameters)
+            {
+                var property = default(PropertyInfo);
+                var propertyName = parameter.PropertyName;
+                if (string.IsNullOrEmpty(propertyName)
+                    ? properties.TryGetValue(parameter.ClientInterfaceType, out property)
+                    : propertyNames.TryGetValue(propertyName, out property))
+                {
+                    yield return new KeyValue<PropertyInfo, CommandClientControllerCreatorParameter>(property, parameter);
+                }
             }
         }
         /// <summary>

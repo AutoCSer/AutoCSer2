@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase.ServerBindContext
     /// <summary>
     /// 客户端测试接口（套接字上下文绑定服务端）
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(ServerBindContext.IServerSendOnlyController), true)]
-#endif
     public partial interface IClientSendOnlyController
     {
         SendOnlyCommand SendOnly(int Value, int Ref);

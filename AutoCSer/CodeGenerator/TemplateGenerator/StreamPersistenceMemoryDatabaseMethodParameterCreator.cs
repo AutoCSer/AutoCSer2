@@ -110,7 +110,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 输入参数类型
             /// </summary>
-            public AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType InputParameterType;
+            public AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType InputParameterType;
             /// <summary>
             /// 输入参数类型名称
             /// </summary>
@@ -245,7 +245,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <param name="methodArrayIndex"></param>
             /// <param name="inputParameterType"></param>
             /// <param name="isMethodParameterCreator"></param>
-            public NodeMethod(Type interfaceTye, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute nodeAttribute, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method, int methodArrayIndex, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType inputParameterType, bool isMethodParameterCreator)
+            public NodeMethod(Type interfaceTye, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute nodeAttribute, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method, int methodArrayIndex, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType inputParameterType, bool isMethodParameterCreator)
             {
                 this.interfaceTye = interfaceTye;
                 MethodArrayIndex = methodArrayIndex;
@@ -411,8 +411,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         protected override Task nextCreate()
         {
             Type type = CurrentType.Type;
-            if (!type.IsInterface) return AutoCSer.Common.CompletedTask;
-            if (type.IsGenericType) return AutoCSer.Common.CompletedTask;
+            if (!type.IsInterface || type.IsGenericType) return AutoCSer.Common.CompletedTask;
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType nodeType = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType(type);
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[] methods = nodeType.Methods;
             if (methods == null || methods.Length == 0) return AutoCSer.Common.CompletedTask;
@@ -421,14 +420,14 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             if (MethodParameterCreatorTypeName.Length > 1 && MethodParameterCreatorTypeName[0] == 'I' && (uint)(MethodParameterCreatorTypeName[1] - 'A') < 26) MethodParameterCreatorTypeName = MethodParameterCreatorTypeName.Substring(1);
             int methodArrayIndex = 0;
             LeftArray<NodeMethod> snapshotTypeNodeMethod = new LeftArray<NodeMethod>(0);
-            var methodParameterTypes = default(Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType>);
+            var methodParameterTypes = default(Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType>);
             StreamPersistenceMemoryDatabaseLocalClientNode.InterfaceParamterTypes.TryGetValue(type, out methodParameterTypes);
             Methods = new NodeMethod[methods.Length];
             foreach (AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method in methods)
             {
                 if (method != null)
                 {
-                    var inputParameterType = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType);
+                    var inputParameterType = default(AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType);
                     if (method.InputParameterType != null)//method.IsClientCall && 
                     {
                         if (methodParameterTypes == null || !methodParameterTypes.TryGetValue(method.Method, out inputParameterType))

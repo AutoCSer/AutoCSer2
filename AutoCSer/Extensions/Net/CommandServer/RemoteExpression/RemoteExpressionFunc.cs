@@ -11,65 +11,26 @@ using System.Threading;
 
 namespace AutoCSer.Net.CommandServer
 {
-    /// <summary>
-    /// Remote expression delegate
-    /// 远程表达式委托
-    /// </summary>
-    public static class RemoteExpressionFunc
-    {
-        /// <summary>
-        /// Get the remote expression delegate
-        /// 获取远程表达式委托
-        /// </summary>
-        /// <typeparam name="RT">Return value type
-        /// 返回值类型</typeparam>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static RemoteExpressionFunc<RT> Get<RT>(System.Linq.Expressions.Expression<Func<RT>> expression)
-        {
-            return new RemoteExpressionFunc<RT>(expression);
-        }
-        ///// <summary>
-        ///// 获取远程表达式委托
-        ///// </summary>
-        ///// <typeparam name="T">参数类型</typeparam>
-        ///// <typeparam name="RT">返回值类型</typeparam>
-        ///// <param name="expression"></param>
-        ///// <returns></returns>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static RemoteExpressionFunc<T, RT> Get<T, RT>(System.Linq.Expressions.Expression<Func<T, RT>> expression)
-        //{
-        //    return new RemoteExpressionFunc<T, RT>(expression);
-        //}
-        ///// <summary>
-        ///// 获取远程表达式委托
-        ///// </summary>
-        ///// <typeparam name="T1">参数类型</typeparam>
-        ///// <typeparam name="T2">参数类型</typeparam>
-        ///// <typeparam name="RT">返回值类型</typeparam>
-        ///// <param name="expression"></param>
-        ///// <returns></returns>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static RemoteExpressionFunc<T1, T2, RT> Get<T1, T2, RT>(System.Linq.Expressions.Expression<Func<T1, T2, RT>> expression)
-        //{
-        //    return new RemoteExpressionFunc<T1, T2, RT>(expression);
-        //}
-        ///// <summary>
-        ///// 获取远程表达式委托
-        ///// </summary>
-        ///// <typeparam name="T1">参数类型</typeparam>
-        ///// <typeparam name="T2">参数类型</typeparam>
-        ///// <typeparam name="T3">参数类型</typeparam>
-        ///// <typeparam name="RT">返回值类型</typeparam>
-        ///// <param name="expression"></param>
-        ///// <returns></returns>
-        //[MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        //public static RemoteExpressionFunc<T1, T2, T3, RT> Get<T1, T2, T3, RT>(System.Linq.Expressions.Expression<Func<T1, T2, T3, RT>> expression)
-        //{
-        //    return new RemoteExpressionFunc<T1, T2, T3, RT>(expression);
-        //}
-    }
+    ///// <summary>
+    ///// Remote expression delegate
+    ///// 远程表达式委托
+    ///// </summary>
+    //public static class RemoteExpressionFunc
+    //{
+    //    /// <summary>
+    //    /// Get the remote expression delegate
+    //    /// 获取远程表达式委托
+    //    /// </summary>
+    //    /// <typeparam name="RT">Return value type
+    //    /// 返回值类型</typeparam>
+    //    /// <param name="expression"></param>
+    //    /// <returns></returns>
+    //    [MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+    //    public static RemoteExpressionFunc<RT> Get<RT>(System.Linq.Expressions.Expression<Func<RT>> expression)
+    //    {
+    //        return new RemoteExpressionFunc<RT>(expression);
+    //    }
+    //}
     /// <summary>
     /// Remote expression delegate Func{RT} (It relies on the state of in-memory data and does not support persistence)
     /// 远程表达式委托 Func{RT}（依赖内存数据状态，不支持持久化）
@@ -201,6 +162,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionFunc<RT>(Expression<Func<RT>> expression) { return new RemoteExpressionFunc<RT>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionFunc<RT> AutoCSerCommandParameterCastType(Expression<Func<RT>> expression) { return (RemoteExpressionFunc<RT>)expression; }
 
         /// <summary>
         /// A collection of generic parameter types
@@ -343,6 +314,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionFunc<T, RT>(Expression<Func<T, RT>> expression) { return new RemoteExpressionFunc<T, RT>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionFunc<T, RT> AutoCSerCommandParameterCastType(Expression<Func<T, RT>> expression) { return (RemoteExpressionFunc<T, RT>)expression; }
 
         /// <summary>
         /// A collection of generic parameter types
@@ -489,6 +470,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionFunc<T1, T2, RT>(Expression<Func<T1, T2, RT>> expression) { return new RemoteExpressionFunc<T1, T2, RT>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionFunc<T1, T2, RT> AutoCSerCommandParameterCastType(Expression<Func<T1, T2, RT>> expression) { return (RemoteExpressionFunc<T1, T2, RT>)expression; }
 
         /// <summary>
         /// A collection of generic parameter types
@@ -639,6 +630,16 @@ namespace AutoCSer.Net.CommandServer
                 }
             }
         }
+        /// <summary>
+        /// Implicit conversion
+        /// </summary>
+        /// <param name="expression"></param>
+        public static implicit operator RemoteExpressionFunc<T1, T2, T3, RT>(Expression<Func<T1, T2, T3, RT>> expression) { return new RemoteExpressionFunc<T1, T2, T3, RT>(expression); }
+        /// <summary>
+        /// 客户端传参类型重定向
+        /// </summary>
+        /// <param name="expression"></param>
+        public static RemoteExpressionFunc<T1, T2, T3, RT> AutoCSerCommandParameterCastType(Expression<Func<T1, T2, T3, RT>> expression) { return (RemoteExpressionFunc<T1, T2, T3, RT>)expression; }
 
         /// <summary>
         /// A collection of generic parameter types

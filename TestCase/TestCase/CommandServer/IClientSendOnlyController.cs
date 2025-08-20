@@ -8,9 +8,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 客户端测试接口
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.CommandClientController(typeof(IServerSendOnlyController), true)]
-#endif
     public partial interface IClientSendOnlyController
     {
         SendOnlyCommand SendOnlySocket(int Value, int Ref);

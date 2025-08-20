@@ -6,9 +6,7 @@ namespace AutoCSer.TestCase
     /// <summary>
     /// 项目配置
     /// </summary>
-#if AOT
     [AutoCSer.CodeGenerator.Configuration]
-#endif
     internal sealed partial class Config : AutoCSer.Configuration.Root
     {
         /// <summary>

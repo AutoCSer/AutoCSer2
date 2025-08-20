@@ -1659,8 +1659,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip0__
             {
-                internal int size;
                 internal uint[] bits;
+                internal int size;
                 
             /// <summary>
             /// Binary serialization
@@ -1830,8 +1830,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.NullableBoolEnum, __ip0__>(this, 0
                     , new __ip0__
                     {
-                        size = size,
                         bits = bits,
+                        size = size,
                     }
                     );
             }
@@ -1865,8 +1865,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<bool, __ip0__>(this, 2
                     , new __ip0__
                     {
-                        size = size,
                         bits = bits,
+                        size = size,
                     }
                     );
             }
@@ -2030,10 +2030,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip0__
             {
+                internal uint capacity;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal uint capacity;
                 
             /// <summary>
             /// Binary serialization
@@ -2119,10 +2119,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip1__
             {
+                internal long identity;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal long identity;
                 
             /// <summary>
             /// Binary serialization
@@ -2439,9 +2439,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             internal struct __ip6__
             {
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex index;
+                internal byte indexBits;
                 internal string key;
                 internal AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeInfo nodeInfo;
-                internal byte indexBits;
                 
             /// <summary>
             /// Binary serialization
@@ -2546,10 +2546,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip0__>(this, 0
                     , new __ip0__
                     {
+                        capacity = capacity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        capacity = capacity,
                     }
                     );
             }
@@ -2574,10 +2574,10 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputOutputNode/**/.Create<AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeIndex, __ip1__>(this, 1
                     , new __ip1__
                     {
+                        identity = identity,
                         index = index,
                         key = key,
                         nodeInfo = nodeInfo,
-                        identity = identity,
                     }
                     );
             }
@@ -2697,9 +2697,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     , new __ip6__
                     {
                         index = index,
+                        indexBits = indexBits,
                         key = key,
                         nodeInfo = nodeInfo,
-                        indexBits = indexBits,
                     }
                     );
             }
@@ -2725,9 +2725,9 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                     , new __ip6__
                     {
                         index = index,
+                        indexBits = indexBits,
                         key = key,
                         nodeInfo = nodeInfo,
-                        indexBits = indexBits,
                     }
                     );
             }
@@ -2862,8 +2862,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
             internal struct __ip2__
             {
-                internal int index;
                 internal byte bits;
+                internal int index;
                 
             /// <summary>
             /// Simple binary serialization
@@ -2957,8 +2957,8 @@ namespace AutoCSer.CommandService.StreamPersistenceMemoryDatabase
                 return AutoCSer.CommandService.StreamPersistenceMemoryDatabase.LocalServiceCallInputNode/**/.Create(this, 2
                     , new __ip2__
                     {
-                        index = index,
                         bits = bits,
+                        index = index,
                     }
                     );
             }

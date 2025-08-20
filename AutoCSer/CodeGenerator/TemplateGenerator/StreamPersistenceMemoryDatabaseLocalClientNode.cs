@@ -87,7 +87,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <summary>
             /// 输入参数类型
             /// </summary>
-            public readonly AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType InputParameterType;
+            public readonly AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType InputParameterType;
             ///// <summary>
             ///// 输出参数类型
             ///// </summary>
@@ -117,7 +117,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             /// <param name="isServiceNode"></param>
             /// <param name="paramterTypes">参数类型集合</param>
             /// <param name="typeNamePrefix"></param>
-            public NodeMethod(string interfaceTypeName, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute nodeAttribute, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method, bool isServiceNode, Dictionary<HashObject<Type>, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType> paramterTypes, string typeNamePrefix)
+            public NodeMethod(string interfaceTypeName, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeAttribute nodeAttribute, AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod method, bool isServiceNode, Dictionary<HashObject<Type>, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType> paramterTypes, string typeNamePrefix)
             {
                 if (method != null)
                 {
@@ -127,9 +127,9 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
                         if (paramterTypes.TryGetValue(method.InputParameterType.Type, out InputParameterType))
                         {
                             if (ServerNodeMethod.IsPersistence) InputParameterType.SetInputSerialize(method);
-                            InputParameterType = new AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType(typeNamePrefix, InputParameterType, this);
+                            InputParameterType = new AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType(typeNamePrefix, InputParameterType, this);
                         }
-                        else paramterTypes.Add(method.InputParameterType.Type, InputParameterType = new AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType(typeNamePrefix, method.InputParameterType, this));
+                        else paramterTypes.Add(method.InputParameterType.Type, InputParameterType = new AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType(typeNamePrefix, method.InputParameterType, this));
                     }
                     if (method.IsClientCall)
                     {
@@ -261,7 +261,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 参数类型集合
         /// </summary>
-        public AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType[] ParameterTypes;
+        public AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType[] ParameterTypes;
         /// <summary>
         /// Node method collection
         /// 节点方法集合
@@ -274,7 +274,7 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         protected override Task nextCreate()
         {
             Type type = CurrentType.Type;
-            if (!CurrentAttribute.IsLocalClient || !type.IsInterface) return AutoCSer.Common.CompletedTask;
+            if (!CurrentAttribute.IsLocalClient || !type.IsInterface || type.IsGenericType) return AutoCSer.Common.CompletedTask;
             if (type.IsGenericType) return AutoCSer.Common.CompletedTask;
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType nodeType = new AutoCSer.CommandService.StreamPersistenceMemoryDatabase.NodeType(type);
             AutoCSer.CommandService.StreamPersistenceMemoryDatabase.ServerNodeMethod[] methods = nodeType.Methods;
@@ -288,15 +288,15 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
             }
             else TypeName = CurrentAttribute.LocalClientTypeName;
             string typeName = type.fullName(), typeNamePrefix = typeName.Substring(0, typeName.LastIndexOf('.') + 1) + TypeName + ".";
-            Dictionary<HashObject<Type>, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType> paramterTypes = DictionaryCreator.CreateHashObject<Type, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType>(methods.Length);
-            Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType> methodParameterTypes = DictionaryCreator.CreateHashObject<MethodInfo, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType>(methods.Length);
+            Dictionary<HashObject<Type>, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType> paramterTypes = DictionaryCreator.CreateHashObject<Type, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType>(methods.Length);
+            Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType> methodParameterTypes = DictionaryCreator.CreateHashObject<MethodInfo, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType>(methods.Length);
             Methods = methods.getArray(p => new NodeMethod(InterfaceTypeName, nodeType.NodeAttribute, p, type == typeof(IServiceNode), paramterTypes, typeNamePrefix));
             foreach (NodeMethod method in Methods)
             {
                 if (method.InputParameterType != null) methodParameterTypes.Add(method.ServerNodeMethod.Method, method.InputParameterType);
             }
             ParameterTypes = paramterTypes.Values.ToArray();
-            foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType parameterType in ParameterTypes) parameterType.SetSerializeCode();
+            foreach (AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType parameterType in ParameterTypes) parameterType.SetSerializeCode();
             create(true);
             InterfaceParamterTypes.Add(type, methodParameterTypes);
             AotMethod.Append(typeNamePrefix + LocalClientNodeMethodName);
@@ -312,6 +312,6 @@ namespace AutoCSer.CodeGenerator.TemplateGenerator
         /// <summary>
         /// 接口方法参数类型集合
         /// </summary>
-        internal static readonly Dictionary<HashObject<Type>, Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType>> InterfaceParamterTypes = DictionaryCreator.CreateHashObject<Type, Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandServerClientController.ParameterType>>();
+        internal static readonly Dictionary<HashObject<Type>, Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType>> InterfaceParamterTypes = DictionaryCreator.CreateHashObject<Type, Dictionary<HashObject<MethodInfo>, AutoCSer.CodeGenerator.TemplateGenerator.CommandClientController.ParameterType>>();
     }
 }
